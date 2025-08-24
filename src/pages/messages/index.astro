@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// Dummy data; replace with content collection later
+const messages = [
+  { slug: "grace-and-truth", title: "Grace and Truth", speaker: "Guest", date: "2025-08-10", image: "/hero.jpg" },
+  { slug: "hope-in-jesus", title: "Hope in Jesus", speaker: "Lead", date: "2025-08-03", image: "/hero.jpg" },
+];
+---
+<BaseLayout title="Messages">
+  <section class="container-x py-12 md:py-16">
+    <h1 class="text-3xl md:text-4xl font-medium mb-8">Messages</h1>
+
+    <!-- Slogan under heading -->
+        <p class="mt-6 text-lg sm:text-2xl text-center text-gray-700">
+          Come. See. <span class="text-[#B3282D]">Jesus
+        </p>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {messages.map(m => (
+        <a href={`/messages/${m.slug}/`} class="group rounded-xl border bg-white overflow-hidden hover:shadow-md transition">
+          <div class="aspect-video overflow-hidden">
+            <img src={m.image} alt={m.title} class="w-full h-full object-cover group-hover:scale-[1.02] transition" loading="lazy" />
+          </div>
+          <div class="p-4">
+            <h3 class="text-xl font-medium">{m.title}</h3>
+            <p class="text-gray-600 text-sm mt-1">{m.speaker} • {new Date(m.date).toLocaleDateString()}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

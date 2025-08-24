@@ -1,0 +1,179 @@
+/* Tailwind layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------
+   Base (Typography & Defaults)
+------------------------------ */
+@layer base {
+  html, body {
+    background-color: #fff;
+    color: #1f2937; /* Tailwind's text-gray-800 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  }
+
+  html {
+    font-weight: 500;
+    color: #111827; /* Tailwind's text-gray-900 */
+  }
+
+  p {
+    color: #374151; /* Tailwind's text-gray-700 */
+    line-height: 1.75;
+  }
+
+  h1 { font-size: 1.875rem; } /* text-3xl */
+  h2 { font-size: 1.5rem; }   /* text-2xl */
+  h3 { font-size: 1.25rem; }  /* text-xl */
+
+  @media (min-width: 768px) {
+    h1 { font-size: 3rem; }   /* text-5xl */
+    h2 { font-size: 2.25rem; }/* text-4xl */
+    h3 { font-size: 1.5rem; } /* text-2xl */
+  }
+
+  /* Links */
+  a {
+    text-underline-offset: 2px;
+    text-decoration-color: transparent;
+    transition: color 200ms, background-color 200ms, border-color 200ms, text-decoration-color 200ms;
+  }
+  a:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+/* ------------------------------
+   Components & Utilities
+------------------------------ */
+@layer components {
+  /* Container */
+  .container-x { @apply max-w-6xl mx-auto px-4; }
+
+  /* Buttons */
+  .btn { @apply inline-flex items-center justify-center rounded-lg px-5 py-3 font-medium transition-colors; }
+  .btn-primary { @apply btn text-white bg-[#B3282D] hover:bg-[#9f2429]; }
+  .btn-outline { @apply btn border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white; }
+  .btn-ghost  { @apply btn border border-gray-300 text-gray-800 hover:bg-gray-100; }
+
+  /* Brand helpers */
+  .text-brand-red { color: #B3282D; }
+  .bg-brand-red   { background-color: #B3282D; }
+
+  /* Site title accent */
+  .site-title { @apply font-semibold; color: #B3282D; }
+}
+
+/* Flow spacing for stacked content */
+.flow > * + * { margin-top: 0.75rem; }
+@media (min-width: 768px) { .flow > * + * { margin-top: 1rem; } }
+
+/* Kerning / letter-spacing helpers */
+.k-wide  { letter-spacing: 0.04em; }
+.k-wider { letter-spacing: 0.08em; }
+
+/* Full-bleed section helper */
+.full-bleed {
+  position: relative;
+  left: 50%; right: 50%;
+  margin-left: -50vw; margin-right: -50vw;
+  width: 100vw;
+}
+
+/* ------------------------------
+   Page-specific helpers
+------------------------------ */
+
+/* About background via CSS class */
+.about-bg2 {
+  background-image: url('/about-bg2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.about-hero { position: relative; min-height: 100vh; width: 100%; overflow: hidden; }
+.about-hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: url('/about-bg2.jpg');
+  background-size: cover; background-position: center;
+  filter: brightness(0.85) blur(0.5px);
+  transform: scale(1.06);
+  z-index: 0;
+}
+.about-hero .content { position: relative; z-index: 1; }
+
+/* Vision text */
+.vision-text {
+  @apply text-white text-2xl md:text-5xl text-center;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+/* Slight heading rhythm tuning */
+@layer base {
+  h1 { margin-bottom: 1.25rem; }
+  @media (min-width: 768px) { h1 { margin-bottom: 2rem; } }
+
+  h2 { margin-bottom: 1rem; }
+  @media (min-width: 768px) { h2 { margin-bottom: 1.5rem; } }
+
+  p { letter-spacing: 0.015em; }
+}
+/* ------------------------------
+   Kerning / Letter-spacing
+------------------------------ */
+
+/* Headings: slightly tighter kerning for a modern look */
+h1, h2, h3, h4, h5, h6 {
+  @apply tracking-tight;
+}
+
+/* Site title (logo text): give a little emphasis */
+.site-title {
+  @apply tracking-wide;
+}
+
+/* Slogan: extra spacing for clarity + style */
+.slogan {
+  @apply tracking-[0.2em];
+}
+/* Underline only the text width inside dropdown items */
+.nav-underline {
+  position: relative;
+  display: inline-block;       /* shrink to text width */
+}
+.nav-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;                    /* underline exactly the text span width */
+  bottom: -2px;
+  height: 2px;
+  background: #B3282D;         /* brand red */
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease;
+}
+a:hover .nav-underline::after { transform: scaleX(1); }
+
+/* Keep dropdown open while moving mouse from button → panel */
+.dropdown-panel {
+  display: none;
+  position: absolute;
+}
+.group:hover .dropdown-panel { display: block; }
+/* Hover bridge above panel to remove the tiny gap flicker */
+.dropdown-panel::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -8px;                   /* overlap under the button by 8px */
+  height: 8px;
+}

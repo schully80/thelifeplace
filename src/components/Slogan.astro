@@ -1,0 +1,14 @@
+---
+const {
+  align = "center",      // "left" | "center" | "right"
+  class: extra = "",     // extra classes if you want
+  color = "text-gray-600"// Tailwind text color class
+} = Astro.props;
+
+const alignClass =
+  align === "left" ? "text-left" : align === "right" ? "text-right" : "text-center";
+---
+
+<p class={`mt-2 ${alignClass} ${color} tracking-wide uppercase font-montserrat text-sm md:text-base ${extra}`}>
+  Come. See. Jesus.
+</p>

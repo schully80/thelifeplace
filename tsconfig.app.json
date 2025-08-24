@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["astro/client"],
+    "moduleResolution": "node",
+    "jsx": "preserve",
+    "jsxImportSource": "react"
+  },
+  "include": [
+    "src/**/*",
+    "env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".astro"
+  ]
+}

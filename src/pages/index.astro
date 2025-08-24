@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="The Life Place">
+  <!-- HERO / Welcome -->
+  <section class="relative bg-gray-50">
+    <div class="container-x py-14 md:py-20 grid md:grid-cols-2 gap-10 items-center">
+      <!-- Left: Welcome copy + CTAs -->
+      <div>
+        <!-- Title (Montserrat Medium via global.css) -->
+        <h1 class="text-center text-4xl md:text-4xl leading-tight" style="font-weight:500;">
+          Our Welcome
+        </h1>
+
+        <p class="mt-8 text-gray-700 text-xl md:text-2xl leading-[2] font-sans text-center">
+          We open wide our doors with a welcome from
+          <span class="text-brand-red">Jesus</span>, <br />
+          the <span class="text-brand-red">Embracer</span> of the outsider, <br />
+          the <span class="text-brand-red">Defender</span> of the guilty, <br />
+          the <span class="text-brand-red">Justifier</span> of the ungodly, <br />
+          the <span class="text-brand-red">Friend</span> of sinners.
+        </p>
+
+        <!-- Slogan under heading -->
+        <p class="mt-6 text-lg sm:text-2xl text-center text-gray-700">
+          Come. See. <span class="text-[#B3282D]">Jesus
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+        
+          
+      
+        </div>
+      </div>
+
+      <!-- Right: Image -->
+      <div class="aspect-[16/10] rounded-xl overflow-hidden shadow-lg">
+        <img
+          src="/hero.jpg"
+          alt="Welcome to The Life Place"
+          class="w-full h-full object-cover opacity-95"
+          loading="eager"
+          decoding="async"
+        />
+        
+      </div>
+    </div>
+  </section>
+
+ 

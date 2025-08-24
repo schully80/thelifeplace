@@ -1,0 +1,6 @@
+{
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "less.lint.unknownAtRules": "ignore",
+  "tailwindCSS.includeLanguages": { "astro": "html", "plaintext": "html" }
+}

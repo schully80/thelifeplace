@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="About Us">
+  <!-- Full-bleed hero with image + subtle overlay -->
+  <section class="relative full-bleed">
+    <div class="relative min-h-[70vh] md:min-h-[80vh] overflow-hidden">
+      <img
+        src="/about-bg2.jpg"
+        alt="About The Life Place"
+        class="absolute inset-0 h-full w-full object-cover"
+        loading="eager"
+        decoding="async"
+      />
+      <!-- Soft dark overlay for legibility -->
+      <div class="absolute inset-0 bg-black/10"></div>
+
+      <!-- Centered vision statement -->
+      <div class="relative flex h-full flex-col items-center justify-center min-h-screen px-4 text-center">
+        <p class="max-w-5xl mx-auto text-3xl sm:text-6xl font-medium leading-relaxed md:leading-snug text-white">
+          Every time we meet, we see how true, good, beautiful and kind
+          <!-- Retro sign with nails -->
+          <span class="relative inline-block px-3 py-0 rounded-[9px] bg-[#B3282D] text-white font-bold border-4 border-white shadow-lg drop-shadow-xl tracking-wide rotate-[-2deg]">
+            Jesus
+            <!-- Left nail -->
+            <span
+              class="absolute top-1 left-1 w-2 h-2 rounded-full border border-gray-700 shadow"
+              style="background: radial-gradient(circle at 30% 30%, #f0f0f0, #a0a0a0 60%, #5a5a5a);"
+            />
+            <!-- Right nail -->
+            <span
+              class="absolute top-1 right-1 w-2 h-2 rounded-full border border-gray-700 shadow"
+              style="background: radial-gradient(circle at 30% 30%, #f0f0f0, #a0a0a0 60%, #5a5a5a);"
+            />
+          </span>
+          is
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

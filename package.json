@@ -1,0 +1,21 @@
+{
+  "name": "thelifeplace",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --port 4322 --host 0.0.0.0",
+    "dev:force": "sh -c 'PID=$(lsof -ti tcp:4322); if [ -n \"$PID\" ]; then kill -9 $PID; fi; astro dev --port 4322 --host 0.0.0.0'",
+    "build": "astro build",
+    "preview": "astro preview --port 4322 --host 0.0.0.0"
+  },
+  "dependencies": {
+    "astro": "^5.13.2"
+  },
+  "devDependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17"
+  }
+}

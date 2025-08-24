@@ -1,0 +1,136 @@
+---
+const CONSENT_KEY = 'tlp_cookie_consent'; // "accepted" | "declined"
+---
+
+<style>
+  /* Backdrop (transparent; easy to theme later if desired) */
+  .cc-backdrop {
+    position: fixed; inset: 0;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  /* Banner container */
+  .cc-bar {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    margin: 0 auto;
+    max-width: 72rem;                /* ~max-w-6xl */
+    background: #ffffff;             /* light banner */
+    color: #111827;                  /* gray-900 text */
+    border: 1px solid #e5e7eb;       /* gray-200 border */
+    border-radius: 0.75rem 0.75rem 0 0;
+    padding: 1rem;
+    display: none;                   /* hidden until we decide to show */
+    box-shadow: 0 -8px 24px rgba(0,0,0,.06);
+  }
+  .cc-bar.show { display: block; }
+
+  .cc-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .75rem;
+  }
+  @media (min-width: 640px) {
+    .cc-inner {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
+  .cc-text {
+    margin: 0;
+    line-height: 1.6;
+    font-size: .95rem;
+  }
+
+  .cc-actions {
+    display: flex; gap: .5rem; flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .cc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .625rem 1rem;
+    border-radius: .5rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+  .cc-accept {
+    background: #B3282D;   /* brand red */
+    color: #ffffff;
+  }
+  .cc-accept:hover {
+    filter: brightness(0.95);
+  }
+  .cc-decline {
+    background: #6B7280;   /* gray-500 */
+    color: #ffffff;
+  }
+  .cc-decline:hover {
+    filter: brightness(0.95);
+  }
+
+  .cc-link {
+    color: #B3282D;        /* brand red links */
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+</style>
+
+<div class="cc-backdrop" aria-hidden="true"></div>
+
+<div
+  id="cookie-consent"
+  class="cc-bar"
+  role="dialog"
+  aria-live="polite"
+  aria-label="Cookie consent"
+>
+  <div class="cc-inner">
+    <p class="cc-text">
+      We use essential cookies to make this site work and, with your consent, analytics to improve it.
+      See our <a class="cc-link" href="/privacy-policy/">Privacy Policy</a> and
+      <a class="cc-link" href="/cookies/">Cookies</a>.
+    </p>
+
+    <div class="cc-actions">
+      <button id="cc-accept" class="cc-btn cc-accept" type="button">Accept</button>
+      <button id="cc-decline" class="cc-btn cc-decline" type="button">Decline</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const KEY = 'tlp_cookie_consent';
+    const bar = document.getElementById('cookie-consent');
+    if (!bar) return;
+
+    // show banner only if not previously set
+    try {
+      const stored = localStorage.getItem(KEY);
+      if (!stored) {
+        bar.classList.add('show');
+      } else {
+        document.documentElement.dataset.cookieConsent = stored; // "accepted" | "declined"
+      }
+    } catch (_) { /* ignore storage errors */ }
+
+    function setConsent(value) {
+      try {
+        localStorage.setItem(KEY, value);
+        document.documentElement.dataset.cookieConsent = value;
+      } catch (_) { /* ignore */ }
+      bar.classList.remove('show');
+      // Let other scripts react (e.g., initialize analytics only after accepted)
+      window.dispatchEvent(new CustomEvent('cookie-consent', { detail: value }));
+    }
+
+    document.getElementById('cc-accept')?.addEventListener('click', () => setConsent('accepted'));
+    document.getElementById('cc-decline')?.addEventListener('click', () => setConsent('declined'));
+  })();
+</script>

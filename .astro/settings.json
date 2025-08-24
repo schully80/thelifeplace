@@ -1,0 +1,16 @@
+{
+	"css.lint.unknownAtRules": "ignore",
+	"scss.lint.unknownAtRules": "ignore",
+	"less.lint.unknownAtRules": "ignore",
+	"editor.quickSuggestions": {
+		"strings": true
+	},
+	"tailwindCSS.includeLanguages": {
+		"astro": "html",
+		"plaintext": "html"
+	},
+	"tailwindCSS.experimental.configFile": "tailwind.config.js",
+	"_variables": {
+		"lastUpdateCheck": 1755598645872
+	}
+}

@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Leadership">
+  <!-- Hero heading -->
+  <section class="max-w-6xl mx-auto px-4 pt-10 md:pt-14">
+    <h1 class="text-3xl md:text-4xl font-medium text-center text-gray">Meet Our Pastors</h1> 
+  </section>
+
+  <!-- Photo + Bio -->
+<section class="max-w-2xl mx-auto px-4 py-8 md:py-12 flex flex-col space-y-8 items-start">
+    <!-- Photo -->
+ <figure class="relative w-full mx-auto rounded-2xl overflow-hidden border shadow-sm bg-white">
+  <img
+    src="/founders.jpg"
+    alt="Schulter & Genevieve (“Jenny”) Etyang — Founders of The Life Place"
+    class="w-full h-auto object-contain filter grayscale opacity-95"
+    loading="eager"
+    decoding="async"
+  />
+</figure>
+</section>
+
+    <!-- Bio text -->
+<div class="text-center space-y-5 text-lg text-semibold leading-relaxed text-gray-800">
+  <p>
+    Schulter and Genevieve("Jenny”) Etyang are the founders and lead pastors of
+    <span class="font-medium">The Life Place</span> in Craigavon, Sandton, Johannesburg, South Africa.
+  </p>
+
+  <p>
+   Fifteen years ago, they encountered the good news of Jesus, which became the central mission of their lives: inviting others to
+    <span class="italic">Come. See. Jesus</span>.
+  </p>
+
+  <p>
+    They hold qualifications from TeamWork Bible College, Team Impact Ministries and ordained by Joy Ministries, Lambton, South Africa.  
+    Genevieve is a banker by profession.
+  </p>
+
+  <p>
+   Married for fifteen years, the Etyangs enjoy conversations about Jesus, food, travel, exercise, sports, and Netflix.
+  </p>
+
+  <p>
+    Schulter also writes regularly at
+    <a
+      href="https://schulteretyang.substack.com"
+      target="_blank" rel="noopener noreferrer"
+      class="text-[#B3282D] underline hover:no-underline"
+    >
+      schulteretyang.substack.com
+    </a>.
+  </p>
+</div>
+</section>
+
+</BaseLayout>
