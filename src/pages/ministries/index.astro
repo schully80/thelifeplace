@@ -7,27 +7,72 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
     <!-- Header -->
     <div class="text-center max-w-3xl mx-auto">
-    
       <h1 class="mt-2 text-3xl md:text-5xl font-medium">Life at The Life Place</h1>
-      
-        <!-- Slogan under heading -->
-        <p class="mt-6 text-lg sm:text-2xl text-center text-gray-700">
-          Come. See. <span class="text-[#B3282D]">Jesus
-        </p>
-      
+
+      <!-- Slogan under heading -->
+      <p class="mt-6 text-lg sm:text-2xl text-center text-gray-700">
+        Come. See. <span class="text-[#B3282D]">Jesus</span>
+      </p>
+
       <p class="mt-4 text-lg md:text-xl text-gray-700">
         Our ministries are designed to help people grow in Jesus, build strong families,
         and live out their faith in every sphere of life.
       </p>
     </div>
 
+    <!-- Ministries grid -->
+    <div class="mt-10 grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="rounded-xl border bg-white p-6 shadow-sm">
+        <h3 class="text-xl font-medium mb-2">Sunday Gatherings</h3>
+        <p class="text-gray-700">Word, worship, prayer, and community every week.</p>
+      </div>
 
-  <!-- Scripture footer -->
-  <div class="border-t mt-16 pt-10 text-center max-w-2xl mx-auto">
-    <blockquote class="text-xl italic text-gray-800">
-      “I came that they may have and enjoy life and have it in abundance (to the full, till it overflows)”
-    </blockquote>
-    <p class="mt-2 text-gray-600">John 10:10 AMP</p>
-  </div>
+      <div class="rounded-xl border bg-white p-6 shadow-sm">
+        <h3 class="text-xl font-medium mb-2">Music, singing &amp; dancing</h3>
+        <p class="text-gray-700">We echo heaven’s joy with music, singing, and dancing.</p>
+      </div>
+
+      <div class="rounded-xl border bg-white p-6 shadow-sm">
+        <h3 class="text-xl font-medium mb-2">The Lord’s Table</h3>
+        <p class="text-gray-700">We gather at the Table to remember what Jesus did for us.</p>
+      </div>
+
+      <div class="rounded-xl border bg-white p-6 shadow-sm">
+        <h3 class="text-xl font-medium mb-2">See Jesus in the Bible</h3>
+        <p class="text-gray-700">Clear, gospel-rich teaching from the Bible.</p>
+      </div>
+
+      <div class="rounded-xl border bg-white p-6 shadow-sm">
+        <h3 class="text-xl font-medium mb-2">Extravagant generosity</h3>
+        <p class="text-gray-700">Made rich by what Jesus has done, we are generous and share in all things.</p>
+      </div>
+
+      <div class="rounded-xl border bg-white p-6 shadow-sm">
+        <h3 class="text-xl font-medium mb-2">Go live the story</h3>
+        <p class="text-gray-700">We are sent out to live the story of Jesus aloud in our city, nation, and the world.</p>
+      </div>
+
+      <!-- Kids Ministry (Coming Soon) -->
+      <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-orange-200">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-xl font-medium">Kids Ministry</h3>
+          <span class="inline-block rounded-full bg-orange-500 px-2 py-0.5 text-xs font-semibold text-white">
+            Coming Soon
+          </span>
+        </div>
+        <p class="text-gray-700">
+          We don’t yet have a children’s ministry. As Jesus provides people and resources, we will begin one where our children too will
+          <em> Come. See. Jesus.</em>
+        </p>
+      </div>
+    </div>
+
+    <!-- Scripture footer -->
+    <div class="border-t mt-16 pt-10 text-center max-w-2xl mx-auto">
+      <blockquote class="text-xl italic text-gray-800">
+        “I came that they may have and enjoy life and have it in abundance (to the full, till it overflows)”
+      </blockquote>
+      <p class="mt-2 text-gray-600">John 10:10 AMP</p>
+    </div>
+  </section>
 </BaseLayout>
-

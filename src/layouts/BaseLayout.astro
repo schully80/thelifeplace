@@ -125,14 +125,7 @@ const isActive = (href: string) =>
                     after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300
                     ${isActive("/give/") ? "text-[#B3282D] after:w-full font-semibold" : "text-gray-800"}`}
           >Generosity</a>
-
-          <a
-            href="/messages/"
-            class={`relative px-2 py-2 whitespace-nowrap
-                    after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-[#B3282D]
-                    after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300
-                    ${isActive("/messages/") ? "text-[#B3282D] after:w-full font-semibold" : "text-gray-800"}`}
-          >Messages</a>
+          
 
           <!-- Ministries dropdown -->
           <div id="dd-ministries" class="relative group">
@@ -149,12 +142,22 @@ const isActive = (href: string) =>
               data-menu
               class="absolute left-0 top-full mt-1 w-64 rounded-md border bg-white shadow-lg z-50 hidden pt-1"
             >
+
+              <a href="/ministries/Kids @The Life Place/" 
+              class="group block px-3 py-2 text-sm text-[#B3282D] hover:underline [#B3282D]"
+              class="relative block px-3 py-2 text-sm text-gray-700 hover:text-[#B3282D]
+                  after:absolute after:bottom-1 after:left-3 after:h-[2px] after:bg-[#B3282D]
+                  after:w-0 after:content-[''] hover:after:w-[calc(100%-1.5rem)] after:transition-all after:duration-300">
+                Kids @The Life Place
+              </a>
+
               <a href="/ministries/premarital-counseling/" 
               class="group block px-3 py-2 text-sm text-[#B3282D] hover:underline [#B3282D]"
               class="relative block px-3 py-2 text-sm text-gray-700 hover:text-[#B3282D]
                   after:absolute after:bottom-1 after:left-3 after:h-[2px] after:bg-[#B3282D]
                   after:w-0 after:content-[''] hover:after:w-[calc(100%-1.5rem)] after:transition-all after:duration-300">
                 Premarital Counseling
+
               </a>
               <a href="/ministries/institute/" 
               class="group block px-3 py-2 text-sm text-[#B3282D] hover:underline [#B3282D]"
@@ -162,6 +165,7 @@ const isActive = (href: string) =>
                   after:absolute after:bottom-1 after:left-3 after:h-[2px] after:bg-[#B3282D]
                   after:w-0 after:content-[''] hover:after:w-[calc(100%-1.5rem)] after:transition-all after:duration-300">
                 The Life Place Institute
+                
               </a>
               <a href="/ministries/child-dedication/" 
               class="group block px-3 py-2 text-sm text-[#B3282D] hover:underline [#B3282D]"
@@ -202,7 +206,6 @@ const isActive = (href: string) =>
           <div class="absolute right-4 mt-2 w-56 rounded border bg-white shadow p-2 space-y-1">
             <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/about-us/">About Us</a>
             <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/what-to-expect/">What to Expect</a>
-            <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/messages/">Messages</a>
             <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/visit/">Visit</a>
             <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/give/">Generosity</a>
             <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/our-values/">Our Values</a>
