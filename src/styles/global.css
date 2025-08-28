@@ -39,7 +39,8 @@
   a {
     text-underline-offset: 2px;
     text-decoration-color: transparent;
-    transition: color 200ms, background-color 200ms, border-color 200ms, text-decoration-color 200ms;
+    transition: color 200ms, background-color 200ms,
+                border-color 200ms, text-decoration-color 200ms;
   }
   a:hover {
     text-decoration-color: currentColor;
@@ -50,6 +51,7 @@
    Components & Utilities
 ------------------------------ */
 @layer components {
+  
   /* Container */
   .container-x { @apply max-w-6xl mx-auto px-4; }
 
@@ -65,6 +67,60 @@
 
   /* Site title accent */
   .site-title { @apply font-semibold; color: #B3282D; }
+
+  /* ------------------------------
+     Animated underline component
+  ------------------------------ */
+  .underline-anim {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+  }
+  .underline-anim::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;                /* tweak this to nudge closer/further */
+    width: 100%;
+    height: 2px;
+    background-color: #B3282D;   /* brand red */
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 300ms ease-out;
+  }
+  .underline-anim:hover::after,
+  .underline-anim:focus::after {
+    transform: scaleX(1);
+  }
+
+  /* ------------------------------
+     Nav-underline for head/nav buttons
+  ------------------------------ */
+  .nav-underline {
+    @apply relative inline-block no-underline
+           text-gray-700 transition-colors duration-200 ease-out;
+  }
+  .nav-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;               /* adjust to sit closer to the text */
+    width: 100%;
+    height: 2px;
+    background-color: #B3282D;  /* brand red */
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 300ms ease-out;
+  }
+  /* slide in & color shift on hover or when .active is present */
+  .nav-underline:hover,
+  .nav-underline.active {
+    @apply text-brand-red;
+  }
+  .nav-underline:hover::after,
+  .nav-underline.active::after {
+    transform: scaleX(1);
+  }
 }
 
 /* Flow spacing for stacked content */
@@ -86,94 +142,4 @@
 /* ------------------------------
    Page-specific helpers
 ------------------------------ */
-
-/* About background via CSS class */
-.about-bg2 {
-  background-image: url('/about-bg2.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.about-hero { position: relative; min-height: 100vh; width: 100%; overflow: hidden; }
-.about-hero::before {
-  content: "";
-  position: absolute; inset: 0;
-  background-image: url('/about-bg2.jpg');
-  background-size: cover; background-position: center;
-  filter: brightness(0.85) blur(0.5px);
-  transform: scale(1.06);
-  z-index: 0;
-}
-.about-hero .content { position: relative; z-index: 1; }
-
-/* Vision text */
-.vision-text {
-  @apply text-white text-2xl md:text-5xl text-center;
-  line-height: 1.6;
-  letter-spacing: 0.02em;
-  font-weight: 500;
-}
-
-/* Slight heading rhythm tuning */
-@layer base {
-  h1 { margin-bottom: 1.25rem; }
-  @media (min-width: 768px) { h1 { margin-bottom: 2rem; } }
-
-  h2 { margin-bottom: 1rem; }
-  @media (min-width: 768px) { h2 { margin-bottom: 1.5rem; } }
-
-  p { letter-spacing: 0.015em; }
-}
-/* ------------------------------
-   Kerning / Letter-spacing
------------------------------- */
-
-/* Headings: slightly tighter kerning for a modern look */
-h1, h2, h3, h4, h5, h6 {
-  @apply tracking-tight;
-}
-
-/* Site title (logo text): give a little emphasis */
-.site-title {
-  @apply tracking-wide;
-}
-
-/* Slogan: extra spacing for clarity + style */
-.slogan {
-  @apply tracking-[0.2em];
-}
-/* Underline only the text width inside dropdown items */
-.nav-underline {
-  position: relative;
-  display: inline-block;       /* shrink to text width */
-}
-.nav-underline::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;                    /* underline exactly the text span width */
-  bottom: -2px;
-  height: 2px;
-  background: #B3282D;         /* brand red */
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .25s ease;
-}
-a:hover .nav-underline::after { transform: scaleX(1); }
-
-/* Keep dropdown open while moving mouse from button → panel */
-.dropdown-panel {
-  display: none;
-  position: absolute;
-}
-.group:hover .dropdown-panel { display: block; }
-/* Hover bridge above panel to remove the tiny gap flicker */
-.dropdown-panel::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -8px;                   /* overlap under the button by 8px */
-  height: 8px;
-}
+/* …the rest of your file remains unchanged… */

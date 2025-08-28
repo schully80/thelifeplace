@@ -1,87 +1,62 @@
 ---
-import Layout from "../../layouts/BaseLayout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
-<Layout title="Kids @The Life Place - Coming Soon" description="Kids @The Life Place — Coming Soon">
-  <section class="container-x py-10 md:py-14">
-    <h1 class="sr-only">Kids @The Life Place</h1>
+<BaseLayout title="Kids @The Life Place - Coming Soon" description="Kids @The Life Place — Coming Soon">
+  <section class="container-x py-12 md:py-16">
+    <h1 class="text-3xl md:text-4xl font-medium mb-6 text-center text-gray-800">
+      Kids @The Life Place
+    </h1>
 
-    <!-- WRAPPER so decals can sit behind -->
-    <section class="relative isolate overflow-hidden">
-      <!-- COMING SOON card -->
-      <div class="relative z-10 rounded-xl border bg-white p-8 shadow-sm ring-2 ring-orange-300">
-        <div class="flex items-center justify-between gap-4">
-          <span class="inline-block rounded-full bg-orange-500 px-4 py-1.5 text-sm md:text-base font-semibold text-white">
-            Coming Soon
-          </span>
-        </div>
-
-        <p class="mt-4 text-lg md:text-xl text-gray-700 leading-relaxed">
-          We don’t yet have a children’s ministry. As Jesus provides people and resources, we will begin one where our children too will
-          <em class="not-italic font-semibold text-[#B3282D]"> Come. See. Jesus.</em>
-        </p>
+    <!-- Coming Soon Banner -->
+    <div class="rounded-xl border bg-white p-8 shadow-md ring-2 ring-gray-50 text-center">
+      <span class="inline-block rounded-full bg-[#B3282D] px-4 py-2 text-lg font-bold text-white mb-4">
+        Coming Soon 
+      </span>
+      <p class="text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto">
+        At present, we have no kid's church. As Jesus supplies the resources needed, 
+        we will launch one where our children too will <em>Come. See. 
+        <span class="text-[#B3282D] font-medium">Jesus</span></em>
+      </p>
+      <p class="text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto">
+      Children are welcome to remain with their parents during service.
+      <p/>
+    </div>
+<!-- Decal-style words (smaller, subtle overlap) -->
+    <div
+      class="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 text-center overflow-visible"
+    >
+      <div class="p-4 rounded-full bg-yellow-300 font-bold text-base sm:text-lg text-yellow-900 shadow transform -rotate-6 -translate-y-1 z-20">
+        JOY
       </div>
 
-      <!-- DECAL “stickers” (pure CSS / no images) -->
-      <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0">
-        <!-- JESUS badge -->
-        <span class="decal badge badge-red top-4 left-3 rotate-[-8deg]">JESUS</span>
-
-        <!-- JOY pill -->
-        <span class="decal pill pill-yellow bottom-6 right-6 rotate-[7deg]">JOY</span>
-
-        <!-- LOVE burst -->
-        <span class="decal burst burst-pink top-1/2 -translate-y-1/2 left-[-10px] rotate-[15deg]">LOVE</span>
-
-        <!-- HOPE ticket -->
-        <span class="decal ticket ticket-blue bottom-10 left-10 rotate-[-12deg]">HOPE</span>
-
-        <!-- SMILE sign -->
-        <span class="decal sign sign-green top-10 right-12 rotate-[10deg]">SMILE</span>
+      <div class="p-5 rounded-lg bg-pink-400 font-bold text-lg sm:text-xl text-white shadow transform rotate-2 translate-y-1 z-10">
+        LOVE
       </div>
 
-      <style>
-        /* base decal look */
-        .decal{
-          position:absolute;
-          font-family: system-ui, -apple-system, Segoe UI, Roboto, "Montserrat", sans-serif;
-          font-weight: 800;
-          letter-spacing:.04em;
-          color:#111;
-          filter: drop-shadow(0 6px 10px rgba(0,0,0,.15));
-          user-select:none;
-          white-space:nowrap;
-        }
+      <div class="p-5 rounded-full bg-blue-500 font-bold text-xl sm:text-2xl text-white shadow transform rotate-3 -translate-y-2 z-30">
+        JESUS
+      </div>
 
-        /* sticker variants */
-        .badge{ padding:.45rem .9rem; border-radius:.6rem; border:3px solid #111; }
-        .badge-red{ background:#ffd1d6; outline:6px solid #ff8da1; }
+      <div class="p-4 rounded bg-green-300 font-bold text-base sm:text-lg text-green-900 shadow transform -rotate-2 translate-y-1 z-10">
+        PEACE
+      </div>
 
-        .pill{ padding:.45rem 1.1rem; border-radius:999px; border:3px solid #111; }
-        .pill-yellow{ background:#fff0b3; outline:6px solid #ffd84d; }
+      <div class="p-5 rounded-full bg-purple-500 font-bold text-lg sm:text-xl text-white shadow transform rotate-1 -translate-y-1 z-20">
+        HOPE
+      </div>
 
-        .burst{
-          padding:.6rem 1.1rem; border:3px solid #111; border-radius:.45rem;
-          background: repeating-linear-gradient(45deg,#ffe6f1, #ffe6f1 8px, #ffd0e7 8px, #ffd0e7 16px);
-          outline:6px solid #ffc2e0;
-        }
+      <div class="p-4 rounded bg-orange-400 font-bold text-base sm:text-lg text-white shadow transform -rotate-3 translate-y-2 z-10">
+        FAITH
+      </div>
 
-        .ticket{
-          padding:.5rem 1rem; border:3px dashed #111; border-radius:.4rem;
-          background:#d9ecff; outline:6px solid #9fd0ff;
-        }
+      <div class="p-5 rounded-full bg-red-500 font-bold text-lg sm:text-xl text-white shadow transform rotate-2 -translate-y-1 z-20">
+        BLESSED
+      </div>
 
-        .sign{
-          padding:.5rem .9rem; border:3px solid #111; border-radius:.6rem;
-          background:#e7ffe1; outline:6px solid #b8f5b0;
-        }
-
-        /* sizes & responsive tweaks */
-        .badge,.pill,.burst,.ticket,.sign{ font-size: clamp(0.9rem, 1.2vw + .6rem, 1.4rem); }
-        @media (min-width: 1024px){
-          .badge,.pill,.burst,.ticket,.sign{ font-size:1.6rem; }
-        }
-      </style>
-    </section>
+      <div class="p-4 rounded bg-teal-400 font-bold text-base sm:text-lg text-white shadow transform -rotate-2 translate-y-1 z-10">
+        LIGHT
+      </div>
+    </div>
   </section>
-</Layout>
+</BaseLayout>

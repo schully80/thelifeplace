@@ -1,0 +1,83 @@
+---
+---
+
+<div class="flex items-center gap-3 py-3">
+
+  <!-- Logo -->
+  <a href="/" class="flex-shrink-0" aria-label="The Life Place — Home">
+    <img src="/logo.png" alt="The Life Place Logo" class="h-10 w-auto" />
+  </a>
+
+  <!-- Title + Slogan (centered) -->
+  <div class="flex-1 min-w-0">
+    <a href="/" class="block text-center font-bold text-xl text-brand-red leading-tight">
+      The Life Place
+    </a>
+    <span class="block text-center text-xs text-brand-warmgray-600">
+      Come. See. Jesus
+    </span>
+  </div>
+
+  <!-- Hamburger -->
+  <button id="mobile-menu-toggle"
+    class="ml-auto inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:text-brand-red hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand-red"
+    aria-controls="mobile-menu" aria-expanded="false">
+    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"/>
+    </svg>
+  </button>
+</div>
+
+<!-- Slide-down menu -->
+<div id="mobile-menu" class="hidden border-t">
+  <nav class="py-2">
+    <a class="block px-4 py-3 hover:bg-gray-50" href="/what-to-expect/">What to Expect</a>
+
+    <!-- About -->
+    <details class="px-2">
+      <summary class="cursor-pointer select-none px-2 py-3 hover:bg-gray-50 rounded">About Us</summary>
+      <div class="pl-4">
+        <a class="block px-2 py-2 hover:bg-gray-50 rounded" href="/about-us/">Our Mission</a>
+        <a class="block px-2 py-2 hover:bg-gray-50 rounded" href="/about-us/our-values/">Our Values</a>
+        <a class="block px-2 py-2 hover:bg-gray-50 rounded" href="/about-us/leadership/">Leadership</a>
+      </div>
+    </details>
+
+    <a class="block px-4 py-3 hover:bg-gray-50" href="/give/">Generosity</a>
+
+    <!-- Ministries -->
+    <details class="px-2">
+      <summary class="cursor-pointer select-none px-2 py-3 hover:bg-gray-50 rounded">Ministries</summary>
+      <div class="pl-4 py-1 text-[11px] uppercase tracking-wide text-gray-400">Onboarding</div>
+      <a class="block px-6 py-2 hover:bg-gray-50 rounded" href="/ministries/new-members/">New @thelifeplace</a>
+
+      <div class="pl-4 pt-2 text-[11px] uppercase tracking-wide text-gray-400">Family</div>
+      <a class="block px-6 py-2 hover:bg-gray-50 rounded" href="/ministries/child-dedication/">Child Dedication Cohort</a>
+
+      <div class="pl-4 pt-2 text-[11px] uppercase tracking-wide text-gray-400">Formation</div>
+      <a class="block px-6 py-2 hover:bg-gray-50 rounded" href="/ministries/premarital-counseling/">Premarital Counseling</a>
+      <a class="block px-6 py-2 hover:bg-gray-50 rounded" href="/ministries/institute/">The Life Place Institute</a>
+      <a class="block px-6 py-2 hover:bg-gray-50 rounded" href="/ministries/faith-and-work/">Faith &amp; Work</a>
+
+      <div class="pl-4 pt-2 text-[11px] uppercase tracking-wide text-gray-400">Kids & Youth</div>
+      <a class="block px-6 py-2 hover:bg-gray-50 rounded" href="/ministries/kids/">Kids @The Life Place</a>
+      <a class="block px-6 py-2 hover:bg-gray-50 rounded" href="/ministries/nowgen/">NowGen</a>
+    </details>
+
+    <a class="block px-4 py-3 hover:bg-gray-50" href="/ministries/relief-center/">Social Engagement</a>
+    <a class="block px-4 py-3 hover:bg-gray-50" href="/visit/">Visit</a>
+  </nav>
+</div>
+
+<script is:inline>
+  const btn = document.getElementById("mobile-menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  if (btn && menu) {
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!expanded));
+    });
+  }
+</script>

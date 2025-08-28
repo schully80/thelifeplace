@@ -8,23 +8,25 @@ import { site } from "../../../site.config.js";
     <h1 class="text-3xl md:text-4xl font-medium text-center">Plan a Visit</h1>
 
     <!-- Slogan under heading -->
-        <p class="mt-6 text-lg sm:text-2xl text-center text-gray-700">
-          Come. See. <span class="text-[#B3282D]">Jesus
-        </p>
+    <p class="mt-6 text-lg sm:text-2xl text-center text-gray-700">
+      Come. See. <span class="text-[#B3282D]">Jesus</span>
+    </p>
         
     <p class="mt-4 mb-8 text-center text-2xl md:text-xl">
       Sundays • 10:00am • 1 Elm Avenue, Craigavon AH, Sandton 
     </p>
 
     <div class="text-xl flex justify-center gap-4">
-      <a class="btn btn-outline" href={`mailto:${site.contact.email}`}>Email Us @hello@thelifeplace.co.za</a>
+      <a class="btn btn-outline" href={`mailto:${site.contact.email}`}>
+        Email Us @hello@thelifeplace.org
+      </a>
     </div>
 
-        <!-- Typeform embed (responsive iframe) -->
+    <!-- Typeform embed (responsive iframe) -->
     <div class="mt-10">
       <div class="mx-auto max-w-3xl">
         <div class="relative w-full" style="padding-top: 140%;">
-          <!-- 140% gives a tall mobile-friendly form. You can try 125%–160% -->
+          <!-- 140% gives a tall mobile-friendly form -->
           <iframe
             src="https://form.typeform.com/to/mtt49eHG"
             class="absolute inset-0 h-full w-full rounded-xl border"
@@ -32,44 +34,19 @@ import { site } from "../../../site.config.js";
             allow="camera; microphone; autoplay; encrypted-media; fullscreen; clipboard-read; clipboard-write; geolocation"
           ></iframe>
         </div>
-
-
-    <!-- Quick info tiles -->
-   
-      <div class="rounded-xl border bg-white p-6 shadow-sm">
-        <h3 class="text-xl text-center font-medium mb-2">Start time</h3>
-        <p class="text-gray-700">Gathering begins at 10:00. Doors open from 9:30.</p>
       </div>
-      <div class="rounded-xl border bg-white p-6 shadow-sm">
-        <h3 class="text-xl text-center font-medium mb-2">Kids @The Life Place</h3>
-        <p class="text-gray-700">No kids ministry yet - as Jesus supplies the resources needed, we will launch one where our children too will Come. See. Jesus.</p>
-      </div>
-     
-
-    <!-- Map -->
-    <!-- Location Map -->
-<div class="mt-8 rounded-xl overflow-hidden shadow-lg">
-  <iframe
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3587.123456789!2d28.0123456!3d-26.0123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e9576543210abcd%3A0xabcdef123456789!2sThe%20Life%20Place!5e0!3m2!1sen!2sza!4v1724234567890!5m2!1sen!2sza"
-    width="100%"
-    height="400"
-    style="border:0;"
-    allowfullscreen=""
-    loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade">
-  </iframe>
-</div>
-
-    <!-- FAQ -->
-    <div class="mt-12 max-w-2xl mx-auto space-y-3">
-      <details class="rounded-2xl border p-4 bg-white">
-        <summary class="font-medium cursor-pointer">What should I wear?</summary>
-        <div class="pt-2 text-gray-700">Formal or Casual. We are easy.</div>
-      </details>
-      <details class="rounded-zxl border p-4 bg-white">
-        <summary class="font-medium cursor-pointer">How long is the meeting?</summary>
-        <div class="pt-2 text-gray-700">About 90 minutes including worship and teaching. After the meeting, we get to hang out so we can answer any questions about Jesus and who we are</div>
-      </details>
     </div>
-  </section>
+
+    <!-- Location Map -->
+    <div class="mt-8 rounded-xl overflow-hidden shadow-lg">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3587.123456789!2d28.0123456!3d-26.0123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e9576543210abcd%3A0xabcdef123456789!2sThe%20Life%20Place!5e0!3m2!1sen!2sza!4v1724234567890!5m2!1sen!2sza"
+        width="100%"
+        height="400"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
 </BaseLayout>
