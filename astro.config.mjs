@@ -1,12 +1,13 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import tailwind from "@astrojs/tailwind";
 
+// https://docs.astro.build/en/reference/configuration-reference/
 export default defineConfig({
-  server: { port: 4322, host: true, strictPort: true },
-  integrations: [tailwind({ applyBaseStyles: true })],
+  output: "static", // ✅ Cloudflare Pages expects static output
+  integrations: [tailwind()],
   vite: {
-    server: {
-      hmr: { overlay: false }, // hide red error overlay in dev
+    build: {
+      outDir: "dist", // ✅ matches Cloudflare “Output directory”
     },
   },
 });

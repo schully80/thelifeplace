@@ -14,10 +14,17 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         decoding="async"
       />
       <!-- Soft dark overlay for legibility -->
-      <div class="absolute inset-0 bg-black/10"></div>
+      <div class="absolute inset-0 bg-black/30"></div>
 
-      <!-- Centered vision statement -->
-      <div class="relative flex h-full flex-col items-center justify-center min-h-screen px-4 text-center">
+      <!-- Centered content -->
+      <div class="relative flex h-full flex-col items-center justify-center min-h-screen px-4 text-center z-20">
+        
+        <!-- New header above vision -->
+        <h1 class="mb-10 text-3xl md:text-5xl font-bold text-center text-white drop-shadow-lg">
+          Our Mission
+        </h1>
+
+        <!-- Vision statement -->
         <p class="max-w-5xl mx-auto text-3xl sm:text-6xl font-medium leading-relaxed md:leading-snug text-white">
           Every time we meet, we see how true, good, beautiful and kind
           <!-- Retro sign with nails -->
