@@ -3,14 +3,17 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="ThisGen - The Life Place">
-  <!-- Full-width image banner -->
-  <div class="w-full">
-    <img 
-      src="/Youth.jpg" 
-      alt="NowGen Youth" 
-      class="w-full h-auto"
-    />
-  </div>
+ <!-- Full-width banner with rounded photo only -->
+<div class="w-full">
+  <img
+    src="/youth.jpg"
+    alt="ThisGen Youth"
+    class=" block w-full rounded-2xl object-cover"
+    syle="max-height:60vh"
+    loading="eager"
+    decoding="async"
+  />
+</div>
 
   <!-- Content section -->
   <section class="container-x py-14 md:py-20">

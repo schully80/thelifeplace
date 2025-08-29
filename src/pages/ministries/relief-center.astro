@@ -18,15 +18,17 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       </p>
 
       <!-- Donate Button -->
-      <div class="mt-6 flex justify-end">
-        <a 
-          href="/give/" 
-          <div class="rounded-xl bg-white p-8 shadow-md ring-2 ring-gray-50 text-center">
-      <span class="inline-block rounded-full bg-[#B3282D] px-4 py-2 text-xl font-bold text-white mb-4">
-        
-          Donate
-        </a>
-      </div>
+<div class="mt-6 flex justify-end">
+  <a 
+    href="/give/" 
+    class="inline-block rounded-full bg-[#B3282D] px-6 py-3 
+           text-xl font-medium text-white shadow-md 
+           transform transition-transform duration-300 hover:scale-105 
+           hover:bg-red-700 hover:shadow-lg"
+  >
+    Donate
+  </a>
+</div>
     </div>
   </section>
 </BaseLayout>
