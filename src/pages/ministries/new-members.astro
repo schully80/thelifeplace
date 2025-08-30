@@ -4,7 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 <BaseLayout title="New @The Life Place">
 <section class="relative full-bleed">
-    <div class="relative min-h-[38vh] md:min-h-[60vh] flex items-center justify-center">
+    <div class="relative min-h-[38vh] md:min-h-[50vh] flex items-center justify-center">
 
   <img
     src="/welcome-3.jpg"
@@ -16,18 +16,79 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   />
 </div class="absolute inset-0 bg-black/30"></div>
 
-  <section class="container-x py-12 md:py-16 text-center">
-    <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-orange-200">
-      <div class="flex items-center justify-between mb-4">
-        <h1 class="text-3xl font-medium">New @The Life Place</h1>
-        <span class="inline-block rounded-full bg-orange-500 px-3 py-1 text-sm font-semibold text-white">
-          Coming Soon
-        </span>
-      </div>
-      <p class="text-lg text-gray-700">
-        A space for newcomers to connect, belong, and grow as part of our family in Christ.  
-        <em class="text-[#B3282D]">Come. See. Jesus.</em>
+ <section class="relative py-12 md:py-16">
+  <div class="container-x px-6 md:px-8">
+    <!-- Header -->
+    <header class="text-center mb-10 md:mb-12">
+      <h1 class="text-3xl md:text-5xl font-bold text-warmgray-800">Vision Night</h1>
+      <p class="mt-5 text-lg md:text-2xl text-brand-warmgray-700">
+        Come. See. <span class="text-brand-red not-italic font-semibold">Jesus</span>
       </p>
+    </header>
+
+    <!-- Top row: What / Why / Who (Bring-Them-To-Jesus style cards) -->
+    <div class="grid gap-6 md:gap-8 md:grid-cols-3">
+      <!-- What / Intro -->
+      <article class="rounded-xl border bg-white p-6 md:p-8 shadow-sm">
+        <h2 class="text-2xl font-semibold mb-3">What is Vision Night?</h2>
+        <p class="text-lg text-brand-warmgray-800 leading-relaxed">
+          Vision Night is a special gathering where we share
+          <strong>who we are, why we exist, and where God is leading us</strong>.
+          It’s a night of story, worship, and community — a moment to see the heart
+          of The Life Place and how you can be part of this grace-filled journey.
+        </p>
+      </article>
+
+      <!-- Why Attend -->
+      <article class="rounded-xl border bg-white p-6 md:p-8 shadow-sm">
+        <h2 class="text-2xl font-semibold mb-3">Why Attend?</h2>
+        <ul class="text-lg space-y-2 text-brand-warmgray-800 leading-relaxed list-disc pl-5">
+          <li>Hear our story and God’s vision for The Life Place</li>
+          <li>Meet our leadership team and community</li>
+          <li>Discover our mission, values, and future plans</li>
+          <li>Find ways to connect, belong, and serve</li>
+        </ul>
+      </article>
+
+      <!-- Vision Night Is For-->
+      <article class="rounded-xl border bg-white p-6 md:p-8 shadow-sm">
+        <h2 class="text-2xl font-semibold mb-3">Vision Night Is For</h2>
+        <ul class="text-lg space-y-2 text-brand-warmgray-800 leading-relaxed list-disc pl-5">
+          <li>Anyone exploring the heartbeat of The Life Place</li>
+          <li>Those ready to take a next step in belonging</li>
+          <li>Those searching for a Jesus-centred community</li>
+          <li>All who want to be part of God’s unfolding future</li>
+        </ul>
+      </article>
+    </div>
+
+    <!-- CTA card -->
+    
+        <!-- CTA -->
+  <div class="text-m text-center mt-8">
+  <a
+    href="mailto:hello@thelifeplace.org?subject=Bring%20Them%20to%20Jesus%20—%20Dedication%20Journey"
+    class="inline-flex items-center gap-2 rounded-full bg-brand-red text-white font-medium 
+           px-6 py-3 shadow-md 
+           transform transition-transform duration-300 hover:scale-105 
+           hover:bg-red-700 hover:shadow-lg"
+  >
+    <span>Save My Spot</span>
+    <!-- Small up-right arrow with pulse -->
+    <svg xmlns="http://www.w3.org/2000/svg" 
+         class="h-5 w-5 animate-pulse" 
+         fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M7 17L17 7M7 7h10v10" />
+    </svg>
+  </a>
+  <p class="mt-6 text-lg text-warmgray-600">
+    Registration closes <u>3 days</u> before the event to allow for catering.
+    <p class="mt-4 text-lg text-warmgray-600">
+    When registering, kindly include your <strong>full name, email address, contact number, 
+    and the number of people attending</strong>.
+  </p>
+</div>
     </div>
   </section>
 </BaseLayout>
