@@ -7,7 +7,9 @@ export default {
     extend: {
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
-        poppins: ["Poppins", "sans-serif"],
+        poppins: ['Poppins', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+        source: ['"Source Sans Pro"', 'sans-serif'],
       },
       colors: {
         brand: {
