@@ -2,17 +2,20 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="ThisGen - The Life Place">
+<BaseLayout title="ThisGen">
  <!-- Full-width banner with rounded photo only -->
-<div class="w-full">
+<section class="relative full-bleed">
+    <div class="relative min-h-[38vh] md:min-h-[60vh] flex items-center justify-center">
+
   <img
     src="/youth.jpg"
-    class=" block w-full rounded-2xl object-cover"
+    alt="Only Jesus"
+    class="absolute inset-0 h-full w-full object-cover"
     syle="max-height:60vh"
     loading="eager"
     decoding="async"
   />
-</div>
+</div class="absolute inset-0 bg-black/30"></div>
 
   <!-- Content section -->
   <section class="container-x py-14 md:py-20">
