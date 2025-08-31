@@ -9,10 +9,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     
 
 <div class="flex justify-center">
-  <div class="grid gap-10 md:gap-20 md:grid-cols-2 items-start mt-8">
-    <!-- EFT (title outside card) -->
+  <div class="grid gap-10 md:gap-20 md:grid-cols-2 items-start mt-8 max-w-4xl w-full">
+    
+    <!-- EFT Column -->
     <div>
-      <h2 class="text-2xl md:text-2xl font-bold mb-4 text-center md:text-center">EFT Banking Details</h2>
+      <h2 class="text-2xl font-bold mb-4 text-center">EFT Banking Details</h2>
       <div class="rounded-xl border-2 border-gray-300 p-6 md:p-8 bg-white shadow-sm">
         <div class="space-y-3 text-center md:text-lg">
           <div><span class="font-semibold">Account Name:</span> The Life Place</div>
@@ -24,7 +25,22 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         </div>
       </div>
     </div>
+
+    <!-- SnapScan Column -->
+<div>
+  <div class="flex items-center justify-center mb-4 space-x-3">
+  <h2 class="text-2xl font-bold text-center">SnapScan</h2>
+  <span class="px-3 py-1 text-white text-sm font-semibold rounded-full cursor-not-allowed opacity-90 hover:opacity-100 transition" style="background-color: #B3282D;">
+    Launching Soon
+  </span>
+</div>
+
+  <div class="rounded-xl border-2 border-gray-300 p-6 md:p-8 bg-white shadow-sm flex flex-col items-center space-y-4">
+    <!-- QR Placeholder -->
+    <img src="/path-to-your-snapscan-qr.png" alt="SnapScan QR Code" class="w-40 h-40" />
+
+    <!-- Description -->
+    <p class="text-center md:text-lg">Scan the QR code with your SnapScan app to give securely and instantly.</p>
   </div>
 </div>
 </BaseLayout>
----
