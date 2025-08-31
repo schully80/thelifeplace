@@ -45,8 +45,7 @@ const {
       <!-- 📨 Formspree Hidden Fields -->
       <input type="hidden" name="_subject" value={`New ${eventCode} Registration`} />
       <input type="hidden" name="message" value={`Thank you for registering for ${eventCode}. We'll be in touch soon!`} />
-      <input type="hidden" name="_next" value="https://chimerical-beijinho-e07f9d.netlify.app/thank-you?event=GEN2025" />
-
+<input type="hidden" name="_next" value={`https://chimerical-beijinho-e07f9d.netlify.app/thank-you?event=${eventCode}`} />
       <!-- 🚀 Submit Button -->
       <button type="submit" class="btn-brand">
         <span>Save My Spot</span>
