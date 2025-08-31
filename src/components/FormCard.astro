@@ -12,6 +12,7 @@ const {
     <p class="text-gray-700">{description}</p>
 
     <form action="https://formspree.io/f/xeolkkeq" method="POST" class="space-y-6">
+      <!-- 👤 Personal Info -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="space-y-2">
           <label for="firstName" class="text-sm font-medium text-gray-700">First Name *</label>
@@ -24,6 +25,7 @@ const {
         </div>
       </div>
 
+      <!-- 📞 Contact Info -->
       <div class="space-y-2">
         <label for="contact" class="text-sm font-medium text-gray-700">Contact Number *</label>
         <input type="tel" id="contact" name="contact" class="form-field" required />
@@ -34,15 +36,19 @@ const {
         <input type="email" id="email" name="email" class="form-field" required />
       </div>
 
+      <!-- 👥 Attendance -->
       <div class="space-y-2">
         <label for="attendees" class="text-sm font-medium text-gray-700">Number of Persons Attending *</label>
         <input type="number" id="attendees" name="attendees" class="form-field" min="1" required />
       </div>
 
-      <!-- Formspree hidden fields -->
+      <!-- 📨 Formspree Hidden Fields -->
       <input type="hidden" name="_subject" value={`New ${eventCode} Registration`} />
       <input type="hidden" name="message" value={`Thank you for registering for ${eventCode}. We'll be in touch soon!`} />
-<input type="hidden" name="_next" value="https://chimerical-beijinho-e07f9d.netlify.app/thank-you?event=GEN2025" />      <button type="submit" class="btn-brand">
+      <input type="hidden" name="_next" value="https://chimerical-beijinho-e07f9d.netlify.app/thank-you?event=GEN2025" />
+
+      <!-- 🚀 Submit Button -->
+      <button type="submit" class="btn-brand">
         <span>Save My Spot</span>
         <svg xmlns="http://www.w3.org/2000/svg" 
              class="h-5 w-5 animate-pulse" 
