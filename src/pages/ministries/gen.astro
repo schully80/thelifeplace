@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Gen">
+  <!-- Full-bleed hero with dark overlay -->
+  <section class="relative w-full">
+    <img
+      src="/youth-1.jpg"
+      alt="Youth gathering at The Life Place"
+      class="absolute inset-0 h-full w-full object-cover"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    />
+    <div class="absolute inset-0 bg-black/20"></div>
+
+    <!-- Centered hero text -->
+    <div class="relative z-10 flex items-center justify-center min-h-[60vh] px-4">
+      <h1 class="text-5xl md:text-6xl font-extrabold italic text-white drop-shadow-lg">
+        ThisGen
+      </h1>
+    </div>
+  </section>
+
+  <!-- Content section -->
+  <section class="max-w-5xl mx-auto px-4 py-14 md:py-20">
+    <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-blue-200">
+      <p class="text-gray-800 text-xl leading-relaxed">
+        <strong>ThisGen</strong> is our youth expression at The Life Place — a space for our generation to discover Jesus, 
+        grow in faith, build lifelong friendships, and uncover their purpose — all for the glory of Jesus and the good of the world.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
