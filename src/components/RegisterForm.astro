@@ -46,26 +46,108 @@ function generateReferenceCode(eventName, formData) {
 >
 
       // Optional: send to backend here
-    class="space-y-6 bg-white p-6 rounded-xl shadow ring-1 ring-blue-200">
-      <div>
-        <label for="fullName" class="block text-sm font-medium text-gray-700">Full Name</label>
-        <input type="text" id="fullName" name="fullName" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-brand-red focus:border-brand-red" />
-      </div>
+    <!-- Name -->
+<input
+  type="text"
+  id="firstName"
+  name="firstName"
+  required
+  placeholder="Name *"
+  class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
+/>
 
-      <div>
-        <label for="contact" class="block text-sm font-medium text-gray-700">Contact Number</label>
-        <input type="tel" id="contact" name="contact" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-brand-red focus:border-brand-red" />
-      </div>
+<!-- Surname -->
+<input
+  type="text"
+  id="surname"
+  name="surname"
+  required
+  placeholder="Surname *"
+  class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
+/>order-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
+/>
 
-      <div>
-        <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-        <input type="email" id="email" name="email" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-brand-red focus:border-brand-red" />
-      </div>
+     <input
+  type="tel"
+  id="contact"
+  name="contact"
+  required
+  placeholder="Contact Number *"
+  class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
+/>
 
-      <div>
-        <label for="attendees" class="block text-sm font-medium text-gray-700">Number of Persons Attending</label>
-        <input type="number" id="attendees" name="attendees" min="1" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-brand-red focus:border-brand-red" />
-      </div>
+      <input
+  type="email"
+  id="email"
+  name="email"
+  required
+  placeholder="Email Address *"
+  class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
+/>
+
+      <input
+  type="number"
+  id="attendees"
+  name="attendees"
+  min="1"
+  required
+  placeholder="Number of People Attending *"
+  class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
+/>
+
+<!-- Street Address -->
+<div>
+  <label for="streetAddress" class="block text-sm font-medium text-gray-700">Street Address</label>
+  <input
+    type="text"
+    id="streetAddress"
+    name="streetAddress"
+    required
+    placeholder="Street Address *"
+    class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
+  />
+</div>
+
+<!-- Suburb -->
+<div>
+  <label for="suburb" class="block text-sm font-medium text-gray-700">Suburb</label>
+  <input
+    type="text"
+    id="suburb"
+    name="suburb"
+    required
+    placeholder="Suburb *"
+    class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
+  />
+</div>
+
+<!-- City -->
+<div>
+  <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+  <input
+    type="text"
+    id="city"
+    name="city"
+    required
+    placeholder="City *"
+    class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
+  />
+</div>
+
+<!-- Postal Code -->
+<div>
+  <label for="postalCode" class="block text-sm font-medium text-gray-700">Postal Code</label>
+  <input
+    type="text"
+    id="postalCode"
+    name="postalCode"
+    required
+    maxlength="4"
+    pattern="\d{4}"
+    placeholder="Postal Code *"
+    class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
+  />
+</div>
 
       <div class="text-center">
         <button type="submit" class="inline-flex items-center space-x-2 px-5 py-2.5 bg-brand-red text-white font-semibold rounded-full hover:bg-red-700 transition">
