@@ -17,10 +17,23 @@ export default {
           darkgray: "#333333",
           red: "#B3282D",
         },
+        'brand-red': '#B3282D', // optional alias for direct use
       },
       letterSpacing: {
         wide: "0.03em",
         wider: "0.06em",
+      },
+      animation: {
+        'fade-in-up': 'fadeInUp 0.6s ease-out',
+      },
+      keyframes: {
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
+      borderRadius: {
+        pill: '9999px', // added pill radius for reusable button styling
       },
     },
   },
