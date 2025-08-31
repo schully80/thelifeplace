@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const { eventCode = "GEN2025" } = Astro.props;
+---
+
+<BaseLayout title="Thank You">
+  <section class="max-w-xl mx-auto px-4 py-20 text-center space-y-4">
+    <h2 class="text-3xl font-bold text-brand-red">You're Registered!</h2>
+    <p class="text-lg text-gray-700">
+      Thank you for registering for <strong>{eventCode}</strong>. We’ve received your details and will be in touch soon.
+    </p>
+    <a href="/give" class="btn-brand inline-block mt-6">Proceed to Payment</a>
+  </section>
+</BaseLayout>

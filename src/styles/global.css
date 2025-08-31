@@ -52,6 +52,7 @@
 ------------------------------ */
 @layer components {
   
+  
   /* Container */
   .container-x { @apply max-w-6xl mx-auto px-4; }
 
@@ -60,11 +61,16 @@
   .btn-primary { @apply btn text-white bg-[#B3282D] hover:bg-[#9f2429]; }
   .btn-outline { @apply btn border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white; }
   .btn-ghost  { @apply btn border border-gray-300 text-gray-800 hover:bg-gray-100; }
+  
 
   /* New: Branded pill button */
-  .btn-brand {
-    @apply inline-flex items-center justify-center px-6 py-2.5 font-semibold text-white bg-brand-red rounded-pill hover:bg-red-700 transition;
-  }
+.btn-brand {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-2.5 font-semibold text-white bg-brand-red rounded-pill transform transition-transform hover:scale-105 hover:bg-red-700;
+}
+
+  .rounded-pill {
+  @apply rounded-[9999px];
+}
 /* Form Fields */
 .form-field {
   @apply block w-full rounded-md border-gray-300 shadow-sm focus:ring-brand-red focus:border-brand-red;
