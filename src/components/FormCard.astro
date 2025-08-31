@@ -41,15 +41,17 @@ const {
 
       <!-- Formspree hidden fields -->
       <input type="hidden" name="_subject" value={`New ${eventCode} Registration`} />
-      <input type="hidden" name="_next" value="/thank-you" />
       <input type="hidden" name="message" value={`Thank you for registering for ${eventCode}. We'll be in touch soon!`} />
-
-     <button type="submit" class="btn-brand">
-  <span>Save My Spot</span>
-  <svg xmlns="http://www.w3.org/2000/svg" 
-       class="h-5 w-5 animate-pulse" 
-       fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-      d="M7 17L17 7M7 7h10v10" />
-  </svg>
-</button>
+      <input type="hidden" name="_next" value="https://thelifeplace.netlify.app/thank-you?event=GEN2025" />
+      <button type="submit" class="btn-brand">
+        <span>Save My Spot</span>
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="h-5 w-5 animate-pulse" 
+             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M7 17L17 7M7 7h10v10" />
+        </svg>
+      </button>
+    </form>
+  </div>
+</section>

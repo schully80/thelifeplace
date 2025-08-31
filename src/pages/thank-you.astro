@@ -1,14 +1,17 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-const { eventCode = "GEN2025" } = Astro.props;
+const { searchParams } = Astro.url;
+const event = searchParams.get("event") ?? "GEN2025";
 ---
 
-<BaseLayout title="Thank You">
-  <section class="max-w-xl mx-auto px-4 py-20 text-center space-y-4">
-    <h2 class="text-3xl font-bold text-brand-red">You're Registered!</h2>
-    <p class="text-lg text-gray-700">
-      Thank you for registering for <strong>{eventCode}</strong>. We’ve received your details and will be in touch soon.
-    </p>
-    <a href="/give" class="btn-brand inline-block mt-6">Proceed to Payment</a>
-  </section>
-</BaseLayout>
+<html lang="en">
+  <head>
+    <title>Thank You</title>
+  </head>
+  <body style="padding: 2rem; text-align: center;">
+    <h1>You're Registered!</h1>
+    <p>Thank you for registering for <strong>{event}</strong>. We'll be in touch soon.</p>
+    <a href="/give" style="display: inline-block; margin-top: 2rem; padding: 0.75rem 1.5rem; background-color: #b91c1c; color: white; border-radius: 9999px; text-decoration: none;">
+      Proceed to Payment →
+    </a>
+  </body>
+</html>
