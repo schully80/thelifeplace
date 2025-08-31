@@ -68,26 +68,29 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       </p>
     </article>
 
-    <!-- CTA -->
-  <div class="text-m text-center mt-8">
-  <a
-    href="/give"
-    class="inline-flex items-center gap-2 rounded-full bg-brand-red text-white font-medium 
+   <div class="bg-white p-6 rounded-xl shadow-sm space-y-6 max-w-md mx-auto font-sans text-gray-900">
+<div class="bg-white p-6 rounded-xl shadow-sm space-y-6 max-w-md mx-auto font-sans text-gray-900">
+
+  <input type="text" placeholder="Name *" class="w-full border-b border-gray-300 py-2 text-xl font-medium text-brand-warmgray focus:outline-none focus:border-brand-red" />
+<input type="text" placeholder="Surname *" class="w-full border-b border-gray-300 py-2 text-xl font-medium text-brand-warmgray focus:outline-none focus:border-brand-red" />
+<input type="tel" placeholder="Contact Number *" class="w-full border-b border-gray-300 py-2 text-xl font-medium text-brand-warmgray focus:outline-none focus:border-brand-red" />
+<input type="email" placeholder="Email Address *" class="w-full border-b border-gray-300 py-2 text-xl font-medium text-brand-warmgray focus:outline-none focus:border-brand-red" />
+<input type="number" min="1" placeholder="Number of People Attending *" class="w-full border-b border-gray-300 py-2 text-xl font-medium text-brand-warmgray focus:outline-none focus:border-brand-red" />
+
+<!-- Full-width CTA Link styled as button -->
+  <a href="/give"
+    class="w-full inline-flex justify-center items-center gap-2 rounded-full bg-brand-red text-white font-medium 
            px-6 py-3 shadow-md 
-           transform transition-transform duration-300 hover:scale-105 
+           transition-transform duration-300 hover:scale-105 
            hover:bg-red-700 hover:shadow-lg"
   >
     <span>Save My Spot</span>
-    <!-- Small up-right arrow with pulse -->
     <svg xmlns="http://www.w3.org/2000/svg" 
-         class="h-5 w-5 animate-pulse" 
+         class="h-6 w-6 animate-pulse" 
          fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-        d="M7 17L17 7M7 7h10v10" />
+            d="M7 17L17 7M7 7h10v10" />
     </svg>
   </a>
 </div>
-</div>
-    </div>
-  </section>
 </BaseLayout>
