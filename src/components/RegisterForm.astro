@@ -1,6 +1,7 @@
 ---
 const {
   title = "Register",
+  titleClass = "text-2xl font-medium text-brand-warmgray-800 text-center tracking-wide mb-6",
   eventName = "Bring Them To Jesus",
   paymentLink = "/give",
   successMessage = "Thank you for registering!",
@@ -34,7 +35,9 @@ function generateReferenceCode(eventName, formData) {
 ---
 
 <section class="max-w-3xl mx-auto px-4 py-12">
-  <h2 class="text-2xl font-medium text-center text-brand-warmgray-800 mb-8">{title}</h2>
+<h2 class={titleClass}>
+  {title}
+</h2>
 
   {submitted ? (
     <div class="bg-green-50 border border-green-200 text-green-800 p-6 rounded-xl text-center space-y-2">
