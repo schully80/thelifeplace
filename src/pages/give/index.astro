@@ -1,12 +1,23 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+const { searchParams } = Astro.url;
+const event = searchParams.get("event") ?? "Your Event";
+const ref = searchParams.get("ref") ?? "";
 ---
 <BaseLayout title="Generosity">
   <section class="container-x py-10 md:py-14">
     <p class="text-2xl md:text-2xl font-medium tracking-wide">
       Your generosity helps others to <span class="text-gray-800">Come. See. <span class="text-[#B3282D]">Jesus</span>
     </p>
-    
+
+   <div class="text-center mb-8 space-y-2">
+  <h2 class="text-2xl font-bold text-brand-red">You're giving for: {event}</h2>
+  {ref && (
+    <p class="text-md text-brand-warmgray-700">
+      Reference Code: <strong>{ref}</strong>
+    </p>
+  )}
+</div> 
 
 <div class="flex justify-center">
   <div class="grid gap-10 md:gap-20 md:grid-cols-2 items-start mt-8 max-w-4xl w-full">

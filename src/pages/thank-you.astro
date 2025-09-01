@@ -1,17 +1,23 @@
 ---
 const { searchParams } = Astro.url;
-const event = searchParams.get("event") ?? "GEN2025";
+const event = searchParams.get("event") ?? "Bring Them To Jesus";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-  <head>
-    <title>Thank You</title>
-  </head>
-  <body style="padding: 2rem; text-align: center;">
-    <h1>You're Registered!</h1>
-    <p>Thank you for registering for <strong>{event}</strong>. We'll be in touch soon.</p>
-    <a href="/give" style="display: inline-block; margin-top: 2rem; padding: 0.75rem 1.5rem; background-color: #b91c1c; color: white; border-radius: 9999px; text-decoration: none;">
-      Proceed to Payment →
+<BaseLayout title="Thank You">
+  <section class="max-w-2xl mx-auto px-4 py-12 text-center space-y-6">
+    <h1 class="text-3xl font-bold text-brand-red">You're Registered!</h1>
+    <p class="text-lg text-brand-warmgray-800">
+      Thank you for registering for <strong>{event}</strong>.
+    </p>
+    <p class="text-md text-brand-warmgray-700">
+      We’ll see you on <strong>Saturday, Sept 14</strong> at <strong>The Life Place, Sandton</strong>.
+    </p>
+    <p class="text-sm text-brand-warmgray-600 italic">
+      “Let the children come to me…” — Matthew 19:14
+    </p>
+    <a href="/" class="inline-block mt-6 px-6 py-3 bg-brand-red text-white rounded-full hover:bg-red-700 transition">
+      Return to Home
     </a>
-  </body>
-</html>
+  </section>
+</BaseLayout>
