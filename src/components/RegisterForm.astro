@@ -5,17 +5,17 @@ const {
   paymentLink = "/give",
   successMessage = "Thank you for registering!",
   ctaText = "Save My Spot",
-fields = [
-  { id: "firstName", label: "Name", type: "text", required: true },
-  { id: "surname", label: "Surname", type: "text", required: true },
-  { id: "contact", label: "Contact Number", type: "tel", required: true },
-  { id: "email", label: "Email Address", type: "email", required: true },
-  { id: "streetAddress", label: "Street Address", type: "text", required: true },
-  { id: "suburb", label: "Suburb", type: "text", required: true },
-  { id: "city", label: "City", type: "text", required: true },
-  { id: "postalCode", label: "Postal Code", type: "text", required: true, maxlength: 4, pattern: "\\d{4}" },
-  { id: "attendees", label: "Number of People Attending", type: "number", required: true, min: 1 }
-]
+  fields = [
+    { id: "firstName", label: "Name", type: "text", required: true },
+    { id: "surname", label: "Surname", type: "text", required: true },
+    { id: "contact", label: "Contact Number", type: "tel", required: true },
+    { id: "email", label: "Email Address", type: "email", required: true },
+    { id: "streetAddress", label: "Street Address", type: "text", required: true },
+    { id: "suburb", label: "Suburb", type: "text", required: true },
+    { id: "city", label: "City", type: "text", required: true },
+    { id: "postalCode", label: "Postal Code", type: "text", required: true, maxlength: 4, pattern: "\\d{4}" },
+    { id: "attendees", label: "Number of People Attending", type: "number", required: true, min: 1 }
+  ]
 } = Astro.props;
 
 let submitted = false;
@@ -31,149 +31,77 @@ function generateReferenceCode(eventName, formData) {
 
   return `${eventName.replace(/\s+/g, '')}-${firstName.replace(/\s+/g, '')}${surname.replace(/\s+/g, '')}-${attendees}-${suburb}-${city}-${postalCode}`;
 }
+---
+
 <section class="max-w-3xl mx-auto px-4 py-12">
   <h2 class="text-3xl font-bold text-center text-brand-red mb-8">{title}</h2>
 
   {submitted ? (
-  <div class="bg-green-50 border border-green-200 text-green-800 p-6 rounded-xl text-center space-y-2">
-    <p class="text-xl font-semibold">You're registered for <span class="text-brand-red">{eventName}</span>!</p>
-    <p>Your reference code: <strong>{referenceCode}</strong></p>
-    <p class="text-sm text-brand-warmgray-700">Please keep this code for payment and check-in.</p>
-    <a href={paymentLink} class="inline-block mt-4 px-6 py-3 bg-brand-red text-white rounded-full hover:bg-red-700 transition">
-      Proceed to Payment
-    </a>
-  </div>
-) : (
-  // form goes here
-)}
-    
-    <form method="POST" class="space-y-6 bg-white p-6 rounded-xl shadow ring-1 ring-blue-200"
-  on:submit={(e) => {
-  e.preventDefault();
-  const form = e.target;
-  const formData = Object.fromEntries(new FormData(form));
-  referenceCode = generateReferenceCode(eventName, formData);
-  submitted = true;
+    <div class="bg-green-50 border border-green-200 text-green-800 p-6 rounded-xl text-center space-y-2">
+      <p class="text-xl font-semibold">You're registered for <span class="text-brand-red">{eventName}</span>!</p>
+      <p>Your reference code: <strong>{referenceCode}</strong></p>
+      <p class="text-sm text-brand-warmgray-700">Please keep this code for payment and check-in.</p>
+      <a href={paymentLink} class="inline-block mt-4 px-6 py-3 bg-brand-red text-white rounded-full hover:bg-red-700 transition">
+        Proceed to Payment
+      </a>
+    </div>
+  ) : (
+    <form
+      method="POST"
+      class="space-y-6 bg-white p-6 rounded-xl shadow ring-1 ring-blue-200"
+      on:submit={(e) => {
+        e.preventDefault();
+        const form = e.target;
+        const formData = Object.fromEntries(new FormData(form));
+        referenceCode = generateReferenceCode(eventName, formData);
+        submitted = true;
 
-  // Send to Google Sheets via SheetDB
-  fetch("https://sheetdb.io/api/v1/s3b9pfu04x7ha", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ data: { ...formData, referenceCode, eventName } })
-  });
-}}
+        fetch("https://sheetdb.io/api/v1/s3b9pfu04x7ha", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ data: { ...formData, referenceCode, eventName } })
+        });
+      }}
+    >
+      <input type="text" id="firstName" name="firstName" required placeholder="Name *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
+      <input type="text" id="surname" name="surname" required placeholder="Surname *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
+      <input type="tel" id="contact" name="contact" required placeholder="Contact Number *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
+      <input type="email" id="email" name="email" required placeholder="Email Address *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
+      <input type="number" id="attendees" name="attendees" min="1" required placeholder="Number of People Attending *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
 
-      // Optional: send to backend here
-    <!-- Name -->
-<input
-  type="text"
-  id="firstName"
-  name="firstName"
-  required
-  placeholder="Name *"
-  class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
-/>
+      <div>
+        <label for="streetAddress" class="block text-sm font-medium text-gray-700">Street Address</label>
+        <input type="text" id="streetAddress" name="streetAddress" required placeholder="Street Address *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
+      </div>
 
-<!-- Surname -->
-<input
-  type="text"
-  id="surname"
-  name="surname"
-  required
-  placeholder="Surname *"
-  class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
-/>order-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
-/>
+      <div>
+        <label for="suburb" class="block text-sm font-medium text-gray-700">Suburb</label>
+        <input type="text" id="suburb" name="suburb" required placeholder="Suburb *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
+      </div>
 
-     <input
-  type="tel"
-  id="contact"
-  name="contact"
-  required
-  placeholder="Contact Number *"
-  class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
-/>
+      <div>
+        <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+        <input type="text" id="city" name="city" required placeholder="City *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
+      </div>
 
-      <input
-  type="email"
-  id="email"
-  name="email"
-  required
-  placeholder="Email Address *"
-  class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
-/>
-
-      <input
-  type="number"
-  id="attendees"
-  name="attendees"
-  min="1"
-  required
-  placeholder="Number of People Attending *"
-  class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
-/>
-
-<!-- Street Address -->
-<div>
-  <label for="streetAddress" class="block text-sm font-medium text-gray-700">Street Address</label>
-  <input
-    type="text"
-    id="streetAddress"
-    name="streetAddress"
-    required
-    placeholder="Street Address *"
-    class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
-  />
-</div>
-
-<!-- Suburb -->
-<div>
-  <label for="suburb" class="block text-sm font-medium text-gray-700">Suburb</label>
-  <input
-    type="text"
-    id="suburb"
-    name="suburb"
-    required
-    placeholder="Suburb *"
-    class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
-  />
-</div>
-
-<!-- City -->
-<div>
-  <label for="city" class="block text-sm font-medium text-gray-700">City</label>
-  <input
-    type="text"
-    id="city"
-    name="city"
-    required
-    placeholder="City *"
-    class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
-  />
-</div>
-
-<!-- Postal Code -->
-<div>
-  <label for="postalCode" class="block text-sm font-medium text-gray-700">Postal Code</label>
-  <input
-    type="text"
-    id="postalCode"
-    name="postalCode"
-    required
-    maxlength="4"
-    pattern="\d{4}"
-    placeholder="Postal Code *"
-    class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
-  />
-</div>
+      <div>
+        <label for="postalCode" class="block text-sm font-medium text-gray-700">Postal Code</label>
+        <input type="text" id="postalCode" name="postalCode" required maxlength="4" pattern="\d{4}" placeholder="Postal Code *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
+      </div>
 
       <div class="text-center">
-        <button type="submit" class="inline-flex items-center space-x-2 px-5 py-2.5 bg-brand-red text-white font-semibold rounded-full hover:bg-red-700 transition">
-          <span>Save My Spot</span>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M7 7h10v10" />
-          </svg>
-        </button>
-      </div>
+  <button
+    type="submit"
+    class="inline-flex items-center space-x-2 px-5 py-2.5 bg-brand-red text-white font-semibold rounded-full 
+           hover:bg-red-700 hover:scale-105 hover:shadow-lg 
+           transition-transform duration-300 ease-in-out"
+  >
+    <span>{ctaText}</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M7 7h10v10" />
+    </svg>
+  </button>
+</div>
     </form>
+  )}
 </section>

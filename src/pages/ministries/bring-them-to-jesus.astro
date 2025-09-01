@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import RegisterForm from "../../components/RegisterForm.astro";
 ---
 
 
@@ -68,35 +69,23 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       </p>
     </article>
 
-   <div class="bg-white p-6 rounded-xl shadow-sm max-w-md mx-auto font-sans text-brand-warmgray-800">
-  <h2 class="text-xl text-brand-warmgray-800 text-center font-medium tracking-wide mb-6">
-    We’d love to see you — drop your details below
-  </h2>
-
-  <div class="space-y-6">
-    <input type="text" placeholder="Name *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
-    <input type="text" placeholder="Surname *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
-    <input type="tel" placeholder="Contact Number *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
-    <input type="email" placeholder="Email Address *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
-    <input type="number" min="1" placeholder="Number of People Attending *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
-
-    <!-- CTA Button with breathing room -->
-    <div class="pt-6">
-      <a href="/give"
-        class="w-full inline-flex justify-center items-center gap-2 rounded-full bg-brand-red text-white font-medium 
-               px-6 py-3 shadow-md 
-               transition-transform duration-300 hover:scale-105 
-               hover:bg-red-700 hover:shadow-lg"
-      >
-        <span>Save My Spot</span>
-        <svg xmlns="http://www.w3.org/2000/svg" 
-             class="h-6 w-6 animate-pulse" 
-             fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M7 17L17 7M7 7h10v10" />
-        </svg>
-      </a>
-    </div>
-  </div>
+   <div class="mt-12 max-w-2xl mx-auto">
+  <RegisterForm
+    eventName="Bring Them To Jesus"
+    paymentLink="/give"
+    successMessage="Thank you for registering!"
+    ctaText="Save My Spot"
+    fields={[
+      { id: "firstName", label: "Name", type: "text", required: true },
+      { id: "surname", label: "Surname", type: "text", required: true },
+      { id: "contact", label: "Contact Number", type: "tel", required: true },
+      { id: "email", label: "Email Address", type: "email", required: true },
+      { id: "streetAddress", label: "Street Address", type: "text", required: true },
+      { id: "suburb", label: "Suburb", type: "text", required: true },
+      { id: "city", label: "City", type: "text", required: true },
+      { id: "postalCode", label: "Postal Code", type: "text", required: true, maxlength: 4, pattern: "\\d{4}" },
+      { id: "attendees", label: "Number of People Attending", type: "number", required: true, min: 1 }
+    ]}
+  />
 </div>
 </BaseLayout>
