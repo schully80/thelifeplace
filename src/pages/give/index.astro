@@ -1,24 +1,15 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-const { searchParams } = Astro.url;
-const event = searchParams.get("event") ?? "Your Event";
-const ref = searchParams.get("ref") ?? "";
+
+const url = new URL(Astro.request.url);
+const event = url.searchParams.get("event");
 ---
 <BaseLayout title="Generosity">
   <section class="container-x py-10 md:py-14">
     <p class="text-2xl md:text-2xl font-medium tracking-wide">
       Your generosity helps others to <span class="text-gray-800">Come. See. <span class="text-[#B3282D]">Jesus</span>
     </p>
-
-   <div class="text-center mb-8 space-y-2">
-  <h2 class="text-2xl font-bold text-brand-red">You're giving for: {event}</h2>
-  {ref && (
-    <p class="text-md text-brand-warmgray-700">
-      Reference Code: <strong>{ref}</strong>
-    </p>
-  )}
-</div> 
-
+    
 <div class="flex justify-center">
   <div class="grid gap-10 md:gap-20 md:grid-cols-2 items-start mt-8 max-w-4xl w-full">
     
@@ -41,17 +32,16 @@ const ref = searchParams.get("ref") ?? "";
 <div>
   <div class="flex items-center justify-center mb-4 space-x-3">
   <h2 class="text-2xl font-bold text-center">SnapScan</h2>
-  <span class="px-3 py-1 text-white text-sm font-semibold rounded-full cursor-not-allowed opacity-90 hover:opacity-100 transition" style="background-color: #B3282D;">
-    Launching Soon
-  </span>
+
 </div>
 
   <div class="rounded-xl border-2 border-gray-300 p-6 md:p-8 bg-white shadow-sm flex flex-col items-center space-y-4">
     <!-- QR Placeholder -->
-    <img src="/path-to-your-snapscan-qr.png" alt="SnapScan QR Code" class="w-40 h-40" />
+    <img src="/Snapscan.png" alt="SnapScan QR Code" class="w-40 h-40" />
 
     <!-- Description -->
-    <p class="text-center md:text-lg">Scan the QR code with your SnapScan app to give securely and instantly.</p>
+    <p class="text-center md:text-lg">Scan the QR code to give securely and instantly.</p>
   </div>
 </div>
+
 </BaseLayout>
