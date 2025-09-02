@@ -3,18 +3,22 @@ const {
   title = "Register",
   titleClass = "text-2xl font-medium text-brand-warmgray-800 text-center tracking-wide mb-6",
   eventName = "Bring Them To Jesus",
-  ctaText = "Save My Spot"
+  ctaText = "Save My Spot",
+  disabled = true
 } = Astro.props;
 ---
 
 <section class="max-w-3xl mx-auto px-4 py-12">
   <h2 class={titleClass}>{title}</h2>
 
-<div class="text-center py-12">
-  <p class="text-xl font-medium text-brand-warmgray-700 animate-pulse">
-    Registration will open soon. Stay tuned!
-  </p>
-</div>    <input type="text" id="firstName" name="firstName" required placeholder="Name *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
+  <form id="registrationForm">
+    <div class="text-center py-12">
+      <p class="text-xl font-medium text-brand-warmgray-700 animate-pulse">
+        Registration will open soon. Stay tuned!
+      </p>
+    </div>
+
+    <input type="text" id="firstName" name="firstName" required placeholder="Name *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
     <input type="text" id="surname" name="surname" required placeholder="Surname *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
     <input type="tel" id="contact" name="contact" required placeholder="Contact Number *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
     <input type="email" id="email" name="email" required placeholder="Email Address *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
@@ -38,33 +42,45 @@ const {
     <div>
       <label for="postalCode" class="block text-sm font-medium text-gray-700">Postal Code</label>
       <input
-  type="text"
-  id="postalCode"
-  name="postalCode"
-  required
-  minlength="3"
-  maxlength="10"
-  pattern=".{3,10}"
-  title="Enter a valid postal code (3–10 characters)"
-  placeholder="Postal Code *"
-  class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
-/>
-<small class="text-sm text-gray-500">Postal codes vary by country — enter 3 to 10 characters (e.g. 2196, W1A 1AA)</small>
-    
+        type="text"
+        id="postalCode"
+        name="postalCode"
+        required
+        minlength="3"
+        maxlength="10"
+        pattern=".{3,10}"
+        title="Enter a valid postal code (3–10 characters)"
+        placeholder="Postal Code *"
+        class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
+      />
+      <small class="text-sm text-gray-500">Postal codes vary by country — enter 3 to 10 characters (e.g. 2196, W1A 1AA)</small>
     </div>
 
-    <div class="text-center">
+    <!-- CTA Button -->
+    <div class="text-center mt-6">
       <button
         type="submit"
-        class="inline-flex items-center space-x-2 px-5 py-2.5 bg-brand-red text-white font-semibold rounded-full 
-               hover:bg-red-700 hover:scale-105 hover:shadow-lg 
-               transition-transform duration-300 ease-in-out"
+        disabled={disabled}
+        class={`inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold shadow-md transition ${
+          disabled
+            ? "bg-gray-400 cursor-not-allowed opacity-60"
+            : "bg-brand-red text-white hover:bg-red-700 hover:shadow-lg"
+        }`}
       >
         <span>{ctaText}</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M7 7h10v10" />
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-5 w-5 animate-pulse"
+             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M7 17L17 7M7 7h10v10" />
         </svg>
       </button>
+
+      {disabled && (
+        <p class="mt-2 text-sm text-gray-500 italic">
+          Registration is not yet open. Stay tuned!
+        </p>
+      )}
     </div>
   </form>
 </section>
