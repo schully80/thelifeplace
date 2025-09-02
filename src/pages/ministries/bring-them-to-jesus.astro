@@ -3,8 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import RegisterForm from "../../components/RegisterForm.astro";
 ---
 
-
-  <BaseLayout title="Bring Them To Jesus">
+<BaseLayout title="Bring Them To Jesus">
 
   <!-- Hero -->
   <section class="relative full-bleed">
@@ -34,21 +33,21 @@ import RegisterForm from "../../components/RegisterForm.astro";
     <div class="grid gap-6 md:gap-8 md:grid-cols-3">
       
       <!-- Objective -->
-     <article class="rounded-xl border bg-white p-6 shadow-sm">
-  <h2 class="text-2xl font-semibold mb-3">Objective</h2>
-  <p class="text-lg text-brand-warmgray-800">
-    The program is designed for parents who desire to bring their children to Jesus, young or grown.
-  </p>
-  <p class="text-lg mt-3 text-brand-warmgray-800">
-    Parents are introduced to Jesus-centered parenting, which then guides them to parent with grace and trust in Jesus’s finished work.
-  </p>
-</article>
+      <article class="rounded-xl border bg-white p-6 shadow-sm">
+        <h2 class="text-2xl font-semibold mb-3">Objective</h2>
+        <p class="text-lg text-brand-warmgray-800">
+          The program is designed for parents who desire to bring their children to Jesus, young or grown.
+        </p>
+        <p class="text-lg mt-3 text-brand-warmgray-800">
+          Parents are introduced to Jesus-centered parenting, which then guides them to parent with grace and trust in Jesus’s finished work.
+        </p>
+      </article>
 
-            <!-- Duration -->
+      <!-- Duration -->
       <article class="rounded-xl border bg-white p-6 shadow-sm">
         <h2 class="text-2xl font-semibold mb-3">Duration</h2>
         <p class="text-lg text-brand-warmgray-800">
-        <strong>Two-weeks</strong>, two sessions, ninety minutes each — preparing you for a lifetime commitment.
+          <strong>Two-weeks</strong>, two sessions, ninety minutes each — preparing you for a lifetime commitment.
         </p>
       </article>
 
@@ -60,7 +59,9 @@ import RegisterForm from "../../components/RegisterForm.astro";
           <li><span class="font-bold">Duration:</span> 2 sessions, 90 minutes each.</li>
           <li><span class="font-bold">Materials:</span> <em>Bring Them to Jesus Handbook</em> and your Bible.</li>
         </ul>
-   </div>
+      </article>
+    </div>
+
     <!-- Costs -->
     <article class="mt-10 max-w-xl mx-auto rounded-xl border bg-white p-6 shadow-sm text-center">
       <h2 class="text-2xl font-semibold mb-3">Costs</h2>
@@ -69,28 +70,37 @@ import RegisterForm from "../../components/RegisterForm.astro";
       </p>
     </article>
 
-   <div class="mt-12 max-w-2xl mx-auto">
-  <RegisterForm
-  title=" We'd love to see you - drop your details below"
-  titleClass="text-2xl font-medium text-brand-warmgray-800 text-center mb-4"
-    eventName="Bring Them To Jesus"
-    paymentLink="/give"
-    successMessage="Thank you for registering!"
-    ctaText="Save My Spot"
-    fields={[
-      { id: "firstName", label: "Name", type: "text", required: true },
-      { id: "surname", label: "Surname", type: "text", required: true },
-      { id: "contact", label: "Contact Number", type: "tel", required: true },
-      { id: "email", label: "Email Address", type: "email", required: true },
-      { id: "streetAddress", label: "Street Address", type: "text", required: true },
-      { id: "suburb", label: "Suburb", type: "text", required: true },
-      { id: "city", label: "City", type: "text", required: true },
-      { id: "postalCode", label: "Postal Code", type: "text", required: true, maxlength: 4, pattern: "\\d{4}" },
-      { id: "attendees", label: "Number of People Attending", type: "number", required: true, min: 1 }
-    ]}
-  />
-</div>
-<p class="text-m text-gray-500 text-center italic mt-2">
-  Once you save your spot, we’ll guide you to the Give page to finalize your registration.
-</p>
+    <!-- Registration Placeholder -->
+    <div class="mt-12 max-w-2xl mx-auto text-center py-10">
+      <p class="text-xl font-medium text-brand-warmgray-700 animate-pulse">
+        Registration for <strong>Bring Them To Jesus</strong> will open soon. Stay tuned!
+      </p>
+    </div>
+
+    <p class="text-m text-gray-500 text-center italic mt-2">
+      Once registration opens, we’ll guide you to the Give page to finalize your spot.
+    </p>
+
+    {/* 
+    <RegisterForm
+      title="We'd love to see you - drop your details below"
+      titleClass="text-2xl font-medium text-brand-warmgray-800 text-center mb-4"
+      eventName="Bring Them To Jesus"
+      paymentLink="/give"
+      successMessage="Thank you for registering!"
+      ctaText="Save My Spot"
+      fields={[
+        { id: "firstName", label: "Name", type: "text", required: true },
+        { id: "surname", label: "Surname", type: "text", required: true },
+        { id: "contact", label: "Contact Number", type: "tel", required: true },
+        { id: "email", label: "Email Address", type: "email", required: true },
+        { id: "streetAddress", label: "Street Address", type: "text", required: true },
+        { id: "suburb", label: "Suburb", type: "text", required: true },
+        { id: "city", label: "City", type: "text", required: true },
+        { id: "postalCode", label: "Postal Code", type: "text", required: true, maxlength: 4, pattern: "\\d{4}" },
+        { id: "attendees", label: "Number of People Attending", type: "number", required: true, min: 1 }
+      ]}
+    />
+    */}
+  </section>
 </BaseLayout>
