@@ -1,25 +1,26 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import RegisterForm from "../../components/RegisterForm.astro";
-
-const url = new URL(Astro.request.url);
-const event = url.searchParams.get("event") ?? "Bring Them To Jesus";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Thank You">
-  <section class="max-w-2xl mx-auto px-4 py-12 text-center space-y-6">
-    <h1 class="text-3xl font-bold text-brand-red">You're Registered!</h1>
-    <p class="text-lg text-brand-warmgray-800">
-      Thank you for registering for <strong>{event}</strong>.
+  <section class="container-x py-20 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold text-brand-red mb-6">Thank You!</h1>
+    <p class="text-xl md:text-2xl text-brand-warmgray-700 mb-8">
+      Your registration has been received. We’re excited to welcome you to <strong>The Life Place</strong>.
     </p>
-    <p class="text-md text-brand-warmgray-700">
-      We’ll see you on <strong>Saturday, Sept 14</strong> at <strong>The Life Place, Sandton</strong>.
-    </p>
-    <p class="text-sm text-brand-warmgray-600 italic">
-      “Let the children come to me…” — Matthew 19:14
-    </p>
-    <a href="/" class="inline-block mt-6 px-6 py-3 bg-brand-red text-white rounded-full hover:bg-red-700 transition">
-      Return to Home
-    </a>
+
+    <div class="max-w-xl mx-auto text-brand-warmgray-800 text-lg leading-relaxed">
+      <p class="mb-4">
+        You’ll receive a confirmation email shortly with event details and next steps. If you have any questions, feel free to reach out to us at <a href="mailto:hello@thelifeplace.org" class="text-brand-red underline">hello@thelifeplace.org</a>.
+      </p>
+      <p>
+        In the meantime, feel free to explore our upcoming events, listen to past messages, or plan your visit.
+      </p>
+    </div>
+
+    <div class="mt-10 flex justify-center gap-4">
+      <a href="/events" class="btn btn-outline">View Events</a>
+      <a href="/plan-a-visit" class="btn btn-primary">Plan a Visit</a>
+    </div>
   </section>
 </BaseLayout>
