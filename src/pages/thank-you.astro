@@ -16,15 +16,18 @@ const thankYouMessage = event === "Giving"
 <BaseLayout title="Thank You">
   <section class="container-x py-20 text-center">
     <h1 class="text-4xl md:text-5xl font-bold text-brand-red mb-6">Thank You!</h1>
-    <p class="text-xl md:text-2xl text-brand-warmgray-700 mb-8">
-      Your registration has been received. We’re excited to welcome you to <strong>The Life Place</strong>.
+
+    <p class="text-lg text-brand-warmgray-700 text-center mt-6">
+      {thankYouMessage}
     </p>
 
-    <div id="thankYouMessage" class="hidden mt-10 text-center">
-  <h2 class="text-2xl font-semibold text-brand-red mb-2">Thank You!</h2>
-  <p class="text-lg text-brand-warmgray-700">
-    {thankYouMessage}
-  </p>
-</div>
+    <div class="mt-6 text-center">
+      {event === "Giving" && (
+        <a href="/give" class="btn btn-outline mt-4">Give Again</a>
+      )}
+      {event === "Registration" && (
+        <a href="/plan-a-visit" class="btn btn-primary mt-4">Plan Another Visit</a>
+      )}
+    </div>
   </section>
 </BaseLayout>

@@ -1,32 +1,57 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import SnapScanConfirmForm from "../../components/SnapScanConfirmForm.astro";
 
 const url = new URL(Astro.request.url);
 const event = url.searchParams.get("event");
 ---
 <BaseLayout title="Generosity">
-  <section class="container-x py-10 md:py-14">
-    <p class="text-2xl md:text-2xl font-medium tracking-wide">
-      Your generosity helps others to <span class="text-gray-800">Come. See. <span class="text-[#B3282D]">Jesus</span>
+  <section class="container-x py-14 text-center">
+    <h1 class="text-4xl md:text-4xl font-bold text-brand-red mb-6">Generosity</h1>
+    <p class="text-xl md:text-2xl text-brand-warmgray-700 max-w-3xl mx-auto">
+      Generosity is our expression of who Jesus is and what He does. Even between events, your giving helps others <span class="text-[#B3282D]">Come. See. Jesus.</span>
     </p>
-    
+  </section>
+
 <div class="flex justify-center">
   <div class="grid gap-10 md:gap-20 md:grid-cols-2 items-start mt-8 max-w-4xl w-full">
     
-    <!-- EFT Column -->
-    <div>
-      <h2 class="text-2xl font-bold mb-4 text-center">EFT Banking Details</h2>
-      <div class="rounded-xl border-2 border-gray-300 p-6 md:p-8 bg-white shadow-sm">
-        <div class="space-y-3 text-center md:text-lg">
-          <div><span class="font-semibold">Account Name:</span> The Life Place</div>
-          <div><span class="font-semibold">Bank:</span> Standard Bank</div>
-          <div><span class="font-semibold">Account Number:</span> 30&nbsp;152&nbsp;4351</div>
-          <div><span class="font-semibold">Branch Code:</span> 051001</div>
-          <div><span class="font-semibold">Account Type:</span> Cheque</div>
-          <div><span class="font-semibold">SWIFT:</span> SBZA&nbsp;ZA&nbsp;JJ</div>
-        </div>
+    <!-- EFT + In Person Column -->
+<div class="space-y-10">
+  <!-- EFT Section -->
+  <div>
+    <h2 class="text-2xl font-bold mb-4 text-center">EFT Banking Details</h2>
+    <div class="rounded-xl border-2 border-gray-300 p-6 md:p-8 bg-white shadow-sm">
+    <div class="flex justify-center mb-4">
+  <img src="/reshot-icon-laptop-Y6XNMWGB8C.svg" alt="laptop icon" class="h-15 w-14" />
+</div>
+      <div class="space-y-3 text-center md:text-lg">
+        <div><span class="font-semibold">Account Name:</span> The Life Place</div>
+        <div><span class="font-semibold">Bank:</span> Standard Bank</div>
+        <div><span class="font-semibold">Account Number:</span> 30&nbsp;152&nbsp;4351</div>
+        <div><span class="font-semibold">Branch Code:</span> 051001</div>
+        <div><span class="font-semibold">Account Type:</span> Cheque</div>
+        <div><span class="font-semibold">SWIFT:</span> SBZA&nbsp;ZA&nbsp;JJ</div>
       </div>
     </div>
+  </div>
+
+  <!-- Give In Person Section -->
+  <div>
+    <h2 class="text-2xl font-bold mb-4 text-center">Give In Person</h2>
+    <div class="rounded-xl border-2 border-gray-300 p-6 md:p-8 bg-white shadow-sm">
+    <div class="flex justify-center mb-4">
+  <img src="/hand-holding-heart-svgrepo-com.png" alt="Hand giving icon" class="h-15 w-14" />
+</div>
+      <div class="space-y-4 text-center text-brand-warmgray-700 md:text-lg">
+        <p>
+          While we encourage online giving for security and simplicity, we gladly receive in-person gifts during our weekend gatherings.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 
     <!-- SnapScan Column -->
 <div>
@@ -37,14 +62,24 @@ const event = url.searchParams.get("event");
 
   <div class="rounded-xl border-2 border-gray-300 p-6 md:p-8 bg-white shadow-sm flex flex-col items-center space-y-4">
     <!-- QR Placeholder -->
+    <div class="flex justify-center mb-4">
+  <img src="/reshot-icon-hand-holding-smartphone-4L7F8HCGWT.svg" alt="Hand holding smartphone icon" class="h-15 w-14" />
+</div>
     <img src="/SnapCode_1.png" alt="SnapScan QR Code" class="w-40 h-50" />
 
     <!-- Description -->
-    <p class="text-center md:text-lg">Scan the QR code via your banking app to give securely and instantly.</p>
-  </div>
+    <h2 class="text-xl font-semibold text-center mt-10 mb-4 text-brand-warmgray-800">Give Securely</h2>
+<p class="text-center text-brand-warmgray-700 mb-6">
+  Whether once-off or recurring, your gift helps us prepare the ground for what God is doing next.
+</p>
+
+<!-- 👇 Add confirmation form here -->
+<SnapScanConfirmForm
+  title="Confirm Your Gift"
+  eventName="Support the Mission"
+  snapMessage="Thank you for your generosity. We’ve received your confirmation."
+  ctaText="I’ve Given"
+/>
 </div>
-
-
-
-
+  </section>
 </BaseLayout>
