@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import RegisterForm from "../../components/RegisterForm.astro";
 
 const url = new URL(Astro.request.url);
 const event = url.searchParams.get("event") ?? "Bring Them To Jesus";

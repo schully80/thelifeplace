@@ -22,7 +22,6 @@ const {
     <input type="text" id="surname" name="surname" required placeholder="Surname *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
     <input type="tel" id="contact" name="contact" required placeholder="Contact Number *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
     <input type="email" id="email" name="email" required placeholder="Email Address *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
-    <input type="number" id="attendees" name="attendees" min="1" required placeholder="Number of People Attending *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
 
     <div>
       <label for="streetAddress" class="block text-sm font-medium text-gray-700">Street Address</label>
@@ -89,12 +88,11 @@ const {
   function generateReferenceCode(eventName, formData) {
     const firstName = formData.firstName?.trim() || "Guest";
     const surname = formData.surname?.trim() || "Unknown";
-    const attendees = formData.attendees?.trim() || "1";
     const suburb = formData.suburb?.trim().replace(/\s+/g, '') || "Unknown";
     const city = formData.city?.trim().replace(/\s+/g, '') || "Unknown";
     const postalCode = formData.postalCode?.trim() || "0000";
 
-    return `${eventName.replace(/\s+/g, '')}-${firstName}${surname}-${attendees}-${suburb}-${city}-${postalCode}`;
+    return `${eventName.replace(/\s+/g, '')}-${firstName}${surname}-${suburb}-${city}-${postalCode}`;
   }
 
   document.getElementById("registrationForm").addEventListener("submit", function (e) {

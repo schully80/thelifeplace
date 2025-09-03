@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import RegisterForm from "../../components/RegisterForm.astro";
 import { site } from "../../../site.config.js";
 ---
 
@@ -7,11 +8,10 @@ import { site } from "../../../site.config.js";
   <section class="container-x py-14 md:py-20">
     <h1 class="text-3xl md:text-4xl font-medium text-center">Plan a Visit</h1>
 
-    <!-- Slogan under heading -->
     <p class="mt-6 text-lg sm:text-2xl text-center text-gray-700">
       Come. See. <span class="text-[#B3282D]">Jesus</span>
     </p>
-        
+
     <p class="mt-4 mb-8 text-center text-2xl md:text-xl">
       1 Elm Avenue, Craigavon AH, 2191, Sandton 
     </p>
@@ -20,9 +20,26 @@ import { site } from "../../../site.config.js";
       <a class="btn btn-outline" href={`mailto:${site.contact.email}`}>
         email us @hello@thelifeplace.org
       </a>
-        </div>
-      </div>
     </div>
+
+    <RegisterForm
+  title="We'd love to see you — drop your details below"
+  eventName="Plan a Visit"
+  paymentLink="/give"
+  successMessage="Thank you for registering!"
+  ctaText="Save My Spot"
+  disabled={true}
+  fields={[
+    { id: "firstName", label: "Name", type: "text", required: true },
+    { id: "surname", label: "Surname", type: "text", required: true },
+    { id: "contact", label: "Contact Number", type: "tel", required: true },
+    { id: "email", label: "Email Address", type: "email", required: true },
+    { id: "streetAddress", label: "Street Address", type: "text", required: true },
+    { id: "suburb", label: "Suburb", type: "text", required: true },
+    { id: "city", label: "City", type: "text", required: true },
+    { id: "postalCode", label: "Postal Code", type: "text", required: true, minlength: 3, maxlength: 10, pattern: ".{3,10}" }
+  ]}
+/>
 
     <!-- Location Map -->
     <div class="mt-8 rounded-xl overflow-hidden shadow-lg">
