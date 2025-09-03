@@ -27,8 +27,9 @@ import { site } from "../../../site.config.js";
   eventName="Plan a Visit"
   paymentLink="/give"
   successMessage="Thank you for registering!"
-  ctaText="Save My Spot"
-  disabled={true}
+  ctaText="Connect With Us"
+  disabled={false}
+  showNotice={false} // 👈 hides both messages
   fields={[
     { id: "firstName", label: "Name", type: "text", required: true },
     { id: "surname", label: "Surname", type: "text", required: true },
