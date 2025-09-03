@@ -86,27 +86,3 @@ const {
     </div>
   </form>
 </section>
-
-<script client:load>
-  function generateReferenceCode(eventName, formData) {
-    const firstName = formData.firstName?.trim() || "Guest";
-    const surname = formData.surname?.trim() || "Unknown";
-    const suburb = formData.suburb?.trim().replace(/\s+/g, '') || "Unknown";
-    const city = formData.city?.trim().replace(/\s+/g, '') || "Unknown";
-    const postalCode = formData.postalCode?.trim() || "0000";
-
-    return `${eventName.replace(/\s+/g, '')}-${firstName}${surname}-${suburb}-${city}-${postalCode}`;
-  }
-
-  document.getElementById("registrationForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const formData = Object.fromEntries(new FormData(e.target));
-    const eventName = "Bring Them To Jesus";
-    const referenceCode = generateReferenceCode(eventName, formData);
-
-    const encodedEvent = encodeURIComponent(eventName);
-    const encodedRef = encodeURIComponent(referenceCode);
-
-    window.location.href = `/give?event=${encodedEvent}&ref=${encodedRef}`;
-  });
-</script>
