@@ -70,8 +70,7 @@ import RegisterForm from "../../components/RegisterForm.astro";
           title="We'd love to see you — drop your details below"
           titleClass="text-2xl font-medium text-brand-warmgray-800 text-center mb-4"
           eventName="Vision Night"
-          paymentLink="/give"
-          successMessage="Thank you for registering!"
+          successMessage="Your registration has been received. We can’t wait to welcome you."
           ctaText="Save My Spot"
           disabled={true}
           fields={[
@@ -86,5 +85,10 @@ import RegisterForm from "../../components/RegisterForm.astro";
             { id: "attendees", label: "Number of People Attending", type: "number", required: true, min: 1 }
           ]}
         />
+
+             <p class="text-lg text-brand-warmgray-700">
+  {thankYouMessage}
+</p>
+<div>
   </section>
 </BaseLayout>

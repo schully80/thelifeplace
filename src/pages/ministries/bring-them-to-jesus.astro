@@ -91,5 +91,10 @@ import RegisterForm from "../../components/RegisterForm.astro";
           { id: "postalCode", label: "Postal Code", type: "text", required: true, minlength: 3, maxlength: 10, pattern: ".{3,10}" },
           { id: "attendees", label: "Number of People Attending", type: "number", required: true, min: 1 }
         ]}
+
+        <p class="text-lg text-brand-warmgray-700">
+  {thankYouMessage}
+</p>
+<div>
   </section>
 </BaseLayout>

@@ -17,5 +17,31 @@ import RegisterForm from "../../components/RegisterForm.astro";
         <em class="text-[#B3282D]">Come. See. Jesus.</em>
       </p>
     </div>
+     <!-- Registration Form -->
+    <div class="mt-12 max-w-2xl mx-auto">
+      <RegisterForm
+        title="We'd love to see you — drop your details below"
+        titleClass="text-2xl font-medium text-brand-warmgray-800 text-center mb-4"
+        eventName="Bring Them To Jesus"
+        paymentLink="/give"
+        successMessage="Thank you for registering!"
+        ctaText="Save My Spot"
+        disabled={true}
+        fields={[
+          { id: "firstName", label: "Name", type: "text", required: true },
+          { id: "surname", label: "Surname", type: "text", required: true },
+          { id: "contact", label: "Contact Number", type: "tel", required: true },
+          { id: "email", label: "Email Address", type: "email", required: true },
+          { id: "streetAddress", label: "Street Address", type: "text", required: true },
+          { id: "suburb", label: "Suburb", type: "text", required: true },
+          { id: "city", label: "City", type: "text", required: true },
+          { id: "postalCode", label: "Postal Code", type: "text", required: true, minlength: 3, maxlength: 10, pattern: ".{3,10}" },
+          { id: "attendees", label: "Number of People Attending", type: "number", required: true, min: 1 }
+        ]}
+
+             <p class="text-lg text-brand-warmgray-700">
+  {thankYouMessage}
+</p>
+<div>
   </section>
 </BaseLayout>

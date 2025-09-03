@@ -1,5 +1,16 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const url = new URL(Astro.request.url);
+const event = url.searchParams.get("event");
+
+const thankYouMessage = event === "Giving"
+  ? "Thank you for your giving. Your generosity is deeply appreciated."
+  : event === "Donation"
+  ? "Thank you for your donation. You’re helping us reach more lives with grace."
+  : event === "Registration"
+  ? "Your registration has been received. We’re excited to welcome you to The Life Place."
+  : "Thank you! We’ve received your submission.";
 ---
 
 <BaseLayout title="Thank You">
@@ -9,18 +20,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       Your registration has been received. We’re excited to welcome you to <strong>The Life Place</strong>.
     </p>
 
-    <div class="max-w-xl mx-auto text-brand-warmgray-800 text-lg leading-relaxed">
-      <p class="mb-4">
-        You’ll receive a confirmation email shortly with event details and next steps. If you have any questions, feel free to reach out to us at <a href="mailto:hello@thelifeplace.org" class="text-brand-red underline">hello@thelifeplace.org</a>.
-      </p>
-      <p>
-        In the meantime, feel free to explore our upcoming events, listen to past messages, or plan your visit.
-      </p>
-    </div>
-
-    <div class="mt-10 flex justify-center gap-4">
-      <a href="/events" class="btn btn-outline">View Events</a>
-      <a href="/plan-a-visit" class="btn btn-primary">Plan a Visit</a>
-    </div>
+    <div id="thankYouMessage" class="hidden mt-10 text-center">
+  <h2 class="text-2xl font-semibold text-brand-red mb-2">Thank You!</h2>
+  <p class="text-lg text-brand-warmgray-700">
+    {thankYouMessage}
+  </p>
+</div>
   </section>
 </BaseLayout>
