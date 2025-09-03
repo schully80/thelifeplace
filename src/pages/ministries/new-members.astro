@@ -2,7 +2,6 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import RegisterForm from "../../components/RegisterForm.astro";
 ---
-
 <BaseLayout title="New @The Life Place">
   <section class="relative full-bleed">
     <div class="relative min-h-[38vh] md:min-h-[50vh] flex items-center justify-center">
@@ -85,10 +84,7 @@ import RegisterForm from "../../components/RegisterForm.astro";
             { id: "attendees", label: "Number of People Attending", type: "number", required: true, min: 1 }
           ]}
         />
-
-             <p class="text-lg text-brand-warmgray-700">
-  {thankYouMessage}
-</p>
-<div>
+      </div>
+    </div>
   </section>
 </BaseLayout>

@@ -2,7 +2,6 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import RegisterForm from "../../components/RegisterForm.astro";
 ---
-
 <BaseLayout title="Gen">
   <!-- Full-bleed hero with dark overlay -->
   <section class="relative full-bleed">
@@ -33,13 +32,12 @@ import RegisterForm from "../../components/RegisterForm.astro";
       </p>
     </div>
 
-
     <!-- Registration Form -->
     <div class="mt-12 max-w-2xl mx-auto">
       <RegisterForm
         title="We'd love to see you — drop your details below"
         titleClass="text-2xl font-medium text-brand-warmgray-800 text-center mb-4"
-        eventName="Bring Them To Jesus"
+        eventName="ThisGen"
         paymentLink="/give"
         successMessage="Thank you for registering!"
         ctaText="Save My Spot"
@@ -55,10 +53,7 @@ import RegisterForm from "../../components/RegisterForm.astro";
           { id: "postalCode", label: "Postal Code", type: "text", required: true, minlength: 3, maxlength: 10, pattern: ".{3,10}" },
           { id: "attendees", label: "Number of People Attending", type: "number", required: true, min: 1 }
         ]}
-
-             <p class="text-lg text-brand-warmgray-700">
-  {thankYouMessage}
-</p>
-<div>
+      />
+    </div>
   </section>
 </BaseLayout>

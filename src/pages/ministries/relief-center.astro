@@ -1,8 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-
 ---
-
 <BaseLayout title="Relief Center">
   <section class="container-x py-12 md:py-16">
     <h1 class="text-center text-3xl md:text-4xl font-medium mb-6">Relief Center</h1>
@@ -19,22 +17,17 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       </p>
 
       <!-- Donate Button -->
-<div class="mt-6 flex justify-end">
-  <a 
-    href="/give/" 
-    class="inline-block rounded-full bg-[#B3282D] px-6 py-3 
-           text-xl font-medium text-white shadow-md 
-           transform transition-transform duration-300 hover:scale-105 
-           hover:bg-red-700 hover:shadow-lg"
-  >
-    Donate
-  </a>
-</div>
+      <div class="mt-6 flex justify-end">
+        <a 
+          href="/give/" 
+          class="inline-block rounded-full bg-[#B3282D] px-6 py-3 
+                 text-xl font-medium text-white shadow-md 
+                 transform transition-transform duration-300 hover:scale-105 
+                 hover:bg-red-700 hover:shadow-lg"
+        >
+          Donate
+        </a>
+      </div>
     </div>
-
-         <p class="text-lg text-brand-warmgray-700">
-  {thankYouMessage}
-</p>
-<div>
   </section>
 </BaseLayout>

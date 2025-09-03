@@ -2,7 +2,6 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import RegisterForm from "../../components/RegisterForm.astro";
 ---
-
 <BaseLayout title="Faith & Work">
   <section class="container-x py-12 md:py-16 text-center">
     <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-orange-200">
@@ -13,7 +12,7 @@ import RegisterForm from "../../components/RegisterForm.astro";
         </span>
       </div>
       <p class="text-lg text-gray-700">
-        Equipping believers to integrate their faith with their daily work and calling.</br> 
+        Equipping believers to integrate their faith with their daily work and calling.<br />
         <em class="text-[#B3282D]">Come. See. Jesus.</em>
       </p>
     </div>
@@ -23,7 +22,7 @@ import RegisterForm from "../../components/RegisterForm.astro";
       <RegisterForm
         title="We'd love to see you — drop your details below"
         titleClass="text-2xl font-medium text-brand-warmgray-800 text-center mb-4"
-        eventName="Bring Them To Jesus"
+        eventName="Faith & Work"
         paymentLink="/give"
         successMessage="Thank you for registering!"
         ctaText="Save My Spot"
@@ -39,10 +38,7 @@ import RegisterForm from "../../components/RegisterForm.astro";
           { id: "postalCode", label: "Postal Code", type: "text", required: true, minlength: 3, maxlength: 10, pattern: ".{3,10}" },
           { id: "attendees", label: "Number of People Attending", type: "number", required: true, min: 1 }
         ]}
-
-             <p class="text-lg text-brand-warmgray-700">
-  {thankYouMessage}
-</p>
-<div>
+      />
+    </div>
   </section>
 </BaseLayout>
