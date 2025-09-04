@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
 import CookieConsent from "../components/CookieConsent.astro";
+import HeaderMobile from "../components/HeaderMobile.astro";
+import HeaderDesktop from "../components/HeaderDesktop.astro";
 
 const {
   title = "The Life Place",
@@ -11,6 +13,16 @@ const path = Astro.url.pathname;
 const isActive = (href: string) =>
   href === "/" ? path === "/" : path === href || (href !== "/" && path.startsWith(href));
 ---
+
+<!-- Animated Responsive Header -->
+<div class="sticky top-0 z-50 bg-white shadow">
+  <div class="transition-opacity duration-500 ease-in-out opacity-100 md:opacity-0 md:pointer-events-none">
+    <HeaderMobile />
+  </div>
+  <div class="transition-opacity duration-500 ease-in-out opacity-0 md:opacity-100">
+    <HeaderDesktop />
+  </div>
+</div>
 
 <!DOCTYPE html>
 <html lang="en" class="min-h-screen">
