@@ -1,14 +1,10 @@
----
----
-
 <div class="flex items-center gap-3 py-3">
-
   <!-- Logo -->
   <a href="/" class="flex-shrink-0" aria-label="The Life Place — Home">
     <img src="/logo.png" alt="The Life Place Logo" class="h-10 w-auto" />
   </a>
 
-  <!-- Title + Slogan (centered) -->
+  <!-- Title + Slogan -->
   <div class="flex-1 min-w-0">
     <a href="/" class="block text-center font-bold text-xl text-brand-red leading-tight">
       The Life Place
@@ -30,17 +26,17 @@
 </div>
 
 <!-- Slide-down menu -->
-<div id="mobile-menu" class="hidden border-t">
-  <nav class="py-2">
+<div id="mobile-menu" class="hidden border-t transition-all duration-300 ease-in-out">
+  <nav class="py-2" aria-label="Mobile site navigation">
     <a class="block px-4 py-3 hover:bg-gray-50" href="/what-to-expect/">What to Expect</a>
 
     <!-- About -->
     <details class="px-2">
-      <summary class="cursor-pointer select-none px-2 py-3 hover:bg-gray-50 rounded">About Us</summary>
+      <summary role="button" class="cursor-pointer select-none px-2 py-3 hover:bg-gray-50 rounded">About Us</summary>
       <div class="pl-4">
         <a class="block px-2 py-2 hover:bg-gray-50 rounded" href="/about-us/">Our Mission</a>
         <a class="block px-2 py-2 hover:bg-gray-50 rounded" href="/about-us/our-values/">Our Values</a>
-        <a class="block px-2 py-2 hover:bg-gray-50 rounded" href="/about-us/leadership/">Leadership</a>
+        <a class="block px-2 py-2 hover:bg-gray-50 rounded" href="/about-us/leadership/">Meet Schulter and Jenny </a>
       </div>
     </details>
 
@@ -48,7 +44,7 @@
 
     <!-- Ministries -->
     <details class="px-2">
-      <summary class="cursor-pointer select-none px-2 py-3 hover:bg-gray-50 rounded">Ministries</summary>
+      <summary role="button" class="cursor-pointer select-none px-2 py-3 hover:bg-gray-50 rounded">Ministries</summary>
       <div class="pl-4 py-1 text-[11px] uppercase tracking-wide text-gray-400">Onboarding</div>
       <a class="block px-6 py-2 hover:bg-gray-50 rounded" href="/ministries/new-members/">New @thelifeplace</a>
 
@@ -76,6 +72,7 @@
   if (btn && menu) {
     btn.addEventListener("click", () => {
       menu.classList.toggle("hidden");
+      btn.classList.toggle("open");
       const expanded = btn.getAttribute("aria-expanded") === "true";
       btn.setAttribute("aria-expanded", String(!expanded));
     });
