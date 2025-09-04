@@ -1,0 +1,84 @@
+<!-- Responsive Header -->
+<header class="flex items-center justify-between px-4 py-3 bg-white shadow sticky top-0 z-50" data-header="main-header">
+  <!-- Logo + Title -->
+  <a href="/" class="flex items-center gap-2" aria-label="The Life Place — Home">
+    <img src="/logo.png" alt="The Life Place Logo" class="h-10 md:h-16 w-auto" />
+    <div>
+      <div class="font-bold text-xl md:text-2xl text-brand-red leading-tight">The Life Place</div>
+      <div class="text-xs md:text-sm text-brand-warmgray-600">Come. See. Jesus</div>
+    </div>
+  </a>
+
+  <!-- Hamburger (mobile only) -->
+  <button
+    id="mobile-menu-toggle"
+    class="md:hidden inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:text-brand-red hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand-red"
+    aria-controls="mobile-menu"
+    aria-expanded="false"
+    aria-label="Open menu"
+  >
+    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+    </svg>
+  </button>
+
+  <!-- Desktop Nav (hidden on mobile) -->
+  <nav class="hidden md:flex items-center gap-6 font-montserrat text-sm md:text-base lg:text-lg ml-auto">
+    <!-- Your desktop nav links here -->
+    <!-- ... -->
+  </nav>
+</header>
+
+<!-- Mobile overlay menu -->
+<div id="mobile-menu" class="hidden fixed inset-0 z-[40] bg-black/40">
+  <nav class="absolute right-3 top-3 w-[88vw] max-w-xs rounded-lg border bg-white shadow-xl p-4 space-y-2"
+       role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <div class="flex items-center justify-between">
+      <span class="font-semibold">Menu</span>
+      <button id="mobile-menu-close" class="p-2 rounded hover:bg-gray-100" aria-label="Close menu">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Your mobile nav links here -->
+    <!-- ... -->
+  </nav>
+</div>
+
+<!-- Toggle Script -->
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggleBtn = document.getElementById("mobile-menu-toggle");
+    const closeBtn = document.getElementById("mobile-menu-close");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    // Open menu
+    if (toggleBtn && mobileMenu) {
+      toggleBtn.addEventListener("click", () => {
+        mobileMenu.classList.remove("hidden");
+        toggleBtn.setAttribute("aria-expanded", "true");
+      });
+    }
+
+    // Close menu via close button
+    if (closeBtn && mobileMenu) {
+      closeBtn.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+        toggleBtn.setAttribute("aria-expanded", "false");
+      });
+    }
+
+    // Fallback: close menu when clicking outside the nav panel
+    if (mobileMenu) {
+      mobileMenu.addEventListener("click", (event) => {
+        const navPanel = mobileMenu.querySelector("nav");
+        if (!navPanel.contains(event.target)) {
+          mobileMenu.classList.add("hidden");
+          toggleBtn?.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
+  });
+</script>
