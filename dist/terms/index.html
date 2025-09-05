@@ -1,46 +1,96 @@
-<!DOCTYPE html><html lang="en" class="min-h-screen"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><meta name="description" content="Come. See. Jesus."><title>Terms &amp; Conditions</title><!-- Fonts --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Sans+Pro:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/_astro/index.CYuyM3NW.css"></head> <body class="bg-white text-brand-warmgray antialiased min-h-screen flex flex-col"> <div class="flex-1"></div> <!-- Desktop nav --> <nav class="hidden md:flex items-center gap-6 font-montserrat text-base"> <a href="/what-to-expect/" class="relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300
-                    text-brand-darkgray hover:text-brand-red">What to Expect</a> <!-- About Us dropdown --> <div id="dd-about" class="relative group focus-within:z-50"> <button type="button" class="relative px-2 py-2
-            after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-            after:w-0 group-hover:after:w-full after:transition-all after:duration-300
-            text-brand-warmgray-700 group-hover:text-brand-red" aria-haspopup="true" aria-expanded="false">
+<!DOCTYPE html><html lang="en" class="min-h-screen"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><meta name="description" content="Come. See. Jesus."><title>Terms &amp; Conditions</title><!-- Fonts & Icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Sans+Pro:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/_astro/index.BoUJ_9cN.css"></head> <body class="bg-white text-brand-warmgray antialiased min-h-screen flex flex-col"> <!-- Mobile header (appears on < md) --> <header class="relative z-50 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 md:hidden"> <!-- Top bar --> <div class="h-16 flex items-center justify-between border-b px-4"> <a href="/" class="flex items-center gap-3 min-w-0" aria-label="The Life Place — Home"> <img src="/logo.png" alt="The Life Place Logo" class="h-12 w-auto"> <div class="flex flex-col min-w-0"> <span class="font-bold text-brand-red text-lg leading-tight truncate">The Life Place</span> <span class="text-[11px] text-brand-warmgray-600 text-center tracking-wide">Come. See. Jesus</span> </div> </a> <button id="mobileMenuButton" aria-label="Open menu" aria-controls="mobileNavDrawer" aria-expanded="false" class="inline-flex items-center justify-center h-10 w-10 rounded-md border border-brand-red bg-white active:scale-[0.98]" focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"> <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true"> <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path> </svg> </button> </div> <!-- Overlay (solid white, covers page) --> <div id="mobileNavOverlay" class="fixed inset-0 bg-white opacity-0 pointer-events-none transition-opacity z-[9998]" data-overlay></div> <!-- Drawer (RIGHT side, above overlay) --> <aside id="mobileNavDrawer" class="fixed inset-y-0 right-0 w-[86%] max-w-sm bg-white shadow-xl translate-x-full transition-transform will-change-transform z-[9999] focus:outline-none" role="dialog" aria-modal="true" aria-label="Mobile Navigation" tabindex="-1" data-drawer> <!-- Drawer header --><div class="h-16 px-4 flex items-center justify-end border-b"> <button id="mobileMenuClose" aria-label="Close menu" class="h-10 w-10 inline-flex items-center justify-center rounded-md border border-brand-red bg-white
+           active:scale-[0.98] 
+           focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"> <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true"> <path d="M6 6l12 12M18 6l-12 12" stroke="currentColor" stroke-width="1" stroke-linecap="round"></path> </svg> </button> </div> <!-- Drawer body --> <nav class="px-2 py-2 overflow-y-auto max-h-[calc(100dvh-4rem)]" aria-label="Mobile"> <!-- Direct link --> <a href="/what-to-expect/" class="block px-3 py-3 rounded-lg text-base text-brand-darkgray hover:bg-gray-50">What to Expect</a> <!-- About Us (accordion) --> <section class="mt-1" data-accordion> <button class="w-full flex items-center justify-between px-3 py-3 rounded-lg text-left text-base text-brand-darkgray hover:bg-gray-50" data-accordion-trigger aria-expanded="false" aria-controls="acc-about"> <span>About Us</span> <svg class="h-5 w-5 transition-transform" viewBox="0 0 24 24" aria-hidden="true"> <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"></path> </svg> </button> <div id="acc-about" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300" data-accordion-panel> <div class="overflow-hidden"> <ul class="py-1"> <li> <a href="/about-us/" class="block px-5 py-2 text-[15px] rounded-md text-brand-darkgray hover:bg-gray-50">Our Mission</a> </li> <li> <a href="/about-us/our-values" class="block px-5 py-2 text-[15px] rounded-md text-brand-darkgray hover:bg-gray-50">Our Values</a> </li> <li> <a href="/about-us/leadership" class="block px-5 py-2 text-[15px] rounded-md text-brand-darkgray hover:bg-gray-50">Meet Schulter and Jenny</a> </li> </ul> </div> </div> </section> <!-- Generosity --> <a href="/give/" class="mt-1 block px-3 py-3 rounded-lg text-base text-brand-darkgray hover:bg-gray-50">Generosity</a> <!-- Ministries (accordion) --> <section class="mt-1" data-accordion> <button class="w-full flex items-center justify-between px-3 py-3 rounded-lg text-left text-base text-brand-darkgray hover:bg-gray-50" data-accordion-trigger aria-expanded="false" aria-controls="acc-ministries"> <span>Ministries</span> <svg class="h-5 w-5 transition-transform" viewBox="0 0 24 24" aria-hidden="true"> <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"></path> </svg> </button> <div id="acc-ministries" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300" data-accordion-panel> <div class="overflow-hidden"> <ul class="py-1"> <li> <a href="/ministries/new-members/" class="block px-5 py-2 text-[15px] rounded-md text-brand-darkgray hover:bg-gray-50">New @The Life Place</a> </li> <li class="px-5 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Family</li> <li> <a href="/ministries/bring-them-to-jesus/" class="block px-5 py-2 text-[15px] rounded-md text-brand-darkgray hover:bg-gray-50">Bring Them To Jesus</a> </li> <li> <a href="/ministries/kids/" class="block px-5 py-2 text-[15px] rounded-md text-brand-darkgray hover:bg-gray-50">Kids @The Life Place</a> </li> <li> <a href="/ministries/gen/" class="block px-5 py-2 text-[15px] rounded-md text-brand-darkgray hover:bg-gray-50">ThisGen</a> </li> <li> <a href="/ministries/premarital-counseling/" class="block px-5 py-2 text-[15px] rounded-md text-brand-darkgray hover:bg-gray-50">Premarital Counseling</a> </li> <li class="px-5 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Formation</li> <li> <a href="/ministries/institute/" class="block px-5 py-2 text-[15px] rounded-md text-brand-darkgray hover:bg-gray-50">The Life Place Institute</a> </li> <li> <a href="/ministries/faith-and-work/" class="block px-5 py-2 text-[15px] rounded-md text-brand-darkgray hover:bg-gray-50">Faith &amp; Work</a> </li> <li class="px-5 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Outreach</li> <li> <a href="/ministries/relief-center/" class="block px-5 py-2 text-[15px] rounded-md text-brand-darkgray hover:bg-gray-50">Relief Center</a> </li> </ul> </div> </div> </section> <!-- Visit --> <a href="/visit/" class="mt-1 block px-3 py-3 rounded-lg text-base text-brand-darkgray hover:bg-gray-50">Visit</a> </nav> </aside> <!-- Inline behaviour --> <script>
+    (function () {
+      const body = document.documentElement; 
+      const btnOpen = document.getElementById('mobileMenuButton');
+      const btnClose = document.getElementById('mobileMenuClose');
+      const drawer = document.getElementById('mobileNavDrawer');
+      const overlay = document.getElementById('mobileNavOverlay');
+
+      if (!btnOpen || !btnClose || !drawer || !overlay) return;
+    if (overlay.parentElement !== document.body) document.body.appendChild(overlay);
+    if (drawer.parentElement  !== document.body) document.body.appendChild(drawer);
+      
+      const open = () => {
+        drawer.classList.remove('translate-x-full');   // slide IN from right
+        overlay.classList.remove('pointer-events-none');
+        overlay.classList.add('opacity-100');
+        btnOpen.setAttribute('aria-expanded', 'true');
+        body.style.overflow = 'hidden'; // lock scroll
+        drawer.focus();
+      };
+
+      const close = () => {
+        drawer.classList.add('translate-x-full');      // slide OUT to right
+        overlay.classList.add('pointer-events-none');
+        overlay.classList.remove('opacity-100');
+        btnOpen.setAttribute('aria-expanded', 'false');
+        body.style.overflow = ''; // unlock scroll
+        btnOpen.focus();
+      };
+
+      btnOpen.addEventListener('click', open);
+      btnClose.addEventListener('click', close);
+      overlay.addEventListener('click', close);
+
+      // ESC to close
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') close();
+      });
+
+      // Accordions
+      document.querySelectorAll('[data-accordion]').forEach((acc) => {
+        const trigger = acc.querySelector('[data-accordion-trigger]');
+        const panel = acc.querySelector('[data-accordion-panel]');
+        if (!trigger || !panel) return;
+
+        trigger.addEventListener('click', () => {
+          const expanded = trigger.getAttribute('aria-expanded') === 'true';
+          trigger.setAttribute('aria-expanded', String(!expanded));
+          const icon = trigger.querySelector('svg');
+          if (icon) icon.style.transform = expanded ? '' : 'rotate(180deg)';
+          panel.style.gridTemplateRows = expanded ? '0fr' : '1fr';
+        });
+      });
+    })();
+  </script> </header> <!-- Desktop header (hidden on mobile) --> <header class="hidden md:block relative z-30 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 overflow-visible"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center gap-4"> <!-- Logo + Title --> <a href="/" class="shrink-0" aria-label="The Life Place — Home"> <img src="/logo.png" alt="The Life Place Logo" class="h-10 md:h-16 w-auto"> </a> <div class="flex flex-col min-w-0"> <a href="/" class="site-title font-bold text-brand-red text-lg sm:text-xl md:text-2xl leading-tight">
+The Life Place
+</a> <span class="text-sm text-brand-warmgray-600 tracking-wide">
+Come. See. Jesus
+</span> </div> <div class="flex-1"></div> <!-- Desktop nav --> <nav class="flex items-center gap-6 font-montserrat text-base"> <a href="/what-to-expect/" class="relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 text-brand-darkgray hover:text-brand-red">
+What to Expect
+</a> <!-- About Us dropdown --> <div id="dd-about" data-dropdown class="relative focus-within:z-50"> <button data-trigger type="button" class="relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 text-brand-warmgray-700 hover:text-brand-red" aria-haspopup="true" aria-expanded="false">
 About Us
-</button> <div data-menu class="absolute left-0 top-full mt-1 w-56 rounded-md border bg-white shadow-lg z-50
-           hidden group-hover:block focus-within:block pt-1" role="menu" aria-label="About Us Menu"> <a <a <a href="/about-us/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"> <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
+</button> <div data-menu class="absolute left-0 top-full -mt-px w-56 rounded-md border bg-white shadow-lg z-50 hidden max-h-80 overflow-y-auto overscroll-contain pt-1" role="menu" aria-label="About Us Menu"> <a href="/about-us/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem"> <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
 Our Mission
-</span> </a> <a href="/about-us/our-values" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"> <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
+</span> </a> <a href="/about-us/our-values" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem"> <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
 Our Values
-</span></a> <a href="/about-us/leadership" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"> <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
+</span> </a> <a href="/about-us/leadership" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem"> <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
 Meet Schulter and Jenny
-</span></a> </div> </div> <a> <!-- Replace your current Generosity block with this simple link --> </a><a href="/give/" class="nav-underline relative z-10 px-2 py-2 whitespace-nowrap
-          text-warmgray-700 hover:text-brand-red">
+</span> </a> </div> </div> <!-- Generosity simple link --> <a href="/give/" class="nav-underline relative z-10 px-2 py-2 whitespace-nowrap text-brand-warmgray-700 hover:text-brand-red">
 Generosity
-</a> <!-- Ministries dropdown --> <div id="dd-ministries" class="relative group"> <button type="button" class="relative px-2 py-2 whitespace-nowrap after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 group-hover:after:w-full after:transition-all after:duration-300
-                      text-brand-warmgray group-hover:text-brand-red" aria-haspopup="true" aria-expanded="false">
+</a> <!-- Ministries dropdown --> <div id="dd-ministries" data-dropdown class="relative"> <button data-trigger type="button" class="relative px-2 py-2 whitespace-nowrap after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 text-brand-warmgray hover:text-brand-red" aria-haspopup="true" aria-expanded="false">
 Ministries
-</button> <div data-menu class="absolute left-0 top-full mt-1 w-64 rounded-md border bg-white shadow-lg z-50 hidden group-hover:block focus-within:block pt-1" role="menu" aria-label="Ministries Menu"> <!-- Onboarding --> <a href="/ministries/new-members/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"> <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">New @The Life Place</span></a> <!-- Family --> <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Family</div> <a href="/ministries/bring-them-to-jesus/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"> <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">Bring Them To Jesus</span></a> <a href="/ministries/kids/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"> <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">Kids @The Life Place</span></a> <a href="/ministries/gen/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"> <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">ThisGen</span></a> <a href="/ministries/premarital-counseling/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"> <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">Premarital Counseling</span></a> <!-- Formation --> <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Formation</div> <a href="/ministries/institute/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"> <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">The Life Place Institute</span></a> <a href="/ministries/faith-and-work/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"> <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">Faith &amp; Work</span></a> <!-- Outreach --> <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Outreach</div> <a href="/ministries/relief-center/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"> <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">Relief Center</span></a> </div> </div> <a href="/visit/" class="relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300
-                    text-brand-darkgray hover:text-brand-red">Visit</a> </nav> <!-- Hamburger (mobile only) --> <button id="mobile-menu-toggle" class="md:hidden ml-auto inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:text-brand-red hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand-red" aria-controls="mobile-menu" aria-expanded="false"> <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> </button> <!-- Mobile overlay menu --> <nav class="absolute right-3 top-3 w-[88vw] max-w-xs rounded-lg border bg-white shadow-xl p-2 space-y-1" role="dialog" aria-label="Mobile Navigation"> <div class="flex items-center justify-between px-2 py-1"> <span class="font-semibold">Menu</span> <button id="mobile-menu-close" class="p-2 rounded hover:bg-gray-100" aria-label="Close menu"> <i class="fa-solid fa-xmark"></i> </button> </div> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/what-to-expect/">What to Expect</a> <details class="group"> <summary class="px-3 py-2 rounded hover:bg-gray-50 cursor-pointer select-none"> <span class="inline-flex items-center justify-between w-full"> <span>About Us</span> <span class="ml-2 transition-transform group-open:rotate-90">›</span> </span> </summary> <div class="mt-1 pl-3 border-l space-y-1"> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/about-us/">Our Mission</a> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/about-us/our-values/">Our Values</a> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/about-us/leadership/">Meet Our Pastors</a> </div> </details> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/give/">Generosity</a> <details class="group"> <summary class="px-3 py-2 rounded hover:bg-gray-50 cursor-pointer select-none"> <span class="inline-flex items-center justify-between w-full"> <span>Ministries</span> <span class="ml-2 transition-transform group-open:rotate-90">›</span> </span> </summary> <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Onboarding</div> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/ministries/new-members/">New @The Life Place</a> <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Family</div> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/ministries/kids/">Kids @The Life Place</a> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/ministries/bring-them-to-jesus/">Bring Them To Jesus</a> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/ministries/premarital-counseling/">Premarital Counseling</a> <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Formation</div> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/ministries/institute/">The Life Place Institute</a> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/ministries/faith-and-work/">Faith &amp; Work</a> <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Outreach</div> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/ministries/relief-center/">Relief Center</a> </details> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/visit/">Visit</a> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/our-values/">Our Values</a> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/privacy-policy/">Privacy Policy</a> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/cookies/">Cookies</a> <a class="block px-3 py-2 rounded hover:bg-gray-50" href="/terms/">Terms</a> </nav> <!-- Page content --> <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1">  <section class="max-w-4xl mx-auto px-4 py-12"> <h1 class="text-4xl font-medium mb-6 text-gray-800">Terms & Conditions</h1> <p class="text-sm text-gray-500 mb-8">Last updated: January 2025</p> <div class="prose prose-gray max-w-none space-y-6"> <h3>Table of Contents</h3> <ol class="list-decimal ml-6 space-y-1"> <li>Agreement to Terms</li> <li>Intellectual Property Rights</li> <li>User Representations</li> <li>User Registration</li> <li>Prohibited Activities</li> <li>User Generated Contributions</li> <li>Third-Party Websites and Content</li> <li>Privacy Policy</li> <li>Modifications and Interruptions</li> <li>Limitation of Liability</li> <li>Indemnification</li> <li>Governing Law</li> <li>Contact Us</li> </ol> <h3>1. Agreement to Terms</h3> <p>
+</button> <div data-menu class="absolute left-0 top-full -mt-px w-64 rounded-md border bg-white shadow-lg z-50 hidden max-h-96 overflow-y-auto overscroll-contain pt-1" role="menu" aria-label="Ministries Menu"> <!-- Onboarding --> <a href="/ministries/new-members/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem"> <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
+New @The Life Place
+</span> </a> <!-- Family --> <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Family</div> <a href="/ministries/bring-them-to-jesus/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem"> <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
+Bring Them To Jesus
+</span> </a> <a href="/ministries/kids/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem"> <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
+Kids @The Life Place
+</span> </a> <a href="/ministries/gen/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem"> <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
+ThisGen
+</span> </a> <a href="/ministries/premarital-counseling/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem"> <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
+Premarital Counseling
+</span> </a> <!-- Formation --> <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Formation</div> <a href="/ministries/institute/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem"> <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
+The Life Place Institute
+</span> </a> <a href="/ministries/faith-and-work/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem"> <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
+Faith &amp; Work
+</span> </a> <!-- Outreach --> <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Outreach</div> <a href="/ministries/relief-center/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem"> <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
+Relief Center
+</span> </a> </div> </div> <a href="/visit/" class="relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 text-brand-darkgray hover:text-brand-red">
+Visit
+</a> </nav> </div> </header> <!-- Page content --> <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1">  <section class="max-w-4xl mx-auto px-4 py-12"> <h1 class="text-4xl font-medium mb-6 text-gray-800">Terms & Conditions</h1> <p class="text-sm text-gray-500 mb-8">Last updated: January 2025</p> <div class="prose prose-gray max-w-none space-y-6"> <h3>Table of Contents</h3> <ol class="list-decimal ml-6 space-y-1"> <li>Agreement to Terms</li> <li>Intellectual Property Rights</li> <li>User Representations</li> <li>User Registration</li> <li>Prohibited Activities</li> <li>User Generated Contributions</li> <li>Third-Party Websites and Content</li> <li>Privacy Policy</li> <li>Modifications and Interruptions</li> <li>Limitation of Liability</li> <li>Indemnification</li> <li>Governing Law</li> <li>Contact Us</li> </ol> <h3>1. Agreement to Terms</h3> <p>
 These Terms of Use constitute a legally binding agreement between you, whether personally or on behalf of
         an entity (“you”) and <strong>The Life Place</strong> (“we,” “us,” or “our”), concerning your access to and
         use of thelifplace.org website, related media forms, or channels (collectively, the “Site”).
@@ -84,7 +134,7 @@ If you have any questions regarding these Terms & Conditions, please contact us 
 </p> <address class="not-italic">
 The Life Place<br>
 1 Elm Avenue, Craigavon AH, 2191, Sandton, South Africa<br>
-Email: <a href="mailto:hello@thelifeplace.org" class="text-[#B3282D] underline">hello@thelifeplace.org</a> </address> </div> </section>  </main> <!-- Footer --> <footer class="bg-gray-100"> <div class="max-w-6xl mx-auto px-4 py-10 text-center text-sm space-y-6"> <!-- Social links --> <div class="flex justify-center gap-4"> <!-- Social icons unchanged --> </div> <!-- Footer links --> <div class="text-brand-warmgray-600 space-x-4"> <a href="/privacy-policy/" class="underline hover:underline">Privacy Policy</a> <a href="/cookies/" class="underline hover:underline">Cookies</a> <a href="/terms/" class="underline hover:underline">Terms</a> <span>© 2025 The Life Place. All Rights Reserved</span> </div> </div> </footer> <!-- Cookie banner --> <div class="cc-backdrop" aria-hidden="true" data-astro-cid-garwan2p></div> <div id="cookie-consent" class="cc-bar" role="dialog" aria-live="polite" aria-label="Cookie consent" data-astro-cid-garwan2p> <div class="cc-inner" data-astro-cid-garwan2p> <p class="cc-text" data-astro-cid-garwan2p>
+Email: <a href="mailto:hello@thelifeplace.org" class="text-[#B3282D] underline">hello@thelifeplace.org</a> </address> </div> </section>  </main> <!-- Footer --> <footer class="bg-gray-100 mt-8"> <div class="max-w-6xl mx-auto px-4 py-10 text-center text-sm space-y-6"> <!-- Social links --> <div class="flex justify-center gap-4"> <a href="https://facebook.com/thelifeplacesa" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="Facebook"> <i class="fab fa-facebook-f text-2xl text-white"></i> </a> <a href="https://instagram.com/thelifeplacesa" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="Instagram"> <i class="fab fa-instagram text-2xl text-white"></i> </a> <a href="https://youtube.com/@thelifeplacesa" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="YouTube"> <i class="fab fa-youtube text-2xl text-white"></i> </a> <a href="https://open.spotify.com/show/YOUR_SPOTIFY_ID" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="Spotify"> <i class="fab fa-spotify text-2xl text-white"></i> </a> <a href="https://podcasts.apple.com/your-show-link" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="Apple Podcasts"> <i class="fas fa-podcast text-2xl text-white"></i> </a> </div> <!-- Cookie banner --> <div class="cc-backdrop" aria-hidden="true" data-astro-cid-garwan2p></div> <div id="cookie-consent" class="cc-bar" role="dialog" aria-live="polite" aria-label="Cookie consent" data-astro-cid-garwan2p> <div class="cc-inner" data-astro-cid-garwan2p> <p class="cc-text" data-astro-cid-garwan2p>
 We use essential cookies to make this site work and, with your consent, analytics to improve it.
       See our <a class="cc-link" href="/privacy-policy/" data-astro-cid-garwan2p>Privacy Policy</a> and
 <a class="cc-link" href="/cookies/" data-astro-cid-garwan2p>Cookies</a>.
@@ -117,21 +167,58 @@ We use essential cookies to make this site work and, with your consent, analytic
     document.getElementById('cc-accept')?.addEventListener('click', () => setConsent('accepted'));
     document.getElementById('cc-decline')?.addEventListener('click', () => setConsent('declined'));
   })();
-</script> <!-- Scripts --> <script>
-  // Sticky desktop dropdowns
-  function wireStickyDropdown(id) {
-    const root = document.getElementById(id);
-    if (!root) return;
-    const menu = root.querySelector("[data-menu]");
-    if (!menu) return;
-    let t;
-    const show = () => { clearTimeout(t); menu.classList.remove("hidden"); };
-    const hide = () => { t = setTimeout(() => menu.classList.add("hidden"), 220); };
-    root.addEventListener("mouseenter", show);
-    root.addEventListener("mouseleave", hide);
-    root.addEventListener("focusin", show);
-    root.addEventListener("focusout", hide);
-  }
-  wireStickyDropdown("dd-about");
-  wireStickyDropdown("dd-ministries");
-</script> </body> </html>
+</script> <!-- Footer links --> <div class="flex flex-wrap justify-center items-center gap-4 text-brand-warmgray-600"> <a href="/privacy-policy/" class="underline hover:underline">Privacy Policy</a> <a href="/cookies/" class="underline hover:underline">Cookies</a> <a href="/terms/" class="underline hover:underline">Terms</a> <span>© 2025 The Life Place. All Rights Reserved</span> </div> </div> </footer> <!-- Dropdown behaviour (desktop) --> <script>
+      // Dropdown hover+scroll friendly behaviour with a small closing delay
+      (function () {
+        const HIDE_DELAY = 220; // ms: snappy but forgiving
+        document.querySelectorAll('[data-dropdown]').forEach((wrap) => {
+          const btn  = wrap.querySelector('[data-trigger]');
+          const menu = wrap.querySelector('[data-menu]');
+          if (!btn || !menu) return;
+
+          let hideTimer;
+
+          const open  = () => { clearTimeout(hideTimer); menu.classList.remove('hidden'); btn.setAttribute('aria-expanded', 'true'); };
+          const close = () => { hideTimer = setTimeout(() => { menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false'); }, HIDE_DELAY); };
+
+          // Hover / pointer movement
+          btn.addEventListener('mouseenter', open);
+          btn.addEventListener('mouseleave', close);
+          menu.addEventListener('mouseenter', open);
+          menu.addEventListener('mouseleave', close);
+
+          // Click toggles (useful for pointer devices)
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isHidden = menu.classList.contains('hidden');
+            isHidden ? open() : close();
+          });
+
+          // Keyboard accessibility
+          btn.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              open();
+              const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+              first?.focus();
+            }
+            if (e.key === 'Escape') { close(); btn.focus(); }
+          });
+          menu.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') { close(); btn.focus(); }
+          });
+        });
+
+        // Close any open dropdown if you click elsewhere
+        document.addEventListener('click', (e) => {
+          const openMenus = [...document.querySelectorAll('[data-dropdown] [data-menu]:not(.hidden)')];
+          openMenus.forEach((menu) => {
+            if (!menu.closest('[data-dropdown]')?.contains(e.target)) {
+              const btn = menu.parentElement.querySelector('[data-trigger]');
+              menu.classList.add('hidden');
+              btn?.setAttribute('aria-expanded', 'false');
+            }
+          });
+        });
+      })();
+    </script> </body> </html>
