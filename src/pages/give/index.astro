@@ -96,4 +96,50 @@ const event = url.searchParams.get("event");
       </div>
     </div>
   </div>
+
+ <!-- Annual Report block (mobile-first) -->
+<section class="container-x mt-12">
+  <div
+    class="rounded-xl border-2 border-gray-300 
+           p-6              <!-- mobile padding -->
+           md:p-8           <!-- desktop padding -->
+           bg-white shadow-sm 
+           max-w-3xl mx-auto">
+    <h2 class="text-2xl       <!-- mobile heading size -->
+               md:text-4xl    <!-- desktop heading size -->
+               font-bold text-center mb-2">
+      Annual Financial Report
+    </h2>
+
+    <p class="text-center 
+            text-lg leading-relaxed mb-4   <!-- mobile default -->
+            sm:text-base sm:leading-7 sm:mb-5  <!-- small tablets -->
+            md:text-xl md:leading-8 md:mb-6    <!-- desktop -->
+            text-brand-warmgray-700">
+    We value transparency. See how generosity is stewarded at The Life Place.
+  </p>
+
+
+    <div
+      class="flex flex-col      <!-- mobile: stack buttons vertically -->
+             sm:flex-row        <!-- ≥640px: row layout -->
+             justify-center gap-3">
+      <!-- Download -->
+      <a
+        href="/reports/annual-report-2024.pdf"
+        download
+        class="btn btn-outline">
+        Download 2024 (PDF)
+      </a>
+
+      <!-- View online -->
+      <a
+        href="/reports/annual-report-2024.pdf"
+        target="_blank" rel="noopener"
+        class="btn btn-ghost">
+        View Online
+      </a>
+    </div>
+  </div>
+</section>
 </BaseLayout>

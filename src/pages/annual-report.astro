@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Annual Report">
+  <section class="container-x py-14 md:py-20 text-center">
+    <h1 class="text-3xl md:text-5xl font-bold text-brand-red mb-6">
+      Annual Report
+    </h1>
+
+    <p class="text-lg md:text-xl text-brand-warmgray-700 mb-10">
+      We value transparency. Below you’ll find our most recent annual report.
+    </p>
+
+    <!-- 📄 Download button -->
+    <a href="/files/AnnualReport2024.pdf" 
+       target="_blank" 
+       rel="noopener"
+       class="btn btn-outline">
+      View / Download Annual Report (PDF)
+    </a>
+  </section>
+</BaseLayout>
