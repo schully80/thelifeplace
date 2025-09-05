@@ -2,7 +2,6 @@
 import "../styles/global.css";
 import CookieConsent from "../components/CookieConsent.astro";
 
-
 const {
   title = "The Life Place",
   description = "Come. See. Jesus.",
@@ -10,7 +9,9 @@ const {
 
 const path = Astro.url.pathname;
 const isActive = (href: string) =>
-  href === "/" ? path === "/" : path === href || (href !== "/" && path.startsWith(href));
+  href === "/"
+    ? path === "/"
+    : path === href || (href !== "/" && path.startsWith(href));
 ---
 
 <!DOCTYPE html>
@@ -21,232 +22,335 @@ const isActive = (href: string) =>
     <meta name="description" content={description} />
     <title>{title}</title>
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Sans+Pro:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Fonts & Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Sans+Pro:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body class="bg-white text-brand-warmgray antialiased min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="relative z-50 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center gap-4">
+        <!-- Logo + Title -->
+        <a href="/" class="shrink-0" aria-label="The Life Place — Home">
+          <img src="/logo.png" alt="The Life Place Logo" class="h-10 md:h-16 w-auto" />
+        </a>
 
-  <header class="relative z-50 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center gap-4">
-    <!-- Logo + Title -->
-    <a href="/" class="shrink-0" aria-label="The Life Place — Home">
-      <img src="/logo.png" alt="The Life Place Logo" class="h-10 md:h-16 w-auto" />
-    </a>
-    <div class="flex flex-col min-w-0">
-      <a href="/" class="site-title font-bold text-brand-red text-lg sm:text-xl md:text-2xl leading-tight">
-        The Life Place
-      </a>
-      <span class="text-sm text-brand-warmgray-600 tracking-wide text-center w-full">
-        Come. See. Jesus
-      </span>
-    </div>
+        <div class="flex flex-col min-w-0">
+          <a href="/" class="site-title font-bold text-brand-red text-lg sm:text-xl md:text-2xl leading-tight">
+            The Life Place
+          </a>
+          <span class="text-sm text-brand-warmgray-600 tracking-wide">
+            Come. See. Jesus
+          </span>
+        </div>
 
-    <div class="flex-1"></div>
+        <div class="flex-1"></div>
 
         <!-- Desktop nav -->
         <nav class="hidden md:flex items-center gap-6 font-montserrat text-base">
           <a
             href="/what-to-expect/"
-            class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300
-                    ${isActive("/what-to-expect/") ? "text-brand-red after:w-full font-semibold" : "text-brand-darkgray hover:text-brand-red"}`}
-          >What to Expect</a>
+            class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+              isActive("/what-to-expect/")
+                ? "text-brand-red after:w-full font-semibold"
+                : "text-brand-darkgray hover:text-brand-red"
+            }`}
+          >
+            What to Expect
+          </a>
 
           <!-- About Us dropdown -->
-         <div id="dd-about" class="relative group focus-within:z-50">
-  <button
-    type="button"
-    class={`relative px-2 py-2
-            after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-            after:w-0 group-hover:after:w-full after:transition-all after:duration-300
-            ${isActive("/about-us/") 
-              ? "text-brand-red after:w-full font-semibold" 
-              : "text-brand-warmgray-700 group-hover:text-brand-red"}`}
-    aria-haspopup="true"
-    aria-expanded="false"
-  >
-    About Us
-  </button>
+          <div id="dd-about" class="relative group focus-within:z-50">
+            <button
+              type="button"
+              class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 group-hover:after:w-full after:transition-all after:duration-300 ${
+                isActive("/about-us/")
+                  ? "text-brand-red after:w-full font-semibold"
+                  : "text-brand-warmgray-700 group-hover:text-brand-red"
+              }`}
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              About Us
+            </button>
 
-  <div
-    data-menu
-    class="absolute left-0 top-full mt-1 w-56 rounded-md border bg-white shadow-lg z-50
-           hidden group-hover:block focus-within:block pt-1"
-    role="menu"
-    aria-label="About Us Menu"
-  >
-    <a
-      <a
-<a href="/about-us/"
-   class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">
-  <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
-    Our Mission
-  </span>
-</a>
+            <div
+              data-menu
+              class="absolute left-0 top-full mt-1 w-56 rounded-md border bg-white shadow-lg z-50 hidden group-hover:block focus-within:block pt-1"
+              role="menu"
+              aria-label="About Us Menu"
+            >
+              <a
+                href="/about-us/"
+                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
+                role="menuitem"
+              >
+                <span
+                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
+                >
+                  Our Mission
+                </span>
+              </a>
 
-    <a
-  href="/about-us/our-values"
-  class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">
-  <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
+              <a
+                href="/about-us/our-values"
+                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
+                role="menuitem"
+              >
+                <span
+                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
+                >
+                  Our Values
+                </span>
+              </a>
 
-  Our Values
-</a>
+              <a
+                href="/about-us/leadership"
+                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
+                role="menuitem"
+              >
+                <span
+                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
+                >
+                  Meet Schulter and Jenny
+                </span>
+              </a>
+            </div>
+          </div>
 
-    <a
-  href="/about-us/leadership"
-  class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">
-  <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">
-  Meet Schulter and Jenny
-</a>
-  </div>
-</div>
-<a>
-
-     <!-- Replace your current Generosity block with this simple link -->
-<a
-  href="/give/"
-  class={`nav-underline relative z-10 px-2 py-2 whitespace-nowrap
-          ${isActive("/give/")
-            ? "text-brand-red font-semibold"
-            : "text-warmgray-700 hover:text-brand-red"}`}
-  aria-current={isActive("/give/") ? "page" : undefined}
->
-  Generosity
-</a>
-          
+          <!-- Generosity simple link -->
+          <a
+            href="/give/"
+            class={`nav-underline relative z-10 px-2 py-2 whitespace-nowrap ${
+              isActive("/give/") ? "text-brand-red font-semibold" : "text-brand-warmgray-700 hover:text-brand-red"
+            }`}
+            aria-current={isActive("/give/") ? "page" : undefined}
+          >
+            Generosity
+          </a>
 
           <!-- Ministries dropdown -->
           <div id="dd-ministries" class="relative group">
             <button
               type="button"
-              class={`relative px-2 py-2 whitespace-nowrap after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 group-hover:after:w-full after:transition-all after:duration-300
-                      ${isActive("/ministries/") ? "text-brand-red after:w-full font-semibold" : "text-brand-warmgray group-hover:text-brand-red"}`}
-              aria-haspopup="true" aria-expanded="false">
+              class={`relative px-2 py-2 whitespace-nowrap after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 group-hover:after:w-full after:transition-all after:duration-300 ${
+                isActive("/ministries/")
+                  ? "text-brand-red after:w-full font-semibold"
+                  : "text-brand-warmgray group-hover:text-brand-red"
+              }`}
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
               Ministries
             </button>
 
-            <div data-menu
+            <div
+              data-menu
               class="absolute left-0 top-full mt-1 w-64 rounded-md border bg-white shadow-lg z-50 hidden group-hover:block focus-within:block pt-1"
-              role="menu" aria-label="Ministries Menu"
+              role="menu"
+              aria-label="Ministries Menu"
             >
               <!-- Onboarding -->
-              <a href="/ministries/new-members/" 
-               class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">
-               <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">New @The Life Place</a>
+              <a
+                href="/ministries/new-members/"
+                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
+                role="menuitem"
+              >
+                <span
+                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
+                >
+                  New @The Life Place
+                </span>
+              </a>
 
               <!-- Family -->
               <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Family</div>
-              <a href="/ministries/bring-them-to-jesus/"
-              class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">
-              <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">Bring Them To Jesus</a>
-               
-               <a href="/ministries/kids/" 
-              class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">
-              <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">Kids @The Life Place</a>
- 
-              <a href="/ministries/gen/" 
-              class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">
-              <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">ThisGen</a>
-              
-              <a href="/ministries/premarital-counseling/" 
-              class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">
-              <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">Premarital Counseling</a>
+
+              <a
+                href="/ministries/bring-them-to-jesus/"
+                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
+                role="menuitem"
+              >
+                <span
+                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
+                >
+                  Bring Them To Jesus
+                </span>
+              </a>
+
+              <a
+                href="/ministries/kids/"
+                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
+                role="menuitem"
+              >
+                <span
+                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
+                >
+                  Kids @The Life Place
+                </span>
+              </a>
+
+              <a
+                href="/ministries/gen/"
+                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
+                role="menuitem"
+              >
+                <span
+                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
+                >
+                  ThisGen
+                </span>
+              </a>
+
+              <a
+                href="/ministries/premarital-counseling/"
+                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
+                role="menuitem"
+              >
+                <span
+                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
+                >
+                  Premarital Counseling
+                </span>
+              </a>
 
               <!-- Formation -->
               <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Formation</div>
-              <a href="/ministries/institute/"             
-              class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">
-              <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">The Life Place Institute</a>
-              <a href="/ministries/faith-and-work/"        
-              class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">
-              <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">Faith &amp; Work</a>
+
+              <a
+                href="/ministries/institute/"
+                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
+                role="menuitem"
+              >
+                <span
+                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
+                >
+                  The Life Place Institute
+                </span>
+              </a>
+
+              <a
+                href="/ministries/faith-and-work/"
+                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
+                role="menuitem"
+              >
+                <span
+                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
+                >
+                  Faith &amp; Work
+                </span>
+              </a>
 
               <!-- Outreach -->
               <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Outreach</div>
-              <a href="/ministries/relief-center/"         
-              class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">
-              <span class="relative inline-block
-               after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
-               after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300">Relief Center</a>
+
+              <a
+                href="/ministries/relief-center/"
+                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
+                role="menuitem"
+              >
+                <span
+                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
+                >
+                  Relief Center
+                </span>
+              </a>
             </div>
           </div>
 
           <a
             href="/visit/"
-            class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300
-                    ${isActive("/visit/") ? "text-brand-red after:w-full font-semibold" : "text-brand-darkgray hover:text-brand-red"}`}
-          >Visit</a>
+            class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+              isActive("/visit/")
+                ? "text-brand-red after:w-full font-semibold"
+                : "text-brand-darkgray hover:text-brand-red"
+            }`}
+          >
+            Visit
+          </a>
         </nav>
+      </div>
+    </header>
 
+    <!-- Page content -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1">
+      <slot />
+    </main>
 
-            </button>
-          </div>
+    <!-- Footer -->
+    <footer class="bg-gray-100 mt-8">
+      <div class="max-w-6xl mx-auto px-4 py-10 text-center text-sm space-y-6">
+        <!-- Social links -->
+        <div class="flex justify-center gap-4">
+          <a
+            href="https://facebook.com/thelifeplacesa"
+            target="_blank"
+            rel="noopener"
+            class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
+            aria-label="Facebook"
+          >
+            <i class="fab fa-facebook-f text-2xl text-white"></i>
+          </a>
+          <a
+            href="https://instagram.com/thelifeplacesa"
+            target="_blank"
+            rel="noopener"
+            class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
+            aria-label="Instagram"
+          >
+            <i class="fab fa-instagram text-2xl text-white"></i>
+          </a>
+          <a
+            href="https://youtube.com/@thelifeplacesa"
+            target="_blank"
+            rel="noopener"
+            class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
+            aria-label="YouTube"
+          >
+            <i class="fab fa-youtube text-2xl text-white"></i>
+          </a>
+          <a
+            href="https://open.spotify.com/show/YOUR_SPOTIFY_ID"
+            target="_blank"
+            rel="noopener"
+            class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
+            aria-label="Spotify"
+          >
+            <i class="fab fa-spotify text-2xl text-white"></i>
+          </a>
+          <a
+            href="https://podcasts.apple.com/your-show-link"
+            target="_blank"
+            rel="noopener"
+            class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
+            aria-label="Apple Podcasts"
+          >
+            <i class="fas fa-podcast text-2xl text-white"></i>
+          </a>
+        </div>
 
-<!-- Page content -->
-<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1">
-  <slot />
-</main>
+        <!-- Cookie banner -->
+        <CookieConsent />
 
-<footer class="bg-gray-100 mt-8">
-  <div class="max-w-6xl mx-auto px-4 py-10 text-center text-sm space-y-6">
-
-    <!-- Social links -->
-    <div class="flex justify-center gap-4">
-      <a href="https://facebook.com/thelifeplacesa" target="_blank" rel="noopener"
-         class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fab fa-facebook-f text-2xl text-white"></i>
-      </a>
-      <a href="https://instagram.com/thelifeplacesa" target="_blank" rel="noopener"
-         class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fab fa-instagram text-2xl text-white"></i>
-      </a>
-      <a href="https://youtube.com/@thelifeplacesa" target="_blank" rel="noopener"
-         class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fab fa-youtube text-2xl text-white"></i>
-      </a>
-      <a href="https://open.spotify.com/show/YOUR_SPOTIFY_ID" target="_blank" rel="noopener"
-         class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fab fa-spotify text-2xl text-white"></i>
-      </a>
-      <a href="https://podcasts.apple.com/your-show-link" target="_blank" rel="noopener"
-         class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fas fa-podcast text-2xl text-white"></i>
-      </a>
-    </div>
-
-    <!-- Cookie banner -->
-    <CookieConsent />
-
-    <!-- Single-line footer links and copyright -->
-    <div class="flex flex-wrap justify-center items-center gap-4 text-brand-warmgray-600">
-      <a href="/privacy-policy/" class="underline hover:underline">Privacy Policy</a>
-      <a href="/cookies/" class="underline hover:underline">Cookies</a>
-      <a href="/terms/" class="underline hover:underline">Terms</a>
-      <span>© 2025 The Life Place. All Rights Reserved</span>
-    </div>
-  </div>
-</footer>
-<body>
+        <!-- Footer links -->
+        <div class="flex flex-wrap justify-center items-center gap-4 text-brand-warmgray-600">
+          <a href="/privacy-policy/" class="underline hover:underline">Privacy Policy</a>
+          <a href="/cookies/" class="underline hover:underline">Cookies</a>
+          <a href="/terms/" class="underline hover:underline">Terms</a>
+          <span>© 2025 The Life Place. All Rights Reserved</span>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
