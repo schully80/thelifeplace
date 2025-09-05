@@ -5,55 +5,59 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 <BaseLayout title="Leadership">
   <!-- Hero heading -->
   <section class="max-w-6xl mx-auto px-4 pt-10 md:pt-14">
-    <h1 class="text-3xl md:text-4xl font-bold text-center text-gray">Meet Schulter and Jenny</h1> 
+    <!-- Desktop unchanged: md:text-4xl -->
+    <h1 class="text-2xl md:text-4xl font-bold text-center text-warmgray-900">
+      Meet Schulter and Jenny
+    </h1>
   </section>
 
-  <!-- Photo + Bio -->
-<section class="max-w-2xl mx-auto px-4 py-8 md:py-12 flex flex-col space-y-8 items-start">
-    <!-- Photo -->
- <figure class="relative w-full mx-auto rounded-2xl overflow-hidden border shadow-sm bg-white">
-  <img
-    src="/founders.jpg"
-    alt="Schulter & Genevieve (“Jenny”) Etyang — Founders of The Life Place"
-    class="w-full h-auto object-contain filter grayscale opacity-95"
-    loading="eager"
-    decoding="async"
-  />
-</figure>
-</section>
+  <!-- Photo -->
+  <section class="max-w-2xl mx-auto px-4 py-8 md:py-12">
+    <figure class="relative w-full mx-auto rounded-2xl overflow-hidden border shadow-sm bg-white">
+      <img
+        src="/founders.jpg"
+        alt='Schulter & Genevieve (“Jenny”) Etyang — Founders of The Life Place'
+        class="w-full h-auto object-contain grayscale opacity-95"
+        loading="eager"
+        decoding="async"
+      />
+    </figure>
+  </section>
 
-    <!-- Bio text -->
-<div class="text-center space-y-5 text-lg text-semibold leading-relaxed text-gray-800">
-  <p>
-    Schulter and Genevieve ("Jenny”) Etyang are the founders of
-    <span class="font-medium">The Life Place</span> Craigavon AH, Sandton, South Africa.
-  </p>
+  <!-- Bio -->
+  <!-- Mobile-only: smaller text & tighter leading; Desktop unchanged via md: classes -->
+  <section class="max-w-3xl mx-auto px-4 pb-12">
+    <div class="text-center space-y-5 text-lg md:text-lg leading-7 md:leading-relaxed text-warmgray-800">
+      <p>
+        Schulter and Genevieve (“Jenny”) Etyang are the founders of
+        <span class="font-medium">The Life Place</span>, Craigavon AH, Sandton, South Africa.
+      </p>
 
-  <p>
-   Fifteen years ago, they encountered the good news of who Jesus is and what he has done, which became the central mission of their lives: inviting others to
-    <span class="text-brand-red italic">Come. See. Jesus</span>.
-  </p>
+      <p>
+        Fifteen years ago, they encountered the good news of who Jesus is and what He has done, which became the central mission of their lives: inviting others to
+        <span class="text-brand-red italic">Come. See. Jesus</span>.
+      </p>
 
-  <p>
-    They hold qualifications from TeamWork Bible College, Team Impact Christian University and ordained by Joy Ministries, Lambton, Johannesburg, South Africa.  
-    Genevieve is a banker by profession.
-  </p>
+      <p>
+        They hold qualifications from TeamWork Bible College and Team Impact Christian University and were ordained by Joy Ministries, Lambton, Johannesburg, South Africa.
+        Genevieve is a banker by profession.
+      </p>
 
-  <p>
-   Married for fourteen years, the Etyangs enjoy conversations about Jesus, enjoy being at home, travelling, exercise, watching sports, Netflix and chill and the simple things in life.
-  </p>
+      <p>
+        Married for fourteen years, the Etyangs enjoy conversations about Jesus, being at home, travelling, exercise, watching sports, Netflix and chill, and the simple things in life.
+      </p>
 
-  <p>
-    Schulter also writes regularly at
-    <a
-      href="https://schulteretyang.substack.com"
-      target="_blank" rel="noopener noreferrer"
-      class="text-[#B3282D] underline hover:no-underline"
-    >
-      schulteretyang.substack.com
-    </a>.
-  </p>
-</div>
-</section>
-
+      <p>
+        Schulter also writes regularly at
+        <a
+          href="https://schulteretyang.substack.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-brand-red underline hover:no-underline focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 rounded-sm"
+        >
+          schulteretyang.substack.com
+        </a>.
+      </p>
+    </div>
+  </section>
 </BaseLayout>

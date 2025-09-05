@@ -3,30 +3,35 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import RegisterForm from "../../components/RegisterForm.astro";
 ---
 <BaseLayout title="The Life Place Institute">
-  <section class="container-x py-12 md:py-16 text-center">
-    <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-orange-200">
-      <div class="flex items-center justify-between mb-4">
-        <h1 class="text-3xl font-medium">The Life Place Institute</h1>
-        <span class="inline-block rounded-full bg-orange-500 px-3 py-1 text-sm font-semibold text-white">
+  <section class="container-x py-10 md:py-16 text-center">
+    <div class="rounded-xl border bg-white p-5 md:p-6 shadow-sm ring-1 ring-brand-warmgray-200">
+      <!-- Stack on mobile so the badge doesn’t crowd the title -->
+      <div class="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-3 sm:gap-4 mb-4">
+        <!-- Desktop unchanged (you used 3xl already) -->
+        <h1 class="text-3xl md:text-4xl font-bold">The Life Place Institute</h1>
+        <span class="inline-block rounded-full bg-brand-red px-3 py-1 text-lg font-bold text-white">
           Launching Soon
         </span>
       </div>
-      <p class="text-lg text-gray-700">
+
+      <!-- Mobile smaller body; desktop unchanged intent -->
+      <p class="text-lg md:text-xl text-warmgray-700 leading-7 md:leading-8">
         A hub for discipleship, teaching, and leadership training is on the way.<br />
-        <em class="text-[#B3282D]">Come. See. Jesus.</em>
+        <em class="text-brand-red">Come. See. Jesus</em>
       </p>
     </div>
 
     <!-- Registration Form -->
-    <div class="mt-12 max-w-2xl mx-auto">
+    <div class="mt-10 md:mt-12 max-w-2xl mx-auto px-4 md:px-0">
       <RegisterForm
         title="We'd love to see you — drop your details below"
-        titleClass="text-2xl font-medium text-brand-warmgray-800 text-center mb-4"
+        titleClass="text-xl md:text-2xl font-medium text-brand-warmgray-800 text-center mb-4"
         eventName="The Life Place Institute"
         paymentLink="/give"
         successMessage="Thank you for registering!"
         ctaText="Save My Spot"
         disabled={true}
+         showNotice={true}
         fields={[
           { id: "firstName", label: "Name", type: "text", required: true },
           { id: "surname", label: "Surname", type: "text", required: true },

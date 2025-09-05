@@ -3,11 +3,12 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import RegisterForm from "../../components/RegisterForm.astro";
 ---
 <BaseLayout title="New @The Life Place">
+  <!-- Hero -->
   <section class="relative full-bleed">
     <div class="relative min-h-[38vh] md:min-h-[50vh] flex items-center justify-center">
       <img
         src="/join-us.jpg"
-        alt="Only Jesus"
+        alt="Join Us"
         class="absolute inset-0 h-full w-full object-cover"
         style="max-height:60vh"
         loading="eager"
@@ -17,22 +18,23 @@ import RegisterForm from "../../components/RegisterForm.astro";
     </div>
   </section>
 
-  <section class="relative py-12 md:py-16">
-    <div class="container-x px-6 md:px-8">
+  <!-- Main content -->
+  <section class="relative py-10 md:py-16">
+    <div class="container-x px-4 md:px-8">
       <!-- Header -->
-      <header class="text-center mb-10 md:mb-12">
+      <header class="text-center mb-8 md:mb-12">
         <h1 class="text-3xl md:text-5xl font-bold text-warmgray-800">Vision Night</h1>
-        <p class="mt-5 text-lg md:text-2xl text-brand-warmgray-700">
-          Come. See. <span class="text-brand-red not-italic font-semibold">Jesus</span>
+        <p class="mt-4 md:mt-5 text-xl md:text-2xl text-brand-warmgray-700">
+          <em class="text-brand-red font-medium">Come. See. Jesus</em>
         </p>
       </header>
 
       <!-- Content Grid -->
       <div class="grid gap-6 md:gap-8 md:grid-cols-3">
         <!-- What / Intro -->
-        <article class="rounded-xl border bg-white p-6 md:p-8 shadow-sm">
-          <h2 class="text-2xl font-semibold mb-3">What is Vision Night?</h2>
-          <p class="text-lg text-brand-warmgray-800 leading-relaxed">
+        <article class="rounded-xl border bg-white p-5 md:p-8 shadow-sm">
+          <h2 class="text-1xl md:text-2xl text-center font-bold mb-3">What is Vision Night?</h2>
+          <p class="text-lg md:text-lg text-brand-warmgray-800 leading-7 md:leading-relaxed">
             Vision Night is a special gathering where we share
             <strong>who we are, why we exist, and where Jesus is leading us</strong>.
             It’s a night of story, worship, and community — a moment to see the heart
@@ -41,9 +43,9 @@ import RegisterForm from "../../components/RegisterForm.astro";
         </article>
 
         <!-- Why Attend -->
-        <article class="rounded-xl border bg-white p-6 md:p-8 shadow-sm">
-          <h2 class="text-2xl font-semibold mb-3">Why Attend?</h2>
-          <ul class="text-lg space-y-2 text-brand-warmgray-800 leading-relaxed list-disc pl-5">
+        <article class="rounded-xl border bg-white p-5 md:p-8 shadow-sm">
+          <h2 class="text-1xl md:text-2xl text-center font-bold mb-3">Why Attend?</h2>
+          <ul class="text-lg md:text-lg space-y-2 text-brand-warmgray-800 leading-7 md:leading-relaxed list-disc pl-5">
             <li>Hear our story and vision for The Life Place</li>
             <li>Meet our leadership team and community</li>
             <li>Discover our mission, values, and future plans</li>
@@ -52,9 +54,9 @@ import RegisterForm from "../../components/RegisterForm.astro";
         </article>
 
         <!-- Vision Night Is For -->
-        <article class="rounded-xl border bg-white p-6 md:p-8 shadow-sm">
-          <h2 class="text-2xl font-semibold mb-3">Vision Night Is For</h2>
-          <ul class="text-lg space-y-2 text-brand-warmgray-800 leading-relaxed list-disc pl-5">
+        <article class="rounded-xl border bg-white p-5 md:p-8 shadow-sm">
+          <h2 class="text-1xl md:text-2xl font-bold text-center mb-3">Vision Night Is For</h2>
+          <ul class="text-lg md:text-lg space-y-2 text-brand-warmgray-800 leading-7 md:leading-relaxed list-disc pl-5">
             <li>Anyone exploring the heartbeat of The Life Place</li>
             <li>Those ready to take a next step in belonging</li>
             <li>Those searching for a Jesus-centred community</li>
@@ -64,14 +66,15 @@ import RegisterForm from "../../components/RegisterForm.astro";
       </div>
 
       <!-- Registration Form -->
-      <div class="mt-12 max-w-2xl mx-auto">
+      <div class="mt-10 md:mt-12 max-w-2xl mx-auto px-4 md:px-0">
         <RegisterForm
           title="We'd love to see you — drop your details below"
-          titleClass="text-2xl font-medium text-brand-warmgray-800 text-center mb-4"
+          titleClass="text-xl md:text-2xl font-medium text-brand-warmgray-800 text-center mb-4"
           eventName="Vision Night"
           successMessage="Your registration has been received. We can’t wait to welcome you."
           ctaText="Save My Spot"
           disabled={true}
+           showNotice={true}
           fields={[
             { id: "firstName", label: "Name", type: "text", required: true },
             { id: "surname", label: "Surname", type: "text", required: true },

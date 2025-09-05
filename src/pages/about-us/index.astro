@@ -17,15 +17,18 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       <div class="absolute inset-0 bg-black/30"></div>
 
       <!-- Centered content -->
-      <div class="relative flex h-full flex-col items-center justify-center min-h-screen px-4 text-center z-20">
-        
-        <!-- New header above vision -->
-        <h1 class="mb-10 text-3xl md:text-5xl font-bold text-center text-white drop-shadow-lg">
+      <!-- Mobile: shorter & tighter; Desktop: original min-h-screen spacing preserved -->
+      <div class="relative z-20 flex h-full flex-col items-center justify-center px-4 text-center min-h-[70vh] md:min-h-screen gap-4 md:gap-8">
+
+        <!-- Heading -->
+        <!-- Mobile smaller (2xl); Desktop unchanged (md:5xl) -->
+        <h1 class="mb-6 md:mb-10 text-3xl md:text-5xl font-bold text-center text-white drop-shadow-lg">
           Our Mission
         </h1>
 
         <!-- Vision statement -->
-        <p class="max-w-5xl mx-auto text-3xl sm:text-6xl font-medium leading-relaxed md:leading-snug text-white">
+        <!-- Mobile smaller (text-lg + tighter leading); Desktop unchanged (sm:6xl + md:leading-snug) -->
+        <p class="max-w-5xl mx-auto text-2xl sm:text-6xl font-medium leading-7 md:leading-snug text-white">
           Every time we meet, we see how true, good, beautiful and kind
           <!-- Retro sign with nails -->
           <span class="relative inline-block px-3 py-0 rounded-[9px] bg-[#B3282D] text-white font-bold border-4 border-white shadow-lg drop-shadow-xl tracking-wide rotate-[-2deg]">

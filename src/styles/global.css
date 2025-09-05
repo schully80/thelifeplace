@@ -51,8 +51,6 @@
    Components & Utilities
 ------------------------------ */
 @layer components {
-  
-  
   /* Container */
   .container-x { @apply max-w-6xl mx-auto px-4; }
 
@@ -61,20 +59,24 @@
   .btn-primary { @apply btn text-white bg-[#B3282D] hover:bg-[#9f2429]; }
   .btn-outline { @apply btn border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white; }
   .btn-ghost  { @apply btn border border-gray-300 text-gray-800 hover:bg-gray-100; }
-  
 
-  /* New: Branded pill button */
-.btn-brand {
-  @apply inline-flex items-center justify-center gap-2 px-6 py-2.5 font-semibold text-white bg-brand-red rounded-pill transform transition-transform hover:scale-105 hover:bg-red-700;
-}
+  /* Branded pill button */
+  .btn-brand {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-2.5 font-semibold text-white bg-brand-red rounded-pill transform transition-transform hover:scale-105 hover:bg-red-700;
+  }
+  .rounded-pill { @apply rounded-[9999px]; }
 
-  .rounded-pill {
-  @apply rounded-[9999px];
-}
-/* Form Fields */
-.form-field {
-  @apply block w-full rounded-md border-gray-300 shadow-sm focus:ring-brand-red focus:border-brand-red;
-}
+  /* Form Fields (desktop defaults) */
+  .form-field {
+    @apply block w-full rounded-md border-gray-300 shadow-sm focus:ring-brand-red focus:border-brand-red;
+  }
+
+  /* Mobile-first input utility (desktop unchanged via md: overrides in markup) */
+  .form-field-mobile {
+    @apply block w-full border-b border-gray-500 py-2 text-[15px] font-medium
+           text-brand-warmgray-800 focus:outline-none focus:border-brand-red;
+  }
+
   /* Brand helpers */
   .text-brand-red { color: #B3282D; }
   .bg-brand-red   { background-color: #B3282D; }
@@ -151,7 +153,73 @@
   width: 100vw;
 }
 
-/* ------------------------------
-   Page-specific helpers
------------------------------- */
-/* …the rest of your file remains unchanged… */
+/* =========================================
+   Mobile-only design (<768px)
+========================================= */
+@media (max-width: 767.98px) {
+  @layer base {
+    html { scroll-behavior: smooth; }
+    body { font-size: 15px; line-height: 1.75; color: #1f2937; }
+    p    { line-height: 1.7; margin-bottom: 0.75rem; color: #374151; }
+
+    h1 { font-size: 1.875rem; line-height: 1.15; font-weight: 700; color: #111827; }
+    h2 { font-size: 1.5rem;   line-height: 1.2;  font-weight: 600; color: #111827; }
+    h3 { font-size: 1.25rem;  line-height: 1.25; font-weight: 600; color: #111827; }
+
+    ul, ol { margin-left: 1.25rem; }
+    ul > li + li, ol > li + li { margin-top: 0.4rem; }
+
+    img, video, canvas { display: block; max-width: 100%; height: auto; border-radius: 0.75rem; }
+  }
+
+  @layer components {
+    .container-page { padding-left: 1rem; padding-right: 1rem; }
+    .section-pad    { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+    .grid-responsive { @apply grid grid-cols-1 gap-4; }
+    .card { @apply p-4 rounded-2xl shadow-sm bg-white; }
+    .card-title { @apply text-xl font-semibold; }
+
+    .btn,
+    .btn-primary,
+    .btn-outline,
+    .btn-ghost,
+    .btn-brand { @apply h-11 px-4 text-sm; }
+
+    .form-field-mobile { 
+      @apply block w-full border-b border-gray-500 py-2 text-[15px] font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red; 
+    }
+    label { @apply text-sm; }
+
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .table-wrap table { min-width: 640px; }
+  }
+
+  @layer utilities {
+    .only-mobile  { @apply block md:hidden; }
+    .only-desktop { @apply hidden md:block; }
+    .flow > * + * { margin-top: 0.75rem; }
+    .tap-lg { @apply py-3 px-3; }
+    .nav-sm { @apply text-base leading-6; }
+    .mobile-hero-ttl { @apply text-3xl leading-tight font-bold; }
+    .mobile-hero-sub { @apply text-base leading-6 text-gray-700; }
+    .px-mobile { padding-left: 1rem; padding-right: 1rem; }
+    .py-mobile { padding-top: 1rem;  padding-bottom: 1rem; }
+  }
+}
+
+/* =========================================
+   Aliases for custom brand grays
+========================================= */
+/* =========================================
+   Aliases for custom brand grays
+========================================= */
+@layer utilities {
+  /* Text colors */
+  .text-brand-warmgray-700 { @apply text-gray-700; }
+  .text-brand-warmgray-800 { @apply text-gray-800; }
+
+  /* Background colors */
+  .bg-brand-warmgray-100 { @apply bg-gray-100; }
+  .bg-brand-warmgray-200 { @apply bg-gray-200; }
+  .bg-brand-warmgray-600 { @apply bg-gray-600; }
+}

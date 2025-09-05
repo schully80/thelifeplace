@@ -4,73 +4,114 @@ const {
   eventName = "General Giving",
   snapMessage = "Thank you for your generosity. We’ve received your confirmation.",
   ctaText = "I’ve Given",
+  formAction = "https://formspree.io/f/yourFormID", // <-- set your real Formspree endpoint
 } = Astro.props;
 ---
 
-<label for="purpose" class="block text-left text-brand-warmgray-700 font-medium mb-2">What are you giving toward?</label>
-<select name="purpose" id="purpose" required class="w-full border-b border-gray-500 py-2 mb-4 text-sm text-brand-warmgray-800 focus:outline-none focus:border-brand-red">
-  <option value="">Select an option</option>
-  <option value="General Giving">General Giving</option>
-  <option value="Vision Night">Vision Night</option>
- <option value="Bring Them To Jesus">Bring Them To Jesus</option>
-  <option value="Kids @The Life Place">Kids @The Life Place</option>
-  <option value="ThisGen">ThisGen</option>
-  <option value="Premarital Counseling Program">Premarital Counseling Program</option>
-   <option value="The Life Place Institute">The Life Place Institue</option>
- <option value="Faith and Work">Faith and Work</option>
-  <option value="Relief Center">Relief Center</option>  
-</select>
-
 <section class="max-w-xl mx-auto px-4 py-12 text-center">
-  <h2 class="text-3xl font-semibold text-brand-warmgray-800 mb-6">{title}</h2>
+  <h2 class="text-2xl md:text-3xl font-semibold text-brand-warmgray-800 mb-6">{title}</h2>
 
-  <form id="snapConfirmForm" method="POST" action="https://formspree.io/f/yourFormID">
-    <input type="text" name="name" required placeholder="Your Name *" class="w-full border-b border-gray-500 py-2 mb-4 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
-    
-    <textarea name="message" placeholder="Optional Message or Prayer" rows="3" class="w-full border-b border-gray-500 py-2 mb-4 text-lg text-brand-warmgray-800 focus:outline-none focus:border-brand-red"></textarea>
-
+  <form id="snapConfirmForm" method="POST" action={formAction} class="space-y-5 md:space-y-6">
+    <!-- Honeypot + intent -->
+    <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
     <input type="hidden" name="intent" value={eventName} />
 
-    <button
-      type="submit"
-      class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold shadow-md bg-brand-red text-white hover:bg-red-700 hover:shadow-lg transition"
-    >
-      <span>{ctaText}</span>
-    </button>
+    <!-- Purpose (select) -->
+    <div class="text-left">
+      <label for="purpose" class="sr-only">What are you giving toward?</label>
+      <select
+        id="purpose"
+        name="purpose"
+        required
+        class="form-field form-field-mobile appearance-none bg-white"
+      >
+        <option value="">Select an option</option>
+        <option value="General Giving">General Giving</option>
+        <option value="Vision Night">Vision Night</option>
+        <option value="Bring Them To Jesus">Bring Them To Jesus</option>
+        <option value="Kids @The Life Place">Kids @The Life Place</option>
+        <option value="ThisGen">ThisGen</option>
+        <option value="Premarital Counseling Program">Premarital Counseling Program</option>
+        <option value="The Life Place Institute">The Life Place Institute</option>
+        <option value="Faith and Work">Faith and Work</option>
+        <option value="Relief Center">Relief Center</option>
+      </select>
+    </div>
+
+    <!-- Name -->
+    <div>
+      <label for="name" class="sr-only">Your Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        placeholder="Your Name *"
+        class="form-field form-field-mobile"
+      />
+    </div>
+
+    <!-- Optional message -->
+    <div>
+      <label for="message" class="sr-only">Optional Message or Prayer</label>
+      <textarea
+        id="message"
+        name="message"
+        rows="3"
+        placeholder="Optional Message or Prayer"
+        class="form-field form-field-mobile"
+      ></textarea>
+    </div>
+
+    <!-- CTA -->
+    <div class="pt-2">
+      <button
+        type="submit"
+        class="inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 rounded-full font-semibold shadow-md
+               bg-brand-red text-white hover:bg-red-700 hover:shadow-lg transition
+               focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2"
+      >
+        <span class="text-sm md:text-base">{ctaText}</span>
+        <!-- arrow -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M7 7h10v10" />
+        </svg>
+      </button>
+    </div>
   </form>
 
+  <!-- Inline success -->
   <div id="snapSuccess" class="hidden mt-10 text-center">
     <h3 class="text-2xl font-semibold text-brand-red mb-2">Thank You!</h3>
     <p class="text-lg text-brand-warmgray-700">{snapMessage}</p>
     <p class="mt-2 text-sm text-gray-500 italic">We’re grateful for your support. You’re helping us build something beautiful.</p>
   </div>
-</section>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("snapConfirmForm");
-    const success = document.getElementById("snapSuccess");
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("snapConfirmForm");
+      const success = document.getElementById("snapSuccess");
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
 
-      const formData = new FormData(form);
+        const formData = new FormData(form);
 
-      fetch(form.action, {
-        method: "POST",
-        body: formData,
-        headers: {
-          Accept: "application/json"
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          form.style.display = "none";
-          success.classList.remove("hidden");
-        } else {
-          alert("Oops! Something went wrong. Please try again.");
-        }
+        fetch(form.action, {
+          method: "POST",
+          body: formData,
+          headers: { Accept: "application/json" }
+        })
+        .then(response => {
+          if (response.ok) {
+            form.style.display = "none";
+            success.classList.remove("hidden");
+          } else {
+            alert("Oops! Something went wrong. Please try again.");
+          }
+        })
+        .catch(() => alert("Network error. Please try again."));
       });
     });
-  });
-</script>
+  </script>
+</section>

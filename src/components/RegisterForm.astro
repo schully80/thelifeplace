@@ -1,127 +1,148 @@
 ---
 const {
   title = "Register",
-  titleClass = "text-2xl font-medium text-brand-warmgray-800 text-center tracking-wide mb-6",
-  eventName = "Bring Them To Jesus",
+  titleClass = "text-xl md:text-2xl font-medium text-brand-warmgray-800 text-center tracking-wide mb-5 md:mb-6",
+  eventName = "General",
   ctaText = "Save My Spot",
   disabled = true,
   showNotice = true,
-  thankYouMessage = "Your registration has been received. We’ll be in touch soon." // 👈 NEW
+  formAction = "https://formspree.io/f/xldwoekj",
 } = Astro.props;
-
-let submitted=false
 ---
 
-<section class="max-w-3xl mx-auto px-4 py-12">
+<section class="max-w-3xl mx-auto px-4 py-8 md:py-12">
   <h2 class={titleClass}>{title}</h2>
 
-  <form id="registrationForm">
+  <form id="registrationForm" method="POST" action={formAction} class="space-y-5 md:space-y-6">
+    <!-- Honeypot + intent -->
+    <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
+    <input type="hidden" name="intent" value={eventName} />
+
+    <!-- 🔔 TOP BLINKING NOTICE -->
     {showNotice && disabled && (
-      <div class="text-center py-12">
-        <p class="text-xl font-medium text-brand-warmgray-700 animate-pulse">
+      <div class="text-center py-6" aria-live="polite">
+        <p class="text-base md:text-xl font-medium text-gray-700 animate-pulse">
           Registration will open soon. Stay tuned!
         </p>
       </div>
     )}
 
-    <input type="text" id="firstName" name="firstName" required placeholder="Name *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
-    <input type="text" id="surname" name="surname" required placeholder="Surname *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
-    <input type="tel" id="contact" name="contact" required placeholder="Contact Number *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
-    <input type="email" id="email" name="email" required placeholder="Email Address *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
-
-    <div>
-      <label for="streetAddress" class="block text-sm font-medium text-gray-700">Street Address</label>
-      <input type="text" id="streetAddress" name="streetAddress" required placeholder="Street Address *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
+    <!-- Name row -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+      <div>
+        <input
+          id="firstName"
+          name="firstName"
+          required
+          class="form-field form-field-mobile"
+          placeholder="Name *"
+        />
+      </div>
+      <div>
+        <input
+          id="surname"
+          name="surname"
+          required
+          class="form-field form-field-mobile"
+          placeholder="Surname *"
+        />
+      </div>
     </div>
 
+    <!-- Contact -->
     <div>
-      <label for="suburb" class="block text-sm font-medium text-gray-700">Suburb</label>
-      <input type="text" id="suburb" name="suburb" required placeholder="Suburb *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
-    </div>
-
-    <div>
-      <label for="city" class="block text-sm font-medium text-gray-700">City</label>
-      <input type="text" id="city" name="city" required placeholder="City *" class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red" />
-    </div>
-
-    <div>
-      <label for="postalCode" class="block text-sm font-medium text-gray-700">Postal Code</label>
       <input
-        type="text"
-        id="postalCode"
-        name="postalCode"
+        id="contact"
+        name="contact"
+        type="tel"
+        inputmode="tel"
         required
-        minlength="3"
-        maxlength="10"
-        pattern=".{3,10}"
-        title="Enter a valid postal code (3–10 characters)"
-        placeholder="Postal Code *"
-        class="w-full border-b border-gray-500 py-2 text-xl font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red"
+        class="form-field form-field-mobile"
+        placeholder="Contact Number *"
       />
-      <small class="text-sm text-gray-500">Postal codes vary by country — enter 3 to 10 characters (e.g. 2196, W1A 1AA)</small>
     </div>
 
-    <!-- CTA Button -->
-    <div class="text-center mt-6">
+    <!-- Email -->
+    <div>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        required
+        class="form-field form-field-mobile"
+        placeholder="Email Address *"
+      />
+    </div>
+
+    <!-- Address -->
+    <div>
+      <input
+        id="streetAddress"
+        name="streetAddress"
+        autocomplete="street-address"
+        required
+        class="form-field form-field-mobile"
+        placeholder="Street Address *"
+      />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+      <div>
+        <input
+          id="suburb"
+          name="suburb"
+          required
+          class="form-field form-field-mobile"
+          placeholder="Suburb *"
+        />
+      </div>
+      <div>
+        <input
+          id="city"
+          name="city"
+          autocomplete="address-level2"
+          required
+          class="form-field form-field-mobile"
+          placeholder="City *"
+        />
+      </div>
+      <div>
+        <input
+          id="postalCode"
+          name="postalCode"
+          required
+          minlength="3"
+          maxlength="10"
+          pattern=".{3,10}"
+          class="form-field form-field-mobile"
+          placeholder="Postal Code *"
+        />
+        <small class="block mt-1 text-[11px] md:text-xs text-gray-500">e.g. 2196 or W1A&nbsp;1AA</small>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center pt-2">
       <button
         type="submit"
         disabled={disabled}
-        class={`inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold shadow-md transition ${
-          disabled
-            ? "bg-gray-400 cursor-not-allowed opacity-60"
-            : "bg-brand-red text-white hover:bg-red-700 hover:shadow-lg"
-        }`}
+        class={`inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 rounded-full font-semibold shadow-md transition
+          focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2
+          ${disabled ? "bg-gray-400 cursor-not-allowed opacity-60" : "bg-brand-red text-white hover:bg-red-700 hover:shadow-lg"}`}
       >
-        <span>{ctaText}</span>
-        <svg xmlns="http://www.w3.org/2000/svg"
-             class="h-5 w-5 animate-pulse"
-             fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M7 17L17 7M7 7h10v10" />
+        <span class="text-sm md:text-base">{ctaText}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M7 7h10v10" />
         </svg>
       </button>
 
+      <!-- ⬇️ UNDER-BUTTON ITALIC NOTICE -->
       {showNotice && disabled && (
-        <p class="mt-2 text-sm text-gray-500 italic">
+        <p class="mt-2 text-xs md:text-sm text-gray-500 italic">
           Registration is not yet open. Stay tuned!
         </p>
       )}
     </div>
   </form>
-
-  <div id="thankYouMessage" class="hidden mt-10 text-center">
-  <h2 class="text-2xl font-semibold text-brand-red mb-2">Thank You!</h2>
-  <p class="text-lg text-brand-warmgray-700">
-    Your details have been received. We’ll be in touch soon.
-  </p>
-</div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("registrationForm");
-    const thankYou = document.getElementById("thankYouMessage");
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const formData = new FormData(form);
-
-      fetch(form.action, {
-        method: "POST",
-        body: formData,
-        headers: {
-          Accept: "application/json"
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          form.style.display = "none";
-          thankYou.classList.remove("hidden");
-        } else {
-          alert("Oops! Something went wrong. Please try again.");
-        }
-      });
-    });
-  });
-</script>
 </section>

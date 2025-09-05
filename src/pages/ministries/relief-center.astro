@@ -2,28 +2,32 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 <BaseLayout title="Relief Center">
-  <section class="container-x py-12 md:py-16">
-    <h1 class="text-center text-3xl md:text-4xl font-medium mb-6">Relief Center</h1>
+  <section class="container-x py-10 md:py-16">
+    <!-- Heading -->
+    <h1 class="text-center text-3xl md:text-4xl font-bold mb-5 md:mb-6">
+      Relief Center
+    </h1>
 
-    <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-green-200">
-      <p class="text-gray-700 text-xl leading-relaxed">
+    <div class="rounded-xl border bg-white p-5 md:p-6 shadow-sm ring-1 ring-warmgray-200">
+      <!-- Main text -->
+      <p class="text-lg md:text-xl text-warmgray-700 leading-7 md:leading-relaxed">
         The Relief Center exists to extend the love of Jesus to those in need — through food distribution,
         care programs, and practical help in times of crisis.
       </p>
 
-      <p class="text-xl mt-4 text-gray-600">
+      <p class="mt-3 md:mt-4 text-lg md:text-xl text-warmgray-600 leading-7 md:leading-relaxed">
         We believe in being the hands and feet of Jesus by caring for the vulnerable and serving our
         community with compassion and dignity.
       </p>
 
       <!-- Donate Button -->
-      <div class="mt-6 flex justify-end">
+      <div class="mt-5 md:mt-6 flex justify-center md:justify-end">
         <a 
           href="/give/" 
-          class="inline-block rounded-full bg-[#B3282D] px-6 py-3 
-                 text-xl font-medium text-white shadow-md 
+          class="inline-block rounded-full bg-brand-red px-5 md:px-6 py-2.5 md:py-3 
+                 text-base md:text-xl font-bold text-white shadow-md 
                  transform transition-transform duration-300 hover:scale-105 
-                 hover:bg-red-700 hover:shadow-lg"
+                 hover:bg-brand-red hover:shadow-lg"
         >
           Donate
         </a>

@@ -5,27 +5,39 @@ import SnapScanConfirmForm from "../../components/SnapScanConfirmForm.astro";
 const url = new URL(Astro.request.url);
 const event = url.searchParams.get("event");
 ---
+
 <BaseLayout title="Generosity">
-  <section class="container-x py-14 text-center">
-    <h1 class="text-4xl md:text-4xl font-bold text-warmgray-900 mb-6">Generosity</h1>
-    <p class="text-xl md:text-2xl text-brand-warmgray-700 max-w-3xl mx-auto">
-      Generosity is our expression of who Jesus is and what He does. Even between events, your giving helps others <span class="text-[#B3282D]">Come. See. Jesus.</span>
+  <!-- Hero -->
+  <section class="container-x py-10 md:py-14 text-center">
+    <!-- Mobile smaller, desktop unchanged (was 4xl everywhere) -->
+    <h1 class="text-3xl md:text-4xl font-bold text-warmgray-900 mb-5 md:mb-6">
+      Generosity
+    </h1>
+
+    <!-- Mobile smaller body, desktop unchanged (md:2xl) -->
+    <p class="text-lg md:text-2xl text-brand-warmgray-700 max-w-3xl mx-auto leading-7 md:leading-8">
+      Generosity is our expression of who Jesus is and what He does. Your giving helps others
+      <span class="text-brand-red">Come. See. Jesus</span>
     </p>
   </section>
 
+  <!-- Two-column layout -->
   <div class="flex justify-center">
-    <div class="grid gap-10 md:gap-20 md:grid-cols-2 items-start mt-8 max-w-4xl w-full">
+    <div class="grid gap-8 md:gap-20 md:grid-cols-2 items-start mt-6 md:mt-8 max-w-4xl w-full px-4 md:px-0">
       
       <!-- Left Column: EFT + In-Person -->
-      <div class="space-y-10">
+      <div class="space-y-8 md:space-y-10">
         <!-- EFT Section -->
         <div>
-          <h2 class="text-2xl font-bold mb-4 text-center">EFT Banking Details</h2>
-          <div class="rounded-xl border-2 border-gray-300 p-6 md:p-8 bg-white shadow-sm">
+          <h2 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-center">EFT Banking Details</h2>
+
+          <div class="rounded-xl border-2 border-gray-300 p-5 md:p-8 bg-white shadow-sm">
             <div class="flex justify-center mb-4">
-              <img src="/reshot-icon-laptop-Y6XNMWGB8C.svg" alt="Laptop icon" class="h-12 w-12" />
+              <img src="/reshot-icon-laptop-Y6XNMWGB8C.svg" alt="Laptop icon" class="h-10 w-10 md:h-12 md:w-12" />
             </div>
-            <div class="space-y-3 text-center md:text-lg">
+
+            <!-- Mobile base text, desktop md:lg -->
+            <div class="space-y-2.5 md:space-y-3 text-center text-lg md:text-lg text-warmgray-800">
               <div><span class="font-semibold">Account Name:</span> The Life Place</div>
               <div><span class="font-semibold">Bank:</span> Standard Bank</div>
               <div><span class="font-semibold">Account Number:</span> 30&nbsp;152&nbsp;4351</div>
@@ -36,42 +48,47 @@ const event = url.searchParams.get("event");
           </div>
         </div>
         
-<!-- Give In-Person Section -->
-<div>
-  <h2 class="text-2xl font-bold mb-4 text-center">Give In Person</h2>
-  <div class="rounded-xl border-2 border-gray-300 p-6 md:p-8 bg-white shadow-sm">
-    <div class="flex justify-center mb-4">
-      <img src="/hand-holding-heart-svgrepo-com.png" alt="Hand giving icon" class="h-12 w-12" />
-    </div>
-    <div class="space-y-4 text-center text-brand-warmgray-700 md:text-lg">
-      <p>
-        While we encourage online giving for security and simplicity, we gladly receive in-person gifts during our weekend gatherings.
-      </p>
-    </div>
-  </div>
-</div>
+        <!-- Give In-Person Section -->
+        <div>
+          <h2 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-center">Give In Person</h2>
+
+          <div class="rounded-xl border-2 border-gray-300 p-5 md:p-8 bg-white shadow-sm">
+            <div class="flex justify-center mb-4">
+              <img src="/hand-holding-heart-svgrepo-com.png" alt="Hand giving icon" class="h-10 w-10 md:h-12 md:w-12" />
+            </div>
+            <div class="space-y-3 md:space-y-4 text-center text-brand-warmgray-700 text-lg md:text-lg leading-7 md:leading-8">
+              <p>
+                While we encourage online giving for security and simplicity, we gladly receive in-person gifts during our weekend gatherings.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Right Column: SnapScan -->
       <div>
-        <div class="flex items-center justify-center mb-4 space-x-3">
-          <h2 class="text-2xl font-bold text-center">SnapScan</h2>
+        <div class="flex items-center justify-center mb-3 md:mb-4 space-x-3">
+          <h2 class="text-xl md:text-2xl font-bold text-center">SnapScan</h2>
         </div>
 
-        <div class="rounded-xl border-2 border-gray-300 p-6 md:p-8 bg-white shadow-sm flex flex-col items-center space-y-4">
-          <div class="flex justify-center mb-4">
-            <img src="/reshot-icon-hand-holding-smartphone-4L7F8HCGWT.svg" alt="Hand holding smartphone icon" class="h-12 w-12" />
+        <div class="rounded-xl border-2 border-gray-300 p-5 md:p-8 bg-white shadow-sm flex flex-col items-center space-y-4">
+          <div class="flex justify-center mb-2 md:mb-4">
+            <img src="/reshot-icon-hand-holding-smartphone-4L7F8HCGWT.svg" alt="Hand holding smartphone icon" class="h-10 w-10 md:h-12 md:w-12" />
           </div>
-          <img src="/SnapCode_1.png" alt="SnapScan QR Code" class="w-40 h-50" />
 
-          <h2 class="text-xl font-semibold text-center mt-10 mb-4 text-brand-warmgray-800">Give Securely</h2>
-          <p class="text-center text-brand-warmgray-700 mb-6">
-            Whether once-off or recurring, your gift helps us prepare the ground for what God is doing next.
+          <!-- Fixed invalid Tailwind size: h-50 -> use square or auto -->
+          <img src="/SnapCode_1.png" alt="SnapScan QR Code" class="w-48 h-48 md:w-48 md:h-48 object-contain" />
+
+          <h3 class="text-lg md:text-xl font-semibold text-center mt-6 md:mt-10 mb-2 md:mb-4 text-brand-warmgray-800">
+            Give Securely
+          </h3>
+          <p class="text-center text-brand-warmgray-700 text-lg md:text-lg leading-7 md:leading-8 mb-2 md:mb-6">
+            Whether once-off or recurring, your gift helps us prepare the ground for what Jesus is doing next.
           </p>
 
           <SnapScanConfirmForm
             title="Confirm Your Gift"
-            eventName="Support the Mission"
+            eventName={event ?? "Support the Mission"}
             snapMessage="Thank you for your generosity. We’ve received your confirmation."
             ctaText="I’ve Given"
           />

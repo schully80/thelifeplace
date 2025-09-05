@@ -2,29 +2,39 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import RegisterForm from "../../components/RegisterForm.astro";
 ---
-<BaseLayout title="Kids @The Life Place - Coming Soon" description="Kids @The Life Place — Coming Soon">
-  <section class="container-x py-12 md:py-16">
-    <h1 class="text-3xl md:text-4xl font-bold mb-6 text-center text-warmgray-800">
+<BaseLayout
+  title="Kids @The Life Place - Coming Soon"
+  description="Kids @The Life Place — Coming Soon"
+>
+  <section class="container-x py-10 md:py-16">
+    <!-- Heading: desktop unchanged -->
+    <h1 class="text-3xl md:text-4xl font-bold mb-5 md:mb-6 text-center text-warmgray-800">
       Kids @The Life Place
     </h1>
 
     <!-- Coming Soon Banner -->
-    <div class="rounded-xl border bg-white p-8 shadow-md ring-2 ring-gray-50 text-center">
-      <span class="inline-block rounded-full bg-[#B3282D] px-4 py-2 text-lg font-bold text-white mb-4">
-        Launching Soon 
+    <div class="rounded-xl border bg-white p-6 md:p-8 shadow-md ring-2 ring-gray-50 text-center">
+      <span class="inline-block rounded-full bg-[#B3282D] px-3 md:px-4 py-1.5 md:py-2 text-sm md:text-lg font-bold text-white mb-3 md:mb-4">
+        Launching Soon
       </span>
-      <p class="text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto">
-        At present, we have no kid's church. As Jesus supplies the resources needed, 
-        we will launch one where our children too will <em>Come. See. 
-        <span class="text-[#B3282D] font-medium">Jesus</span></em>
+
+      <p class="text-lg md:text-xl text-warmgray-700 leading-7 md:leading-relaxed max-w-2xl mx-auto">
+        At present, we have no kids’ church. As Jesus supplies the resources needed,
+        we will launch one where our children too will
+        <em class="text-brand-red font-medium">Come. See. Jesus</em>
+
       </p>
-      <p class="text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto">
+
+      <p class="mt-3 md:mt-4 text-lg md:text-xl text-warmgray-700 leading-7 md:leading-relaxed max-w-2xl mx-auto">
         Children are welcome to remain with their parents during service.
       </p>
     </div>
 
-    <!-- Decal-style words (smaller, subtle overlap) -->
-    <div class="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 text-center overflow-visible">
+    <!-- Decal-style words -->
+    <div class="mt-10 md:mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 text-center overflow-visible">
+        <div class="p-5 rounded-lg bg-brand-red font-bold text-m sm:text-lg text-white shadow transform rotate-3 -translate-y-2 z-30">
+        COME.SEE.JESUS
+      </div>
       <div class="p-4 rounded-full bg-yellow-300 font-bold text-base sm:text-lg text-yellow-900 shadow transform -rotate-6 -translate-y-1 z-20">
         JOY
       </div>

@@ -2,44 +2,53 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import RegisterForm from "../../components/RegisterForm.astro";
 import { site } from "../../../site.config.js";
+
+const email = site?.contact?.email ?? "hello@thelifeplace.org";
 ---
 
 <BaseLayout title="Plan a Visit">
-  <section class="container-x py-14 md:py-20">
-    <h1 class="text-3xl md:text-4xl font-medium text-center">Plan a Visit</h1>
+  <section class="container-x py-12 md:py-20">
+    <!-- Heading -->
+    <h1 class="text-3xl md:text-4xl font-bold text-center">Plan a Visit</h1>
 
-    <p class="mt-6 text-lg sm:text-2xl text-center text-gray-700">
-      Come. See. <span class="text-[#B3282D]">Jesus</span>
+    <!-- Slogan -->
+    <p class="mt-5 md:mt-6 text-lg sm:text-2xl text-center text-warmgray-700">
+ <span class="text-brand-red">Come. See.Jesus</span>
     </p>
 
-    <p class="mt-4 mb-8 text-center text-2xl md:text-xl">
-      1 Elm Avenue, Craigavon AH, 2191, Sandton 
+    <!-- Address -->
+    <p class="mt-4 mb-6 md:mb-8 text-center text-lg md:text-2xl">
+      1 Elm Avenue, Craigavon AH, 2191, Sandton
     </p>
 
-    <div class="text-xl flex justify-center gap-4">
-      <a class="btn btn-outline" href={`mailto:${site.contact.email}`}>
-        email us @hello@thelifeplace.org
+    <!-- Email CTA -->
+    <div class="text-center">
+      <a class="btn btn-outline text-m md:text-xl" href={`mailto:${email}`}>
+        email us @{email}
       </a>
     </div>
 
-    <RegisterForm
-  title="We'd love to hear from you — drop your details below"
-  eventName="Plan a Visit"
-  successMessage="Thank you for contacting us!"
-  ctaText="Connect With Us"
-  disabled={false}
-  showNotice={false} // 👈 hides both messages
-  fields={[
-    { id: "firstName", label: "Name", type: "text", required: true },
-    { id: "surname", label: "Surname", type: "text", required: true },
-    { id: "contact", label: "Contact Number", type: "tel", required: true },
-    { id: "email", label: "Email Address", type: "email", required: true },
-    { id: "streetAddress", label: "Street Address", type: "text", required: true },
-    { id: "suburb", label: "Suburb", type: "text", required: true },
-    { id: "city", label: "City", type: "text", required: true },
-    { id: "postalCode", label: "Postal Code", type: "text", required: true, minlength: 3, maxlength: 10, pattern: ".{3,10}" }
-  ]}
-/>
+    <!-- Form -->
+    <div class="mt-8 md:mt-10">
+      <RegisterForm
+        title="We'd love to hear from you — drop your details below"
+        eventName="Plan a Visit"
+        successMessage="Thank you for contacting us!"
+        ctaText="Connect With Us"
+        disabled={false}
+        showNotice={false}
+        fields={[
+          { id: "firstName", label: "Name", type: "text", required: true },
+          { id: "surname", label: "Surname", type: "text", required: true },
+          { id: "contact", label: "Contact Number", type: "tel", required: true },
+          { id: "email", label: "Email Address", type: "email", required: true },
+          { id: "streetAddress", label: "Street Address", type: "text", required: true },
+          { id: "suburb", label: "Suburb", type: "text", required: true },
+          { id: "city", label: "City", type: "text", required: true },
+          { id: "postalCode", label: "Postal Code", type: "text", required: true, minlength: 3, maxlength: 10, pattern: ".{3,10}" }
+        ]}
+      />
+    </div>
 
     <!-- Location Map -->
     <div class="mt-8 rounded-xl overflow-hidden shadow-lg">
@@ -53,4 +62,5 @@ import { site } from "../../../site.config.js";
         referrerpolicy="no-referrer-when-downgrade">
       </iframe>
     </div>
+  </section>
 </BaseLayout>

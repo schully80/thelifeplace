@@ -1,43 +1,43 @@
 ---
+const year = new Date().getFullYear();
 ---
 
 <footer class="bg-gray-100 mt-8">
   <div class="max-w-6xl mx-auto px-4 py-10 text-center text-sm">
 
     <!-- Social links -->
-    <div class="flex justify-center gap-4">
+    <div class="flex justify-center flex-wrap gap-3 md:gap-4">
       <a href="https://facebook.com/thelifeplacesa" target="_blank" rel="noopener"
-         class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fab fa-facebook-f text-2xl text-white"></i>
+         class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
+        <i class="fab fa-facebook-f text-xl md:text-2xl text-white"></i>
       </a>
       <a href="https://instagram.com/thelifeplacesa" target="_blank" rel="noopener"
-         class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fab fa-instagram text-2xl text-white"></i>
+         class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
+        <i class="fab fa-instagram text-xl md:text-2xl text-white"></i>
       </a>
       <a href="https://youtube.com/@thelifeplacesa" target="_blank" rel="noopener"
-         class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fab fa-youtube text-2xl text-white"></i>
+         class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
+        <i class="fab fa-youtube text-xl md:text-2xl text-white"></i>
       </a>
-      <!-- Podcasts (visible; replace links when ready) -->
-      <a href="https://open.spotify.com/show/YOUR_SPOTIFY_ID" target="_blank" rel="noopener"
-         class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fab fa-spotify text-2xl text-white"></i>
+      <a href="https://open.spotify.com/show/the-life-place6" target="_blank" rel="noopener"
+         class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
+        <i class="fab fa-spotify text-xl md:text-2xl text-white"></i>
       </a>
-      <a href="https://podcasts.apple.com/your-show-link" target="_blank" rel="noopener"
-         class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fas fa-podcast text-2xl text-white"></i>
+      <a href="https://podcasts.apple.com/us/podcast/the-life-place/id1816955719" target="_blank" rel="noopener"
+         class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
+        <i class="fas fa-podcast text-xl md:text-2xl text-white"></i>
       </a>
     </div>
 
     <!-- Links -->
-    <div class="mt-6 space-x-4 text-brand-warmgray-600">
+    <div class="mt-6 flex flex-wrap justify-center gap-4 text-brand-warmgray-600">
       <a href="/privacy-policy/" class="underline hover:underline">Privacy Policy</a>
       <a href="/cookies/" class="underline hover:underline">Cookies</a>
       <a href="/terms/" class="underline hover:underline">Terms</a>
     </div>
 
     <p class="mt-4 text-brand-warmgray-600">
-      © {new Date().getFullYear()} The Life Place. All Rights Reserved
+      © {year} The Life Place. All Rights Reserved
     </p>
   </div>
 </footer>
