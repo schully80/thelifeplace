@@ -1,0 +1,118 @@
+---
+// src/pages/search.astro
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const url = new URL(Astro.request.url);
+const q = (url.searchParams.get("q") || "").trim();
+const title = q ? `Search: ${q}` : "Search";
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Search — The Life Place</title>
+  </head>
+  <body class="container-x py-10">
+    <h1 class="text-2xl font-bold mb-4">Search</h1>
+    {q
+      ? <p class="text-gray-700">You searched for: <strong>{q}</strong></p>
+      : <p class="text-gray-500">Type something in the search box to get started.</p>}
+    <!-- TODO: Render your real results here -->
+  </body>
+</html>
+
+<BaseLayout title={title}>
+  <section class="container-x py-10 md:py-12">
+    <h1 class="text-2xl md:text-3xl font-bold mb-4">Search</h1>
+
+    <form action="/search" method="GET" class="mb-6">
+      <input
+        type="text"
+        name="q"
+        value={q}
+        placeholder="Search the site..."
+        class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-brand-red focus:border-brand-red"
+      />
+    </form>
+
+    <div id="results" class="space-y-4" data-query={q}>
+      {q ? (
+        <p class="text-sm text-gray-500">Showing results for: <span class="font-medium">{q}</span></p>
+      ) : (
+        <p class="text-sm text-gray-500">Type a query above to search.</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Lightweight client-side search (expandable index) -->
+  <script is:inline>
+    (function () {
+      const resultsEl = document.getElementById("results");
+      const q = (resultsEl?.dataset?.query || "").toLowerCase();
+
+      // ✅ Minimal on-site index. Add/modify items anytime.
+      const INDEX = [
+        { title: "What to Expect", url: "/what-to-expect/", tags: "welcome service gather", text: "Our welcome, what to expect on a Sunday at The Life Place." },
+        { title: "About Us", url: "/about-us/", tags: "mission vision jesus", text: "Our mission and vision — Come. See. Jesus." },
+        { title: "Our Values", url: "/about-us/our-values", tags: "values gospel grace community generosity", text: "Core values: good news, community, generosity, compassion." },
+        { title: "Leadership", url: "/about-us/leadership", tags: "schulter jenny etyang leaders", text: "Meet Schulter and Jenny — founders of The Life Place." },
+        { title: "Ministries", url: "/ministries/", tags: "family formation outreach kids generosity", text: "Life at The Life Place — ministries and rhythms." },
+        { title: "Bring Them To Jesus", url: "/ministries/bring-them-to-jesus/", tags: "parents children program class", text: "Two-week program for parents — Jesus-centered parenting." },
+        { title: "ThisGen", url: "/ministries/gen/", tags: "youth teens students next generation", text: "ThisGen — youth expression at The Life Place." },
+        { title: "Faith & Work", url: "/ministries/faith-and-work/", tags: "work vocation calling marketplace", text: "Integrating faith with daily work and calling." },
+        { title: "Premarital Counseling", url: "/ministries/premarital-counseling/", tags: "marriage couples counseling", text: "Resources to build Christ-centered marriages." },
+        { title: "The Life Place Institute", url: "/ministries/institute/", tags: "training discipleship teaching", text: "A hub for discipleship, teaching, leadership training." },
+        { title: "Relief Center", url: "/ministries/relief-center/", tags: "care food crisis compassion", text: "Extending the love of Jesus to those in need." },
+        { title: "Generosity", url: "/give/", tags: "give eft snapscan annual report", text: "Give online — EFT, SnapScan, and annual financial report." },
+        { title: "Plan a Visit", url: "/visit/", tags: "map address contact", text: "Plan a visit — address, contact, and form." },
+        { title: "Privacy Policy", url: "/privacy-policy/", tags: "privacy legal", text: "How we handle your data." },
+        { title: "Cookie Policy", url: "/cookies/", tags: "cookies policy", text: "Cookie usage and preferences." },
+        { title: "Terms", url: "/terms/", tags: "terms legal", text: "Terms of use." },
+        { title: "Annual Financial Report", url: "/give/#annual-report", tags: "finance transparency report pdf", text: "View or download the annual report." },
+      ];
+
+      function score(item, q) {
+        // simple relevance: title & tags weighted
+        const hay = (item.title + " " + item.tags + " " + item.text).toLowerCase();
+        if (!q) return 0;
+        let s = 0;
+        q.split(/\s+/).forEach(part => {
+          if (!part) return;
+          if (item.title.toLowerCase().includes(part)) s += 5;
+          if (item.tags.toLowerCase().includes(part)) s += 3;
+          if (hay.includes(part)) s += 1;
+        });
+        return s;
+      }
+
+      function render(list) {
+        if (!resultsEl) return;
+        const qEmpty = !q || q.trim().length === 0;
+        if (qEmpty) return;
+
+        const matches = INDEX
+          .map(item => ({ ...item, _score: score(item, q) }))
+          .filter(x => x._score > 0)
+          .sort((a, b) => b._score - a._score)
+          .slice(0, 20);
+
+        resultsEl.innerHTML = `
+          <p class="text-sm text-gray-500">Showing results for: <span class="font-medium">${q}</span></p>
+          ${matches.length === 0 ? `
+            <div class="mt-4 rounded-lg border p-4 bg-white">
+              <p class="text-gray-700">No on-site matches found.</p>
+              <a class="underline text-brand-red" href="https://www.google.com/search?q=${encodeURIComponent('site:' + window.location.hostname + ' ' + q)}">Search the web for "${q}"</a>
+            </div>
+          ` : matches.map(m => `
+            <article class="rounded-lg border p-4 bg-white hover:shadow-sm transition">
+              <a class="text-lg font-semibold underline-anim" href="${m.url}">${m.title}</a>
+              <p class="mt-2 text-gray-600 text-sm">${m.text}</p>
+              <p class="mt-1 text-[11px] text-gray-400 uppercase tracking-wide">${m.tags}</p>
+            </article>
+          `).join("")}
+        `;
+      }
+
+      render(INDEX);
+    })();
+  </script>
+</BaseLayout>

@@ -2,7 +2,6 @@
 import "../styles/global.css";
 import CookieConsent from "../components/CookieConsent.astro";
 import HeaderMobile from "../components/HeaderMobile.astro";
-import Footer from "../components/Footer.astro"; // 👈 NEW
 
 const {
   title = "The Life Place",
@@ -39,7 +38,7 @@ const isActive = (href: string) =>
     />
   </head>
 
-  <body class="bg-white text-brand-warmgray antialiased min-h-screen flex flex-col">
+  <body class="bg-white antialiased min-h-screen flex flex-col">
     <!-- Mobile header (appears on < md) -->
     <HeaderMobile class="md:hidden" logoSrc="/logo.png" title="The Life Place" />
 
@@ -55,12 +54,27 @@ const isActive = (href: string) =>
           <a href="/" class="site-title font-bold text-brand-red text-lg sm:text-xl md:text-2xl leading-tight">
             The Life Place
           </a>
-          <span class="text-sm text-brand-warmgray-600 tracking-wide">
+          <span class="text-sm text-gray-600 tracking-wide">
             Come. See. Jesus
           </span>
         </div>
 
-        <div class="flex-1"></div>
+        <!-- 🔎 Search button (center area) -->
+        <div class="flex-1 flex items-center justify-center">
+          <button
+            id="searchToggleDesktop"
+            type="button"
+            data-search-open
+            class="flex items-center gap-2 px-3 py-2 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
+            aria-label="Open site search"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+            </svg>
+            <span class="hidden sm:inline text-sm font-medium">Search</span>
+          </button>
+        </div>
 
         <!-- Desktop nav -->
         <nav class="flex items-center gap-6 font-montserrat text-base">
@@ -300,49 +314,19 @@ const isActive = (href: string) =>
       <div class="max-w-6xl mx-auto px-4 py-10 text-center text-sm space-y-6">
         <!-- Social links -->
         <div class="flex justify-center gap-4">
-          <a
-            href="https://facebook.com/thelifeplacesa"
-            target="_blank"
-            rel="noopener"
-            class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
-            aria-label="Facebook"
-          >
+          <a href="https://facebook.com/thelifeplacesa" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="Facebook">
             <i class="fab fa-facebook-f text-2xl text-white"></i>
           </a>
-          <a
-            href="https://instagram.com/thelifeplacesa"
-            target="_blank"
-            rel="noopener"
-            class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
-            aria-label="Instagram"
-          >
+          <a href="https://instagram.com/thelifeplacesa" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="Instagram">
             <i class="fab fa-instagram text-2xl text-white"></i>
           </a>
-          <a
-            href="https://youtube.com/@thelifeplacesa"
-            target="_blank"
-            rel="noopener"
-            class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
-            aria-label="YouTube"
-          >
+          <a href="https://youtube.com/@thelifeplacesa" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="YouTube">
             <i class="fab fa-youtube text-2xl text-white"></i>
           </a>
-          <a
-            href="https://open.spotify.com/show/YOUR_SPOTIFY_ID"
-            target="_blank"
-            rel="noopener"
-            class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
-            aria-label="Spotify"
-          >
+          <a href="https://open.spotify.com/show/YOUR_SPOTIFY_ID" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="Spotify">
             <i class="fab fa-spotify text-2xl text-white"></i>
           </a>
-          <a
-            href="https://podcasts.apple.com/your-show-link"
-            target="_blank"
-            rel="noopener"
-            class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
-            aria-label="Apple Podcasts"
-          >
+          <a href="https://podcasts.apple.com/your-show-link" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="Apple Podcasts">
             <i class="fas fa-podcast text-2xl text-white"></i>
           </a>
         </div>
@@ -351,7 +335,7 @@ const isActive = (href: string) =>
         <CookieConsent />
 
         <!-- Footer links -->
-        <div class="flex flex-wrap justify-center items-center gap-4 text-brand-warmgray-600">
+        <div class="flex flex-wrap justify-center items-center gap-4 text-gray-600">
           <a href="/privacy-policy/" class="underline hover:underline">Privacy Policy</a>
           <a href="/cookies/" class="underline hover:underline">Cookies</a>
           <a href="/terms/" class="underline hover:underline">Terms</a>
@@ -360,59 +344,111 @@ const isActive = (href: string) =>
       </div>
     </footer>
 
-    <!-- Dropdown behaviour (desktop) -->
+    <!-- 🔍 Search Overlay -->
+    <div
+      id="searchOverlay"
+      class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] hidden flex items-start justify-center pt-24 px-4"
+      aria-hidden="true"
+    >
+      <div class="bg-white rounded-xl shadow-lg max-w-lg w-full p-6" role="dialog" aria-modal="true" aria-label="Site search">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-lg font-semibold">Search The Life Place</h2>
+          <button id="searchClose" type="button" aria-label="Close search" class="text-gray-500 hover:text-brand-red">✕</button>
+        </div>
+
+        <form id="siteSearchForm" action="/search" method="GET" class="space-y-3">
+          <input
+            id="siteSearchInput"
+            name="q"
+            type="search"
+            placeholder="Type to search…"
+            autocomplete="off"
+            class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-brand-red focus:border-brand-red"
+          />
+          <div class="flex gap-2">
+            <button type="submit" class="btn-primary">Search</button>
+            <button type="button" id="searchClear" class="btn-ghost">Clear</button>
+          </div>
+        </form>
+
+        <div id="searchResults" class="mt-6 space-y-3 hidden"></div>
+      </div>
+    </div>
+
+    <!-- 🔧 Search logic (desktop + mobile buttons) -->
     <script is:inline>
-      // Dropdown hover+scroll friendly behaviour with a small closing delay
       (function () {
-        const HIDE_DELAY = 220; // ms: snappy but forgiving
-        document.querySelectorAll('[data-dropdown]').forEach((wrap) => {
-          const btn  = wrap.querySelector('[data-trigger]');
-          const menu = wrap.querySelector('[data-menu]');
-          if (!btn || !menu) return;
+        const html = document.documentElement;
+        const overlay = document.getElementById("searchOverlay");
+        const btnClose = document.getElementById("searchClose");
+        const form = document.getElementById("siteSearchForm");
+        const input = document.getElementById("siteSearchInput");
+        const results = document.getElementById("searchResults");
+        const btnClear = document.getElementById("searchClear");
 
-          let hideTimer;
+        // Any element with data-search-open will open the overlay (desktop + mobile)
+        const openers = document.querySelectorAll("[data-search-open]");
 
-          const open  = () => { clearTimeout(hideTimer); menu.classList.remove('hidden'); btn.setAttribute('aria-expanded', 'true'); };
-          const close = () => { hideTimer = setTimeout(() => { menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false'); }, HIDE_DELAY); };
+        if (!overlay || !btnClose || !form || !input) return;
 
-          // Hover / pointer movement
-          btn.addEventListener('mouseenter', open);
-          btn.addEventListener('mouseleave', close);
-          menu.addEventListener('mouseenter', open);
-          menu.addEventListener('mouseleave', close);
+        const open = (e) => {
+          e?.preventDefault?.();
+          overlay.classList.remove("hidden");
+          overlay.setAttribute("aria-hidden", "false");
+          html.style.overflow = "hidden";
+          setTimeout(() => input.focus(), 0);
+        };
 
-          // Click toggles (useful for pointer devices)
-          btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const isHidden = menu.classList.contains('hidden');
-            isHidden ? open() : close();
-          });
+        const close = (e) => {
+          e?.preventDefault?.();
+          overlay.classList.add("hidden");
+          overlay.setAttribute("aria-hidden", "true");
+          html.style.overflow = "";
+        };
 
-          // Keyboard accessibility
-          btn.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              open();
-              const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
-              first?.focus();
-            }
-            if (e.key === 'Escape') { close(); btn.focus(); }
-          });
-          menu.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') { close(); btn.focus(); }
-          });
+        openers.forEach((btn) => {
+          btn.addEventListener("click", open);
+          btn.addEventListener("mousedown", (evt) => evt.preventDefault());
         });
 
-        // Close any open dropdown if you click elsewhere
-        document.addEventListener('click', (e) => {
-          const openMenus = [...document.querySelectorAll('[data-dropdown] [data-menu]:not(.hidden)')];
-          openMenus.forEach((menu) => {
-            if (!menu.closest('[data-dropdown]')?.contains(e.target)) {
-              const btn = menu.parentElement.querySelector('[data-trigger]');
-              menu.classList.add('hidden');
-              btn?.setAttribute('aria-expanded', 'false');
+        btnClose.addEventListener("click", close);
+        overlay.addEventListener("click", (e) => { if (e.target === overlay) close(e); });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && overlay.getAttribute("aria-hidden") === "false") close(e);
+          if (e.key === "/" && !e.metaKey && !e.ctrlKey && !e.altKey) {
+            const tag = document.activeElement?.tagName?.toLowerCase();
+            if (tag !== "input" && tag !== "textarea") {
+              e.preventDefault();
+              open();
             }
-          });
+          }
+        });
+
+        btnClear?.addEventListener("click", () => {
+          input.value = "";
+          results?.classList?.add("hidden");
+          if (results) results.innerHTML = "";
+          input.focus();
+        });
+
+        // Inline results placeholder (stay in overlay)
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const q = input.value.trim();
+          if (!q) {
+            if (results) {
+              results.innerHTML = '<p class="text-sm text-gray-500">Type something to search.</p>';
+              results.classList.remove("hidden");
+            }
+            return;
+          }
+          if (results) {
+            results.innerHTML = `
+              <p class="text-sm text-gray-600">Searching for “<strong>${q.replace(/</g,'&lt;')}</strong>”…</p>
+              <p class="text-sm text-gray-400">Inline search placeholder. Wire this up to your content index.</p>
+            `;
+            results.classList.remove("hidden");
+          }
         });
       })();
     </script>

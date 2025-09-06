@@ -97,46 +97,65 @@ const event = url.searchParams.get("event");
     </div>
   </div>
 
- <!-- Annual Report block (mobile-first) -->
+ <!-- Annual Report (featured card) -->
 <section class="container-x mt-12">
   <div
-    class="rounded-xl border-2 border-gray-300 
-           p-6              <!-- mobile padding -->
-           md:p-8           <!-- desktop padding -->
-           bg-white shadow-sm 
-           max-w-3xl mx-auto">
-    <h2 class="text-2xl       <!-- mobile heading size -->
-               md:text-4xl    <!-- desktop heading size -->
-               font-bold text-center mb-2">
-      Annual Financial Report
-    </h2>
+    class="relative overflow-hidden rounded-2xl border-2 border-gray-200 bg-gradient-to-br from-white to-gray-50 shadow-lg
+           p-6 sm:p-8 md:p-10"
+    aria-labelledby="annual-report-title"
+  >
 
-    <p class="text-center 
-            text-lg leading-relaxed mb-4   <!-- mobile default -->
-            sm:text-base sm:leading-7 sm:mb-5  <!-- small tablets -->
-            md:text-xl md:leading-8 md:mb-6    <!-- desktop -->
-            text-brand-warmgray-700">
-    We value transparency. See how generosity is stewarded at The Life Place.
-  </p>
+    <!-- Header -->
+    <div class="flex items-start gap-3 sm:gap-4">
+      <!-- Icon -->
+      <div class="hidden sm:flex h-12 w-12 items-center justify-center rounded-xl bg-[#B3282D]/10">
+        <!-- doc icon -->
+        <svg viewBox="0 0 24 24" class="h-6 w-6 text-[#B3282D]" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M7 3h6l4 4v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 3v5h5"/>
+        </svg>
+      </div>
 
+      <div class="flex-1">
+        <h2 id="annual-report-title"
+            class="text-2xl md:text-4xl text-center font-bold tracking-tight text-warmgray-900">
+          Annual Financial Report
+        </h2>
+        <p class="mt-2 text-center sm:text-left
+                  text-lg leading-relaxed mb-4
+                  sm:text-base sm:leading-7 sm:mb-5
+                  md:text-lg md:leading-8 md:mb-6
+                  text-brand-warmgray-700">
+          We value transparency. See how generosity is stewarded at The Life Place.
+        </p>
+      </div>
+    </div>
 
-    <div
-      class="flex flex-col      <!-- mobile: stack buttons vertically -->
-             sm:flex-row        <!-- ≥640px: row layout -->
-             justify-center gap-3">
+    <!-- Actions -->
+    <div class="mt-2 flex flex-col sm:flex-row justify-center sm:justify-start gap-3 sm:gap-4">
       <!-- Download -->
       <a
         href="/reports/annual-report-2024.pdf"
         download
-        class="btn btn-outline">
+        class="btn-brand text-sm md:text-base px-4 py-2 md:px-6 md:py-3"
+        aria-label="Download Annual Financial Report 2024 as PDF"
+      >
         Download 2024 (PDF)
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5"
+             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v10m0 0l-4-4m4 4l4-4M4 19h16"/>
+        </svg>
       </a>
 
       <!-- View online -->
       <a
         href="/reports/annual-report-2024.pdf"
-        target="_blank" rel="noopener"
-        class="btn btn-ghost">
+        target="_blank"
+        rel="noopener"
+        class="btn-outline text-sm md:text-base px-4 py-2 md:px-6 md:py-3"
+        aria-label="View Annual Financial Report 2024 online"
+      >
         View Online
       </a>
     </div>

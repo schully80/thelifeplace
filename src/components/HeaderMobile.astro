@@ -30,18 +30,35 @@ const isActive = (href: string) =>
       </div>
     </a>
 
-    <button
-      id="mobileMenuButton"
-      aria-label="Open menu"
-      aria-controls="mobileNavDrawer"
-      aria-expanded="false"
-      class="inline-flex items-center justify-center h-10 w-10 rounded-md border border-brand-red bg-white active:scale-[0.98]"
-      focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"
-    >
-      <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
-        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
+    <!-- Actions: Search + Hamburger -->
+    <div class="flex items-center gap-2">
+      <!-- 🔎 Mobile search trigger (opens site-wide overlay) -->
+      <button
+        id="searchToggleMobile"
+        aria-label="Open search"
+        class="inline-flex items-center justify-center h-10 w-10 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+        </svg>
+        <span class="sr-only">Search</span>
+      </button>
+
+      <!-- ☰ Hamburger -->
+      <button
+        id="mobileMenuButton"
+        aria-label="Open menu"
+        aria-controls="mobileNavDrawer"
+        aria-expanded="false"
+        class="inline-flex items-center justify-center h-10 w-10 rounded-md border border-brand-red bg-white active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"
+      >
+        <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="sr-only">Open menu</span>
+      </button>
+    </div>
   </div>
 
   <!-- Overlay (solid white, covers page) -->
@@ -61,20 +78,19 @@ const isActive = (href: string) =>
     tabindex="-1"
     data-drawer
   >
-    <!-- Drawer header --><div class="h-16 px-4 flex items-center justify-end border-b">
-  <button
-    id="mobileMenuClose"
-    aria-label="Close menu"
-    class="h-10 w-10 inline-flex items-center justify-center rounded-md border border-brand-red bg-white
-           active:scale-[0.98] 
-           focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"
-  >
-    <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
-      <path d="M6 6l12 12M18 6l-12 12" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-    </svg>
-  </button>
-</div>
-
+    <!-- Drawer header -->
+    <div class="h-16 px-4 flex items-center justify-end border-b">
+      <button
+        id="mobileMenuClose"
+        aria-label="Close menu"
+        class="h-10 w-10 inline-flex items-center justify-center rounded-md border border-brand-red bg-white active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"
+      >
+        <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
+          <path d="M6 6l12 12M18 6l-12 12" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+        <span class="sr-only">Close menu</span>
+      </button>
+    </div>
 
     <!-- Drawer body -->
     <nav class="px-2 py-2 overflow-y-auto max-h-[calc(100dvh-4rem)]" aria-label="Mobile">
@@ -214,8 +230,6 @@ const isActive = (href: string) =>
     </nav>
   </aside>
 
-  
-
   <!-- Inline behaviour -->
   <script is:inline>
     (function () {
@@ -226,8 +240,10 @@ const isActive = (href: string) =>
       const overlay = document.getElementById('mobileNavOverlay');
 
       if (!btnOpen || !btnClose || !drawer || !overlay) return;
-    if (overlay.parentElement !== document.body) document.body.appendChild(overlay);
-    if (drawer.parentElement  !== document.body) document.body.appendChild(drawer);
+
+      // Ensure overlay/drawer at document.body for stacking
+      if (overlay.parentElement !== document.body) document.body.appendChild(overlay);
+      if (drawer.parentElement  !== document.body) document.body.appendChild(drawer);
       
       const open = () => {
         drawer.classList.remove('translate-x-full');   // slide IN from right
