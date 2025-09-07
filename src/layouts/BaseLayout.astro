@@ -54,26 +54,25 @@ const isActive = (href: string) =>
           <a href="/" class="site-title font-bold text-brand-red text-lg sm:text-xl md:text-2xl leading-tight">
             The Life Place
           </a>
-          <span class="text-sm text-gray-600 tracking-wide">
+          <span class="text-sm text-center text-warmgray-600 tracking-wide">
             Come. See. Jesus
           </span>
         </div>
 
         <!-- 🔎 Search button (center area) -->
         <div class="flex-1 flex items-center justify-center">
-          <button
-            id="searchToggleDesktop"
-            type="button"
-            data-search-open
-            class="flex items-center gap-2 px-3 py-2 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
-            aria-label="Open site search"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
-            </svg>
-            <span class="hidden sm:inline text-sm font-medium">Search</span>
-          </button>
+         <button
+  type="button"
+  data-search-open
+  class="flex items-center gap-10 px-3 py-2 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
+  aria-label="Open site search"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+  </svg>
+  <span class="hidden sm:inline text-sm font-medium">Search</span>
+</button>
         </div>
 
         <!-- Desktop nav -->
@@ -377,80 +376,201 @@ const isActive = (href: string) =>
 
     <!-- 🔧 Search logic (desktop + mobile buttons) -->
     <script is:inline>
-      (function () {
-        const html = document.documentElement;
-        const overlay = document.getElementById("searchOverlay");
-        const btnClose = document.getElementById("searchClose");
-        const form = document.getElementById("siteSearchForm");
-        const input = document.getElementById("siteSearchInput");
-        const results = document.getElementById("searchResults");
-        const btnClear = document.getElementById("searchClear");
+  (function () {
+    const html = document.documentElement;
+    const overlay = document.getElementById("searchOverlay");
+    const btnClose = document.getElementById("searchClose");
+    const form = document.getElementById("siteSearchForm");
+    const input = document.getElementById("siteSearchInput");
+    const results = document.getElementById("searchResults");
+    const btnClear = document.getElementById("searchClear");
+    const openers = document.querySelectorAll("[data-search-open]");
 
-        // Any element with data-search-open will open the overlay (desktop + mobile)
-        const openers = document.querySelectorAll("[data-search-open]");
+    let INDEX = null; // cached search index
 
-        if (!overlay || !btnClose || !form || !input) return;
+    const open = (e) => {
+      e?.preventDefault?.();
+      overlay.classList.remove("hidden");
+      overlay.setAttribute("aria-hidden", "false");
+      html.style.overflow = "hidden";
+      setTimeout(() => input.focus(), 0);
+    };
 
-        const open = (e) => {
-          e?.preventDefault?.();
-          overlay.classList.remove("hidden");
-          overlay.setAttribute("aria-hidden", "false");
-          html.style.overflow = "hidden";
-          setTimeout(() => input.focus(), 0);
-        };
+    const close = (e) => {
+      e?.preventDefault?.();
+      overlay.classList.add("hidden");
+      overlay.setAttribute("aria-hidden", "true");
+      html.style.overflow = "";
+    };
 
-        const close = (e) => {
-          e?.preventDefault?.();
-          overlay.classList.add("hidden");
-          overlay.setAttribute("aria-hidden", "true");
-          html.style.overflow = "";
-        };
+    openers.forEach((btn) => {
+      btn.addEventListener("click", open);
+      btn.addEventListener("mousedown", (evt) => evt.preventDefault());
+    });
 
-        openers.forEach((btn) => {
-          btn.addEventListener("click", open);
-          btn.addEventListener("mousedown", (evt) => evt.preventDefault());
-        });
-
-        btnClose.addEventListener("click", close);
-        overlay.addEventListener("click", (e) => { if (e.target === overlay) close(e); });
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape" && overlay.getAttribute("aria-hidden") === "false") close(e);
-          if (e.key === "/" && !e.metaKey && !e.ctrlKey && !e.altKey) {
-            const tag = document.activeElement?.tagName?.toLowerCase();
-            if (tag !== "input" && tag !== "textarea") {
-              e.preventDefault();
-              open();
-            }
-          }
-        });
-
-        btnClear?.addEventListener("click", () => {
-          input.value = "";
-          results?.classList?.add("hidden");
-          if (results) results.innerHTML = "";
-          input.focus();
-        });
-
-        // Inline results placeholder (stay in overlay)
-        form.addEventListener("submit", (e) => {
+    btnClose.addEventListener("click", close);
+    overlay.addEventListener("click", (e) => { if (e.target === overlay) close(e); });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && overlay.getAttribute("aria-hidden") === "false") close(e);
+      if (e.key === "/" && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        const tag = document.activeElement?.tagName?.toLowerCase();
+        if (tag !== "input" && tag !== "textarea") {
           e.preventDefault();
-          const q = input.value.trim();
-          if (!q) {
-            if (results) {
-              results.innerHTML = '<p class="text-sm text-gray-500">Type something to search.</p>';
-              results.classList.remove("hidden");
-            }
-            return;
-          }
-          if (results) {
-            results.innerHTML = `
-              <p class="text-sm text-gray-600">Searching for “<strong>${q.replace(/</g,'&lt;')}</strong>”…</p>
-              <p class="text-sm text-gray-400">Inline search placeholder. Wire this up to your content index.</p>
-            `;
-            results.classList.remove("hidden");
-          }
-        });
-      })();
-    </script>
+          open();
+        }
+      }
+    });
+
+    btnClear?.addEventListener("click", () => {
+      input.value = "";
+      if (results) {
+        results.innerHTML = "";
+        results.classList.add("hidden");
+      }
+      input.focus();
+    });
+
+    async function loadIndex() {
+      if (INDEX) return INDEX;
+      try {
+        const res = await fetch("/src/data/searchIndex.json", { cache: "no-cache" });
+        if (!res.ok) throw new Error("Index not found");
+        INDEX = await res.json();
+      } catch (e) {
+        // Fallback path if your build copies data under /data/
+        try {
+          const res2 = await fetch("/data/searchIndex.json", { cache: "no-cache" });
+          if (!res2.ok) throw new Error("Index not found (fallback)");
+          INDEX = await res2.json();
+        } catch (e2) {
+          INDEX = [];
+        }
+      }
+      return INDEX;
+    }
+
+    function norm(s) {
+      return (s || "").toString().toLowerCase();
+    }
+
+    function rankItem(item, q) {
+      const t = norm(item.title);
+      const s = norm(item.summary);
+      const tags = (item.tags || []).map(norm).join(" ");
+      let score = 0;
+      if (t.includes(q)) score += 5;
+      if (s.includes(q)) score += 3;
+      if (tags.includes(q)) score += 2;
+      return score;
+    }
+
+    function highlight(text, q) {
+      if (!text) return "";
+      const safe = text.replace(/</g, "&lt;");
+      if (!q) return safe;
+      const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "ig");
+      return safe.replace(re, "<mark>$1</mark>");
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const qRaw = input.value.trim();
+      const q = qRaw.toLowerCase();
+
+      if (!q) {
+        results.innerHTML = '<p class="text-sm text-gray-500">Type something to search.</p>';
+        results.classList.remove("hidden");
+        return;
+      }
+
+      const data = await loadIndex();
+      if (!data.length) {
+        results.innerHTML = '<p class="text-sm text-gray-500">Search index not found. Add items to <code>src/data/searchIndex.json</code>.</p>';
+        results.classList.remove("hidden");
+        return;
+      }
+
+      // Basic filtering + ranking
+      const matched = data
+        .map((item) => ({ item, score: rankItem(item, q) }))
+        .filter((r) => r.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 12);
+
+      if (!matched.length) {
+        results.innerHTML = `<p class="text-sm text-gray-500">No results for “${qRaw.replace(/</g, "&lt;")}”.</p>`;
+        results.classList.remove("hidden");
+        return;
+      }
+
+      // Render
+      results.innerHTML = matched.map(({ item }) => `
+        <a href="${item.url}" class="block rounded-md border p-3 hover:bg-gray-50 transition">
+          <div class="font-semibold text-gray-900">${highlight(item.title, qRaw)}</div>
+          <div class="text-sm text-gray-600 mt-1">${highlight(item.summary, qRaw)}</div>
+          <div class="text-[11px] text-gray-400 mt-1">${(item.tags||[]).map(t=>`#${t}`).join(" ")}</div>
+        </a>
+      `).join("");
+      results.classList.remove("hidden");
+    });
+  })();
+</script>
+<script is:inline>
+  // Desktop dropdown behaviour (hover friendly, keyboard accessible)
+  (function () {
+    const HIDE_DELAY = 220; // ms
+
+    document.querySelectorAll('[data-dropdown]').forEach((wrap) => {
+      const btn  = wrap.querySelector('[data-trigger]');
+      const menu = wrap.querySelector('[data-menu]');
+      if (!btn || !menu) return;
+
+      let hideTimer;
+
+      const open  = () => { clearTimeout(hideTimer); menu.classList.remove('hidden'); btn.setAttribute('aria-expanded', 'true'); };
+      const close = () => { hideTimer = setTimeout(() => { menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false'); }, HIDE_DELAY); };
+
+      // Hover
+      btn.addEventListener('mouseenter', open);
+      btn.addEventListener('mouseleave', close);
+      menu.addEventListener('mouseenter', open);
+      menu.addEventListener('mouseleave', close);
+
+      // Click toggle (useful for touchpads/mice)
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const isHidden = menu.classList.contains('hidden');
+        isHidden ? open() : close();
+      });
+
+      // Keyboard
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          open();
+          // focus first focusable in menu
+          const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+          first?.focus();
+        }
+        if (e.key === 'Escape') { close(); btn.focus(); }
+      });
+      menu.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { close(); btn.focus(); }
+      });
+    });
+
+    // Close any open dropdown if you click elsewhere
+    document.addEventListener('click', (e) => {
+      document.querySelectorAll('[data-dropdown] [data-menu]:not(.hidden)').forEach((menu) => {
+        if (!menu.closest('[data-dropdown]')?.contains(e.target)) {
+          const btn = menu.parentElement?.querySelector?.('[data-trigger]');
+          menu.classList.add('hidden');
+          btn?.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  })();
+</script>
   </body>
 </html>

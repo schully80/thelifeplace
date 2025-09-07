@@ -1,0 +1,26 @@
+[
+  {
+    "title": "What to Expect",
+    "url": "/what-to-expect/",
+    "summary": "Service flow, welcome, parking, and how to plan a visit.",
+    "tags": ["visit","service","first time"]
+  },
+  {
+    "title": "Generosity",
+    "url": "/give/",
+    "summary": "Ways to give: EFT, SnapScan, in person, and annual report.",
+    "tags": ["giving","donate","finance","annual report"]
+  },
+  {
+    "title": "Ministries",
+    "url": "/ministries/",
+    "summary": "Overview of ministries: Sunday Gatherings, Lord’s Table, Kids (coming soon), and more.",
+    "tags": ["ministries","family","kids","youth"]
+  },
+  {
+    "title": "Plan a Visit",
+    "url": "/visit/",
+    "summary": "Address, contact form, and map to The Life Place.",
+    "tags": ["map","address","contact","visit"]
+  }
+]
