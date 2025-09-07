@@ -77,6 +77,12 @@
            text-brand-warmgray-800 focus:outline-none focus:border-brand-red;
   }
 
+  /* Large-screen form sizing */
+.form-field--lg { @apply text-base md:text-base xl:text-lg 2xl:text-[1.125rem] py-2.5 md:py-3 xl:py-3.5 px-3 md:px-3.5; 
+
+}
+
+
   /* Brand helpers */
   .text-brand-red { color: #B3282D; }
   .bg-brand-red   { background-color: #B3282D; }

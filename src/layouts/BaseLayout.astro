@@ -44,42 +44,43 @@ const isActive = (href: string) =>
 
     <!-- Desktop header (hidden on mobile) -->
 <header class="hidden md:block relative z-30 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 overflow-visible">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center gap-4">
+<div class="gap-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center">    
+    
     <!-- Logo + Title -->
-    <a href="/" class="shrink-0 flex items-center gap-3 min-w-0" aria-label="The Life Place — Home">
-      <!-- 🔹 Responsive logo -->
-      <img 
-        src="/logo.png" 
-        alt="The Life Place Logo" 
-        class="h-9 sm:h-10 md:h-12 lg:h-14 w-auto" 
-      />
-      <div class="flex flex-col min-w-0">
-        <!-- 🔹 Responsive title -->
-        <span class="site-title font-semibold text-brand-red text-base sm:text-lg md:text-xl lg:text-2xl leading-tight truncate">
-          The Life Place
-        </span>
-        <!-- 🔹 Responsive tagline -->
-        <span class="text-xs sm:text-sm md:text-m text-center text-brand-warmgray-600 tracking-wide">
-          Come. See. Jesus
-        </span>
-      </div>
+    
+    <a href="/" class="shrink-0" aria-label="The Life Place — Home">
+      <img src="/logo.png" alt="The Life Place Logo" class="h-10 md:h-16 xl:h-15 2xl:h-20 w-auto" />
     </a>
 
+    <div class="flex flex-col min-w-0">
+      <a href="/" class="site-title font-semibold text-brand-red text-lg sm:text-xl md:text-2xl xl:text-2xl 2xl:text-4xl leading-tight">
+        The Life Place
+      </a>
+      <span class="text-center text-sm md:text-base xl:text-sm text-gray-600 tracking-wide">
+        Come. See. Jesus
+      </span>
+    </div>
+
     <!-- 🔎 Search button (center area) -->
-    <div class="flex-1 flex items-center justify-center">
+    <div class="mr-4 flex-1 flex items-center justify-center">
       <button
         type="button"
         data-search-open
-        class="flex items-center gap-2 px-3 py-2 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
+        class="flex items-center gap-2 px-3 py-2 xl:px-4 xl:py-2.5 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
         aria-label="Open site search"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 xl:h-6 xl:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
         </svg>
-        <span class="hidden sm:inline text-sm font-medium">Search</span>
+        <span class="hidden sm:inline text-sm xl:text-base font-medium">Search</span>
       </button>
     </div>
+
+    <!-- Desktop nav -->
+    <nav class="flex items-center gap-6 lg:gap-6 xl:gap-8 2xl:gap-10 font-montserrat text-base xl:text-lg">
+      <!-- (unchanged links; only class on <nav> updated above) -->
+
 
         <!-- Desktop nav -->
         <nav class="flex items-center gap-6 font-montserrat text-base">
@@ -183,7 +184,7 @@ const isActive = (href: string) =>
 
             <div
               data-menu
-              class="absolute left-0 top-full -mt-px w-64 rounded-md border bg-white shadow-lg z-50 hidden max-h-[600px] overflow-y-auto overscroll-contain pt-1"
+              class="absolute left-0 top-full -mt-px w-64 xl:w-72 2xl:w-80 rounded-md border bg-white shadow-lg z-50 hidden max-h-[75vh] xl:max-h-[85vh] overflow-y-auto overscroll-contain pt-1"
               role="menu"
               aria-label="Ministries Menu"
             >
@@ -310,7 +311,7 @@ const isActive = (href: string) =>
     </header>
 
     <!-- Page content -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1">
+    <main class="max-w-6xl xl:max-w-7xl 2xl:max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1">
       <slot />
     </main>
 
@@ -340,14 +341,14 @@ const isActive = (href: string) =>
         <CookieConsent />
 
         <!-- Footer links -->
-        <div class="flex flex-wrap justify-center items-center gap-4 text-gray-600">
-          <a href="/privacy-policy/" class="underline hover:underline">Privacy Policy</a>
-          <a href="/cookies/" class="underline hover:underline">Cookies</a>
-          <a href="/terms/" class="underline hover:underline">Terms</a>
-          <span>© 2025 The Life Place. All Rights Reserved</span>
-        </div>
-      </div>
-    </footer>
+       <div class="flex flex-wrap justify-center items-center gap-4 xl:gap-6 text-gray-600">
+      <a href="/privacy-policy/" class="underline hover:underline">Privacy Policy</a>
+      <a href="/cookies/" class="underline hover:underline">Cookies</a>
+      <a href="/terms/" class="underline hover:underline">Terms</a>
+      <span>© 2025 The Life Place. All Rights Reserved</span>
+    </div>
+  </div>
+</footer>
 
     <!-- 🔍 Search Overlay -->
     <div
@@ -355,9 +356,9 @@ const isActive = (href: string) =>
       class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] hidden flex items-start justify-center pt-24 px-4"
       aria-hidden="true"
     >
-      <div class="bg-white rounded-xl shadow-lg max-w-lg w-full p-6" role="dialog" aria-modal="true" aria-label="Site search">
+      <div class="bg-white rounded-xl shadow-lg max-w-lg xl:max-w-2xl 2xl:max-w-2xl w-full p-6" role="dialog" aria-modal="true" aria-label="Site search">
         <div class="flex justify-between items-center mb-4">
-          <h2 class="text-lg font-semibold">Search The Life Place</h2>
+          <h2 class="text-lg xl:text-xl font-semibold">Search The Life Place</h2>
           <button id="searchClose" type="button" aria-label="Close search" class="text-gray-500 hover:text-brand-red">✕</button>
         </div>
 
@@ -368,11 +369,11 @@ const isActive = (href: string) =>
             type="search"
             placeholder="Type to search…"
             autocomplete="off"
-            class="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 focus:ring-brand-red focus:border-brand-red"
+            class="w-full border border-gray-300 rounded-lg px-4 py-3 xl:py-3.5 text-gray-800 focus:ring-brand-red focus:border-brand-red"
           />
           <div class="flex gap-2">
-            <button type="submit" class="btn-primary">Search</button>
-            <button type="button" id="searchClear" class="btn-ghost">Clear</button>
+            <button type="submit" class="btn-primary px-5 xl:px-6 py-2.5">Search</button>
+            <button type="button" id="searchClear" class="btn-ghost px-5 xl:px-6 py-2.5">Clear</button>
           </div>
         </form>
 
