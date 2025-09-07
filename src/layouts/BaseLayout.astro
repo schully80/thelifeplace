@@ -43,37 +43,43 @@ const isActive = (href: string) =>
     <HeaderMobile class="md:hidden" logoSrc="/logo.png" title="The Life Place" />
 
     <!-- Desktop header (hidden on mobile) -->
-    <header class="hidden md:block relative z-30 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 overflow-visible">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center gap-4">
-        <!-- Logo + Title -->
-        <a href="/" class="shrink-0" aria-label="The Life Place — Home">
-          <img src="/logo.png" alt="The Life Place Logo" class="h-10 md:h-16 w-auto" />
-        </a>
+<header class="hidden md:block relative z-30 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 overflow-visible">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center gap-4">
+    <!-- Logo + Title -->
+    <a href="/" class="shrink-0 flex items-center gap-3 min-w-0" aria-label="The Life Place — Home">
+      <!-- 🔹 Responsive logo -->
+      <img 
+        src="/logo.png" 
+        alt="The Life Place Logo" 
+        class="h-9 sm:h-10 md:h-12 lg:h-14 w-auto" 
+      />
+      <div class="flex flex-col min-w-0">
+        <!-- 🔹 Responsive title -->
+        <span class="site-title font-semibold text-brand-red text-base sm:text-lg md:text-xl lg:text-2xl leading-tight truncate">
+          The Life Place
+        </span>
+        <!-- 🔹 Responsive tagline -->
+        <span class="text-xs sm:text-sm md:text-m text-center text-brand-warmgray-600 tracking-wide">
+          Come. See. Jesus
+        </span>
+      </div>
+    </a>
 
-        <div class="flex flex-col min-w-0">
-          <a href="/" class="site-title font-bold text-brand-red text-lg sm:text-xl md:text-2xl leading-tight">
-            The Life Place
-          </a>
-          <span class="text-sm text-center text-warmgray-600 tracking-wide">
-            Come. See. Jesus
-          </span>
-        </div>
-
-        <!-- 🔎 Search button (center area) -->
-        <div class="flex-1 flex items-center justify-center">
-         <button
-  type="button"
-  data-search-open
-  class="flex items-center gap-10 px-3 py-2 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
-  aria-label="Open site search"
->
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-      d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
-  </svg>
-  <span class="hidden sm:inline text-sm font-medium">Search</span>
-</button>
-        </div>
+    <!-- 🔎 Search button (center area) -->
+    <div class="flex-1 flex items-center justify-center">
+      <button
+        type="button"
+        data-search-open
+        class="flex items-center gap-2 px-3 py-2 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
+        aria-label="Open site search"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+        </svg>
+        <span class="hidden sm:inline text-sm font-medium">Search</span>
+      </button>
+    </div>
 
         <!-- Desktop nav -->
         <nav class="flex items-center gap-6 font-montserrat text-base">
@@ -177,7 +183,7 @@ const isActive = (href: string) =>
 
             <div
               data-menu
-              class="absolute left-0 top-full -mt-px w-64 rounded-md border bg-white shadow-lg z-50 hidden max-h-96 overflow-y-auto overscroll-contain pt-1"
+              class="absolute left-0 top-full -mt-px w-64 rounded-md border bg-white shadow-lg z-50 hidden max-h-[600px] overflow-y-auto overscroll-contain pt-1"
               role="menu"
               aria-label="Ministries Menu"
             >
@@ -515,8 +521,7 @@ const isActive = (href: string) =>
       results.classList.remove("hidden");
     });
   })();
-</script>
-<script is:inline>
+
   // Desktop dropdown behaviour (hover friendly, keyboard accessible)
   (function () {
     const HIDE_DELAY = 220; // ms
