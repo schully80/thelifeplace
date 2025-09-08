@@ -2,7 +2,7 @@
 import "../styles/global.css";
 import CookieConsent from "../components/CookieConsent.astro";
 import HeaderMobile from "../components/HeaderMobile.astro";
-
+import HeaderDesktop from "../components/HeaderDesktop.astro";
 const {
   title = "The Life Place",
   description = "Come. See. Jesus.",
@@ -39,51 +39,103 @@ const isActive = (href: string) =>
   </head>
 
   <body class="bg-white antialiased min-h-screen flex flex-col">
-    <!-- Mobile header (appears on < md) -->
+    <!-- Mobile header (< md) -->
     <HeaderMobile class="md:hidden" logoSrc="/logo.png" title="The Life Place" />
 
-    <!-- Desktop header (hidden on mobile) -->
-<header class="hidden md:block relative z-30 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 overflow-visible">
-<div class="gap-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center">    
-    
-    <!-- Logo + Title -->
-    
-    <a href="/" class="shrink-0" aria-label="The Life Place — Home">
-      <img src="/logo.png" alt="The Life Place Logo" class="h-10 md:h-16 xl:h-15 2xl:h-20 w-auto" />
-    </a>
+    <!-- Laptop / normal desktop header (md–lg only) -->
+    <header class="hidden md:block xl:hidden relative z-30 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center gap-4">
+        <!-- LEFT: Logo + Title -->
+        <a href="/" class="shrink-0 flex items-center gap-3 min-w-0" aria-label="The Life Place — Home">
+          <img src="/logo.png" alt="The Life Place Logo" class="h-10 md:h-14 w-auto" />
+          <div class="flex flex-col min-w-0">
+            <span class="font-bold text-brand-red text-lg sm:text-xl md:text-2xl leading-tight truncate">
+              The Life Place
+            </span>
+            <span class="text-sm text-gray-600 tracking-wide">Come. See. Jesus</span>
+          </div>
+        </a>
 
-    <div class="flex flex-col min-w-0">
-      <a href="/" class="site-title font-semibold text-brand-red text-lg sm:text-xl md:text-2xl xl:text-2xl 2xl:text-4xl leading-tight">
-        The Life Place
-      </a>
-      <span class="text-center text-sm md:text-base xl:text-sm text-gray-600 tracking-wide">
-        Come. See. Jesus
-      </span>
-    </div>
+        <!-- CENTER: Search button -->
+        <div class="flex-1 flex items-center justify-center">
+          <button
+            type="button"
+            data-search-open
+            class="flex items-center gap-2 px-3 py-2 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
+            aria-label="Open site search"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+            </svg>
+            <span class="hidden sm:inline text-sm font-medium">Search</span>
+          </button>
+        </div>
 
-    <!-- 🔎 Search button (center area) -->
-    <div class="mr-4 flex-1 flex items-center justify-center">
-      <button
-        type="button"
-        data-search-open
-        class="flex items-center gap-2 px-3 py-2 xl:px-4 xl:py-2.5 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
-        aria-label="Open site search"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 xl:h-6 xl:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
-        </svg>
-        <span class="hidden sm:inline text-sm xl:text-base font-medium">Search</span>
-      </button>
-    </div>
-
-    <!-- Desktop nav -->
-    <nav class="flex items-center gap-6 lg:gap-6 xl:gap-8 2xl:gap-10 font-montserrat text-base xl:text-lg">
-      <!-- (unchanged links; only class on <nav> updated above) -->
-
-
-        <!-- Desktop nav -->
+        <!-- RIGHT: Nav -->
         <nav class="flex items-center gap-6 font-montserrat text-base">
+          <a href="/what-to-expect/" class="text-gray-800 hover:text-brand-red">What to Expect</a>
+          <a href="/about-us/" class="text-gray-800 hover:text-brand-red">About Us</a>
+          <a href="/give/" class="text-gray-800 hover:text-brand-red">Generosity</a>
+          <a href="/ministries/" class="text-gray-800 hover:text-brand-red">Ministries</a>
+          <a href="/visit/" class="text-gray-800 hover:text-brand-red">Visit</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Big-screen header (xl+ only) -->
+    <header class="hidden xl:block relative z-30 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 overflow-visible">
+      <div class="max-w-7xl 2xl:max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between gap-6">
+        <!-- LEFT: Logo + Title -->
+        <a href="/" class="flex items-center gap-3 shrink-0" aria-label="The Life Place — Home">
+          <img src="/logo.png" alt="The Life Place Logo" class="h-12 w-auto" />
+          <div class="flex flex-col">
+            <span class="font-bold text-2xl text-brand-red">The Life Place</span>
+            <span class="text-sm text-gray-600 tracking-wide">Come. See. Jesus</span>
+          </div>
+        </a>
+
+        <!-- CENTER: Search (elevation-style) -->
+        <div class="flex-1 flex justify-center">
+          <form id="siteSearchForm" action="/search" method="GET" class="w-full max-w-[44rem] hidden lg:flex">
+            <input
+              id="siteSearchInput"
+              name="q"
+              type="search"
+              placeholder="Search"
+              autocomplete="off"
+              class="flex-1 rounded-l-full border border-gray-300 px-5 py-3 text-gray-800 focus:ring-brand-red focus:border-brand-red"
+            />
+            <button
+              type="submit"
+              class="flex items-center justify-center px-5 rounded-r-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
+              aria-label="Search"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+              </svg>
+              <span class="sr-only">Search</span>
+            </button>
+          </form>
+
+          <!-- Icon trigger when full bar hidden (safety) -->
+          <button
+            type="button"
+            data-search-open
+            class="lg:hidden inline-flex items-center justify-center h-11 w-11 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
+            aria-label="Open site search"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+            </svg>
+            <span class="sr-only">Search</span>
+          </button>
+        </div>
+
+        <!-- RIGHT: Nav (single nav, dropdown-ready) -->
+        <nav class="flex items-center gap-8 font-montserrat text-base xl:text-lg">
           <a
             href="/what-to-expect/"
             class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
@@ -117,45 +169,24 @@ const isActive = (href: string) =>
               role="menu"
               aria-label="About Us Menu"
             >
-              <a
-                href="/about-us/"
-                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
-                role="menuitem"
-              >
-                <span
-                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
-                >
+              <a href="/about-us/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">
                   Our Mission
                 </span>
               </a>
-
-              <a
-                href="/about-us/our-values"
-                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
-                role="menuitem"
-              >
-                <span
-                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
-                >
+              <a href="/about-us/our-values" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">
                   Our Values
                 </span>
               </a>
-
-              <a
-                href="/about-us/leadership"
-                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
-                role="menuitem"
-              >
-                <span
-                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
-                >
+              <a href="/about-us/leadership" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">
                   Meet Schulter and Jenny
                 </span>
               </a>
             </div>
           </div>
 
-          <!-- Generosity simple link -->
           <a
             href="/give/"
             class={`nav-underline relative z-10 px-2 py-2 whitespace-nowrap ${
@@ -188,108 +219,56 @@ const isActive = (href: string) =>
               role="menu"
               aria-label="Ministries Menu"
             >
-              <!-- Onboarding -->
-              <a
-                href="/ministries/new-members/"
-                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
-                role="menuitem"
-              >
-                <span
-                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
-                >
+              <a href="/ministries/new-members/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">
                   New @The Life Place
                 </span>
               </a>
 
-              <!-- Family -->
               <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Family</div>
 
-              <a
-                href="/ministries/bring-them-to-jesus/"
-                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
-                role="menuitem"
-              >
-                <span
-                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
-                >
+              <a href="/ministries/bring-them-to-jesus/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">
                   Bring Them To Jesus
                 </span>
               </a>
 
-              <a
-                href="/ministries/kids/"
-                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
-                role="menuitem"
-              >
-                <span
-                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
-                >
+              <a href="/ministries/kids/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">
                   Kids @The Life Place
                 </span>
               </a>
 
-              <a
-                href="/ministries/gen/"
-                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
-                role="menuitem"
-              >
-                <span
-                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
-                >
+              <a href="/ministries/gen/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">
                   ThisGen
                 </span>
               </a>
 
-              <a
-                href="/ministries/premarital-counseling/"
-                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
-                role="menuitem"
-              >
-                <span
-                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
-                >
+              <a href="/ministries/premarital-counseling/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">
                   Premarital Counseling
                 </span>
               </a>
 
-              <!-- Formation -->
               <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Formation</div>
 
-              <a
-                href="/ministries/institute/"
-                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
-                role="menuitem"
-              >
-                <span
-                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
-                >
+              <a href="/ministries/institute/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">
                   The Life Place Institute
                 </span>
               </a>
 
-              <a
-                href="/ministries/faith-and-work/"
-                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
-                role="menuitem"
-              >
-                <span
-                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
-                >
+              <a href="/ministries/faith-and-work/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">
                   Faith &amp; Work
                 </span>
               </a>
 
-              <!-- Outreach -->
               <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Outreach</div>
 
-              <a
-                href="/ministries/relief-center/"
-                class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"
-                role="menuitem"
-              >
-                <span
-                  class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 after:content-[''] hover:after:w-full after:transition-all after:duration-300"
-                >
+              <a href="/ministries/relief-center/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">
                   Relief Center
                 </span>
               </a>
@@ -341,14 +320,14 @@ const isActive = (href: string) =>
         <CookieConsent />
 
         <!-- Footer links -->
-       <div class="flex flex-wrap justify-center items-center gap-4 xl:gap-6 text-gray-600">
-      <a href="/privacy-policy/" class="underline hover:underline">Privacy Policy</a>
-      <a href="/cookies/" class="underline hover:underline">Cookies</a>
-      <a href="/terms/" class="underline hover:underline">Terms</a>
-      <span>© 2025 The Life Place. All Rights Reserved</span>
-    </div>
-  </div>
-</footer>
+        <div class="flex flex-wrap justify-center items-center gap-4 xl:gap-6 text-gray-600">
+          <a href="/privacy-policy/" class="underline hover:underline">Privacy Policy</a>
+          <a href="/cookies/" class="underline hover:underline">Cookies</a>
+          <a href="/terms/" class="underline hover:underline">Terms</a>
+          <span>© 2025 The Life Place. All Rights Reserved</span>
+        </div>
+      </div>
+    </footer>
 
     <!-- 🔍 Search Overlay -->
     <div
@@ -381,202 +360,173 @@ const isActive = (href: string) =>
       </div>
     </div>
 
-    <!-- 🔧 Search logic (desktop + mobile buttons) -->
+    <!-- 🔧 Search + Dropdown logic -->
     <script is:inline>
-  (function () {
-    const html = document.documentElement;
-    const overlay = document.getElementById("searchOverlay");
-    const btnClose = document.getElementById("searchClose");
-    const form = document.getElementById("siteSearchForm");
-    const input = document.getElementById("siteSearchInput");
-    const results = document.getElementById("searchResults");
-    const btnClear = document.getElementById("searchClear");
-    const openers = document.querySelectorAll("[data-search-open]");
+      (function () {
+        const html = document.documentElement;
+        const overlay = document.getElementById("searchOverlay");
+        const btnClose = document.getElementById("searchClose");
+        const form = document.getElementById("siteSearchForm");
+        const input = document.getElementById("siteSearchInput");
+        const results = document.getElementById("searchResults");
+        const btnClear = document.getElementById("searchClear");
+        const openers = document.querySelectorAll("[data-search-open]");
 
-    let INDEX = null; // cached search index
+        let INDEX = null;
 
-    const open = (e) => {
-      e?.preventDefault?.();
-      overlay.classList.remove("hidden");
-      overlay.setAttribute("aria-hidden", "false");
-      html.style.overflow = "hidden";
-      setTimeout(() => input.focus(), 0);
-    };
+        const open = (e) => {
+          e?.preventDefault?.();
+          overlay.classList.remove("hidden");
+          overlay.setAttribute("aria-hidden", "false");
+          html.style.overflow = "hidden";
+          setTimeout(() => input.focus(), 0);
+        };
 
-    const close = (e) => {
-      e?.preventDefault?.();
-      overlay.classList.add("hidden");
-      overlay.setAttribute("aria-hidden", "true");
-      html.style.overflow = "";
-    };
+        const close = (e) => {
+          e?.preventDefault?.();
+          overlay.classList.add("hidden");
+          overlay.setAttribute("aria-hidden", "true");
+          html.style.overflow = "";
+        };
 
-    openers.forEach((btn) => {
-      btn.addEventListener("click", open);
-      btn.addEventListener("mousedown", (evt) => evt.preventDefault());
-    });
+        openers.forEach((btn) => {
+          btn.addEventListener("click", open);
+          btn.addEventListener("mousedown", (evt) => evt.preventDefault());
+        });
 
-    btnClose.addEventListener("click", close);
-    overlay.addEventListener("click", (e) => { if (e.target === overlay) close(e); });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && overlay.getAttribute("aria-hidden") === "false") close(e);
-      if (e.key === "/" && !e.metaKey && !e.ctrlKey && !e.altKey) {
-        const tag = document.activeElement?.tagName?.toLowerCase();
-        if (tag !== "input" && tag !== "textarea") {
+        btnClose.addEventListener("click", close);
+        overlay.addEventListener("click", (e) => { if (e.target === overlay) close(e); });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && overlay.getAttribute("aria-hidden") === "false") close(e);
+          if (e.key === "/" && !e.metaKey && !e.ctrlKey && !e.altKey) {
+            const tag = document.activeElement?.tagName?.toLowerCase();
+            if (tag !== "input" && tag !== "textarea") {
+              e.preventDefault();
+              open();
+            }
+          }
+        });
+
+        btnClear?.addEventListener("click", () => {
+          input.value = "";
+          results?.classList?.add("hidden");
+          if (results) results.innerHTML = "";
+          input.focus();
+        });
+
+        async function loadIndex() {
+          if (INDEX) return INDEX;
+          try {
+            const res = await fetch("/src/data/searchIndex.json", { cache: "no-cache" });
+            if (!res.ok) throw new Error("Index not found");
+            INDEX = await res.json();
+          } catch (e) {
+            try {
+              const res2 = await fetch("/data/searchIndex.json", { cache: "no-cache" });
+              if (!res2.ok) throw new Error("Index not found (fallback)");
+              INDEX = await res2.json();
+            } catch {
+              INDEX = [];
+            }
+          }
+          return INDEX;
+        }
+
+        function norm(s){ return (s || "").toString().toLowerCase(); }
+        function rankItem(item, q){
+          const t = norm(item.title), s = norm(item.summary), tags = (item.tags || []).map(norm).join(" ");
+          let score = 0; if (t.includes(q)) score += 5; if (s.includes(q)) score += 3; if (tags.includes(q)) score += 2; return score;
+        }
+        function highlight(text, q){
+          if (!text) return "";
+          const safe = text.replace(/</g, "&lt;");
+          if (!q) return safe;
+          const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "ig");
+          return safe.replace(re, "<mark>$1</mark>");
+        }
+
+        form.addEventListener("submit", async (e) => {
           e.preventDefault();
-          open();
-        }
-      }
-    });
+          const qRaw = input.value.trim(), q = qRaw.toLowerCase();
+          if (!q) {
+            results.innerHTML = '<p class="text-sm text-gray-500">Type something to search.</p>';
+            results.classList.remove("hidden");
+            return;
+          }
+          const data = await loadIndex();
+          if (!data.length) {
+            results.innerHTML = '<p class="text-sm text-gray-500">Search index not found. Add items to <code>src/data/searchIndex.json</code>.</p>';
+            results.classList.remove("hidden");
+            return;
+          }
+          const matched = data.map((item) => ({ item, score: rankItem(item, q) }))
+            .filter((r) => r.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 12);
 
-    btnClear?.addEventListener("click", () => {
-      input.value = "";
-      if (results) {
-        results.innerHTML = "";
-        results.classList.add("hidden");
-      }
-      input.focus();
-    });
+          if (!matched.length) {
+            results.innerHTML = `<p class="text-sm text-gray-500">No results for “${qRaw.replace(/</g, "&lt;")}”.</p>`;
+            results.classList.remove("hidden");
+            return;
+          }
+          results.innerHTML = matched.map(({ item }) => `
+            <a href="${item.url}" class="block rounded-md border p-3 hover:bg-gray-50 transition">
+              <div class="font-semibold text-gray-900">${highlight(item.title, qRaw)}</div>
+              <div class="text-sm text-gray-600 mt-1">${highlight(item.summary, qRaw)}</div>
+              <div class="text-[11px] text-gray-400 mt-1">${(item.tags||[]).map(t=>`#${t}`).join(" ")}</div>
+            </a>
+          `).join("");
+          results.classList.remove("hidden");
+        });
+      })();
 
-    async function loadIndex() {
-      if (INDEX) return INDEX;
-      try {
-        const res = await fetch("/src/data/searchIndex.json", { cache: "no-cache" });
-        if (!res.ok) throw new Error("Index not found");
-        INDEX = await res.json();
-      } catch (e) {
-        // Fallback path if your build copies data under /data/
-        try {
-          const res2 = await fetch("/data/searchIndex.json", { cache: "no-cache" });
-          if (!res2.ok) throw new Error("Index not found (fallback)");
-          INDEX = await res2.json();
-        } catch (e2) {
-          INDEX = [];
-        }
-      }
-      return INDEX;
-    }
+      // Desktop dropdowns (hover + keyboard)
+      (function () {
+        const HIDE_DELAY = 220;
+        document.querySelectorAll('[data-dropdown]').forEach((wrap) => {
+          const btn  = wrap.querySelector('[data-trigger]');
+          const menu = wrap.querySelector('[data-menu]');
+          if (!btn || !menu) return;
 
-    function norm(s) {
-      return (s || "").toString().toLowerCase();
-    }
+          let hideTimer;
+          const open  = () => { clearTimeout(hideTimer); menu.classList.remove('hidden'); btn.setAttribute('aria-expanded', 'true'); };
+          const close = () => { hideTimer = setTimeout(() => { menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false'); }, HIDE_DELAY); };
 
-    function rankItem(item, q) {
-      const t = norm(item.title);
-      const s = norm(item.summary);
-      const tags = (item.tags || []).map(norm).join(" ");
-      let score = 0;
-      if (t.includes(q)) score += 5;
-      if (s.includes(q)) score += 3;
-      if (tags.includes(q)) score += 2;
-      return score;
-    }
+          btn.addEventListener('mouseenter', open);
+          btn.addEventListener('mouseleave', close);
+          menu.addEventListener('mouseenter', open);
+          menu.addEventListener('mouseleave', close);
 
-    function highlight(text, q) {
-      if (!text) return "";
-      const safe = text.replace(/</g, "&lt;");
-      if (!q) return safe;
-      const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "ig");
-      return safe.replace(re, "<mark>$1</mark>");
-    }
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isHidden = menu.classList.contains('hidden');
+            isHidden ? open() : close();
+          });
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+          btn.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              open();
+              const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+              first?.focus();
+            }
+            if (e.key === 'Escape') { close(); btn.focus(); }
+          });
+          menu.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') { close(); btn.focus(); }
+          });
+        });
 
-      const qRaw = input.value.trim();
-      const q = qRaw.toLowerCase();
-
-      if (!q) {
-        results.innerHTML = '<p class="text-sm text-gray-500">Type something to search.</p>';
-        results.classList.remove("hidden");
-        return;
-      }
-
-      const data = await loadIndex();
-      if (!data.length) {
-        results.innerHTML = '<p class="text-sm text-gray-500">Search index not found. Add items to <code>src/data/searchIndex.json</code>.</p>';
-        results.classList.remove("hidden");
-        return;
-      }
-
-      // Basic filtering + ranking
-      const matched = data
-        .map((item) => ({ item, score: rankItem(item, q) }))
-        .filter((r) => r.score > 0)
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 12);
-
-      if (!matched.length) {
-        results.innerHTML = `<p class="text-sm text-gray-500">No results for “${qRaw.replace(/</g, "&lt;")}”.</p>`;
-        results.classList.remove("hidden");
-        return;
-      }
-
-      // Render
-      results.innerHTML = matched.map(({ item }) => `
-        <a href="${item.url}" class="block rounded-md border p-3 hover:bg-gray-50 transition">
-          <div class="font-semibold text-gray-900">${highlight(item.title, qRaw)}</div>
-          <div class="text-sm text-gray-600 mt-1">${highlight(item.summary, qRaw)}</div>
-          <div class="text-[11px] text-gray-400 mt-1">${(item.tags||[]).map(t=>`#${t}`).join(" ")}</div>
-        </a>
-      `).join("");
-      results.classList.remove("hidden");
-    });
-  })();
-
-  // Desktop dropdown behaviour (hover friendly, keyboard accessible)
-  (function () {
-    const HIDE_DELAY = 220; // ms
-
-    document.querySelectorAll('[data-dropdown]').forEach((wrap) => {
-      const btn  = wrap.querySelector('[data-trigger]');
-      const menu = wrap.querySelector('[data-menu]');
-      if (!btn || !menu) return;
-
-      let hideTimer;
-
-      const open  = () => { clearTimeout(hideTimer); menu.classList.remove('hidden'); btn.setAttribute('aria-expanded', 'true'); };
-      const close = () => { hideTimer = setTimeout(() => { menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false'); }, HIDE_DELAY); };
-
-      // Hover
-      btn.addEventListener('mouseenter', open);
-      btn.addEventListener('mouseleave', close);
-      menu.addEventListener('mouseenter', open);
-      menu.addEventListener('mouseleave', close);
-
-      // Click toggle (useful for touchpads/mice)
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const isHidden = menu.classList.contains('hidden');
-        isHidden ? open() : close();
-      });
-
-      // Keyboard
-      btn.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          open();
-          // focus first focusable in menu
-          const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
-          first?.focus();
-        }
-        if (e.key === 'Escape') { close(); btn.focus(); }
-      });
-      menu.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') { close(); btn.focus(); }
-      });
-    });
-
-    // Close any open dropdown if you click elsewhere
-    document.addEventListener('click', (e) => {
-      document.querySelectorAll('[data-dropdown] [data-menu]:not(.hidden)').forEach((menu) => {
-        if (!menu.closest('[data-dropdown]')?.contains(e.target)) {
-          const btn = menu.parentElement?.querySelector?.('[data-trigger]');
-          menu.classList.add('hidden');
-          btn?.setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
-  })();
-</script>
+        document.addEventListener('click', (e) => {
+          document.querySelectorAll('[data-dropdown] [data-menu]:not(.hidden)').forEach((menu) => {
+            if (!menu.closest('[data-dropdown]')?.contains(e.target)) {
+              const btn = menu.parentElement?.querySelector?.('[data-trigger]');
+              menu.classList.add('hidden');
+              btn?.setAttribute('aria-expanded', 'false');
+            }
+          });
+        });
+      })();
+    </script>
   </body>
 </html>

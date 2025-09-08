@@ -1,0 +1,173 @@
+---
+const {
+  title = "The Life Place",
+  logoSrc = "/logo.png",
+  class: className,
+} = Astro.props;
+
+const path = Astro.url.pathname;
+const isActive = (href) =>
+  href === "/" ? path === "/" : path === href || (href !== "/" && path.startsWith(href));
+---
+
+  <!-- Big-screen header (xl+ only) -->
+    <header class="hidden xl:block relative z-30 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 overflow-visible">
+      <div class="max-w-7xl 2xl:max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between gap-6">
+        <!-- LEFT: Logo + Title -->
+        <a href="/" class="flex items-center gap-3 shrink-0" aria-label="The Life Place — Home">
+          <img src="/logo.png" alt="The Life Place Logo" class="h-12 w-auto" />
+          <div class="flex flex-col">
+            <span class="font-bold text-2xl text-brand-red">The Life Place</span>
+            <span class="text-sm text-gray-600 tracking-wide">Come. See. Jesus</span>
+          </div>
+        </a>
+
+        <!-- CENTER: Search (elevation-style) -->
+        <div class="flex-1 flex justify-center">
+          <form id="siteSearchForm" action="/search" method="GET" class="w-full max-w-[44rem] hidden lg:flex">
+            <input
+              id="siteSearchInput"
+              name="q"
+              type="search"
+              placeholder="Search"
+              autocomplete="off"
+              class="flex-1 rounded-l-full border border-gray-300 px-5 py-3 text-gray-800 focus:ring-brand-red focus:border-brand-red"
+            />
+            <button
+              type="submit"
+              class="flex items-center justify-center px-5 rounded-r-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
+              aria-label="Search"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+              </svg>
+              <span class="sr-only">Search</span>
+            </button>
+          </form>
+
+          <!-- Icon trigger when full bar hidden (safety) -->
+          <button
+            type="button"
+            data-search-open
+            class="lg:hidden inline-flex items-center justify-center h-11 w-11 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
+            aria-label="Open site search"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+            </svg>
+            <span class="sr-only">Search</span>
+          </button>
+        </div>
+
+    <!-- RIGHT: Nav -->
+    <nav class="flex items-center gap-8 text-base">
+      <a
+        href="/what-to-expect/"
+        class={`relative px-2 py-1 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+          isActive("/what-to-expect/") ? "text-brand-red after:w-full font-semibold" : "text-gray-800 hover:text-brand-red"
+        }`}
+      >What to Expect</a>
+
+      <!-- About Us dropdown -->
+      <div id="dd-about-xl" class="relative" data-dropdown>
+        <button
+          data-trigger
+          type="button"
+          class={`relative px-2 py-1 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+            isActive("/about-us/") ? "text-brand-red after:w-full font-semibold" : "text-gray-800 hover:text-brand-red"
+          }`}
+          aria-haspopup="true" aria-expanded="false"
+        >About Us</button>
+        <div
+          data-menu
+          class="absolute right-0 top-full mt-2 w-56 rounded-md border bg-white shadow-lg z-50 hidden max-h-[70vh] overflow-y-auto overscroll-contain pt-1"
+          role="menu" aria-label="About Us Menu"
+        >
+          <a href="/about-us/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">Our Mission</a>
+          <a href="/about-us/our-values" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">Our Values</a>
+          <a href="/about-us/leadership" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">Meet Schulter and Jenny</a>
+        </div>
+      </div>
+
+      <a
+        href="/give/"
+        class={`relative px-2 py-1 ${
+          isActive("/give/") ? "text-brand-red font-semibold" : "text-gray-800 hover:text-brand-red"
+        }`}
+      >Generosity</a>
+
+      <!-- Ministries dropdown -->
+      <div id="dd-ministries-xl" class="relative" data-dropdown>
+        <button
+          data-trigger
+          type="button"
+          class={`relative px-2 py-1 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+            isActive("/ministries/") ? "text-brand-red after:w-full font-semibold" : "text-gray-800 hover:text-brand-red"
+          }`}
+          aria-haspopup="true" aria-expanded="false"
+        >Ministries</button>
+        <div
+          data-menu
+          class="absolute right-0 top-full mt-2 w-64 rounded-md border bg-white shadow-lg z-50 hidden max-h-[70vh] overflow-y-auto overscroll-contain pt-1"
+          role="menu" aria-label="Ministries Menu"
+        >
+          <a href="/ministries/new-members/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">New @The Life Place</a>
+          <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Family</div>
+          <a href="/ministries/bring-them-to-jesus/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">Bring Them To Jesus</a>
+          <a href="/ministries/kids/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">Kids @The Life Place</a>
+          <a href="/ministries/gen/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">ThisGen</a>
+          <a href="/ministries/premarital-counseling/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">Premarital Counseling</a>
+          <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Formation</div>
+          <a href="/ministries/institute/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">The Life Place Institute</a>
+          <a href="/ministries/faith-and-work/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">Faith &amp; Work</a>
+          <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Outreach</div>
+          <a href="/ministries/relief-center/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">Relief Center</a>
+        </div>
+      </div>
+
+      <a
+        href="/visit/"
+        class={`relative px-2 py-1 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+          isActive("/visit/") ? "text-brand-red after:w-full font-semibold" : "text-gray-800 hover:text-brand-red"
+        }`}
+      >Visit</a>
+    </nav>
+  </div>
+
+  <!-- Dropdown behavior (same pattern as BaseLayout) -->
+  <script is:inline>
+    (function () {
+      const HIDE_DELAY = 220;
+      document.querySelectorAll('header [data-dropdown]').forEach((wrap) => {
+        const btn = wrap.querySelector('[data-trigger]');
+        const menu = wrap.querySelector('[data-menu]');
+        if (!btn || !menu) return;
+
+        let hideTimer;
+        const open  = () => { clearTimeout(hideTimer); menu.classList.remove('hidden'); btn.setAttribute('aria-expanded', 'true'); };
+        const close = () => { hideTimer = setTimeout(() => { menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false'); }, HIDE_DELAY); };
+
+        btn.addEventListener('mouseenter', open);
+        btn.addEventListener('mouseleave', close);
+        menu.addEventListener('mouseenter', open);
+        menu.addEventListener('mouseleave', close);
+
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const isHidden = menu.classList.contains('hidden');
+          isHidden ? open() : close();
+        });
+        btn.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault(); open();
+            menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])')?.focus();
+          }
+          if (e.key === 'Escape') { close(); btn.focus(); }
+        });
+        menu.addEventListener('keydown', (e) => { if (e.key === 'Escape') { close(); btn.focus(); } });
+      });
+    })();
+  </script>
+</header>

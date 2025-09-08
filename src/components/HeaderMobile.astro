@@ -2,18 +2,16 @@
 /**
  * HeaderMobile.astro — Mobile-only header & right-side drawer
  * - Drawer slides in from the right
- * - Overlay is solid white (page completely hidden)
- * - Drawer is above overlay
+ * - Solid-white overlay (page hidden)
+ * - Drawer above overlay
  * - Page scroll locked while menu is open
  */
-
 const {
   title = "The Life Place",
   logoSrc = "/logo.png",
   class: className, // allows class forwarding from parent
 } = Astro.props;
 
-// Current path for active link styles
 const path = Astro.url.pathname;
 const isActive = (href: string) =>
   href === "/" ? path === "/" : path === href || (href !== "/" && path.startsWith(href));
@@ -21,60 +19,58 @@ const isActive = (href: string) =>
 
 <header class:list={["relative z-50 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 h-20 sm:h-24", className]}>
   <!-- Top bar (3-column grid: left actions, centered brand, right spacer) -->
-<!-- Top bar -->
-<!-- Top bar -->
-<div class="h-20 grid grid-cols-[auto,1fr,auto] items-center px-4 gap-2">
-  <!-- LEFT: Hamburger first, then Search -->
-  <div class="flex items-center gap-2">
-    
-    <!-- ☰ Hamburger -->
-    <button
-      id="mobileMenuButton"
-      aria-label="Open menu"
-      aria-controls="mobileNavDrawer"
-      aria-expanded="false"
-      class="inline-flex items-center justify-center h-10 w-10 rounded-md border border-brand-red bg-white active:scale-[0.98] focus:outline-none focus:ring-brand-red focus:ring-offset-2"
-    >
-      <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
-        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      <span class="sr-only">Open menu</span>
-    </button>
+  <div class="h-20 grid grid-cols-[auto,1fr,auto] items-center px-4 gap-2">
+    <!-- LEFT: Hamburger first, then Search -->
+    <div class="flex items-center gap-2">
+      <!-- ☰ Hamburger -->
+      <button
+        id="mobileMenuButton"
+        type="button"
+        aria-label="Open menu"
+        aria-controls="mobileNavDrawer"
+        aria-expanded="false"
+        class="inline-flex items-center justify-center h-10 w-10 rounded-md border border-brand-red bg-white active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"
+      >
+        <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="sr-only">Open menu</span>
+      </button>
 
-    <!-- 🔎 Search -->
-    <button
-      type="button"
-      data-search-open
-      aria-label="Open search"
-      class="inline-flex items-center justify-center h-10 w-10 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
-      </svg>
-      <span class="sr-only">Search</span>
-    </button>
+      <!-- 🔎 Search -->
+      <button
+        type="button"
+        data-search-open
+        aria-label="Open search"
+        class="inline-flex items-center justify-center h-10 w-10 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+        </svg>
+        <span class="sr-only">Search</span>
+      </button>
+    </div>
+
+
+    <!-- CENTER: Title + Slogan -->
+    <div class="flex items-center justify-center min-w-0">
+      <a href="/" class="flex flex-col items-center min-w-0" aria-label={`${title} — Home`}>
+        <span class="font-bold text-brand-red text-[22px] sm:text-[24px] leading-tight text-center max-w-[70vw] whitespace-nowrap overflow-hidden text-ellipsis">
+          {title}
+        </span>
+        <span class="mt-0.5 text-[13px] sm:text-[14px] text-brand-warmgray-600 tracking-wide text-center max-w-[70vw] whitespace-nowrap overflow-hidden text-ellipsis">
+          Come. See. Jesus
+        </span>
+      </a>
+    </div>
+
+    <!-- RIGHT: Spacer to keep center truly centered -->
+    <div class="flex items-center gap-2 opacity-0 pointer-events-none">
+      <button type="button" class="h-10 w-10"></button>
+      <button type="button" class="h-10 w-10"></button>
+    </div>
   </div>
-
-  <!-- CENTER: Title + Slogan -->
-  <div class="flex items-center justify-center min-w-0">
-    <a href="/" class="flex flex-col items-center min-w-0" aria-label={`${title} — Home`}>
-      <span class="font-bold text-brand-red text-[22px] sm:text-[24px] leading-tight text-center max-w-[70vw] whitespace-nowrap overflow-hidden text-ellipsis">
-        {title}
-      </span>
-      <span class="mt-0.5 text-[13px] sm:text-[14px] text-brand-warmgray-600 tracking-wide text-center max-w-[70vw] whitespace-nowrap overflow-hidden text-ellipsis">
-        Come. See. Jesus
-      </span>
-    </a>
-  </div>
-
-  <!-- RIGHT: Spacer to keep center true -->
-  <div class="flex items-center gap-2 opacity-0 pointer-events-none">
-    <button class="h-10 w-10"></button>
-    <button class="h-10 w-10"></button>
-  </div>
-</div>
-
 
   <!-- Overlay (solid white, covers page) -->
   <div
@@ -97,6 +93,7 @@ const isActive = (href: string) =>
     <div class="h-16 px-4 flex items-center justify-end border-b">
       <button
         id="mobileMenuClose"
+        type="button"
         aria-label="Close menu"
         class="h-10 w-10 inline-flex items-center justify-center rounded-md border border-brand-red bg-white active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"
       >
@@ -122,6 +119,7 @@ const isActive = (href: string) =>
       <!-- About Us (accordion) -->
       <section class="mt-1" data-accordion>
         <button
+          type="button"
           class="w-full flex items-center justify-between px-3 py-3 rounded-lg text-left text-base text-brand-darkgray hover:bg-gray-50"
           data-accordion-trigger
           aria-expanded="false"
@@ -170,6 +168,7 @@ const isActive = (href: string) =>
       <!-- Ministries (accordion) -->
       <section class="mt-1" data-accordion>
         <button
+          type="button"
           class="w-full flex items-center justify-between px-3 py-3 rounded-lg text-left text-base text-brand-darkgray hover:bg-gray-50"
           data-accordion-trigger
           aria-expanded="false"
@@ -248,7 +247,7 @@ const isActive = (href: string) =>
   <!-- Inline behaviour -->
   <script is:inline>
     (function () {
-      const body = document.documentElement; 
+      const body = document.documentElement;
       const btnOpen = document.getElementById('mobileMenuButton');
       const btnClose = document.getElementById('mobileMenuClose');
       const drawer = document.getElementById('mobileNavDrawer');
@@ -256,10 +255,10 @@ const isActive = (href: string) =>
 
       if (!btnOpen || !btnClose || !drawer || !overlay) return;
 
-      // Ensure overlay/drawer at document.body for stacking
+      // Ensure overlay/drawer sit at document.body for correct stacking
       if (overlay.parentElement !== document.body) document.body.appendChild(overlay);
       if (drawer.parentElement  !== document.body) document.body.appendChild(drawer);
-      
+
       const open = () => {
         drawer.classList.remove('translate-x-full');   // slide IN from right
         overlay.classList.remove('pointer-events-none');
