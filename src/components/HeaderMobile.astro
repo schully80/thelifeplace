@@ -19,45 +19,60 @@ const isActive = (href: string) =>
   href === "/" ? path === "/" : path === href || (href !== "/" && path.startsWith(href));
 ---
 
-<header class:list={["relative z-50 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70", className]}>
-  <!-- Top bar -->
-  <div class="h-16 flex items-center justify-between border-b px-4">
-    <a href="/" class="flex items-center gap-3 min-w-0" aria-label={`${title} — Home`}>
-      <img src={logoSrc} alt={`${title} Logo`} class="h-12 w-auto" />
-      <div class="flex flex-col min-w-0">
-        <span class="font-bold text-brand-red text-lg leading-tight truncate">{title}</span>
-        <span class="text-[11px] text-brand-warmgray-600 text-center tracking-wide">Come. See. Jesus</span>
-      </div>
-    </a>
-
-   <!-- Actions: Search + Hamburger -->
-<div class="flex items-center gap-2">
-  <!-- 🔎 Mobile search trigger (opens shared overlay in BaseLayout) -->
-       <!-- in the top bar, next to the hamburger -->
-<button
-  type="button"
-  data-search-open
-  class="inline-flex items-center justify-center h-10 w-10 rounded-md bg-gray-100 hover:bg-brand-red hover:text-white"
-  aria-label="Open search"
->
-  <svg viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true">
-    <path d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
-  </svg>
-</button>
+<header class:list={["relative z-50 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 h-20 sm:h-24", className]}>
+  <!-- Top bar (3-column grid: left actions, centered brand, right spacer) -->
+<!-- Top bar -->
+<!-- Top bar -->
+<div class="h-20 grid grid-cols-[auto,1fr,auto] items-center px-4 gap-2">
+  <!-- LEFT: Hamburger first, then Search -->
+  <div class="flex items-center gap-2">
     
-  <!-- ☰ Hamburger -->
-  <button
-    id="mobileMenuButton"
-    aria-label="Open menu"
-    aria-controls="mobileNavDrawer"
-    aria-expanded="false"
-    class="inline-flex items-center justify-center h-10 w-10 rounded-md border border-brand-red bg-white active:scale-[0.98] focus:outline-none"
-  >
-    <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
-      <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-    <span class="sr-only">Open menu</span>
-  </button>
+    <!-- ☰ Hamburger -->
+    <button
+      id="mobileMenuButton"
+      aria-label="Open menu"
+      aria-controls="mobileNavDrawer"
+      aria-expanded="false"
+      class="inline-flex items-center justify-center h-10 w-10 rounded-md border border-brand-red bg-white active:scale-[0.98] focus:outline-none focus:ring-brand-red focus:ring-offset-2"
+    >
+      <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="sr-only">Open menu</span>
+    </button>
+
+    <!-- 🔎 Search -->
+    <button
+      type="button"
+      data-search-open
+      aria-label="Open search"
+      class="inline-flex items-center justify-center h-10 w-10 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+      </svg>
+      <span class="sr-only">Search</span>
+    </button>
+  </div>
+
+  <!-- CENTER: Title + Slogan -->
+  <div class="flex items-center justify-center min-w-0">
+    <a href="/" class="flex flex-col items-center min-w-0" aria-label={`${title} — Home`}>
+      <span class="font-bold text-brand-red text-[22px] sm:text-[24px] leading-tight text-center max-w-[70vw] whitespace-nowrap overflow-hidden text-ellipsis">
+        {title}
+      </span>
+      <span class="mt-0.5 text-[13px] sm:text-[14px] text-brand-warmgray-600 tracking-wide text-center max-w-[70vw] whitespace-nowrap overflow-hidden text-ellipsis">
+        Come. See. Jesus
+      </span>
+    </a>
+  </div>
+
+  <!-- RIGHT: Spacer to keep center true -->
+  <div class="flex items-center gap-2 opacity-0 pointer-events-none">
+    <button class="h-10 w-10"></button>
+    <button class="h-10 w-10"></button>
+  </div>
 </div>
 
 
