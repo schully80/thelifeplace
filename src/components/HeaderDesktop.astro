@@ -10,6 +10,14 @@ const isActive = (href) =>
   href === "/" ? path === "/" : path === href || (href !== "/" && path.startsWith(href));
 ---
 
+<header class={`bg-green-500 text-white p-4 ${className}`} style="z-index:9990">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <span class="font-bold">✅ HeaderDesktop Loaded (2xl+)</span>
+    <span>Width ≥ 1536px</span>
+  </div>
+</header>
+
+
   <!-- Big-screen header (xl+ only) -->
     <header class="hidden xl:block relative z-30 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 overflow-visible">
       <div class="max-w-7xl 2xl:max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between gap-6">
