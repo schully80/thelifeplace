@@ -9,140 +9,185 @@ const path = Astro.url.pathname;
 const isActive = (href) =>
   href === "/" ? path === "/" : path === href || (href !== "/" && path.startsWith(href));
 ---
-
-<header class={`bg-green-500 text-white p-4 ${className}`} style="z-index:9990">
-  <div class="max-w-7xl mx-auto flex items-center justify-between">
-    <span class="font-bold">✅ HeaderDesktop Loaded (2xl+)</span>
-    <span>Width ≥ 1536px</span>
+<!-- Big-screen header (xl+ only) -->
+<header class="hidden xl:block" logoSrc="/logo.png" title="The Life Place" />      
+<div class="flex justify-between items-center">
+  
+  <!-- Left: Logo + Title -->
+<div class="max-w-7xl 2xl:max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between gap-6 2xl:gap-4">
+    <img src="/logo.png" alt="Logo" class="h-14 w-14" />
+    <div class="flex flex-col">
+      <span class="font-bold text-2xl text-brand-red">The Life Place</span>
+      <span class="text-center text-sm text-gray-600">Come. See. Jesus</span>
+    </div>
   </div>
-</header>
 
+              <!-- CENTER: Search (elevation-style) -->
+<div class="flex-1 flex justify-center">
+  <form
+    id="siteSearchFormBar"
+    action="/search"
+    method="GET"
+    class="w-full max-w-[20rem] md:max-w-[28rem] lg:max-w-[36rem] xl:max-w-[44rem] hidden lg:flex"
+  >
+    <input
+      id="siteSearchInputBar"
+      name="q"
+      type="search"
+      placeholder="Search"
+      autocomplete="off"
+      class="flex-1 rounded-l-full border border-gray-300
+             px-4 py-2 text-sm
+             md:px-5 md:py-2.5 md:text-base
+             lg:px-6 lg:py-3 lg:text-base
+             xl:px-7 xl:text-base
+             text-gray-800 focus:ring-brand-red focus:border-brand-red"
+    />
+    <button
+      type="submit"
+      class="rounded-r-full bg-gray-100 hover:bg-brand-red hover:text-white transition
+             flex items-center justify-center
+             w-10 h-10 text-sm
+             md:w-11 md:h-11 md:text-base
+             lg:w-12 lg:h-12 lg:text-base
+             xl:w-14 xl:h-12 xl:text-base"
+      aria-label="Search"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+      </svg>
+      <span class="sr-only">Search</span>
+    </button>
+  </form>
 
-  <!-- Big-screen header (xl+ only) -->
-    <header class="hidden xl:block relative z-30 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 overflow-visible">
-      <div class="max-w-7xl 2xl:max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between gap-6">
-        <!-- LEFT: Logo + Title -->
-        <a href="/" class="flex items-center gap-3 shrink-0" aria-label="The Life Place — Home">
-          <img src="/logo.png" alt="The Life Place Logo" class="h-12 w-auto" />
-          <div class="flex flex-col">
-            <span class="font-bold text-2xl text-brand-red">The Life Place</span>
-            <span class="text-sm text-gray-600 tracking-wide">Come. See. Jesus</span>
-          </div>
-        </a>
+  <!-- Icon trigger when full bar hidden (safety) -->
+  <button
+    type="button"
+    data-search-open
+    class="lg:hidden inline-flex items-center justify-center h-11 w-11 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
+    aria-label="Open site search"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+    </svg>
+    <span class="sr-only">Search</span>
+  </button>
+</div>
 
-        <!-- CENTER: Search (elevation-style) -->
-        <div class="flex-1 flex justify-center">
-          <form id="siteSearchForm" action="/search" method="GET" class="w-full max-w-[44rem] hidden lg:flex">
-            <input
-              id="siteSearchInput"
-              name="q"
-              type="search"
-              placeholder="Search"
-              autocomplete="off"
-              class="flex-1 rounded-l-full border border-gray-300 px-5 py-3 text-gray-800 focus:ring-brand-red focus:border-brand-red"
-            />
+        <!-- RIGHT: Nav -->
+        <nav class="flex items-center gap-8 font-montserrat text-base xl:text-lg">
+          <a
+            href="/what-to-expect/"
+            class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+              isActive("/what-to-expect/") ? "text-brand-red after:w-full font-semibold" : "text-brand-darkgray hover:text-brand-red"
+            }`}
+          >What to Expect</a>
+
+          <!-- About Us dropdown -->
+          <div id="dd-about" data-dropdown class="relative focus-within:z-50">
             <button
-              type="submit"
-              class="flex items-center justify-center px-5 rounded-r-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
-              aria-label="Search"
+              data-trigger
+              type="button"
+              class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+                isActive("/about-us/") ? "text-brand-red after:w-full font-semibold" : "text-brand-warmgray-700 hover:text-brand-red"
+              }`}
+              aria-haspopup="true"
+              aria-expanded="false"
+            >About Us</button>
+
+            <div
+              data-menu
+              class="absolute left-0 top-full -mt-px w-56 rounded-md border bg-white shadow-lg z-50 hidden max-h-80 overflow-y-auto overscroll-contain pt-1"
+              role="menu"
+              aria-label="About Us Menu"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
-              </svg>
-              <span class="sr-only">Search</span>
-            </button>
-          </form>
+              <a href="/about-us/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Our Mission</span>
+              </a>
+              <a href="/about-us/our-values" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Our Values</span>
+              </a>
+              <a href="/about-us/leadership" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Meet Schulter and Jenny</span>
+              </a>
+            </div>
+          </div>
 
-          <!-- Icon trigger when full bar hidden (safety) -->
-          <button
-            type="button"
-            data-search-open
-            class="lg:hidden inline-flex items-center justify-center h-11 w-11 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
-            aria-label="Open site search"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
-            </svg>
-            <span class="sr-only">Search</span>
-          </button>
-        </div>
+          <a
+            href="/give/"
+            class={`nav-underline relative z-10 px-2 py-2 whitespace-nowrap ${
+              isActive("/give/") ? "text-brand-red font-semibold" : "text-brand-warmgray-700 hover:text-brand-red"
+            }`}
+            aria-current={isActive("/give/") ? "page" : undefined}
+          >Generosity</a>
 
-    <!-- RIGHT: Nav -->
-    <nav class="flex items-center gap-8 text-base">
-      <a
-        href="/what-to-expect/"
-        class={`relative px-2 py-1 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-          isActive("/what-to-expect/") ? "text-brand-red after:w-full font-semibold" : "text-gray-800 hover:text-brand-red"
-        }`}
-      >What to Expect</a>
+          <!-- Ministries dropdown -->
+          <div id="dd-ministries" data-dropdown class="relative">
+            <button
+              data-trigger
+              type="button"
+              class={`relative px-2 py-2 whitespace-nowrap after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+                isActive("/ministries/") ? "text-brand-red after:w-full font-semibold" : "text-brand-warmgray hover:text-brand-red"
+              }`}
+              aria-haspopup="true"
+              aria-expanded="false"
+            >Ministries</button>
 
-      <!-- About Us dropdown -->
-      <div id="dd-about-xl" class="relative" data-dropdown>
-        <button
-          data-trigger
-          type="button"
-          class={`relative px-2 py-1 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-            isActive("/about-us/") ? "text-brand-red after:w-full font-semibold" : "text-gray-800 hover:text-brand-red"
-          }`}
-          aria-haspopup="true" aria-expanded="false"
-        >About Us</button>
-        <div
-          data-menu
-          class="absolute right-0 top-full mt-2 w-56 rounded-md border bg-white shadow-lg z-50 hidden max-h-[70vh] overflow-y-auto overscroll-contain pt-1"
-          role="menu" aria-label="About Us Menu"
-        >
-          <a href="/about-us/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">Our Mission</a>
-          <a href="/about-us/our-values" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">Our Values</a>
-          <a href="/about-us/leadership" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">Meet Schulter and Jenny</a>
-        </div>
+            <div
+              data-menu
+              class="absolute left-0 top-full -mt-px w-64 xl:w-72 2xl:w-80 rounded-md border bg-white shadow-lg z-50 hidden max-h-[75vh] xl:max-h-[85vh] overflow-y-auto overscroll-contain pt-1"
+              role="menu"
+              aria-label="Ministries Menu"
+            >
+              <a href="/ministries/new-members/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">New @The Life Place</span>
+              </a>
+
+              <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Family</div>
+
+              <a href="/ministries/bring-them-to-jesus/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Bring Them To Jesus</span>
+              </a>
+
+              <a href="/ministries/kids/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Kids @The Life Place</span>
+              </a>
+
+              <a href="/ministries/gen/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">ThisGen</span>
+              </a>
+
+              <a href="/ministries/premarital-counseling/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Premarital Counseling</span>
+              </a>
+
+              <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Formation</div>
+
+              <a href="/ministries/institute/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">The Life Place Institute</span>
+              </a>
+
+              <a href="/ministries/faith-and-work/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Faith &amp; Work</span>
+              </a>
+
+              <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Outreach</div>
+
+              <a href="/ministries/relief-center/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red" role="menuitem">
+                <span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Relief Center</span>
+              </a>
+            </div>
+          </div>
+
+          <a
+            href="/visit/"
+            class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+              isActive("/visit/") ? "text-brand-red after:w-full font-semibold" : "text-brand-darkgray hover:text-brand-red"
+            }`}
+          >Visit</a>
+        </nav>
       </div>
-
-      <a
-        href="/give/"
-        class={`relative px-2 py-1 ${
-          isActive("/give/") ? "text-brand-red font-semibold" : "text-gray-800 hover:text-brand-red"
-        }`}
-      >Generosity</a>
-
-      <!-- Ministries dropdown -->
-      <div id="dd-ministries-xl" class="relative" data-dropdown>
-        <button
-          data-trigger
-          type="button"
-          class={`relative px-2 py-1 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-            isActive("/ministries/") ? "text-brand-red after:w-full font-semibold" : "text-gray-800 hover:text-brand-red"
-          }`}
-          aria-haspopup="true" aria-expanded="false"
-        >Ministries</button>
-        <div
-          data-menu
-          class="absolute right-0 top-full mt-2 w-64 rounded-md border bg-white shadow-lg z-50 hidden max-h-[70vh] overflow-y-auto overscroll-contain pt-1"
-          role="menu" aria-label="Ministries Menu"
-        >
-          <a href="/ministries/new-members/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">New @The Life Place</a>
-          <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Family</div>
-          <a href="/ministries/bring-them-to-jesus/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">Bring Them To Jesus</a>
-          <a href="/ministries/kids/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">Kids @The Life Place</a>
-          <a href="/ministries/gen/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">ThisGen</a>
-          <a href="/ministries/premarital-counseling/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">Premarital Counseling</a>
-          <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Formation</div>
-          <a href="/ministries/institute/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">The Life Place Institute</a>
-          <a href="/ministries/faith-and-work/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">Faith &amp; Work</a>
-          <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Outreach</div>
-          <a href="/ministries/relief-center/" class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50" role="menuitem">Relief Center</a>
-        </div>
-      </div>
-
-      <a
-        href="/visit/"
-        class={`relative px-2 py-1 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-          isActive("/visit/") ? "text-brand-red after:w-full font-semibold" : "text-gray-800 hover:text-brand-red"
-        }`}
-      >Visit</a>
-    </nav>
-  </div>
+    </header>
 
   <!-- Dropdown behavior (same pattern as BaseLayout) -->
   <script is:inline>

@@ -1,0 +1,85 @@
+---
+const {
+  logoSrc = "/logo.png",
+  title = "The Life Place",
+  class: className,
+} = Astro.props;
+
+const path = Astro.url.pathname;
+const isActive = (href) =>
+  href === "/" ? path === "/" : path === href || (href !== "/" && path.startsWith(href));
+---
+
+<header class={`hidden md:block xl:hidden relative z-30 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 ${className}`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center gap-2">
+    
+    <!-- LEFT: Logo + Title -->
+    <a href="/" class="shrink-0 flex items-center gap-3 min-w-0" aria-label="{title} — Home">
+      <img src={logoSrc} alt="{title} Logo" class="h-10 md:h-14 w-auto" />
+      <div class="flex flex-col min-w-0">
+        <span class="font-bold text-brand-red text-lg sm:text-xl md:text-2xl leading-tight truncate">{title}</span>
+        <span class="text-sm text-gray-600 tracking-wide">Come. See. Jesus</span>
+      </div>
+    </a>
+
+    <!-- CENTER: Search trigger -->
+    <div class="flex-1 flex items-center justify-center">
+      <button
+        type="button"
+        data-search-open
+        class="flex items-center gap-2 px-3 py-2 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white transition"
+        aria-label="Open site search"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+        </svg>
+        <span class="hidden sm:inline text-sm font-medium">Search</span>
+      </button>
+    </div>
+
+    <!-- RIGHT: Nav -->
+    <nav class="flex items-center gap-6 font-montserrat text-base">
+      <a href="/what-to-expect/" class={isActive("/what-to-expect/") ? "text-brand-red font-semibold" : "text-gray-800 hover:text-brand-red"}>What to Expect</a>
+      <a href="/about-us/" class={isActive("/about-us/") ? "text-brand-red font-semibold" : "text-gray-800 hover:text-brand-red"}>About Us</a>
+      <a href="/give/" class={isActive("/give/") ? "text-brand-red font-semibold" : "text-gray-800 hover:text-brand-red"}>Generosity</a>
+      <a href="/ministries/" class={isActive("/ministries/") ? "text-brand-red font-semibold" : "text-gray-800 hover:text-brand-red"}>Ministries</a>
+      <a href="/visit/" class={isActive("/visit/") ? "text-brand-red font-semibold" : "text-gray-800 hover:text-brand-red"}>Visit</a>
+    </nav>
+  </div>
+</header>
+
+ <!-- Dropdown behavior (same pattern as BaseLayout) -->
+  <script is:inline>
+    (function () {
+      const HIDE_DELAY = 220;
+      document.querySelectorAll('header [data-dropdown]').forEach((wrap) => {
+        const btn = wrap.querySelector('[data-trigger]');
+        const menu = wrap.querySelector('[data-menu]');
+        if (!btn || !menu) return;
+
+        let hideTimer;
+        const open  = () => { clearTimeout(hideTimer); menu.classList.remove('hidden'); btn.setAttribute('aria-expanded', 'true'); };
+        const close = () => { hideTimer = setTimeout(() => { menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false'); }, HIDE_DELAY); };
+
+        btn.addEventListener('mouseenter', open);
+        btn.addEventListener('mouseleave', close);
+        menu.addEventListener('mouseenter', open);
+        menu.addEventListener('mouseleave', close);
+
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const isHidden = menu.classList.contains('hidden');
+          isHidden ? open() : close();
+        });
+        btn.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault(); open();
+            menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])')?.focus();
+          }
+          if (e.key === 'Escape') { close(); btn.focus(); }
+        });
+        menu.addEventListener('keydown', (e) => { if (e.key === 'Escape') { close(); btn.focus(); } });
+      });
+    })();
+  </script>
+</header>
