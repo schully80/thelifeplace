@@ -29,36 +29,23 @@ const isActive = (href: string) =>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Sans+Pro:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
 
-  <body class="bg-white antialiased min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col bg-white antialiased">
     
     <!-- Mobile header (< md) -->
     <HeaderMobile class="md:hidden" logoSrc="/logo.png" title="The Life Place" />
 
     <!-- Laptop / normal desktop header (md–lg only) -->
-    <HeaderLaptop class="hidden md:block xl:hidden relative z-30 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center gap-2">
+<HeaderLaptop class="hidden md:block xl:hidden" logoSrc="/logo.png" title="The Life Place" />      
       
-
-        <!-- RIGHT: Nav -->
-        <nav class="flex items-center gap-6 font-montserrat text-base">
-          <a href="/what-to-expect/" class="text-gray-800 hover:text-brand-red">What to Expect</a>
-          <a href="/about-us/" class="text-gray-800 hover:text-brand-red">About Us</a>
-          <a href="/give/" class="text-gray-800 hover:text-brand-red">Generosity</a>
-          <a href="/ministries/" class="text-gray-800 hover:text-brand-red">Ministries</a>
-          <a href="/visit/" class="text-gray-800 hover:text-brand-red">Visit</a>
-        </nav>
-      </div>
-    </header>
 
     <!-- Big-screen header (xl+ only) -->
 <HeaderDesktop class="hidden xl:block" logoSrc="/logo.png" title="The Life Place" />      
-<div class="flex justify-between items-center">
-      </div>
+      
 
     <!-- Page content -->
-    <main class="max-w-6xl xl:max-w-7xl 2xl:max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1">
-      <slot />
-    </main>
+    <main class="flex-1 max-w-6xl xl:max-w-7xl 2xl:max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <slot />
+  </main>
 
     <!-- Footer -->
     <footer class="bg-gray-100 mt-8">
@@ -73,10 +60,10 @@ const isActive = (href: string) =>
           <a href="https://youtube.com/@thelifeplacesa" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="YouTube">
             <i class="fab fa-youtube text-2xl text-white"></i>
           </a>
-          <a href="https://open.spotify.com/show/YOUR_SPOTIFY_ID" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="Spotify">
+          <a href="https://open.spotify.com/show/31hbtgq5cvmqr4tyzs2faygvrzaa?si=61b073370e034f21" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="Spotify">
             <i class="fab fa-spotify text-2xl text-white"></i>
           </a>
-          <a href="https://podcasts.apple.com/your-show-link" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="Apple Podcasts">
+          <a href="https://podcasts.apple.com/us/podcast/the-life-place/id1816955719" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="Apple Podcasts">
             <i class="fas fa-podcast text-2xl text-white"></i>
           </a>
         </div>
@@ -94,7 +81,7 @@ const isActive = (href: string) =>
 
     <!-- 🔍 Search Overlay -->
     <div id="searchOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] hidden flex items-start justify-center pt-24 px-4" aria-hidden="true">
-      <div class="bg-white rounded-xl shadow-lg max-w-lg xl:max-w-2xl 2xl:max-w-2xl w-full p-6" role="dialog" aria-modal="true" aria-label="Site search">
+      <div class="bg-white rounded-xl shadow-lg max-w-lg w-full md:max-w-md xl:max-w-2xl p-6" role="dialog" aria-modal="true" aria-label="Site search">
         <div class="flex justify-between items-center mb-4">
           <h2 class="text-lg xl:text-xl font-semibold">Search The Life Place</h2>
           <button id="searchClose" type="button" aria-label="Close search" class="text-gray-500 hover:text-brand-red">✕</button>
@@ -107,11 +94,17 @@ const isActive = (href: string) =>
             type="search"
             placeholder="Type to search…"
             autocomplete="off"
-            class="w-full border border-gray-300 rounded-lg px-4 py-3 xl:py-3.5 text-gray-800 focus:ring-brand-red focus:border-brand-red"
-          />
+class="
+    w-full
+    px-4 py-3 text-base
+    md:px-3 md:py-2 md:text-sm
+    xl:px-4 xl:py-3 xl:text-base
+    border border-gray-300 rounded-lg
+    focus:ring-brand-red focus:border-brand-red"
+/>        
           <div class="flex gap-2">
-            <button type="submit" class="btn-primary px-5 xl:px-6 py-2.5">Search</button>
-            <button type="button" id="searchClear" class="btn-ghost px-5 xl:px-6 py-2.5">Clear</button>
+<button type="submit" class="btn-primary px-5 py-2.5 md:px-4 md:py-2 md:text-sm xl:px-5 xl:py-2.5">Search</button>            
+<button type="button" id="searchClear" class="btn-ghost px-5 py-2.5 md:px-4 md:py-2 md:text-sm xl:px-5 xl:py-2.5">Clear</button>
           </div>
         </form>
 
@@ -119,173 +112,205 @@ const isActive = (href: string) =>
       </div>
     </div>
 
-    <!-- 🔧 Search + Dropdown logic -->
-    <script is:inline>
-      (function () {
-        const html = document.documentElement;
-        const overlay = document.getElementById("searchOverlay");
-        const btnClose = document.getElementById("searchClose");
-        const form = document.getElementById("siteSearchForm");
-        const input = document.getElementById("siteSearchInput");
-        const results = document.getElementById("searchResults");
-        const btnClear = document.getElementById("searchClear");
-        const openers = document.querySelectorAll("[data-search-open]");
+   <!-- 🔧 Search + Dropdown logic -->
+<script is:inline>
+  (() => {
+    const html = document.documentElement;
+    const overlay = document.getElementById("searchOverlay");
+    const btnClose = document.getElementById("searchClose");
+    const form = document.getElementById("siteSearchForm");
+    const input = document.getElementById("siteSearchInput");
+    const results = document.getElementById("searchResults");
+    const btnClear = document.getElementById("searchClear");
+    const openers = document.querySelectorAll("[data-search-open]");
 
-        let INDEX = null;
+    let INDEX = null;
 
-        const open = (e) => {
-          e?.preventDefault?.();
-          overlay.classList.remove("hidden");
-          overlay.setAttribute("aria-hidden", "false");
-          html.style.overflow = "hidden";
-          setTimeout(() => input.focus(), 0);
-        };
+    const open = (e) => {
+      e?.preventDefault?.();
+      overlay?.classList.remove("hidden");
+      overlay?.setAttribute("aria-hidden", "false");
+      html.style.overflow = "hidden";
+      setTimeout(() => input?.focus(), 0);
+    };
 
-        const close = (e) => {
-          e?.preventDefault?.();
-          overlay.classList.add("hidden");
-          overlay.setAttribute("aria-hidden", "true");
-          html.style.overflow = "";
-        };
+    const close = (e) => {
+      e?.preventDefault?.();
+      overlay?.classList.add("hidden");
+      overlay?.setAttribute("aria-hidden", "true");
+      html.style.overflow = "";
+    };
 
-        openers.forEach((btn) => {
-          btn.addEventListener("click", open);
-          btn.addEventListener("mousedown", (evt) => evt.preventDefault());
-        });
+    openers.forEach((btn) => {
+      btn.addEventListener("click", open);
+      btn.addEventListener("mousedown", (evt) => evt.preventDefault());
+    });
 
-        btnClose.addEventListener("click", close);
-        overlay.addEventListener("click", (e) => { if (e.target === overlay) close(e); });
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape" && overlay.getAttribute("aria-hidden") === "false") close(e);
-          if (e.key === "/" && !e.metaKey && !e.ctrlKey && !e.altKey) {
-            const tag = document.activeElement?.tagName?.toLowerCase();
-            if (tag !== "input" && tag !== "textarea") {
-              e.preventDefault();
-              open();
-            }
-          }
-        });
+    btnClose?.addEventListener("click", close);
+    overlay?.addEventListener("click", (e) => {
+      if (e.target === overlay) close(e);
+    });
 
-        btnClear?.addEventListener("click", () => {
-          input.value = "";
-          results?.classList?.add("hidden");
-          if (results) results.innerHTML = "";
-          input.focus();
-        });
-
-        async function loadIndex() {
-          if (INDEX) return INDEX;
-          try {
-            const res = await fetch("/src/data/searchIndex.json", { cache: "no-cache" });
-            if (!res.ok) throw new Error("Index not found");
-            INDEX = await res.json();
-          } catch (e) {
-            try {
-              const res2 = await fetch("/data/searchIndex.json", { cache: "no-cache" });
-              if (!res2.ok) throw new Error("Index not found (fallback)");
-              INDEX = await res2.json();
-            } catch {
-              INDEX = [];
-            }
-          }
-          return INDEX;
-        }
-
-        function norm(s){ return (s || "").toString().toLowerCase(); }
-        function rankItem(item, q){
-          const t = norm(item.title), s = norm(item.summary), tags = (item.tags || []).map(norm).join(" ");
-          let score = 0; if (t.includes(q)) score += 5; if (s.includes(q)) score += 3; if (tags.includes(q)) score += 2; return score;
-        }
-        function highlight(text, q){
-          if (!text) return "";
-          const safe = text.replace(/</g, "&lt;");
-          if (!q) return safe;
-          const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "ig");
-          return safe.replace(re, "<mark>$1</mark>");
-        }
-
-        form.addEventListener("submit", async (e) => {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && overlay?.getAttribute("aria-hidden") === "false") close(e);
+      if (e.key === "/" && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        const tag = document.activeElement?.tagName?.toLowerCase();
+        if (tag !== "input" && tag !== "textarea") {
           e.preventDefault();
-          const qRaw = input.value.trim(), q = qRaw.toLowerCase();
-          if (!q) {
-            results.innerHTML = '<p class="text-sm text-gray-500">Type something to search.</p>';
-            results.classList.remove("hidden");
-            return;
-          }
-          const data = await loadIndex();
-          if (!data.length) {
-            results.innerHTML = '<p class="text-sm text-gray-500">Search index not found. Add items to <code>src/data/searchIndex.json</code>.</p>';
-            results.classList.remove("hidden");
-            return;
-          }
-          const matched = data.map((item) => ({ item, score: rankItem(item, q) }))
-            .filter((r) => r.score > 0)
-            .sort((a, b) => b.score - a.score)
-            .slice(0, 12);
+          open();
+        }
+      }
+    });
 
-          if (!matched.length) {
-            results.innerHTML = `<p class="text-sm text-gray-500">No results for “${qRaw.replace(/</g, "&lt;")}”.</p>`;
-            results.classList.remove("hidden");
-            return;
-          }
-          results.innerHTML = matched.map(({ item }) => `
-            <a href="${item.url}" class="block rounded-md border p-3 hover:bg-gray-50 transition">
-              <div class="font-semibold text-gray-900">${highlight(item.title, qRaw)}</div>
-              <div class="text-sm text-gray-600 mt-1">${highlight(item.summary, qRaw)}</div>
-              <div class="text-[11px] text-gray-400 mt-1">${(item.tags||[]).map(t=>`#${t}`).join(" ")}</div>
-            </a>
-          `).join("");
-          results.classList.remove("hidden");
-        });
-      })();
+    btnClear?.addEventListener("click", () => {
+      input.value = "";
+      results?.classList.add("hidden");
+      if (results) results.innerHTML = "";
+      input?.focus();
+    });
 
-      // Desktop dropdowns (hover + keyboard)
-      (function () {
-        const HIDE_DELAY = 220;
-        document.querySelectorAll('[data-dropdown]').forEach((wrap) => {
-          const btn  = wrap.querySelector('[data-trigger]');
-          const menu = wrap.querySelector('[data-menu]');
-          if (!btn || !menu) return;
+    async function loadIndex() {
+      if (INDEX) return INDEX;
+      try {
+        const res = await fetch("/src/data/searchIndex.json", { cache: "no-cache" });
+        if (!res.ok) throw new Error("Index not found");
+        INDEX = await res.json();
+      } catch {
+        try {
+          const res2 = await fetch("/data/searchIndex.json", { cache: "no-cache" });
+          if (!res2.ok) throw new Error("Fallback index not found");
+          INDEX = await res2.json();
+        } catch {
+          INDEX = [];
+        }
+      }
+      return INDEX;
+    }
 
-          let hideTimer;
-          const open  = () => { clearTimeout(hideTimer); menu.classList.remove('hidden'); btn.setAttribute('aria-expanded', 'true'); };
-          const close = () => { hideTimer = setTimeout(() => { menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false'); }, HIDE_DELAY); };
+    function norm(s) {
+      return (s || "").toString().toLowerCase();
+    }
 
-          btn.addEventListener('mouseenter', open);
-          btn.addEventListener('mouseleave', close);
-          menu.addEventListener('mouseenter', open);
-          menu.addEventListener('mouseleave', close);
+    function rankItem(item, q) {
+      const t = norm(item.title);
+      const s = norm(item.summary);
+      const tags = (item.tags || []).map(norm).join(" ");
+      let score = 0;
+      if (t.includes(q)) score += 5;
+      if (s.includes(q)) score += 3;
+      if (tags.includes(q)) score += 2;
+      return score;
+    }
 
-          btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const isHidden = menu.classList.contains('hidden');
-            isHidden ? open() : close();
-          });
+    function highlight(text, q) {
+      if (!text) return "";
+      const safe = text.replace(/</g, "&lt;");
+      if (!q) return safe;
+      const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "ig");
+      return safe.replace(re, "<mark>$1</mark>");
+    }
 
-          btn.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              open();
-              const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
-              first?.focus();
-            }
-            if (e.key === 'Escape') { close(); btn.focus(); }
-          });
-          menu.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') { close(); btn.focus(); }
-          });
-        });
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const qRaw = input.value.trim();
+      const q = qRaw.toLowerCase();
+      if (!q) {
+        results.innerHTML = '<p class="text-sm text-gray-500">Type something to search.</p>';
+        results.classList.remove("hidden");
+        return;
+      }
 
-        document.addEventListener('click', (e) => {
-          document.querySelectorAll('[data-dropdown] [data-menu]:not(.hidden)').forEach((menu) => {
-            if (!menu.closest('[data-dropdown]')?.contains(e.target)) {
-              const btn = menu.parentElement?.querySelector?.('[data-trigger]');
-              menu.classList.add('hidden');
-              btn?.setAttribute('aria-expanded', 'false');
-            }
-          });
-        });
-      })();
-    </script>
-  </body>
-</html>
+      const data = await loadIndex();
+      if (!data.length) {
+        results.innerHTML = '<p class="text-sm text-gray-500">Search index not found. Add items to <code>src/data/searchIndex.json</code>.</p>';
+        results.classList.remove("hidden");
+        return;
+      }
+
+      const matched = data.map((item) => ({ item, score: rankItem(item, q) }))
+        .filter((r) => r.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 12);
+
+      if (!matched.length) {
+        results.innerHTML = `<p class="text-sm text-gray-500">No results for “${qRaw.replace(/</g, "&lt;")}”.</p>`;
+        results.classList.remove("hidden");
+        return;
+      }
+
+      results.innerHTML = matched.map(({ item }) => `
+        <a href="${item.url}" class="block rounded-md border p-3 hover:bg-gray-50 transition">
+          <div class="font-semibold text-gray-900">${highlight(item.title, qRaw)}</div>
+          <div class="text-sm text-gray-600 mt-1">${highlight(item.summary, qRaw)}</div>
+          <div class="text-[11px] text-gray-400 mt-1">${(item.tags || []).map(t => `#${t}`).join(" ")}</div>
+        </a>
+      `).join("");
+      results.classList.remove("hidden");
+    });
+  })();
+
+  // 🔽 Dropdown logic
+  (() => {
+    const HIDE_DELAY = 220;
+    document.querySelectorAll('[data-dropdown]').forEach((wrap) => {
+      const btn = wrap.querySelector('[data-trigger]');
+      const menu = wrap.querySelector('[data-menu]');
+      if (!btn || !menu) return;
+
+      let hideTimer;
+
+      const open = () => {
+        clearTimeout(hideTimer);
+        menu.classList.remove('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+      };
+
+      const close = () => {
+        hideTimer = setTimeout(() => {
+          menu.classList.add('hidden');
+          btn.setAttribute('aria-expanded', 'false');
+        }, HIDE_DELAY);
+      };
+
+      btn.addEventListener('mouseenter', open);
+      btn.addEventListener('mouseleave', close);
+      menu.addEventListener('mouseenter', open);
+      menu.addEventListener('mouseleave', close);
+
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const isHidden = menu.classList.contains('hidden');
+        isHidden ? open() : close();
+      });
+
+      btn.addEventListener('keydown', (e) => {
+        if (["ArrowDown", "Enter", " "].includes(e.key)) {
+          e.preventDefault();
+          open();
+          menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])')?.focus();
+        }
+        if (e.key === "Escape") {
+          close();
+          btn.focus();
+        }
+      });
+
+      menu.addEventListener('keydown', (e) => {
+        if (e.key === "Escape") {
+          close();
+          btn.focus();
+        }
+      });
+    });
+
+    document.addEventListener("click", (e) => {
+      document.querySelectorAll('[data-dropdown] [data-menu]:not(.hidden)').forEach((menu) => {
+        if (!menu.closest('[data-dropdown]')?.contains(e.target)) {
+          const btn = menu.parentElement?.querySelector('[data-trigger]');
+          menu.classList.add('hidden');
+          btn?.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  })();
+</script>
