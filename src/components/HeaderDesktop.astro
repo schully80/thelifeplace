@@ -10,8 +10,9 @@ const isActive = (href) =>
   href === "/" ? path === "/" : path === href || (href !== "/" && path.startsWith(href));
 ---
 <!-- Big-screen header (xl+ only) -->
-<header class="hidden xl:block" logoSrc="/logo.png" title="The Life Place" />      
-<div class="flex justify-between items-center">
+<header class={`hidden xl:block relative z-30 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 ${className}`}>
+<div class="max-w-7xl 2xl:max-w-[88rem] px-4 sm:px-6 lg:px-8 h-24 flex justify-between items-center gap-6 2xl:gap-4">
+
   
   <!-- Left: Logo + Title -->
 <a href="/" class="shrink-0 flex items-center gap-3 min-w-0 z-10 relative">
@@ -23,7 +24,7 @@ const isActive = (href) =>
     </div>
   </div>
 
-  
+   
         <!-- RIGHT: Nav -->
         <nav class="flex items-center gap-8 font-montserrat text-base xl:text-lg">
           <a
