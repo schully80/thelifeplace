@@ -79,47 +79,14 @@ const isActive = (href: string) =>
       </div>
     </footer>
 
-    <!-- 🔍 Search Overlay -->
-    <div id="searchOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] hidden flex items-start justify-center pt-24 px-4" aria-hidden="true">
-      <div class="bg-white rounded-xl shadow-lg max-w-lg w-full md:max-w-md xl:max-w-2xl p-6" role="dialog" aria-modal="true" aria-label="Site search">
-        <div class="flex justify-between items-center mb-4">
-          <h2 class="text-lg xl:text-xl font-semibold">Search The Life Place</h2>
-          <button id="searchClose" type="button" aria-label="Close search" class="text-gray-500 hover:text-brand-red">✕</button>
-        </div>
-
-        <form id="siteSearchForm" action="/search" method="GET" class="space-y-3">
-          <input
-            id="siteSearchInput"
-            name="q"
-            type="search"
-            placeholder="Type to search…"
-            autocomplete="off"
-class="
-    w-full
-    px-4 py-3 text-base
-    md:px-3 md:py-2 md:text-sm
-    xl:px-4 xl:py-3 xl:text-base
-    border border-gray-300 rounded-lg
-    focus:ring-brand-red focus:border-brand-red"
-/>        
-          <div class="flex gap-2">
-<button type="submit" class="btn-primary px-5 py-2.5 md:px-4 md:py-2 md:text-sm xl:px-5 xl:py-2.5">Search</button>            
-<button type="button" id="searchClear" class="btn-ghost px-5 py-2.5 md:px-4 md:py-2 md:text-sm xl:px-5 xl:py-2.5">Clear</button>
-          </div>
-        </form>
-
-        <div id="searchResults" class="mt-6 space-y-3 hidden"></div>
-      </div>
-    </div>
-
-   <!-- 🔧 Search + Dropdown logic -->
+<!-- 🔧 Search + Dropdown logic -->
 <script is:inline>
-  (() => {
+  (function () {
     const html = document.documentElement;
     const overlay = document.getElementById("searchOverlay");
     const btnClose = document.getElementById("searchClose");
     const form = document.getElementById("siteSearchForm");
-    const input = document.getElementById("siteSearchInput");
+    const input = document.getElementById("siteSearchInputBar");
     const results = document.getElementById("searchResults");
     const btnClear = document.getElementById("searchClear");
     const openers = document.querySelectorAll("[data-search-open]");
@@ -128,16 +95,16 @@ class="
 
     const open = (e) => {
       e?.preventDefault?.();
-      overlay?.classList.remove("hidden");
-      overlay?.setAttribute("aria-hidden", "false");
+      overlay.classList.remove("hidden");
+      overlay.setAttribute("aria-hidden", "false");
       html.style.overflow = "hidden";
-      setTimeout(() => input?.focus(), 0);
+      setTimeout(() => input.focus(), 0);
     };
 
     const close = (e) => {
       e?.preventDefault?.();
-      overlay?.classList.add("hidden");
-      overlay?.setAttribute("aria-hidden", "true");
+      overlay.classList.add("hidden");
+      overlay.setAttribute("aria-hidden", "true");
       html.style.overflow = "";
     };
 
@@ -146,13 +113,10 @@ class="
       btn.addEventListener("mousedown", (evt) => evt.preventDefault());
     });
 
-    btnClose?.addEventListener("click", close);
-    overlay?.addEventListener("click", (e) => {
-      if (e.target === overlay) close(e);
-    });
-
+    btnClose.addEventListener("click", close);
+    overlay.addEventListener("click", (e) => { if (e.target === overlay) close(e); });
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && overlay?.getAttribute("aria-hidden") === "false") close(e);
+      if (e.key === "Escape" && overlay.getAttribute("aria-hidden") === "false") close(e);
       if (e.key === "/" && !e.metaKey && !e.ctrlKey && !e.altKey) {
         const tag = document.activeElement?.tagName?.toLowerCase();
         if (tag !== "input" && tag !== "textarea") {
@@ -164,9 +128,9 @@ class="
 
     btnClear?.addEventListener("click", () => {
       input.value = "";
-      results?.classList.add("hidden");
+      results?.classList?.add("hidden");
       if (results) results.innerHTML = "";
-      input?.focus();
+      input.focus();
     });
 
     async function loadIndex() {
@@ -175,10 +139,10 @@ class="
         const res = await fetch("/src/data/searchIndex.json", { cache: "no-cache" });
         if (!res.ok) throw new Error("Index not found");
         INDEX = await res.json();
-      } catch {
+      } catch (e) {
         try {
           const res2 = await fetch("/data/searchIndex.json", { cache: "no-cache" });
-          if (!res2.ok) throw new Error("Fallback index not found");
+          if (!res2.ok) throw new Error("Index not found (fallback)");
           INDEX = await res2.json();
         } catch {
           INDEX = [];
@@ -187,22 +151,12 @@ class="
       return INDEX;
     }
 
-    function norm(s) {
-      return (s || "").toString().toLowerCase();
+    function norm(s){ return (s || "").toString().toLowerCase(); }
+    function rankItem(item, q){
+      const t = norm(item.title), s = norm(item.summary), tags = (item.tags || []).map(norm).join(" ");
+      let score = 0; if (t.includes(q)) score += 5; if (s.includes(q)) score += 3; if (tags.includes(q)) score += 2; return score;
     }
-
-    function rankItem(item, q) {
-      const t = norm(item.title);
-      const s = norm(item.summary);
-      const tags = (item.tags || []).map(norm).join(" ");
-      let score = 0;
-      if (t.includes(q)) score += 5;
-      if (s.includes(q)) score += 3;
-      if (tags.includes(q)) score += 2;
-      return score;
-    }
-
-    function highlight(text, q) {
+    function highlight(text, q){
       if (!text) return "";
       const safe = text.replace(/</g, "&lt;");
       if (!q) return safe;
@@ -210,16 +164,14 @@ class="
       return safe.replace(re, "<mark>$1</mark>");
     }
 
-    form?.addEventListener("submit", async (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const qRaw = input.value.trim();
-      const q = qRaw.toLowerCase();
+      const qRaw = input.value.trim(), q = qRaw.toLowerCase();
       if (!q) {
         results.innerHTML = '<p class="text-sm text-gray-500">Type something to search.</p>';
         results.classList.remove("hidden");
         return;
       }
-
       const data = await loadIndex();
       if (!data.length) {
         results.innerHTML = '<p class="text-sm text-gray-500">Search index not found. Add items to <code>src/data/searchIndex.json</code>.</p>';
@@ -242,35 +194,24 @@ class="
         <a href="${item.url}" class="block rounded-md border p-3 hover:bg-gray-50 transition">
           <div class="font-semibold text-gray-900">${highlight(item.title, qRaw)}</div>
           <div class="text-sm text-gray-600 mt-1">${highlight(item.summary, qRaw)}</div>
-          <div class="text-[11px] text-gray-400 mt-1">${(item.tags || []).map(t => `#${t}`).join(" ")}</div>
+          <div class="text-[11px] text-gray-400 mt-1">${(item.tags||[]).map(t => \`#\${t}\`).join(" ")}</div>
         </a>
       `).join("");
       results.classList.remove("hidden");
     });
   })();
 
-  // 🔽 Dropdown logic
-  (() => {
+  // Desktop dropdowns (hover + keyboard)
+  (function () {
     const HIDE_DELAY = 220;
     document.querySelectorAll('[data-dropdown]').forEach((wrap) => {
-      const btn = wrap.querySelector('[data-trigger]');
+      const btn  = wrap.querySelector('[data-trigger]');
       const menu = wrap.querySelector('[data-menu]');
       if (!btn || !menu) return;
 
       let hideTimer;
-
-      const open = () => {
-        clearTimeout(hideTimer);
-        menu.classList.remove('hidden');
-        btn.setAttribute('aria-expanded', 'true');
-      };
-
-      const close = () => {
-        hideTimer = setTimeout(() => {
-          menu.classList.add('hidden');
-          btn.setAttribute('aria-expanded', 'false');
-        }, HIDE_DELAY);
-      };
+      const open  = () => { clearTimeout(hideTimer); menu.classList.remove('hidden'); btn.setAttribute('aria-expanded', 'true'); };
+      const close = () => { hideTimer = setTimeout(() => { menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false'); }, HIDE_DELAY); };
 
       btn.addEventListener('mouseenter', open);
       btn.addEventListener('mouseleave', close);
@@ -284,29 +225,23 @@ class="
       });
 
       btn.addEventListener('keydown', (e) => {
-        if (["ArrowDown", "Enter", " "].includes(e.key)) {
+        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           open();
-          menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])')?.focus();
+          const first = menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])');
+          first?.focus();
         }
-        if (e.key === "Escape") {
-          close();
-          btn.focus();
-        }
+        if (e.key === 'Escape') { close(); btn.focus(); }
       });
-
       menu.addEventListener('keydown', (e) => {
-        if (e.key === "Escape") {
-          close();
-          btn.focus();
-        }
+        if (e.key === 'Escape') { close(); btn.focus(); }
       });
     });
 
-    document.addEventListener("click", (e) => {
+    document.addEventListener('click', (e) => {
       document.querySelectorAll('[data-dropdown] [data-menu]:not(.hidden)').forEach((menu) => {
         if (!menu.closest('[data-dropdown]')?.contains(e.target)) {
-          const btn = menu.parentElement?.querySelector('[data-trigger]');
+          const btn = menu.parentElement?.querySelector?.('[data-trigger]');
           menu.classList.add('hidden');
           btn?.setAttribute('aria-expanded', 'false');
         }
