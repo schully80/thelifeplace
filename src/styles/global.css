@@ -229,3 +229,15 @@
   .bg-brand-warmgray-200 { @apply bg-gray-200; }
   .bg-brand-warmgray-600 { @apply bg-gray-600; }
 }
+
+details summary {
+  list-style: none;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] summary .details-arrow {
+  transform: rotate(180deg);
+}

@@ -64,13 +64,13 @@ const isActive = (href) =>
             </div>
           </div>
 
-          <a
-            href="/give/"
-            class={`nav-underline relative z-10 px-2 py-2 whitespace-nowrap ${
-              isActive("/give/") ? "text-brand-red font-semibold" : "text-brand-warmgray-700 hover:text-brand-red"
-            }`}
-            aria-current={isActive("/give/") ? "page" : undefined}
-          >Generosity</a>
+<a
+  href="/give/"
+  class="relative z-10 px-4 py-2 whitespace-nowrap rounded-full bg-brand-red text-white font-semibold shadow-md transition"
+  aria-current={isActive("/give/") ? "page" : undefined}
+>
+  Generosity
+</a>
 
           <!-- Ministries dropdown -->
           <div id="dd-ministries" data-dropdown class="relative">
