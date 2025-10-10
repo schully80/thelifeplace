@@ -8,7 +8,7 @@
  */
 const {
   title = "The Life Place",
-  logoSrc = "/logo.png",
+  logoSrc = "/logo-final.png",
   class: className, // allows class forwarding from parent
 } = Astro.props;
 
@@ -21,8 +21,8 @@ const isActive = (href: string) =>
   <!-- Top bar (3-column grid: left actions, centered brand, right spacer) -->
   <div class="h-20 grid grid-cols-[auto,1fr,auto] items-center px-4 gap-2">
     
-    <!-- LEFT: Hamburger only -->
-<div class="flex items-center gap-2">
+<!-- LEFT: Hamburger -->
+<div class="flex items-center gap-2 ml-auto">
   <!-- ☰ Hamburger -->
   <button
     id="mobileMenuButton"
@@ -39,14 +39,15 @@ const isActive = (href: string) =>
   </button>
 </div>
 
+
     <!-- CENTER: Title + Slogan -->
     <div class="flex items-center justify-center min-w-0">
-    <img src="/logo.png" alt="Logo" class="h-12 w-12 " />
+    <img src="/logo.png" alt="Logo" class="h-12 w-12" />
       <a href="/" class="flex flex-col items-center min-w-0" aria-label={`${title} — Home`}>
         <span class="font-bold text-brand-red text-[22px] sm:text-[24px] leading-tight text-center max-w-[70vw] whitespace-nowrap overflow-hidden text-ellipsis">
           {title}
         </span>
-        <span class="mt-0.5 text-[13px] sm:text-[14px] text-brand-warmgray-600 tracking-wide text-center max-w-[70vw] whitespace-nowrap overflow-hidden text-ellipsis">
+        <span class="mt-0.5 text-[14px] sm:text-[14px] text-brand-warmgray-600 tracking-wide text-center max-w-[70vw] whitespace-nowrap overflow-hidden text-ellipsis">
           Come. See. Jesus
         </span>
       </a>
