@@ -153,6 +153,7 @@ const isActive = (href: string) =>
         }`}
       >Generosity</a>
 
+
       <!-- Ministries (accordion) -->
       <section class="mt-1" data-accordion>
         <button
@@ -222,15 +223,27 @@ const isActive = (href: string) =>
         </div>
       </section>
 
-      <!-- Visit -->
-      <a
-        href="/visit/"
-        class={`mt-1 block px-3 py-3 rounded-lg text-base ${
-          isActive("/visit/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"
-        }`}
-      >Visit</a>
-    </nav>
-  </aside>
+   <!-- Visit -->
+<a
+  href="/visit/"
+  class={`mt-1 block px-3 py-3 rounded-lg text-base ${
+    isActive("/visit/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"
+  }`}
+>
+  Plan A Visit
+</a>
+
+<a
+  href="https://schulteretyang.substack.com"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="mt-1 block px-3 py-3 rounded-lg text-base text-brand-darkgray hover:bg-red-50 hover:text-brand-red font-medium transition"
+>
+  Our Blog
+</a>
+
+ 
+
 
   <!-- Inline behaviour -->
   <script is:inline>

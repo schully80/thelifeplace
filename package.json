@@ -10,7 +10,7 @@
     "preview": "astro preview --port 4322 --host 0.0.0.0"
   },
   "dependencies": {
-    "astro": "^5.14.1"
+    "astro": "^5.15.0"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",
