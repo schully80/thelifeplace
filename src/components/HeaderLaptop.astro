@@ -14,19 +14,38 @@ const isActive = (href) =>
 <div class="max-w-7xl 2xl:max-w-[88rem] px-4 sm:px-6 lg:px-8 h-24 flex justify-between items-center gap-6 2xl:gap-4">
     
     <!-- LEFT: Logo + Title -->
-    <a href="/" class="shrink-0 flex items-center gap-3 min-w-0" aria-label={`${title} — Home`}>
-      <img src={logoSrc} alt={`${title} Logo`} class="h-10 md:h-14 w-auto" />
-      <div class="flex flex-col min-w-0">
-        <span class="font-bold text-brand-red text-lg sm:text-xl md:text-2xl leading-tight truncate">{title}</span>
-        <span class="text-sm text-gray-600 tracking-wide">Come. See. Jesus</span>
-      </div>
-    </a>
+<a
+  href="/"
+  class="shrink-0 flex items-center gap-3 min-w-0"
+  aria-label={`${title} — Home`}
+>
+  <img src={logoSrc} alt={`${title} Logo`} class="h-10 md:h-14 w-auto" />
+  <div class="flex flex-col min-w-0 items-center text-center">
+    <span class="font-bold text-brand-red text-lg sm:text-xl md:text-2xl leading-tight truncate">
+      {title}
+    </span>
+    <span class="text-sm text-gray-600 tracking-wide">
+      Come. See. Jesus
+    </span>
+  </div>
+</a>
+
 
     <!-- RIGHT: Nav -->
     <nav class="flex items-center gap-6 font-montserrat text-base">
       <a href="/what-to-expect/" class={isActive("/what-to-expect/") ? "text-brand-red font-semibold" : "text-gray-800 hover:text-brand-red"}>What to Expect</a>
       <a href="/about-us/" class={isActive("/about-us/") ? "text-brand-red font-semibold" : "text-gray-800 hover:text-brand-red"}>About Us</a>
-      <a href="/give/" class={isActive("/give/") ? "text-brand-red font-semibold" : "text-gray-800 hover:text-brand-red"}>Generosity</a>
+<a
+  href="/give/"
+  class={`relative z-10 inline-flex items-center justify-center px-4 py-2 rounded-full font-semibold shadow-md transition ${
+    isActive("/give/")
+      ? "bg-brand-red text-white"
+      : "bg-brand-red text-white hover:bg-red-700"
+  }`}
+  aria-current={isActive("/give/") ? "page" : undefined}
+>
+  Generosity
+</a>
       <a href="/ministries/" class={isActive("/ministries/") ? "text-brand-red font-semibold" : "text-gray-800 hover:text-brand-red"}>Ministries</a>
       <a href="/visit/" class={isActive("/visit/") ? "text-brand-red font-semibold" : "text-gray-800 hover:text-brand-red"}>Plan A Visit</a>
       <a href="https://schulteretyang.substack.com" target="_blank" rel="noopener noreferrer" :text-brand-darkgray hover:bg-red-50 hover:text-brand-red font-semibold transition">Our Blog</a>
