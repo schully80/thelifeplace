@@ -74,7 +74,7 @@
   /* Mobile-first input utility (desktop unchanged via md: overrides in markup) */
   .form-field-mobile {
     @apply block w-full border-b border-gray-500 py-2 text-[15px] font-medium
-           text-brand-warmgray-800 focus:outline-none focus:border-brand-red;
+           text-brand-gray-800 focus:outline-none focus:border-brand-red;
   }
 
   /* Large-screen form sizing */
@@ -192,7 +192,7 @@
     .btn-brand { @apply h-11 px-4 text-sm; }
 
     .form-field-mobile { 
-      @apply block w-full border-b border-gray-500 py-2 text-[15px] font-medium text-brand-warmgray-800 focus:outline-none focus:border-brand-red; 
+      @apply block w-full border-b border-gray-500 py-2 text-[15px] font-medium text-brand-gray-800 focus:outline-none focus:border-brand-red; 
     }
     label { @apply text-sm; }
 
@@ -221,13 +221,13 @@
 ========================================= */
 @layer utilities {
   /* Text colors */
-  .text-brand-warmgray-700 { @apply text-gray-700; }
-  .text-brand-warmgray-800 { @apply text-gray-800; }
+  .text-brand-gray-700 { @apply text-gray-700; }
+  .text-brand-gray-800 { @apply text-gray-800; }
 
   /* Background colors */
-  .bg-brand-warmgray-100 { @apply bg-gray-100; }
-  .bg-brand-warmgray-200 { @apply bg-gray-200; }
-  .bg-brand-warmgray-600 { @apply bg-gray-600; }
+  .bg-brand-gray-100 { @apply bg-gray-100; }
+  .bg-brand-gray-200 { @apply bg-gray-200; }
+  .bg-brand-gray-600 { @apply bg-gray-600; }
 }
 
 details summary {
