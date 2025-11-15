@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import RegisterForm from "../../components/RegisterForm.astro";
+import FormCard from "../components/FormCard.astro";
+const NEW_MEMBERS_REG_OPEN = true;
 ---
 <BaseLayout title="New @The Life Place">
   <!-- Hero -->
@@ -73,9 +75,8 @@ import RegisterForm from "../../components/RegisterForm.astro";
           eventName="Vision Night"
           successMessage="Your registration has been received. We can’t wait to welcome you."
           ctaText="Save My Spot"
-          disabled={true}
-           showNotice={true}
-          fields={[
+          disabled={!NEW_MEMBERS_REG_OPEN}
+          showNotice={!NEW_MEMBERS_REG_OPEN}          fields={[
             { id: "firstName", label: "Name", type: "text", required: true },
             { id: "surname", label: "Surname", type: "text", required: true },
             { id: "contact", label: "Contact Number", type: "tel", required: true },

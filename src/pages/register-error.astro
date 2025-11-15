@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Something went wrong">
+  <section class="max-w-2xl mx-auto px-4 py-16 text-center">
+    <h1 class="text-3xl md:text-4xl font-semibold text-red-600 mb-4">
+      Oops, something went wrong
+    </h1>
+    <p class="text-lg text-brand-warmgray-700 mb-4">
+      We couldn’t process your registration. This might be a network issue or a problem with our spam check.
+    </p>
+    <p class="text-brand-warmgray-700 mb-8">
+      Please go back and try again. If the problem continues, you can email us directly.
+    </p>
+    <a
+      href="/"
+      class="inline-flex items-center px-5 py-2.5 rounded-full bg-brand-red text-white font-semibold shadow-md hover:bg-red-700 transition"
+    >
+      Back to Home
+    </a>
+  </section>
+</BaseLayout>

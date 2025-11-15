@@ -1,138 +1,172 @@
 ---
 const {
   title = "Register",
-  titleClass = "text-xl md:text-2xl font-medium text-brand-warmgray-800 text-center tracking-wide mb-5 md:mb-6",
-  eventName = "General",
-  ctaText = "Save My Spot",
-  disabled = true,
-  showNotice = true,
-  formAction = "https://formspree.io/f/xldwoekj",
+  description = "Fill in your details below to save your spot.",
+  eventCode = "GEN2025"
 } = Astro.props;
+
+// Turnstile site key for the widget
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 
-<section class="max-w-3xl xl:max-w-4xl 2xl:max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 xl:py-14">
-  <h2 class={`text-xl md:text-2xl xl:text-3xl 2xl:text-[2rem] font-medium text-brand-warmgray-800 text-center tracking-wide mb-5 md:mb-6 xl:mb-8 ${titleClass || ""}`}>
-    {title}
-  </h2>
+<section class="max-w-2xl mx-auto px-4 py-12 animate-fade-in-up">
+  <div class="bg-white p-6 rounded-xl shadow ring-1 ring-blue-200 space-y-6">
+    <h2 class="text-2xl font-bold text-brand-red">{title}</h2>
+    <p class="text-gray-700">{description}</p>
 
-  <form id="registrationForm" method="POST" action={formAction} class="space-y-5 md:space-y-6 xl:space-y-7">
-    <!-- Honeypot -->
-    <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
-    <input type="hidden" name="intent" value={eventName} />
+    <!-- Registration Form -->
+    <form
+      id="registrationForm"
+      method="POST"
+      action="/register"
+      class="space-y-6"
+    >
+      <!-- 👤 Personal Info -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-2">
+          <label for="firstName" class="text-sm font-medium text-gray-700">First Name *</label>
+          <input type="text" id="firstName" name="firstName" class="form-field" required />
+        </div>
 
-    <!-- 🔔 TOP BLINKING NOTICE -->
-    {showNotice && disabled && (
-      <div class="text-center py-6 xl:py-7" aria-live="polite">
-        <p class="text-base md:text-xl xl:text-[1.375rem] font-medium text-brand-warmgray-700 animate-pulse">
-          Registration will open soon. Stay tuned!
-        </p>
+        <div class="space-y-2">
+          <label for="lastName" class="text-sm font-medium text-gray-700">Last Name *</label>
+          <input type="text" id="lastName" name="lastName" class="form-field" required />
+        </div>
       </div>
-    )}
 
-    <!-- Name row -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 xl:gap-7">
-      <div>
-        <input id="firstName" name="firstName" required class="form-field form-field-mobile" placeholder="Name *" />
+      <!-- 📞 Contact Info -->
+      <div class="space-y-2">
+        <label for="contact" class="text-sm font-medium text-gray-700">Contact Number *</label>
+        <input type="tel" id="contact" name="contact" class="form-field" required />
       </div>
-      <div>
-        <input id="surname" name="surname" required class="form-field form-field-mobile" placeholder="Surname *" />
-      </div>
-    </div>
 
-    <!-- Contact -->
-    <div>
+      <div class="space-y-2">
+        <label for="email" class="text-sm font-medium text-gray-700">Email Address *</label>
+        <input type="email" id="email" name="email" class="form-field" required />
+      </div>
+
+      <!-- 👥 Attendance -->
+      <div class="space-y-2">
+        <label for="attendees" class="text-sm font-medium text-gray-700">Number of Persons Attending *</label>
+        <input type="number" id="attendees" name="attendees" class="form-field" min="1" required />
+      </div>
+
+      <!-- 📨 Hidden Fields -->
+      <input type="hidden" name="_subject" value={`New ${eventCode} Registration`} />
       <input
-        id="contact"
-        name="contact"
-        type="tel"
-        inputmode="tel"
-        required
-        class="form-field form-field-mobile"
-        placeholder="Contact Number *"
+        type="hidden"
+        name="message"
+        value={`Thank you for registering for ${eventCode}. We'll be in touch soon!`}
       />
-    </div>
 
-    <!-- Email -->
-    <div>
-      <input
-        id="email"
-        name="email"
-        type="email"
-        autocomplete="email"
-        required
-        class="form-field form-field-mobile"
-        placeholder="Email Address *"
-      />
-    </div>
-
-    <!-- Address -->
-    <div>
-      <input
-        id="streetAddress"
-        name="streetAddress"
-        autocomplete="street-address"
-        required
-        class="form-field form-field-mobile"
-        placeholder="Street Address *"
-      />
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 xl:gap-7">
+      <!-- ✅ Turnstile widget -->
       <div>
-        <input
-          id="suburb"
-          name="suburb"
-          required
-          class="form-field form-field-mobile"
-          placeholder="Suburb *"
-        />
+        <div class="cf-turnstile" data-sitekey={siteKey}></div>
       </div>
-      <div>
-        <input
-          id="city"
-          name="city"
-          autocomplete="address-level2"
-          required
-          class="form-field form-field-mobile"
-          placeholder="City *"
-        />
-      </div>
-      <div>
-        <input
-          id="postalCode"
-          name="postalCode"
-          required
-          minlength="3"
-          maxlength="10"
-          pattern=".{3,10}"
-          class="form-field form-field-mobile"
-          placeholder="Postal Code *"
-        />
-        <small class="block mt-1 text-[11px] md:text-xs text-gray-500">e.g. 2196 or W1A&nbsp;1AA</small>
-      </div>
-    </div>
 
-    <!-- CTA -->
-    <div class="text-center pt-2">
-      <button
-        type="submit"
-        disabled={disabled}
-        class={`inline-flex items-center gap-2 px-5 md:px-6 xl:px-7 py-2.5 md:py-3 xl:py-3.5 rounded-full font-semibold shadow-md transition
-          focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2
-          ${disabled ? "bg-gray-400 cursor-not-allowed opacity-60" : "bg-brand-red text-white hover:bg-red-700 hover:shadow-lg"}`}
-      >
-        <span class="text-sm md:text-base xl:text-lg">{ctaText}</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5 xl:h-6 xl:w-6 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M7 7h10v10" />
+      <!-- Error box (hidden by default) -->
+      <div
+        id="formError"
+        class="hidden text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2"
+      ></div>
+
+      <!-- 🚀 Submit Button -->
+      <button type="submit" class="btn-brand inline-flex items-center gap-2">
+        <span>Save My Spot</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 animate-pulse"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M7 17L17 7M7 7h10v10"
+          />
         </svg>
       </button>
+    </form>
 
-      <!-- ⬇️ UNDER-BUTTON ITALIC NOTICE -->
-      {showNotice && disabled && (
-        <p class="mt-2 text-xs md:text-sm xl:text-base text-gray-500 italic">
-          Registration is not yet open. Stay tuned!
-        </p>
-      )}
+    <!-- Inline Thank You Message -->
+    <div id="thankYouMessage" class="hidden mt-10 text-center">
+      <h2 class="text-2xl font-semibold text-brand-red mb-2">Thank You!</h2>
+      <p class="text-lg text-brand-warmgray-700">
+        Your registration has been received. We’ll be in touch soon.
+      </p>
     </div>
-  </form>
+  </div>
 </section>
+
+<!-- Turnstile loader -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("registrationForm");
+    const thankYou = document.getElementById("thankYouMessage");
+    const errorBox = document.getElementById("formError");
+
+    const showError = (message) => {
+      console.error("[Register form error]", message);
+      if (!errorBox) {
+        alert(message);
+        return;
+      }
+      errorBox.textContent = message;
+      errorBox.classList.remove("hidden");
+    };
+
+    const clearError = () => {
+      if (!errorBox) return;
+      errorBox.textContent = "";
+      errorBox.classList.add("hidden");
+    };
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      clearError();
+
+      const formData = new FormData(form);
+
+      try {
+        const res = await fetch(form.action, {
+          method: "POST",
+          body: formData,
+          headers: { Accept: "application/json" },
+        });
+
+        const contentType = res.headers.get("content-type") || "";
+        const isJson = contentType.includes("application/json");
+        let data = null;
+
+        if (isJson) {
+          try {
+            data = await res.json();
+          } catch (err) {
+            console.error("Failed to parse JSON:", err);
+          }
+        } else {
+          // For debugging: log HTML error responses
+          const text = await res.text().catch(() => "");
+          console.error("Non-JSON response from /register:", res.status, text);
+        }
+
+        if (res.ok && data && data.ok) {
+          form.style.display = "none"; // Hide form
+          thankYou.classList.remove("hidden"); // Show thank-you
+        } else {
+          const message =
+            (data && data.error) ||
+            "Oops! Something went wrong. Please try again.";
+          showError(message);
+        }
+      } catch (err) {
+        console.error("Network/JS error:", err);
+        showError("Network error. Please check your connection and try again.");
+      }
+    });
+  });
+</script>
