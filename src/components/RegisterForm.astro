@@ -2,7 +2,14 @@
 const {
   title = "Register",
   description = "Fill in your details below to save your spot.",
-  eventCode = "GEN2025"
+  eventCode = "GEN2025",
+  titleClass = "text-2xl font-bold text-brand-red",
+  eventName = "Registration",
+  successMessage = "Your registration has been received. We’ll be in touch soon.",
+  ctaText = "Save My Spot",
+  disabled = false,
+  showNotice = false,
+  fields = null, // optional dynamic fields array
 } = Astro.props;
 
 // Turnstile site key for the widget
@@ -11,7 +18,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 
 <section class="max-w-2xl mx-auto px-4 py-12 animate-fade-in-up">
   <div class="bg-white p-6 rounded-xl shadow ring-1 ring-blue-200 space-y-6">
-    <h2 class="text-2xl font-bold text-brand-red">{title}</h2>
+    <h2 class={titleClass}>{title}</h2>
     <p class="text-gray-700">{description}</p>
 
     <!-- Registration Form -->
@@ -21,35 +28,75 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       action="/register"
       class="space-y-6"
     >
-      <!-- 👤 Personal Info -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="space-y-2">
-          <label for="firstName" class="text-sm font-medium text-gray-700">First Name *</label>
-          <input type="text" id="firstName" name="firstName" class="form-field" required />
+      <!-- Optional top notice when closed -->
+      {showNotice && disabled && (
+        <p class="mb-2 text-center text-sm md:text-base text-gray-500 italic">
+          Registration will open soon. Stay tuned!
+        </p>
+      )}
+
+      <!-- 👤 Fields -->
+      {fields ? (
+        // Dynamic fields passed from page (like in new-members.astro)
+        <div class="space-y-4">
+          {fields.map((field) => (
+            <div class="space-y-2">
+              <label
+                for={field.id}
+                class="text-sm font-medium text-gray-700"
+              >
+                {field.label}
+                {field.required && " *"}
+              </label>
+              <input
+                id={field.id}
+                name={field.id}
+                type={field.type || "text"}
+                class="form-field"
+                required={field.required}
+                minlength={field.minlength}
+                maxlength={field.maxlength}
+                pattern={field.pattern}
+                min={field.min}
+                max={field.max}
+              />
+            </div>
+          ))}
         </div>
+      ) : (
+        // Fallback hard-coded fields (if no fields prop is provided)
+        <>
+          <!-- Personal Info -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label for="firstName" class="text-sm font-medium text-gray-700">First Name *</label>
+              <input type="text" id="firstName" name="firstName" class="form-field" required />
+            </div>
 
-        <div class="space-y-2">
-          <label for="lastName" class="text-sm font-medium text-gray-700">Last Name *</label>
-          <input type="text" id="lastName" name="lastName" class="form-field" required />
-        </div>
-      </div>
+            <div class="space-y-2">
+              <label for="lastName" class="text-sm font-medium text-gray-700">Last Name *</label>
+              <input type="text" id="lastName" name="lastName" class="form-field" required />
+            </div>
+          </div>
 
-      <!-- 📞 Contact Info -->
-      <div class="space-y-2">
-        <label for="contact" class="text-sm font-medium text-gray-700">Contact Number *</label>
-        <input type="tel" id="contact" name="contact" class="form-field" required />
-      </div>
+          <!-- Contact Info -->
+          <div class="space-y-2">
+            <label for="contact" class="text-sm font-medium text-gray-700">Contact Number *</label>
+            <input type="tel" id="contact" name="contact" class="form-field" required />
+          </div>
 
-      <div class="space-y-2">
-        <label for="email" class="text-sm font-medium text-gray-700">Email Address *</label>
-        <input type="email" id="email" name="email" class="form-field" required />
-      </div>
+          <div class="space-y-2">
+            <label for="email" class="text-sm font-medium text-gray-700">Email Address *</label>
+            <input type="email" id="email" name="email" class="form-field" required />
+          </div>
 
-      <!-- 👥 Attendance -->
-      <div class="space-y-2">
-        <label for="attendees" class="text-sm font-medium text-gray-700">Number of Persons Attending *</label>
-        <input type="number" id="attendees" name="attendees" class="form-field" min="1" required />
-      </div>
+          <!-- Attendance -->
+          <div class="space-y-2">
+            <label for="attendees" class="text-sm font-medium text-gray-700">Number of Persons Attending *</label>
+            <input type="number" id="attendees" name="attendees" class="form-field" min="1" required />
+          </div>
+        </>
+      )}
 
       <!-- 📨 Hidden Fields -->
       <input type="hidden" name="_subject" value={`New ${eventCode} Registration`} />
@@ -58,6 +105,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
         name="message"
         value={`Thank you for registering for ${eventCode}. We'll be in touch soon!`}
       />
+      <input type="hidden" name="intent" value={eventName} />
 
       <!-- ✅ Turnstile widget -->
       <div>
@@ -71,8 +119,14 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       ></div>
 
       <!-- 🚀 Submit Button -->
-      <button type="submit" class="btn-brand inline-flex items-center gap-2">
-        <span>Save My Spot</span>
+      <button
+        type="submit"
+        disabled={disabled}
+        class={`btn-brand inline-flex items-center gap-2 ${
+          disabled ? "bg-gray-400 cursor-not-allowed opacity-60" : ""
+        }`}
+      >
+        <span>{ctaText}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-5 w-5 animate-pulse"
@@ -94,7 +148,7 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     <div id="thankYouMessage" class="hidden mt-10 text-center">
       <h2 class="text-2xl font-semibold text-brand-red mb-2">Thank You!</h2>
       <p class="text-lg text-brand-warmgray-700">
-        Your registration has been received. We’ll be in touch soon.
+        {successMessage}
       </p>
     </div>
   </div>
@@ -108,6 +162,8 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     const form = document.getElementById("registrationForm");
     const thankYou = document.getElementById("thankYouMessage");
     const errorBox = document.getElementById("formError");
+
+    if (!form) return;
 
     const showError = (message) => {
       console.error("[Register form error]", message);
@@ -126,6 +182,11 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     };
 
     form.addEventListener("submit", async (e) => {
+      // If button is disabled, do nothing
+      if (form.querySelector("button[disabled]")) {
+        return;
+      }
+
       e.preventDefault();
       clearError();
 
@@ -149,14 +210,15 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
             console.error("Failed to parse JSON:", err);
           }
         } else {
-          // For debugging: log HTML error responses
           const text = await res.text().catch(() => "");
           console.error("Non-JSON response from /register:", res.status, text);
         }
 
         if (res.ok && data && data.ok) {
           form.style.display = "none"; // Hide form
-          thankYou.classList.remove("hidden"); // Show thank-you
+          if (thankYou) {
+            thankYou.classList.remove("hidden"); // Show thank-you
+          }
         } else {
           const message =
             (data && data.error) ||
