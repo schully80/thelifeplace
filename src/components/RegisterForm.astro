@@ -2,11 +2,11 @@
 const {
   title = "Register",
   description = "Fill in your details below to save your spot.",
-  eventCode = "GEN2025"
+  eventCode = "GEN2025",
 } = Astro.props;
 
-// Turnstile site key from env (public)
-const siteKey = "0x4AAAAAACBCjktQJQNJ094c";
+// Turnstile site key (visible widget)
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 
 <section class="max-w-2xl mx-auto px-4 py-12 animate-fade-in-up">
@@ -24,55 +24,113 @@ const siteKey = "0x4AAAAAACBCjktQJQNJ094c";
       <!-- 👤 Personal Info -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="space-y-2">
-          <label for="firstName" class="text-sm font-medium text-gray-700">First Name *</label>
-          <input type="text" id="firstName" name="firstName" class="form-field" required />
+          <label for="firstName" class="text-sm font-medium text-gray-700">
+            First Name *
+          </label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            class="form-field"
+            required
+          />
         </div>
 
         <div class="space-y-2">
-          <label for="lastName" class="text-sm font-medium text-gray-700">Last Name *</label>
-          <input type="text" id="lastName" name="lastName" class="form-field" required />
+          <label for="lastName" class="text-sm font-medium text-gray-700">
+            Last Name *
+          </label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            class="form-field"
+            required
+          />
         </div>
       </div>
 
       <!-- 📞 Contact Info -->
       <div class="space-y-2">
-        <label for="contact" class="text-sm font-medium text-gray-700">Contact Number *</label>
-        <input type="tel" id="contact" name="contact" class="form-field" required />
+        <label for="contact" class="text-sm font-medium text-gray-700">
+          Contact Number *
+        </label>
+        <input
+          type="tel"
+          id="contact"
+          name="contact"
+          class="form-field"
+          required
+        />
       </div>
 
       <div class="space-y-2">
-        <label for="email" class="text-sm font-medium text-gray-700">Email Address *</label>
-        <input type="email" id="email" name="email" class="form-field" required />
+        <label for="email" class="text-sm font-medium text-gray-700">
+          Email Address *
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-field"
+          required
+        />
       </div>
 
       <!-- 👥 Attendance -->
       <div class="space-y-2">
-        <label for="attendees" class="text-sm font-medium text-gray-700">Number of Persons Attending *</label>
-        <input type="number" id="attendees" name="attendees" class="form-field" min="1" required />
+        <label for="attendees" class="text-sm font-medium text-gray-700">
+          Number of Persons Attending *
+        </label>
+        <input
+          type="number"
+          id="attendees"
+          name="attendees"
+          class="form-field"
+          min="1"
+          required
+        />
       </div>
 
-      <!-- Honeypot (spam trap) -->
-      <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
+      <!-- 🐜 Honeypot spam trap -->
+      <input
+        type="text"
+        name="website"
+        class="hidden"
+        tabindex="-1"
+        autocomplete="off"
+      />
 
-      <!-- 📨 Hidden Fields -->
-      <input type="hidden" name="_subject" value={`New ${eventCode} Registration`} />
+      <!-- 📨 Hidden Fields (optional) -->
+      <input
+        type="hidden"
+        name="_subject"
+        value={`New ${eventCode} Registration`}
+      />
       <input
         type="hidden"
         name="message"
         value={`Thank you for registering for ${eventCode}. We'll be in touch soon!`}
       />
 
-      <!-- ✅ Turnstile widget (visual only for now) -->
-      {siteKey && (
-        <div class="mt-4">
-          <div
-            class="cf-turnstile"
-            data-sitekey="0x4AAAAAACBCjktQJQNJ094c"></div>
+      <!-- ✅ VISIBLE Turnstile widget -->
+      <div class="mt-4">
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Security check
+        </label>
+
+        <div
+          class="cf-turnstile"
+          data-sitekey={siteKey}
+          data-theme="light"
+          data-size="normal"
+          data-appearance="always"
+        >
         </div>
-      )}
+      </div>
 
       <!-- 🚀 Submit Button -->
-      <button type="submit" class="btn-brand inline-flex items-center gap-2 mt-4">
+      <button type="submit" class="btn-brand inline-flex items-center gap-2 mt-6">
         <span>Save My Spot</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -93,5 +151,5 @@ const siteKey = "0x4AAAAAACBCjktQJQNJ094c";
   </div>
 </section>
 
-<!-- Turnstile loader -->
+<!-- Turnstile loader: required for widget to show -->
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>

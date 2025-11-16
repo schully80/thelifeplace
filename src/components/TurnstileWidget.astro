@@ -1,28 +1,16 @@
 ---
 const isProd = import.meta.env.PROD;
 const siteKey = isProd
-  ? import.meta.env.PUBLIC_TURNSTILE_SITEKEY
-  : import.meta.env.PUBLIC_TURNSTILE_SITEKEY_DEV || 'TEST_KEY_PLACEHOLDER';
+  ? import.meta.env.PUBLIC_TURNSTILE_SITE_KEY
+  : import.meta.env.PUBLIC_TURNSTILE_SITE_KEY_DEV || 'TEST_KEY_PLACEHOLDER';
 ---
-
-<!-- container where Turnstile will render -->
 <div id="turnstile-container" class="turnstile-wrapper" />
 
-<!-- load widget + callback; run on client only -->
-<script type="module">
-  (function () {
-    const siteKey = "%%SITE_KEY%%";
-    // replace placeholder when server builds (Astro will stringify this file)
-    // If building from Astro, this will already be replaced by the frontmatter value above.
-  })();
-</script>
-
 <script type="module" client:load>
-  // Ensure the Turnstile script is loaded once
   const TURNSTILE_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
 
   async function loadTurnstileScript() {
-    if (window.turnstile) return Promise.resolve();
+    if (window.turnstile) return;
     return new Promise((resolve, reject) => {
       const s = document.createElement('script');
       s.src = TURNSTILE_SRC;
@@ -33,8 +21,8 @@ const siteKey = isProd
     });
   }
 
-  // callback that Turnstile will call with the token
   async function onTurnstileSuccess(token) {
+    // send raw token to server verify endpoint
     try {
       const resp = await fetch('/verify-turnstile', {
         method: 'POST',
@@ -42,42 +30,22 @@ const siteKey = isProd
         body: JSON.stringify({ turnstileToken: token })
       });
       const json = await resp.json();
-      if (resp.ok && json.success) {
-        // success: proceed with form submit or set a flag
-        console.log('Turnstile verified', json);
-        // Example: dispatch custom event so parent page can continue
-        document.getElementById('turnstile-container')?.dispatchEvent(new CustomEvent('turnstile:success', { detail: json }));
-      } else {
-        console.warn('Turnstile verification failed', json);
-        document.getElementById('turnstile-container')?.dispatchEvent(new CustomEvent('turnstile:error', { detail: json }));
-      }
+      // dispatch events so parent page can react
+      const el = document.getElementById('turnstile-container');
+      el?.dispatchEvent(new CustomEvent(json.success ? 'turnstile:success' : 'turnstile:error', { detail: json }));
     } catch (err) {
-      console.error('Turnstile verification error', err);
       document.getElementById('turnstile-container')?.dispatchEvent(new CustomEvent('turnstile:error', { detail: { error: String(err) } }));
     }
   }
 
   (async () => {
     await loadTurnstileScript();
-
-    // Render the widget
     const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || import.meta.env.PUBLIC_TURNSTILE_SITEKEY_DEV || 'TEST_KEY_PLACEHOLDER';
-    if (!siteKey) {
-      console.warn('Turnstile site key missing');
-      return;
-    }
-
-    // turnstile.render API will call the global `onTurnstileSuccess` callback name below
-    // pass a unique callback name to avoid collisions on pages with multiple widgets
+    if (!siteKey) return;
     const cbName = '__turnstile_cb_' + Math.random().toString(36).slice(2);
     window[cbName] = onTurnstileSuccess;
-
-    // render into the container
     try {
-      window.turnstile.render('#turnstile-container', {
-        sitekey: siteKey,
-        callback: cbName
-      });
+      window.turnstile.render('#turnstile-container', { sitekey: siteKey, callback: cbName });
     } catch (e) {
       console.error('Turnstile render error', e);
     }
