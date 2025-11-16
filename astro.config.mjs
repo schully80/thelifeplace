@@ -7,6 +7,7 @@ export default defineConfig({
   vite: {
     build: {
       outDir: 'dist', // matches Cloudflare “Output directory”
+      sourcemap: true, // ✅ generate source maps for easier debugging
     },
     css: {
       postcss: {

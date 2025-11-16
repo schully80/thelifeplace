@@ -196,7 +196,7 @@ const isActive = (href: string) =>
         <a href="${item.url}" class="block rounded-md border p-3 hover:bg-gray-50 transition">
           <div class="font-semibold text-gray-900">${highlight(item.title, qRaw)}</div>
           <div class="text-sm text-gray-600 mt-1">${highlight(item.summary, qRaw)}</div>
-          <div class="text-[11px] text-gray-400 mt-1">${(item.tags||[]).map(t => \`#\${t}\`).join(" ")}</div>
+          <div class="text-[11px] text-gray-400 mt-1">${(item.tags || []).map(t => `#${t}`).join(" ")}</div>
         </a>
       `).join("");
       results.classList.remove("hidden");
@@ -240,14 +240,26 @@ const isActive = (href: string) =>
       });
     });
 
-    document.addEventListener('click', (e) => {
-      document.querySelectorAll('[data-dropdown] [data-menu]:not(.hidden)').forEach((menu) => {
-        if (!menu.closest('[data-dropdown]')?.contains(e.target)) {
-          const btn = menu.parentElement?.querySelector?.('[data-trigger]');
-          menu.classList.add('hidden');
-          btn?.setAttribute('aria-expanded', 'false');
-        }
-      });
+   document.addEventListener('DOMContentLoaded', () => {
+  // existing dropdown behaviour (keeps your logic intact)
+  document.addEventListener('click', (e) => {
+    document.querySelectorAll('[data-dropdown] [data-menu]:not(.hidden)').forEach((menu) => {
+      if (!menu.closest('[data-dropdown]')?.contains(e.target)) {
+        const btn = menu.parentElement?.querySelector?.('[data-trigger]');
+        menu.classList.add('hidden');
+        btn?.setAttribute('aria-expanded', 'false');
+      }
     });
-  })();
+  });
+
+  // guarded btnClose listener
+  const btnClose = document.getElementById('btnClose');
+  if (btnClose) {
+    btnClose.addEventListener('click', () => {
+      // close logic here
+      const el = document.getElementById('cookie-banner');
+      if (el) el.classList.add('hidden');
+    });
+  }
+});
 </script>
