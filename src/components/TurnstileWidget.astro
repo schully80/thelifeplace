@@ -1,12 +1,20 @@
 ---
 const isProd = import.meta.env.PROD;
+
+// ✅ Only use the single production key (or a safe placeholder in dev)
 const siteKey = isProd
   ? import.meta.env.PUBLIC_TURNSTILE_SITE_KEY
-  : import.meta.env.PUBLIC_TURNSTILE_SITE_KEY_DEV || 'TEST_KEY_PLACEHOLDER';
+  : 'TEST_KEY_PLACEHOLDER';
 ---
-<div id="turnstile-container" class="turnstile-wrapper" />
 
-<script type="module" client:load>
+<div
+  id="turnstile-container"
+  class="turnstile-wrapper"
+  data-sitekey={siteKey}
+></div>
+
+<!-- No client:load, no import.meta.env in here -->
+<script>
   const TURNSTILE_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
 
   async function loadTurnstileScript() {
@@ -22,30 +30,52 @@ const siteKey = isProd
   }
 
   async function onTurnstileSuccess(token) {
-    // send raw token to server verify endpoint
     try {
       const resp = await fetch('/verify-turnstile', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ turnstileToken: token })
+        body: JSON.stringify({ turnstileToken: token }),
       });
+
       const json = await resp.json();
-      // dispatch events so parent page can react
       const el = document.getElementById('turnstile-container');
-      el?.dispatchEvent(new CustomEvent(json.success ? 'turnstile:success' : 'turnstile:error', { detail: json }));
+
+      el?.dispatchEvent(
+        new CustomEvent(json.success ? 'turnstile:success' : 'turnstile:error', {
+          detail: json,
+        }),
+      );
     } catch (err) {
-      document.getElementById('turnstile-container')?.dispatchEvent(new CustomEvent('turnstile:error', { detail: { error: String(err) } }));
+      document
+        .getElementById('turnstile-container')
+        ?.dispatchEvent(
+          new CustomEvent('turnstile:error', {
+            detail: { error: String(err) },
+          }),
+        );
     }
   }
 
   (async () => {
     await loadTurnstileScript();
-    const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || import.meta.env.PUBLIC_TURNSTILE_SITEKEY_DEV || 'TEST_KEY_PLACEHOLDER';
-    if (!siteKey) return;
+
+    const container = document.getElementById('turnstile-container');
+    if (!container) return;
+
+    const siteKey = container.dataset.sitekey;
+    if (!siteKey || siteKey === 'TEST_KEY_PLACEHOLDER') {
+      console.warn('Turnstile site key missing or placeholder; widget disabled.');
+      return;
+    }
+
     const cbName = '__turnstile_cb_' + Math.random().toString(36).slice(2);
     window[cbName] = onTurnstileSuccess;
+
     try {
-      window.turnstile.render('#turnstile-container', { sitekey: siteKey, callback: cbName });
+      window.turnstile.render('#turnstile-container', {
+        sitekey: siteKey,
+        callback: cbName,
+      });
     } catch (e) {
       console.error('Turnstile render error', e);
     }
