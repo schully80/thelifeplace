@@ -6,7 +6,7 @@ export const onRequestPost: PagesFunction = async ({ request }) => {
 
   const formData = await request.formData();
 
-  // Simple honeypot: if "website" is filled, treat as bot
+  // Simple honeypot: if "website" is filled, treat as bot but pretend success
   const honey = formData.get("website");
   if (typeof honey === "string" && honey.trim() !== "") {
     return new Response(null, {
@@ -14,8 +14,6 @@ export const onRequestPost: PagesFunction = async ({ request }) => {
       headers: { Location: "/thank-you?event=Registration" },
     });
   }
-
-  // TODO: later we can forward to Formspree or send email here
 
   // For now, always treat as success and send them to Thank You
   return new Response(null, {

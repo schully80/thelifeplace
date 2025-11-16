@@ -4,6 +4,9 @@ const {
   description = "Fill in your details below to save your spot.",
   eventCode = "GEN2025"
 } = Astro.props;
+
+// Turnstile site key from env (public)
+const siteKey = "0x4AAAAAACBCjktQJQNJ094c";
 ---
 
 <section class="max-w-2xl mx-auto px-4 py-12 animate-fade-in-up">
@@ -59,8 +62,18 @@ const {
         value={`Thank you for registering for ${eventCode}. We'll be in touch soon!`}
       />
 
+      <!-- ✅ Turnstile widget (visual only for now) -->
+      {siteKey && (
+        <div class="mt-4">
+          <div
+            class="cf-turnstile"
+            data-sitekey={siteKey}
+          ></div>
+        </div>
+      )}
+
       <!-- 🚀 Submit Button -->
-      <button type="submit" class="btn-brand inline-flex items-center gap-2">
+      <button type="submit" class="btn-brand inline-flex items-center gap-2 mt-4">
         <span>Save My Spot</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -80,3 +93,6 @@ const {
     </form>
   </div>
 </section>
+
+<!-- Turnstile loader -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
