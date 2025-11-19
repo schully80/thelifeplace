@@ -128,19 +128,19 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
       name="message"
       value={`Thank you for registering for ${eventCode}. We'll be in touch soon!`}
     />
-<html>
-  <head>
-    <title>reCAPTCHA demo: Simple page</title>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  </head>
-  <body>
-    <form action="?" method="POST">
-      <div class="g-recaptcha" data-sitekey="6LdliBAsAAAAACxZfHyzutsg3TZ0YGg_ahFUcQ7x"></div>
-      <br/>
-      <input type="submit" value="Submit">
-    </form>
-  </body>
-</html>
+
+<!-- ✅ Visible Google reCAPTCHA widget -->
+<div class="pt-2 space-y-2">
+  <span
+    class="block text-sm text-brand-warmgray-700"
+    style="font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;"
+  >
+  <div
+    class="g-recaptcha"
+    data-sitekey={recaptchaSiteKey ?? "6LczxBEsAAAAAOoLyByeAk79Jq1xIrai15NXqz0m"}
+  ></div>
+</div>
+
 
     <!-- 🚀 Submit Button (existing style, centred) -->
     <div class="mt-6 text-center">
