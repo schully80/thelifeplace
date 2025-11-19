@@ -1,10 +1,11 @@
 ---
 const isProd = import.meta.env.PROD;
 
-// ✅ Only use the single production key (or a safe placeholder in dev)
+// ✅ In production use your real Turnstile site key from the env var
+// In dev we just use a placeholder; you can ignore dev for now
 const siteKey = isProd
-  ? import.meta.env.PUBLIC_TURNSTILE_SITE_KEY
-  : 'TEST_KEY_PLACEHOLDER';
+  ? import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ?? ""
+  : "TEST_KEY_PLACEHOLDER";
 ---
 
 <div
@@ -13,43 +14,41 @@ const siteKey = isProd
   data-sitekey={siteKey}
 ></div>
 
-<!-- No client:load, no import.meta.env in here -->
 <script>
-  const TURNSTILE_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+  const TURNSTILE_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js";
 
   async function loadTurnstileScript() {
     if (window.turnstile) return;
     return new Promise((resolve, reject) => {
-      const s = document.createElement('script');
+      const s = document.createElement("script");
       s.src = TURNSTILE_SRC;
       s.async = true;
       s.onload = () => resolve();
-      s.onerror = () => reject(new Error('Failed to load Turnstile script'));
+      s.onerror = () => reject(new Error("Failed to load Turnstile script"));
       document.head.appendChild(s);
     });
   }
 
   async function onTurnstileSuccess(token) {
     try {
-      const resp = await fetch('/verify-turnstile', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const resp = await fetch("/verify-turnstile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ turnstileToken: token }),
       });
-
       const json = await resp.json();
-      const el = document.getElementById('turnstile-container');
 
+      const el = document.getElementById("turnstile-container");
       el?.dispatchEvent(
-        new CustomEvent(json.success ? 'turnstile:success' : 'turnstile:error', {
+        new CustomEvent(json.success ? "turnstile:success" : "turnstile:error", {
           detail: json,
         }),
       );
     } catch (err) {
       document
-        .getElementById('turnstile-container')
+        .getElementById("turnstile-container")
         ?.dispatchEvent(
-          new CustomEvent('turnstile:error', {
+          new CustomEvent("turnstile:error", {
             detail: { error: String(err) },
           }),
         );
@@ -59,25 +58,25 @@ const siteKey = isProd
   (async () => {
     await loadTurnstileScript();
 
-    const container = document.getElementById('turnstile-container');
+    const container = document.getElementById("turnstile-container");
     if (!container) return;
 
     const siteKey = container.dataset.sitekey;
-    if (!siteKey || siteKey === 'TEST_KEY_PLACEHOLDER') {
-      console.warn('Turnstile site key missing or placeholder; widget disabled.');
+    if (!siteKey || siteKey === "TEST_KEY_PLACEHOLDER") {
+      console.warn("Turnstile site key missing or placeholder; widget disabled.");
       return;
     }
 
-    const cbName = '__turnstile_cb_' + Math.random().toString(36).slice(2);
+    const cbName = "__turnstile_cb_" + Math.random().toString(36).slice(2);
     window[cbName] = onTurnstileSuccess;
 
     try {
-      window.turnstile.render('#turnstile-container', {
+      window.turnstile.render("#turnstile-container", {
         sitekey: siteKey,
         callback: cbName,
       });
     } catch (e) {
-      console.error('Turnstile render error', e);
+      console.error("Turnstile render error", e);
     }
   })();
 </script>

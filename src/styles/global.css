@@ -241,3 +241,49 @@ details summary::-webkit-details-marker {
 details[open] summary .details-arrow {
   transform: rotate(180deg);
 }
+/* Modern input styling */
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #d1d5db; /* gray-300 */
+  background: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: #B3282D;                /* brand red */
+  box-shadow: 0 0 0 3px rgba(179, 40, 45, 0.15);
+  outline: none;
+}
+
+/* Labels */
+.form-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151; /* gray-700 */
+}
+
+/* Submit Button */
+.btn-brand-modern {
+  width: 100%;
+  background: #B3282D;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  padding: 0.9rem 1.2rem;
+  border-radius: 0.75rem;
+  transition: background 0.25s ease, transform 0.12s ease;
+}
+
+.btn-brand-modern:hover {
+  background: #9e2327;
+  transform: translateY(-1px);
+}
+
+.btn-brand-modern:active {
+  transform: translateY(0);
+}

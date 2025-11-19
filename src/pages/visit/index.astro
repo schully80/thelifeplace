@@ -28,28 +28,6 @@ const email = site?.contact?.email ?? "hello@thelifeplace.org";
       </a>
     </div>
 
-    <!-- Form -->
-    <div class="mt-8 md:mt-10">
-      <RegisterForm
-        title="We'd love to hear from you — drop your details below"
-        eventName="Plan a Visit"
-        successMessage="Thank you for contacting us!"
-        ctaText="Connect With Us"
-        disabled={false}
-        showNotice={false}
-        fields={[
-          { id: "firstName", label: "Name", type: "text", required: true },
-          { id: "surname", label: "Surname", type: "text", required: true },
-          { id: "contact", label: "Contact Number", type: "tel", required: true },
-          { id: "email", label: "Email Address", type: "email", required: true },
-          { id: "streetAddress", label: "Street Address", type: "text", required: true },
-          { id: "suburb", label: "Suburb", type: "text", required: true },
-          { id: "city", label: "City", type: "text", required: true },
-          { id: "postalCode", label: "Postal Code", type: "text", required: true, minlength: 3, maxlength: 10, pattern: ".{3,10}" }
-        ]}
-      />
-    </div>
-
     <!-- Location Map -->
     <div class="mt-8 rounded-xl overflow-hidden shadow-lg">
       <iframe
