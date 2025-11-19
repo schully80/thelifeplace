@@ -15,7 +15,7 @@ export const onRequest: PagesFunction = async ({ next }) => {
     .replaceAll("<script", `<script nonce="${nonce}"`)
     .replaceAll("<style", `<style nonce="${nonce}"`);
 
-  // Rebuild response with CSP using the same nonce
+  // Rebuild response with strict CSP using the same nonce
   const strict = new Response(html, res);
   strict.headers.set(
     "Content-Security-Policy",
@@ -28,21 +28,22 @@ export const onRequest: PagesFunction = async ({ next }) => {
 
       // images & fonts
       `img-src 'self' data: https:`,
-      `font-src 'self' https://fonts.gstatic.com data:`,
+      // 👇 THIS is the important line for Font Awesome
+      `font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:`,
 
-      // ✅ styles: your CSS + Google Fonts + Font Awesome CDN
+      // styles (Astro inline + Google Fonts + Font Awesome CSS)
       `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com https://cdnjs.cloudflare.com`,
 
-      // ✅ scripts: Astro inline + Cloudflare analytics + Google reCAPTCHA
+      // scripts (Astro inline + Cloudflare analytics + reCAPTCHA)
       `script-src 'self' 'nonce-${nonce}' https://static.cloudflareinsights.com https://www.google.com https://www.gstatic.com`,
 
       // XHR / fetch
       `connect-src 'self' https:`,
 
-      // ✅ iframes: YouTube + reCAPTCHA
+      // iframes (YouTube + reCAPTCHA)
       `frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com`,
 
-      // workers
+      // workers (for things that use blob: workers)
       `worker-src 'self' blob:`,
 
       // audio / video
