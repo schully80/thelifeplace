@@ -5,6 +5,7 @@ import HeaderMobile from "../components/HeaderMobile.astro";
 import HeaderDesktop from "../components/HeaderDesktop.astro";
 import HeaderLaptop from "../components/HeaderLaptop.astro";
 import WhatsAppWidget from "../components/WhatsAppWidget.astro";
+import HeaderTablet from "../components/HeaderTablet.astro";
 
 const {
   title = "The Life Place",
@@ -40,16 +41,10 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 
 <body class="min-h-screen flex flex-col bg-white antialiased">
     
-    <!-- Mobile header (< md) -->
-    <HeaderMobile class="md:hidden" logoSrc="/logo.png" title="The Life Place" />
+    <HeaderMobile class="md:hidden" />
+<HeaderTablet class="hidden md:block xl:hidden" />
+<HeaderDesktop class="hidden xl:block" />
 
-    <!-- Laptop / normal desktop header (md–lg only) -->
-<HeaderLaptop class="hidden md:block xl:hidden" logoSrc="/logo.png" title="The Life Place" />      
-      
-
-    <!-- Big-screen header (xl+ only) -->
-<HeaderDesktop class="hidden xl:block" logoSrc="/logo.png" title="The Life Place" />      
-      
 
     <!-- Page content -->
     <main class="flex-1 max-w-6xl xl:max-w-7xl 2xl:max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 py-10">
