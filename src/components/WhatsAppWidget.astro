@@ -35,7 +35,7 @@ const mailUrl = `mailto:${email}`;
 <div class="fixed bottom-6 right-5 z-50 flex flex-col gap-4">
 
   <!-- WhatsApp -->
-  <div class="dock-item relative flex items-center">
+  <div class="dock-item relative flex items-center z-10">
     <div class="dock-tooltip">Chat with us</div>
     <a href={waUrl}
        target="_blank"
@@ -50,7 +50,7 @@ const mailUrl = `mailto:${email}`;
   </div>
 
   <!-- Email -->
-  <div class="dock-item relative flex items-center">
+  <div class="dock-item relative flex items-center z-10">
     <div class="dock-tooltip">Email us</div>
     <a href={mailUrl} class="dock-btn">
       <svg xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@ const mailUrl = `mailto:${email}`;
   </div>
 
   <!-- Location -->
-  <div class="dock-item relative flex items-center">
+  <div class="dock-item relative flex items-center z-10">
     <div class="dock-tooltip">Find us</div>
     <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="dock-btn">
       <svg xmlns="http://www.w3.org/2000/svg"
