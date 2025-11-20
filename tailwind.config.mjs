@@ -13,7 +13,18 @@ export default {
       colors: {
         brand: {
           // brand red + dark
-          red: "#B3282D",
+red: {
+  50:  "#FDECEC",
+  100: "#FBD9D9",
+  200: "#F5AFAF",
+  300: "#EF8585",
+  400: "#E95B5B",
+  500: "#B3282D",
+  600: "#8F1F24",
+  700: "#6B171B",
+  800: "#471012",
+  900: "#240809",
+},
           darkgray: "#333333",
 
           // warmgray scale so classes like text-brand-warmgray-700 work

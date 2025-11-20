@@ -63,38 +63,48 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
   mapsUrl="https://maps.app.goo.gl/kWtzKtuyASu3qRxo7"
 />
 
-    <!-- Footer -->
-    <footer class="bg-gray-100 mt-8">
-      <div class="max-w-6xl mx-auto px-4 py-10 text-center text-sm space-y-6">
-        <div class="flex justify-center gap-4">
-          <a href="https://facebook.com/thelifeplacesa" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="Facebook">
-            <i class="fab fa-facebook-f text-2xl text-white"></i>
-          </a>
-          <a href="https://instagram.com/thelifeplacesa" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="Instagram">
-            <i class="fab fa-instagram text-2xl text-white"></i>
-          </a>
-          <a href="https://youtube.com/@thelifeplacesa" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="YouTube">
-            <i class="fab fa-youtube text-2xl text-white"></i>
-          </a>
-          <a href="https://open.spotify.com/show/31hbtgq5cvmqr4tyzs2faygvrzaa?si=61b073370e034f21" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="Spotify">
-            <i class="fab fa-spotify text-2xl text-white"></i>
-          </a>
-          <a href="https://podcasts.apple.com/us/podcast/the-life-place/id1816955719" target="_blank" rel="noopener" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" aria-label="Apple Podcasts">
-            <i class="fas fa-podcast text-2xl text-white"></i>
-          </a>
-          
-        </div>
+  <footer class="bg-gray-800 pt-12 pb-10">
+  <div class="max-w-6xl mx-auto px-4 text-center space-y-10">
 
-        <CookieConsent />
+    <!-- Social Icons Row -->
+    <div class="flex justify-center gap-6">
+      <a href="https://facebook.com/thelifeplacesa" target="_blank" rel="noopener" 
+         class="h-12 w-12 flex items-center justify-center rounded-full bg-neutral-800 hover:bg-brand-red transition">
+        <i class="fab fa-facebook-f text-white text-xl"></i>
+      </a>
 
-        <div class="flex flex-wrap justify-center items-center gap-4 xl:gap-6 text-gray-600">
-          <a href="/privacy-policy/" class="underline hover:underline">Privacy Policy</a>
-          <a href="/cookies/" class="underline hover:underline">Cookies</a>
-          <a href="/terms/" class="underline hover:underline">Terms</a>
-          <span>© 2025 The Life Place. All Rights Reserved</span>
-        </div>
-      </div>
-    </footer>
+      <a href="https://instagram.com/thelifeplacesa" target="_blank" rel="noopener" 
+         class="h-12 w-12 flex items-center justify-center rounded-full bg-neutral-800 hover:bg-brand-red transition">
+        <i class="fab fa-instagram text-white text-xl"></i>
+      </a>
+
+      <a href="https://youtube.com/@thelifeplacesa" target="_blank" rel="noopener" 
+         class="h-12 w-12 flex items-center justify-center rounded-full bg-neutral-800 hover:bg-brand-red transition">
+        <i class="fab fa-youtube text-white text-xl"></i>
+      </a>
+
+      <a href="https://open.spotify.com/show/31hbtgq5cvmqr4tyzs2faygvrzaa?si=61b073370e034f21" target="_blank" rel="noopener" 
+         class="h-12 w-12 flex items-center justify-center rounded-full bg-neutral-800 hover:bg-brand-red transition">
+        <i class="fab fa-spotify text-white text-xl"></i>
+      </a>
+
+      <a href="https://podcasts.apple.com/us/podcast/the-life-place/id1816955719" target="_blank" rel="noopener" 
+         class="h-12 w-12 flex items-center justify-center rounded-full bg-neutral-800 hover:bg-brand-red transition">
+        <i class="fas fa-podcast text-white text-xl"></i>
+      </a>
+    </div>
+
+    <!-- Legal & Links -->
+    <div class="text-gray-400 text-sm flex flex-wrap justify-center gap-6">
+      <a href="/privacy-policy/" class="hover:text-white transition">Privacy Policy</a>
+      <a href="/cookies/" class="hover:text-white transition">Cookies</a>
+      <a href="/terms/" class="hover:text-white transition">Terms</a>
+    </div>
+
+    <p class="text-gray-500 text-xs">© 2025 The Life Place. All Rights Reserved.</p>
+  </div>
+</footer>
+
 
 <!-- 🔧 Search + Dropdown logic -->
 <script is:inline>
