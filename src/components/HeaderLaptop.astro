@@ -10,9 +10,9 @@ const isActive = (href) =>
   href === "/" ? path === "/" : path === href || (href !== "/" && path.startsWith(href));
 ---
 
-<!-- Laptop header: visible from md (≥640px) up to xl (<1280px) -->
+<!-- Laptop/iPad header: md → lg screens -->
 <header class={`hidden md:block xl:hidden relative z-30 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 ${className}`}>
-  <div class="max-w-7xl 2xl:max-w-[88rem] px-4 sm:px-6 lg:px-8 h-24 flex justify-between items-center gap-6">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex justify-between items-center gap-6">
 
     <!-- LEFT: Logo + Title -->
     <a
