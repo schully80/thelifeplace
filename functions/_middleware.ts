@@ -28,7 +28,7 @@ export const onRequest: PagesFunction = async ({ next }) => {
 
       // images & fonts
       `img-src 'self' data: https:`,
-      // 👇 THIS is the important line for Font Awesome
+      // 👇 allow Google Fonts *and* Font Awesome (cdnjs) fonts
       `font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:`,
 
       // styles (Astro inline + Google Fonts + Font Awesome CSS)
