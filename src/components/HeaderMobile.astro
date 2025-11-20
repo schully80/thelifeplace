@@ -71,13 +71,14 @@ const isActive = (href) =>
     </div>
   </div>
 
-  <!-- OVERLAY -->
+  
+  <!-- Overlay (transparent black + blur) -->
   <div
-    id="mobileNavOverlay"
-    class="fixed inset-0 bg-white opacity-0 pointer-events-none transition-opacity z-[9998]"
+    id="tabletNavOverlay"
+    class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity z-[9998]"
     data-overlay
   ></div>
-
+  
   <!-- DRAWER -->
   <aside
     id="mobileNavDrawer"
