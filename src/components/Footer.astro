@@ -1,50 +1,62 @@
 ---
-// src/components/Footer.astro
+// No script required here
 ---
-
 <footer class="bg-gray-100 mt-8">
-  <div class="max-w-6xl xl:max-w-7xl 2xl:max-w-[88rem] mx-auto px-4 py-10 xl:py-12 text-center text-sm xl:text-base space-y-6">
-    <div class="flex justify-center gap-4 xl:gap-5">
-      <a class="w-12 h-12 xl:w-14 xl:h-14 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition" ...>
-        <i class="fab fa-facebook-f text-2xl xl:text-3xl text-white"></i>
-      </a>
-      <!-- repeat for other icons, just keep the same sizing classes -->
-    </div>
+  <div class="max-w-6xl mx-auto px-4 py-10 text-center text-sm space-y-6">
 
-    <!-- Social links -->
+    <!-- Social Icons -->
     <div class="flex justify-center gap-4">
-      <a href="https://facebook.com/thelifeplacesa" target="_blank" rel="noopener"
-         class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fab fa-facebook-f text-2xl text-white"></i>
+      <a
+        href="https://facebook.com/thelifeplacesa"
+        target="_blank"
+        rel="noopener"
+        aria-label="Facebook"
+        class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
+      >
+        <i class="fa-brands fa-facebook-f text-2xl text-white"></i>
       </a>
-      <a href="https://instagram.com/thelifeplacesa" target="_blank" rel="noopener"
-         class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fab fa-instagram text-2xl text-white"></i>
+
+      <a
+        href="https://instagram.com/thelifeplacesa"
+        target="_blank"
+        rel="noopener"
+        aria-label="Instagram"
+        class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
+      >
+        <i class="fa-brands fa-instagram text-2xl text-white"></i>
       </a>
-      <a href="https://youtube.com/@thelifeplacesa" target="_blank" rel="noopener"
-         class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fab fa-youtube text-2xl text-white"></i>
+
+      <a
+        href="https://youtube.com/@thelifeplacesa"
+        target="_blank"
+        rel="noopener"
+        aria-label="YouTube"
+        class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
+      >
+        <i class="fa-brands fa-youtube text-2xl text-white"></i>
       </a>
-      <a href="https://open.spotify.com/show/YOUR_SPOTIFY_ID" target="_blank" rel="noopener"
-         class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fab fa-spotify text-2xl text-white"></i>
+
+      <a
+        href="https://open.spotify.com/show/31hbtgq5cvmqr4tyzs2faygvrzaa?si=61b073370e034f21"
+        target="_blank"
+        rel="noopener"
+        aria-label="Spotify"
+        class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
+      >
+        <i class="fa-brands fa-spotify text-2xl text-white"></i>
       </a>
-      <a href="https://podcasts.apple.com/your-show-link" target="_blank" rel="noopener"
-         class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fas fa-podcast text-2xl text-white"></i>
+
+      <a
+        href="https://podcasts.apple.com/us/podcast/the-life-place/id1816955719"
+        target="_blank"
+        rel="noopener"
+        aria-label="Apple Podcasts"
+        class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
+      >
+        <i class="fa-solid fa-podcast text-2xl text-white"></i>
       </a>
     </div>
 
-    <!-- Links -->
-    <div class="mt-6 space-x-4 text-brand-warmgray-600">
-      <a href="/privacy-policy/" class="underline hover:underline">Privacy Policy</a>
-      <a href="/cookies/" class="underline hover:underline">Cookies</a>
-      <a href="/terms/" class="underline hover:underline">Terms</a>
-      <a href="/annual-report" class="underline hover:underline">Annual Report</a>
-    </div>
-
-    <p class="mt-4 text-brand-warmgray-600">
-      © {new Date().getFullYear()} The Life Place. All Rights Reserved
-    </p>
+    <slot />
   </div>
 </footer>
