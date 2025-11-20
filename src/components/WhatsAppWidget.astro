@@ -5,8 +5,8 @@ const { url } = Astro.props;
 <style>
   .wa-tooltip {
     @apply absolute right-full mr-3 px-3 py-1 rounded-md text-sm font-medium
-           bg-white/80 backdrop-blur-md text-gray-800 
-           shadow-lg border border-white/30 whitespace-nowrap
+           bg-white/30 backdrop-blur-xl text-gray-800 
+           shadow-lg border border-white/40 whitespace-nowrap
            opacity-0 translate-x-2 pointer-events-none transition-all duration-200;
   }
 
@@ -16,24 +16,24 @@ const { url } = Astro.props;
 </style>
 
 <div class="wa-wrapper fixed bottom-5 right-4 md:bottom-6 md:right-6 z-50">
-  <!-- Tooltip -->
+  <!-- Tooltip (desktop only) -->
   <div class="wa-tooltip hidden md:block">
     Chat with us
   </div>
 
-  <!-- Floating WhatsApp bubble -->
+<!-- Floating WhatsApp bubble -->
   <a
     href={url}
-    class="rounded-full backdrop-blur-xl
-           bg-white/10 border border-white/20
+    class="rounded-full backdrop-blur-2xl
+           bg-white/15 border border-white/25
            shadow-lg hover:shadow-2xl
-           p-3 md:p-4 transition transform hover:scale-105
-           flex items-center justify-center"
+           p-3 md:p-4 transition-all duration-300 transform hover:scale-105
+           hover:bg-white/25 hover:border-brand-red/40"
     aria-label="Chat with us on WhatsApp"
     target="_blank"
     rel="noopener noreferrer"
   >
-    <!-- WhatsApp icon -->
+    <!-- WhatsApp icon (inline SVG — CSP safe) -->
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="h-6 w-6 md:h-8 md:w-8 text-[#25D366]"
