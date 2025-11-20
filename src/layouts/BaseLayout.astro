@@ -4,6 +4,7 @@ import CookieConsent from "../components/CookieConsent.astro";
 import HeaderMobile from "../components/HeaderMobile.astro";
 import HeaderDesktop from "../components/HeaderDesktop.astro";
 import HeaderLaptop from "../components/HeaderLaptop.astro";
+import WhatsAppWidget from "../components/WhatsAppWidget.astro";
 
 const {
   title = "The Life Place",
@@ -54,6 +55,9 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     <main class="flex-1 max-w-6xl xl:max-w-7xl 2xl:max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 py-10">
     <slot />
   </main>
+
+<!-- ✅ GLASSMORPHIC WHATSAPP WIDGET -->
+    <WhatsAppWidget url={whatsappUrl} />
 
   <a
   href={whatsappUrl}
