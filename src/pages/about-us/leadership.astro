@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-
+import { generateTLPQR } from "../lib/generate-tlp-qr.js";
+import { generateSnapScanQR } from "../lib/generate-snapscan-qr.js";
 const SNAPSCAN_URL = "https://pos.snapscan.io/qr/VISFNLkM";
 ---
 
@@ -63,47 +64,49 @@ const SNAPSCAN_URL = "https://pos.snapscan.io/qr/VISFNLkM";
     </h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+      
+      
       <!-- Substack QR -->
-      <div class="rounded-2xl border shadow-sm bg-white p-5 md:p-6 flex items-center gap-5">
-        <img
-          src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=10&data=https%3A%2F%2Fschulteretyang.substack.com"
-          alt="QR code to subscribe to Schulter’s Substack"
-          width="120"
-          height="120"
-          class="shrink-0 rounded-xl border"
-          loading="lazy"
-          decoding="async"
-        />
-        <div class="space-y-2">
-          <h3 class="text-xl font-semibold leading-tight">
-            Subscribe to <span class="block">Schulter’s Substack</span>
-          </h3>
-          <p class="text-warmgray-800">
-            Scan the code or tap below to get new posts from Schulter.
-          </p>
-          <a
-            href="https://schulteretyang.substack.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center justify-center rounded-xl px-4 py-2 border border-brand-red text-brand-red hover:bg-brand-red hover:text-white transition"
-          >
-            Substack
-          </a>
-        </div>
-      </div>
+   <div class="rounded-2xl border shadow-sm bg-white p-5 md:p-6 flex items-center gap-5 ring-brand-red">
+  <img
+    src="/public/substack-qr2.png"
+    width="140"
+    height="140"
+    alt="Substack QR"
+    class="rounded-xl border"
+    loading="lazy"
+    decoding="async"
+  />
+  <div class="space-y-2">
+    <h3 class="text-xl font-semibold leading-tight">
+      Subscribe to <span class="block">Schulter’s Substack</span>
+    </h3>
+    <p class="text-warmgray-800">
+      Scan the code or tap below to get new posts from Schulter.
+    </p>
+    <a
+      href="https://schulteretyang.substack.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center justify-center rounded-xl px-4 py-2 border border-brand-red text-brand-red hover:bg-brand-red hover:text-white transition"
+    >
+      Substack
+    </a>
+  </div>
+</div>
 
     
-<div class="rounded-2xl border shadow-sm bg-white p-5 md:p-6 flex items-center gap-5">
+<!-- SnapScan QR -->
+<div class="rounded-2xl border shadow-sm bg-white p-5 md:p-6 flex items-center gap-5 ring-brand-red">
   <a href={SNAPSCAN_URL} target="_blank" rel="noopener noreferrer" class="shrink-0">
     <img
-      src="/images/SnapCode_1%20grayscale.png"
+      src="/public/snapscan-qr2.png"
       alt="QR code – pay The Life Place via SnapScan"
-      width="120"
-      height="120"
+      width="140"
+      height="140"
       class="rounded-xl border"
       loading="lazy"
       decoding="async"
-      onerror={`this.onerror=null;this.src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=10&data=${encodeURIComponent(SNAPSCAN_URL)}'`}
     />
   </a>
   <div class="space-y-2">
@@ -121,11 +124,19 @@ const SNAPSCAN_URL = "https://pos.snapscan.io/qr/VISFNLkM";
     </a>
   </div>
 </div>
-</div>
-    </div>
 
     <p class="text-center text-sm text-warmgray-700 mt-6">
       Trouble scanning? Use the buttons above to open the links directly.
     </p>
   </section>
+
+<style>
+.qr-red-corners svg path:nth-child(1),
+.qr-red-corners svg path:nth-child(2),
+.qr-red-corners svg path:nth-child(3) {
+  fill: #B3282D !important;
+}
+</style>
+
+
 </BaseLayout>

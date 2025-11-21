@@ -78,10 +78,7 @@
   }
 
   /* Large-screen form sizing */
-.form-field--lg { @apply text-base md:text-base xl:text-lg 2xl:text-[1.125rem] py-2.5 md:py-3 xl:py-3.5 px-3 md:px-3.5; 
-
-}
-
+  .form-field--lg { @apply text-base md:text-base xl:text-lg 2xl:text-[1.125rem] py-2.5 md:py-3 xl:py-3.5 px-3 md:px-3.5; }
 
   /* Brand helpers */
   .text-brand-red { color: #B3282D; }
@@ -90,9 +87,7 @@
   /* Site title accent */
   .site-title { @apply font-semibold; color: #B3282D; }
 
-  /* ------------------------------
-     Animated underline component
-  ------------------------------ */
+  /* Animated underline */
   .underline-anim {
     position: relative;
     display: inline-block;
@@ -115,9 +110,7 @@
     transform: scaleX(1);
   }
 
-  /* ------------------------------
-     Nav-underline for head/nav buttons
-  ------------------------------ */
+  /* Nav underline */
   .nav-underline {
     @apply relative inline-block no-underline text-gray-700 transition-colors duration-200 ease-out;
   }
@@ -143,15 +136,15 @@
   }
 }
 
-/* Flow spacing for stacked content */
+/* Flow spacing */
 .flow > * + * { margin-top: 0.75rem; }
 @media (min-width: 768px) { .flow > * + * { margin-top: 1rem; } }
 
-/* Kerning / letter-spacing helpers */
+/* Kerning */
 .k-wide  { letter-spacing: 0.04em; }
 .k-wider { letter-spacing: 0.08em; }
 
-/* Full-bleed section helper */
+/* Full-bleed */
 .full-bleed {
   position: relative;
   left: 50%; right: 50%;
@@ -160,7 +153,7 @@
 }
 
 /* =========================================
-   Mobile-only design (<768px)
+   Mobile-only
 ========================================= */
 @media (max-width: 767.98px) {
   @layer base {
@@ -213,18 +206,11 @@
   }
 }
 
-/* =========================================
-   Aliases for custom brand grays
-========================================= */
-/* =========================================
-   Aliases for custom brand grays
-========================================= */
+/* Brand gray utilities */
 @layer utilities {
-  /* Text colors */
   .text-brand-gray-700 { @apply text-gray-700; }
   .text-brand-gray-800 { @apply text-gray-800; }
 
-  /* Background colors */
   .bg-brand-gray-100 { @apply bg-gray-100; }
   .bg-brand-gray-200 { @apply bg-gray-200; }
   .bg-brand-gray-600 { @apply bg-gray-600; }
@@ -233,41 +219,35 @@
 details summary {
   list-style: none;
 }
-
 details summary::-webkit-details-marker {
   display: none;
 }
-
 details[open] summary .details-arrow {
   transform: rotate(180deg);
 }
-/* Modern input styling */
+
+/* Modern input */
 .form-input {
   width: 100%;
   padding: 0.75rem 1rem;
   border-radius: 0.75rem;
-  border: 1px solid #d1d5db; /* gray-300 */
+  border: 1px solid #d1d5db;
   background: #fff;
   font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
   transition: all 0.2s ease;
 }
-
 .form-input:focus {
-  border-color: #B3282D;                /* brand red */
+  border-color: #B3282D;
   box-shadow: 0 0 0 3px rgba(179, 40, 45, 0.15);
   outline: none;
 }
-
-/* Labels */
 .form-label {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
-  color: #374151; /* gray-700 */
+  color: #374151;
 }
-
-/* Submit Button */
 .btn-brand-modern {
   width: 100%;
   background: #B3282D;
@@ -278,13 +258,19 @@ details[open] summary .details-arrow {
   border-radius: 0.75rem;
   transition: background 0.25s ease, transform 0.12s ease;
 }
-
 .btn-brand-modern:hover {
   background: #9e2327;
   transform: translateY(-1px);
 }
-
 .btn-brand-modern:active {
   transform: translateY(0);
 }
 
+/* =========================================
+   QR CODE: Red Corner Finder Markers
+========================================= */
+.qr-red-corners svg path:nth-child(1),
+.qr-red-corners svg path:nth-child(2),
+.qr-red-corners svg path:nth-child(3) {
+  fill: #B3282D !important;
+}

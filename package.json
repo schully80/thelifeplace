@@ -11,7 +11,8 @@
     "gemini": "gemini"
   },
   "dependencies": {
-    "astro": "^5.15.5"
+    "astro": "^5.16.0",
+    "qr-code-styling": "^1.9.2"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",
