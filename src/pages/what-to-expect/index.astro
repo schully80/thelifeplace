@@ -4,7 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 <BaseLayout title="What to Expect">
   <section class="container-x py-14 md:py-20">
-    <h1 class="text-3xl md:text-4xl font-bold text-center">What to Expect</h1>
+    <h1 class="text-3xl md:text-3xl font-semibold text-center">What to Expect</h1>
 
     <!-- Slogan -->
     <p class="mt-6 text-lg sm:text-2xl text-center text-gray-700">
@@ -15,61 +15,72 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     <div class="mt-10 grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
 
       <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-        <h3 class="text-xl font-bold mb-2">Hear the Good News</h3>
-        <p class="text-gray-700">Clear, gospel-rich teaching from the Bible.</p>
+        <h3 class="text-xl font-bold mb-2 text-center">Hear the Good News</h3>
+        <p class="text-gray-700 text-center">Clear, gospel-rich teaching from the Bible.</p>
       </div>
 
       <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-        <h3 class="text-xl font-bold mb-2">A diverse community</h3>
-        <p class="text-gray-700">Multiracial and multigenerational — you belong here.</p>
+        <h3 class="text-xl font-bold mb-2 text-center">A diverse community</h3>
+        <p class="text-gray-700 text-center">Multiracial and multigenerational — you belong here.</p>
       </div>
 
       <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-        <h3 class="text-xl font-bold mb-2">Music, singing & dancing</h3>
-        <p class="text-gray-700">We echo heaven's joy with music singing and dancing.</p>
+        <h3 class="text-xl font-bold mb-2 text-center">Music, singing & dancing</h3>
+        <p class="text-gray-700 text-center">We echo heaven's joy with music singing and dancing.</p>
       </div>
 
       <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-        <h3 class="text-xl font-bold mb-2">The Lord’s Table</h3>
-        <p class="text-gray-700">We gather at the Table to remember what Jesus did for us.</p>
+        <h3 class="text-xl font-bold mb-2 text-center">The Lord’s Table</h3>
+        <p class="text-gray-700 text-center">We gather at the Table to remember what Jesus did for us.</p>
       </div>
 
       <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-        <h3 class="text-xl font-bold mb-2">Extravagant generosity</h3>
-        <p class="text-gray-700">Made rich by what Jesus has done, we are generous and share in all things.</p>
+        <h3 class="text-xl font-bold mb-2 text-center">Extravagant generosity</h3>
+        <p class="text-gray-700 text-center">Made rich by what Jesus has done, we are generous and share in all things.</p>
       </div>
 
       <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-        <h3 class="text-xl font-bold mb-2">Go live the story</h3>
-        <p class="text-gray-700">We are then sent out to live the story of Jesus aloud in our city, nation and the world.</p>
+        <h3 class="text-xl font-bold mb-2 text-center">Go live the story</h3>
+        <p class="text-gray-700 text-center">We are then sent out to live the story of Jesus aloud in our city, nation and the world.</p>
       </div>
 
       <!-- ⭐ NEW: Ministries Card -->
 <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-  <h3 class="text-xl font-bold mb-2">Ministries</h3>
+  <h3 class="text-xl font-bold mb-2 text-center">Life at the Life Place</h3>
 
-  <p class="mt-2 text-gray-700">
+  <p class="mt-2 text-gray-700 text-center">
 The Life Place is made up of communities that help
 people Come. See. <span class="text-[#B3282D]">Jesus</span> and live out His story in every sphere of life.
   </p>
 </div>
 
-      <!-- Kids Ministry (Coming Soon) -->
-      <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-        <div class="flex items-center justify-between mb-2">
-          <h3 class="text-xl font-bold">Kids @The Life Place</h3>
- <span class="inline-block rounded-full bg-brand-red text-white px-3 py-1 text-xs font-semibold">
-  Coming Soon
-</span>
-        </div>
-        <p class="text-gray-700">
-          At present there is no kids church. As Jesus supplies the resources needed, 
-          we will launch one where our children too will <em>Come. See. Jesus.</em>
-        </p>
-        <p class="mt-2 text-gray-700">
-          Children are welcome to remain with their parents during service.
-        </p>
-      </div>
+  <!-- Kids Ministry (Coming Soon) -->
+<div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red text-center space-y-4">
+
+  <!-- Header -->
+  <h3 class="text-xl font-bold text-brand-darkgray">
+    Kids @The Life Place
+  </h3>
+
+  <!-- Description -->
+  <p class="text-gray-700 leading-relaxed">
+    At present there is no kids church. As Jesus supplies the resources needed,
+    we will launch one where our children too will <em>Come. See. <span class="text-[#B3282D]">Jesus</span></em>
+  </p>
+
+  <p class="text-gray-700">
+    Children are welcome to remain with their parents during service.
+  </p>
+
+  <!-- Coming Soon Pill (bottom, enlarged) -->
+  <div class="pt-2">
+    <span class="inline-block rounded-full bg-brand-red text-white px-5 py-2 text-sm font-semibold tracking-wide">
+      Launching Soon
+    </span>
+  </div>
+
+</div>
+
 
   </section>
 </BaseLayout>

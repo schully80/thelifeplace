@@ -2,13 +2,14 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import RegisterForm from "../../components/RegisterForm.astro";
 ---
-<BaseLayout title="The Life Place Institute">
+<BaseLayout title="Faith & Work">
+  <section class="container-x py-10 md:py-16 text-center">
 
-  <!-- Hero -->
+    <!-- Hero -->
   <section class="relative full-bleed">
     <div class="relative min-h-[38vh] md:min-h-[50vh] flex items-center justify-center">
       <img
-        src="/institute.jpg"
+        src="/faith-and-work.jpg"
         alt="Join Us"
         class="absolute inset-0 h-full w-full object-cover"
         style="max-height:60vh"
@@ -17,23 +18,19 @@ import RegisterForm from "../../components/RegisterForm.astro";
       />
       <div class="absolute inset-0 bg-black/10"></div>
     </div>
-  </section>
 
-  
-  <section class="container-x py-10 md:py-16 text-center">
-
-    <!-- Main content -->
   <section class="relative py-10 md:py-16">
     <div class="container-x px-4 md:px-8">
       <!-- Header -->
       <header class="text-center mb-8 md:mb-12">
-        <h1 class="text-3xl md:text-4xl font-bold text-warmgray-800">The Life Place Institute</h1>
+        <h1 class="text-3xl md:text-4xl font-bold text-warmgray-800">Faith and Work</h1>
         <p class="mt-4 md:mt-5 text-xl md:text-2xl text-brand-warmgray-700">
          Come. See. <span class="text-brand-red">Jesus</span>
         </p>
       </header>
+  </section>
 
-    <div class="rounded-xl border bg-white p-5 md:p-6 shadow-sm ring-1 ring-brand-red">
+      <div class="rounded-xl border bg-white p-5 md:p-6 shadow-sm ring-1 ring-brand-warmgray-200">
       <!-- Stack on mobile so the badge doesn’t crowd the title -->
       <div class="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-3 sm:gap-4 mb-4">
         <!-- Desktop unchanged (you used 3xl already) -->
@@ -42,9 +39,10 @@ import RegisterForm from "../../components/RegisterForm.astro";
         </span>
       </div>
 
-      <!-- Mobile smaller body; desktop unchanged intent -->
+
+      <!-- Body copy: mobile smaller, desktop unchanged (was text-lg everywhere) -->
       <p class="text-lg md:text-xl text-warmgray-700 leading-7 md:leading-8">
-        A hub for whole-life training is on the way.<br />
+        Equipping believers to integrate their faith with their daily work and calling.<br />
       </p>
     </div>
   </section>

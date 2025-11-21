@@ -3,11 +3,39 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import RegisterForm from "../../components/RegisterForm.astro";
 ---
 <BaseLayout title="Premarital Counseling">
-  <section class="container-x py-10 md:py-16 text-center">
-    <div class="rounded-xl border bg-white p-5 md:p-6 shadow-sm ring-1 ring-warmgray-200">
+
+  <!-- Main content -->
+
+
+
+  <!-- Hero -->
+  <section class="relative full-bleed">
+    <div class="relative min-h-[38vh] md:min-h-[50vh] flex items-center justify-center">
+      <img
+        src="/premarital-counseling4.jpg"
+        alt="Join Us"
+        class="absolute inset-0 h-full w-full object-cover"
+        style="max-height:60vh"
+        loading="eager"
+        decoding="async"
+      />
+      <div class="absolute inset-0 bg-black/10"></div>
+    </div>
+  </section>
+
+  <section class="relative py-10 md:py-16">
+    <div class="container-x px-4 md:px-8">
+      <!-- Header -->
+      <header class="text-center mb-8 md:mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold text-warmgray-800">Premarital Counselling Program</h1>
+        <p class="mt-4 md:mt-5 text-xl md:text-2xl text-brand-warmgray-700">
+         Come. See. <span class="text-brand-red">Jesus</span>
+        </p>
+      </header>
+
+    <div class="rounded-xl border bg-white p-5 md:p-6 shadow-sm ring-1 ring-brand-red">
       <!-- Stack on mobile so badge doesn’t crowd the title -->
       <div class="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-3 sm:gap-4 mb-4">
-        <h1 class="text-3xl md:text-4xl font-bold">Premarital Counselling</h1>
         <span class="inline-block rounded-full bg-brand-red px-3 py-1 text-lg font-bold text-white">
           Launching Soon
         </span>
@@ -15,8 +43,7 @@ import RegisterForm from "../../components/RegisterForm.astro";
 
       <!-- Mobile smaller body; desktop unchanged intent -->
       <p class="text-lg md:text-xl text-warmgray-700 leading-7 md:leading-8">
-        We’re preparing resources to help couples build Christ-centred marriages. Stay tuned as we launch soon at The Life Place.<br />
-        <em class="text-brand-red">Come. See. Jesus</em>
+        We’re preparing resources to help couples build Jesus-centred marriages.
       </p>
     </div>
   </section>

@@ -9,27 +9,27 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     style="background-image: url('/only-jesus.jpg');"
   >
     <!-- Overlay to soften the background -->
-    <div class="absolute inset-0 bg-white/95"></div>
+    <div class="absolute inset-0 bg-white/90"></div>
 
     <!-- Header -->
     <div class="relative z-10 text-center max-w-3xl mx-auto">
       <!-- Mobile smaller (3xl), Desktop unchanged (4xl) -->
-      <h1 class="text-4xl md:text-4xl font-bold tracking-wide text-warmgray-900">
+      <h1 class="text-3xl md:text-3xl font-semibold tracking-wide text-warmgray-900">
         Our Values
       </h1>
 
       <!-- Slogan under heading -->
       <!-- Mobile smaller (base), desktop keeps your large size via sm:3xl -->
-      <p class="mt-6 text-lg sm:text-3xl text-center text-warmgray-800">
-         <span class="text-brand-red">Come. See. Jesus</span>
+      <p class="mt-6 text-lg sm:text-2xl text-center text-warmgray-800">
+         Come. See. <span class="text-brand-red">Jesus</span>
       </p>
 
       <!-- Intro copy (split into two valid paragraphs) -->
       <!-- Mobile smaller (base), Desktop unchanged (md:2xl) -->
-      <p class="mt-4 text-lg md:text-2xl text-warmgray-700">
+      <p class="mt-4 text-lg md:text-1xl text-warmgray-700">
         At The Life Place, our heartbeat is Jesus.
       </p>
-      <p class="mt-4 text-lg md:text-2xl text-gray-700">
+      <p class="mt-4 text-lg md:text-1xl text-gray-700">
         Our values shape who we are and how we live together as His people.
       </p>
     </div>
@@ -39,7 +39,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       <!-- 1 -->
       <article class="h-full rounded-xl border bg-white/10 backdrop-blur-sm p-5 md:p-7 shadow-sm hover:shadow-md transition">
         <!-- Mobile smaller title (xl), Desktop unchanged (2xl) -->
-        <h3 class="text-2xl md:text-2xl font-bold mb-4 text-left">
+        <h3 class="text-2xl md:text-2xl font-semibold mb-4 text-brand-red text-center">
           Hear the good news
         </h3>
         <!-- Body: mobile base, desktop lg -->
@@ -53,7 +53,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
       <!-- 2 -->
       <article class="h-full rounded-xl border bg-white/10 backdrop-blur-sm p-5 md:p-7 shadow-sm hover:shadow-md transition">
-        <h3 class="text-2xl md:text-2xl font-bold mb-4 text-left">
+        <h3 class="text-2xl md:text-2xl font-semibold mb-4 text-center text-brand-red ">
           Diverse Community
         </h3>
         <p class="text-xl md:text-lg text-warmgray-800">
@@ -66,7 +66,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
       <!-- 3 -->
       <article class="h-full rounded-xl border bg-white/10 backdrop-blur-sm p-5 md:p-7 shadow-sm hover:shadow-md transition">
-        <h3 class="text-2xl md:text-2xl font-bold mb-4 text-left">
+        <h3 class="text-2xl md:text-2xl font-semibold mb-4 text-center text-brand-red ">
           Extravagant Generosity
         </h3>
         <p class="text-xl md:text-lg text-warmgray-700">
@@ -79,7 +79,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
       <!-- 4 -->
       <article class="h-full rounded-xl border bg-white/10 backdrop-blur-sm p-5 md:p-7 shadow-sm hover:shadow-md transition lg:col-start-1 lg:row-start-2">
-        <h3 class="text-2xl md:text-2xl font-bold mb-4 text-left">
+        <h3 class="text-2xl md:text-2xl font-semibold mb-4 text-center text-brand-red ">
           Graceful Compassion
         </h3>
         <p class="text-xl md:text-lg text-warmgray-700">
@@ -93,7 +93,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
       <!-- 5 -->
       <article class="h-full rounded-xl border bg-white/10 backdrop-blur-sm p-5 md:p-7 shadow-sm hover:shadow-md transition lg:col-start-3 lg:row-start-2">
-        <h3 class="text-2xl md:text-2xl font-bold mb-4 text-left">
+        <h3 class="text-2xl md:text-2xl font-semibold mb-4 text-center text-brand-red ">
           Go live the story
         </h3>
         <!-- fixed malformed class attribute; mobile base, desktop lg -->

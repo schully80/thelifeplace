@@ -7,35 +7,119 @@ const {
 
 const path = Astro.url.pathname;
 const isActive = (href) =>
-  href === "/" ? path === "/" : path === href || (href !== "/" && path.startsWith(href));
+  href === "/"
+    ? path === "/"
+    : path === href || (href !== "/" && path.startsWith(href));
 ---
 
-<!-- Tablet Header: md–xl only -->
-<header class:list={[
-  "hidden md:block xl:hidden relative z-50 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 h-20",
-  className
-]}>
-  <div class="px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
-    
-    <!-- LEFT: Logo -->
-    <a href="/" class="flex items-center shrink-0">
+<!-- Tablet: md–xl only -->
+<header class={`tablet-header hidden md:block xl:hidden relative z-30 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 ${className}`}>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex justify-between items-center gap-6">
+
+    <!-- LEFT: Logo + Title -->
+    <a href="/" class="logo-title shrink-0 flex items-center gap-3 min-w-0" aria-label={`${title} — Home`}>
       <img src={logoSrc} alt="Logo" class="h-12 w-auto" />
+      <div class="flex flex-col min-w-0">
+        <span class="font-bold text-brand-red text-xl md:text-2xl leading-tight truncate">{title}</span>
+        <span class="text-sm text-gray-600 tracking-wide text-center">Come. See. <span class="text-[#B3282D]">Jesus</span>
+      </div>
     </a>
 
-    <!-- CENTER: Title + Slogan -->
-    <a href="/" class="flex flex-col items-center text-center min-w-0">
-      <span class="font-bold text-brand-red text-xl truncate">{title}</span>
-      <span class="text-sm text-brand-warmgray-600">Come. See. Jesus</span>
-    </a>
+    <!-- RIGHT NAV (Desktop-style; shown only in landscape) -->
+    <nav class="nav-links flex items-center gap-6 font-montserrat text-base">
 
-    <!-- RIGHT: Hamburger -->
+      <a
+        href="/what-to-expect/"
+        class={`relative px-1 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all ${
+          isActive("/what-to-expect/")
+            ? "text-brand-red font-semibold after:w-full"
+            : "text-brand-darkgray hover:text-brand-red"
+        }`}
+      >What to Expect</a>
+
+      <!-- ABOUT US DROPDOWN -->
+      <div data-dropdown class="relative">
+        <button
+          data-trigger
+          type="button"
+          aria-expanded="false"
+          class={`relative px-1 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all ${
+            isActive("/about-us/")
+              ? "text-brand-red font-semibold after:w-full"
+              : "text-brand-darkgray hover:text-brand-red"
+          }`}
+        >About Us</button>
+
+        <div data-menu class="absolute left-0 top-full mt-1 w-56 rounded-md border bg-white shadow-lg hidden">
+          <a href="/about-us/" class="block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">Our Mission</a>
+          <a href="/about-us/our-values" class="block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">Our Values</a>
+          <a href="/about-us/leadership" class="block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">Meet Schulter & Genevieve</a>
+        </div>
+      </div>
+
+      <!-- GENEROSITY BUTTON -->
+      <a
+        href="/give/"
+        class="px-4 py-2 rounded-full bg-brand-red text-white font-semibold shadow-md hover:bg-red-700 transition"
+      >Generosity</a>
+
+      <!-- MINISTRIES DROPDOWN -->
+      <div data-dropdown class="relative">
+        <button
+          data-trigger
+          type="button"
+          aria-expanded="false"
+          class={`relative px-1 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all ${
+            isActive("/ministries/")
+              ? "text-brand-red font-semibold after:w-full"
+              : "text-brand-darkgray hover:text-brand-red"
+          }`}
+        >Ministries</button>
+
+        <div data-menu class="absolute left-0 top-full mt-1 w-64 rounded-md border bg-white shadow-lg hidden max-h-[70vh] overflow-y-auto">
+          <a href="/ministries/new-members/" class="block px-3 py-2 text-sm hover:text-brand-red">New @The Life Place</a>
+
+          <div class="px-3 pt-2 pb-1 text-[11px] uppercase text-gray-400">Family</div>
+          <a href="/ministries/bring-them-to-jesus/" class="block px-3 py-2 text-sm hover:text-brand-red">Bring Them To Jesus</a>
+          <a href="/ministries/kids/" class="block px-3 py-2 text-sm hover:text-brand-red">Kids @The Life Place</a>
+          <a href="/ministries/gen/" class="block px-3 py-2 text-sm hover:text-brand-red">ThisGen</a>
+
+          <div class="px-3 pt-2 pb-1 text-[11px] uppercase text-gray-400">Formation</div>
+          <a href="/ministries/premarital-counseling/" class="block px-3 py-2 text-sm hover:text-brand-red">Premarital Counseling</a>
+          <a href="/ministries/institute/" class="block px-3 py-2 text-sm hover:text-brand-red">The Life Place Institute</a>
+          <a href="/ministries/faith-and-work/" class="block px-3 py-2 text-sm hover:text-brand-red">Faith & Work</a>
+
+          <div class="px-3 pt-2 pb-1 text-[11px] uppercase text-gray-400">Outreach</div>
+          <a href="/ministries/relief-center/" class="block px-3 py-2 text-sm hover:text-brand-red">Relief Center</a>
+        </div>
+      </div>
+
+      <a
+        href="/visit/"
+        class={`relative px-1 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all ${
+          isActive("/visit/")
+            ? "text-brand-red font-semibold after:w-full"
+            : "text-brand-darkgray hover:text-brand-red"
+        }`}
+      >Plan A Visit</a>
+
+      <a
+        href="https://schulteretyang.substack.com"
+        target="_blank"
+        class="relative px-1 py-2 text-brand-darkgray hover:text-brand-red after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all"
+      >Our Blog</a>
+
+    </nav>
+
+    <!-- Hamburger (shown only in portrait) -->
     <button
       id="tabletMenuButton"
       type="button"
       aria-label="Open menu"
       aria-controls="tabletNavDrawer"
       aria-expanded="false"
-      class="inline-flex items-center justify-center h-10 w-10 rounded-md border border-brand-red bg-white active:scale-[0.98]"
+      class="hamburger hidden inline-flex items-center justify-center h-10 w-10 rounded-md border border-brand-red bg-white active:scale-[0.98]"
     >
       <svg viewBox="0 0 24 24" class="h-6 w-6">
         <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -44,23 +128,17 @@ const isActive = (href) =>
 
   </div>
 
-  <!-- Overlay (transparent black + blur) -->
-  <div
-    id="tabletNavOverlay"
-    class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity z-[9998]"
-    data-overlay
-  ></div>
+  <!-- Overlay (used in portrait) -->
+  <div id="tabletNavOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-[9998]"></div>
 
-  <!-- Drawer -->
+  <!-- Drawer (used in portrait) -->
   <aside
     id="tabletNavDrawer"
     class="fixed inset-y-0 right-0 w-[86%] sm:w-[80%] max-w-sm bg-white shadow-xl translate-x-full transition-transform will-change-transform z-[9999]"
     role="dialog"
     aria-modal="true"
     tabindex="-1"
-    data-drawer
   >
-    <!-- Drawer header -->
     <div class="h-20 px-4 flex items-center justify-end border-b">
       <button
         id="tabletMenuClose"
@@ -74,26 +152,23 @@ const isActive = (href) =>
       </button>
     </div>
 
-    <!-- Drawer body -->
-    <nav
-      class="px-2 py-2 overflow-y-auto max-h-[calc(100svh-5rem)]"
-      aria-label="Tablet Navigation"
-    >
+    <!-- Drawer body mirrors your nav for portrait users -->
+    <nav class="px-2 py-2 overflow-y-auto max-h-[calc(100svh-5rem)]" aria-label="Tablet Navigation Drawer">
 
-      <a href="/what-to-expect/"
+      <a
+        href="/what-to-expect/"
         class={`block px-4 py-3 rounded-lg text-base ${
           isActive("/what-to-expect/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"
         }`}
       >What to Expect</a>
 
-      <!-- About Us accordion -->
-      <section class="mt-1" data-accordion>
+      <!-- About Us dropdown (tap-based) -->
+      <section data-dropdown class="mt-1 relative">
         <button
+          data-trigger
           type="button"
-          class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-base text-brand-darkgray hover:bg-gray-50"
-          data-accordion-trigger
           aria-expanded="false"
-          aria-controls="acc-about-tab"
+          class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-base text-brand-darkgray hover:bg-gray-50"
         >
           <span>About Us</span>
           <svg class="h-5 w-5 transition-transform" viewBox="0 0 24 24">
@@ -101,33 +176,26 @@ const isActive = (href) =>
           </svg>
         </button>
 
-        <div id="acc-about-tab"
-          class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300"
-          data-accordion-panel
-        >
-          <div class="overflow-hidden">
-            <ul class="py-1">
-              <li><a href="/about-us/" class="block px-6 py-2 text-[15px] hover:bg-gray-50">Our Mission</a></li>
-              <li><a href="/about-us/our-values" class="block px-6 py-2 text-[15px] hover:bg-gray-50">Our Values</a></li>
-              <li><a href="/about-us/leadership" class="block px-6 py-2 text-[15px] hover:bg-gray-50">Meet Schulter and Genevieve</a></li>
-            </ul>
-          </div>
+        <div data-menu class="mt-1 w-full rounded-md border bg-white shadow-lg hidden">
+          <a href="/about-us/" class="block px-4 py-2 text-sm text-brand-darkgray hover:text-brand-red">Our Mission</a>
+          <a href="/about-us/our-values" class="block px-4 py-2 text-sm text-brand-darkgray hover:text-brand-red">Our Values</a>
+          <a href="/about-us/leadership" class="block px-4 py-2 text-sm text-brand-darkgray hover:text-brand-red">Meet Schulter & Genevieve</a>
         </div>
       </section>
 
-      <!-- Generosity -->
-      <a href="/give/"
+      <!-- Generosity CTA -->
+      <a
+        href="/give/"
         class="mt-3 inline-flex items-center justify-center px-4 py-2 rounded-full bg-brand-red text-white font-semibold shadow-md hover:bg-red-700 transition"
       >Generosity</a>
 
-      <!-- Ministries accordion -->
-      <section class="mt-3" data-accordion>
+      <!-- Ministries dropdown (tap-based) -->
+      <section data-dropdown class="mt-3 relative">
         <button
+          data-trigger
           type="button"
-          class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-base text-brand-darkgray hover:bg-gray-50"
-          data-accordion-trigger
           aria-expanded="false"
-          aria-controls="acc-min-tab"
+          class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-base text-brand-darkgray hover:bg-gray-50"
         >
           <span>Ministries</span>
           <svg class="h-5 w-5 transition-transform" viewBox="0 0 24 24">
@@ -135,41 +203,76 @@ const isActive = (href) =>
           </svg>
         </button>
 
-        <div id="acc-min-tab"
-          class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300"
-          data-accordion-panel
-        >
-          <div class="overflow-hidden">
-            <ul class="py-1">
-              <li><a href="/ministries/new-members/" class="block px-6 py-2">New @The Life Place</a></li>
-              <li><a href="/ministries/bring-them-to-jesus/" class="block px-6 py-2">Bring Them To Jesus</a></li>
-              <li><a href="/ministries/kids/" class="block px-6 py-2">Kids @The Life Place</a></li>
-              <li><a href="/ministries/gen/" class="block px-6 py-2">ThisGen</a></li>
-              <li><a href="/ministries/premarital-counseling/" class="block px-6 py-2">Premarital Counseling</a></li>
-              <li><a href="/ministries/institute/" class="block px-6 py-2">The Life Place Institute</a></li>
-              <li><a href="/ministries/faith-and-work/" class="block px-6 py-2">Faith & Work</a></li>
-              <li><a href="/ministries/relief-center/" class="block px-6 py-2">Relief Center</a></li>
-            </ul>
-          </div>
+        <div data-menu class="mt-1 w-full rounded-md border bg-white shadow-lg hidden max-h-[70vh] overflow-y-auto">
+          <a href="/ministries/new-members/" class="block px-4 py-2 text-sm hover:text-brand-red">New @The Life Place</a>
+
+          <div class="px-4 pt-2 pb-1 text-[11px] uppercase text-gray-400">Family</div>
+          <a href="/ministries/bring-them-to-jesus/" class="block px-4 py-2 text-sm hover:text-brand-red">Bring Them To Jesus</a>
+          <a href="/ministries/kids/" class="block px-4 py-2 text-sm hover:text-brand-red">Kids @The Life Place</a>
+          <a href="/ministries/gen/" class="block px-4 py-2 text-sm hover:text-brand-red">ThisGen</a>
+
+          <div class="px-4 pt-2 pb-1 text-[11px] uppercase text-gray-400">Formation</div>
+          <a href="/ministries/premarital-counseling/" class="block px-4 py-2 text-sm hover:text-brand-red">Premarital Counseling</a>
+          <a href="/ministries/institute/" class="block px-4 py-2 text-sm hover:text-brand-red">The Life Place Institute</a>
+          <a href="/ministries/faith-and-work/" class="block px-4 py-2 text-sm hover:text-brand-red">Faith & Work</a>
+
+          <div class="px-4 pt-2 pb-1 text-[11px] uppercase text-gray-400">Outreach</div>
+          <a href="/ministries/relief-center/" class="block px-4 py-2 text-sm hover:text-brand-red">Relief Center</a>
         </div>
       </section>
 
-      <a href="/visit/" class="mt-3 block px-4 py-3 rounded-lg text-base hover:bg-gray-50">
-        Plan A Visit
-      </a>
+      <a href="/visit/" class="mt-3 block px-4 py-3 rounded-lg text-base hover:bg-gray-50">Plan A Visit</a>
 
-      <a href="https://schulteretyang.substack.com"
-         target="_blank"
-         class="mt-2 block px-4 py-3 rounded-lg text-base hover:bg-red-50 hover:text-brand-red"
-      >Our Blog</a>
+      <a href="https://schulteretyang.substack.com" target="_blank" class="mt-2 block px-4 py-3 rounded-lg text-base hover:bg-red-50 hover:text-brand-red">
+        Our Blog
+      </a>
 
     </nav>
   </aside>
 
-  <!-- Drawer Logic (identical to mobile.astro) -->
+  <!-- Orientation-specific styles -->
+  <style>
+    /* Portrait: modern app-like */
+    @media (orientation: portrait) {
+      header.tablet-header .logo-title {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.25rem;
+      }
+      header.tablet-header .nav-links {
+        display: none; /* hide desktop nav */
+      }
+      header.tablet-header .hamburger {
+        display: inline-flex; /* show menu button */
+      }
+      header.tablet-header .logo-title img {
+        height: 44px; /* slightly smaller logo for portrait */
+      }
+    }
+
+    /* Landscape: retain existing desktop-style */
+    @media (orientation: landscape) {
+      header.tablet-header .logo-title {
+        flex-direction: row;
+        text-align: left;
+      }
+      header.tablet-header .nav-links {
+        display: flex; /* show desktop nav */
+      }
+      header.tablet-header .hamburger {
+        display: none; /* hide menu button */
+      }
+      header.tablet-header .logo-title img {
+        height: 48px;
+      }
+    }
+  </style>
+
+  <!-- Portrait drawer logic -->
   <script is:inline>
     (function () {
-      const body = document.documentElement;
+      const body = document.body;
       const btnOpen = document.getElementById("tabletMenuButton");
       const btnClose = document.getElementById("tabletMenuClose");
       const drawer = document.getElementById("tabletNavDrawer");
@@ -177,7 +280,7 @@ const isActive = (href) =>
 
       if (!btnOpen || !btnClose || !drawer || !overlay) return;
 
-      // Ensure overlay/drawer are on <body>
+      // Move overlay/drawer into body to avoid stacking context issues
       if (overlay.parentElement !== document.body) document.body.appendChild(overlay);
       if (drawer.parentElement !== document.body) document.body.appendChild(drawer);
 
@@ -202,26 +305,23 @@ const isActive = (href) =>
       btnOpen.addEventListener("click", open);
       btnClose.addEventListener("click", close);
       overlay.addEventListener("click", close);
+      window.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
 
-      // ESC closes drawer
-      window.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") close();
-      });
+      // Tap-based dropdowns inside drawer (portrait)
+      drawer.querySelectorAll("[data-dropdown]").forEach((wrap) => {
+        const trigger = wrap.querySelector("[data-trigger]");
+        const menu = wrap.querySelector("[data-menu]");
+        if (!trigger || !menu) return;
 
-      // Accordions
-      document.querySelectorAll("[data-accordion]").forEach((acc) => {
-        const trigger = acc.querySelector("[data-accordion-trigger]");
-        const panel = acc.querySelector("[data-accordion-panel]");
-        if (!trigger || !panel) return;
+        trigger.addEventListener("click", (e) => {
+          e.preventDefault();
+          const hidden = menu.classList.contains("hidden");
+          drawer.querySelectorAll("[data-menu]").forEach((m) => m.classList.add("hidden"));
+          if (hidden) menu.classList.remove("hidden");
+        });
 
-        trigger.addEventListener("click", () => {
-          const expanded = trigger.getAttribute("aria-expanded") === "true";
-          trigger.setAttribute("aria-expanded", !expanded);
-
-          const icon = trigger.querySelector("svg");
-          if (icon) icon.style.transform = expanded ? "" : "rotate(180deg)";
-
-          panel.style.gridTemplateRows = expanded ? "0fr" : "1fr";
+        drawer.addEventListener("click", (e) => {
+          if (!wrap.contains(e.target)) menu.classList.add("hidden");
         });
       });
     })();
