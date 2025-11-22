@@ -12,12 +12,10 @@
 
   if (!input || !gmpx) return;
 
-  // Sync typing into hidden gmpx component
   input.addEventListener("input", (e) => {
     gmpx.value = e.target.value;
   });
 
-  // Listen for place selection
   gmpx.addEventListener("gmpx-placechange", (evt) => {
     const place = evt.detail?.place;
     if (!place || !place.address_components) return;

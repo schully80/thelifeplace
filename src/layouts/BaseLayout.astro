@@ -36,6 +36,27 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
       crossorigin="anonymous"
     />
+
+    <!-- Inject PUBLIC env vars into window -->
+    <script is:inline>
+      window.__GOOGLE_PLACES_KEY__ = import.meta.env.PUBLIC_GOOGLE_PLACES_KEY;
+      console.log("Google Places Key Loaded:", window.__GOOGLE_PLACES_KEY__);
+    </script>
+
+    <!-- Load Google Maps JS API dynamically using the env key -->
+ <script is:inline>
+  const key = import.meta.env.PUBLIC_GOOGLE_PLACES_KEY;
+  if (key) {
+    const script = document.createElement("script");
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&v=weekly`;
+    script.defer = true;
+    document.head.appendChild(script);
+  }
+</script>
+
+    <!-- Load Google Web Components library -->
+    <script src="https://unpkg.com/@googlemaps/extended-component-library/dist/index.min.js" defer>
+    </script>
   </head>
 
   <body class="min-h-screen flex flex-col bg-white antialiased">
@@ -94,10 +115,10 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
       </div>
     </footer>
 
-    <!-- External JS files -->
+    <!-- External JS -->
     <script src="/js/search.js" defer></script>
     <script src="/js/dropdowns.js" defer></script>
-    <script src="/js/places-autocomplete.js" defer></script>
+    <script src="/js/places-new.js" defer></script>
 
   </body>
 </html>

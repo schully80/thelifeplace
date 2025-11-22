@@ -13,6 +13,8 @@ pnpm-lock.yaml
 # 🔧 Env files
 .env
 .env.*.local
+*.env
+.env.local
 
 # 🧪 Test output
 .coverage/
@@ -27,3 +29,6 @@ pnpm-lock.yaml
 # 🔥 Cloudflare
 .functions-cache/
 .worker/
+
+# 🔐 Ignore frontend JS scripts containing API logic
+public/js/places-autocomplete.js

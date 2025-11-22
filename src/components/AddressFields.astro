@@ -1,10 +1,26 @@
 <div class="space-y-5">
 
-  <!-- Street Address (Google Autocomplete) -->
-  <div>
+  <!-- Hidden Google Web Component Autocomplete -->
+  <gmpx-place-autocomplete
+    id="gmpx-autocomplete"
+    style="display:none;"
+    key={import.meta.env.PUBLIC_GOOGLE_PLACES_KEY}
+    country="ZA"
+  ></gmpx-place-autocomplete>
+
+  <!-- Street Address input with attribution banner ABOVE -->
+  <div class="relative">
+    <!-- Powered by Google attribution (moved to top) -->
+    <div class="pointer-events-none absolute -top-6 right-0 opacity-80 transition-opacity hover:opacity-100">
+      <img
+        src="https://maps.gstatic.com/mapfiles/api-3/images/powered-by-google-on-white.png"
+        alt="Powered by Google"
+        class="h-6"
+      />
+    </div>
+
     <input
-      id="address-autocomplete"
-      name="street_address"
+      id="address-autocomplete-input"
       type="text"
       placeholder="Street Address *"
       required
@@ -13,48 +29,52 @@
              focus:border-brand-red transition"
       style="font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;"
       autocomplete="off"
+      data-address-input
     />
   </div>
 
   <!-- Suburb -->
   <div>
     <input
-      id="sublocality"
+      id="suburb"
       name="suburb"
       type="text"
-      placeholder="Suburb"
+      placeholder="Suburb *"
+      required
       class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-             placeholder:text-gray-400 focus:outline-none transition"
-      style="font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;"
-      readonly
+             placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+             focus:border-brand-red transition"
+      data-suburb
     />
   </div>
 
   <!-- City -->
   <div>
     <input
-      id="locality"
+      id="city"
       name="city"
       type="text"
-      placeholder="City"
+      placeholder="Town/City *"
+      required
       class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-             placeholder:text-gray-400 focus:outline-none transition"
-      style="font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;"
-      readonly
+             placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+             focus:border-brand-red transition"
+      data-city
     />
   </div>
 
   <!-- Province -->
   <div>
     <input
-      id="administrative_area_level_1"
+      id="province"
       name="province"
       type="text"
-      placeholder="Province"
+      placeholder="State/Province *"
+      required
       class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-             placeholder:text-gray-400 focus:outline-none transition"
-      style="font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;"
-      readonly
+             placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+             focus:border-brand-red transition"
+      data-province
     />
   </div>
 
@@ -64,11 +84,12 @@
       id="postal_code"
       name="postal_code"
       type="text"
-      placeholder="Postal Code"
+      placeholder="Zip/Postal Code *"
+      required
       class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-             placeholder:text-gray-400 focus:outline-none transition"
-      style="font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;"
-      readonly
+             placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+             focus:border-brand-red transition"
+      data-postal
     />
   </div>
 
@@ -78,12 +99,16 @@
       id="country"
       name="country"
       type="text"
-      placeholder="Country"
+      placeholder="Country *"
+      required
       class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-             placeholder:text-gray-400 focus:outline-none transition"
-      style="font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;"
-      readonly
+             placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+             focus:border-brand-red transition"
+      data-country
     />
   </div>
 
 </div>
+
+<!-- Hook JS -->
+<script src="/js/places-autocomplete.js" defer></script>
