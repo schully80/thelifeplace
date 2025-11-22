@@ -5,7 +5,7 @@
 
   // Load Google Places API dynamically
   const script = document.createElement("script");
-  script.src = "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places";
+  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBCWUyGVUjtzHifSQ0KRoEFzRyUaRuPlys&libraries=places";
   script.async = true;
   script.defer = true;
 
