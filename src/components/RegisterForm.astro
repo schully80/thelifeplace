@@ -1,11 +1,13 @@
 ---
+import AddressFields from "../components/AddressFields.astro";
+
 const {
   title = "Register",
   description = "Fill in your details below to save your spot.",
   eventCode = "GEN2025",
 } = Astro.props;
 
-// ✅ Google reCAPTCHA site key (visible checkbox)
+// Google reCAPTCHA site key
 const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 ---
 
@@ -41,8 +43,8 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
         placeholder="First Name *"
         required
         class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-               placeholder:text-gray-400
-               focus:outline-none focus:ring-2 focus:ring-brand-red/60 focus:border-brand-red transition"
+               placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+               focus:border-brand-red transition"
         style="font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;"
       />
     </div>
@@ -56,8 +58,8 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
         placeholder="Last Name *"
         required
         class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-               placeholder:text-gray-400
-               focus:outline-none focus:ring-2 focus:ring-brand-red/60 focus:border-brand-red transition"
+               placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+               focus:border-brand-red transition"
         style="font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;"
       />
     </div>
@@ -71,8 +73,8 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
         placeholder="Contact Number *"
         required
         class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-               placeholder:text-gray-400
-               focus:outline-none focus:ring-2 focus:ring-brand-red/60 focus:border-brand-red transition"
+               placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+               focus:border-brand-red transition"
         style="font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;"
       />
     </div>
@@ -86,11 +88,14 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
         placeholder="Email Address *"
         required
         class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-               placeholder:text-gray-400
-               focus:outline-none focus:ring-2 focus:ring-brand-red/60 focus:border-brand-red transition"
+               placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+               focus:border-brand-red transition"
         style="font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;"
       />
     </div>
+
+    <!-- 🏠 Address Fields (Google Places Autocomplete) -->
+    <AddressFields />
 
     <!-- 👥 Attendance -->
     <div>
@@ -102,71 +107,34 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
         placeholder="Number of Persons Attending *"
         required
         class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-               placeholder:text-gray-400
-               focus:outline-none focus:ring-2 focus:ring-brand-red/60 focus:border-brand-red transition"
+               placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+               focus:border-brand-red transition"
         style="font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;"
       />
     </div>
 
     <!-- 🐜 Honeypot spam trap -->
-    <input
-      type="text"
-      name="website"
-      class="hidden"
-      tabindex="-1"
-      autocomplete="off"
-    />
+    <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
 
-    <!-- 📨 Hidden Fields (optional) -->
-    <input
-      type="hidden"
-      name="_subject"
-      value={`New ${eventCode} Registration`}
-    />
-    <input
-      type="hidden"
-      name="message"
-      value={`Thank you for registering for ${eventCode}. We'll be in touch soon!`}
-    />
+    <!-- Hidden email subject/message -->
+    <input type="hidden" name="_subject" value={`New ${eventCode} Registration`} />
+    <input type="hidden" name="message" value={`Thank you for registering for ${eventCode}. We'll be in touch soon!`} />
 
-<!-- ✅ Visible Google reCAPTCHA widget -->
-<div class="pt-2 space-y-2">
-  <span
-    class="block text-sm text-brand-warmgray-700"
-    style="font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;"
-  >
-  <div
-    class="g-recaptcha"
-    data-sitekey={recaptchaSiteKey ?? "6LczxBEsAAAAAOoLyByeAk79Jq1xIrai15NXqz0m"}
-  ></div>
-</div>
+    <!-- Google reCAPTCHA -->
+    <div class="pt-2">
+      <div class="g-recaptcha" data-sitekey={recaptchaSiteKey}></div>
+    </div>
 
-
-    <!-- 🚀 Submit Button (existing style, centred) -->
+    <!-- Submit Button -->
     <div class="mt-6 text-center">
-      <button
-        type="submit"
-        class="btn-brand inline-flex items-center gap-2"
-      >
+      <button type="submit" class="btn-brand inline-flex items-center gap-2">
         <span>Save My Spot</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5 md:h-5 md:w-5 animate-pulse"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M7 17L17 7M7 7h10v10"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M7 7h10v10" />
         </svg>
       </button>
     </div>
   </form>
 </section>
 
-<!-- Load reCAPTCHA script -->
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
