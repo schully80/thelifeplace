@@ -41,6 +41,8 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     <script is:inline>
       window.__GOOGLE_PLACES_KEY__ = import.meta.env.PUBLIC_GOOGLE_PLACES_KEY;
       console.log("Google Places Key Loaded:", window.__GOOGLE_PLACES_KEY__);
+      window.PUBLIC_YOUTUBE_API_KEY = import.meta.env.PUBLIC_YOUTUBE_API_KEY;
+  window.PUBLIC_YOUTUBE_CHANNEL_ID = import.meta.env.PUBLIC_YOUTUBE_CHANNEL_ID;
     </script>
 
     <!-- Load Google Maps JS API dynamically using the env key -->
@@ -60,6 +62,14 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
   </head>
 
   <body class="min-h-screen flex flex-col bg-white antialiased">
+
+<!-- LIVE BANNER -->
+<div
+  id="liveBanner"
+  class="hidden bg-brand-red text-white text-center py-2 text-sm font-semibold"
+>
+  🔴 We’re Live Now — <a href="/live" class="underline">Watch Now</a>
+</div>
 
     <!-- Headers -->
     <HeaderMobile class="md:hidden" />
@@ -119,6 +129,36 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     <script src="/js/search.js" defer></script>
     <script src="/js/dropdowns.js" defer></script>
     <script src="/js/places-new.js" defer></script>
+
+<!-- Live Status Logic -->
+<script src="/js/live-status.js" defer></script>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const { live } = await checkLiveStatus();
+
+    // 1. Show banner
+    const banner = document.getElementById("liveBanner");
+    if (live && banner) banner.classList.remove("hidden");
+
+    // 2. Redirect to /live during livestream
+    const LIVE_REDIRECT_ENABLED = true; // toggle if needed
+    const currentPath = window.location.pathname;
+
+    if (
+      live &&
+      LIVE_REDIRECT_ENABLED &&
+      currentPath !== "/live"
+    ) {
+      window.location.href = "/live";
+    }
+
+    // 3. Add navbar indicator (all navbars)
+    document.querySelectorAll("[data-live-indicator]").forEach((el) => {
+      if (live) el.classList.remove("hidden");
+    });
+  });
+</script>
 
   </body>
 </html>

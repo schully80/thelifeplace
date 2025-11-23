@@ -1,0 +1,33 @@
+---
+export interface Props {
+  title: string;
+  thumbnail: string;
+  href: string;
+  count?: number;
+}
+
+const { title, thumbnail, href, count = 0 } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group block rounded-2xl overflow-hidden shadow-sm border bg-white"
+>
+  <div class="overflow-hidden">
+    <img
+      src={thumbnail}
+      alt={title}
+      class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+    />
+  </div>
+
+  <div class="p-4">
+    <h3 class="font-semibold text-gray-900 group-hover:text-brand-red transition">
+      {title}
+    </h3>
+
+    {count > 0 && (
+      <p class="mt-1 text-gray-500 text-sm">{count} messages</p>
+    )}
+  </div>
+</a>

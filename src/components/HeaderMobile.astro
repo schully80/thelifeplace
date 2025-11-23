@@ -108,7 +108,7 @@ const isActive = (href) =>
       </button>
     </div>
 
-    <!-- Drawer nav -->
+        <!-- Drawer nav -->
     <nav
       class="px-2 py-2 overflow-y-auto max-h-[calc(100dvh-4rem)]"
       aria-label="Mobile"
@@ -135,15 +135,8 @@ const isActive = (href) =>
           aria-controls="acc-about"
         >
           <span>About Us</span>
-
           <svg class="h-5 w-5 transition-transform" viewBox="0 0 24 24">
-            <path
-              d="M6 9l6 6 6-6"
-              stroke="currentColor"
-              stroke-width="2"
-              fill="none"
-              stroke-linecap="round"
-            />
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
           </svg>
         </button>
 
@@ -197,17 +190,40 @@ const isActive = (href) =>
         </div>
       </section>
 
-      <!-- GENEROSITY -->
+      <!-- Messages -->
+      <a
+        href="/messages/"
+        class={`mt-1 block px-3 py-3 rounded-lg text-base ${
+          isActive("/messages/")
+            ? "text-brand-red font-semibold bg-red-50"
+            : "text-brand-darkgray hover:bg-gray-50"
+        }`}
+      >
+        Messages
+      </a>
+
+      <!-- Live -->
+    <a href="/live/" class="relative flex items-center gap-1">
+  Live
+  <span
+    data-live-indicator
+    class="hidden h-2 w-2 rounded-full bg-red-600 animate-ping absolute -right-3 top-1/2 -translate-y-1/2"
+  ></span>
+</a>
+
+
+      <!-- GENEROSITY (Give) — after Ministries in desktop, but in mobile we place BEFORE Ministries for UX clarity -->
       <a
         href="/give/"
-        class="mt-3 inline-flex items-center justify-center px-4 py-2 rounded-full bg-brand-red text-white font-semibold shadow-md hover:bg-red-700 transition"
-        aria-current={isActive("/give/") ? "page" : undefined}
+        class={`mt-3 inline-flex items-center justify-center px-4 py-2 rounded-full bg-brand-red text-white font-semibold shadow-md hover:bg-red-700 transition ${
+          isActive("/give/") ? "ring-2 ring-brand-red ring-offset-2" : ""
+        }`}
       >
         Generosity
       </a>
 
       <!-- MINISTRIES ACCORDION -->
-      <section class="mt-1" data-accordion>
+      <section class="mt-3" data-accordion>
         <button
           type="button"
           class="w-full flex items-center justify-between px-3 py-3 rounded-lg text-left text-base text-brand-darkgray hover:bg-gray-50"
@@ -217,13 +233,7 @@ const isActive = (href) =>
         >
           <span>Ministries</span>
           <svg class="h-5 w-5 transition-transform" viewBox="0 0 24 24">
-            <path
-              d="M6 9l6 6 6-6"
-              stroke="currentColor"
-              stroke-width="2"
-              fill="none"
-              stroke-linecap="round"
-            />
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
           </svg>
         </button>
 
@@ -234,6 +244,7 @@ const isActive = (href) =>
         >
           <div class="overflow-hidden">
             <ul class="py-1">
+
               <li>
                 <a
                   href="/ministries/new-members/"
@@ -320,7 +331,6 @@ const isActive = (href) =>
                 </a>
               </li>
 
-             
               <li class="px-5 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">
                 Outreach
               </li>
@@ -337,6 +347,7 @@ const isActive = (href) =>
                   Relief Center
                 </a>
               </li>
+
             </ul>
           </div>
         </div>
@@ -345,7 +356,7 @@ const isActive = (href) =>
       <!-- VISIT -->
       <a
         href="/visit/"
-        class={`mt-1 block px-3 py-3 rounded-lg text-base ${
+        class={`mt-3 block px-3 py-3 rounded-lg text-base ${
           isActive("/visit/")
             ? "text-brand-red font-semibold bg-red-50"
             : "text-brand-darkgray hover:bg-gray-50"
@@ -354,7 +365,7 @@ const isActive = (href) =>
         Plan A Visit
       </a>
 
-      <!-- Blog -->
+      <!-- BLOG (last item) -->
       <a
         href="https://schulteretyang.substack.com"
         target="_blank"
@@ -364,6 +375,7 @@ const isActive = (href) =>
         Our Blog
       </a>
     </nav>
+
   </aside>
 
   <!-- Behaviour script -->

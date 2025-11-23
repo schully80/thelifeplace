@@ -1,0 +1,101 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import MessageCard from "../components/MessageCard.astro";
+
+// ENV configuration
+const apiKey = import.meta.env.PUBLIC_YOUTUBE_API_KEY;
+const channelId = import.meta.env.PUBLIC_YOUTUBE_CHANNEL_ID;
+
+let messages = [];
+
+if (apiKey && channelId) {
+  const qs = new URLSearchParams({
+    key: apiKey,
+    channelId,
+    part: "snippet",
+    order: "date",
+    maxResults: "12",
+    type: "video",
+  });
+
+  try {
+    const res = await fetch(
+      `https://www.googleapis.com/youtube/v3/search?${qs.toString()}`
+    );
+    const data = await res.json();
+    messages = data.items || [];
+  } catch (e) {
+    messages = [];
+  }
+}
+---
+
+<BaseLayout title="Messages">
+  <!-- HERO -->
+  <section class="bg-gray-50 border-b">
+    <div class="max-w-6xl mx-auto px-4 py-16 text-center">
+      <h1 class="text-3xl md:text-5xl font-bold text-gray-900">
+        Messages
+      </h1>
+      <p class="mt-4 text-lg text-gray-600 max-w-xl mx-auto">
+        Watch our latest sermons and teachings.
+      </p>
+    </div>
+  </section>
+
+  <!-- EMPTY STATE: No API keys -->
+  {(!apiKey || !channelId) && (
+    <section class="max-w-md mx-auto px-4 py-16 text-center">
+      <div class="p-6 border rounded-xl shadow-sm bg-white">
+        <h2 class="text-xl font-semibold">Messages coming soon</h2>
+        <p class="mt-3 text-gray-600">
+          We’re getting our latest messages ready. Check back shortly.
+        </p>
+
+        <a
+          href={channelId ? `https://youtube.com/channel/${channelId}` : "https://youtube.com"}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center mt-6 w-12 h-12 rounded-full bg-brand-red text-white shadow-md hover:bg-red-700 transition"
+        >
+          <svg viewBox="0 0 24 24" class="h-6 w-6">
+            <path fill="currentColor" d="M10 15l5.19-3L10 9v6zm12-3c0 2.53-.21 4.05-.44 4.88-.24.89-.93 1.58-1.82 1.82C18.05 19.94 12 20 12 20s-6.05-.06-7.74-.3c-.89-.24-1.58-.93-1.82-1.82C2.21 16.05 2 14.53 2 12s.21-4.05.44-4.88c.24-.89.93-1.58 1.82-1.82C5.95 3.06 12 3 12 3s6.05.06 7.74.3c.89.24 1.58.93 1.82 1.82.23.83.44 2.35.44 4.88z" />
+          </svg>
+        </a>
+      </div>
+    </section>
+  )}
+
+  <!-- MESSAGES GRID -->
+  {apiKey && channelId && (
+    <section class="max-w-6xl mx-auto px-4 py-16">
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+        {messages.map((msg) => {
+          const vid =
+            typeof msg.id === "string"
+              ? msg.id
+              : msg.id.videoId;
+
+          const thumb =
+            msg.snippet?.thumbnails?.high?.url ||
+            msg.snippet?.thumbnails?.medium?.url;
+
+          return (
+            <MessageCard
+              title={msg.snippet.title}
+              thumbnail={thumb}
+              videoId={vid}
+            />
+          );
+        })}
+
+      </div>
+
+      <!-- Pagination placeholder (future-ready) -->
+      <div class="mt-12 text-center text-gray-500 text-sm">
+        More messages coming soon.
+      </div>
+    </section>
+  )}
+</BaseLayout>

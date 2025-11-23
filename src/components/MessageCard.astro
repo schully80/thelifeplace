@@ -1,0 +1,30 @@
+---
+export interface Props {
+  title: string;
+  thumbnail: string;
+  videoId: string;
+}
+
+const { title, thumbnail, videoId } = Astro.props;
+---
+
+<a
+  href={`https://www.youtube.com/watch?v=${videoId}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="group block"
+>
+  <!-- Thumbnail -->
+  <div class="overflow-hidden rounded-2xl border shadow-sm bg-white">
+<img
+  src={thumbnail || "/fallback-message2.png"}
+  alt={title}
+  class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+    />
+  </div>
+
+  <!-- Title -->
+  <h3 class="mt-3 font-semibold text-gray-800 group-hover:text-brand-red transition-colors">
+    {title}
+  </h3>
+</a>

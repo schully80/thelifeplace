@@ -1,0 +1,29 @@
+---
+export interface Props {
+  name: string;
+  role?: string;
+  photo: string;
+  href?: string;
+}
+
+const { name, role = "", photo, href = "#" } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group block text-center p-6 rounded-2xl bg-white border shadow-sm hover:shadow-md transition"
+>
+  <img
+    src={photo}
+    alt={name}
+    class="w-32 h-32 mx-auto rounded-full object-cover shadow-md mb-4"
+  />
+
+  <h3 class="text-xl font-semibold text-gray-900 group-hover:text-brand-red">
+    {name}
+  </h3>
+
+  {role && (
+    <p class="text-gray-600 text-sm mt-1">{role}</p>
+  )}
+</a>
