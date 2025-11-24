@@ -2,64 +2,52 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import messages from "../../../data/messages.json";
 
-export async function getStaticPaths() {
-  // Build a map of unique series slugs
-  const seriesMap = {};
+export function getStaticPaths() {
+  // Get unique preacher slugs
+  const slugs = [...new Set(messages.map((m) => m.preacherSlug))];
 
-  for (const msg of messages) {
-    if (!seriesMap[msg.seriesSlug]) {
-      seriesMap[msg.seriesSlug] = {
-        slug: msg.seriesSlug,
-        name: msg.series
-      };
-    }
-  }
-
-  // Convert to path array
-  return Object.values(seriesMap).map((s) => ({
-    params: { slug: s.slug },
-    props: { seriesName: s.name, seriesSlug: s.slug },
+  return slugs.map((slug) => ({
+    params: { slug },
   }));
 }
 
-// Props received from getStaticPaths
-const { seriesName, seriesSlug } = Astro.props;
+const { slug } = Astro.params;
 
-// Filter messages that belong to this series
-const filtered = messages.filter((m) => m.seriesSlug === seriesSlug);
+// Filter all messages from this preacher
+const preachedMessages = messages.filter(
+  (m) => m.preacherSlug === slug
+);
 
-// Sort newest first
-filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+// Get preacher name
+const preacherName = preachedMessages.length > 0
+  ? preachedMessages[0].preacher
+  : "Speaker";
 ---
 
-<BaseLayout title={`${seriesName} – Series`}>
+<BaseLayout title={`${preacherName} • Messages`}>
+  <section class="max-w-6xl mx-auto px-4 pt-10">
+    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">
+      Messages by {preacherName}
+    </h1>
 
-  <section class="mt-12 text-center">
-    <h1 class="text-4xl font-bold text-gray-900">{seriesName}</h1>
-    <p class="text-gray-600 mt-2">Messages from this series</p>
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+      {preachedMessages.map((m) => (
+        <a href={`/messages/watch/${m.id}`} class="group block">
+          <div class="overflow-hidden rounded-2xl shadow-sm bg-white border">
+            <img
+              src={m.thumbnail}
+              alt={m.title}
+              class="w-full h-48 object-cover group-hover:scale-105 transition"
+            />
+          </div>
+
+          <h3 class="mt-3 font-semibold text-gray-800 group-hover:text-brand-red">
+            {m.title}
+          </h3>
+
+          <p class="text-gray-500 text-sm">{m.date}</p>
+        </a>
+      ))}
+    </div>
   </section>
-
-  <section class="max-w-6xl mx-auto px-4 mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-    {filtered.map((msg) => (
-      <a
-        href={`/messages/watch/${msg.id}`}
-        class="group block"
-      >
-        <div class="overflow-hidden rounded-2xl shadow-sm bg-white border">
-          <img
-            src={msg.thumbnail}
-            alt={msg.title}
-            class="w-full h-48 object-cover group-hover:scale-105 transition"
-          />
-        </div>
-
-        <h3 class="mt-3 font-semibold text-gray-800 group-hover:text-brand-red">
-          {msg.title}
-        </h3>
-
-        <p class="text-gray-500 text-sm">{msg.preacher}</p>
-      </a>
-    ))}
-  </section>
-
 </BaseLayout>
