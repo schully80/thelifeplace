@@ -1,29 +1,33 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import messages from "../../../data/messages.json";
+import messagesData from "../../../data/messages.json";
 
-// Build series map
+// 🌟 1. Build reliable series map (cannot be undefined)
 const seriesMap = {};
 
-messages.forEach((m) => {
+(messagesData || []).forEach((m) => {
+  if (!m.seriesSlug) return; // skip malformed entries
+
   if (!seriesMap[m.seriesSlug]) {
     seriesMap[m.seriesSlug] = {
-      name: m.series,
       slug: m.seriesSlug,
+      name: m.series,
       messages: [],
     };
   }
+
   seriesMap[m.seriesSlug].messages.push(m);
 });
 
-// getStaticPaths is REQUIRED for dynamic routes
+// 🌟 2. getStaticPaths → MUST export exactly for dynamic slugs
 export function getStaticPaths() {
-  return Object.values(seriesMap).map((s) => ({
-    params: { slug: s.slug },
-    props: { series: s },
+  return Object.values(seriesMap).map((series) => ({
+    params: { slug: series.slug },
+    props: { series }, // pass series object to page
   }));
 }
 
+// 🌟 3. Received from getStaticPaths()
 const { series } = Astro.props;
 ---
 
@@ -37,6 +41,7 @@ const { series } = Astro.props;
   </section>
 
   <section class="grid gap-10 mt-12 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto px-4">
+
     {series.messages.map((m) => (
       <a href={`/messages/watch/${m.id}`} class="group block">
         <div class="overflow-hidden rounded-2xl shadow-sm bg-white border">
@@ -54,6 +59,7 @@ const { series } = Astro.props;
         <p class="text-gray-500 text-sm">{m.preacher}</p>
       </a>
     ))}
+
   </section>
 
 </BaseLayout>
