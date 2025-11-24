@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import messages from "../../../data/messages.json";
+
+export async function getStaticPaths() {
+  // Build a map of unique series slugs
+  const seriesMap = {};
+
+  for (const msg of messages) {
+    if (!seriesMap[msg.seriesSlug]) {
+      seriesMap[msg.seriesSlug] = {
+        slug: msg.seriesSlug,
+        name: msg.series
+      };
+    }
+  }
+
+  // Convert to path array
+  return Object.values(seriesMap).map((s) => ({
+    params: { slug: s.slug },
+    props: { seriesName: s.name, seriesSlug: s.slug },
+  }));
+}
+
+// Props received from getStaticPaths
+const { seriesName, seriesSlug } = Astro.props;
+
+// Filter messages that belong to this series
+const filtered = messages.filter((m) => m.seriesSlug === seriesSlug);
+
+// Sort newest first
+filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+---
+
+<BaseLayout title={`${seriesName} – Series`}>
+
+  <section class="mt-12 text-center">
+    <h1 class="text-4xl font-bold text-gray-900">{seriesName}</h1>
+    <p class="text-gray-600 mt-2">Messages from this series</p>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+    {filtered.map((msg) => (
+      <a
+        href={`/messages/watch/${msg.id}`}
+        class="group block"
+      >
+        <div class="overflow-hidden rounded-2xl shadow-sm bg-white border">
+          <img
+            src={msg.thumbnail}
+            alt={msg.title}
+            class="w-full h-48 object-cover group-hover:scale-105 transition"
+          />
+        </div>
+
+        <h3 class="mt-3 font-semibold text-gray-800 group-hover:text-brand-red">
+          {msg.title}
+        </h3>
+
+        <p class="text-gray-500 text-sm">{msg.preacher}</p>
+      </a>
+    ))}
+  </section>
+
+</BaseLayout>

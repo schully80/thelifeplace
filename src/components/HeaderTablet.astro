@@ -212,20 +212,22 @@ const isActive = (href) =>
         <!-- MESSAGES -->
      <a
   href="/messages/"
-  class={isActive("/messages/") ? "text-brand-red font-semibold" : "text-brand-darkgray hover:text-brand-red"}
->
-  Messages
-</a>
+   class={`block px-4 py-3 rounded-lg text-base ${
+            isActive("/messages/")
+              ? "text-brand-red font-semibold bg-red-50"
+              : "text-brand-darkgray hover:bg-gray-50"
+          }`}
+        >Messages</a>
 
 
         <!-- LIVE -->
-      <a href="/live/" class="relative flex items-center gap-1">
-  Live
-  <span
-    data-live-indicator
-    class="hidden h-2 w-2 rounded-full bg-red-600 animate-ping absolute -right-3 top-1/2 -translate-y-1/2"
-  ></span>
-</a>
+      <a href="/live/" 
+     class={`block px-4 py-3 rounded-lg text-base ${
+            isActive("/live/")
+              ? "text-brand-red font-semibold bg-red-50"
+              : "text-brand-darkgray hover:bg-gray-50"
+          }`}
+        >Live</a>
 
 
         <!-- MINISTRIES -->
@@ -265,17 +267,25 @@ const isActive = (href) =>
         >Generosity</a>
 
         <!-- VISIT -->
-        <a href="/visit/" class="mt-3 block px-4 py-3 rounded-lg text-base hover:bg-gray-50">
-          Plan A Visit
-        </a>
+        <a href="/visit/" 
+           class={`block px-4 py-3 rounded-lg text-base ${
+            isActive("/plan-a-visit/")
+              ? "text-brand-red font-semibold bg-red-50"
+              : "text-brand-darkgray hover:bg-gray-50"
+          }`}
+        >Plan A Visit</a>
+
 
         <!-- BLOG (last) -->
         <a
           href="https://schulteretyang.substack.com"
           target="_blank"
-          class="mt-2 block px-4 py-3 rounded-lg text-base hover:bg-red-50 hover:text-brand-red"
+             class={`block px-4 py-3 rounded-lg text-base ${
+            isActive("/blog/")
+              ? "text-brand-red font-semibold bg-red-50"
+              : "text-brand-darkgray hover:bg-gray-50"
+          }`}
         >Our Blog</a>
-
       </nav>
 
   </aside>

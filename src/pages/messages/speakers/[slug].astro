@@ -1,0 +1,77 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import messages from "../../../data/messages.json";
+
+// Get slug from URL
+const { slug } = Astro.params;
+
+// Filter messages for this speaker
+const speakerMessages = messages.filter((m) => m.preacherSlug === slug);
+
+// Handle invalid speaker
+if (speakerMessages.length === 0) {
+  throw new Error(`Speaker not found: ${slug}`);
+}
+
+// Speaker name & thumbnail
+const speakerName = speakerMessages[0].preacher;
+const speakerThumb = speakerMessages[0].thumbnail;
+
+// Sort newest → oldest
+speakerMessages.sort((a, b) => new Date(b.date) - new Date(a.date));
+---
+
+<BaseLayout title={speakerName}>
+
+  <!-- HEADER -->
+  <section class="mt-10 text-center">
+    <div class="w-40 h-40 rounded-full overflow-hidden mx-auto shadow border">
+      <img
+        src={speakerThumb}
+        alt={speakerName}
+        class="w-full h-full object-cover"
+      />
+    </div>
+
+    <h1 class="text-4xl font-bold text-gray-900 mt-6">
+      {speakerName}
+    </h1>
+
+    <p class="text-gray-600 mt-2">
+      All messages from {speakerName}
+    </p>
+  </section>
+
+  <!-- MESSAGE GRID -->
+  <section class="max-w-6xl mx-auto px-4 mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+
+    {speakerMessages.map((msg) => (
+      <a
+        href={`/messages/watch/${msg.id}`}
+        class="group block cursor-pointer"
+      >
+        <div class="overflow-hidden rounded-2xl shadow-sm bg-white border">
+          <img
+            src={msg.thumbnail}
+            alt={msg.title}
+            class="w-full h-48 object-cover group-hover:scale-105 transition"
+          />
+        </div>
+
+        <h3 class="mt-3 font-semibold text-gray-800 group-hover:text-brand-red">
+          {msg.title}
+        </h3>
+
+        <p class="text-gray-500 text-sm">
+          {new Date(msg.date).toLocaleDateString("en-ZA", {
+            month: "short",
+            year: "numeric",
+            day: "numeric"
+          })}
+        </p>
+      </a>
+    ))}
+
+  </section>
+
+</BaseLayout>
