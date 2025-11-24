@@ -2,11 +2,11 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import messagesData from "../../../data/messages.json";
 
-// 🌟 1. Build reliable series map (cannot be undefined)
+// 🌟 1. Build reliable series map
 const seriesMap = {};
 
 (messagesData || []).forEach((m) => {
-  if (!m.seriesSlug) return; // skip malformed entries
+  if (!m.seriesSlug) return;
 
   if (!seriesMap[m.seriesSlug]) {
     seriesMap[m.seriesSlug] = {
@@ -19,15 +19,15 @@ const seriesMap = {};
   seriesMap[m.seriesSlug].messages.push(m);
 });
 
-// 🌟 2. getStaticPaths → MUST export exactly for dynamic slugs
+// 🌟 2. getStaticPaths
 export function getStaticPaths() {
   return Object.values(seriesMap).map((series) => ({
     params: { slug: series.slug },
-    props: { series }, // pass series object to page
+    props: { series },
   }));
 }
 
-// 🌟 3. Received from getStaticPaths()
+// 🌟 3. Received from getStaticPaths
 const { series } = Astro.props;
 ---
 
