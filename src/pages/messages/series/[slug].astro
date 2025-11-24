@@ -2,32 +2,31 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import messagesData from "../../../data/messages.json";
 
-// 🌟 1. Build reliable series map
-const seriesMap = {};
-
-(messagesData || []).forEach((m) => {
-  if (!m.seriesSlug) return;
-
-  if (!seriesMap[m.seriesSlug]) {
-    seriesMap[m.seriesSlug] = {
-      slug: m.seriesSlug,
-      name: m.series,
-      messages: [],
-    };
-  }
-
-  seriesMap[m.seriesSlug].messages.push(m);
-});
-
-// 🌟 2. getStaticPaths
+// 🌟 1. getStaticPaths → scoped seriesMap
 export function getStaticPaths() {
+  const seriesMap = {};
+
+  (messagesData || []).forEach((m) => {
+    if (!m.seriesSlug) return;
+
+    if (!seriesMap[m.seriesSlug]) {
+      seriesMap[m.seriesSlug] = {
+        slug: m.seriesSlug,
+        name: m.series,
+        messages: [],
+      };
+    }
+
+    seriesMap[m.seriesSlug].messages.push(m);
+  });
+
   return Object.values(seriesMap).map((series) => ({
     params: { slug: series.slug },
     props: { series },
   }));
 }
 
-// 🌟 3. Received from getStaticPaths
+// 🌟 2. Received from getStaticPaths
 const { series } = Astro.props;
 ---
 
@@ -50,6 +49,12 @@ const { series } = Astro.props;
             alt={m.title}
             class="w-full h-48 object-cover group-hover:scale-105 transition"
           />
+
+          {series?.messages?.length > 0 ? (
+  <section>…</section>
+) : (
+  <p class="text-center text-gray-500 mt-10">No messages found for this series.</p>
+)}
         </div>
 
         <h3 class="mt-3 font-semibold text-gray-800 group-hover:text-brand-red">
