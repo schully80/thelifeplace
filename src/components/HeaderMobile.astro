@@ -191,16 +191,13 @@ const isActive = (href) =>
       </section>
 
       <!-- Messages -->
-      <a
-        href="/messages/"
-        class={`mt-1 block px-3 py-3 rounded-lg text-base ${
-          isActive("/messages/")
-            ? "text-brand-red font-semibold bg-red-50"
-            : "text-brand-darkgray hover:bg-gray-50"
-        }`}
-      >
-        Messages
-      </a>
+    <a
+  href="/messages/"
+  class={isActive("/messages/") ? "text-brand-red font-semibold" : "text-brand-darkgray hover:text-brand-red"}
+>
+  Messages
+</a>
+
 
       <!-- Live -->
     <a href="/live/" class="relative flex items-center gap-1">

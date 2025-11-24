@@ -1,101 +1,209 @@
 ---
+// 🔥 SAME IMPORT AS LIVE PAGE
 import BaseLayout from "../layouts/BaseLayout.astro";
-import MessageCard from "../components/MessageCard.astro";
+import "../styles/toast.css";
 
-// ENV configuration
-const apiKey = import.meta.env.PUBLIC_YOUTUBE_API_KEY;
-const channelId = import.meta.env.PUBLIC_YOUTUBE_CHANNEL_ID;
+import SeriesChips from "../components/SeriesChips.astro";
+import SpeakerChips from "../components/SpeakerChips.astro";
+import SearchBar from "../components/SearchBar.astro";
+import Pagination from "../components/Pagination.astro";
+import fs from "fs";
 
-let messages = [];
+// Load all messages
+const messages = JSON.parse(
+  fs.readFileSync("src/data/messages.json", "utf-8")
+);
 
-if (apiKey && channelId) {
-  const qs = new URLSearchParams({
-    key: apiKey,
-    channelId,
-    part: "snippet",
-    order: "date",
-    maxResults: "12",
-    type: "video",
-  });
+// Sort messages by date (newest first)
+messages.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  try {
-    const res = await fetch(
-      `https://www.googleapis.com/youtube/v3/search?${qs.toString()}`
-    );
-    const data = await res.json();
-    messages = data.items || [];
-  } catch (e) {
-    messages = [];
-  }
+// Hybrid featured logic
+const featuredMessages = messages.filter((m) => m.featured);
+const heroMessage =
+  featuredMessages.length > 0
+    ? featuredMessages.sort((a, b) => new Date(b.date) - new Date(a.date))[0]
+    : messages[0];
+
+// URL filters
+const url = new URL(Astro.request.url);
+const q = url.searchParams.get("q")?.toLowerCase() || "";
+const activeSeries = url.searchParams.get("series") || "";
+const activeSpeaker = url.searchParams.get("speaker") || "";
+const page = Number(url.searchParams.get("page") || 1);
+
+// Unique lists
+const seriesList = [...new Set(messages.map((m) => m.series))];
+const speakers = [...new Set(messages.map((m) => m.preacher))];
+
+// Filtering (remove hero first)
+let filtered = messages.filter((m) => m.id !== heroMessage.id);
+
+if (q) {
+  filtered = filtered.filter((m) =>
+    m.title.toLowerCase().includes(q)
+  );
 }
+
+if (activeSeries) {
+  filtered = filtered.filter((m) => m.series === activeSeries);
+}
+
+if (activeSpeaker) {
+  filtered = filtered.filter((m) => m.preacher === activeSpeaker);
+}
+
+// Pagination
+const pageSize = 6;
+const totalPages = Math.ceil(filtered.length / pageSize);
+const paginated = filtered.slice((page - 1) * pageSize, page * pageSize);
+
+// Determine “Up Next”
+const upNext = filtered.length > 0 ? filtered[0] : null;
 ---
 
 <BaseLayout title="Messages">
-  <!-- HERO -->
-  <section class="bg-gray-50 border-b">
-    <div class="max-w-6xl mx-auto px-4 py-16 text-center">
-      <h1 class="text-3xl md:text-5xl font-bold text-gray-900">
-        Messages
-      </h1>
-      <p class="mt-4 text-lg text-gray-600 max-w-xl mx-auto">
-        Watch our latest sermons and teachings.
-      </p>
+
+  <!-- HERO SECTION -->
+  <div
+    id="heroSection"
+    class="relative w-full aspect-video rounded-[34px] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.45)]
+         bg-black scale-[0.995] hover:scale-[1] transition-all duration-700
+         ease-[cubic-bezier(.16,1,.3,1)] before:absolute before:inset-0
+         before:bg-gradient-to-b before:from-black/50 before:via-transparent before:to-black/40
+         after:absolute after:inset-0 after:rounded-[34px] after:pointer-events-none
+         after:shadow-[0_0_120px_rgba(179,40,45,0.35)] after:opacity-40 hover:after:opacity-60"
+  >
+    <iframe
+      id="heroPlayer"
+      class="w-full h-full relative z-10"
+      src={`https://www.youtube.com/embed/${heroMessage.youtubeId}?rel=0&modestbranding=1`}
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-4 mt-6 text-center">
+    <h1 id="heroTitle" class="text-3xl md:text-4xl font-bold text-gray-900">
+      {heroMessage.title}
+    </h1>
+    <p id="heroMeta" class="mt-2 text-gray-600 text-lg">
+      {heroMessage.preacher} · {heroMessage.date}
+    </p>
+  </div>
+
+  <!-- SHARE BUTTON -->
+  <div class="mt-8 flex justify-center relative">
+    <button
+      id="tlpShareBtn"
+      class="group relative px-6 py-3 rounded-full bg-brand-red text-white font-semibold
+             shadow-sm hover:bg-brand-red/90 hover:shadow-lg active:scale-[0.97]
+             transition-all duration-300 flex items-center gap-2"
+    >
+      <svg 
+        class="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-0.5"
+        fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round"
+        viewBox="0 0 24 24"
+      >
+        <circle cx="18" cy="5" r="3"></circle>
+        <circle cx="6" cy="12" r="3"></circle>
+        <circle cx="18" cy="19" r="3"></circle>
+        <path d="M8.59 13.51l6.83 3.98" />
+        <path d="M15.41 6.51L8.59 10.49" />
+      </svg>
+      <span>Share</span>
+    </button>
+
+    <!-- Floating tooltip -->
+    <div id="tlpFloatTip"
+      class="tlp-float-tip absolute top-full mt-2 left-1/2 -translate-x-1/2 px-3 py-1 text-xs font-semibold rounded-full opacity-0">
+      Copied!
     </div>
+  </div>
+
+  <!-- SEARCH BAR -->
+  <div class="max-w-5xl mx-auto px-4 mt-10">
+    <SearchBar />
+  </div>
+
+  <!-- FILTER CHIPS -->
+  <div class="max-w-5xl mx-auto px-4 mt-6">
+    <SeriesChips seriesList={seriesList} activeSeries={activeSeries} />
+    <SpeakerChips speakers={speakers} activeSpeaker={activeSpeaker} />
+  </div>
+
+  <!-- MESSAGE GRID -->
+  <section class="max-w-6xl mx-auto px-4 mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+    {paginated.map((msg) => (
+      <button
+        type="button"
+        aria-label={`Watch ${msg.title}`}
+        class="group text-left cursor-pointer"
+        data-video={msg.youtubeId}
+        data-title={msg.title}
+        data-preacher={msg.preacher}
+        data-date={msg.date}
+      >
+        <div class="overflow-hidden rounded-2xl shadow-sm bg-white border">
+          <img
+            src={msg.thumbnail}
+            alt={msg.title}
+            class="w-full h-48 object-cover group-hover:scale-105 transition"
+          />
+        </div>
+
+        <h3 class="mt-3 font-semibold text-gray-800 group-hover:text-brand-red">
+          {msg.title}
+        </h3>
+
+        <p class="text-gray-500 text-sm">{msg.preacher}</p>
+      </button>
+    ))}
   </section>
 
-  <!-- EMPTY STATE: No API keys -->
-  {(!apiKey || !channelId) && (
-    <section class="max-w-md mx-auto px-4 py-16 text-center">
-      <div class="p-6 border rounded-xl shadow-sm bg-white">
-        <h2 class="text-xl font-semibold">Messages coming soon</h2>
-        <p class="mt-3 text-gray-600">
-          We’re getting our latest messages ready. Check back shortly.
-        </p>
+  <!-- PAGINATION -->
+  <div class="max-w-6xl mx-auto px-4 mt-12 mb-20">
+    <Pagination page={page} totalPages={totalPages} />
+  </div>
 
-        <a
-          href={channelId ? `https://youtube.com/channel/${channelId}` : "https://youtube.com"}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center justify-center mt-6 w-12 h-12 rounded-full bg-brand-red text-white shadow-md hover:bg-red-700 transition"
-        >
-          <svg viewBox="0 0 24 24" class="h-6 w-6">
-            <path fill="currentColor" d="M10 15l5.19-3L10 9v6zm12-3c0 2.53-.21 4.05-.44 4.88-.24.89-.93 1.58-1.82 1.82C18.05 19.94 12 20 12 20s-6.05-.06-7.74-.3c-.89-.24-1.58-.93-1.82-1.82C2.21 16.05 2 14.53 2 12s.21-4.05.44-4.88c.24-.89.93-1.58 1.82-1.82C5.95 3.06 12 3 12 3s6.05.06 7.74.3c.89.24 1.58.93 1.82 1.82.23.83.44 2.35.44 4.88z" />
-          </svg>
-        </a>
-      </div>
-    </section>
-  )}
-
-  <!-- MESSAGES GRID -->
-  {apiKey && channelId && (
-    <section class="max-w-6xl mx-auto px-4 py-16">
-      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-
-        {messages.map((msg) => {
-          const vid =
-            typeof msg.id === "string"
-              ? msg.id
-              : msg.id.videoId;
-
-          const thumb =
-            msg.snippet?.thumbnails?.high?.url ||
-            msg.snippet?.thumbnails?.medium?.url;
-
-          return (
-            <MessageCard
-              title={msg.snippet.title}
-              thumbnail={thumb}
-              videoId={vid}
-            />
-          );
-        })}
-
-      </div>
-
-      <!-- Pagination placeholder (future-ready) -->
-      <div class="mt-12 text-center text-gray-500 text-sm">
-        More messages coming soon.
-      </div>
-    </section>
-  )}
 </BaseLayout>
+
+<script>
+// SHARE BUTTON LOGIC
+const shareBtn = document.getElementById("tlpShareBtn");
+const floatTip = document.getElementById("tlpFloatTip");
+
+// SHARE HANDLER
+shareBtn.addEventListener("click", async () => {
+  const shareData = {
+    title: document.title,
+    text: "Watch this message from The Life Place!",
+    url: window.location.href
+  };
+
+  // Try native share
+  if (navigator.share) {
+    try {
+      await navigator.share(shareData);
+      return;
+    } catch {}
+  }
+
+  // Fallback → copy to clipboard
+  try {
+    await navigator.clipboard.writeText(window.location.href);
+    showTip();
+  } catch {
+    alert("Link copied!");
+  }
+});
+
+// Tooltip animation
+function showTip() {
+  floatTip.style.opacity = "1";
+  floatTip.style.transform = "translateX(-50%) translateY(-4px) scale(1)";
+  setTimeout(() => {
+    floatTip.style.opacity = "0";
+    floatTip.style.transform = "translateX(-50%) translateY(0px) scale(.95)";
+  }, 1200);
+}
+</script>

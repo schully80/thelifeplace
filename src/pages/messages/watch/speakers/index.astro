@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import messages from "../../../data/messages.json";
+
+// Deduplicate speakers
+const speakerMap = {};
+
+messages.forEach((m) => {
+  if (!speakerMap[m.preacherSlug]) {
+    speakerMap[m.preacherSlug] = {
+      name: m.preacher,
+      slug: m.preacherSlug,
+      thumb: m.thumbnail
+    };
+  }
+});
+
+const speakers = Object.values(speakerMap);
+---
+
+<BaseLayout title="Speakers">
+
+  <section class="mt-10 text-center">
+    <h1 class="text-4xl font-bold text-gray-900">Speakers</h1>
+    <p class="text-gray-600 mt-2">Teachings from our ministry team.</p>
+  </section>
+
+  <section class="grid gap-10 mt-12 sm:grid-cols-2 lg:grid-cols-3">
+    {speakers.map((s) => (
+      <a href={`/messages/speakers/${s.slug}`} class="group block">
+        <div class="rounded-full overflow-hidden w-40 h-40 mx-auto border shadow-sm">
+          <img
+            src={s.thumb}
+            class="w-full h-full object-cover group-hover:scale-105 transition"
+          />
+        </div>
+
+        <h3 class="mt-4 font-semibold text-gray-800 text-center group-hover:text-brand-red">
+          {s.name}
+        </h3>
+      </a>
+    ))}
+  </section>
+
+</BaseLayout>

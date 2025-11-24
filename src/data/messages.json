@@ -1,0 +1,83 @@
+[
+  {
+    "id": "vision-sunday-2025",
+    "title": "Vision Sunday 2025 — Come. See. Jesus",
+    "preacher": "Schulter Etyang",
+    "series": "Vision Sunday",
+    "seriesSlug": "vision-sunday",
+    "date": "2025-01-12",
+    "videoSource": "youtube",
+    "youtubeId": "UC2f4d_FFU4HiTT_DiPhZwvw",
+    "audioUrl": "/audio/vision-sunday-1.mp3",
+    "thumbnail": "/mnt/data/A_placeholder_digital_graphic_for_\"The_Life_Place\".png",
+    "description": "Casting vision for the year ahead at The Life Place.",
+    "scriptures": [
+      "Psalm 27:4",
+      "John 1:14"
+    ],
+    "tags": [
+      "vision",
+      "church",
+      "future"
+    ]
+  },
+  {
+    "id": "jesus-our-life-01",
+    "title": "Jesus Our Life — Part 1",
+    "preacher": "Schulter Etyang",
+    "series": "Jesus Our Life",
+    "seriesSlug": "jesus-our-life",
+    "date": "2025-02-02",
+    "videoSource": "youtube",
+    "audioUrl": "/audio/jesus-our-life-1.mp3",
+    "youtubeId": "dQw4w9WgXcQ",
+    "thumbnail": "/mnt/data/A_placeholder_digital_graphic_for_\"The_Life_Place\".png",
+    "description": "A foundational message on the centrality of Christ.",
+    "scriptures": [
+      "Colossians 3:1–4"
+    ],
+    "tags": [
+      "christ",
+      "identity"
+    ]
+  },
+  {
+    "id": "foundations-03",
+    "title": "Foundations — The Spirit-Filled Life",
+    "preacher": "Genevieve Etyang",
+    "series": "Foundations",
+    "seriesSlug": "foundations",
+    "date": "2025-02-09",
+    "videoSource": "youtube",
+    "youtubeId": "9bZkp7q19f0",
+    "audioUrl": "/audio/foundations-1.mp3",
+    "thumbnail": "/mnt/data/A_placeholder_digital_graphic_for_\"The_Life_Place\".png",
+    "description": "What it means to walk in the Spirit daily.",
+    "scriptures": [
+      "Galatians 5:22–25"
+    ],
+    "tags": [
+      "spirit",
+      "growth"
+    ]
+  },
+  {
+    "id": "guest-kingdom-mindset",
+    "title": "Kingdom Mindset — Guest Message",
+    "preacher": "Guest Speaker",
+    "series": "Guest Messages",
+    "seriesSlug": "guest-messages",
+    "date": "2025-03-01",
+    "videoSource": "local",
+    "videoUrl": "/videos/kingdom-mindset.mp4",
+    "thumbnail": "/mnt/data/A_placeholder_digital_graphic_for_\"The_Life_Place\".png",
+    "description": "Living with a kingdom-first perspective.",
+    "scriptures": [
+      "Matthew 6:33"
+    ],
+    "tags": [
+      "kingdom",
+      "mindset"
+    ]
+  }
+]

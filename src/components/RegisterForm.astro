@@ -125,16 +125,147 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
       <div class="g-recaptcha" data-sitekey={recaptchaSiteKey}></div>
     </div>
 
-    <!-- Submit Button -->
-    <div class="mt-6 text-center">
-      <button type="submit" class="btn-brand inline-flex items-center gap-2">
-        <span>Save My Spot</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M7 7h10v10" />
-        </svg>
-      </button>
-    </div>
-  </form>
-</section>
+  <button
+  type="submit"
+  id="tlpSubmitBtn"
+  class="relative mx-auto px-20 py-2 rounded-full bg-brand-red text-white text-lg font-semibold
+         shadow-sm flex items-center justify-center gap-2 group
+         transition-all duration-300 ease-[cubic-bezier(.25,.46,.45,.94)]
+         hover:scale-[1.03] active:scale-[0.98]
+         hover:shadow-[0_0_15px_-3px_rgba(179,40,45,0.45)]
+         overflow-hidden sheen"
+>
+
+  <span class="btn-text">Send</span>
+
+  <!-- Send Icon -->
+  <svg 
+    class="btn-icon w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round"
+    viewBox="0 0 24 24">
+    <path d="M22 2 11 13" />
+    <path d="M22 2 15 22 11 13 2 9 22 2z" />
+  </svg>
+
+  
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<!-- Spam Protection -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const startField = document.getElementById("tlp_start_time");
+    startField.value = Date.now();
+  });
+
+  window.tlpSpamCheck = function (e) {
+    const form = e.target;
+    const honeypot = form.querySelector("input[name='website']");
+    const start = parseInt(form.querySelector("#tlp_start_time").value);
+    const now = Date.now();
+    if (honeypot.value.trim() !== "") return false;
+    if (now - start < 1500) return false;
+    return true;
+  };
+</script>
+
+<!-- Validation + Shake -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const fields = document.querySelectorAll("[data-validate]");
+    fields.forEach((field) => {
+      const wrapper = field.closest(".validate-wrapper");
+      const check = wrapper.querySelector(".valid-check");
+
+      field.addEventListener("input", () => {
+        if (field.checkValidity()) {
+          check.classList.remove("opacity-0");
+          check.classList.add("opacity-100");
+        } else {
+          check.classList.remove("opacity-100");
+          check.classList.add("opacity-0");
+        }
+      });
+    });
+  });
+</script>
+
+<!-- Apple CTA Button Animation -->
+<script>
+  let submitting = false;
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector("form");
+    const btn = document.getElementById("tlpSubmitBtn");
+    const text = btn.querySelector(".btn-text");
+    const icon = btn.querySelector(".btn-icon");
+    const spinner = btn.querySelector(".spinner");
+    const check = btn.querySelector(".success-check");
+
+    form.addEventListener("submit", () => {
+      if (submitting) return;
+      submitting = true;
+
+      text.classList.add("fade-out");
+      icon.classList.add("fade-out");
+
+      setTimeout(() => {
+        text.style.display = "none";
+        icon.style.display = "none";
+        spinner.classList.remove("hidden");
+        spinner.classList.add("fade-in");
+      }, 200);
+
+      setTimeout(() => {
+        spinner.classList.add("fade-out");
+        setTimeout(() => {
+          spinner.classList.add("hidden");
+          check.classList.remove("hidden");
+          check.classList.add("fade-in");
+          btn.classList.add("bg-green-600");
+        }, 250);
+      }, 1000);
+    });
+  });
+</script>
+
+<style>
+  /* Animated gradient underline */
+  .premium-underline { position: relative; display: inline-block; }
+  .gradient-underline {
+    position: absolute;
+    left: 0; bottom: -4px; width: 100%; height: 3px;
+    background: linear-gradient(90deg,
+      rgba(179,40,45,0) 0%,
+      rgba(179,40,45,1) 50%,
+      rgba(179,40,45,0) 100%
+    );
+    background-size: 200% 100%;
+    animation: gradientSlide 2.8s ease-in-out infinite;
+    border-radius: 999px; opacity: 0.9;
+  }
+  .sheen::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.35),
+    transparent
+  );
+  animation: sheenMove 2.4s ease-in-out infinite;
+  border-radius: inherit;
+}
+
+@keyframes sheenMove {
+  0%   { left: -120%; }
+  50%  { left: 120%; }
+  100% { left: 120%; }
+}
+

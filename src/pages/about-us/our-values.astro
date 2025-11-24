@@ -116,4 +116,43 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     </blockquote>
     <p class="mt-2 text-sm md:text-base text-warmgray-600">John 10:10 AMP</p>
   </div>
+
+
+  <!-- INLINE GLASS APP DOWNLOAD CARD -->
+<div
+  class="mx-auto mt-16 max-w-md backdrop-blur-xl bg-white/20 border border-white/30
+         shadow-2xl rounded-3xl p-8 text-center ring-1 ring-black/5 animate-floatSlow"
+>
+  <img 
+    src="/expo-qr.png"
+    alt="Download App QR"
+    class="w-36 h-36 mx-auto mb-4 rounded-lg shadow-md"
+  />
+
+  <h3 class="text-2xl font-semibold text-gray-900 mb-2">
+    Download Our App
+  </h3>
+
+  <p class="text-gray-600 text-sm leading-relaxed mb-5">
+    Scan the QR code to open the app instantly in Expo Go.
+  </p>
+
+  <a
+    href="https://expo.dev/"
+    target="_blank"
+    class="inline-flex items-center gap-2 rounded-full px-6 py-3
+           bg-brand-red text-white font-semibold shadow-sm
+           hover:bg-brand-red/90 hover:shadow-md active:scale-[0.97]
+           transition-all"
+  >
+    Get Expo Go
+    <svg 
+      class="w-5 h-5"
+      fill="none" stroke="currentColor" stroke-width="2"
+      viewBox="0 0 24 24">
+      <path d="M22 2 11 13" />
+      <path d="M22 2 15 22 11 13 2 9 22 2z" />
+    </svg>
+  </a>
+</div>
 </BaseLayout>

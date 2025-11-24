@@ -1,0 +1,103 @@
+---
+const { url, title } = Astro.props;
+---
+
+<div id="share-root"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const pageURL = "{{url}}";
+    const pageTitle = "{{title}}";
+
+    // Inject floating button
+    const root = document.getElementById("share-root");
+    root.innerHTML = `
+      <button id="shareBtn"
+        class="fixed bottom-8 right-8 z-50 rounded-full bg-[#B3282D] text-white 
+               shadow-xl w-14 h-14 flex items-center justify-center 
+               hover:scale-105 active:scale-95 transition-all">
+          <svg width="26" height="26" stroke="currentColor" fill="none" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+            <polyline points="16 6 12 2 8 6"/>
+            <line x1="12" y1="2" x2="12" y2="15"/>
+          </svg>
+      </button>
+
+      <div id="sheet-backdrop"
+        class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 opacity-0 pointer-events-none 
+               transition-opacity"></div>
+
+      <div id="sheet-panel"
+        class="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl p-6 shadow-2xl
+               translate-y-full transition-transform">
+        
+        <div class="w-12 h-1.5 bg-gray-400 rounded-full mx-auto mb-6"></div>
+
+        <h3 class="text-xl font-semibold text-gray-800 mb-4 text-center">
+          Share This Page
+        </h3>
+
+        <button id="nativeShare"
+          class="w-full bg-[#B3282D] text-white font-semibold rounded-full py-3 mb-3">
+          Share…
+        </button>
+
+        <button id="copyLink"
+          class="w-full border border-gray-300 text-gray-700 rounded-full py-3 mb-3">
+          Copy Link
+        </button>
+
+        <button id="closeSheet"
+          class="w-full text-gray-500 font-medium py-2 mt-2">
+          Cancel
+        </button>
+      </div>
+    `;
+
+    const btn = document.getElementById("shareBtn");
+    const sheet = document.getElementById("sheet-panel");
+    const backdrop = document.getElementById("sheet-backdrop");
+
+    const openSheet = () => {
+      sheet.style.transform = "translateY(0)";
+      backdrop.classList.remove("pointer-events-none");
+      backdrop.style.opacity = 1;
+    };
+
+    const closeSheet = () => {
+      sheet.style.transform = "translateY(100%)";
+      backdrop.style.opacity = 0;
+      setTimeout(() => {
+        backdrop.classList.add("pointer-events-none");
+      }, 300);
+    };
+
+    btn.addEventListener("click", openSheet);
+    backdrop.addEventListener("click", closeSheet);
+    document.getElementById("closeSheet").addEventListener("click", closeSheet);
+
+    // Native share
+    document.getElementById("nativeShare").addEventListener("click", async () => {
+      if (navigator.share) {
+        await navigator.share({ title: pageTitle, url: pageURL });
+        closeSheet();
+      } else {
+        alert("Sharing not supported on this device.");
+      }
+    });
+
+    // Copy fallback
+    document.getElementById("copyLink").addEventListener("click", () => {
+      navigator.clipboard.writeText(pageURL);
+      alert("Link copied!");
+      closeSheet();
+    });
+  });
+</script>
+
+<style>
+  #shareBtn svg {
+    transform: translateY(-1px);
+  }
+</style>

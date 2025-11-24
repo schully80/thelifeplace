@@ -1,0 +1,41 @@
+---
+const { page, totalPages } = Astro.props;
+
+const url = new URL(Astro.request.url);
+
+// Generate URL for a page number
+function pageUrl(num) {
+  url.searchParams.set("page", num);
+  return url.toString().replace(url.origin, "");
+}
+---
+
+{ totalPages > 1 && (
+  <div class="flex justify-center items-center gap-3 mt-10">
+
+    <!-- Previous -->
+    {page > 1 && (
+      <a
+        href={pageUrl(page - 1)}
+        class="px-4 py-2 rounded-lg border bg-white hover:bg-gray-100 transition"
+      >
+        Previous
+      </a>
+    )}
+
+    <!-- Page numbers -->
+    <span class="text-gray-600 text-sm">
+      Page {page} of {totalPages}
+    </span>
+
+    <!-- Next -->
+    {page < totalPages && (
+      <a
+        href={pageUrl(page + 1)}
+        class="px-4 py-2 rounded-lg border bg-white hover:bg-gray-100 transition"
+      >
+        Next
+      </a>
+    )}
+  </div>
+)}

@@ -1,52 +1,70 @@
 ---
-import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import messages from "../../../data/messages.json";
+import fs from "fs";
 
 const { id } = Astro.params;
-const apiKey = import.meta.env.PUBLIC_YOUTUBE_API_KEY;
+const messages = JSON.parse(
+  fs.readFileSync("src/data/messages.json", "utf-8")
+);
 
-let video = null;
+const msg = messages.find((m) => m.id === id);
 
-if (apiKey) {
-  const qs = new URLSearchParams({
-    id,
-    key: apiKey,
-    part: "snippet",
-  });
-
-  try {
-    const res = await fetch(`https://www.googleapis.com/youtube/v3/videos?${qs.toString()}`);
-    const data = await res.json();
-    video = data.items?.[0] || null;
-  } catch {}
+if (!msg) {
+  throw new Error("Message not found");
 }
 
-const title = video?.snippet?.title || "Message";
-const description = video?.snippet?.description || "";
-const thumb = video?.snippet?.thumbnails?.high?.url;
+const hasVideo = Boolean(message?.youtubeId);
+const hasAudio = Boolean(message?.audioUrl);
+
+const thumb =
+  message?.thumbnail ||
+  `/mnt/data/A_placeholder_digital_graphic_for_"The_Life_Place".png`;
+
 ---
 
-<BaseLayout title={title}>
+<BaseLayout title={message?.title || "Message"}>
   <section class="max-w-4xl mx-auto px-4 py-10">
-    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{title}</h1>
 
-    <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-lg border">
-      <iframe
-        src={`https://www.youtube.com/embed/${id}`}
-        class="w-full h-full"
-        allowfullscreen
-      ></iframe>
-    </div>
+    <!-- TITLE -->
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">
+      {message.title}
+    </h1>
 
-    {description && (
-      <div class="mt-8 whitespace-pre-line text-gray-700 leading-relaxed">
-        {description}
+    <!-- META -->
+    <p class="text-gray-600 mb-6">
+      {message.speaker} • {message.series} • {message.date}
+    </p>
+
+    <!-- VIDEO PLAYER -->
+    {hasVideo && (
+      <div class="aspect-video mb-6 rounded-xl overflow-hidden shadow">
+        <iframe
+          src={`https://www.youtube.com/embed/${message.youtubeId}`}
+          class="w-full h-full"
+          frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
       </div>
     )}
 
-    <div class="mt-8">
-      <a href="/messages" class="inline-block px-4 py-2 rounded-full border text-gray-700 hover:bg-gray-50 transition">
-        ← Back to Messages
-      </a>
-    </div>
+    <!-- AUDIO PLAYER -->
+    {!hasVideo && hasAudio && (
+      <div class="mb-6 p-6 border rounded-xl shadow bg-white">
+        <audio controls class="w-full">
+          <source src={message.audioUrl} type="audio/mpeg" />
+        </audio>
+      </div>
+    )}
+
+    <!-- NO MEDIA -->
+    {!hasVideo && !hasAudio && (
+      <div class="border rounded-xl bg-white shadow-sm p-6 text-center">
+        <img src={thumb} class="mx-auto w-64 opacity-80 mb-4" />
+        <p class="text-gray-600">Media coming soon</p>
+      </div>
+    )}
+
   </section>
 </BaseLayout>
