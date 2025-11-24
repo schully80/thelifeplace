@@ -2,50 +2,58 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import messages from "../../../data/messages.json";
 
-/* ✔ Collect all unique series */
+// Build series map
 const seriesMap = {};
-messages.forEach(m => {
+
+messages.forEach((m) => {
   if (!seriesMap[m.seriesSlug]) {
     seriesMap[m.seriesSlug] = {
+      name: m.series,
       slug: m.seriesSlug,
-      name: m.series
+      messages: [],
     };
   }
+  seriesMap[m.seriesSlug].messages.push(m);
 });
 
-/* ✔ Generate paths */
-export async function getStaticPaths() {
+// getStaticPaths is REQUIRED for dynamic routes
+export function getStaticPaths() {
   return Object.values(seriesMap).map((s) => ({
     params: { slug: s.slug },
-    props: { series: s }
+    props: { series: s },
   }));
 }
 
 const { series } = Astro.props;
-
-/* ✔ Messages in this series */
-const seriesMessages = messages.filter(m => m.seriesSlug === series.slug);
 ---
 
 <BaseLayout title={series.name}>
 
-  <section class="max-w-6xl mx-auto px-4 pt-10">
-    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-6">
+  <section class="mt-10 text-center">
+    <h1 class="text-4xl font-bold text-gray-900">
       {series.name}
     </h1>
+    <p class="text-gray-600 mt-2">Messages in this series</p>
+  </section>
 
-    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-      {seriesMessages.map((m) => (
-        <a href={`/messages/watch/${m.id}`} class="group block">
-          <div class="overflow-hidden rounded-2xl shadow-sm bg-white border">
-            <img src={m.thumbnail} class="w-full h-48 object-cover group-hover:scale-105 transition" />
-          </div>
+  <section class="grid gap-10 mt-12 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto px-4">
+    {series.messages.map((m) => (
+      <a href={`/messages/watch/${m.id}`} class="group block">
+        <div class="overflow-hidden rounded-2xl shadow-sm bg-white border">
+          <img
+            src={m.thumbnail}
+            alt={m.title}
+            class="w-full h-48 object-cover group-hover:scale-105 transition"
+          />
+        </div>
 
-          <h3 class="mt-3 font-semibold text-gray-800 group-hover:text-brand-red">{m.title}</h3>
-          <p class="text-gray-500 text-sm">{m.preacher}</p>
-        </a>
-      ))}
-    </div>
+        <h3 class="mt-3 font-semibold text-gray-800 group-hover:text-brand-red">
+          {m.title}
+        </h3>
+
+        <p class="text-gray-500 text-sm">{m.preacher}</p>
+      </a>
+    ))}
   </section>
 
 </BaseLayout>
