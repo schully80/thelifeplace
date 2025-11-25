@@ -3,64 +3,128 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="The Life Place">
-  <!-- HERO / Welcome -->
-<section class="grid grid-cols-1 md:grid-cols-2 items-center gap-8 mt-30 mb-32 px-6">
-  <!-- Left: Text -->
-  <div class="slide-in-left text-center">
-    <!-- Mobile smaller (3xl), Desktop unchanged (4xl) -->
-  <h1 class="text-center text-gray-700 text-3xl md:text-6xl leading-tight font-bold flex items-center justify-center gap-3">
-  <span>Our</span>
-  <span class="w-[4px] h-24 bg-brand-red"></span> <!-- vertical line -->
-  <span>Welcome</span>
-</h1>
 
-    <!-- Welcome paragraph -->
-    <!-- Mobile smaller (base), Desktop unchanged (md:text-2xl) -->
-    <p class="bounce-in mt-6 md:mt-7 text-gray-700 text-xl md:text-3xl font-sans text-center leading-7 md:leading-[1.8]">
-      We open wide our doors with a welcome from
-      <span class="text-brand-red font-semibold">Jesus</span>, <br />
-      the <span class="text-brand-red font-semibold">Embracer</span> of the outsider, <br />
-      the <span class="text-brand-red font-semibold">Defender</span> of the guilty, <br />
-      the <span class="text-brand-red font-semibold">Justifier</span> of the ungodly, <br />
-      the <span class="text-brand-red font-semibold">Friend</span> of sinners.
-    </p>
+<!-- HERO / Welcome -->
 
-    <!-- Slogan under heading -->
-    <!-- Mobile smaller (base), desktop kept via sm:2xl -->
-    <p class="mt-5 md:mt-6 text-xl sm:text-3xl text-center text-gray-700">
-      Come. See. <span class="text-[#B3282D] font-bold">Jesus</span>
-    </p>
-  </div>
+<!-- Break parent container so hero is truly full width -->
+<div class="w-screen max-w-none relative left-1/2 right-1/2 -mx-[50vw]">
 
-  <!-- Right: Image -->
-  <!-- Desktop unchanged; mobile keeps full width with softer spacing -->
-  <div class="fade-in-slow aspect-[16/12] rounded-xl overflow-hidden shadow-lg">
+<section
+  class="relative w-screen h-screen overflow-hidden flex items-center justify-center 
+         mt-[96px] -translate-y-[96px] md:mt-[96px] md:-translate-y-[96px]"
+>
+  <!-- BACKGROUND -->
+  <div class="absolute inset-0 z-0">
     <img
       src="/hero.jpg"
       alt="Welcome to The Life Place"
-      class="w-full h-full object-cover opacity-95"
-      loading="eager"
-      decoding="async"
+      class="w-full h-full object-cover object-center scale-[1.05] blur-[6px] opacity-70 brightness-75 contrast-110"
     />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+  </div>
+
+  <!-- TEXT CONTENT -->
+  <div class="relative z-10 text-center slide-in-left max-w-4xl mx-auto px-4">
+    <h1 class="text-white text-5xl md:text-7xl leading-tight font-extrabold flex items-center justify-center gap-3 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)] mb-8 md:mb-12">
+      <span>OUR WELCOME</span>
+    </h1>
+
+    <!-- Motion-stagger paragraphs -->
+    <p class="text-white text-2xl md:text-4xl fade-in-up delay-300 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
+      We open wide our doors with a welcome from
+      <span class="text-brand-red font-semibold">Jesus</span>,
+    </p>
+
+    <p class="text-white text-2xl md:text-4xl fade-in-up delay-500 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
+      the <span class="text-brand-red font-semibold">Embracer</span> of the outsider,
+    </p>
+
+    <p class="text-white text-2xl md:text-4xl fade-in-up delay-700 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
+      the <span class="text-brand-red font-semibold">Defender</span> of the guilty,
+    </p>
+
+    <p class="text-white text-2xl md:text-4xl fade-in-up delay-900 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
+      the <span class="text-brand-red font-semibold">Justifier</span> of the ungodly,
+    </p>
+
+    <p class="text-white text-2xl md:text-4xl fade-in-up delay-[1100ms] drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
+      the <span class="text-brand-red font-semibold">Friend</span> of sinners.
+    </p>
+
   </div>
 </section>
+</div>
 
- <hr class="slide-in-left mt-10 mx-auto w-full border-t-4 border-brand-red" />
+
+<!-- SLOGAN BLOCK -->
+<div id="slogan-block" class="w-full text-center py-12 md:py-20 bg-white relative">
+  <p class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 inline-block relative">
+
+    Come. See.
+
+    <span class="relative inline-block font-extrabold mx-3">
+
+      <!-- JESUS PILL -->
+      <span
+        class="inline-block px-3 py-0 rounded-[9px] bg-brand-red text-white font-bold border-4 border-white shadow-lg tracking-wide rotate-[-2deg] relative"
+      >
+        Jesus
+        <span class="absolute top-1 left-1 w-2 h-2 rounded-full border border-gray-700 shadow bg-gray-300"></span>
+        <span class="absolute top-1 right-1 w-2 h-2 rounded-full border border-gray-700 shadow bg-gray-300"></span>
+      </span>
+
+      <!-- ARROW POINTER TO JESUS -->
+      <span class="finger-pointer absolute top-1/2 -translate-y-1/2 right-[-40px] md:right-[-90px]">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="w-14 h-14 md:w-20 md:h-20 text-brand-red"
+             viewBox="0 0 24 24" fill="currentColor">
+          <path d="M22 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H22v-2z"/>
+        </svg>
+      </span>
+
+    </span>
+  </p>
+
+ <!-- FIXED SCROLL ARROW (starts here) -->
+<div
+  id="scroll-arrow"
+  class="fixed right-6 top-1/3 z-[30] cursor-pointer opacity-0 scale-90 transition-all duration-500 ease-in-out"
+>
+  <div class="text-brand-red opacity-90 hover:opacity-100 transition">
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="w-16 h-16 md:w-20 md:h-20 transition-transform duration-500"
+         viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 7l7 7 7-7" />
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7 7 7-7" />
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7 7 7-7" />
+    </svg>
+  </div>
+</div>  
+
+<!-- SOFT DIVIDER -->
+<div class="w-full my-20">
+  <div class="h-[4px] w-full bg-gradient-to-r from-transparent via-brand-red to-transparent"></div>
+</div>
 
 
   <!-- WHAT WE BELIEVE -->
-<section class="bg-white border-t border-gray-200 py-12 md:py-20">
-  <div class="container-x max-w-4xl mx-auto px-4">
+  
+<section id="what-we-believe" class="bg-white border-t border-gray-200 py-12 md:py-20">
+  <div class="container-x max-w-4xl mx-auto px-4 ">
+
+    
     <!-- Section Title -->
     <h2 class="text-center text-3xl md:text-4xl font-bold mb-6">
-  <span class="text-gray-700">What We </span>
-  <span class="text-brand-red">Believe</span>
+  <span class="text-gray-700">WHAT WE</span>
+  <span class="text-brand-red">BELIEVE</span>
 </h2>
 
     <!-- Intro Paragraph -->
     <p class="text-center text-lg md:text-xl text-gray-700 leading-relaxed mb-10">
       Sound doctrine isn’t about rules; it’s about Jesus—who He is, what He has done, and how His finished work shapes what we believe and how we live.
     </p>
+
+    <div id="believe-anchor"></div>
 
    <!-- Belief Categories -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -139,6 +203,8 @@ John 1:14, 18; Deuteronomy 29:29; 1 Peter 1:23, 25; Psalm 119:89; John 17:17; 1 
 </div>
   )
 },
+
+
     
        { title:"SALVATION", 
    content: (
@@ -258,6 +324,8 @@ Isaiah 65:17; 2 Peter 3:13; Revelation 21:1–4; 1 Corinthians 15:51–53; Phili
   )
 },
 
+
+
         ].map(({ title, content }) => (
         <details class="border border-l-4 border-brand-red rounded-lg bg-white shadow-sm transition">
           <summary class="flex items-center justify-between px-4 py-3 cursor-pointer text-lg md:text-xl font-semibold text-brand-darkgray hover:text-brand-red">
@@ -284,10 +352,46 @@ Isaiah 65:17; 2 Peter 3:13; Revelation 21:1–4; 1 Corinthians 15:51–53; Phili
   :global(details[open] summary svg) {
     transform: rotate(180deg);
   }
+
+  .gradient-underline {
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent 0%, #B3282D 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: gradientSlide 2.8s ease-in-out infinite;
+}
+
+@keyframes gradientSlide {
+  0%   { background-position: 200% 0; }
+  50%  { background-position: 0% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes fingerBounce {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50%      { transform: translateY(-50%) translateX(-8px); }
+}
+
+.finger-pointer {
+  animation: fingerBounce 1.8s ease-in-out infinite;
+}
+
 </style>
+
+
+<!-- SOFT DIVIDER BETWEEN BLOCKS -->
+<div class="w-full my-20">
+  <div class="h-[4px] w-full bg-gradient-to-r from-transparent via-brand-red to-transparent"></div>
+</div>
+
 
 <!-- INLINE GLASS APP DOWNLOAD CARD -->
 <div
+  id="download-app"
   class="mx-auto mt-16 max-w-md backdrop-blur-xl bg-white/20 border border-white/30
          shadow-2xl rounded-3xl p-8 text-center ring-1 ring-black/5 animate-floatSlow"
 >
@@ -324,3 +428,87 @@ Isaiah 65:17; 2 Peter 3:13; Revelation 21:1–4; 1 Corinthians 15:51–53; Phili
   </a>
 </div>
 </BaseLayout>
+
+
+
+
+<style>
+  @keyframes fadeBounce {
+    0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+    60% { opacity: 1; transform: scale(1.05) translateY(-5px); }
+    80% { transform: scale(0.98) translateY(2px); }
+    100% { transform: scale(1) translateY(0); }
+  }
+
+  .fade-bounce {
+    animation: fadeBounce 0.6s ease-out forwards;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const arrow = document.getElementById("scroll-arrow");
+    const svg = arrow.querySelector("svg");
+
+    const scrollTargets = ["what-we-believe", "download-app", "top"];
+    let currentIndex = 0;
+    let lastScrollY = window.scrollY; // track last scroll position
+
+    // Scroll on click
+    arrow.addEventListener("click", () => {
+      const targetId = scrollTargets[currentIndex];
+
+      if (targetId === "top") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        const target = document.getElementById(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      currentIndex = (currentIndex + 1) % scrollTargets.length;
+    });
+
+    // Scroll tracking
+    window.addEventListener("scroll", () => {
+      const sloganBlock = document.getElementById("slogan-block");
+      const sloganTop = sloganBlock.getBoundingClientRect().top;
+
+      // Fade + bounce in when slogan enters view
+      if (sloganTop <= window.innerHeight * 0.75) {
+        if (!arrow.classList.contains("opacity-100")) {
+          arrow.classList.remove("opacity-0", "scale-90");
+          arrow.classList.add("opacity-100", "scale-100");
+          arrow.classList.add("fade-bounce"); // trigger bounce
+          setTimeout(() => arrow.classList.remove("fade-bounce"), 700); // reset class so bounce can replay
+        }
+      } else {
+        arrow.classList.remove("opacity-100", "scale-100", "fade-bounce");
+        arrow.classList.add("opacity-0", "scale-90");
+        svg.classList.remove("rotate-180");
+        currentIndex = 0;
+        return;
+      }
+
+      // Detect scroll direction
+      if (window.scrollY > lastScrollY) {
+        // Scrolling down → arrow points down
+        svg.classList.remove("rotate-180");
+      } else if (window.scrollY < lastScrollY) {
+        // Scrolling up → arrow points up
+        svg.classList.add("rotate-180");
+      }
+      lastScrollY = window.scrollY;
+
+      // Flip arrow at bottom + bounce
+      const scrollBottom = window.innerHeight + window.scrollY;
+      const pageHeight = document.body.offsetHeight;
+
+      if (scrollBottom >= pageHeight - 50) {
+        svg.classList.add("rotate-180", "fade-bounce");
+        setTimeout(() => svg.classList.remove("fade-bounce"), 700);
+      }
+    });
+  });
+</script>

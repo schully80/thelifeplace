@@ -339,3 +339,147 @@ details[open] summary .details-arrow {
 .bounce-in {
   animation: bounceIn 1.5s ease-out forwards;
 }
+
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+.animate-bounceSlow { animation: bounceSlow 2.2s infinite; }
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.7s ease forwards;
+}
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+@keyframes zoomSlow {
+  from { transform: scale(1.15); }
+  to { transform: scale(1.05); }
+}
+.animate-zoomSlow {
+  animation: zoomSlow 10s ease-out forwards;
+}
+
+
+/* Animated Vertical Line (red bar) */
+@keyframes growY {
+  from { height: 0; }
+  to { height: 6rem; }
+}
+.animate-growY {
+  animation: growY 1.2s ease-out forwards;
+}
+
+/* Smooth scroll arrow bounce */
+@keyframes bounceSlow {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 12px); }
+}
+.animate-bounceSlow {
+  animation: bounceSlow 2.2s infinite ease-in-out;
+}
+
+/* Motion stagger text */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s ease forwards;
+}
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Delay utilities */
+.delay-100 { animation-delay: 0.1s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-900 { animation-delay: 0.9s; }
+.delay-\[1100ms\] { animation-delay: 1.1s; }
+.delay-\[1300ms\] { animation-delay: 1.3s; }
+
+
+@keyframes arrowVision {
+  0%, 100% { transform: translateY(0) translateX(-50%); }
+  50%      { transform: translateY(-8px) translateX(-50%); }
+}
+
+.arrow-above {
+  animation: arrowVision 2.4s ease-in-out infinite;
+}
+
+@keyframes arrowVisionDown {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 10px); }
+}
+
+.arrow-above {
+  animation: arrowVisionDown 2.4s ease-in-out infinite;
+}
+
+/* The descending vertical line */
+.descending-line {
+  width: 3px;
+  height: 0;
+  background-color: #B3282D;
+  border-radius: 999px;
+  animation: descendLine 1.6s ease-out forwards;
+}
+
+/* Line grows downward */
+@keyframes descendLine {
+  0% { height: 0; opacity: 0; }
+  40% { opacity: 1; }
+  100% { height: 40px; }
+}
+
+/* Optional extra: slight bounce of arrow */
+@keyframes arrowBounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+}
+
+.line-arrow-container svg {
+  animation: arrowBounce 2.4s ease-in-out infinite;
+}
+
+
+@keyframes fingerBounce {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50%      { transform: translateY(-50%) translateX(-12px); }
+}
+
+.finger-pointer {
+  animation: fingerBounce 2s ease-in-out infinite;
+}
+
+/* bounce animation */
+@keyframes fingerBounceDown {
+  0%, 100% { transform: translate(-50%, 0); }
+  50%      { transform: translate(-50%, 12px); }
+}
+
+.finger-bounce {
+  animation: fingerBounceDown 2.2s ease-in-out infinite;
+}
+
+/* force brand red tint if needed */
+.pointer-hand {
+  filter: invert(17%) sepia(87%) saturate(7480%) hue-rotate(348deg) brightness(88%) contrast(102%);
+}
+
+
+@keyframes fadeBounce {
+  0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+  60% { opacity: 1; transform: scale(1.05) translateY(-5px); }
+  80% { transform: scale(0.98) translateY(2px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+.fade-bounce {
+  animation: fadeBounce 0.6s ease-out forwards;
+}
