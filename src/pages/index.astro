@@ -24,37 +24,36 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   </div>
 
   <!-- TEXT CONTENT -->
-  <div class="relative z-10 text-center slide-in-left max-w-4xl mx-auto px-4">
-    <h1 class="text-white text-5xl md:text-7xl leading-tight font-extrabold flex items-center justify-center gap-3 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)] mb-8 md:mb-12">
+  <div class="relative z-10 text-center slide-in-left max-w-4xl mx-auto px-8">
+    <h1 class="text-white text-5xl md:text-6xl leading-tight font-extrabold flex items-center justify-center gap-3 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)] mb-8 md:mb-12">
       <span>OUR WELCOME</span>
     </h1>
 
     <!-- Motion-stagger paragraphs -->
     <p class="text-white text-2xl md:text-4xl fade-in-up delay-300 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
       We open wide our doors with a welcome from
-      <span class="text-brand-red font-semibold">Jesus</span>,
+      <span class="text-white">Jesus</span>,
     </p>
 
     <p class="text-white text-2xl md:text-4xl fade-in-up delay-500 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
-      the <span class="text-brand-red font-semibold">Embracer</span> of the outsider,
+      the <span class="text-white">Embracer</span> of the outsider,
     </p>
 
     <p class="text-white text-2xl md:text-4xl fade-in-up delay-700 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
-      the <span class="text-brand-red font-semibold">Defender</span> of the guilty,
+      the <span class="text-white">Defender</span> of the guilty,
     </p>
 
     <p class="text-white text-2xl md:text-4xl fade-in-up delay-900 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
-      the <span class="text-brand-red font-semibold">Justifier</span> of the ungodly,
+      the <span class="text-white">Justifier</span> of the ungodly,
     </p>
 
     <p class="text-white text-2xl md:text-4xl fade-in-up delay-[1100ms] drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
-      the <span class="text-brand-red font-semibold">Friend</span> of sinners.
+      the <span class="text-white">Friend</span> of sinners.
     </p>
 
   </div>
 </section>
 </div>
-
 
 <!-- SLOGAN BLOCK -->
 <div id="slogan-block" class="w-full text-center py-12 md:py-20 bg-white relative">
@@ -88,11 +87,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
  <!-- FIXED SCROLL ARROW (starts here) -->
 <div
   id="scroll-arrow"
-  class="fixed right-6 top-1/3 z-[30] cursor-pointer opacity-0 scale-90 transition-all duration-500 ease-in-out"
+  class="fixed right-6 top-1/3 z-[30] cursor-pointer opacity-0 scale-90 transition-all duration-600 ease-in-out"
 >
   <div class="text-brand-red opacity-90 hover:opacity-100 transition">
     <svg xmlns="http://www.w3.org/2000/svg"
-         class="w-16 h-16 md:w-20 md:h-20 transition-transform duration-500"
+         class="w-16 h-16 md:w-20 md:h-20 transition-transform duration-600"
          viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2">
       <path stroke-linecap="round" stroke-linejoin="round" d="M5 7l7 7 7-7" />
       <path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7 7 7-7" />
@@ -429,8 +428,7 @@ Isaiah 65:17; 2 Peter 3:13; Revelation 21:1–4; 1 Corinthians 15:51–53; Phili
 </div>
 </BaseLayout>
 
-
-
+<div id="page-top"></div>
 
 <style>
   @keyframes fadeBounce {
@@ -454,21 +452,61 @@ Isaiah 65:17; 2 Peter 3:13; Revelation 21:1–4; 1 Corinthians 15:51–53; Phili
     let currentIndex = 0;
     let lastScrollY = window.scrollY; // track last scroll position
 
-    // Scroll on click
-    arrow.addEventListener("click", () => {
-      const targetId = scrollTargets[currentIndex];
+    function smoothScrollTo(targetElement) {
+      const targetY = targetElement.getBoundingClientRect().top + window.scrollY;
+      const startY = window.scrollY;
+      const distance = targetY - startY;
+      const duration = 900;
+      let startTime = null;
 
-      if (targetId === "top") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        const target = document.getElementById(targetId);
-        if (target) {
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
+      function animation(currentTime) {
+        if (!startTime) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+
+        // Ease-in-out for smooth motion
+        const ease = timeElapsed / duration < 1
+          ? (1 - Math.cos(Math.PI * (timeElapsed / duration))) / 2
+          : 1;
+
+        window.scrollTo(0, startY + distance * ease);
+
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animation);
         }
       }
 
+      requestAnimationFrame(animation);
+    }
+
+    /* -------------------------------------------------------
+        CLICK HANDLER
+    --------------------------------------------------------*/
+    arrow.addEventListener("click", () => {
+      const targetId = scrollTargets[currentIndex];
+      const target = document.getElementById(targetId);
+
+      if (target) smoothScrollTo(target);
+
+      // Arrow rotation only on final step
+      if (currentIndex === scrollTargets.length - 1) {
+        svg.classList.add("rotate-180");
+      } else {
+        svg.classList.remove("rotate-180");
+      }
+
+     if (targetId === "top") {
+  // Scroll smoothly to the very top by targeting the <html> element
+  document.documentElement.scrollIntoView({ behavior: "smooth", block: "start" });
+} else {
+  const target = document.getElementById(targetId);
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
       currentIndex = (currentIndex + 1) % scrollTargets.length;
     });
+
+    
 
     // Scroll tracking
     window.addEventListener("scroll", () => {
