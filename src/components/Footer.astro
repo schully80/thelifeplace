@@ -1,62 +1,88 @@
 ---
-// No script required here
+ // No script required
 ---
-<footer class="bg-gray-100 mt-8">
-  <div class="max-w-6xl mx-auto px-4 py-10 text-center text-sm space-y-6">
+<footer class="bg-gray-200 mt-52 border-t border-gray-200">
+  <div class="max-w-6xl mx-auto px-4 py-16">
 
-    <!-- Social Icons -->
-    <div class="flex justify-center gap-4">
-      <a
-        href="https://facebook.com/thelifeplacesa"
-        target="_blank"
-        rel="noopener"
-        aria-label="Facebook"
-        class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
-      >
+    <!-- BRAND BLOCK (CENTERED) -->
+    <div class="text-center max-w-lg mx-auto space-y-4 mb-16">
+   
+
+      <p class="text-gray-900 font-semibold tracking-wide text-xl">
+        Come. See. <span class="text-brand-red font-semibold">Jesus</span>
+      </p>
+    </div>
+
+    <!-- 3-COLUMN CENTERED GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+
+      <!-- EXPLORE -->
+      <div>
+        <h3 class="font-semibold text-gray-900 mb-4 text-base uppercase tracking-wide">
+          Explore
+        </h3>
+        <ul class="space-y-2 text-gray-700">
+<li><a href="/about/" class="hover:text-brand-red transition">About</a></li>
+<li><a href="/leadership/" class="hover:text-brand-red transition">Leadership</a></li>
+<li><a href="/visit/" class="hover:text-brand-red transition">Plan a Visit</a></li>
+<li><a href="/ministries/" class="hover:text-brand-red transition">Ministries</a></li>
+        </ul>
+      </div>
+
+      <!-- NEXT STEPS -->
+      <div>
+        <h3 class="font-semibold text-gray-900 mb-4 text-base uppercase tracking-wide">
+          Next Steps
+        </h3>
+        <ul class="space-y-2 text-gray-700">
+<li><a href="/give/" class="hover:text-brand-red transition">Giving</a></li>
+<li><a href="/prayer/" class="hover:text-brand-red transition">Prayer Requests</a></li>
+<li><a href="/contact/" class="hover:text-brand-red transition">Contact</a></li>
+<li><a href="/app/" class="hover:text-brand-red transition">Get the App</a></li>
+        </ul>
+      </div>
+
+      <!-- LEGAL -->
+      <div>
+        <h3 class="font-semibold text-gray-900 mb-4 text-base uppercase tracking-wide">
+          Legal
+        </h3>
+        <ul class="space-y-2 text-gray-700">
+<li><a href="/privacy/" class="hover:text-brand-red transition">Privacy Policy</a></li>
+<li><a href="/terms/" class="hover:text-brand-red transition">Terms & Conditions</a></li>
+<li><a href="/cookies/" class="hover:text-brand-red transition">Cookie Policy</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- SOCIAL ICONS -->
+    <div class="flex justify-center gap-4 mt-16">
+      <a href="https://facebook.com/thelifeplacesa" target="_blank" rel="noopener" aria-label="Facebook" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
         <i class="fa-brands fa-facebook-f text-2xl text-white"></i>
       </a>
 
-      <a
-        href="https://instagram.com/thelifeplacesa"
-        target="_blank"
-        rel="noopener"
-        aria-label="Instagram"
-        class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
-      >
+      <a href="https://instagram.com/thelifeplacesa" target="_blank" rel="noopener" aria-label="Instagram" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
         <i class="fa-brands fa-instagram text-2xl text-white"></i>
       </a>
 
-      <a
-        href="https://youtube.com/@thelifeplacesa"
-        target="_blank"
-        rel="noopener"
-        aria-label="YouTube"
-        class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
-      >
+      <a href="https://youtube.com/@thelifeplacesa" target="_blank" rel="noopener" aria-label="YouTube" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
         <i class="fa-brands fa-youtube text-2xl text-white"></i>
       </a>
 
-      <a
-        href="https://open.spotify.com/show/31hbtgq5cvmqr4tyzs2faygvrzaa?si=61b073370e034f21"
-        target="_blank"
-        rel="noopener"
-        aria-label="Spotify"
-        class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
-      >
+      <a href="https://open.spotify.com/show/31hbtgq5cvmqr4tyzs2faygvrzaa?si=61b073370e034f21" target="_blank" rel="noopener" aria-label="Spotify" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
         <i class="fa-brands fa-spotify text-2xl text-white"></i>
       </a>
 
-      <a
-        href="https://podcasts.apple.com/us/podcast/the-life-place/id1816955719"
-        target="_blank"
-        rel="noopener"
-        aria-label="Apple Podcasts"
-        class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition"
-      >
+      <a href="https://podcasts.apple.com/us/podcast/the-life-place/id1816955719" target="_blank" rel="noopener" aria-label="Apple Podcasts" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
         <i class="fa-solid fa-podcast text-2xl text-white"></i>
       </a>
     </div>
 
-    <slot />
+    <!-- COPYRIGHT -->
+    <p class="text-center text-gray-500 text-xs mt-10">
+      © 2025 The Life Place. All rights reserved.
+    </p>
+
   </div>
 </footer>
