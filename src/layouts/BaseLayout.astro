@@ -13,7 +13,8 @@ const {
   description = "Come. See. Jesus.",
 } = Astro.props;
 
-const whatsappNumber = "27XXXXXXXXX";
+const path = Astro.url.pathname; // KEEP THIS
+const whatsappNumber = "27765639460";
 const whatsappMessage = "Hi The Life Place, I'd love to get in touch.";
 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
   whatsappMessage
@@ -40,14 +41,14 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
       crossorigin="anonymous"
     />
 
-    <!-- Inject PUBLIC env vars into window -->
+    <!-- Inject env vars -->
     <script is:inline>
       window.__GOOGLE_PLACES_KEY__ = import.meta.env.PUBLIC_GOOGLE_PLACES_KEY;
       window.PUBLIC_YOUTUBE_API_KEY = import.meta.env.PUBLIC_YOUTUBE_API_KEY;
       window.PUBLIC_YOUTUBE_CHANNEL_ID = import.meta.env.PUBLIC_YOUTUBE_CHANNEL_ID;
     </script>
 
-    <!-- Load Google Maps JS API dynamically -->
+    <!-- Load Google Maps JS API -->
     <script is:inline>
       const key = import.meta.env.PUBLIC_GOOGLE_PLACES_KEY;
       if (key) {
@@ -58,7 +59,7 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
       }
     </script>
 
-    <!-- Load Google Web Components -->
+    <!-- Google Web Components -->
     <script
       src="https://unpkg.com/@googlemaps/extended-component-library/dist/index.min.js"
       defer
@@ -67,27 +68,30 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 
   <body class="min-h-screen flex flex-col bg-white antialiased">
 
-    <!-- 🔥 SPLASH SCREEN -->
-    <div
-      id="splash-screen"
-      class="fixed inset-0 z-[9999] flex items-center justify-center bg-white pointer-events-none"
-    >
-      <div id="splash-inner" class="relative flex items-center justify-center z-10">
-        <!-- Flash background -->
-        <div
-          id="splash-flash"
-          class="absolute inset-0 bg-brand-red opacity-0 rounded-full scale-75 z-0"
-        ></div>
+    <!-- SHOW SPLASH ONLY ON FIRST VISIT + ONLY ON HOMEPAGE -->
+    {path === "/" && (
+      <div
+        id="splash-screen"
+        class="fixed inset-0 z-[9999] flex items-center justify-center bg-white pointer-events-none"
+      >
+        <div id="splash-inner" class="relative flex items-center justify-center z-10">
 
-        <!-- Logo -->
-        <img
-          src="/logo.png"
-          alt="The Life Place"
-          class="relative h-28 w-auto opacity-0 z-20"
-          id="splash-logo"
-        />
+          <!-- Flash background -->
+          <div
+            id="splash-flash"
+            class="absolute inset-0 bg-brand-red opacity-0 rounded-full scale-75 z-0"
+          ></div>
+
+          <!-- Logo -->
+          <img
+            src="/logo.png"
+            alt="The Life Place"
+            class="relative h-28 w-auto opacity-0 z-20"
+            id="splash-logo"
+          />
+        </div>
       </div>
-    </div>
+    )}
 
     <!-- HEADERS -->
     <HeaderMobile class="md:hidden" />
@@ -110,7 +114,7 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 
     <CookieConsent />
 
-    <!-- FOOTER (clean, correct, imported) -->
+    <!-- FOOTER -->
     <Footer />
 
     <!-- External JS -->
@@ -118,7 +122,7 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     <script src="/js/dropdowns.js" defer></script>
     <script src="/js/places-new.js" defer></script>
 
-    <!-- 🔥 SPLASH ANIMATIONS -->
+    <!-- SPLASH ANIMATIONS (global) -->
     <style is:inline>
       #splash-screen.fade-out {
         opacity: 0;
@@ -138,30 +142,45 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
       }
     </style>
 
-    <script is:inline>
-      window.addEventListener("load", () => {
-        const screen = document.getElementById("splash-screen");
-        const logo = document.getElementById("splash-logo");
-        const flash = document.getElementById("splash-flash");
+    <!-- RUN SPLASH ONLY IF FIRST VISIT -->
+    {path === "/" && (
+      <script is:inline>
+        const splashAlreadyShown = sessionStorage.getItem("tlp_splash_shown");
 
-        setTimeout(() => {
-          logo.style.animation = "splash-logo-in 0.9s ease-out forwards";
-        }, 100);
+        if (!splashAlreadyShown) {
+          // Mark splash as shown for this session
+          sessionStorage.setItem("tlp_splash_shown", "yes");
 
-        setTimeout(() => {
-          flash.style.animation = "splash-flash-pulse 0.35s ease-out forwards";
-        }, 700);
+          window.addEventListener("load", () => {
+            const screen = document.getElementById("splash-screen");
+            const logo = document.getElementById("splash-logo");
+            const flash = document.getElementById("splash-flash");
 
-        setTimeout(() => {
-          screen.style.transition = "opacity 0.8s ease-out";
-          screen.style.opacity = "0";
-        }, 1200);
+            setTimeout(() => {
+              logo.style.animation = "splash-logo-in 0.9s ease-out forwards";
+            }, 100);
 
-        setTimeout(() => {
-          screen.style.display = "none";
-        }, 2000);
-      });
-    </script>
+            setTimeout(() => {
+              flash.style.animation = "splash-flash-pulse 0.35s ease-out forwards";
+            }, 700);
+
+            setTimeout(() => {
+              screen.style.transition = "opacity 0.8s ease-out";
+              screen.style.opacity = "0";
+            }, 1200);
+
+            setTimeout(() => {
+              screen.style.display = "none";
+            }, 2000);
+          });
+
+        } else {
+          // Already inside site → hide immediately
+          const screen = document.getElementById("splash-screen");
+          if (screen) screen.style.display = "none";
+        }
+      </script>
+    )}
 
   </body>
 </html>

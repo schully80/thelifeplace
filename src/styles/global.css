@@ -641,3 +641,376 @@ details[open] summary .details-arrow {
 .fade-in-out {
   animation: fadeInOut 3s ease-in-out forwards;
 }
+/* ------------------------------
+   Cinematic Fade-Up Animation
+-------------------------------- */
+@keyframes fadeUpCinematic {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* This class will be toggled by JS */
+.fade-up {
+  opacity: 0;
+  animation: fadeUpCinematic 1s cubic-bezier(.16,1,.3,1) forwards;
+  animation-play-state: paused; /* IMPORTANT */
+}
+
+
+/* Optional duration modifiers */
+.fade-up-slow {
+  animation-duration: 1.6s;
+}
+.fade-up-fast {
+  animation-duration: 0.7s;
+}
+
+.kids-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: white;
+  border: 2px solid #d1d5db;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.kids-dot:hover {
+  transform: scale(1.2);
+  border-color: #B3282D;
+}
+.kids-dot.active {
+  background: #B3282D;
+  border-color: #B3282D;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: #e5e7eb; /* gray-300 */
+}
+
+.dot-active {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: #B3282D; /* brand red */
+  transform: translateX(0);
+}
+#kidsSlides {
+  display: flex;
+  width: 100%;   /* ensures flex layout */
+  height: 100%;
+}
+
+.kids-slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0; /* critical for horizontal sliding */
+}
+
+#kidsActiveBar {
+  height: 100%; /* full height */
+  width: 0%;    /* JS moves this */
+  background-color: #B3282D; /* brand red */
+  border-radius: 9999px;
+}
+.kidsHeroImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: kidsFade 18s infinite;
+}
+
+.kidsHeroImg:nth-child(1) {
+  animation-delay: 0s;
+}
+.kidsHeroImg:nth-child(2) {
+  animation-delay: 6s;
+}
+.kidsHeroImg:nth-child(3) {
+  animation-delay: 12s;
+}
+
+@keyframes kidsFade {
+  0%, 100% { opacity: 0; }
+  8%, 30% { opacity: 1; }
+}
+.kidsStripImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Auto-scrolling horizontal strip */
+@keyframes kidsStripScroll {
+  0%   { transform: translateX(0); }
+  33%  { transform: translateX(-100%); }
+  66%  { transform: translateX(-200%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-photoStrip {
+  animation: kidsStripScroll 22s linear infinite;
+}
+.kidsFadeImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: kidsFade 15s infinite;
+}
+
+.img1 { animation-delay: 0s; }
+.img2 { animation-delay: 5s; }
+.img3 { animation-delay: 10s; }
+
+@keyframes kidsFade {
+  0%   { opacity: 0; }
+  5%   { opacity: 1; }
+  30%  { opacity: 1; }
+  35%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+.kidsFadeImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: kidsFade 15s infinite;
+}
+
+.img1 { animation-delay: 0s; }
+.img2 { animation-delay: 5s; }
+.img3 { animation-delay: 10s; }
+
+@keyframes kidsFade {
+  0%   { opacity: 0; }
+  5%   { opacity: 1; }
+  30%  { opacity: 1; }
+  35%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+/* Cinematic Grain Overlay */
+.kids-grain {
+  background-image: url('/grain.png');
+  opacity: 0.18;               /* adjust 0.1–0.3 for strength */
+  mix-blend-mode: overlay;     /* cinematic blending */
+  background-size: 300px;      /* small grain = real film look */
+  animation: grainMove 9s infinite linear;
+}
+
+/* Subtle movement for realism */
+@keyframes grainMove {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-10px, 5px); }
+  50%  { transform: translate(5px, -10px); }
+  75%  { transform: translate(-5px, 8px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.9; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3.5s ease-in-out infinite;
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-15px) translateX(10px); }
+}
+
+@keyframes float-medium {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-20px) translateX(-10px); }
+}
+
+@keyframes float-slower {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-10px) translateX(15px); }
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-medium 10s ease-in-out infinite;
+}
+
+.animate-float-slower {
+  animation: float-slower 12s ease-in-out infinite;
+}
+
+@keyframes pillPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.animate-pill {
+  animation: pillPulse 3.5s ease-in-out infinite;
+}
+
+
+/* fade + pulse on scroll */
+.pulse-in {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: transform 1.2s ease-out, opacity 1.2s ease-out;
+}
+
+.pulse-in.visible {
+  opacity: 1;
+  transform: scale(1.03);
+}
+/* AUTO-ANIMATE — cinematic grow on page load */
+.pulse-auto {
+  animation: 
+    growSettleAuto 1.35s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+    pulseLoop 6s ease-in-out infinite 1.35s; /* starts right after entrance finishes */
+}
+
+@keyframes pulseLoop {
+  0%, 100% {
+    transform: scale(1.1);
+    filter: brightness(0.55);
+  }
+  50% {
+    transform: scale(1.18); /* more visible zoom */
+    filter: brightness(0.75); /* brighter pulse */
+  }
+}
+@keyframes growSettleAuto {
+  0% {
+    opacity: 0.85;
+    transform: scale(1.05); /* slight zoomed-in start */
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.15); /* cinematic overshoot */
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.1); /* settle with slight movement */
+  }
+}
+
+/* 👇 Cinematic grow → shrink animation */
+.pulse-zoom-cycle {
+  animation: zoomCycle 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes zoomCycle {
+  0% {
+    opacity: 0.9;
+    transform: scale(1.00);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1.08); /* 🔥 zoom in */
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.00); /* 🔥 zoom back out */
+  }
+}
+/* /* SMOOTH CINEMATIC ZOOM — no jump, no snap */
+.cine-zoom-smooth {
+  animation: cineZoomSmooth 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: center center;
+}
+
+@keyframes cineZoomSmooth {
+  0% {
+    opacity: 1;
+    transform: scale(1.05); /* matches natural starting look → no jump */
+  }
+  50% {
+    transform: scale(1.12); /* cinematic push-in */
+  }
+  100% {
+    transform: scale(1.02); /* elegant settle */
+  }
+}
+
+/* BIG-MOTION CINEMATIC ZOOM (no loop, no snap) */
+.cine-zoom {
+  animation: cineZoom 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: center center;
+}
+
+@keyframes cineZoom {
+  0% {
+    opacity: 1;
+    transform: scale(1.05); /* match real starting look = NO jump */
+  }
+  50% {
+    transform: scale(1.15); /* BIG cinematic push-in */
+  }
+  100% {
+    transform: scale(1.02); /* settle smoothly */
+  }
+}
+
+/* APPLE-STYLE ULTRA-ELEGANT ZOOM (very smooth, no loop) */
+.cine-zoom-apple {
+  animation: cineZoomApple 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: center center;
+}
+
+@keyframes cineZoomApple {
+  0% {
+    opacity: 1;
+    transform: scale(1.02);  /* tiny start zoom, NO jump */
+  }
+  50% {
+    transform: scale(1.06);  /* elegant tiny push-in */
+  }
+  100% {
+    transform: scale(1.01);  /* gentle settle */
+  }
+}
+
+/* Base state — perfectly still */
+.cine-zoom-apple-hover {
+  transform: scale(1);
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center center;
+}
+
+/* Hover state — elegant Apple push-in */
+.cine-zoom-apple-hover:hover {
+  transform: scale(1.06);
+}
+
+
+/* Apple-style smooth horizontal push-in */
+.cine-zoom-apple-bar {
+  transform: scaleX(1);
+  transform-origin: center center;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cine-zoom-apple-bar:hover {
+  transform: scaleX(1.12); /* wider only */
+}
