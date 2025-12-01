@@ -4,45 +4,41 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 <BaseLayout title="What to Expect">
 
-  {/* FULL-BLEED WRAPPER */}
-  <div class="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
+{/* FULL-BLEED WRAPPER */}
+<div class="w-screen max-w-none relative left-1/2 right-1/2 -mx-[50vw]">
 
-    <!-- HERO SECTION — Cinematic Full-Width Banner -->
-<section 
-  class="relative h-[70vh] md:h-[80vh] lg:h-[90vh] overflow-hidden flex items-center justify-center"
-  style="background: #000 url('/wide-strip.jpg') center/cover no-repeat; filter: brightness(1.0);"
->
+  <!-- HERO SECTION — Clean, No Animations, No Flash -->
+  <section 
+    class="relative h-[70vh] md:h-[80vh] lg:h-[90vh] overflow-hidden flex items-center justify-center cine-zoom-smooth"
+  >
 
-      <!-- Hero background image (fade/zoom after load) -->
-      <img 
-        id="hero-image"
-        src="/wide-strip.jpg"
-        alt="The Life Place Community Worship"
-        class="absolute inset-0 w-full h-full object-cover brightness-[0.55] opacity-0"
-      />
+    <!-- INSTANT BACKGROUND IMAGE (no fade, no opacity, no transition) -->
+    <img 
+      id="hero-image"
+      src="/wide-strip2.jpg"
+      alt="The Life Place Community Worship"
+      class="absolute inset-0 w-full h-full object-cover object-center brightness-[0.55]"
+    />
 
-      <!-- Soft overlay -->
-      <div class="absolute inset-0 bg-black/20"></div>
+    <!-- Soft overlay -->
+    <div class="absolute inset-0 bg-black/20"></div>
 
-      <!-- Centered text (also fades in with image) -->
-      <div
-        id="hero-text"
-<div class="absolute top-[25%]  -translate-x-1/2 w-full px-6 text-center">
+    <!-- TEXT BLOCK (centered and stable) -->
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-full px-6 text-center">
+      <h3
+        class="text-white text-3xl md:text-5xl lg:text-6xl font-extrabold cine-zoom-smooth
+               leading-snug md:leading-[1.3]
+               tracking-[0.02em] md:tracking-[0.04em]
+               max-w-4xl mx-auto drop-shadow-xl"
       >
-        <h3
-          class="text-white text-3xl md:text-5xl lg:text-6xl font-extrabold
-                 leading-snug md:leading-[1.3]
-                 tracking-[0.02em] md:tracking-[0.04em]
-                 max-w-4xl mx-auto drop-shadow-xl"
-        >
-          At the heart of everything we believe and do is<br />
-          <span class="text-brand-red">Jesus</span> and His finished work.
-        </h3>
-      </div>
+        At the heart of everything we believe and do is<br />
+        <span class="text-brand-red">Jesus</span> and His finished work.
+      </h3>
+    </div>
 
-    </section>
-  </div>
-  
+  </section>
+</div>
+
 
   <!-- INTRO SECTION — Overlapping Minimal Block -->
   <section class="w-full bg-white py-20 md:py-28 -mt-28 md:-mt-40 relative z-[5] rounded-3xl">
@@ -472,60 +468,68 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     }
   </style>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      /* -----------------------------
-         1) Kids carousel + bar
-      ------------------------------ */
-      const slidesEl = document.getElementById("kidsSlides");
-      const activeBar = document.getElementById("kidsActiveBar");
+ <script>
+document.addEventListener("DOMContentLoaded", () => {
 
-      if (slidesEl && activeBar) {
-        const totalSlides = slidesEl.children.length;
-        let index = 0;
-        const segment = 100 / totalSlides;
+  /* -----------------------------------
+     1 — Kids carousel
+  ----------------------------------- */
+  const slidesEl = document.getElementById("kidsSlides");
+  const activeBar = document.getElementById("kidsActiveBar");
 
-        function updateProgressBar() {
-          activeBar.style.width = `${segment}%`;
-          activeBar.style.transform = `translateX(${index * segment}%)`;
-        }
+  if (slidesEl && activeBar) {
+    const totalSlides = slidesEl.children.length;
+    let index = 0;
+    const segment = 100 / totalSlides;
 
-        function updateSlide() {
-          slidesEl.style.transform = `translateX(-${index * 100}%)`;
-          updateProgressBar();
-        }
+    function updateProgressBar() {
+      activeBar.style.width = `${segment}%`;
+      activeBar.style.transform = `translateX(${index * segment}%)`;
+    }
 
-        function nextSlide() {
-          index = (index + 1) % totalSlides;
-          updateSlide();
-        }
+    function updateSlide() {
+      slidesEl.style.transform = `translateX(-${index * 100}%)`;
+      updateProgressBar();
+    }
 
-        // Init and start auto-play
-        updateSlide();
-        setInterval(nextSlide, 2600);
-      }
+    function nextSlide() {
+      index = (index + 1) % totalSlides;
+      updateSlide();
+    }
 
-      /* -----------------------------
-         2) Hero fade + zoom sync
-      ------------------------------ */
-      const heroImg = document.getElementById("hero-image");
-      const heroText = document.getElementById("hero-text");
+    updateSlide();
+    setInterval(nextSlide, 2600);
+  }
 
-      if (heroImg && heroText) {
-        const startHero = () => {
-          heroImg.classList.remove("opacity-0");
-          heroText.classList.remove("opacity-0");
-          heroImg.classList.add("cine-zoom-smooth");
-          heroText.classList.add("cine-zoom-smooth");
-        };
+  /* -----------------------------------
+     2 — HERO IMAGE LOADING (NO FLASH)
+     Blur placeholder → real image swap
+  ----------------------------------- */
+  const heroImg = document.getElementById("hero-image");
+  const heroBlur = document.getElementById("hero-blur");
 
-        if (heroImg.complete) {
-          startHero();
-        } else {
-          heroImg.addEventListener("load", startHero);
-        }
-      }
-    });
-  </script>
+  const showRealHero = () => {
+    if (!heroImg || !heroBlur) return;
+
+    // Show real image
+    heroImg.style.opacity = "1";
+
+    // Fade out blur placeholder
+    heroBlur.style.transition = "opacity 400ms ease-out";
+    heroBlur.style.opacity = "0";
+  };
+
+  if (heroImg) {
+    if (heroImg.complete) {
+      showRealHero();
+    } else {
+      heroImg.addEventListener("load", showRealHero);
+    }
+  }
+
+});
+</script>
+
+
 
 </BaseLayout>
