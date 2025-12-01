@@ -192,23 +192,30 @@ const isActive = (href) =>
 
   
         <!-- MESSAGES -->
-     <a
+   <a
   href="/messages/"
-   class={`block px-4 py-3 rounded-full text-base ${
-            isActive("/messages/")
-              ? "text-brand-red font-semibold bg-red-50"
-              : "text-brand-darkgray hover:bg-gray-50"
-          }`}
-        >Messages</a>
+  class={`block px-4 py-3 rounded-full text-base ${
+    isActive("/messages/")
+      ? "text-brand-red font-semibold bg-red-50"
+      : "text-brand-darkgray hover:bg-gray-50"
+  }`}
+>
+  Messages
+</a>
+
 
  <!-- LIVE -->
-      <a href="/live/" 
-     class={`block px-4 py-3 rounded-full text-base ${
-            isActive("/live/")
-              ? "text-brand-red font-semibold bg-red-50"
-              : "text-brand-darkgray hover:bg-gray-50"
-          }`}
-        >Live</a>
+ <a
+  href="/live/"
+  class={`block px-4 py-3 rounded-full text-base ${
+    isActive("/live/")
+      ? "text-brand-red font-semibold bg-red-50"
+      : "text-brand-darkgray hover:bg-gray-50"
+  }`}
+>
+  Live
+</a>
+
 
 
       <!-- MINISTRIES ACCORDION -->
