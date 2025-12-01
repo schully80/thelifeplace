@@ -89,13 +89,19 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       <span class="relative inline-block font-extrabold mx-2">
 
         <!-- JESUS PILL -->
-        <span
-          class="inline-block px-3 py-0 rounded-[9px] bg-brand-red text-white font-bold border-4 border-white shadow-lg tracking-wide rotate-[-2deg] relative"
-        >
-          Jesus
-          <span class="absolute top-1 left-1 w-2 h-2 rounded-full border border-gray-700 shadow bg-gray-300"></span>
-          <span class="absolute top-1 right-1 w-2 h-2 rounded-full border border-gray-700 shadow bg-gray-300"></span>
-        </span>
+          <!-- Retro sign with nails -->
+          <span class="relative inline-block px-3 py-0 rounded-[9px] bg-[#B3282D] text-white font-bold border-4 border-white shadow-lg drop-shadow-xl tracking-wide rotate-[-2deg]">
+            Jesus
+            <!-- Left nail -->
+            <span
+              class="absolute top-1 left-1 w-2 h-2 rounded-full border border-gray-700 shadow"
+              style="background: radial-gradient(circle at 30% 30%, #f0f0f0, #a0a0a0 60%, #5a5a5a);"
+            />
+            <!-- Right nail -->
+            <span
+              class="absolute top-1 right-1 w-2 h-2 rounded-full border border-gray-700 shadow"
+              style="background: radial-gradient(circle at 30% 30%, #f0f0f0, #a0a0a0 60%, #5a5a5a);"
+            />
 
         <!-- ARROW POINTER TO JESUS (chunky triple arrow, pointing down-left, animated) -->
         <span class="finger-pointer absolute top-1/2 -translate-y-1/2 right-[-80px] md:right-[-140px]">
