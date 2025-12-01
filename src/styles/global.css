@@ -934,30 +934,6 @@ details[open] summary .details-arrow {
     transform: scale(1.00); /* 🔥 zoom back out */
   }
 }
-/* /* SMOOTH CINEMATIC ZOOM — no jump, no snap */
-.cine-zoom-smooth {
-  animation: cineZoomSmooth 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  transform-origin: center center;
-}
-
-@keyframes cineZoomSmooth {
-  0% {
-    opacity: 1;
-    transform: scale(1.05); /* matches natural starting look → no jump */
-  }
-  50% {
-    transform: scale(1.12); /* cinematic push-in */
-  }
-  100% {
-    transform: scale(1.02); /* elegant settle */
-  }
-}
-
-/* BIG-MOTION CINEMATIC ZOOM (no loop, no snap) */
-.cine-zoom {
-  animation: cineZoom 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  transform-origin: center center;
-}
 
 @keyframes cineZoom {
   0% {

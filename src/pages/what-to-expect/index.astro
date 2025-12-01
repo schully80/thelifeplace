@@ -3,84 +3,529 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="What to Expect">
-  <section class="container-x py-14 md:py-20">
-    <h1 class="text-3xl md:text-3xl font-semibold text-center">What to Expect</h1>
 
-    <!-- Slogan -->
-    <p class="mt-6 text-lg sm:text-2xl text-center text-gray-700">
-      Come. See. <span class="text-[#B3282D]">Jesus</span>
-    </p>
+  {/* FULL-BLEED WRAPPER */}
+  <div class="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
 
-    <!-- Existing grid -->
-    <div class="mt-10 grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <!-- HERO SECTION — Cinematic Full-Width Banner -->
+<section 
+  class="relative h-[70vh] md:h-[80vh] lg:h-[90vh] overflow-hidden flex items-center justify-center"
+  style="background: #000 url('/wide-strip.jpg') center/cover no-repeat; filter: brightness(1.0);"
+>
 
-      <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-        <h3 class="text-xl font-bold mb-2 text-center">Hear the Good News</h3>
-        <p class="text-gray-700 text-center">Clear, gospel-rich teaching from the Bible.</p>
+      <!-- Hero background image (fade/zoom after load) -->
+      <img 
+        id="hero-image"
+        src="/wide-strip.jpg"
+        alt="The Life Place Community Worship"
+        class="absolute inset-0 w-full h-full object-cover brightness-[0.55] opacity-0"
+      />
+
+      <!-- Soft overlay -->
+      <div class="absolute inset-0 bg-black/20"></div>
+
+      <!-- Centered text (also fades in with image) -->
+      <div
+        id="hero-text"
+<div class="absolute top-[25%]  -translate-x-1/2 w-full px-6 text-center">
+      >
+        <h3
+          class="text-white text-3xl md:text-5xl lg:text-6xl font-extrabold
+                 leading-snug md:leading-[1.3]
+                 tracking-[0.02em] md:tracking-[0.04em]
+                 max-w-4xl mx-auto drop-shadow-xl"
+        >
+          At the heart of everything we believe and do is<br />
+          <span class="text-brand-red">Jesus</span> and His finished work.
+        </h3>
       </div>
 
-      <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-        <h3 class="text-xl font-bold mb-2 text-center">A diverse community</h3>
-        <p class="text-gray-700 text-center">Multiracial and multigenerational — you belong here.</p>
-      </div>
+    </section>
+  </div>
+  
 
-      <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-        <h3 class="text-xl font-bold mb-2 text-center">Music, singing & dancing</h3>
-        <p class="text-gray-700 text-center">We echo heaven's joy with music singing and dancing.</p>
-      </div>
+  <!-- INTRO SECTION — Overlapping Minimal Block -->
+  <section class="w-full bg-white py-20 md:py-28 -mt-28 md:-mt-40 relative z-[5] rounded-3xl">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-7xl font-extrabold text-gray-900 leading-tight">
+        What to Expect
+      </h2>
+    </div>
+  </section>
 
-      <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-        <h3 class="text-xl font-bold mb-2 text-center">The Lord’s Table</h3>
-        <p class="text-gray-700 text-center">We gather at the Table to remember what Jesus did for us.</p>
-      </div>
-
-      <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-        <h3 class="text-xl font-bold mb-2 text-center">Extravagant generosity</h3>
-        <p class="text-gray-700 text-center">Made rich by what Jesus has done, we are generous and share in all things.</p>
-      </div>
-
-      <div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-        <h3 class="text-xl font-bold mb-2 text-center">Go live the story</h3>
-        <p class="text-gray-700 text-center">We are then sent out to live the story of Jesus aloud in our city, nation and the world.</p>
-      </div>
-
-      <!-- ⭐ NEW: Ministries Card -->
-<div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-  <h3 class="text-xl font-bold mb-2 text-center">Life at the Life Place</h3>
-
-  <p class="mt-2 text-gray-700 text-center">
-The Life Place is made up of communities that help
-people Come. See. <span class="text-[#B3282D]">Jesus</span> and live out His story in every sphere of life.
-  </p>
-</div>
-
-  <!-- Kids Ministry (Coming Soon) -->
-<div class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red text-center space-y-4">
-
-  <!-- Header -->
-  <h3 class="text-xl font-bold text-brand-darkgray">
-    Kids @The Life Place
-  </h3>
-
-  <!-- Description -->
-  <p class="text-gray-700 leading-relaxed">
-    At present there is no kids church. As Jesus supplies the resources needed,
-    we will launch one where our children too will <em>Come. See. <span class="text-[#B3282D]">Jesus</span></em>
-  </p>
-
-  <p class="text-gray-700">
-    Children are welcome to remain with their parents during service.
-  </p>
-
-  <!-- Coming Soon Pill (bottom, enlarged) -->
-  <div class="pt-2">
-    <span class="inline-block rounded-full bg-brand-red text-white px-5 py-2 text-sm font-semibold tracking-wide">
-      Launching Soon
-    </span>
+  <!-- SOFT DIVIDER -->
+  <div class="w-full my-26">
+    <div class="h-[4px] w-full bg-gradient-to-r from-transparent via-gray-900 to-transparent"></div>
   </div>
 
-</div>
+  <!-- SECTION — Massive Left Image + Right Banner Text -->
+  <section class="w-full pt-20 pb-28 md:pt-28 md:pb-40 bg-white">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-0 items-center px-6 -mt-10 md:-mt-16">
 
+      <!-- LEFT IMAGE -->
+      <div class="relative w-full h-[420px] md:h-[520px] lg:h-[620px] overflow-hidden rounded-3xl shadow-lg cine-zoom-apple-hover">
+        <img 
+          src="/what-teach3.jpg"
+          alt="Teaching at The Life Place"
+          class="absolute inset-0 w-full h-full object-cover object-center"
+        />
+      </div>
+
+      <!-- RIGHT BANNER TEXT -->
+      <div class="flex items-center justify-center md:pl-12 lg:pl-20 -mt-10 md:-mt-16 cine-zoom-apple-hover">
+        <h2 class="text-4xl md:text-6xl lg:text-6xl font-extrabold text-gray-900 leading-tight max-w-xl text-center">
+          We open our bibles<br />
+          to see <span class="text-brand-red">Jesus</span><br />
+          and hear the<br />
+          good news.
+        </h2>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ⭐ SLOGAN BLOCK -->
+  <div id="slogan-block" class="w-full text-center py-2 md:py-6 bg-white relative -mt-10 md:-mt-16">
+    <p class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 inline-block relative">
+
+      Come. See.
+
+      <span class="relative inline-block font-extrabold mx-2">
+
+        <!-- JESUS PILL -->
+        <span
+          class="inline-block px-3 py-0 rounded-[9px] bg-brand-red text-white font-bold border-4 border-white shadow-lg tracking-wide rotate-[-2deg] relative"
+        >
+          Jesus
+          <span class="absolute top-1 left-1 w-2 h-2 rounded-full border border-gray-700 shadow bg-gray-300"></span>
+          <span class="absolute top-1 right-1 w-2 h-2 rounded-full border border-gray-700 shadow bg-gray-300"></span>
+        </span>
+
+        <!-- ARROW POINTER TO JESUS (chunky triple arrow, pointing down-left, animated) -->
+        <span class="finger-pointer absolute top-1/2 -translate-y-1/2 right-[-80px] md:right-[-140px]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-20 h-20 md:w-28 md:h-28 text-brand-red rotate-90"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 7l7 7 7-7" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7 7 7-7" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7 7 7-7" />
+          </svg>
+        </span>
+
+      </span>
+    </p>
+  </div>
+  <!-- END SLOGAN BLOCK -->
+
+  <!-- COMMUNITY — Full-Width Banner with Headline -->
+  <div class="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen my-24">
+    <section class="relative h-[60vh] md:h-[70vh] lg:h-[80vh] overflow-hidden cine-zoom-apple-hover">
+
+      <img 
+        src="/what-community7.png"
+        alt="Community at The Life Place"
+        class="absolute inset-0 w-full h-full object-cover brightness-[0.55] scale-110"
+      />
+
+      <div class="absolute inset-0 bg-black/30"></div>
+
+      <div class="relative z-10 flex items-center justify-center w-full h-full px-6 text-center">
+        <h2
+          class="text-white text-4xl md:text-6xl lg:text-7xl font-extrabold
+                 leading-snug md:leading-[1.3]
+                 tracking-[0.02em] md:tracking-[0.04em]
+                 max-w-4xl mx-auto drop-shadow-xl"
+        >
+          <span class="text-4xl md:text-6xl lg:text-7xl block">Community</span>
+          <span class="block mt-3 md:mt-4">Multiracial.</span>
+          <span class="block mt-3 md:mt-4">Multigenerational.</span>
+        </h2>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- SECTION — Larger Photo, Left Image, Right Text -->
+  <section class="w-full py-20 md:py-24 bg-gray-50">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center px-6">
+
+      <!-- BIG HEADLINE -->
+      <div class="max-w-4xl mx-auto px-6 text-center -mt-6 mb-10">
+        <h3 class="cine-zoom-apple-hover text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+          With music and dancing, we celebrate <span class="text-brand-red">Jesus</span> with joy, 
+          beauty, and wonder.
+        </h3>
+      </div>
+
+      <!-- LARGE IMAGE -->
+      <div class="cine-zoom-apple-hover w-full h-[420px] md:h-[520px] lg:h-[620px] overflow-hidden rounded-3xl shadow-lg">
+        <img 
+          src="/what-worship.jpg"
+          alt="Worship at The Life Place"
+          class="w-full h-full object-cover"
+        />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION — Big Headline Over Two Photos (Full-Bleed) -->
+  <div class="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen mt-16 md:mt-24 mb-20">
+    <section class="relative h-[60vh] md:h-[75vh] lg:h-[85vh] overflow-hidden cine-zoom-apple-hover">
+
+      <!-- TWO-PHOTO BACKGROUND (side-by-side) -->
+      <div class="absolute inset-0 grid grid-cols-2">
+        <img 
+          src="/what-give.jpg"
+          alt="Extravagant Generosity"
+          class="w-full h-full object-cover"
+        />
+        <img 
+          src="/what-family3.jpg"
+          alt="Helping Others Passionately"
+          class="w-full h-full object-cover"
+        />
+      </div>
+
+      <!-- Soft overlay for readability -->
+      <div class="absolute inset-0 bg-black/40"></div>
+
+      <!-- CENTERED HEADLINE -->
+      <div class="relative z-10 flex items-center justify-center w-full h-full px-6 text-center">
+        <h2
+          class="text-white text-3xl md:text-5xl lg:text-6xl font-extrabold
+                 leading-snug md:leading-[1.3]
+                 tracking-[0.02em] md:tracking-[0.04em]
+                 max-w-4xl mx-auto drop-shadow-xl"
+        >
+          We give extravagantly.<br />
+          <span class="block mt-3 md:mt-4">We help others passionately.</span>
+        </h2>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- SECTION — Cinematic Communion Banner -->
+  <section class="w-full py-24 md:py-32 bg-white">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center px-6">
+
+      <!-- LEFT: COMMUNION PHOTO -->
+      <div class="cine-zoom-apple-hover w-full h-[420px] md:h-[550px] lg:h-[650px] -mt-14 mb-20 overflow-hidden rounded-3xl shadow-xl">
+        <img 
+          src="/what-table2.jpg"
+          alt="The Lord’s Table"
+          class="w-full h-full object-cover object-center scale-105"
+        />
+      </div>
+
+      <!-- RIGHT: MASSIVE TEXT -->
+      <div class="flex items-center justify-center text-center md:text-left -mt-14 mb-20 cine-zoom-apple-hover">
+        <h2 class="text-center text-4xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 leading-tight max-w-xl">
+          At <br /> the Lord&rsquo;s Table<br />
+          we remember<br />
+          <span class="text-brand-red">Jesus</span> and His finished work<br />
+        </h2>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FINAL SECTION — Sent Out Banner (Full-Bleed) -->
+  <div class="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen -mt-14 mb-20">
+    <section class="relative h-[60vh] md:h-[75vh] lg:h-[85vh] overflow-hidden cine-zoom-apple-hover">
+
+      <!-- BACKGROUND IMAGE -->
+      <img 
+        src="/what-sent5.jpg"
+        alt="Sent Out in the Story of Jesus"
+        class="absolute inset-0 w-full h-full object-cover brightness-[0.55] scale-110"
+      />
+
+      <!-- SOFT OVERLAY -->
+      <div class="absolute inset-0 bg-black/10"></div>
+
+      <!-- TEXT, SHIFTED LEFT -->
+      <div
+        class="relative z-10 flex items-center justify-start w-full h-full px-6 md:px-12 pb-10 md:pb-16 text-left"
+      >
+        <h2
+          class="text-white text-3xl md:text-5xl lg:text-6xl font-extrabold
+                 leading-snug md:leading-[1.3]
+                 tracking-[0.02em] md:tracking-[0.04em]
+                 max-w-4xl mr-auto drop-shadow-xl"
+        >
+          We are sent out to live<br />
+          <span class="text-brand-red">Jesus'</span> story <br />in our city,<br />
+          our nation, <br /> and the world.
+        </h2>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- KIDS SECTION WRAPPER -->
+  <section class="w-full bg-gray-50 py-24 md:py-32">
+
+    <!-- TITLE BLOCK — Apple Minimal -->
+    <div class="text-center px-6 mb-16 -mt-10 md:-mt-16">
+
+      <p class="text-6xl md:text-6xl text-gray-900 font-extrabold mb-4">
+        Kids @ The Life Place
+      </p>
+
+      <h2 class="text-2xl md:text-4xl font-semibold text-gray-900 leading-tight">
+        A Place for Children to Come. See. <span class="text-brand-red">Jesus</span>
+      </h2>
+
+      <p class="mt-8 text-lg md:text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
+        As <span class="text-brand-red">Jesus</span> supplies the resources, we will launch one where our children too  
+        experience His truth, goodness, beauty, and kindness.
+      </p>
+
+      <div class="w-full flex justify-center text-center mt-16 cine-zoom-apple-hover">
+        <p class="text-2xl md:text-3xl lg:text-4xl font-semibold max-w-3xl leading-tight tracking-tight text-gray-900">
+          Children are welcome to remain with their parents during service.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- CAROUSEL BOX -->
+    <div class="max-w-5xl mx-auto px-6">
+
+      <div class="relative mx-auto rounded-3xl overflow-hidden shadow-2xl w-full aspect-[5/4] bg-gray-200 cine-zoom-apple-hover">
+
+        <!-- SLIDES WRAPPER -->
+        <div id="kidsSlides" class="flex h-full w-full transition-transform duration-[900ms] ease-in-out">
+          <img src="/what-kids.jpg" class="kids-slide-img" />
+          <img src="/what-kids2.jpg" class="kids-slide-img" />
+          <img src="/what-kids3.jpg" class="kids-slide-img" />
+          <img src="/what-kids.jpg" class="kids-slide-img" />
+          <img src="/what-kids2.jpg" class="kids-slide-img" />
+          <img src="/what-kids3.jpg" class="kids-slide-img" />
+        </div>
+
+      </div>
+
+      <!-- SLIDING BAR INDICATOR -->
+      <div class="relative w-full flex justify-center mt-8">
+        <div class="relative w-40 h-4 bg-gray-300 rounded-full overflow-hidden shadow-inner">
+          <div 
+            id="kidsActiveBar" 
+            class="absolute top-0 left-0 h-full bg-black rounded-full transition-all duration-500">
+          </div>
+        </div>
+      </div>
+
+    </div>
 
   </section>
+
+  <!-- NEXT STEPS — Apple Cinematic CTA Rows -->
+  <section class="w-full py-18 md:py-[10rem] bg-white">
+    <div class="max-w-5xl mx-auto px-6 space-y-28">
+
+      <!-- WATCH MESSAGES CTA ROW -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-10 border-b border-gray-900 pb-16">
+
+        <div class="text-center md:text-left max-w-xl -mt-14 mb-20">
+          <h3 class="text-4xl md:text-5xl font-semibold text-gray-900 leading-tight">
+            Watch Messages
+          </h3>
+
+          <p class="mt-5 text-xl md:text-2xl text-gray-600 leading-relaxed">
+            Hear gospel-rich, <span class="text-brand-red">Jesus</span>-centred teaching from our Sunday gatherings.
+          </p>
+        </div>
+
+        <a
+          href="/messages/"
+          class="mx-auto md:mx-0 inline-flex items-center gap-4 text-brand-red font-bold tracking-wide text-2xl md:text-5xl hover:opacity-85 transition cine-zoom-apple-hover -mt-14 mb-20"
+        >
+          Watch
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 md:w-12 md:h-12"
+               fill="none" stroke="currentColor" stroke-width="2"
+               viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+        </a>
+
+      </div>
+
+      <!-- GENEROSITY CTA ROW -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 py-2 md:py-3">
+
+        <div class="text-center md:text-left max-w-xl">
+          <h3 class="text-4xl md:text-5xl font-semibold text-gray-900 leading-tight">
+            Generosity
+          </h3>
+
+          <p class="mt-2 text-xl md:text-2xl text-gray-600 leading-snug">
+            Made rich by what <span class="text-brand-red">Jesus</span> has done, we are extravagant in our generosity and share in all things.
+          </p>
+        </div>
+
+        <a
+          href="/give/"
+          class="mx-auto md:mx-0 inline-flex items-center gap-2 text-brand-red font-bold tracking-wide text-2xl md:text-5xl hover:opacity-85 transition cine-zoom-apple-hover"
+        >
+          Give
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 md:w-10 md:h-10"
+               fill="none" stroke="currentColor" stroke-width="2"
+               viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <style>
+    .kids-slide-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* Kids sliding bar — JS controls width + translateX */
+    #kidsActiveBar {
+      width: 0%;
+    }
+
+    /* Hero + cinematic zoom (global to avoid jump) */
+    .cine-zoom-smooth {
+      transform-origin: center center;
+      transform: scale(1.05);               /* base state = first keyframe */
+      animation: cineZoomSmooth 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      will-change: transform;
+    }
+
+    @keyframes cineZoomSmooth {
+      0% {
+        opacity: 1;
+        transform: scale(1.05);             /* same as base → no jump */
+      }
+      50% {
+        transform: scale(1.12);             /* smooth cinematic push-in */
+      }
+      100% {
+        transform: scale(1.02);             /* gentle settle */
+      }
+    }
+
+    /* APPLE-STYLE ULTRA-ELEGANT ZOOM (non-hover, if you want to apply later) */
+    .cine-zoom-apple {
+      animation: cineZoomApple 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transform-origin: center center;
+    }
+
+    @keyframes cineZoomApple {
+      0% {
+        opacity: 1;
+        transform: scale(1.02);
+      }
+      50% {
+        transform: scale(1.06);
+      }
+      100% {
+        transform: scale(1.01);
+      }
+    }
+
+    /* Apple-style hover zoom */
+    .cine-zoom-apple-hover {
+      transform: scale(1);
+      transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-origin: center center;
+    }
+
+    .cine-zoom-apple-hover:hover {
+      transform: scale(1.06);
+    }
+
+    /* Apple-style horizontal bar hover (if you ever use it) */
+    .cine-zoom-apple-bar {
+      transform: scaleX(1);
+      transform-origin: center center;
+      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cine-zoom-apple-bar:hover {
+      transform: scaleX(1.12);
+    }
+
+    @keyframes fingerBounce {
+      0%, 100% { transform: translateY(-50%) translateX(0); }
+      50%      { transform: translateY(-50%) translateX(-10px); }
+    }
+
+    .finger-pointer {
+      animation: fingerBounce 1.8s ease-in-out infinite;
+    }
+  </style>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      /* -----------------------------
+         1) Kids carousel + bar
+      ------------------------------ */
+      const slidesEl = document.getElementById("kidsSlides");
+      const activeBar = document.getElementById("kidsActiveBar");
+
+      if (slidesEl && activeBar) {
+        const totalSlides = slidesEl.children.length;
+        let index = 0;
+        const segment = 100 / totalSlides;
+
+        function updateProgressBar() {
+          activeBar.style.width = `${segment}%`;
+          activeBar.style.transform = `translateX(${index * segment}%)`;
+        }
+
+        function updateSlide() {
+          slidesEl.style.transform = `translateX(-${index * 100}%)`;
+          updateProgressBar();
+        }
+
+        function nextSlide() {
+          index = (index + 1) % totalSlides;
+          updateSlide();
+        }
+
+        // Init and start auto-play
+        updateSlide();
+        setInterval(nextSlide, 2600);
+      }
+
+      /* -----------------------------
+         2) Hero fade + zoom sync
+      ------------------------------ */
+      const heroImg = document.getElementById("hero-image");
+      const heroText = document.getElementById("hero-text");
+
+      if (heroImg && heroText) {
+        const startHero = () => {
+          heroImg.classList.remove("opacity-0");
+          heroText.classList.remove("opacity-0");
+          heroImg.classList.add("cine-zoom-smooth");
+          heroText.classList.add("cine-zoom-smooth");
+        };
+
+        if (heroImg.complete) {
+          startHero();
+        } else {
+          heroImg.addEventListener("load", startHero);
+        }
+      }
+    });
+  </script>
+
 </BaseLayout>
