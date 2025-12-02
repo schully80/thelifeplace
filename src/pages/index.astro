@@ -3,18 +3,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="The Life Place">
-
 <!-- HERO / Welcome -->
 
 <!-- Break parent container so hero is truly full width -->
-<div class="w-screen max-w-none relative left-1/2 right-1/2 -mx-[50vw]">
+<div class="w-screen max-w-none relative left-1/2 right-1/2 -mx-[50vw] cine-zoom-apple-hover">
 
 <section
   class="relative w-screen h-screen overflow-hidden flex items-center justify-center 
          mt-[96px] -translate-y-[96px] md:mt-[96px] md:-translate-y-[96px]"
 >
   <!-- BACKGROUND -->
-  <div class="absolute inset-0 z-0">
+  <div class="absolute inset-0 z-0 bg-black">
     <img
       src="/hero.jpg"
       alt="Welcome to The Life Place"
@@ -25,34 +24,56 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   </div>
 
   <!-- TEXT CONTENT -->
-  <div class="relative z-10 text-center fade-in-slow max-w-4xl mx-auto px-8">
-    <h1 class="text-white text-5xl md:text-6xl leading-tight font-extrabold flex items-center justify-center gap-3 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)] mb-8 md:mb-12">
-      <span>OUR WELCOME</span>
+<div class="relative z-10 text-center max-w-6xl mx-auto px-4 md:px-6">
+
+    <h1 class="text-white text-5xl md:text-7xl leading-tight font-extrabold drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)] mb-8 md:mb-12 cine-zoom-apple-hover">
+      OUR WELCOME
     </h1>
 
     <!-- Motion-stagger paragraphs -->
-    <p class="text-white  font-light text-2xl md:text-4xl fade-in-up delay-300 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
-      We open wide our doors with a welcome from
-      <span class="text-white">Jesus</span>,
+<p class="text-white font-semibold text-2xl md:text-5xl leading-[1.35] md:leading-[1.4] drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
+      We open wide our doors with a welcome from <br /> 
+      <span class="text-brand-red">Jesus</span>,
     </p>
 
-    <p class="text-white font-light text-2xl md:text-4xl fade-in-up delay-500 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
-      the <span class="text-white">Embracer</span> of the outsider,
+    <!-- FIXED SPACING + LOCKED CLAUSE -->
+<p class="text-white font-semibold text-2xl md:text-5xl leading-[1.35] md:leading-[1.4] drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
+      the 
+      <span class="whitespace-nowrap">
+        <span class="text-brand-red">Embracer</span> of
+      </span>
+      the outsider,
     </p>
 
-    <p class="text-white font-light text-2xl md:text-4xl fade-in-up delay-700 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
-      the <span class="text-white">Defender</span> of the guilty,
+<p class="text-white font-semibold text-2xl md:text-5xl leading-[1.35] md:leading-[1.4] drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
+      the 
+      <span class="whitespace-nowrap">
+        <span class="text-brand-red">Defender</span> of
+      </span>
+      the guilty,
     </p>
 
-    <p class="text-white font-light text-2xl md:text-4xl fade-in-up delay-900 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
-      the <span class="text-white">Justifier</span> of the ungodly,
+<p class="text-white font-semibold text-2xl md:text-5xl leading-[1.35] md:leading-[1.4] drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
+      the 
+      <span class="whitespace-nowrap">
+        <span class="text-brand-red">Justifier</span> of
+      </span>
+      the ungodly,
     </p>
 
-    <p class="text-white font-light text-2xl md:text-4xl fade-in-up delay-[1100ms] drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
-      the <span class="text-white">Friend</span> of sinners.
+<p class="text-white font-semibold text-2xl md:text-5xl leading-[1.35] md:leading-[1.4] drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)]">
+      the 
+      <span class="whitespace-nowrap">
+        <span class="text-brand-red">Friend</span> of
+      </span>
+      sinners.
     </p>
 
   </div>
+
+</section>
+</div>
+
 </section>
 </div>
 
@@ -65,23 +86,35 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <span class="relative inline-block font-extrabold mx-2">
 
       <!-- JESUS PILL -->
-      <span
-        class="inline-block px-3 py-0 rounded-[9px] bg-brand-red text-white font-bold border-4 border-white shadow-lg tracking-wide rotate-[-2deg] relative"
-      >
-        Jesus
-        <span class="absolute top-1 left-1 w-2 h-2 rounded-full border border-gray-700 shadow bg-gray-300"></span>
-        <span class="absolute top-1 right-1 w-2 h-2 rounded-full border border-gray-700 shadow bg-gray-300"></span>
-      </span>
+         <!-- Retro sign with nails -->
+          <span class="relative inline-block px-3 py-0 rounded-[9px] bg-[#B3282D] text-white font-bold border-4 border-white shadow-lg drop-shadow-xl tracking-wide rotate-[-2deg]">
+            Jesus
+            <!-- Left nail -->
+            <span
+              class="absolute top-1 left-1 w-2 h-2 rounded-full border border-gray-700 shadow"
+              style="background: radial-gradient(circle at 30% 30%, #f0f0f0, #a0a0a0 60%, #5a5a5a);"
+            />
+            <!-- Right nail -->
+            <span
+              class="absolute top-1 right-1 w-2 h-2 rounded-full border border-gray-700 shadow"
+              style="background: radial-gradient(circle at 30% 30%, #f0f0f0, #a0a0a0 60%, #5a5a5a);"
+            />
 
-      <!-- ARROW POINTER TO JESUS -->
-      <span class="finger-pointer absolute top-1/2 -translate-y-1/2 right-[-40px] md:right-[-90px]">
-        <svg xmlns="http://www.w3.org/2000/svg"
-             class="w-14 h-14 md:w-20 md:h-20 text-brand-red"
-             viewBox="0 0 24 24" fill="currentColor">
-          <path d="M22 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H22v-2z"/>
-        </svg>
-      </span>
-
+    <!-- ARROW POINTER TO JESUS (chunky triple arrow, pointing down-left, animated) -->
+        <span class="finger-pointer absolute top-1/2 -translate-y-1/2 right-[-80px] md:right-[-140px]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-20 h-20 md:w-28 md:h-28 text-brand-red rotate-90"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 7l7 7 7-7" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7 7 7-7" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7 7 7-7" />
+          </svg>
+        </span>
     </span>
   </p>
 
@@ -101,27 +134,27 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   </div>
 </div>  
 
-<!-- SOFT DIVIDER -->
-<div class="w-full my-20">
-  <div class="h-[4px] w-full bg-gradient-to-r from-transparent via-brand-red to-transparent"></div>
+<!-- SECTION WHAT WE BELIEVE -->
+
+<!-- Clean Global Divider -->
+<div class="w-full mt-40 mb-24">
+  <div class="w-[95%] mx-auto h-[2px] bg-gray-300"></div>
 </div>
 
 
-  <!-- WHAT WE BELIEVE -->
-  
-<section id="what-we-believe" class="bg-white border-t border-gray-200 py-12 md:py-20">
-  <div class="container-x max-w-4xl mx-auto px-4 ">
+<section id="what-we-believe" 
+class="bg-white pt-20 md:pt-28 pb-16 md:pb-24 cine-zoom-apple-hover">
 
-    
+
     <!-- Section Title -->
-    <h2 class="text-center text-3xl md:text-4xl font-bold mb-6">
+    <h2 class=" text-center text-4xl md:text-6xl font-extrabold mb-6">
   <span class="text-gray-700">WHAT WE</span>
   <span class="text-brand-red">BELIEVE</span>
 </h2>
 
     <!-- Intro Paragraph -->
     <p class="text-center text-lg md:text-xl text-gray-700 leading-relaxed mb-10">
-      Sound doctrine isn’t about rules; it’s about Jesus—who He is, what He has done, and how His finished work shapes what we believe and how we live.
+      Sound doctrine isn’t about rules; it’s about <span class="text-brand-red">JESUS</span>—who He is, what He has done, and how His finished work shapes what we believe and how we live.
     </p>
 
     <div id="believe-anchor"></div>
@@ -156,7 +189,6 @@ John 1:14; Romans 1:3–4; Galatians 4:4; Isaiah 7:14; Luke 1:35
     <div class="text-base sm:text-lg md:text-lg leading-relaxed text-gray-700">
 We believe the Holy Spirit is God, co-equal with the Father and the Son.<br />
 He convicts of sin, regenerates hearts, indwells believers, produces spiritual fruit, and empowers the Church for witness and service.<br />
-We believe it is understood only by the Spirit’s illumination and is relevant to every culture, age, and human condition.<br /><br />
 Romans 8:26–27; John 14:16–17, 26; 2 Corinthians 3:17–18; Galatians 5:22–23; Acts 1:8
 </div>
   )
@@ -198,7 +230,8 @@ Ezekiel 36:26–27; John 8:24; Romans 3:23, 6:6; Ephesians 2:13–14; 1 James 4:
    { title: "THE BIBLE ", 
    content: (
     <div class="text-base sm:text-lg md:text-lg leading-relaxed text-gray-700">
-We believe the Bible is God’s written word, fully inspired, enduring forever, true and without error.<br /><br />
+We believe the Bible is God’s written word, fully inspired, enduring forever, true and without error.<br />
+We believe it is understood only by the Spirit’s illumination and is relevant to every culture, age, and human condition.<br /><br />
 John 1:14, 18; Deuteronomy 29:29; 1 Peter 1:23, 25; Psalm 119:89; John 17:17; 1 Corinthians 2:12–13; Ephesians 1:17; Revelation 14:6
 </div>
   )
@@ -383,18 +416,18 @@ Isaiah 65:17; 2 Peter 3:13; Revelation 21:1–4; 1 Corinthians 15:51–53; Phili
 </style>
 
 
-<!-- SOFT DIVIDER BETWEEN BLOCKS -->
-<div class="w-full my-20">
-  <div class="h-[4px] w-full bg-gradient-to-r from-transparent via-brand-red to-transparent"></div>
+<!-- Clean Global Divider -->
+<div class="w-full mt-36 mb-40">
+  <div class="w-[95%] mx-auto h-[2px] bg-gray-300"></div>
 </div>
-
 
 <!-- INLINE GLASS APP DOWNLOAD CARD -->
 <div
   id="download-app"
   class="mx-auto mt-16 max-w-md backdrop-blur-xl bg-white/20 border border-white/30
-         shadow-2xl rounded-3xl p-8 text-center ring-1 ring-black/5 animate-floatSlow"
+         cine-zoom-apple-hover shadow-2xl rounded-3xl p-8 text-center ring-1 ring-black/5 animate-floatSlow"
 >
+
   <img 
     src="/expo-qr.png"
     alt="Download App QR"
