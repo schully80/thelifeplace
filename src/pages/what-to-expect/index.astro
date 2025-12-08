@@ -4,6 +4,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 <BaseLayout title="What to Expect">
 
+<!-- SCROLL PROGRESS BAR -->
+<div id="progress-bar" class="fixed top-0 left-0 h-[4px] bg-brand-red z-[9999] w-0"></div>
+
 {/* FULL-BLEED WRAPPER */}
 <div class="w-screen max-w-none relative left-1/2 right-1/2 -mx-[50vw]">
 
@@ -17,7 +20,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       id="hero-image"
       src="/wide-strip4.jpg"
       alt="The Life Place Community Worship"
-      class="absolute inset-0 w-full h-full object-cover object-center brightness-[0.55]"
+      class="absolute inset-0 w-full h-full object-cover object-center brightness-[0.55] tlp-grayscale"
     />
 
     <!-- Soft overlay -->
@@ -25,6 +28,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
     <!-- TEXT BLOCK (centered and stable) -->
     <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-full px-6 text-right">
+        <!-- Subtle white glow behind text -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
+      </div>
       <h3
         class="text-white text-3xl md:text-5xl lg:text-6xl font-extrabold cine-zoom-smooth
                leading-snug md:leading-[1.3]
@@ -42,8 +50,14 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
   <!-- INTRO SECTION — Overlapping Minimal Block -->
   <section class="w-full bg-white py-20 md:py-28 -mt-28 md:-mt-40 relative z-[5] rounded-3xl">
+      <!-- Subtle white glow behind text -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
+      </div>
     <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="text-3xl md:text-7xl font-extrabold text-gray-900 leading-tight">
+    
+      <h2 class="font-Inter text-3xl md:text-7xl font-extrabold text-gray-900 leading-tight">
         What to Expect
       </h2>
     </div>
@@ -63,12 +77,17 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         <img 
           src="/what-teach4.jpg"
           alt="Teaching at The Life Place"
-          class="absolute inset-0 w-full h-full object-cover object-center"
+          class="absolute inset-0 w-full h-full object-cover object-center tlp-grayscale"
         />
       </div>
 
       <!-- RIGHT BANNER TEXT -->
       <div class="flex items-center justify-center md:pl-12 lg:pl-20 mt-10 md:-mt-16 cine-zoom-apple-hover">
+          <!-- Subtle white glow behind text -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
+      </div>
         <h2 class="text-4xl md:text-6xl lg:text-6xl font-extrabold text-gray-900 leading-tight max-w-xl text-center">
           We open our bibles<br />
           to see <span class="text-brand-red">Jesus</span><br />
@@ -82,6 +101,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
   <!-- ⭐ SLOGAN BLOCK -->
   <div id="slogan-block" class="w-full text-center py-2 md:py-6 bg-white relative -mt-10 md:-mt-16">
+      <!-- Subtle white glow behind text -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
+      </div>
     <p class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 inline-block relative">
 
       Come. See.
@@ -90,7 +114,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
         <!-- JESUS PILL -->
           <!-- Retro sign with nails -->
-          <span class="relative inline-block px-3 py-0 rounded-[9px] bg-[#B3282D] text-white font-bold border-4 border-white shadow-lg drop-shadow-xl tracking-wide rotate-[-2deg]">
+          <span class="relative inline-block px-3 py-0 rounded-[9px] bg-[#B3282D] text-white font-bold border-4 border-white shadow-lg drop-shadow-xl tracking-wide rotate-[-2deg] cine-zoom-apple-hover">
             Jesus
             <!-- Left nail -->
             <span
@@ -124,32 +148,49 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   </div>
   <!-- END SLOGAN BLOCK -->
 
-  <!-- COMMUNITY — Full-Width Banner with Headline -->
-  <div class="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen my-24">
-    <section class="relative h-[60vh] md:h-[70vh] lg:h-[80vh] overflow-hidden cine-zoom-apple-hover">
+<!-- COMMUNITY — Full-Width Banner with Headline -->
+<div class="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen my-24">
+  <section class="relative h-[60vh] md:h-[70vh] lg:h-[80vh] overflow-hidden cine-zoom-apple-hover">
 
-      <img 
-        src="/what-community7.png"
-        alt="Community at The Life Place"
-        class="absolute inset-0 w-full h-full object-cover brightness-[0.55] scale-110"
-      />
+  <img 
+  src="/what-community7.png"
+  alt="Community at The Life Place"
+  class="absolute inset-0 w-full h-full object-cover brightness-[0.55] scale-110 z-0 tlp-grayscale"
+/>
+<div class="absolute inset-0 bg-black/20 z-0"></div>
 
-      <div class="absolute inset-0 bg-black/30"></div>
 
-      <div class="relative z-10 flex items-center justify-center w-full h-full px-6 text-center">
-        <h2
-          class="text-white text-4xl md:text-6xl lg:text-7xl font-extrabold
-                 leading-snug md:leading-[1.3]
-                 tracking-[0.02em] md:tracking-[0.04em]
-                 max-w-4xl mx-auto drop-shadow-xl"
-        >
-          <span class="text-4xl md:text-6xl lg:text-7xl block">Community</span>
-          <span class="block mt-3 md:mt-4">Multiracial.</span>
-          <span class="block mt-3 md:mt-4">Multigenerational.</span>
-        </h2>
+    <div class="relative z-10 flex flex-col items-center justify-center w-full h-full px-6 text-center">
+
+      <!-- MAIN HEADER (matching YOUR OUR WELCOME style) -->
+         <!-- Subtle white glow behind text -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
       </div>
+      <h1 class="text-white text-5xl md:text-7xl leading-tight font-extrabold 
+                 drop-shadow-[0_4px_10px_rgba(0,0,0,0.45)] mb-8 md:mb-12">
+        Community
+      </h1>
 
-    </section>
+   <!-- SUBTEXT LINES -->
+<div class="relative z-[5] flex flex-col items-center text-center
+            text-white font-bold
+            text-2xl md:text-4xl lg:text-6xl
+            space-y-1 md:space-y-2
+            drop-shadow-xl">
+
+  <p class="text-white">Multiracial</p>
+  <p class="text-white">Multiethnic</p>
+  <p class="text-white">Multigenerational</p>
+
+</div>
+
+
+
+  </section>
+</div>
+
   </div>
 
   <!-- SECTION — Larger Photo, Left Image, Right Text -->
@@ -158,6 +199,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
       <!-- BIG HEADLINE -->
       <div class="order-2 md:order-1 max-w-4xl mx-auto px-6 text-center mt-10 md:-mt-16">
+             <!-- Subtle white glow behind text -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
+      </div>
         <h3 class="cine-zoom-apple-hover text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
           With music and dancing, we celebrate <span class="text-brand-red">Jesus</span> with joy, 
           beauty, and wonder.
@@ -169,7 +215,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         <img 
           src="/what-worship.jpg"
           alt="Worship at The Life Place"
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover tlp-grayscale"
         />
       </div>
 
@@ -178,6 +224,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
   <!-- SECTION — Big Headline Over Two Photos (Full-Bleed) -->
   <div class="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen mt-16 md:mt-24 mb-20">
+      <!-- Subtle white glow behind text -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
+      </div>
     <section class="relative h-[60vh] md:h-[75vh] lg:h-[85vh] overflow-hidden cine-zoom-apple-hover">
 
       <!-- TWO-PHOTO BACKGROUND (side-by-side) -->
@@ -185,12 +236,12 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         <img 
           src="/what-give.jpg"
           alt="Extravagant Generosity"
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover tlp-grayscale"
         />
         <img 
           src="/what-family3.jpg"
           alt="Helping Others Passionately"
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover tlp-grayscale"
         />
       </div>
 
@@ -199,6 +250,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
       <!-- CENTERED HEADLINE -->
       <div class="relative z-10 flex items-center justify-center w-full h-full px-6 text-center">
+          <!-- Subtle white glow behind text -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
+      </div>
         <h2
           class="text-white text-4xl md:text-5xl lg:text-6xl font-extrabold
                  leading-snug md:leading-[1.3]
@@ -222,12 +278,17 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         <img 
           src="/what-table2.jpg"
           alt="The Lord’s Table"
-          class="w-full h-full object-cover object-center scale-105"
+          class="w-full h-full object-cover object-center scale-105 tlp-grayscale"
         />
       </div>
 
       <!-- RIGHT: MASSIVE TEXT -->
       <div class="flex items-center justify-center text-center md:text-left -mt-14 mb-20 cine-zoom-apple-hover">
+          <!-- Subtle white glow behind text -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
+      </div>
         <h2 class="text-center text-4xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 leading-tight max-w-xl">
           At <br /> the Lord&rsquo;s Table<br />
           we remember<br />
@@ -246,7 +307,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       <img 
         src="/what-sent5.jpg"
         alt="Sent Out in the Story of Jesus"
-        class="absolute inset-0 w-full h-full object-cover brightness-[0.55] scale-110"
+        class="absolute inset-0 w-full h-full object-cover brightness-[0.55] scale-110 tlp-grayscale"
       />
 
       <!-- SOFT OVERLAY -->
@@ -256,6 +317,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       <div
         class="relative z-10 flex items-center justify-start w-full h-full px-6 md:px-12 pb-10 md:pb-16 text-left"
       >
+          <!-- Subtle white glow behind text -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
+      </div>
         <h2
           class="text-white text-4xl md:text-5xl lg:text-6xl font-extrabold
                  leading-snug md:leading-[1.3]
@@ -276,6 +342,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
     <!-- TITLE BLOCK — Apple Minimal -->
     <div class="text-center px-6 mb-16 -mt-10 md:-mt-16">
+        <!-- Subtle white glow behind text -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
+      </div>
 
       <p class="text-6xl md:text-6xl text-gray-900 font-extrabold mb-4">
         Kids @ The Life Place
@@ -291,6 +362,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       </p>
 
       <div class="w-full flex justify-center text-center mt-16 cine-zoom-apple-hover">
+          <!-- Subtle white glow behind text -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
+      </div>
         <p class="text-2xl md:text-3xl lg:text-4xl font-semibold max-w-3xl leading-tight tracking-tight text-gray-900">
           Children are welcome to remain with their parents during service.
         </p>
@@ -304,7 +380,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       <div class="relative mx-auto rounded-3xl overflow-hidden shadow-2xl w-full aspect-[5/4] bg-gray-200 cine-zoom-apple-hover">
 
         <!-- SLIDES WRAPPER -->
-        <div id="kidsSlides" class="flex h-full w-full transition-transform duration-[900ms] ease-in-out">
+        <div id="kidsSlides" class="flex h-full w-full transition-transform duration-[900ms] ease-in-out tlp-grayscale">
           <img src="/what-kids.jpg" class="kids-slide-img" />
           <img src="/what-kids2.jpg" class="kids-slide-img" />
           <img src="/what-kids3.jpg" class="kids-slide-img" />
@@ -331,12 +407,25 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
   <!-- NEXT STEPS — Apple Cinematic CTA Rows -->
   <section class="w-full py-18 md:py-[10rem] bg-white">
+
+      <!-- Subtle white glow behind text -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
+      </div>
     <div class="max-w-5xl mx-auto px-6 space-y-28">
 
       <!-- WATCH MESSAGES CTA ROW -->
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-10 border-b border-gray-900 pb-16">
 
+       <!-- Subtle white glow behind text -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
+      </div>
         <div class="text-center md:text-left max-w-xl -mt-14 mb-20">
+
+     
           <h3 class="text-4xl md:text-5xl font-semibold text-gray-900 leading-tight">
             Watch Messages
           </h3>
@@ -362,6 +451,12 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
       <!-- GENEROSITY CTA ROW -->
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 py-2 md:py-3">
+
+          <!-- Subtle white glow behind text -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
+      </div>
 
         <div class="text-center md:text-left max-w-xl">
           <h3 class="text-4xl md:text-5xl font-semibold text-gray-900 leading-tight">
@@ -534,6 +629,51 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
+const cards = document.querySelectorAll(".motion-card");
+
+function revealCards() {
+  const trigger = window.innerHeight * 0.88;
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    if (rect.top < trigger) card.classList.add("visible");
+  });
+}
+
+window.addEventListener("scroll", revealCards);
+window.addEventListener("load", revealCards);
+</script>
+
+<script>
+  const bar = document.getElementById("progress-bar");
+
+  function updateProgressBar() {
+    const scrollY = window.scrollY;
+    const pageHeight = document.body.scrollHeight - window.innerHeight;
+    const progress = (scrollY / pageHeight) * 100;
+    bar.style.width = progress + "%";
+  }
+
+  window.addEventListener("scroll", updateProgressBar);
+  window.addEventListener("load", updateProgressBar);
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const slides = document.getElementById("leadersSlides");
+    const bar = document.getElementById("leadersActiveBar");
+
+    const totalSlides = slides.children.length;
+    let index = 0;
+
+    function moveCarousel() {
+      index = (index + 1) % totalSlides;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+      bar.style.width = `${(index + 1) * (100 / totalSlides)}%`;
+    }
+
+    setInterval(moveCarousel, 4000); // same timing as kids carousel
+  });
 </script>
 
 

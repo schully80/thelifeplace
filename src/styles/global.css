@@ -1,3 +1,5 @@
+
+
 /* Tailwind layers */
 @tailwind base;
 @tailwind components;
@@ -999,4 +1001,170 @@ details[open] summary .details-arrow {
   background-color: rgb(229 231 235); /* Tailwind gray-200 */
   margin-top: 4rem;   /* my-16 */
   margin-bottom: 4rem;
+}
+
+/* Default Jesus style */
+.word-jesus {
+  color: #B3282D !important;
+}
+
+/* H1 — strongest */
+h1 .word-jesus {
+  font-weight: 900 !important; /* extra black */
+}
+
+/* H2 — very bold */
+h2 .word-jesus {
+  font-weight: 800 !important;
+}
+
+/* H3 — bold */
+h3 .word-jesus {
+  font-weight: 700 !important;
+}
+
+/* H4 — semibold */
+h4 .word-jesus {
+  font-weight: 600 !important;
+}
+
+/* Paragraphs / spans — medium weight */
+p .word-jesus,
+span .word-jesus,
+li .word-jesus {
+  font-weight: 500 !important;
+}
+
+/* Footer or small text — regular */
+small .word-jesus,
+.text-sm .word-jesus {
+  font-weight: 400 !important;
+}
+.nav-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #d1d1d1;
+  transition: all 0.3s ease;
+  display: block;
+  cursor: pointer;
+}
+
+.nav-dot.active {
+  background: #B3282D;
+  transform: scale(1.4);
+  box-shadow: 0 0 10px rgba(179, 40, 45, 0.4);
+}
+
+/* VISIONOS floating particle dots */
+.vision-particles::before,
+.vision-particles::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 2px);
+  background-size: 120px 120px;
+  animation: particleFloat 22s linear infinite;
+  opacity: 0.25;
+  filter: blur(1px);
+}
+
+.vision-particles::after {
+  background-size: 160px 160px;
+  animation-duration: 34s;
+  opacity: 0.18;
+  filter: blur(2px);
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-40px) translateX(15px);
+  }
+  100% {
+    transform: translateY(-80px) translateX(-15px);
+  }
+}
+
+/* ---------------------------- */
+/* Parallax (background shift) */
+/* ---------------------------- */
+.parallax-section {
+  background-attachment: fixed;
+}
+@media (max-width: 768px) {
+  /* Mobile-friendly parallax fallback */
+  .parallax-section {
+    background-attachment: scroll;
+  }
+}
+
+/* Completely hide the browser's default scrollbar (Chrome, Safari, Edge) */
+html::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+html {
+  scrollbar-width: none;
+}
+
+
+@keyframes glowIn {
+  0% { opacity: 0; transform: translateY(-10px); }
+  60% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; }
+}
+
+@keyframes capsuleIn {
+  0% { opacity: 0; transform: translate(20px, -50%); }
+  60% { opacity: 1; transform: translate(0, -50%); }
+  100% { opacity: 1; }
+}
+
+.animate-glowIn {
+  animation: glowIn 0.8s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+.animate-capsuleIn {
+  animation: capsuleIn 0.8s ease-out forwards;
+  animation-delay: 0.35s;
+}
+
+/* HIDE NATIVE SCROLLBAR — Apple-style minimal UI */
+
+/* Chrome, Safari, Edge */
+html::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: none;
+}
+
+
+.leaders-slide-img {
+  @apply w-full h-full object-cover flex-shrink-0;
+}
+
+.leaders-fade-img {
+  @apply absolute inset-0 w-full h-full object-cover transition-opacity duration-[1200ms] ease-out;
+}
+
+
+.parallax-image img {
+  transform: scale(1.12);
+  transition: transform 1s ease-out;
+}
+
+.parallax-image:hover img {
+  transform: scale(1.15);
+}
+.tlp-grayscale {
+  filter: grayscale(85%) sepia(10%) brightness(1.03) contrast(1.05);
 }

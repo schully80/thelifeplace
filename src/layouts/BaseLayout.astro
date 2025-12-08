@@ -13,7 +13,7 @@ const {
   description = "Come. See. Jesus.",
 } = Astro.props;
 
-const path = Astro.url.pathname; // KEEP THIS
+const path = Astro.url.pathname;
 const whatsappNumber = "27765639460";
 const whatsappMessage = "Hi The Life Place, I'd love to get in touch.";
 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
@@ -68,19 +68,55 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 
   <body class="min-h-screen flex flex-col bg-white antialiased">
 
-    <!-- SHOW SPLASH ONLY ON FIRST VISIT + ONLY ON HOMEPAGE -->
-    {path === "/" && (
-      <div
-        id="splash-screen"
-        class="fixed inset-0 z-[9999] flex items-center justify-center bg-white pointer-events-none"
-      >
-        <div id="splash-inner" class="relative flex items-center justify-center z-10">
+    <!-- ⭐ PREMIUM APPLE-STYLE SCROLL BARS -->
+    <!-- Top glowing progress bar -->
+    <div id="scroll-progress-top"
+         class="fixed top-2 left-0 h-[3px] w-0 z-[9999] 
+                rounded-full transition-all duration-200
+                bg-gray-400
+                shadow-[0_0_12px_rgba(179,40,45,0.45)]
+                backdrop-blur-sm">
+    </div>
 
-          <!-- Flash background -->
-          <div
-            id="splash-flash"
-            class="absolute inset-0 bg-brand-red opacity-0 rounded-full scale-75 z-0"
-          ></div>
+    <!-- Side floating capsule -->
+    <div id="scroll-progress-side-wrapper"
+         class="fixed top-1/2 right-2 -translate-y-1/2 z-[9999] opacity-0 transition-opacity duration-300 pointer-events-none">
+      <div id="scroll-progress-side"
+           class="w-[3px] h-0 rounded-full bg-gray-400
+                  shadow-[0_0_8px_rgba(179,40,45,0.35)]
+                  backdrop-blur-sm transition-all duration-200">
+      </div>
+    </div>
+
+  <!-- SHOW SPLASH ONLY ON FIRST VISIT + ONLY ON HOMEPAGE -->
+{path === "/" && (
+  <div
+    id="splash-screen"
+    class="fixed inset-0 z-[9999] flex items-center justify-center bg-white pointer-events-none"
+  >
+
+    <!-- 🔥 TOP GLOW BAR -->
+    <div
+      class="absolute top-0 left-0 w-full h-6 bg-white/60 backdrop-blur-md
+             shadow-[0_0_35px_12px_rgba(255,255,255,0.85)]
+             animate-glowIn"
+    ></div>
+
+    <!-- 🔥 SIDE CAPSULE SCROLL INDICATOR -->
+    <div
+      class="absolute right-6 top-1/2 -translate-y-1/2
+             w-2 h-20 bg-brand-red/90 rounded-full shadow-lg
+             animate-capsuleIn"
+    ></div>
+
+    <div id="splash-inner" class="relative flex items-center justify-center z-10">
+      
+      <!-- Flash background -->
+      <div
+        id="splash-flash"
+        class="absolute inset-0 bg-brand-red opacity-0 rounded-full scale-75 z-0"
+      ></div>
+
 
           <!-- Logo -->
           <img
@@ -122,7 +158,7 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     <script src="/js/dropdowns.js" defer></script>
     <script src="/js/places-new.js" defer></script>
 
-    <!-- SPLASH ANIMATIONS (global) -->
+    <!-- SPLASH ANIMATIONS -->
     <style is:inline>
       #splash-screen.fade-out {
         opacity: 0;
@@ -148,7 +184,6 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
         const splashAlreadyShown = sessionStorage.getItem("tlp_splash_shown");
 
         if (!splashAlreadyShown) {
-          // Mark splash as shown for this session
           sessionStorage.setItem("tlp_splash_shown", "yes");
 
           window.addEventListener("load", () => {
@@ -175,12 +210,67 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
           });
 
         } else {
-          // Already inside site → hide immediately
           const screen = document.getElementById("splash-screen");
           if (screen) screen.style.display = "none";
         }
       </script>
     )}
+
+    <!-- Highlight "Jesus" -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        const regex = /\bJesus\b/g;
+
+        let node;
+        while ((node = walker.nextNode())) {
+          if (regex.test(node.nodeValue)) {
+            const span = document.createElement("span");
+            span.innerHTML = node.nodeValue.replace(regex, '<span class="word-jesus">Jesus</span>');
+            node.parentNode.replaceChild(span, node);
+          }
+        }
+      });
+    </script>
+
+    <!-- ⭐ PREMIUM APPLE-STYLE SCROLL SCRIPT -->
+    <script is:inline>
+  document.addEventListener("scroll", () => {
+    const doc = document.documentElement;
+    const scrollTop = doc.scrollTop;
+    const scrollHeight = doc.scrollHeight - doc.clientHeight;
+    const scrolled = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+
+    const isDark = document.documentElement.classList.contains("dark");
+
+    const topBar = document.getElementById("scroll-progress-top");
+    const sideWrapper = document.getElementById("scroll-progress-side-wrapper");
+    const sideBar = document.getElementById("scroll-progress-side");
+
+    // TOP BAR: width + glow intensity
+    if (topBar) {
+      topBar.style.width = scrolled + "%";
+
+      const glow = isDark
+        ? (0.15 + scrolled / 500)      // softer glow in dark mode
+        : (0.25 + scrolled / 300);     // brighter glow in light mode
+
+      topBar.style.boxShadow = `0 0 8px rgba(179,40,45,${glow})`;
+    }
+
+    // SIDE BAR: height + fade-in after scroll
+    if (sideBar && sideWrapper) {
+      sideBar.style.height = scrolled + "vh";
+
+      if (scrollTop > 120) {
+        sideWrapper.style.opacity = "1";
+      } else {
+        sideWrapper.style.opacity = "0";
+      }
+    }
+  });
+</script>
+
 
   </body>
 </html>

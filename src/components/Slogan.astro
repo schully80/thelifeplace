@@ -1,14 +1,68 @@
 ---
 const {
-  align = "center",      // "left" | "center" | "right"
-  class: extra = "",     // extra classes if you want
-  color = "text-gray-600"// Tailwind text color class
+  align = "center",          // "left" | "center" | "right"
+  size = "md",               // "sm" | "md" | "lg"
+  arrow = false,             // show triple arrow?
+  class: extra = ""          // extra classes
 } = Astro.props;
 
 const alignClass =
-  align === "left" ? "text-left" : align === "right" ? "text-right" : "text-center";
+  align === "left" ? "text-left" :
+  align === "right" ? "text-right" : "text-center";
+
+const sizeClass =
+  size === "sm" ? "text-xl md:text-2xl" :
+  size === "lg" ? "text-4xl md:text-6xl" :
+  "text-2xl md:text-4xl"; // default medium
 ---
 
-<p class={`mt-2 ${alignClass} ${color} tracking-wide uppercase font-montserrat text-sm md:text-base ${extra}`}>
-  Come. See. Jesus.
-</p>
+<div class={`relative w-full ${alignClass} ${extra}`}>
+  <p class={`${sizeClass} font-extrabold tracking-tight text-gray-900 inline-block leading-tight relative`}>
+
+    Come. See.
+
+    <span class="relative inline-block font-extrabold mx-2 align-middle">
+
+      <!-- JESUS PILL -->
+      <span
+        class="relative inline-block px-3 py-1
+               rounded-[7px] bg-[#B3282D] text-white font-bold 
+               border-4 border-white shadow-md drop-shadow-lg
+               tracking-wide rotate-[-1deg] cine-zoom-apple-hover"
+      >
+        Jesus
+
+        <!-- Left nail -->
+        <span
+          class="absolute top-0.5 left-0.5 w-2 h-2 rounded-full border border-gray-700 shadow"
+          style="background: radial-gradient(circle at 30% 30%, #f0f0f0, #a0a0a0 60%, #5a5a5a);"
+        ></span>
+
+        <!-- Right nail -->
+        <span
+          class="absolute top-0.5 right-0.5 w-2 h-2 rounded-full border border-gray-700 shadow"
+          style="background: radial-gradient(circle at 30% 30%, #f0f0f0, #a0a0a0 60%, #5a5a5a);"
+        ></span>
+      </span>
+
+      <!-- OPTIONAL ARROW -->
+      {arrow && (
+        <span class="finger-pointer absolute top-1/2 -translate-y-1/2 right-[-50px] md:right-[-95px]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-14 h-14 md:w-20 md:h-20 text-brand-red rotate-90"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 7l7 7 7-7" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7 7 7-7" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7 7 7-7" />
+          </svg>
+        </span>
+      )}
+    </span>
+
+  </p>
+</div>

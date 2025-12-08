@@ -1,0 +1,213 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const SNAPSCAN_URL = "https://pos.snapscan.io/qr/VISFNLkM";
+const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
+---
+
+<BaseLayout title="Leadership – Schulter & Genevieve">
+
+<!-- ===========================
+      HERO — Cinematic & Pastoral
+=========================== -->
+<section class="w-full py-24 md:py-32 bg-white font-body">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center px-6">
+
+    <!-- LEFT — PASTOR PHOTO -->
+    <div class="relative w-full h-[420px] md:h-[550px] lg:h-[650px] -mt-10 mb-20 
+                overflow-hidden rounded-3xl shadow-xl cine-zoom-apple-hover tlp-grayscale">
+
+      <!-- Subtle overlay for visual balance -->
+      <div class="absolute inset-0 bg-black/20 z-10 pointer-events-none"></div>
+
+      <img 
+        id="pastorsPhoto"
+        src="/founders-grayscale.jpg"
+        alt="Schulter & Genevieve Etyang"
+        class="w-full h-full object-cover object-center tlp-grayscale"
+      />
+    </div>
+
+    <!-- RIGHT — TEXT BLOCK -->
+    <div class="relative flex items-center justify-center text-center md:text-left -mt-10 mb-20 cine-zoom-apple-hover font-body">
+
+      <!-- Soft ambient glow -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)]
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
+      </div>
+
+      <div class="max-w-xl space-y-6">
+
+        <h1 class="font-heading text-gray-900 text-4xl md:text-6xl font-extrabold tracking-tight">
+          about our pastors
+        </h1>
+
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          Schulter and Genevieve (Jenny) Etyang lead 
+          <span class="font-semibold">The Life Place</span>.
+        </p>
+
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          Fifteen years ago, the good news of who Jesus is became real to us.  
+          Since then, our lives have been shaped by one simple invitation —  
+          <span class="font-semibold text-brand-red">Come. See. Jesus</span>
+        </p>
+
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          It remains the heartbeat of our lives, our conversations,  
+          and the community we serve.
+        </p>
+
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          We care deeply about people discovering how true, good, beautiful,  
+          and kind <span class="text-brand-red">Jesus</span> is.
+        </p>
+
+        <p class="text-center text-lg md:text-xl leading-relaxed text-gray-700">
+          Seeing <span class=" text-brand-red">Jesus</span> changes everything.
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- SPACER -->
+<div class="h-20 md:h-0"></div>
+
+
+<!-- ===========================
+       CONNECT • PARTNER • SUBSCRIBE
+=========================== -->
+<section class="max-w-5xl mx-auto px-6 pb-32 font-body">
+
+  <h2 class="font-heading text-center text-5xl font-semibold text-gray-900 mb-20">
+    CONNECT • PARTNER • SUBSCRIBE
+  </h2>
+
+  <!-- INTRO PARAGRAPH -->
+  <p class="text-center text-lg md:text-xl leading-relaxed text-gray-800 max-w-3xl mx-auto mb-12">
+    Schulter writes regularly at 
+    <a 
+      href="https://schulteretyang.substack.com" 
+      target="_blank"
+      class="text-brand-red underline hover:no-underline"
+    >
+      schulteretyang.substack.com,
+    </a>
+    exploring Jesus, the gospel of grace, the new covenant and their meaning for everyday life.
+  </p>
+
+  <!-- GRID CARDS -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+
+    <!-- SUBSTACK CARD -->
+    <div class="rounded-3xl p-6 bg-white border border-brand-red shadow-sm hover:shadow-md transition">
+      <div class="flex items-center gap-6">
+        <img src="/substack-qr2.png" width="140" height="140" class="rounded-2xl border" />
+        <div class="space-y-2">
+          <h3 class="font-heading text-xl font-semibold">Subscribe to Schulter’s Substack</h3>
+          <p class="text-gray-700 text-sm leading-relaxed">
+            Scan or tap below to receive new articles and reflections.
+          </p>
+          <a 
+            href="https://schulteretyang.substack.com"
+            class="inline-flex items-center justify-center rounded-full px-5 py-2 
+                   text-brand-red border border-brand-red hover:bg-brand-red hover:text-white 
+                   transition font-medium"
+          >
+            Substack
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SNAPSCAN -->
+    <div class="rounded-3xl p-6 bg-white border border-brand-red shadow-sm hover:shadow-md transition">
+      <div class="flex items-center gap-6">
+        <a href={SNAPSCAN_URL} target="_blank">
+          <img src="/snapscan-qr2.png" width="140" height="140" class="rounded-2xl border" />
+        </a>
+        <div class="space-y-2">
+          <h3 class="font-heading text-xl font-semibold">Partner with The Life Place</h3>
+          <p class="text-gray-700 text-sm leading-relaxed">
+            Scan or tap to open our giving portal.
+          </p>
+          <a 
+            href={SNAPSCAN_URL}
+            class="inline-flex items-center justify-center rounded-full px-5 py-2 
+                   text-brand-red border border-brand-red hover:bg-brand-red hover:text-white 
+                   transition font-medium"
+          >
+            SnapScan
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- PAYPAL -->
+  <div class="max-w-xl mx-auto mt-20">
+    <div class="rounded-3xl p-6 bg-white border border-brand-red shadow-sm hover:shadow-md transition">
+
+      <div class="flex items-center gap-6">
+
+        <!-- PayPal Button -->
+        <form action="https://www.paypal.com/donate" method="post" target="_top" class="shrink-0">
+          <input type="hidden" name="hosted_button_id" value="4L3NWWAZ9PPV6" />
+          <input 
+            type="image"
+            src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
+            width="140" height="140"
+            class="rounded-2xl border object-contain bg-white p-3"
+          />
+        </form>
+
+        <!-- Text -->
+        <div class="space-y-2">
+          <h3 class="font-heading text-xl font-semibold">Support via PayPal</h3>
+          <p class="text-gray-700 text-sm leading-relaxed">
+            Donate securely through PayPal. Tap below to open our giving portal.
+          </p>
+
+          <form action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="hosted_button_id" value="4L3NWWAZ9PPV6" />
+            <button
+              class="inline-flex items-center justify-center rounded-full px-5 py-2 
+                     text-brand-red border border-brand-red hover:bg-brand-red hover:text-white 
+                     transition font-medium"
+            >
+              PayPal
+            </button>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="text-center text-sm text-gray-600 mt-6">
+    If QR codes don’t scan, tap the buttons above to open the links instantly.
+  </p>
+
+</section>
+
+
+<!-- ===========================
+      PARALLAX FOR PASTOR PHOTO
+=========================== -->
+<script>
+document.addEventListener("scroll", () => {
+  const img = document.getElementById("pastorsPhoto");
+  const offset = window.scrollY * 0.04;
+  img.style.transform = `translateY(${offset}px)`;
+});
+</script>
+
+
+</BaseLayout>
