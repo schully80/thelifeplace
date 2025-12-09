@@ -1,0 +1,40 @@
+---
+/**
+ * The Life Place — Global App Download Card
+ * Reusable + spacing adjustable per page
+ */
+
+const {
+  className = "",      // extra custom classes (optional)
+  mt = "mt-0",         // default top margin: none
+  mb = "mb-0",         // default bottom margin: none
+} = Astro.props;
+---
+<div
+  id="download-app"
+  class={`mx-auto max-w-md backdrop-blur-xl bg-white/20 border border-white/30
+          cine-zoom-apple-hover shadow-2xl rounded-3xl p-8 text-center 
+          ring-1 ring-black/5 motion-safe:animate-floatSlow
+          ${mt} ${mb} ${className}`}
+>
+
+  <img 
+    src="/expo-qr.png"
+    alt="Download App QR"
+    class="w-36 h-36 mx-auto mb-4 rounded-lg shadow-md"
+  />
+
+  <h3 class="text-2xl font-semibold text-gray-900 mb-2">
+    Download Our App
+  </h3>
+
+  <div class="flex justify-center items-center gap-4 mb-4 opacity-80 cursor-not-allowed select-none">
+    <img src="/app-store-badge.svg" alt="App Store" class="h-12 w-auto" />
+    <img src="/google-play-badge.jpg" alt="Google Play" class="h-16 w-auto" />
+  </div>
+
+  <p class="text-md text-gray-600 italic">
+    Download coming soon
+  </p>
+
+</div>

@@ -1,6 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import SuccessPage from "./prayer/success.astro";
+import HeroTitle from "../components/tlp/HeroTitle.astro";
+import SectionWrapper from "../components/tlp/SectionWrapper.astro";
+import FullBleed from "../components/tlp/FullBleed.astro";
+import WarmBackground from "../components/tlp/WarmBackground.astro";
+import FadeDivider from "../components/tlp/FadeDivider.astro";
 
 const url = Astro.url;
 const isDemoSuccess = url.searchParams.get("demo") === "success";

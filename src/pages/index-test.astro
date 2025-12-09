@@ -7,35 +7,96 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 <BaseLayout title="The Life Place">
 
-<div class="w-screen max-w-none relative">
+<!-- CINEMATIC SPLIT HERO — 75vh VERSION -->
+<div class="w-screen max-w-none relative left-1/2 right-1/2 -mx-[50vw] bg-white py-20">
 
-<section
-  class="relative w-full h-screen overflow-hidden flex items-center justify-center
-         mt-[96px] -translate-y-[96px] md:mt-[96px] md:-translate-y-[96px] font-['Montserrat',sans-serif]"
+<section 
+  class="relative w-full min-h-[75vh] px-6 md:px-12 lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
 >
-  <div class="absolute inset-0 z-0">
-    <img
+
+  <!-- LEFT CINEMATIC IMAGE -->
+  <div
+    class="relative w-full h-[380px] md:h-[520px] lg:h-[620px] 
+           overflow-hidden rounded-3xl shadow-2xl cine-zoom-apple-hover"
+  >
+    <img 
       src="/hero.jpg"
-      alt="Hyperrealistic image of a welcoming, diverse group of South Africans"
-      class="w-full h-full object-cover object-center scale-[1.05] blur-[8px] opacity-95 brightness-50 contrast-125 transition-all duration-1000 ease-in-out"
+      alt="Cinematic Welcome at The Life Place"
+      class="absolute inset-0 w-full h-full object-cover object-center 
+             scale-[1.08] brightness-[0.55] contrast-[1.15] tlp-grayscale"
     />
-
-    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10"></div>
   </div>
 
-  <div class="relative z-10 text-center max-w-6xl mx-auto px-6 lg:px-12">
+  <!-- RIGHT TEXT BLOCK -->
+  <div class="relative flex flex-col justify-center md:pl-8 lg:pl-12 cine-zoom-apple-hover">
 
-    <h1 class="text-white text-6xl md:text-8xl lg:text-[10rem] xl:text-[12rem] leading-none font-extrabold tracking-tight drop-shadow-2xl mb-6 motion-safe:animate-[fade-in-up_0.8s_ease-out_forwards]">
-      <span class="block">THE</span>
-      <span class="block text-brand-red/90 transform -translate-y-4 md:-translate-y-8">LIFE</span>
-      <span class="block -mt-4 md:-mt-8">PLACE</span>
-    </h1>
-    <p class="text-white text-xl md:text-3xl lg:text-4xl font-light tracking-wide max-w-2xl mx-auto drop-shadow-lg motion-safe:animate-[fade-in-up_1.2s_ease-out_forwards]">
-      A welcome from **Jesus**, the **Embracer** of the outsider.
-    </p>
+      <!-- Subtle white glow behind text (Apple) -->
+      <div 
+        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
+               blur-[80px] opacity-80 -z-10 pointer-events-none">
+      </div>
+
+      <!-- TITLE -->
+      <h1 
+        class="text-gray-900 text-4xl md:text-6xl font-extrabold leading-tight mb-8 opacity-0 translate-y-8 hero-title"
+      >
+        OUR WELCOME
+      </h1>
+
+      <!-- DNA POEM -->
+      <div class="space-y-4">
+
+        <p class="hero-line text-gray-900 text-xl md:text-3xl font-light leading-snug opacity-0 translate-y-8">
+          We open wide our doors  
+          with a welcome from <span class="font-semibold text-brand-red">Jesus</span> —
+        </p>
+
+        <p class="hero-line text-gray-900 text-xl md:text-3xl font-light leading-snug opacity-0 translate-y-8">
+          the <span class="font-semibold text-brand-red">Embracer</span> of the outsider,
+        </p>
+
+        <p class="hero-line text-gray-900 text-xl md:text-3xl font-light leading-snug opacity-0 translate-y-8">
+          the <span class="font-semibold text-brand-red">Defender</span> of the guilty,
+        </p>
+
+        <p class="hero-line text-gray-900 text-xl md:text-3xl font-light leading-snug opacity-0 translate-y-8">
+          the <span class="font-semibold text-brand-red">Justifier</span> of the ungodly,
+        </p>
+
+        <p class="hero-line text-gray-900 text-xl md:text-3xl font-light leading-snug opacity-0 translate-y-8">
+          the <span class="font-semibold text-brand-red">Friend</span> of sinners.
+        </p>
+
+      </div>
+
   </div>
+
 </section>
 </div>
+
+
+<!-- ANIMATIONS -->
+<style>
+  @keyframes fadeUpSmooth {
+    0%   { opacity: 0; transform: translateY(32px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-title {
+    animation: fadeUpSmooth 1.2s ease-out forwards;
+    animation-delay: 0.3s;
+  }
+
+  .hero-line {
+    animation: fadeUpSmooth 1.2s ease-out forwards;
+  }
+
+  .hero-line:nth-child(1) { animation-delay: 0.55s; }
+  .hero-line:nth-child(2) { animation-delay: 0.75s; }
+  .hero-line:nth-child(3) { animation-delay: 0.95s; }
+  .hero-line:nth-child(4) { animation-delay: 1.15s; }
+  .hero-line:nth-child(5) { animation-delay: 1.35s; }
+</style>
 
 <div id="slogan-block" class="w-full text-center py-20 md:py-32 bg-white relative font-['Montserrat',sans-serif]">
   <p class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-gray-900 leading-tight">

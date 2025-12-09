@@ -2,12 +2,19 @@
 // 🔥 SAME IMPORT AS LIVE PAGE
 import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/toast.css";
+import HeroTitle from "../components/tlp/HeroTitle.astro";
+import SectionWrapper from "../components/tlp/SectionWrapper.astro";
+import FullBleed from "../components/tlp/FullBleed.astro";
+import WarmBackground from "../components/tlp/WarmBackground.astro";
+import FadeDivider from "../components/tlp/FadeDivider.astro";
+
 
 import SeriesChips from "../components/SeriesChips.astro";
 import SpeakerChips from "../components/SpeakerChips.astro";
 import SearchBar from "../components/SearchBar.astro";
 import Pagination from "../components/Pagination.astro";
 import fs from "fs";
+
 
 // Load all messages
 const messages = JSON.parse(

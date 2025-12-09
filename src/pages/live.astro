@@ -97,59 +97,104 @@ const serviceMinute = 0;
 </section>
 
 
-  <!-- SUPER-SIZED Quick Actions -->
-  <section class="max-w-5xl mx-auto px-4 pb-24">
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+  <!-- GRID -->
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
 
-      <a href="/visit/" class="rounded-3xl border-2 ring-1 ring-brand-red bg-white p-10 text-center shadow-xl hover:shadow-2xl transition-all">
-        <span class="block text-2xl font-semibold text-brand-red mb-1">Plan a Visit</span>
-        <span class="text-gray-700 text-lg font-medium">You’re welcome here</span>
-      </a>
+   <!-- INLINE GLASS APP DOWNLOAD CARD -->
+<div
+  id="download-app"
+  class="mx-auto mt-16 max-w-md backdrop-blur-xl bg-white/20 border border-white/30
+         cine-zoom-apple-hover shadow-2xl rounded-3xl p-8 text-center ring-1 ring-black/5 animate-floatSlow"
+>
 
-      <a href="/give/" class="rounded-3xl border-2 ring-1 ring-brand-red bg-white p-10 text-center shadow-xl hover:shadow-2xl transition-all">
-        <span class="block text-2xl font-semibold text-brand-red mb-1">Give Online</span>
-        <span class="text-gray-700 text-lg font-medium">Safe & Secure</span>
-      </a>
+  <img 
+    src="/expo-qr.png"
+    alt="Download App QR"
+    class="w-36 h-36 mx-auto mb-4 rounded-lg shadow-md"
+  />
 
-      <a href="/prayer/" class="rounded-3xl border-2 ring-1 ring-brand-red bg-white p-10 text-center shadow-xl hover:shadow-2xl transition-all">
-        <span class="block text-2xl font-semibold text-brand-red mb-1">Prayer Request</span>
-        <span class="text-gray-700 text-lg font-medium">We’ll stand with you</span>
-      </a>
+  <h3 class="text-2xl font-semibold text-gray-900 mb-2">
+    Download Our App
+  </h3>
+
+  <!-- ⚠️ DISABLED APP STORE AND GOOGLE PLAY BADGES -->
+  <div class="flex justify-center items-center gap-4 mb-4 opacity-90 cursor-not-allowed select-none">
+    <img 
+      src="/app-store-badge.svg"
+      alt="Download on the App Store"
+      class="h-12 w-auto"
+    />
+
+<img 
+    src="/google-play-badge.jpg"
+    alt="Get it on Google Play"
+    class="h-16 w-auto"
+  />
+
+  </div>
+
+  <p class="text-md text-gray-600 italic">
+    Download coming soon
+  </p>
+
+</div>
+
+      <!-- GIVE -->
+      <div
+        class="cine-zoom-apple-hover relative rounded-3xl p-10
+               backdrop-blur-xl bg-white/10 border border-white/20
+               shadow-[0_8px_40px_rgba(0,0,0,0.25)] text-center overflow-hidden"
+      >
+        <img 
+  src="/hand-holding-heart.png" 
+  alt="Give Icon"
+  class="w-16 h-16 mx-auto mb-5 opacity-90"
+/>
+
+
+        <h3 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-3">
+          Partner With Us
+        </h3>
+        <p class="text-gray-700 mb-6 text-lg">
+          Your generosity moves the mission of <span class="word-jesus">Jesus</span> forward.
+        </p>
+
+        <a href="/give" class="inline-block mt-2 text-brand-red font-semibold hover:underline">
+          Give Online →
+        </a>
+      </div>
+
+      <!-- PLAN A VISIT -->
+      <div
+        class="cine-zoom-apple-hover relative rounded-3xl p-10
+               backdrop-blur-xl bg-white/10 border border-white/20
+               shadow-[0_8px_40px_rgba(0,0,0,0.25)] text-center overflow-hidden sm:col-span-2 lg:col-span-1"
+      >
+           <img 
+  src="/home.svg" 
+  alt="Give Icon"
+  class="w-16 h-16 mx-auto mb-5 opacity-90"
+/>
+
+
+        <h3 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-3">
+          Plan a Visit
+        </h3>
+        <p class="text-gray-700 mb-6 text-lg">
+          We would love to welcome you this Sunday.
+        </p>
+
+        <a href="/visit" class="inline-block mt-2 text-brand-red font-semibold hover:underline">
+          Plan Your Visit →
+        </a>
+      </div>
 
     </div>
+    <!-- END GRID -->
+
   </section>
-
-  <!-- INLINE GLASS APP DOWNLOAD CARD -->
-  <div
-    class="mx-auto mt-16 max-w-md backdrop-blur-xl bg-white/20 border border-white/30
-           shadow-2xl rounded-3xl p-8 text-center ring-1 ring-black/5 animate-floatSlow"
-  >
-    <img src="/expo-qr.png" alt="Download App QR" class="w-36 h-36 mx-auto mb-4 rounded-lg shadow-md" />
-
-    <h3 class="text-2xl font-semibold text-gray-900 mb-2">Download Our App</h3>
-
-    <p class="text-gray-600 text-sm leading-relaxed mb-5">
-      Scan the QR code to open the app instantly in Expo Go.
-    </p>
-
-    <a
-      href="https://expo.dev/"
-      target="_blank"
-      class="inline-flex items-center gap-2 rounded-full px-6 py-3
-             bg-brand-red text-white font-semibold shadow-sm
-             hover:bg-brand-red/90 hover:shadow-md active:scale-[0.97]
-             transition-all"
-    >
-      Get Expo Go
-      <svg 
-        class="w-5 h-5"
-        fill="none" stroke="currentColor" stroke-width="2"
-        viewBox="0 0 24 24">
-        <path d="M22 2 11 13" />
-        <path d="M22 2 15 22 11 13 2 9 22 2z" />
-      </svg>
-    </a>
-  </div>
+</div>
+<!-- END NEXT STEPS -->
 
   <!-- Scripts -->
   <script>

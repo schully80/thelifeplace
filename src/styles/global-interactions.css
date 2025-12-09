@@ -1,0 +1,43 @@
+/*
+.fade-in {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+.fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+  */
+
+/* Hover elevation */
+.hover-elevate {
+  transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.25s ease;
+}
+.hover-elevate:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.08);
+}
+
+/* Button press */
+.pressable {
+  transition: transform 0.1s ease-out;
+}
+.pressable:active {
+  transform: scale(0.97);
+}
+
+/* Floating animation */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.float-slow {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+/* Parallax */
+.parallax {
+  transform: translateY(0);
+}

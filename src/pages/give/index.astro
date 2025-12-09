@@ -1,7 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SnapScanConfirmForm from "../../components/SnapScanConfirmForm.astro";
-
+import FullBleed from "../components/tlp/FullBleed.astro";
+import HeroTitle from "../components/tlp/HeroTitle.astro";
+import SectionWrapper from "../components/tlp/SectionWrapper.astro";
+import FadeDivider from "../components/tlp/FadeDivider.astro";
+import WarmBackground from "../components/tlp/WarmBackground.astro";
 const url = new URL(Astro.request.url);
 const event = url.searchParams.get("event");
 ---
