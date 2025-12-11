@@ -1093,8 +1093,12 @@ small .word-jesus,
 /* Parallax (background shift) */
 /* ---------------------------- */
 .parallax-section {
-  background-attachment: fixed;
+  background-size: 110%; /* prevents cutting off the image */
+  background-repeat: no-repeat;
+  background-position: center;
+  will-change: background-position;
 }
+
 @media (max-width: 768px) {
   /* Mobile-friendly parallax fallback */
   .parallax-section {
