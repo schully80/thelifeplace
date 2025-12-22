@@ -1,5 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import FormCard from "../../components/FormCard.astro";
+import AddressFields from "../../components/AddressFields.astro";
+import TurnstileWidget from "../../components/TurnstileWidget.astro";
 import RegisterForm from "../../components/RegisterForm.astro";
 
 const url = new URL(Astro.request.url);
@@ -17,16 +20,12 @@ const event = url.searchParams.get("event");
         loading="eager"
         decoding="async"
       />
-
       <div class="absolute inset-0 bg-black/20"></div>
 
       <div class="relative z-10 px-4 text-center">
-        
-        <!-- Desktop unchanged (md:5xl); mobile stays at 3xl -->
         <h1 class="text-3xl md:text-5xl font-bold text-white drop-shadow">
           Bring Them to Jesus
         </h1>
-        <!-- Desktop unchanged (md:2xl); mobile a bit tighter -->
         <p class="mt-3 text-lg md:text-2xl leading-7 md:leading-8 text-white/95">
           Let the children come to me... Matthew 19:14, Mark 10:14
         </p>
@@ -34,78 +33,70 @@ const event = url.searchParams.get("event");
     </div>
   </section>
 
-
   <section class="relative py-10 md:py-16">
     <div class="container-x px-4 md:px-8">
       <!-- Header -->
       <header class="text-center mb-8 md:mb-12">
         <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Bring Them To Jesus</h1>
         <p class="mt-4 md:mt-5 text-xl md:text-2xl text-brand-warmgray-700">
-         Come. See. <span class="text-brand-red">Jesus</span>
+          Come. See. <span class="text-brand-red">Jesus</span>
         </p>
       </header>
 
-  <!-- Content Grid -->
-  <section class="container-x pt-12 md:pt-16 pb-12 md:pb-14">
-    <div class="grid gap-6 md:gap-8 md:grid-cols-3">
-      
-      <!-- Objective -->
-      <article class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-        <h2 class="text-center text-2xl md:text-2xl font-sembold text-brand-red mb-3">Objective</h2>
-        <p class="text-lg md:text-lg leading-7 md:leading-8 mt-3 text-brand-warmgray-800">
-          We invite parents into a Jesus-centred dedication journey—filled with encouragement, practical resources for parenting, and the joy of building friendships with other parents along the way.
-      </article>
+      <!-- Content Grid -->
+      <section class="container-x pt-12 md:pt-16 pb-12 md:pb-14">
+        <div class="grid gap-6 md:gap-8 md:grid-cols-3">
+          <!-- Objective -->
+          <article class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
+            <h2 class="text-center text-2xl md:text-2xl font-sembold text-brand-red mb-3">Objective</h2>
+            <p class="text-lg md:text-lg leading-7 md:leading-8 mt-3 text-brand-warmgray-800">
+              We invite parents into a Jesus-centred dedication journey—filled with encouragement, practical resources for parenting, and the joy of building friendships with other parents along the way.
+            </p>
+          </article>
 
-      <!-- Duration -->
-      <article class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-        <h2 class="text-center text-2xl md:text-2xl font-semibold text-brand-red mb-3">Duration</h2>
-        <p class="text-lg md:text-lg leading-7 md:leading-8 text-brand-warmgray-800">
-          <strong>Two-weeks</strong>, two sessions, ninety minutes each — preparing you for a lifetime commitment.
-        </p>
-      </article>
+          <!-- Duration -->
+          <article class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
+            <h2 class="text-center text-2xl md:text-2xl font-semibold text-brand-red mb-3">Duration</h2>
+            <p class="text-lg md:text-lg leading-7 md:leading-8 text-brand-warmgray-800">
+              <strong>Two-weeks</strong>, two sessions, ninety minutes each — preparing you for a lifetime commitment.
+            </p>
+          </article>
 
-      <!-- Program Features -->
-      <article class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-        <h2 class="text-center text-2xl md:text-2xl font-semibold text-brand-red mb-3">Program Features</h2>
-        <ul class="text-lg md:text-lg leading-7 md:leading-8 space-y-3 text-brand-warmgray-800 list-disc pl-5">
-          <li><span class="font-bold">Style:</span> Warm, engaging, short gospel presentation, Q&amp;A session, and prayer.</li>
-          <li><span class="font-bold">Duration:</span> 2 sessions, 90 minutes each.</li>
-          <li><span class="font-bold">Materials:</span> <em>Bring Them to Jesus Handbook</em> and your Bible.</li>
-        </ul>
-      </article>
-    </div>
+          <!-- Program Features -->
+          <article class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
+            <h2 class="text-center text-2xl md:text-2xl font-semibold text-brand-red mb-3">Program Features</h2>
+            <ul class="text-lg md:text-lg leading-7 md:leading-8 space-y-3 text-brand-warmgray-800 list-disc pl-5">
+              <li><span class="font-bold">Style:</span> Warm, engaging, short gospel presentation, Q&amp;A session, and prayer.</li>
+              <li><span class="font-bold">Duration:</span> 2 sessions, 90 minutes each.</li>
+              <li><span class="font-bold">Materials:</span> <em>Bring Them to Jesus Handbook</em> and your Bible.</li>
+            </ul>
+          </article>
+        </div>
 
-    <!-- Costs -->
-    <article class="mt-10 max-w-xl mx-auto rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red text-center">
-      <h2 class="text-2xl md:text-2xl font-semibold text-brand-red mb-3">Costs</h2>
-      <p class="text-lg md:text-lg leading-7 md:leading-8 text-brand-warmgray-800">
-        <span class="font-medium text-warm-gray"> A one-time registration cost per household for the 2-week class (covers catering &amp; admin, non-refundable).
-      </p>
-    </article>
+        <!-- Costs -->
+        <article class="mt-10 max-w-xl mx-auto rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red text-center">
+          <h2 class="text-2xl md:text-2xl font-semibold text-brand-red mb-3">Costs</h2>
+          <p class="text-lg md:text-lg leading-7 md:leading-8 text-brand-warmgray-800">
+            <span class="font-medium text-warm-gray"> A one-time registration cost per household for the 2-week class (covers catering &amp; admin, non-refundable).
+          </p>
+        </article>
 
-    <!-- Registration Form -->
-    <div class="mt-12 max-w-2xl mx-auto px-4 md:px-0">
-      <RegisterForm
-        title="We'd love to see you — drop your details below"
-        titleClass="text-xl md:text-2xl font-medium text-brand-warmgray-800 text-center mb-4"
-        eventName="Bring Them To Jesus"
-        paymentLink="/give"
-        successMessage="Thank you for registering!"
-        ctaText="Save My Spot"
-        disabled={true}
-         showNotice={true}
-        fields={[
-          { id: "firstName", label: "Name", type: "text", required: true },
-          { id: "surname", label: "Surname", type: "text", required: true },
-          { id: "contact", label: "Contact Number", type: "tel", required: true },
-          { id: "email", label: "Email Address", type: "email", required: true },
-          { id: "streetAddress", label: "Street Address", type: "text", required: true },
-          { id: "suburb", label: "Suburb", type: "text", required: true },
-          { id: "city", label: "City", type: "text", required: true },
-          { id: "postalCode", label: "Postal Code", type: "text", required: true, minlength: 3, maxlength: 10, pattern: ".{3,10}" },
-          { id: "attendees", label: "Number of People Attending", type: "number", required: true, min: 1 }
-        ]}
-      />
-    </div>
-  </section>
+<!-- Registration Form -->
+<div class="mt-12 max-w-2xl mx-auto px-4 md:px-0">
+  <FormCard
+    title="We'd love to see you — drop your details below"
+    eventName="Bring Them To Jesus"
+    ctaText="Save My Spot"
+    formAction="/register"
+    disabled={false}
+    showNotice={false}
+    showAttendees={true}
+  >
+    <!-- Inject Google-powered address form -->
+    <AddressFields />
+  </FormCard>
+</div>
+</section>
+</div>
+</section>
 </BaseLayout>

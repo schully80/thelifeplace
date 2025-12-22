@@ -1,158 +1,443 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Slogan from "../../components/Slogan.astro";
+import FadeDivider from "../../components/tlp/FadeDivider.astro";
+import AppDownloadCard from "../../components/AppDownloadCard.astro";
 ---
 
 <BaseLayout title="Our Values">
-  <!-- Background wrapper with image -->
-  <section 
-    class="relative container-x py-14 md:py-20 bg-cover bg-center" 
-    style="background-image: url('/only-jesus.jpg');"
-  >
-    <!-- Overlay to soften the background -->
-    <div class="absolute inset-0 bg-white/90"></div>
 
-    <!-- Header -->
-    <div class="relative z-10 text-center max-w-3xl mx-auto">
-      <!-- Mobile smaller (3xl), Desktop unchanged (4xl) -->
-      <h1 class="text-3xl md:text-3xl font-semibold tracking-wide text-gray-900">
+
+<!-- ====================================================== -->
+<!-- HERO — WARM MINIMAL HEADER -->
+<!-- ====================================================== -->
+<div class="w-screen max-w-none relative left-1/2 -mx-[50vw]">
+  <section class="relative py-32 w-full flex flex-col items-center justify-center bg-white">
+    <div class="absolute inset-0 bg-gray-100"></div>
+
+    <div class="relative z-10 text-center px-6">
+      <h1 class="text-4xl md:text-6xl font-black tracking-tight text-gray-900">
         Our Values
       </h1>
 
-      <!-- Slogan under heading -->
-      <!-- Mobile smaller (base), desktop keeps your large size via sm:3xl -->
-      <p class="mt-6 text-lg sm:text-2xl text-center text-gray-800">
-         Come. See. <span class="text-brand-red">Jesus</span>
-      </p>
-
-      <!-- Intro copy (split into two valid paragraphs) -->
-      <!-- Mobile smaller (base), Desktop unchanged (md:2xl) -->
-      <p class="mt-4 text-lg md:text-1xl text-gray-700">
-        At The Life Place, our heartbeat is Jesus.
-      </p>
-      <p class="mt-4 text-lg md:text-1xl text-gray-700">
-        Our values shape who we are and how we live together as His people.
-      </p>
-    </div>
-
-    <!-- Values grid -->
-    <div class="relative z-10 mt-12 grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
-      <!-- 1 -->
-      <article class="h-full rounded-xl border bg-white/10 backdrop-blur-sm p-5 md:p-7 shadow-sm hover:shadow-md transition">
-        <!-- Mobile smaller title (xl), Desktop unchanged (2xl) -->
-        <h3 class="text-2xl md:text-2xl font-semibold mb-4 text-brand-red text-center">
-          Hear the good news
-        </h3>
-        <!-- Body: mobile base, desktop lg -->
-        <p class="text-xl md:text-lg text-gray-700">
-          Just as Jesus taught that everything in the Bible was written about Him, so every time we open the Bible, we are invited to see and meet with Him. And when we see Jesus, we hear the good news.
-        </p>
-        <p class="mt-3 text-sm text-center text-gray-800">
-          (Luke 24:47, John 1:19-35, 5:39, 46, 12:26-27, 13:3)
-        </p>
-      </article>
-
-      <!-- 2 -->
-      <article class="h-full rounded-xl border bg-white/10 backdrop-blur-sm p-5 md:p-7 shadow-sm hover:shadow-md transition">
-        <h3 class="text-2xl md:text-2xl font-semibold mb-4 text-center text-brand-red ">
-          Diverse Community
-        </h3>
-        <p class="text-xl md:text-lg text-gray-800">
-          Rooted in the good news, we celebrate every story, background, and culture—nations, tribes, peoples, and languages.
-        </p>
-        <p class="mt-3 text-sm text-center text-gray-800">
-          (Acts 2:46–47; Ephesians 3; Romans 8:15; Galatians 4:6; Revelation 7:9)
-        </p>
-      </article>
-
-      <!-- 3 -->
-      <article class="h-full rounded-xl border bg-white/10 backdrop-blur-sm p-5 md:p-7 shadow-sm hover:shadow-md transition">
-        <h3 class="text-2xl md:text-2xl font-semibold mb-4 text-center text-brand-red ">
-          Extravagant Generosity
-        </h3>
-        <p class="text-xl md:text-lg text-gray-700">
-          Made rich by what Jesus has done, we are generous and share in all things.
-        </p>
-        <p class="mt-3 text-sm text-center text-gray-500">
-          (Acts 2:45; 4:35; 2 Corinthians 8:2–4, 9, 16–24; 9:1–15)
-        </p>
-      </article>
-
-      <!-- 4 -->
-      <article class="h-full rounded-xl border bg-white/10 backdrop-blur-sm p-5 md:p-7 shadow-sm hover:shadow-md transition lg:col-start-1 lg:row-start-2">
-        <h3 class="text-2xl md:text-2xl font-semibold mb-4 text-center text-brand-red ">
-          Graceful Compassion
-        </h3>
-        <p class="text-xl md:text-lg text-gray-700">
-          The good news moves us beyond our comforts to show grace to the widowed, the orphan,
-          the poor, the imprisoned, and the immigrant.
-        </p>
-        <p class="mt-3 text-sm text-center text-gray-500">
-          (Deut 10:18; 14:29; 16:11; 24:17,19–21; Matt 25:35–36; Acts 6:1–3; Gal 2:9; James 1:27; 2:14–17; Jude 9)
-        </p>
-      </article>
-
-      <!-- 5 -->
-      <article class="h-full rounded-xl border bg-white/10 backdrop-blur-sm p-5 md:p-7 shadow-sm hover:shadow-md transition lg:col-start-3 lg:row-start-2">
-        <h3 class="text-2xl md:text-2xl font-semibold mb-4 text-center text-brand-red ">
-          Go live the story
-        </h3>
-        <!-- fixed malformed class attribute; mobile base, desktop lg -->
-        <p class="text-xl md:text-lg text-gray-700">
-          In our homes, workplaces, and city, we embody the good news and engage the culture with grace and courage—not to condemn, but to redeem.
-        </p>
-        <!-- fixed 'text-m' to 'text-sm' -->
-        <p class="mt-3 text-sm text-center text-gray-500">
-          (John 17:15–19; Acts 17:16–34; 1 Corinthians 9:19–22)
-        </p>
-      </article>
+      <Slogan size="md" arrow={true} class="mt-10 md:mt-14" />
     </div>
   </section>
-
-  <!-- Scripture footer -->
-  <div class="border-t mt-12 md:mt-16 pt-8 md:pt-10 text-center max-w-2xl mx-auto">
-    <!-- Mobile slightly smaller, desktop unchanged -->
-    <blockquote class="text-lg md:text-xl italic text-gray-800">
-      “I came that they may have and enjoy life and have it in abundance (to the full, till it overflows)”
-    </blockquote>
-    <p class="mt-2 text-sm md:text-base text-gray-600">John 10:10 AMP</p>
-  </div>
-
-
-  <!-- INLINE GLASS APP DOWNLOAD CARD -->
-<div
-  class="mx-auto mt-16 max-w-md backdrop-blur-xl bg-white/20 border border-white/30
-         shadow-2xl rounded-3xl p-8 text-center ring-1 ring-black/5 animate-floatSlow"
->
-  <img 
-    src="/expo-qr.png"
-    alt="Download App QR"
-    class="w-36 h-36 mx-auto mb-4 rounded-lg shadow-md"
-  />
-
-  <h3 class="text-2xl font-semibold text-gray-900 mb-2">
-    Download Our App
-  </h3>
-
-  <p class="text-gray-600 text-sm leading-relaxed mb-5">
-    Scan the QR code to open the app instantly in Expo Go.
-  </p>
-
-  <a
-    href="https://expo.dev/"
-    target="_blank"
-    class="inline-flex items-center gap-2 rounded-full px-6 py-3
-           bg-brand-red text-white font-semibold shadow-sm
-           hover:bg-brand-red/90 hover:shadow-md active:scale-[0.97]
-           transition-all"
-  >
-    Get Expo Go
-    <svg 
-      class="w-5 h-5"
-      fill="none" stroke="currentColor" stroke-width="2"
-      viewBox="0 0 24 24">
-      <path d="M22 2 11 13" />
-      <path d="M22 2 15 22 11 13 2 9 22 2z" />
-    </svg>
-  </a>
 </div>
+
+
+<!-- ====================================================== -->
+<!-- INTRO NARRATIVE — FULL LEFT-ALIGNED BLOCK -->
+<!-- ====================================================== -->
+<section class="w-full py-32 bg-white">
+  <div class="w-full px-6 lg:px-12 xl:px-20 cine-zoom-apple-hover">
+
+    <div class="max-w-5xl text-left">
+      <p class="text-2xl md:text-3xl font-light text-gray-800 leading-relaxed">
+        We are intentional about The Life Place being a community where all that
+        we are and do communicates the beauty, gentleness and kindness of who <span class="text-brand-red">Jesus</span> is and what He did for us—a community defined and sweetened by the gospel.
+      </p>
+
+      <p class="mt-6 text-gray-500 text-xl">
+        Schulter & Genevieve Etyang
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<FadeDivider mt="mt-2" mb="mb-20" />
+
+
+<!-- ====================================================== -->
+<!-- VALUE 1 — SECTION INTRO (Option A Badge) -->
+<!-- ====================================================== -->
+<section class="w-full py-32">
+  <div class="max-w-4xl mx-auto px-6 cine-zoom-apple-hover">
+
+    <!-- BADGE + TITLE -->
+    <div class="flex items-center gap-6 mb-10">
+      <div class="h-14 w-14 rounded-full bg-gray-200 flex items-center justify-center">
+        <span class="text-brand-red font-black text-2xl">1</span>
+      </div>
+
+      <h2 class="text-3xl md:text-4xl font-black tracking-tight text-gray-900">
+        Seeing Jesus in the Scriptures
+      </h2>
+    </div>
+
+    <!-- NARRATIVE -->
+    <p class="text-2xl md:text-3xl font-regular text-gray-800 leading-relaxed">
+      We open the Scriptures because they reveal <span class="text-brand-red">Jesus</span> —
+      and in seeing Him, we hear the good news that transforms our lives.
+    </p>
+
+    <p class="mt-6 text-gray-500 text-lg text-center">
+      (Proverbs 25:25; Luke 24:47; John 1:19-35, 5:39, 46, 12:26-27, 13:3)
+    </p>
+
+  </div>
+</section>
+
+
+<!-- VALUE 1 — CARD SECTION -->
+<section id="value-1" class="w-full px-6 pt-24 pb-32 bg-gray-50">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center px-6">
+
+    <!-- LEFT IMAGE -->
+    <div class="h-[520px] md:h-[600px] lg:h-[650px] rounded-3xl overflow-hidden shadow-xl tlp-grayscale cine-zoom-apple-hover">
+      <img src="/what-teach4.jpg" class="w-full h-full object-cover object-center scale-[1.03]" />
+    </div>
+
+    <!-- RIGHT CARD -->
+    <div class="flex items-center">
+      <div class="value-card w-full max-w-[560px] p-12 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20">
+
+        <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
+          See <span class="text-brand-red">Jesus</span><br/>Hear the Good News
+        </h2>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<FadeDivider mt="mt-40" mb="mb-40" />
+
+
+
+<!-- ====================================================== -->
+<!-- VALUE 2 — SECTION INTRO -->
+<!-- ====================================================== -->
+<section class="w-full pt-20 pb-32">
+
+  <div class="max-w-4xl mx-auto px-6 cine-zoom-apple-hover">
+
+    <!-- BADGE + TITLE -->
+    <div class="flex items-center gap-6 mb-10">
+      <div class="h-14 w-14 rounded-full bg-gray-200 flex items-center justify-center">
+        <span class="text-brand-red font-black text-2xl">2</span>
+      </div>
+
+      <h2 class="text-3xl md:text-4xl font-black tracking-tight text-gray-900">
+        Diverse Community
+      </h2>
+    </div>
+
+    <!-- NARRATIVE -->
+    <p class="text-2xl md:text-3xl font-regular text-gray-800 leading-relaxed">
+      The gospel creates a new kind of community — every race, ethnicity, tribe, people and language.
+      Rooted in Jesus' finished work, we celebrate every story, background and culture.
+    </p>
+
+    <p class="mt-6 text-gray-500 text-lg text-center">
+      (Acts 2:46–47; Romans 8:15; Galatians 4:6; Ephesians 3; Revelation 7:9)
+    </p>
+
+  </div>
+</section>
+
+
+<!-- VALUE 2 — CARD SECTION -->
+<section id="value-2" class="w-full px-6 pt-24 pb-32 mt-8 bg-gray-50">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-[40%_60%] gap-20 items-center px-6">
+
+    <!-- LEFT CARD -->
+    <div class="flex items-center justify-end md:pr-6">
+      <div class="value-card w-full max-w-[560px] p-12 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20">
+
+        <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900">
+          <span class="text-brand-red">Diverse</span> Community
+        </h2>
+
+      </div>
+    </div>
+
+    <!-- RIGHT IMAGE -->
+    <div class="h-[520px] md:h-[600px] lg:h-[650px] rounded-3xl overflow-hidden shadow-xl tlp-grayscale cine-zoom-apple-hover">
+      <img src="/what-community7.png" class="w-full h-full object-cover object-center scale-[1.03]" />
+    </div>
+
+  </div>
+</section>
+
+<FadeDivider mt="mt-40" mb="mb-40" />
+
+
+
+<!-- ====================================================== -->
+<!-- VALUE 3 — SECTION INTRO -->
+<!-- ====================================================== -->
+<section class="w-full pt-20 pb-32">
+  <div class="max-w-4xl mx-auto px-6 cine-zoom-apple-hover">
+
+    <!-- BADGE + TITLE -->
+    <div class="flex items-center gap-6 mb-10">
+      <div class="h-14 w-14 rounded-full bg-gray-200 flex items-center justify-center">
+        <span class="text-brand-red font-black text-2xl">3</span>
+      </div>
+
+      <h2 class="text-3xl md:text-4xl font-black tracking-tight text-gray-900">
+       Extravagant <span class="text-brand-red">Generosity</span>
+      </h2>
+    </div>
+
+    <!-- NARRATIVE -->
+    <p class="text-2xl md:text-3xl font-regular text-gray-800 leading-relaxed">
+      Made rich by what <span class="text-brand-red">Jesus</span> has done,
+      we joyfully give, share and overflow with generosity.
+    </p>
+
+    <p class="mt-6 text-gray-500 text-lg text-center">
+      (1 Chronicles 29:1-9, Matthew 26:6-8,Acts 2:45; 4:35; 2 Corinthians 8:2–4, 9, 16–24; 9:1–15)
+    </p>
+
+  </div>
+</section>
+
+
+<!-- VALUE 3 — CARD SECTION -->
+<section id="value-3" class="w-full px-6 pt-24 pb-32 bg-gray-50">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center px-6">
+
+    <!-- LEFT IMAGE -->
+    <div class="h-[520px] md:h-[600px] lg:h-[650px] rounded-3xl overflow-hidden shadow-xl tlp-grayscale cine-zoom-apple-hover">
+      <img src="/what-give.jpg" class="w-full h-full object-cover object-center scale-[1.03]" />
+    </div>
+
+    <!-- RIGHT CARD -->
+    <div class="flex items-center">
+      <div class="value-card w-full max-w-[560px] p-12 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20">
+
+        <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900">
+          Extravagant <span class="text-brand-red">Generosity</span>
+        </h2>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<FadeDivider mt="mt-40" mb="mb-40" />
+
+
+
+<!-- ====================================================== -->
+<!-- VALUE 4 — SECTION INTRO -->
+<!-- ====================================================== -->
+<section class="w-full pt-20 pb-32">
+  <div class="max-w-4xl mx-auto px-6 cine-zoom-apple-hover">
+
+    <div class="flex items-center gap-6 mb-10">
+      <div class="h-14 w-14 rounded-full bg-gray-200 flex items-center justify-center">
+        <span class="text-brand-red font-black text-2xl">4</span>
+      </div>
+
+      <h2 class="text-3xl md:text-4xl font-black tracking-tight text-gray-900">
+       Graceful <span class="text-brand-red">Compassion</span>
+      </h2>
+    </div>
+
+    <p class="text-2xl md:text-3xl font-regular text-gray-800 leading-relaxed">
+      <span class="text-brand-red">Jesus</span> moves us toward the widow, the orphan,
+      the poor, the imprisoned and the immigrant with grace that mirrors His.
+    </p>
+
+    <p class="mt-6 text-gray-500 text-lg text-center">
+      (Deut 10:18, 14:29; 16:11; 24:17,19–21; Matt 25:35–36; Acts 6:1–3; Gal 2:9; James 1:27, 2:14–17; Jude 9)
+    </p>
+  </div>
+</section>
+
+
+<!-- VALUE 4 — CARD SECTION -->
+<section id="value-4" class="w-full px-6 pt-24 pb-32 bg-gray-50">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center px-6">
+
+    <!-- LEFT CARD -->
+    <div class="flex items-center justify-end">
+      <div class="value-card w-full max-w-[560px] p-12 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20">
+
+        <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900">
+          Graceful <span class="text-brand-red">Compassion</span>
+        </h2>
+
+      </div>
+    </div>
+
+    <!-- RIGHT IMAGE -->
+    <div class="h-[520px] md:h-[600px] lg:h-[650px] rounded-3xl overflow-hidden shadow-xl tlp-grayscale cine-zoom-apple-hover">
+      <img src="/Graceful-compassion.jpg" class="w-full h-full object-cover object-center scale-[1.03]" />
+    </div>
+
+  </div>
+</section>
+
+<FadeDivider mt="mt-40" mb="mb-40" />
+
+
+
+<!-- ====================================================== -->
+<!-- VALUE 5 — SECTION INTRO -->
+<!-- ====================================================== -->
+<section class="w-full pt-20 pb-32">
+  <div class="max-w-4xl mx-auto px-6 cine-zoom-apple-hover">
+
+    <div class="flex items-center gap-6 mb-10">
+      <div class="h-14 w-14 rounded-full bg-gray-200 flex items-center justify-center">
+        <span class="text-brand-red font-black text-2xl">5</span>
+      </div>
+
+      <h2 class="text-3xl md:text-4xl font-black tracking-tight text-gray-900">
+        Go and tell the <span class="text-brand-red">Story</span> 
+      </h2>
+    </div>
+
+    <p class="text-2xl md:text-3xl font-regular text-gray-800 leading-relaxed">
+      The story of <span class="text-brand-red">Jesus</span> moves through us into our city,
+      our nation and the world. We are a sent people, carrying His life and His good news.
+    </p>
+
+    <p class="mt-6 text-gray-500 text-lg text-center">
+      (Luke 8:39; John 17:18; 1 Corinthians 9:23)
+    </p>
+  </div>
+</section>
+
+
+<!-- VALUE 5 — CARD SECTION -->
+<section id="value-5" class="w-full px-6 pt-24 pb-32 bg-gray-50">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center px-6">
+
+    <!-- LEFT IMAGE -->
+    <div class="w-full h-[520px] md:h-[600px] lg:h-[650px] rounded-3xl overflow-hidden shadow-xl tlp-grayscale cine-zoom-apple-hover">
+      <img src="/what-sent5.jpg" class="w-full h-full object-cover object-center scale-105" />
+    </div>
+
+    <!-- RIGHT CARD -->
+    <div class="flex items-center">
+      <div class="value-card w-full max-w-[560px] p-12 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20">
+
+        <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900">
+          Go tell the <span class="text-brand-red">story</span>
+        </h2>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<FadeDivider mt="mt-40" mb="mb-40" />
+
+
+
+<!-- ====================================================== -->
+<!-- SCRIPTURE FOOTER -->
+<!-- ====================================================== -->
+<section class="text-center max-w-2xl mx-auto px-6 py-20">
+  <blockquote class="text-2xl md:text-3xl italic text-gray-700 leading-relaxed">
+    “I came that they may have and enjoy life and have it in abundance (to the full, till it overflows).”
+  </blockquote>
+  <p class="mt-3 text-sm md:text-base text-gray-500">John 10:10 (AMP)</p>
+</section>
+
+<FadeDivider mt="mt-40" mb="mb-40" />
+
+
+
+<!-- ====================================================== -->
+<!-- NEXT STEPS SECTION -->
+<!-- ====================================================== -->
+<div class="w-full bg-gradient-to-b from-[#F7F7F8] to-[#EFEFF1] py-24 px-6 mt-40">
+  <section class="max-w-6xl mx-auto text-center">
+
+    <h2 class="text-4xl md:text-6xl font-black text-gray-900 tracking-tight">
+      Your Next <span class="text-brand-red">Step</span>
+    </h2>
+    <p class="mt-4 text-lg md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+      Here are a few ways you can get connected and take your next step.
+    </p>
+
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 place-items-center mt-16">
+
+      <!-- APP DOWNLOAD -->
+      <AppDownloadCard />
+
+      <!-- GIVE -->
+      <div class="cine-zoom-apple-hover rounded-3xl p-10 backdrop-blur-xl bg-white/10 border border-white/20 shadow-xl text-center">
+        <img src="/hand-holding-heart.png" class="w-16 h-16 mx-auto mb-5 opacity-90" />
+        <h3 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-3">
+          Partner With Us
+        </h3>
+        <p class="text-gray-700 mb-6 text-lg">
+          Your generosity moves the mission of <span class="word-jesus">Jesus</span> forward.
+        </p>
+        <a href="/give" class="text-brand-red font-semibold hover:underline">Give Online →</a>
+      </div>
+
+      <!-- PLAN A VISIT -->
+      <div class="cine-zoom-apple-hover rounded-3xl p-10 backdrop-blur-xl bg-white/10 border border-white/20 shadow-xl text-center">
+        <img src="/home.svg" class="w-16 h-16 mx-auto mb-5 opacity-90" />
+        <h3 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-3">
+          Plan a Visit
+        </h3>
+        <p class="text-gray-700 mb-6 text-lg">
+          We would love to welcome you this Sunday.
+        </p>
+        <a href="/visit" class="text-brand-red font-semibold hover:underline">Plan Your Visit →</a>
+      </div>
+
+    </div>
+
+  </section>
+</div>
+
+<!-- ====================================================== -->
+<!-- MOTION PACK CSS + JS -->
+<!-- ====================================================== -->
+<style>
+.motion-card {
+  opacity: 0;
+  transform: translateY(50px) scale(0.97);
+  transition: opacity 1s ease, transform 1.2s cubic-bezier(.16,1,.3,1);
+}
+.motion-card.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.value-card {
+  animation: floaty 16s ease-in-out infinite;
+}
+@keyframes floaty {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+.value-card:hover {
+  transform: perspective(900px) rotateX(3deg) rotateY(-2deg) scale(1.02);
+}
+</style>
+
+<script>
+const cards = document.querySelectorAll(".motion-card");
+
+function revealCards() {
+  const trigger = window.innerHeight * 0.88;
+  cards.forEach(card => {
+    if (card.getBoundingClientRect().top < trigger) {
+      card.classList.add("visible");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealCards);
+window.addEventListener("load", revealCards);
+</script>
+
+
 </BaseLayout>

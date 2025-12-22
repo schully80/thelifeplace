@@ -1,0 +1,45 @@
+---
+// No props needed
+---
+
+<div class="max-w-xl mx-auto p-6 space-y-4">
+  <h1 class="text-xl font-semibold">Places SDK Test</h1>
+
+  <!-- Autocomplete input -->
+  <input
+    id="test-input"
+    type="text"
+    placeholder="Type an address (e.g., Sandton)..."
+    class="w-full rounded-full border border-gray-300 px-4 py-3"
+  />
+
+  <!-- Debug output -->
+  <pre id="debug" class="text-xs bg-gray-50 border border-gray-200 p-3 rounded-lg overflow-auto"></pre>
+</div>
+
+<script is:inline>
+  function initMap() {
+    const input = document.getElementById("test-input");
+    const debug = document.getElementById("debug");
+
+    // Initialize Places Autocomplete (ZA restricted for relevance)
+    const autocomplete = new google.maps.places.Autocomplete(input, {
+      fields: ["formatted_address", "geometry", "place_id", "address_components"],
+      componentRestrictions: { country: "ZA" },
+    });
+
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+      console.log("Autocomplete place:", place);
+
+      const payload = {
+        formatted_address: place.formatted_address,
+        place_id: place.place_id,
+        lat: place.geometry?.location?.lat?.(),
+        lng: place.geometry?.location?.lng?.(),
+      };
+
+      debug.textContent = JSON.stringify(payload, null, 2);
+    });
+  }
+</script>

@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import RegisterForm from "../../components/RegisterForm.astro";
-import FormCard from "../components/FormCard.astro";
+import FormCard from "../../components/FormCard.astro";
 import TurnstileWidget from "../../components/TurnstileWidget.astro";
+import AddressFields from "../../components/AddressFields.astro";
 
 const NEW_MEMBERS_REG_OPEN = true;
 ---
@@ -71,26 +72,18 @@ const NEW_MEMBERS_REG_OPEN = true;
     </article>
   </div>
 
-  <!-- Registration Form -->
-  <div class="mt-10 md:mt-12 max-w-2xl mx-auto px-4 md:px-0">
-    <RegisterForm
-      title="We'd love to see you"
-      titleClass="text-xl md:text-2xl font-medium text-brand-warmgray-800 text-center mb-4"
-      eventName="Vision Night"
-      successMessage="Your registration has been received. We can’t wait to welcome you."
-      ctaText="Save My Spot"
-      disabled={!NEW_MEMBERS_REG_OPEN}
-      showNotice={!NEW_MEMBERS_REG_OPEN}
-      fields={[
-        { id: "firstName", label: "Name", type: "text", required: true },
-        { id: "surname", label: "Surname", type: "text", required: true },
-        { id: "contact", label: "Contact Number", type: "tel", required: true },
-        { id: "email", label: "Email Address", type: "email", required: true },
-        { id: "streetAddress", label: "Street Address", type: "text", required: true },
-        { id: "suburb", label: "Suburb", type: "text", required: true },
-        { id: "city", label: "City", type: "text", required: true },
-        { id: "postalCode", label: "Postal Code", type: "text", required: true, minlength: 3, maxlength: 10, pattern: ".{3,10}" },
-        { id: "attendees", label: "Number of People Attending", type: "number", required: true, min: 1 }
-      ]}
-    />
+<!-- Registration Form -->
+<div class="mt-10 md:mt-12 max-w-2xl mx-auto px-4 md:px-0">
+  <FormCard
+    title="We'd love to see you"
+    eventName="Vision Night"
+    ctaText="Save My Spot"
+    formAction="/register"
+    showAttendees={true}   <!-- attendees field visible -->
+  
+    <!-- Google-powered address form injected here -->
+    <AddressFields />
+  </FormCard>
 </div>
+</section>
+</BaseLayout>

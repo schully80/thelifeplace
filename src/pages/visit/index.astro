@@ -6,7 +6,8 @@ import HeroTitle from "../components/tlp/HeroTitle.astro";
 import WarmBackground from "../components/tlp/WarmBackground.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
 import IconActionCard from "../components/tlp/IconActionCard.astro";
-import RegisterForm from "../../components/RegisterForm.astro";
+import FormCard from "../../components/FormCard.astro";
+import AddressFields from "../../components/AddressFields.astro";
 import { site } from "../../../site.config.js";
 
 const email = site?.contact?.email ?? "hello@thelifeplace.org";
@@ -19,7 +20,7 @@ const email = site?.contact?.email ?? "hello@thelifeplace.org";
 
     <!-- Slogan -->
     <p class="mt-5 md:mt-6 text-lg sm:text-2xl text-center text-gray-700">
- <span class="Come. See. text-brand-red">Jesus</span>
+      <span class="text-brand-red">Come. See. Jesus</span>
     </p>
 
     <!-- Address -->
@@ -34,17 +35,17 @@ const email = site?.contact?.email ?? "hello@thelifeplace.org";
       </a>
     </div>
 
-    <!-- Location Map -->
-    <div class="mt-8 rounded-xl overflow-hidden shadow-lg">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3587.123456789!2d28.0123456!3d-26.0123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e9576543210abcd%3A0xabcdef123456789!2sThe%20Life%20Place!5e0!3m2!1sen!2sza!4v1724234567890!5m2!1sen!2sza"
-        width="100%"
-        height="400"
-        style="border:0;"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
+    <!-- Registration Form -->
+    <div class="mt-12 max-w-2xl mx-auto px-4 md:px-0">
+  <FormCard
+  title="We'd love to meet you — drop your details below"
+  eventName="Plan a Visit"
+  ctaText="Save My Spot"
+  formAction="/register"
+  showAttendees={false}
+>
+  <AddressFields />
+</FormCard>
     </div>
   </section>
 </BaseLayout>

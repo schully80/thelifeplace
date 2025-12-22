@@ -25,96 +25,65 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 <!DOCTYPE html>
 <html lang="en" class="min-h-screen">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content={description} />
-    <title>{title}</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
 
-    <!-- Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
 
-    <!-- Icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      crossorigin="anonymous"
-    />
+  <!-- Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    crossorigin="anonymous"
+  />
 
+<!-- Inject env variable for client scripts -->
+<script is:inline>
+  window.PUBLIC_GOOGLE_PLACES_KEY = "{import.meta.env.PUBLIC_GOOGLE_PLACES_KEY}";
+</script>
 
-    <!-- Inject env vars -->
-    <script is:inline>
-      window.__GOOGLE_PLACES_KEY__ = import.meta.env.PUBLIC_GOOGLE_PLACES_KEY;
-      window.PUBLIC_YOUTUBE_API_KEY = import.meta.env.PUBLIC_YOUTUBE_API_KEY;
-      window.PUBLIC_YOUTUBE_CHANNEL_ID = import.meta.env.PUBLIC_YOUTUBE_CHANNEL_ID;
-    </script>
+<!-- Load Maps JS with Places + callback -->
+<script
+  src={`https://maps.googleapis.com/maps/api/js?key=${import.meta.env.PUBLIC_GOOGLE_PLACES_KEY}&callback=initMap&libraries=places&v=weekly`}
+  async defer
+></script>
+</head>
 
-    <!-- Load Google Maps JS API -->
-    <script is:inline>
-      const key = import.meta.env.PUBLIC_GOOGLE_PLACES_KEY;
-      if (key) {
-        const script = document.createElement("script");
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&v=weekly`;
-        script.defer = true;
-        document.head.appendChild(script);
-      }
-    </script>
+  <body class="min-h-screen flex flex-col bg-white antialiased">
 
-    <!-- Google Web Components -->
-    <script
-      src="https://unpkg.com/@googlemaps/extended-component-library/dist/index.min.js"
-      defer
-    ></script>
-  </head>
-
-<body class="min-h-screen flex flex-col bg-white antialiased">
     <!-- ⭐ PREMIUM APPLE-STYLE SCROLL BARS -->
-<!-- Top progress bar -->
-<div id="scroll-progress-top"
-     class="fixed top-2 left-0 h-[3px] w-0 z-[9999]
-            rounded-full transition-all duration-200
-            bg-gray-400">
-</div>
+    <div id="scroll-progress-top"
+         class="fixed top-2 left-0 h-[3px] w-0 z-[9999]
+                rounded-full transition-all duration-200
+                bg-gray-400"></div>
 
- <!-- Side floating capsule -->
-<div id="scroll-progress-side-wrapper"
-     class="fixed top-1/2 right-2 -translate-y-1/2 z-[9999] opacity-0 transition-opacity duration-300 pointer-events-none">
-  
-  <div id="scroll-progress-side"
-       class="w-[3px] h-0 rounded-full bg-gray-400
-              transition-all duration-200">
-  </div>
+    <div id="scroll-progress-side-wrapper"
+         class="fixed top-1/2 right-2 -translate-y-1/2 z-[9999] opacity-0 
+                transition-opacity duration-300 pointer-events-none">
+      <div id="scroll-progress-side"
+           class="w-[3px] h-0 rounded-full bg-gray-400
+                  transition-all duration-200"></div>
+    </div>
 
-</div>
+    <!-- SPLASH SCREEN (homepage only) -->
+    {path === "/" && (
+      <div id="splash-screen"
+           class="fixed inset-0 z-[9999] flex items-center justify-center 
+                  bg-white pointer-events-none">
+        <div id="splash-inner" class="relative flex items-center justify-center z-10">
+          <div id="splash-flash"
+               class="absolute inset-0 bg-brand-red opacity-0 rounded-full scale-75 z-0"></div>
 
-
-  <!-- SHOW SPLASH ONLY ON FIRST VISIT + ONLY ON HOMEPAGE -->
-{path === "/" && (
-  <div
-    id="splash-screen"
-    class="fixed inset-0 z-[9999] flex items-center justify-center bg-white pointer-events-none"
-  >
-
-  
-
-    <div id="splash-inner" class="relative flex items-center justify-center z-10">
-      
-      <!-- Flash background -->
-      <div
-        id="splash-flash"
-        class="absolute inset-0 bg-brand-red opacity-0 rounded-full scale-75 z-0"
-      ></div>
-
-
-          <!-- Logo -->
-          <img
-            src="/logo.png"
-            alt="The Life Place"
-            class="relative h-28 w-auto opacity-0 z-20"
-            id="splash-logo"
-          />
+          <img src="/logo.png"
+               alt="The Life Place"
+               class="relative h-28 w-auto opacity-0 z-20"
+               id="splash-logo" />
         </div>
       </div>
     )}
@@ -125,9 +94,8 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     <HeaderDesktop class="hidden xl:block" />
 
     <!-- MAIN CONTENT -->
-    <main
-      class="flex-1 max-w-6xl xl:max-w-7xl 2xl:max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 py-10"
-    >
+    <main class="flex-1 max-w-6xl xl:max-w-7xl 2xl:max-w-[88rem]
+                 mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <slot />
     </main>
 
@@ -143,12 +111,14 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     <!-- FOOTER -->
     <Footer />
 
-    <!-- External JS -->
+    <!-- Site JS -->
     <script src="/js/search.js" defer></script>
     <script src="/js/dropdowns.js" defer></script>
-    <script src="/js/places-new.js" defer></script>
 
-    <!-- SPLASH ANIMATIONS -->
+    <!-- REMOVE THIS: <script src="/js/places-new.js" defer></script> -->
+    <!-- It no longer exists after cleaning. -->
+
+    <!-- SPLASH & SCROLL ANIMATIONS -->
     <style is:inline>
       #splash-screen.fade-out {
         opacity: 0;
@@ -168,7 +138,6 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
       }
     </style>
 
-    <!-- RUN SPLASH ONLY IF FIRST VISIT -->
     {path === "/" && (
       <script is:inline>
         const splashAlreadyShown = sessionStorage.getItem("tlp_splash_shown");
@@ -190,7 +159,6 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
             }, 700);
 
             setTimeout(() => {
-              screen.style.transition = "opacity 0.8s ease-out";
               screen.style.opacity = "0";
             }, 1200);
 
@@ -198,7 +166,6 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
               screen.style.display = "none";
             }, 2000);
           });
-
         } else {
           const screen = document.getElementById("splash-screen");
           if (screen) screen.style.display = "none";
@@ -206,7 +173,7 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
       </script>
     )}
 
-    <!-- Highlight "Jesus" -->
+    <!-- Highlight “Jesus” -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
@@ -223,113 +190,72 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
       });
     </script>
 
-    <!-- ⭐ PREMIUM APPLE-STYLE SCROLL SCRIPT -->
+    <!-- Scroll progress logic -->
     <script is:inline>
-  document.addEventListener("scroll", () => {
-    const doc = document.documentElement;
-    const scrollTop = doc.scrollTop;
-    const scrollHeight = doc.scrollHeight - doc.clientHeight;
-    const scrolled = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      document.addEventListener("scroll", () => {
+        const doc = document.documentElement;
+        const scrollTop = doc.scrollTop;
+        const scrollHeight = doc.scrollHeight - doc.clientHeight;
+        const scrolled = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
 
-    const isDark = doc.classList.contains("dark");
+        const topBar = document.getElementById("scroll-progress-top");
+        const sideWrapper = document.getElementById("scroll-progress-side-wrapper");
+        const sideBar = document.getElementById("scroll-progress-side");
 
-    const topBar = document.getElementById("scroll-progress-top");
-    const sideWrapper = document.getElementById("scroll-progress-side-wrapper");
-    const sideBar = document.getElementById("scroll-progress-side");
+        if (topBar) topBar.style.width = scrolled + "%";
+        if (sideBar) sideBar.style.height = scrolled + "vh";
 
-    // TOP BAR: width + subtle glow
-    if (topBar) {
-      topBar.style.width = scrolled + "%";
-
-      const glow = isDark
-        ? (0.10 + scrolled / 800)
-        : (0.12 + scrolled / 700);
-
-      // NEUTRAL GLOW (no red)
-      topBar.style.boxShadow = `0 0 6px rgba(120,120,120,${glow})`;
-    }
-
-    // SIDE BAR: height + fade-in
-    if (sideBar && sideWrapper) {
-      sideBar.style.height = scrolled + "vh";
-
-      sideWrapper.style.opacity = scrollTop > 120 ? "1" : "0";
-    }
-  });
-</script>
-
-<script is:inline>
-  // Fade-in Observer
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
+        if (sideWrapper) {
+          sideWrapper.style.opacity = scrollTop > 120 ? "1" : "0";
         }
       });
-    },
-    { threshold: 0.15 }
-  );
+    </script>
 
-  // Attach observer to elements with .fade-in
-  document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
+    <!-- Fade-in + Parallax -->
+    <script is:inline>
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add("is-visible");
+          });
+        },
+        { threshold: 0.15 }
+      );
 
-  // Micro parallax
-  window.addEventListener("scroll", () => {
-    document.querySelectorAll("[data-parallax]").forEach((element) => {
-      const speed = parseFloat(element.dataset.parallax) || 0.03;
-      const offset = window.scrollY * speed;
-      element.style.transform = `translateY(${offset}px)`;
-    });
-  });
-</script>
+      document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
 
-<!-- ⭐ AUTOMATIC APPLE MICRO-INTERACTIONS -->
-<script is:inline>
-  
-/*
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll("section").forEach(sec => {
-    if (!sec.classList.contains("no-fade")) {
-      sec.classList.add("fade-in");
-    }
-  });
-});
-*/
-
-    /* 2. Automatic card hover-elevate for all rounded elements */
-    document.querySelectorAll(".rounded-xl, .rounded-2xl, .rounded-3xl")
-      .forEach(card => {
-        if (!card.classList.contains("no-hover")) {
-          card.classList.add("hover-elevate", "fade-in");
-        }
+      window.addEventListener("scroll", () => {
+        document.querySelectorAll("[data-parallax]").forEach(el => {
+          const speed = parseFloat(el.dataset.parallax) || 0.03;
+          el.style.transform = `translateY(${window.scrollY * speed}px)`;
+        });
       });
+    </script>
 
-    /* 3. Automatic press effect for all buttons & button-like links */
-    document.querySelectorAll("button, a.button, a[href]")
-      .forEach(btn => {
-        if (!btn.classList.contains("no-press")) {
-          btn.classList.add("pressable");
-        }
-      });
+    <!-- Micro-interactions -->
+    <script is:inline>
+      document.querySelectorAll(".rounded-xl, .rounded-2xl, .rounded-3xl")
+        .forEach(card => {
+          if (!card.classList.contains("no-hover")) card.classList.add("hover-elevate","fade-in");
+        });
 
-    /* 4. Automatic parallax for hero backgrounds & hero images */
-    document.querySelectorAll(".hero-img, .hero-bg")
-      .forEach(el => {
-        el.dataset.parallax = "0.03";
-        el.classList.add("parallax", "fade-in");
-      });
+      document.querySelectorAll("button, a.button, a[href]")
+        .forEach(btn => {
+          if (!btn.classList.contains("no-press")) btn.classList.add("pressable");
+        });
 
-    /* 5. Leadership images — cinematic parallax */
-    const pastor = document.getElementById("pastorsPhoto");
-    if (pastor) {
-      pastor.dataset.parallax = "0.015";
-      pastor.classList.add("parallax", "fade-in");
-    }
+      document.querySelectorAll(".hero-img, .hero-bg")
+        .forEach(el => {
+          el.dataset.parallax = "0.03";
+          el.classList.add("parallax", "fade-in");
+        });
 
-
-</script>
-
+      const pastor = document.getElementById("pastorsPhoto");
+      if (pastor) {
+        pastor.dataset.parallax = "0.015";
+        pastor.classList.add("parallax", "fade-in");
+      }
+    </script>
 
   </body>
 </html>

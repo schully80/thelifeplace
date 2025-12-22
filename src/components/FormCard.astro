@@ -1,166 +1,87 @@
 ---
 const {
   title = "Register",
-  titleClass = "text-xl md:text-2xl font-medium text-brand-warmgray-800 text-center tracking-wide mb-5 md:mb-6",
   eventName = "General",
   ctaText = "Save My Spot",
-  disabled = true,
-  showNotice = true,
   formAction = "/register",
+
+  // Per-page controls
+  showAttendees = true,   // toggle attendees field per page
 } = Astro.props;
 
-// 👇 Turnstile site key (from Cloudflare Pages env)
-// Add PUBLIC_TURNSTILE_SITE_KEY in your Pages project settings.
 const siteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 ---
 
-<section class="max-w-3xl xl:max-w-4xl 2xl:max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 xl:py-14">
-  <h2 class={`text-xl md:text-2xl xl:text-3xl 2xl:text-[2rem] font-medium text-brand-warmgray-800 text-center tracking-wide mb-5 md:mb-6 xl:mb-8 ${titleClass || ""}`}>
-    {title}
-  </h2>
+<section class="max-w-3xl mx-auto px-4 py-8 md:py-12">
+  <h2 class="text-xl md:text-2xl font-medium text-center mb-6">{title}</h2>
 
-  <form
-    id="registrationForm"
-    method="POST"
-    action={formAction}
-    class="space-y-5 md:space-y-6 xl:space-y-7"
-  >
+  <form id="registrationForm" method="POST" action={formAction} class="space-y-6">
     <!-- Honeypot -->
     <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
     <input type="hidden" name="intent" value={eventName} />
 
-    <!-- 🔔 TOP BLINKING NOTICE -->
-    {showNotice && disabled && (
-      <div class="text-center py-6 xl:py-7" aria-live="polite">
-        <p class="text-base md:text-xl xl:text-[1.375rem] font-medium text-brand-warmgray-700 animate-pulse">
-          Registration will open soon. Stay tuned!
-        </p>
-      </div>
-    )}
-
-    <!-- Name row -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 xl:gap-7">
-      <div>
-        <input id="firstName" name="firstName" required class="form-field form-field-mobile" placeholder="Name *" />
-      </div>
-      <div>
-        <input id="surname" name="surname" required class="form-field form-field-mobile" placeholder="Surname *" />
-      </div>
+    <!-- Name + Contact -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input id="firstName" name="firstName" required class="form-field" placeholder="Name *" />
+      <input id="contact" name="contact" type="tel" required class="form-field" placeholder="Contact Number *" />
     </div>
 
-    <!-- Contact -->
-    <div>
-      <input
-        id="contact"
-        name="contact"
-        type="tel"
-        inputmode="tel"
-        required
-        class="form-field form-field-mobile"
-        placeholder="Contact Number *"
-      />
+    <!-- Email + Attendees -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input id="email" name="email" type="email" required class="form-field" placeholder="Email Address *" />
+      {showAttendees ? (
+        <input id="attendees" name="attendees" type="number" min="1" required class="form-field" placeholder="Number of Persons Attending *" />
+      ) : (
+        <div class="hidden md:block"></div>
+      )}
     </div>
 
-    <!-- Email -->
-    <div>
-      <input
-        id="email"
-        name="email"
-        type="email"
-        autocomplete="email"
-        required
-        class="form-field form-field-mobile"
-        placeholder="Email Address *"
-      />
-    </div>
+    <!-- Slot for extras -->
+    <slot />
 
-    <!-- Address -->
-    <div>
-      <input
-        id="streetAddress"
-        name="streetAddress"
-        autocomplete="street-address"
-        required
-        class="form-field form-field-mobile"
-        placeholder="Street Address *"
-      />
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 xl:gap-7">
-      <div>
-        <input
-          id="suburb"
-          name="suburb"
-          required
-          class="form-field form-field-mobile"
-          placeholder="Suburb *"
-        />
-      </div>
-      <div>
-        <input
-          id="city"
-          name="city"
-          autocomplete="address-level2"
-          required
-          class="form-field form-field-mobile"
-          placeholder="City *"
-        />
-      </div>
-      <div>
-        <input
-          id="postalCode"
-          name="postalCode"
-          required
-          minlength="3"
-          maxlength="10"
-          pattern=".{3,10}"
-          class="form-field form-field-mobile"
-          placeholder="Postal Code *"
-        />
-        <small class="block mt-1 text-[11px] md:text-xs text-gray-500">e.g. 2196 or W1A&nbsp;1AA</small>
-      </div>
-    </div>
-
-    <!-- ✅ Turnstile widget -->
-    <div class="pt-2">
-      <div class="cf-turnstile" data-sitekey={siteKey}></div>
+    <!-- CAPTCHA (always present) -->
+    <div class="pt-2 flex justify-center">
+      <div class="cf-turnstile"
+           data-sitekey={siteKey}
+           data-callback="onTurnstileSuccess"
+           data-expired-callback="onTurnstileExpired"
+           data-error-callback="onTurnstileError"></div>
     </div>
 
     <!-- CTA -->
     <div class="text-center pt-2">
       <button
         type="submit"
-        disabled={disabled}
-        class={`inline-flex items-center gap-2 px-5 md:px-6 xl:px-7 py-2.5 md:py-3 xl:py-3.5 rounded-full font-semibold shadow-md transition
-          focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2
-          ${
-            disabled
-              ? "bg-gray-400 cursor-not-allowed opacity-60"
-              : "bg-brand-red text-white hover:bg-red-700 hover:shadow-lg"
-          }`}
+        id="tlpSubmitBtn"
+        disabled
+        class="px-6 py-3 rounded-full font-semibold transition bg-gray-400 cursor-not-allowed opacity-60"
       >
-        <span class="text-sm md:text-base xl:text-lg">{ctaText}</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-4 w-4 md:h-5 md:w-5 xl:h-6 xl:w-6 animate-pulse"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          aria-hidden="true"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M7 7h10v10" />
-        </svg>
+        {ctaText}
       </button>
-
-      {/* ⬇️ UNDER-BUTTON ITALIC NOTICE */}
-      {showNotice && disabled && (
-        <p class="mt-2 text-xs md:text-sm xl:text-base text-gray-500 italic">
-          Registration is not yet open. Stay tuned!
-        </p>
-      )}
     </div>
   </form>
 </section>
 
-<!-- Turnstile loader (include once per page; harmless if repeated) -->
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<script>
+  function onTurnstileSuccess() {
+    const btn = document.getElementById("tlpSubmitBtn");
+    btn.disabled = false;
+    btn.classList.remove("bg-gray-400","cursor-not-allowed","opacity-60");
+    btn.classList.add("bg-brand-red","text-white","hover:bg-red-700");
+  }
+  function onTurnstileExpired() {
+    const btn = document.getElementById("tlpSubmitBtn");
+    btn.disabled = true;
+    btn.classList.remove("bg-brand-red","text-white","hover:bg-red-700");
+    btn.classList.add("bg-gray-400","cursor-not-allowed","opacity-60");
+  }
+  function onTurnstileError() {
+    const btn = document.getElementById("tlpSubmitBtn");
+    btn.disabled = true;
+    btn.classList.remove("bg-brand-red","text-white","hover:bg-red-700");
+    btn.classList.add("bg-gray-400","cursor-not-allowed","opacity-60");
+    console.error("Turnstile failed to load or validate.");
+  }
+</script>

@@ -1,114 +1,170 @@
-<div class="space-y-5">
+---
+const GOOGLE_KEY = import.meta.env.PUBLIC_GOOGLE_PLACES_KEY;
+---
 
-  <!-- Hidden Google Web Component Autocomplete -->
-  <gmpx-place-autocomplete
-    id="gmpx-autocomplete"
-    style="display:none;"
-    key={import.meta.env.PUBLIC_GOOGLE_PLACES_KEY}
-    country="ZA"
-  ></gmpx-place-autocomplete>
+<div class="space-y-6">
+  <!-- Search bar above map -->
+  <input
+    id="map-search-input"
+    type="text"
+    placeholder="Search your address..."
+    class="w-full rounded-full border border-gray-200 bg-white px-4 py-3 text-[15px] text-gray-900
+           placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+           focus:border-brand-red transition shadow-sm"
+  />
 
-  <!-- Street Address input with attribution banner ABOVE -->
-  <div class="relative">
-    <!-- Powered by Google attribution (moved to top) -->
-    <div class="pointer-events-none absolute -top-6 right-0 opacity-80 transition-opacity hover:opacity-100">
-      <img
-        src="https://maps.gstatic.com/mapfiles/api-3/images/powered-by-google-on-white.png"
-        alt="Powered by Google"
-        class="h-6"
+  <!-- Map container -->
+  <div id="map" class="h-64 w-full rounded-2xl border border-gray-200 bg-gray-100"></div>
+
+  <!-- Address form -->
+  <form id="address-form" class="space-y-4">
+    <!-- Street Number + Street Name -->
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div class="relative">
+        <label for="street_number" class="sr-only">Street Number</label>
+        <input
+          id="street_number"
+          name="street_number"
+          type="text"
+          placeholder="Street Number *"
+          required
+          class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
+                 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+                 focus:border-brand-red transition"
+        />
+      </div>
+
+      <div class="relative">
+        <!-- Powered by Google attribution at top-right of Street Name -->
+        <div class="pointer-events-none absolute -top-6 right-0 opacity-80">
+          <img
+            src="https://maps.gstatic.com/mapfiles/api-3/images/powered-by-google-on-white.png"
+            alt="Powered by Google"
+            class="h-4"
+          />
+        </div>
+
+        <label for="street_name" class="sr-only">Street Name</label>
+        <input
+          id="street_name"
+          name="street_name"
+          type="text"
+          placeholder="Street Name *"
+          required
+          class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
+                 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+                 focus:border-brand-red transition"
+        />
+      </div>
+    </div>
+
+      <!-- Suburb -->
+    <div class="relative">
+      <label for="suburb" class="sr-only">Suburb</label>
+      <input
+        id="suburb"
+        name="suburb"
+        type="text"
+        placeholder="Suburb *"
+        required
+        class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
+               placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+               focus:border-brand-red transition"
       />
     </div>
 
-    <input
-      id="address-autocomplete-input"
-      type="text"
-      placeholder="Street Address *"
-      required
-      class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-             placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
-             focus:border-brand-red transition"
-      style="font-family: Montserrat, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;"
-      autocomplete="off"
-      data-address-input
-    />
-  </div>
+   <!-- City + Postal Code -->
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <input id="city" name="city" type="text" placeholder="City/Town*"
+        class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
+               placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+               focus:border-brand-red transition" />
+      <input id="postal_code" name="postal_code" type="text" placeholder="Post/Street Code*"
+        class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
+               placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+               focus:border-brand-red transition" />
+    </div>
 
-  <!-- Suburb -->
-  <div>
-    <input
-      id="suburb"
-      name="suburb"
-      type="text"
-      placeholder="Suburb *"
-      required
-      class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-             placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
-             focus:border-brand-red transition"
-      data-suburb
-    />
-  </div>
-
-  <!-- City -->
-  <div>
-    <input
-      id="city"
-      name="city"
-      type="text"
-      placeholder="Town/City *"
-      required
-      class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-             placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
-             focus:border-brand-red transition"
-      data-city
-    />
-  </div>
-
-  <!-- Province -->
-  <div>
-    <input
-      id="province"
-      name="province"
-      type="text"
-      placeholder="State/Province *"
-      required
-      class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-             placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
-             focus:border-brand-red transition"
-      data-province
-    />
-  </div>
-
-  <!-- Postal Code -->
-  <div>
-    <input
-      id="postal_code"
-      name="postal_code"
-      type="text"
-      placeholder="Zip/Postal Code *"
-      required
-      class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-             placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
-             focus:border-brand-red transition"
-      data-postal
-    />
-  </div>
-
-  <!-- Country -->
-  <div>
-    <input
-      id="country"
-      name="country"
-      type="text"
-      placeholder="Country *"
-      required
-      class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-             placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
-             focus:border-brand-red transition"
-      data-country
-    />
-  </div>
-
+    <!-- Country + Province/State -->
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <input id="province" name="province" type="text" placeholder="Province / State" 
+   class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
+               placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+               focus:border-brand-red transition"/>
+  <input id="country" name="country" type="text" placeholder="Country"  class="w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
+               placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
+               focus:border-brand-red transition"/>
 </div>
 
-<!-- Hook JS -->
-<script src="/js/places-autocomplete.js" defer></script>
+<!-- Unified map + autocomplete script -->
+<script is:inline>
+  function initMap() {
+    const mapEl = document.getElementById("map");
+    const inputEl = document.getElementById("map-search-input");
+
+    const map = new google.maps.Map(mapEl, {
+      center: { lat: -26.2041, lng: 28.0473 },
+      zoom: 12,
+      mapTypeControl: false,
+      streetViewControl: false,
+    });
+
+    const marker = new google.maps.Marker({ map, draggable: true });
+
+    const autocomplete = new google.maps.places.Autocomplete(inputEl, {
+      fields: ["address_components", "geometry", "place_id"],
+      componentRestrictions: { country: "ZA" },
+    });
+
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+      if (!place.geometry) return;
+      map.setCenter(place.geometry.location);
+      marker.setPosition(place.geometry.location);
+      fillFields(place);
+    });
+
+    marker.addListener("dragend", () => {
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ location: marker.getPosition() }, (results, status) => {
+        if (status === "OK" && results[0]) fillFields(results[0]);
+      });
+    });
+
+   function fillFields(place) {
+  const comps = place.address_components || [];
+  const byType = (t) => comps.find((c) => c.types.includes(t))?.long_name || "";
+
+  document.getElementById("street_number").value = byType("street_number") || document.getElementById("street_number").value;
+  document.getElementById("street_name").value = byType("route") || document.getElementById("street_name").value;
+  document.getElementById("suburb").value = byType("sublocality_level_1") || byType("sublocality") || byType("neighborhood") || document.getElementById("suburb").value;
+  document.getElementById("city").value = byType("locality") || document.getElementById("city").value;
+  document.getElementById("postal_code").value = byType("postal_code") || document.getElementById("postal_code").value;
+  document.getElementById("province").value = byType("administrative_area_level_1") || document.getElementById("province").value;
+  document.getElementById("country").value = byType("country") || document.getElementById("country").value;
+
+  document.getElementById("place_id").value = place.place_id || "";
+  if (place.geometry?.location) {
+    document.getElementById("latitude").value = place.geometry.location.lat();
+    document.getElementById("longitude").value = place.geometry.location.lng();
+  }
+}
+       function validateForm() {
+      const placeId = document.getElementById("place_id").value;
+      submitBtn.disabled = !placeId; // enable only if place_id exists
+    }
+  }
+</script>
+
+<!-- Load Google Maps base script -->
+<script>
+  (function() {
+    var key = "{GOOGLE_KEY}";
+    if (!key) { console.error("Google key missing"); return; }
+    var s = document.createElement("script");
+    s.src = "https://maps.googleapis.com/maps/api/js?key=" + key + "&libraries=places&v=weekly";
+    s.defer = true;
+    document.head.appendChild(s);
+  })();
+</script>
+
