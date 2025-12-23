@@ -1,0 +1,133 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { generateTLPQR } from "../lib/generate-tlp-qr.js";
+import { generateSnapScanQR } from "../lib/generate-snapscan-qr.js";
+const SNAPSCAN_URL = "https://pos.snapscan.io/qr/VISFNLkM";
+---
+
+<BaseLayout title="Leadership">
+  <!-- Hero heading -->
+  <section class="max-w-6xl mx-auto px-4 pt-10 md:pt-14">
+    <h1 class="text-3xl md:text-3xl font-semibold text-center text-gray-900">
+      Schulter and Genevieve
+    </h1>
+  </section>
+
+  <!-- Photo -->
+  <section class="max-w-2xl mx-auto px-4 py-8 md:py-12">
+    <figure class="relative w-full mx-auto rounded-2xl overflow-hidden border shadow-sm bg-white">
+      <img
+        src="/founders.jpg"
+        alt='Schulter & Genevieve (“Jenny”) Etyang — Founders of The Life Place'
+        class="w-full h-auto object-contain grayscale opacity-95"
+        loading="eager"
+        decoding="async"
+      />
+    </figure>
+  </section>
+
+  <!-- Bio -->
+  <section class="max-w-3xl mx-auto px-4 pb-8 md:pb-10">
+    <div class="text-center space-y-5 text-lg md:text-md leading-7 md:leading-relaxed text-gray-800">
+      <p>
+        Schulter and Genevieve (Jenny) Etyang are the founders of
+        <span class="font-medium">The Life Place</span>, Craigavon AH, Sandton, South Africa.
+      </p>
+
+      <p>
+        Fifteen years ago, they encountered the good news of who Jesus is and what He has done, which became the central mission of their lives: inviting others to
+        <span class="font-semibold text-brand-red">Come. See. Jesus</span>
+      </p>
+
+      <p>
+        The Etyangs enjoy conversations about Jesus, being at home, travelling, exercise, watching sports, Netflix and chill, and the simple things in life.
+      </p>
+
+      <p>
+        Schulter also writes regularly at
+        <a
+          href="https://schulteretyang.substack.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-brand-red underline hover:no-underline focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 rounded-sm"
+        >
+          schulteretyang.substack.com
+        </a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- QR / Connect Section -->
+  <section class="max-w-5xl mx-auto px-4 pb-14 md:pb-20">
+    <h2 class="text-center text-2xl md:text-2xl font-medium text-gray-900 mb-6">
+      Connect with us
+    </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+      
+      
+      <!-- Substack QR -->
+   <div class="rounded-2xl border shadow-sm bg-white p-5 md:p-6 flex items-center gap-5 ring-brand-red">
+  <img
+    src="/public/substack-qr2.png"
+    width="140"
+    height="140"
+    alt="Substack QR"
+    class="rounded-xl border"
+    loading="lazy"
+    decoding="async"
+  />
+  <div class="space-y-2">
+    <h3 class="text-xl font-semibold leading-tight">
+      Subscribe to <span class="block">Schulter’s Substack</span>
+    </h3>
+    <p class="text-gray-800">
+      Scan the code or tap below to get new posts from Schulter.
+    </p>
+    <a
+      href="https://schulteretyang.substack.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center justify-center rounded-xl px-4 py-2 border border-brand-red text-brand-red hover:bg-brand-red hover:text-white transition"
+    >
+      Substack
+    </a>
+  </div>
+</div>
+
+    
+<!-- SnapScan QR -->
+<div class="rounded-2xl border shadow-sm bg-white p-5 md:p-6 flex items-center gap-5 ring-brand-red">
+  <a href={SNAPSCAN_URL} target="_blank" rel="noopener noreferrer" class="shrink-0">
+    <img
+      src="/public/snapscan-qr2.png"
+      alt="QR code – pay The Life Place via SnapScan"
+      width="140"
+      height="140"
+      class="rounded-xl border"
+      loading="lazy"
+      decoding="async"
+    />
+  </a>
+  <div class="space-y-2">
+    <h3 class="text-xl font-semibold leading-tight">
+      Partner with <span class="block">The Life Place</span>
+    </h3>
+    <p class="text-gray-800">Scan or tap to open our SnapScan portal directly.</p>
+    <a
+      href={SNAPSCAN_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center justify-center rounded-xl px-4 py-2 border border-brand-red text-brand-red hover:bg-brand-red hover:text-white transition"
+    >
+      SnapScan
+    </a>
+  </div>
+</div>
+
+    <p class="w-full text-center text-sm text-gray-700 mt-6">
+      Trouble scanning? Use the buttons above to open the links directly.
+    </p>
+  </section>
+
+</BaseLayout>
