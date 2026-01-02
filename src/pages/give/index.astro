@@ -104,6 +104,49 @@ const event = url.searchParams.get("event");
     </div>
   </div>
 
+  
+  <!-- PAYPAL -->
+  <div class="max-w-xl mx-auto mt-20">
+    <div class="rounded-3xl p-6 bg-white border border-brand-red shadow-sm hover:shadow-md transition">
+
+      <div class="flex items-center gap-6">
+
+        <!-- PayPal Button -->
+        <form action="https://www.paypal.com/donate" method="post" target="_top" class="shrink-0">
+          <input type="hidden" name="hosted_button_id" value="4L3NWWAZ9PPV6" />
+          <input 
+            type="image"
+            src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
+            width="140" height="140"
+            class="rounded-2xl border object-contain bg-white p-3"
+          />
+        </form>
+
+        <!-- Text -->
+        <div class="space-y-2">
+          <h3 class="font-heading text-xl font-semibold">Support via PayPal</h3>
+          <p class="text-gray-700 text-sm leading-relaxed">
+            Donate securely through PayPal. Tap below to open our giving portal.
+          </p>
+
+          <form action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="hosted_button_id" value="4L3NWWAZ9PPV6" />
+            <button
+              class="inline-flex items-center justify-center rounded-full px-5 py-2 
+                     text-brand-red border border-brand-red hover:bg-brand-red hover:text-white 
+                     transition font-medium"
+            >
+              PayPal
+            </button>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
  <!-- Annual Report (featured card) -->
 <section class="container-x mt-12">
   <div
