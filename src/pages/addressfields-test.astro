@@ -1,0 +1,250 @@
+---
+const GOOGLE_KEY = import.meta.env.PUBLIC_GOOGLE_PLACES_KEY;
+const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
+---
+
+<style>
+  /* Floating label wrapper */
+  .field {
+    position: relative;
+    padding-top: 1.2rem;
+  }
+
+  .field input {
+    width: 100%;
+    border: none;
+    border-bottom: 1.5px solid #d1d5db; /* Light gray */
+    padding: 6px 2px;
+    font-size: 15px;
+    background: transparent;
+    outline: none;
+    transition: border-color .25s ease;
+  }
+
+  .field input:focus {
+    border-bottom-color: #B3282D; /* brand red */
+  }
+
+  .field label {
+    position: absolute;
+    left: 2px;
+    bottom: 6px;
+    font-size: 15px;
+    color: #9ca3af;
+    pointer-events: none;
+    transition: all .25s ease;
+  }
+
+  .field input:focus + label,
+  .field input:not(:placeholder-shown) + label {
+    transform: translateY(-1.2rem);
+    font-size: 12px;
+    color: #B3282D;
+  }
+
+  /* CTA button */
+  .btn-outline {
+    border: 2px solid #B3282D;
+    padding: 0.75rem 2.2rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    color: #B3282D;
+    transition: all .25s ease;
+  }
+
+  .btn-outline:hover {
+    background: #B3282D;
+    color: white;
+    box-shadow: 0 4px 14px rgba(179, 40, 45, 0.25);
+  }
+
+  #map {
+    height: 260px;
+    border-radius: 18px;
+  }
+</style>
+
+<section class="max-w-3xl mx-auto space-y-10 pb-20">
+
+  <h1 class="text-3xl font-semibold text-center mb-6">Address Autocomplete Test</h1>
+
+  <!-- USER INFO -->
+  <h2 class="text-xl font-semibold mt-10">Your Details</h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+    <div class="field">
+      <input id="firstName" type="text" placeholder=" " required />
+      <label>First Name</label>
+    </div>
+
+    <div class="field">
+      <input id="lastName" type="text" placeholder=" " required />
+      <label>Last Name</label>
+    </div>
+
+    <div class="field">
+      <input id="contact" type="tel" placeholder=" " required />
+      <label>Contact Number</label>
+    </div>
+
+    <div class="field">
+      <input id="email" type="email" placeholder=" " required />
+      <label>Email Address</label>
+    </div>
+
+    <div class="field">
+      <input id="attendees" type="number" placeholder=" " required />
+      <label>Number of Persons Attending</label>
+    </div>
+
+  </div>
+
+
+  <!-- ADDRESS SEARCH -->
+  <div class="field">
+    <input id="map-search-input" type="text" placeholder=" " />
+    <label>Search for your address or enter it manually below </label>
+  </div>
+
+  <!-- MAP -->
+  <div id="map" class="w-full bg-gray-100 border border-gray-200"></div>
+
+
+  <!-- ADDRESS DETAILS -->
+  <h2 class="text-xl font-semibold mt-10">Your Address</h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+    <div class="field">
+      <input id="street_number" type="text" placeholder=" " />
+      <label>Street Number</label>
+    </div>
+
+    <div class="field">
+      <input id="street_name" type="text" placeholder=" " />
+      <label>Street Name</label>
+    </div>
+
+    <div class="field">
+      <input id="suburb" type="text" placeholder=" " />
+      <label>Suburb</label>
+    </div>
+
+    <div class="field">
+      <input id="city" type="text" placeholder=" " />
+      <label>City / Town</label>
+    </div>
+
+    <div class="field">
+      <input id="postal_code" type="text" placeholder=" " />
+      <label>Postal Code</label>
+    </div>
+
+    <div class="field">
+      <input id="province" type="text" placeholder=" " />
+      <label>Province / State</label>
+    </div>
+
+    <div class="field">
+      <input id="country" type="text" placeholder=" " />
+      <label>Country</label>
+    </div>
+
+  </div>
+
+  <!-- Hidden -->
+  <input type="hidden" id="place_id" />
+  <input type="hidden" id="latitude" />
+  <input type="hidden" id="longitude" />
+
+
+  <!-- reCAPTCHA -->
+  <div class="mt-6">
+    <div class="g-recaptcha" data-sitekey={RECAPTCHA_SITE_KEY}></div>
+  </div>
+
+  <!-- Submit -->
+  <div class="text-center mt-8">
+    <button class="btn-outline" id="submitBtn">Send Registration</button>
+  </div>
+
+</section>
+
+
+<!-- GOOGLE MAPS LOADER -->
+<script is:inline>
+  const GOOGLE_KEY = import.meta.env.PUBLIC_GOOGLE_PLACES_KEY;
+
+  if (!GOOGLE_KEY) {
+    console.error("❌ Missing PUBLIC_GOOGLE_PLACES_KEY in .env");
+  }
+
+  const s = document.createElement("script");
+  s.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEY}&libraries=places&callback=initMap&v=weekly`;
+  s.defer = true;
+  document.head.appendChild(s);
+</script>
+
+
+<!-- MAP + AUTOCOMPLETE LOGIC -->
+<script is:inline>
+  function initMap() {
+    const mapEl = document.getElementById("map");
+    const searchEl = document.getElementById("map-search-input");
+
+    const map = new google.maps.Map(mapEl, {
+      center: { lat: -26.2041, lng: 28.0473 },
+      zoom: 12,
+      mapTypeControl: false,
+      streetViewControl: false,
+    });
+
+    const marker = new google.maps.Marker({
+      map,
+      draggable: true,
+    });
+
+    const autocomplete = new google.maps.places.Autocomplete(searchEl, {
+      fields: ["address_components", "geometry", "place_id"],
+    });
+
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+      if (!place.geometry) return;
+      map.setCenter(place.geometry.location);
+      marker.setPosition(place.geometry.location);
+      fill(place);
+    });
+
+    marker.addListener("dragend", () => {
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ location: marker.getPosition() }, (results, status) => {
+        if (status === "OK" && results[0]) fill(results[0]);
+      });
+    });
+
+    function fill(place) {
+      const comp = place.address_components;
+      const get = (t) =>
+        comp?.find((c) => c.types.includes(t))?.long_name || "";
+
+      document.getElementById("street_number").value = get("street_number");
+      document.getElementById("street_name").value = get("route");
+      document.getElementById("suburb").value = get("sublocality") || get("neighborhood");
+      document.getElementById("city").value = get("locality");
+      document.getElementById("postal_code").value = get("postal_code");
+      document.getElementById("province").value = get("administrative_area_level_1");
+      document.getElementById("country").value = get("country");
+
+      document.getElementById("place_id").value = place.place_id;
+      document.getElementById("latitude").value = place.geometry.location.lat();
+      document.getElementById("longitude").value = place.geometry.location.lng();
+    }
+  }
+
+  window.initMap = initMap;
+</script>
+
+<!-- reCAPTCHA -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>

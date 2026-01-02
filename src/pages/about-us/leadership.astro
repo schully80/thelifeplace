@@ -6,30 +6,17 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
 ---
 
 <BaseLayout title="Leadership – Schulter & Genevieve">
-
 <!-- ===========================
-      HERO — Cinematic & Pastoral
+      HERO — Cinematic & Pastoral (Swapped Order)
 =========================== -->
-<section class="w-full px-6 pt-24 pb-32 mt-32 bg-gray-50 font-body">
-  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center px-6">
+<section class="w-full bg-gray-50 min-h-[850px] justify-center flex items-center py-32 pt-32 pb-32 mt-32 cine-zoom-apple-hover">
+  <div class="max-w-7xl mx-auto px-6">
 
-    <!-- LEFT — PASTOR PHOTO -->
-    <div class="relative w-full h-[420px] md:h-[550px] lg:h-[650px] -mt-10 mb-20 
-                overflow-hidden rounded-3xl shadow-xl cine-zoom-apple-hover tlp-grayscale">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
 
-      <!-- Subtle overlay for visual balance -->
-      <div class="absolute inset-0 bg-black/10 z-10 pointer-events-none"></div>
 
-      <img 
-        id="pastorsPhoto"
-        src="/founders-grayscale.jpg"
-        alt="Schulter & Genevieve Etyang"
-        class="w-full h-full object-cover object-center tlp-grayscale"
-      />
-    </div>
-
-    <!-- RIGHT — TEXT BLOCK -->
-    <div class="relative flex items-center justify-center text-center md:text-left -mt-10 mb-20 font-body">
+    <!-- RIGHT — TEXT BLOCK (moved to be FIRST in DOM for UX flow) -->
+    <div class="relative flex items-center justify-center text-center md:text-left -mt-10 mb-20 font-body z-[5]">
 
       <!-- Soft ambient glow -->
       <div 
@@ -38,32 +25,25 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
       </div>
 
       <div class="max-w-xl space-y-6">
-<!-- PASTORS NAME — Premium Apple-Style Heading -->
-<div class="w-full text-center mb-10 opacity-0 animate-fadeUp">
-  <h1 
-    class="
-      font-body 
-      text-gray-900 
-      text-4xl md:text-5xl 
-      font-bold 
-      tracking-tight
-      leading-tight
-      antialiased
-    "
-  >
-    Schulter & Genevieve
-  </h1>
-</div>
+
+        <!-- PASTORS NAME — Premium Apple-Style Heading -->
+        <div class="w-full text-center mb-10 opacity-0 animate-fadeUp">
+          <h1 
+            class="font-body text-gray-900 text-4xl md:text-5xl font-bold tracking-tight leading-tight antialiased"
+          >
+            Schulter & Genevieve
+          </h1>
+        </div>
 
         <p class="text-lg md:text-2xl leading-relaxed text-gray-700">
           Schulter and Genevieve Etyang lead 
-          <span class="text-brand-red"> The Life Place</span>.
+          <span class="text-brand-red">The Life Place</span>.
         </p>
 
         <p class="text-lg md:text-2xl leading-relaxed text-gray-700">
           Fifteen years ago, the good news of who Jesus is became real to us.  
           Since then, our lives have been shaped by one simple invitation —  
-          <span class="font-semibold text-brand-red">Come. See. Jesus</span>
+          <span class="font-semibold text-brand-red">Come. See. Jesus</span>.
         </p>
 
         <p class="text-lg md:text-2xl leading-relaxed text-gray-700">
@@ -77,23 +57,38 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
         </p>
 
         <p class="text-center text-lg md:text-2xl leading-relaxed text-gray-700">
-          Seeing <span class=" text-brand-red">Jesus</span> changes everything.
+          Seeing <span class="text-brand-red">Jesus</span> changes everything.
         </p>
 
       </div>
     </div>
 
+    <!-- LEFT — IMAGE BLOCK (moved to second position) -->
+    <div class="relative w-full h-[440px] md:h-[560px] lg:h-[620px] -mt-10 mb-20 
+                overflow-hidden rounded-3xl shadow-xl ">
+
+      <!-- Subtle overlay -->
+      <div class="absolute inset-0 bg-black/10 z-10 pointer-events-none"></div>
+
+      <img 
+        id="pastorsPhoto"
+        src="/founders-grayscale.jpg"
+        alt="Schulter & Genevieve Etyang"
+        class="w-full h-full object-cover object-center tlp-grayscale"
+      />
+    </div>
+
   </div>
 </section>
-
 
 <!-- FADE DIVIDER -->
 <FadeDivider mt="mt-40" mb="mb-20" />
 
+
 <!-- ===========================
        CONNECT • PARTNER • SUBSCRIBE
 =========================== -->
-<section class="max-w-5xl mx-auto px-6 pt-24 pb-32 mt-48 bg-gray-50">
+<section class="max-w-5xl mx-auto px-6 pt-24 pb-32 mt-48 bg-gray-50 cine-zoom-apple-hover">
 
   <h2 class="font-body text-center text-5xl font-semibold text-gray-900 mb-20">
     CONNECT • PARTNER • SUBSCRIBE
@@ -211,16 +206,51 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
 </section>
 
 
-<!-- ===========================
-      PARALLAX FOR PASTOR PHOTO
-=========================== -->
+<style>
+/* Fade + Lift + Scale Entrance */
+.motion-card {
+  opacity: 0;
+  transform: translateY(50px) scale(0.97);
+  transition: opacity 1s ease, transform 1.2s cubic-bezier(.16,1,.3,1);
+}
+.motion-card.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Floaty animation (Values-style) */
+.value-card {
+  animation: floaty 16s ease-in-out infinite;
+}
+@keyframes floaty {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Hover tilt effect */
+.value-card:hover {
+  transform: perspective(900px) rotateX(3deg) rotateY(-2deg) scale(1.02);
+}
+</style>
+
 <script>
-document.addEventListener("scroll", () => {
-  const img = document.getElementById("pastorsPhoto");
-  const offset = window.scrollY * 0.04;
-  img.style.transform = `translateY(${offset}px)`;
-});
+const cards = document.querySelectorAll(".motion-card");
+
+function revealCards() {
+  const trigger = window.innerHeight * 0.88;
+
+  cards.forEach(card => {
+    if (card.getBoundingClientRect().top < trigger) {
+      card.classList.add("visible");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealCards);
+window.addEventListener("load", revealCards);
 </script>
+
 
 
 </BaseLayout>

@@ -7,7 +7,6 @@ import WarmBackground from "../components/tlp/WarmBackground.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
 import IconActionCard from "../components/tlp/IconActionCard.astro";
 import FormCard from "../../components/FormCard.astro";
-import AddressFields from "../../components/AddressFields.astro";
 import { site } from "../../../site.config.js";
 
 const email = site?.contact?.email ?? "hello@thelifeplace.org";
@@ -15,6 +14,7 @@ const email = site?.contact?.email ?? "hello@thelifeplace.org";
 
 <BaseLayout title="Plan a Visit">
   <section class="container-x py-12 md:py-20">
+
     <!-- Heading -->
     <h1 class="text-3xl md:text-3xl font-semibold text-center">Plan a Visit</h1>
 
@@ -23,7 +23,7 @@ const email = site?.contact?.email ?? "hello@thelifeplace.org";
       <span class="text-brand-red">Come. See. Jesus</span>
     </p>
 
-    <!-- Address -->
+    <!-- Church Address -->
     <p class="mt-4 mb-6 md:mb-8 text-center text-lg md:text-2xl">
       1 Elm Avenue, Craigavon AH, 2191, Sandton
     </p>
@@ -35,17 +35,16 @@ const email = site?.contact?.email ?? "hello@thelifeplace.org";
       </a>
     </div>
 
-    <!-- Registration Form -->
-    <div class="mt-12 max-w-2xl mx-auto px-4 md:px-0">
-  <FormCard
-  title="We'd love to meet you — drop your details below"
+<!-- Registration Form -->
+<div class="mt-10 md:mt-12 max-w-2xl mx-auto px-4 md:px-0 cine-zoom-apple-hover">
+ <FormCard
+  title="Plan a Visit"
   eventName="Plan a Visit"
-  ctaText="Save My Spot"
-  formAction="/register"
-  showAttendees={false}
->
-  <AddressFields />
-</FormCard>
-    </div>
+  ctaText="Welcome Home"
+  showComingSoon={true}
+  comingSoonMessage="Visitor sign-ups opening soon — Come. See. Jesus."
+/>
+
+</div>
   </section>
 </BaseLayout>

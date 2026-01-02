@@ -16,7 +16,7 @@ const event = url.searchParams.get("event");
       <img
         src="/father-child3.jpg"
         alt="Only Jesus"
-        class="absolute inset-0 h-full w-full object-cover"
+        class="absolute inset-0 h-full w-full object-cover tlp-grayscale"
         loading="eager"
         decoding="async"
       />
@@ -82,21 +82,15 @@ const event = url.searchParams.get("event");
         </article>
 
 <!-- Registration Form -->
-<div class="mt-12 max-w-2xl mx-auto px-4 md:px-0">
-  <FormCard
-    title="We'd love to see you — drop your details below"
-    eventName="Bring Them To Jesus"
-    ctaText="Save My Spot"
-    formAction="/register"
-    disabled={false}
-    showNotice={false}
-    showAttendees={true}
-  >
-    <!-- Inject Google-powered address form -->
-    <AddressFields />
-  </FormCard>
-</div>
-</section>
+<div class="mt-10 md:mt-12 max-w-2xl mx-auto px-4 md:px-0 cine-zoom-apple-hover">
+ <FormCard
+  title="Bring Them To Jesus "
+  eventName="Bring Them To Jesus"
+  ctaText="Register for Child Dedication"
+  showComingSoon={true}
+  comingSoonMessage="Preparing hearts to bring little ones to Jesus—registration opens soon."
+/>
+
 </div>
 </section>
 </BaseLayout>

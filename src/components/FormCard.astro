@@ -1,87 +1,145 @@
 ---
+import AddressFields from "../components/AddressFields.astro";
+
 const {
   title = "Register",
   eventName = "General",
-  ctaText = "Save My Spot",
   formAction = "/register",
+  ctaText = "Send Registration",
 
-  // Per-page controls
-  showAttendees = true,   // toggle attendees field per page
+  // Flashing message controls
+  showComingSoon = false,
+  comingSoonMessage = "Registration will open soon…",
+  instructionText = "Fill in your details below to reserve your spot. This information helps us plan and care for you on the day.",
 } = Astro.props;
 
-const siteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 
-<section class="max-w-3xl mx-auto px-4 py-8 md:py-12">
-  <h2 class="text-xl md:text-2xl font-medium text-center mb-6">{title}</h2>
+<section class="max-w-4xl mx-auto px-4 py-8 md:py-12">
 
-  <form id="registrationForm" method="POST" action={formAction} class="space-y-6">
-    <!-- Honeypot -->
+  <!-- Heading -->
+  <h2 class="text-xl md:text-4xl font-extrabold text-center mb-6">
+    {title}
+  </h2>
+
+{instructionText && (
+  <p 
+    class="text-center text-[17px] md:text-[18px] text-brand-warmgray-700 
+           tracking-tight leading-snug mb-6 fade-in-soft"
+  >
+    {instructionText}
+  </p>
+)}
+
+
+
+
+  <!-- Registration Form -->
+  <form id="registrationForm" method="POST" action={formAction} class="space-y-8">
+
+    <!-- Honeypot (spam trap) -->
     <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
     <input type="hidden" name="intent" value={eventName} />
 
-    <!-- Name + Contact -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <input id="firstName" name="firstName" required class="form-field" placeholder="Name *" />
-      <input id="contact" name="contact" type="tel" required class="form-field" placeholder="Contact Number *" />
+    <!-- MAIN FORM BLOCK -->
+    <AddressFields />
+
+    <!-- Turnstile CAPTCHA -->
+    <div class="flex justify-center pt-2">
+      <div
+        class="cf-turnstile"
+        data-sitekey={siteKey}
+        data-callback="onTurnstileSuccess"
+        data-expired-callback="onTurnstileExpired"
+        data-error-callback="onTurnstileError"
+      ></div>
     </div>
 
-    <!-- Email + Attendees -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <input id="email" name="email" type="email" required class="form-field" placeholder="Email Address *" />
-      {showAttendees ? (
-        <input id="attendees" name="attendees" type="number" min="1" required class="form-field" placeholder="Number of Persons Attending *" />
-      ) : (
-        <div class="hidden md:block"></div>
-      )}
-    </div>
-
-    <!-- Slot for extras -->
-    <slot />
-
-    <!-- CAPTCHA (always present) -->
-    <div class="pt-2 flex justify-center">
-      <div class="cf-turnstile"
-           data-sitekey={siteKey}
-           data-callback="onTurnstileSuccess"
-           data-expired-callback="onTurnstileExpired"
-           data-error-callback="onTurnstileError"></div>
-    </div>
-
-    <!-- CTA -->
-    <div class="text-center pt-2">
+    <!-- Submit Button + Flash Message -->
+    <div class="text-center pt-1">
       <button
         type="submit"
         id="tlpSubmitBtn"
         disabled
-        class="px-6 py-3 rounded-full font-semibold transition bg-gray-400 cursor-not-allowed opacity-60"
+        class="btn-outline disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {ctaText}
       </button>
+
+      {showComingSoon && (
+        <p class="mt-3 text-sm text-brand-red animate-pulse">
+          {comingSoonMessage}
+        </p>
+      )}
     </div>
+
   </form>
+
 </section>
 
+<!-- BUTTON + UI STYLES -->
+<style>
+  .btn-outline {
+    border: 2px solid #B3282D;
+    padding: 0.85rem 2.4rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #B3282D;
+    transition: all .25s ease;
+  }
+
+  .btn-outline:hover:not(:disabled) {
+    background: #B3282D;
+    color: white;
+    box-shadow: 0 4px 14px rgba(179, 40, 45, 0.25);
+  }
+
+  <style>
+  /* Soft fade-in for instruction text */
+  .fade-in-soft {
+    opacity: 0;
+    animation: fadeInSoft 0.7s ease-out forwards;
+  }
+
+  @keyframes fadeInSoft {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Gentle pulsing for the “coming soon” message */
+  .animate-pulse-soft {
+    animation: pulseSoft 1.6s ease-in-out infinite;
+  }
+
+  @keyframes pulseSoft {
+    0%   { opacity: 0.55; }
+    50%  { opacity: 1; }
+    100% { opacity: 0.55; }
+  }
+
+
+</style>
+
+<!-- Turnstile -->
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
+<!-- Turnstile Logic -->
 <script>
   function onTurnstileSuccess() {
     const btn = document.getElementById("tlpSubmitBtn");
     btn.disabled = false;
-    btn.classList.remove("bg-gray-400","cursor-not-allowed","opacity-60");
-    btn.classList.add("bg-brand-red","text-white","hover:bg-red-700");
   }
+
   function onTurnstileExpired() {
     const btn = document.getElementById("tlpSubmitBtn");
     btn.disabled = true;
-    btn.classList.remove("bg-brand-red","text-white","hover:bg-red-700");
-    btn.classList.add("bg-gray-400","cursor-not-allowed","opacity-60");
   }
+
   function onTurnstileError() {
     const btn = document.getElementById("tlpSubmitBtn");
     btn.disabled = true;
-    btn.classList.remove("bg-brand-red","text-white","hover:bg-red-700");
-    btn.classList.add("bg-gray-400","cursor-not-allowed","opacity-60");
     console.error("Turnstile failed to load or validate.");
   }
 </script>

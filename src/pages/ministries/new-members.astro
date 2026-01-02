@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import RegisterForm from "../../components/RegisterForm.astro";
 import FormCard from "../../components/FormCard.astro";
 import TurnstileWidget from "../../components/TurnstileWidget.astro";
 import AddressFields from "../../components/AddressFields.astro";
@@ -17,7 +16,7 @@ const NEW_MEMBERS_REG_OPEN = true;
       <img
         src="/join-us.jpg"
         alt="Join Us"
-        class="absolute inset-0 h-full w-full object-cover"
+        class="absolute inset-0 h-full w-full object-cover tlp-grayscale"
         style="max-height:60vh"
         loading="eager"
         decoding="async"
@@ -62,7 +61,7 @@ const NEW_MEMBERS_REG_OPEN = true;
 
     <!-- Vision Night Is For -->
     <article class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
-      <h2 class="text-1xl md:text-xl font-semiold text-center text-brand-red mb-3">Vision Night Is For</h2>
+      <h2 class="text-1xl md:text-xl font-semibold text-center text-brand-red mb-3">Vision Night Is For</h2>
       <ul class="text-lg md:text-lg space-y-2 text-brand-warmgray-800 leading-7 md:leading-relaxed list-disc pl-5">
         <li>Anyone exploring the heartbeat of The Life Place.</li>
         <li>Those ready to take a next step in belonging.</li>
@@ -73,17 +72,15 @@ const NEW_MEMBERS_REG_OPEN = true;
   </div>
 
 <!-- Registration Form -->
-<div class="mt-10 md:mt-12 max-w-2xl mx-auto px-4 md:px-0">
-  <FormCard
-    title="We'd love to see you"
-    eventName="Vision Night"
-    ctaText="Save My Spot"
-    formAction="/register"
-    showAttendees={true}   <!-- attendees field visible -->
-  
-    <!-- Google-powered address form injected here -->
-    <AddressFields />
-  </FormCard>
+<div class="mt-10 md:mt-12 max-w-2xl mx-auto px-4 md:px-0 cine-zoom-apple-hover">
+   <FormCard
+  title="Vision Night"
+  eventName="Vision Night"
+  ctaText="I'm Coming"
+  showComingSoon={true}
+  comingSoonMessage="A night to see what Jesus is unfolding—registration opens soon."
+/>
 </div>
+
 </section>
 </BaseLayout>

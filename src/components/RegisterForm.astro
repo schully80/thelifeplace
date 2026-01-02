@@ -1,68 +1,92 @@
 ---
 const {
   title = "Register",
-  description = "Fill in your details below to save your spot.",
-  eventCode = "VISION2025",
+  description = "Fill in your details below.",
+  eventCode = "DEFAULT_EVENT",
+  eventName = "Your Event",
 } = Astro.props;
 
 const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
+
+// Dynamic CTA wording based on eventCode
+function getCTA(event) {
+  switch (event) {
+    case "VISION_NIGHT_2025": return "Reserve My Seat";
+    case "PREMARITAL_2025": return "Register as a Couple";
+    case "BABY_DEDICATION_2025": return "Register My Child";
+    case "TLPI_2025": return "Enroll Now";
+    default: return "Save My Spot";
+  }
+}
+
+const ctaLabel = getCTA(eventCode);
 ---
 
 <section class="max-w-2xl mx-auto px-4 py-12">
-  <header class="text-center mb-8">
-    <h2 class="text-2xl md:text-3xl font-semibold text-brand-red tracking-tight">
-      {title}
-    </h2>
-    <p class="mt-2 text-sm md:text-base text-brand-warmgray-700">{description}</p>
+  <header class="text-center mb-10">
+    <h2 class="text-3xl font-semibold text-brand-red tracking-tight">{title}</h2>
+    <p class="mt-2 text-brand-warmgray-700">{description}</p>
   </header>
 
-  <!-- Registration Form -->
-  <form id="registrationForm" method="POST" action="/register" class="space-y-6">
-    <!-- 👤 Tier 1: First Name + Contact Number -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <input type="text" id="firstName" name="firstName" placeholder="Name *" required class="form-input" />
-      <input type="tel" id="contact" name="contact" placeholder="Contact Number *" required class="form-input" />
+  <form id="registrationForm" method="POST" action="/register" class="space-y-8">
+
+    <!-- USER FIELDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="field">
+        <input type="text" name="fullName" placeholder=" " required />
+        <label>Full Name</label>
+      </div>
+
+      <div class="field">
+        <input type="tel" name="contact" placeholder=" " required />
+        <label>Contact Number</label>
+      </div>
+
+      <div class="field">
+        <input type="email" name="email" placeholder=" " required />
+        <label>Email Address</label>
+      </div>
+
+      <div class="field">
+        <input type="number" name="attendees" min="1" placeholder=" " required />
+        <label>Number of Persons Attending</label>
+      </div>
     </div>
 
-    <!-- 📧 Tier 2: Email + Attendees -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <input type="email" id="email" name="email" placeholder="Email Address *" required class="form-input" />
-      <input type="number" id="attendees" name="attendees" min="1" placeholder="Number of Persons Attending *" required class="form-input" />
-    </div>
-
-    <!-- 📍 Tier 3: Address Section -->
-    <h3 class="text-lg font-semibold text-brand-red">Your Address</h3>
+    <!-- ADDRESS -->
+    <h3 class="text-lg font-semibold text-brand-red mt-6">Your Address</h3>
     <slot /> <!-- AddressFields.astro injected here -->
 
-    <!-- 🐜 Honeypot -->
+    <!-- Hidden event info -->
+    <input type="hidden" name="eventCode" value={eventCode} />
+    <input type="hidden" name="eventName" value={eventName} />
+
+    <!-- Honeypot -->
     <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
 
-    <!-- Hidden email subject/message -->
-    <input type="hidden" name="_subject" value={`New ${eventCode} Registration`} />
-    <input type="hidden" name="message" value={`Thank you for registering for ${eventCode}. We'll be in touch soon!`} />
-
-    <!-- 🔒 Tier 4: reCAPTCHA -->
-    <div class="pt-2 flex justify-center">
+    <!-- reCAPTCHA -->
+    <div class="pt-4 flex justify-center">
       <div class="g-recaptcha"
            data-sitekey={recaptchaSiteKey}
            data-callback="onRecaptchaSuccess"
            data-expired-callback="onRecaptchaExpired"
-           data-error-callback="onRecaptchaError"></div>
+           data-error-callback="onRecaptchaError">
+      </div>
     </div>
 
-    <!-- 🚀 Tier 5: Submit -->
+    <!-- SUBMIT BUTTON -->
     <button
       type="submit"
       id="tlpSubmitBtn"
       disabled
       class="w-full rounded-full bg-gray-400 text-white text-lg font-semibold py-3
-             disabled:opacity-60 disabled:cursor-not-allowed transition"
-    >
-      Save My Spot
+             disabled:opacity-60 disabled:cursor-not-allowed transition-all">
+      {ctaLabel}
     </button>
   </form>
 </section>
 
+<!-- reCAPTCHA -->
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <script>
@@ -83,14 +107,42 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
     btn.disabled = true;
     btn.classList.remove("bg-brand-red");
     btn.classList.add("bg-gray-400");
-    console.error("reCAPTCHA failed to load or validate.");
+    console.error("reCAPTCHA failed to load.");
   }
 </script>
 
 <style>
-  .form-input {
-    @apply w-full rounded-full border border-gray-200 bg-gray-50 px-4 py-3 text-[15px] text-gray-900
-           placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-red/60 
-           focus:border-brand-red transition;
+  /* Floating label fields */
+  .field {
+    position: relative;
+    padding-top: 1.2rem;
+  }
+  .field input {
+    width: 100%;
+    border: none;
+    border-bottom: 1.5px solid #d1d5db;
+    padding: 6px 2px;
+    font-size: 15px;
+    background: transparent;
+    outline: none;
+    transition: border-color .25s ease;
+  }
+  .field input:focus {
+    border-bottom-color: #B3282D;
+  }
+  .field label {
+    position: absolute;
+    left: 2px;
+    bottom: 6px;
+    font-size: 15px;
+    color: #9ca3af;
+    pointer-events: none;
+    transition: .25s ease;
+  }
+  .field input:focus + label,
+  .field input:not(:placeholder-shown) + label {
+    transform: translateY(-1.1rem);
+    font-size: 12px;
+    color: #B3282D;
   }
 </style>
