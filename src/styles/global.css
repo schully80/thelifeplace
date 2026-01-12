@@ -1173,6 +1173,14 @@ html {
   filter: grayscale(85%) sepia(10%) brightness(1.03) contrast(1.05);
 }
 
+.tlp-hero-grade img {
+  filter:
+    grayscale(85%)
+    sepia(12%)
+    brightness(1.02)
+    contrast(1.08);
+}
+
 @keyframes fadeUp {
   0% { opacity: 0; transform: translateY(12px); }
   100% { opacity: 1; transform: translateY(0); }
@@ -1182,3 +1190,32 @@ html {
   animation: fadeUp 0.9s ease-out forwards;
 }
 
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Pulsing red dot */
+.live-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #B3282D;
+  border-radius: 50%;
+  margin-right: 6px;
+  animation: livePulse 1.4s infinite ease-in-out;
+}
+
+@keyframes livePulse {
+  0% { opacity: 0.3; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); }
+  100% { opacity: 0.3; transform: scale(0.9); }
+}
+
+/* Active LIVE tab style */
+.nav-live-active {
+  color: #B3282D !important;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}

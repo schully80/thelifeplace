@@ -9,21 +9,31 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
 
 
 <!-- ====================================================== -->
-<!-- HERO — WARM MINIMAL HEADER -->
+<!-- OUR VALUES — CINEMATIC FULL-WIDTH SPLIT HERO (TLP STYLE) -->
 <!-- ====================================================== -->
-<div class="w-screen max-w-none relative left-1/2 -mx-[50vw]">
-  <section class="relative py-32 w-full flex flex-col items-center justify-center bg-white">
-    <div class="absolute inset-0 bg-gray-100"></div>
+<!-- ====================================================== -->
+<!-- OUR VALUES — FULL-WIDTH BIG HEADER (NO IMAGE)          -->
+<!-- ====================================================== -->
 
-    <div class="relative z-10 text-center px-6">
-      <h1 class="text-4xl md:text-6xl font-black tracking-tight text-gray-900">
-        Our Values
-      </h1>
+<section
+  class="relative w-screen h-[70vh] 
+         left-1/2 -mx-[50vw]
+         overflow-hidden bg-gray-100 flex items-center justify-center"
+>
 
-      <Slogan size="md" arrow={true} class="mt-10 md:mt-14" />
-    </div>
-  </section>
-</div>
+  <!-- Optional soft gradient for depth -->
+  <div class="absolute inset-0 bg-gradient-to-b 
+              from-white via-gray-100 to-gray-200 opacity-70"></div>
+
+  <!-- CENTERED CONTENT -->
+  <div class="relative z-10 text-center px-6">
+    <h1 class="text-4xl md:text-7xl font-black tracking-tight text-gray-900">
+      Our Values
+    </h1>
+
+</section>
+
+
 
 
 <!-- ====================================================== -->
@@ -33,7 +43,7 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
   <div class="w-full px-6 lg:px-12 xl:px-20 cine-zoom-apple-hover">
 
     <div class="max-w-5xl text-left">
-      <p class="text-2xl md:text-3xl font-light text-gray-800 leading-relaxed">
+      <p class="text-2xl md:text-3xl font-medium text-gray-800 leading-relaxed">
         We are intentional about The Life Place being a community where all that
         we are and do communicates the beauty, gentleness and kindness of who <span class="text-brand-red">Jesus</span> is and what He did for us—a community defined and sweetened by the gospel.
       </p>
@@ -95,7 +105,7 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
       <div class="value-card w-full max-w-[560px] p-12 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20">
 
         <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
-          See <span class="text-brand-red">Jesus</span><br/>Hear the Good News
+          See <span class="text-brand-red">Jesus.</span><br/>Hear the Good News.
         </h2>
 
       </div>
@@ -352,49 +362,105 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
 <!-- ====================================================== -->
 <!-- NEXT STEPS SECTION -->
 <!-- ====================================================== -->
-<div class="w-full bg-gradient-to-b from-[#F7F7F8] to-[#EFEFF1] py-24 px-6 mt-40">
-  <section class="max-w-6xl mx-auto text-center">
 
-    <h2 class="text-4xl md:text-6xl font-black text-gray-900 tracking-tight">
-      Your Next <span class="text-brand-red">Step</span>
-    </h2>
-    <p class="mt-4 text-lg md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-      Here are a few ways you can get connected and take your next step.
-    </p>
+  <!-- GRID -->
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
 
-    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 place-items-center mt-16">
+   <!-- INLINE GLASS APP DOWNLOAD CARD -->
+<div
+  id="download-app"
+  class="mx-auto mt-16 max-w-md backdrop-blur-xl bg-white/20 border border-white/30
+         cine-zoom-apple-hover shadow-2xl rounded-[36px] p-8 text-center ring-1 ring-brand-red animate-floatSlow"
+>
 
-      <!-- APP DOWNLOAD -->
-      <AppDownloadCard />
+  <img 
+    src="/expo-qr.png"
+    alt="Download App QR"
+    class="w-36 h-36 mx-auto mb-4 rounded-lg shadow-md"
+  />
+
+  <h3 class="text-2xl font-semibold text-gray-900 mb-2">
+    Download Our App
+  </h3>
+
+  <!-- ⚠️ DISABLED APP STORE AND GOOGLE PLAY BADGES -->
+  <div class="flex justify-center items-center gap-4 mb-4 opacity-90 cursor-not-allowed select-none">
+    <img 
+      src="/app-store-badge.svg"
+      alt="Download on the App Store"
+      class="h-12 w-auto"
+    />
+
+<img 
+    src="/google-play-badge.jpg"
+    alt="Get it on Google Play"
+    class="h-16 w-auto"
+  />
+
+  </div>
+
+  <p class="text-md text-gray-600 italic">
+    Download coming soon
+  </p>
+
+</div>
 
       <!-- GIVE -->
-      <div class="cine-zoom-apple-hover rounded-3xl p-10 backdrop-blur-xl bg-white/10 border border-white/20 shadow-xl text-center">
-        <img src="/hand-holding-heart.png" class="w-16 h-16 mx-auto mb-5 opacity-90" />
+      <div
+        class="cine-zoom-apple-hover relative rounded-[36px] p-10
+               backdrop-blur-xl bg-white/10 ring-1 ring-brand-red 
+               shadow-[0_8px_40px_rgba(0,0,0,0.25)] text-center overflow-hidden"
+      >
+        <img 
+  src="/hand-holding-heart.png" 
+  alt="Give Icon"
+  class="w-16 h-16 mx-auto mb-5 opacity-90"
+/>
+
+
         <h3 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-3">
           Partner With Us
         </h3>
         <p class="text-gray-700 mb-6 text-lg">
           Your generosity moves the mission of <span class="word-jesus">Jesus</span> forward.
         </p>
-        <a href="/give" class="text-brand-red font-semibold hover:underline">Give Online →</a>
+
+        <a href="/give" class="inline-block mt-2 text-brand-red font-semibold hover:underline">
+          Give Online →
+        </a>
       </div>
 
       <!-- PLAN A VISIT -->
-      <div class="cine-zoom-apple-hover rounded-3xl p-10 backdrop-blur-xl bg-white/10 border border-white/20 shadow-xl text-center">
-        <img src="/home.svg" class="w-16 h-16 mx-auto mb-5 opacity-90" />
+      <div
+        class="cine-zoom-apple-hover relative rounded-[36px] p-10
+               backdrop-blur-xl bg-white/10 ring-1 ring-brand-red 
+               shadow-[0_8px_40px_rgba(0,0,0,0.25)] text-center overflow-hidden sm:col-span-2 lg:col-span-1"
+      >
+           <img 
+  src="/home.svg" 
+  alt="Give Icon"
+  class="w-16 h-16 mx-auto mb-5 opacity-90"
+/>
+
+
         <h3 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-3">
           Plan a Visit
         </h3>
         <p class="text-gray-700 mb-6 text-lg">
           We would love to welcome you this Sunday.
         </p>
-        <a href="/visit" class="text-brand-red font-semibold hover:underline">Plan Your Visit →</a>
+
+        <a href="/visit" class="inline-block mt-2 text-brand-red font-semibold hover:underline">
+          Plan Your Visit →
+        </a>
       </div>
 
     </div>
+    <!-- END GRID -->
 
   </section>
 </div>
+<!-- END NEXT STEPS -->
 
 <!-- ====================================================== -->
 <!-- MOTION PACK CSS + JS -->

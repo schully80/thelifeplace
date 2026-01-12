@@ -57,6 +57,31 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 
   <body class="min-h-screen flex flex-col bg-white antialiased">
 
+  <div
+  id="tlpLiveRibbon"
+  class="hidden fixed top-0 left-0 right-0 z-[99999]
+         bg-red-600 text-white text-center py-2 font-semibold shadow-lg
+         animate-[pulse_2s_ease-in-out_infinite]"
+>
+  🔴 We Are Live Now — <a href="/live/" class="underline">Join the Stream</a>
+</div>
+
+<script is:inline>
+  document.addEventListener("tlp-live-updated", (e) => {
+    const ribbon = document.getElementById("tlpLiveRibbon");
+    ribbon.classList.toggle("hidden", !e.detail);
+  });
+</script>
+
+<style>
+@keyframes pulse {
+  0% { opacity: .7; }
+  50% { opacity: 1; }
+  100% { opacity: .7; }
+}
+</style>
+
+
     <!-- ⭐ PREMIUM APPLE-STYLE SCROLL BARS -->
     <div id="scroll-progress-top"
          class="fixed top-2 left-0 h-[3px] w-0 z-[9999]
@@ -256,6 +281,70 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
         pastor.classList.add("parallax", "fade-in");
       }
     </script>
+
+<script>
+  async function checkGlobalLiveStatus() {
+    const liveLabel = document.querySelector("[data-live-label]");
+    const liveDot = document.querySelector("[data-live-indicator]");
+
+    if (!liveLabel || !liveDot) return;
+
+    try {
+      // Replace with real API later
+      const isLive = window.__TLP_IS_LIVE || false;
+
+      if (isLive) {
+        liveLabel.textContent = "LIVE NOW";
+        liveLabel.classList.add("text-brand-red", "font-semibold");
+        liveDot.classList.remove("hidden");
+        liveDot.classList.add("inline-block");
+      } else {
+        liveLabel.textContent = "Live";
+        liveLabel.classList.remove("text-brand-red", "font-semibold");
+        liveDot.classList.add("hidden");
+      }
+
+    } catch (err) {
+      console.error("Live status check failed:", err);
+    }
+  }
+
+  // Auto-run every 20 seconds (NICE UX)
+  checkGlobalLiveStatus();
+  setInterval(checkGlobalLiveStatus, 20000);
+</script>
+
+<script is:inline>
+  async function tlpGlobalLiveCheck() {
+    try {
+      const res = await fetch("/api/live-status.json");
+      const data = await res.json();
+
+      window.__TLP_LIVE__ = data.live;
+
+      document.dispatchEvent(new CustomEvent("tlp-live-updated", { detail: data.live }));
+    } catch (e) {
+      console.warn("Global live detection failed", e);
+    }
+  }
+
+  tlpGlobalLiveCheck();
+  setInterval(tlpGlobalLiveCheck, 60000);
+</script>
+
+<script is:inline>
+  document.addEventListener("tlp-live-updated", (e) => {
+    const isLive = e.detail;
+
+    // Prevent redirect loop on /live/
+    if (window.location.pathname === "/live/") return;
+
+    if (isLive) {
+      window.location.href = "/live/";
+    }
+  });
+</script>
+
 
   </body>
 </html>

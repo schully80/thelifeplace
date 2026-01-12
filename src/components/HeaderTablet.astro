@@ -73,15 +73,23 @@ const isActive = (href) =>
           -->
 
 
-      <!-- LIVE (new) -->
-      <a
-        href="/messages/live/"
-        class={`relative px-1 py-2 whitespace-nowrap after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all ${
-          isActive("/messages/live/")
-            ? "text-brand-red font-semibold after:w-full"
-            : "text-brand-darkgray hover:text-brand-red"
-        }`}
-      >Live</a>
+     <!-- Live (Tablet) -->
+<a
+  href="/live/"
+  class={`relative px-2 py-2 flex items-center gap-1
+    after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
+    ${isActive("/live/") ? "after:w-full text-brand-red font-semibold" : "text-brand-darkgray hover:text-brand-red after:w-0"}
+    hover:after:w-full after:transition-all after:duration-300`}
+>
+  <span data-live-tablet-text>Live</span>
+
+  <!-- Pulsing indicator -->
+  <span
+    data-live-tablet-indicator
+    class="hidden h-2 w-2 rounded-full bg-red-600 animate-ping absolute -right-3 top-1/2 -translate-y-1/2"
+  ></span>
+</a>
+
 
       <!-- MINISTRIES DROPDOWN -->
       <div data-dropdown class="relative">
@@ -403,5 +411,22 @@ const isActive = (href) =>
       });
     })();
   </script>
+
+  <script is:inline>
+  document.addEventListener("tlp-live-updated", (e) => {
+    const text = document.querySelector("[data-live-tablet-text]");
+    const dot = document.querySelector("[data-live-tablet-indicator]");
+
+    if (!text || !dot) return;
+
+    if (e.detail === true) {
+      text.textContent = "Live Now";
+      dot.classList.remove("hidden");
+    } else {
+      text.textContent = "Live";
+      dot.classList.add("hidden");
+    }
+  });
+</script>
 
 </header>

@@ -1,14 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import SnapScanConfirmForm from "../../components/SnapScanConfirmForm.astro";
-import FullBleed from "../components/tlp/FullBleed.astro";
-import HeroTitle from "../components/tlp/HeroTitle.astro";
-import SectionWrapper from "../components/tlp/SectionWrapper.astro";
-import FadeDivider from "../components/tlp/FadeDivider.astro";
-import WarmBackground from "../components/tlp/WarmBackground.astro";
 import QuickGive from "../../components/giving/QuickGive.astro";
-const url = new URL(Astro.request.url);
-const event = url.searchParams.get("event");
+
 ---
 
 <BaseLayout title="Generosity — The Life Place">
@@ -42,7 +35,7 @@ const event = url.searchParams.get("event");
     <h1
       class="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900"
     >
-      Extravagant Generosity
+      Generosity
     </h1>
 
     <p
@@ -50,7 +43,7 @@ const event = url.searchParams.get("event");
              text-gray-700 leading-relaxed
              max-w-4xl mx-auto"
     >
-      Generosity is our expression of who <span class="text-brand-red">Jesus</span> is and what He does.
+      Generosity is our expression of who Jesus is and what He does.
     </p>
 
   </div>
@@ -311,7 +304,7 @@ class="max-w-7xl mx-auto px-6 pb-36">
  <!-- Annual Report (featured card) -->
 <section class="max-w-6xl mx-auto px-6 pb-32">
   <div
-    class="relative overflow-hidden rounded-[36px] border bg-white ring-1 ring-brand-red shadow-sm
+    class="relative overflow-hidden rounded-xl border bg-white ring-1 ring-brand-red shadow-sm
            p-6 sm:p-8 md:p-10"
     aria-labelledby="annual-report-title"
   >

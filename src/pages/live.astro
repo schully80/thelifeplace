@@ -22,15 +22,17 @@ const serviceMinute = 0;
 
     <div class="absolute inset-0 -z-10 blur-3xl opacity-30 bg-brand-red/30 animate-pulse rounded-full"></div>
 
-    <div class="rounded-3xl overflow-hidden shadow-2xl bg-black relative">
+    <div class="rounded-[36px] overflow-hidden shadow-2xl bg-black relative">
       
-      <!-- Live Status Badge -->
-      <div class="absolute top-6 left-6 z-20">
-        <span id="liveStatusBadge"
-          class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-gray-500 text-white">
-          ● Checking…
-        </span>
-      </div>
+  <!-- Live Status Badge -->
+<div class="absolute top-6 left-6 z-20">
+  <span
+    id="liveStatusBadge"
+    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-gray-500 text-white"
+  >
+    ● Checking…
+  </span>
+</div>
 
       <!-- Player -->
       <div class="aspect-video w-full">
@@ -94,7 +96,7 @@ const serviceMinute = 0;
 <div
   id="download-app"
   class="mx-auto mt-16 max-w-md backdrop-blur-xl bg-white/20 border border-white/30
-         cine-zoom-apple-hover shadow-2xl rounded-3xl p-8 text-center ring-1 ring-black/5 animate-floatSlow"
+         cine-zoom-apple-hover shadow-2xl rounded-[36px] p-8 text-center ring-1 ring-brand-red animate-floatSlow"
 >
 
   <img 
@@ -131,8 +133,8 @@ const serviceMinute = 0;
 
       <!-- GIVE -->
       <div
-        class="cine-zoom-apple-hover relative rounded-3xl p-10
-               backdrop-blur-xl bg-white/10 border border-white/20
+        class="cine-zoom-apple-hover relative rounded-[36px] p-10
+               backdrop-blur-xl bg-white/10 ring-1 ring-brand-red 
                shadow-[0_8px_40px_rgba(0,0,0,0.25)] text-center overflow-hidden"
       >
         <img 
@@ -156,8 +158,8 @@ const serviceMinute = 0;
 
       <!-- PLAN A VISIT -->
       <div
-        class="cine-zoom-apple-hover relative rounded-3xl p-10
-               backdrop-blur-xl bg-white/10 border border-white/20
+        class="cine-zoom-apple-hover relative rounded-[36px] p-10
+               backdrop-blur-xl bg-white/10 ring-1 ring-brand-red 
                shadow-[0_8px_40px_rgba(0,0,0,0.25)] text-center overflow-hidden sm:col-span-2 lg:col-span-1"
       >
            <img 
@@ -264,7 +266,7 @@ const serviceMinute = 0;
       const badge = document.getElementById("liveStatusBadge");
 
       // TODO: Replace with actual YouTube API
-      const isLive = true; // temp
+window.__TLP_IS_LIVE = true; // if truly LIVE
       if (isLive) {
         badge.textContent = "🔴 Live Now";
         badge.className =
@@ -277,6 +279,33 @@ const serviceMinute = 0;
     }
     checkLiveStatus();
   </script>
+
+
+<script is:inline>
+  async function updateLiveBadge() {
+    const badge = document.getElementById("liveStatusBadge");
+
+    try {
+      const res = await fetch("/api/live-status.json");
+      const data = await res.json();
+
+      if (data.live) {
+        badge.textContent = "🔴 Live Now";
+        badge.classList.remove("bg-gray-500");
+        badge.classList.add("bg-red-600");
+      } else {
+        badge.textContent = "● Offline";
+        badge.classList.remove("bg-red-600");
+        badge.classList.add("bg-gray-500");
+      }
+    } catch {
+      badge.textContent = "● Offline";
+    }
+  }
+
+  updateLiveBadge();
+  setInterval(updateLiveBadge, 60000);
+</script>
 
   <!-- ANIMATIONS -->
 <style>

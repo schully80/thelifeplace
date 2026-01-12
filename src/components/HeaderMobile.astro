@@ -207,15 +207,16 @@ const isActive = (href) =>
 
 
  <!-- LIVE -->
- <a
+<a
   href="/live/"
-  class={`block px-4 py-3 rounded-full text-base ${
-    isActive("/live/")
-      ? "text-brand-red font-semibold bg-red-50"
-      : "text-brand-darkgray hover:bg-gray-50"
-  }`}
+  class="flex items-center gap-2 px-4 py-2 text-gray-800 font-medium"
 >
-  Live
+  <span data-live-mobile-text>Live</span>
+
+  <span
+    data-live-mobile-indicator
+    class="hidden h-2 w-2 rounded-full bg-red-600"
+  ></span>
 </a>
 
 
@@ -447,4 +448,19 @@ const isActive = (href) =>
       });
     })();
   </script>
+
+  <script is:inline>
+  document.addEventListener("tlp-live-updated", (e) => {
+    const text = document.querySelector("[data-live-mobile-text]");
+    const dot = document.querySelector("[data-live-mobile-indicator]");
+
+    if (e.detail) {
+      text.textContent = "Live Now";
+      dot.classList.remove("hidden");
+    } else {
+      text.textContent = "Live";
+      dot.classList.add("hidden");
+    }
+  });
+</script>
 </header>

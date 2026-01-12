@@ -80,20 +80,23 @@ const isActive = (href) =>
           </a>
           -->
 
-          <!-- Live -->
-          <a
+<!-- Live -->
+<a
   href="/live/"
   class={`relative px-2 py-2 flex items-center gap-1
     after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
     ${isActive("/live/") ? "after:w-full text-brand-red font-semibold" : "text-brand-darkgray hover:text-brand-red after:w-0"}
     hover:after:w-full after:transition-all after:duration-300`}
 >
-  Live
+  <span data-live-text>Live</span>
+
   <span
     data-live-indicator
-    class="hidden h-2 w-2 rounded-full bg-red-600 animate-ping absolute -right-3 top-1/2 -translate-y-1/2"
+    class="hidden h-2 w-2 rounded-full bg-red-600 absolute -right-3 top-1/2 -translate-y-1/2"
   ></span>
 </a>
+
+
 
 
           <!-- Ministries dropdown -->
@@ -203,4 +206,29 @@ const isActive = (href) =>
       });
     })();
   </script>
+
+  <script is:inline>
+  async function checkNavLive() {
+    try {
+      const res = await fetch("/api/live-status.json");
+      const data = await res.json();
+
+      const liveText = document.querySelector("[data-live-text]");
+      const dot = document.querySelector("[data-live-indicator]");
+
+      if (data.live) {
+        liveText.textContent = "Live Now";
+        dot.classList.remove("hidden");
+      } else {
+        liveText.textContent = "Live";
+        dot.classList.add("hidden");
+      }
+    } catch (e) {
+      console.warn("Live check failed", e);
+    }
+  }
+
+  checkNavLive();
+  setInterval(checkNavLive, 60000); // refresh every 60s
+</script>
 </header>

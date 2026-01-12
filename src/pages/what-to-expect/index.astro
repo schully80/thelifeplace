@@ -199,21 +199,23 @@ import FadeDivider from "../../components/tlp/FadeDivider.astro";
   <!-- SECTION — Big Headline Over Two Photos (Full-Bleed) -->
   <div class="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen mt-16 md:mt-24 mb-20">
      
-    <section class="relative h-[60vh] md:h-[75vh] lg:h-[85vh] overflow-hidden cine-zoom-apple-hover">
-
+    <section class="relative h-[60vh] md:h-[75vh] lg:h-[85vh] overflow-hidden rounded-none cine-zoom-apple-hover tlp-grayscale">
+>
       <!-- TWO-PHOTO BACKGROUND (side-by-side) -->
       <div class="absolute inset-0 grid grid-cols-2">
         <img 
           src="/what-give.jpg"
           alt="Extravagant Generosity"
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover rounded-none"
         />
         <img 
           src="/what-family3.jpg"
           alt="Helping Others Passionately"
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover rounded-none"
         />
       </div>
+
+    
 
       <!-- Soft overlay for readability -->
       <div class="absolute inset-0 bg-black/40"></div>
