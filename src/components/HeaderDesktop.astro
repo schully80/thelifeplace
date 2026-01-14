@@ -231,4 +231,31 @@ const isActive = (href) =>
   checkNavLive();
   setInterval(checkNavLive, 60000); // refresh every 60s
 </script>
+
+<script is:inline>
+async function updateLiveUI() {
+  try {
+    const res = await fetch('/live-status.json', { cache: 'no-store' });
+    const data = res.ok ? await res.json() : { live: false };
+    const live = !!data.live;
+
+    document.querySelectorAll('[data-live-indicator]')
+      .forEach(el => el.classList.toggle('hidden', !live));
+
+    document.querySelectorAll('[data-live-text]')
+      .forEach(el => el.textContent = live ? 'Live now' : 'Live');
+  } catch (e) {
+    // Fail-safe: hide indicator if anything goes wrong
+    document.querySelectorAll('[data-live-indicator]')
+      .forEach(el => el.classList.add('hidden'));
+  }
+}
+
+// Run when the page loads (works with Astro client-side nav too)
+addEventListener('astro:page-load', updateLiveUI);
+// (Optional) Poll every 60s:
+// setInterval(updateLiveUI, 60000);
+</script>
+
+
 </header>
