@@ -412,21 +412,6 @@ const isActive = (href) =>
     })();
   </script>
 
-  <script is:inline>
-  document.addEventListener("tlp-live-updated", (e) => {
-    const text = document.querySelector("[data-live-tablet-text]");
-    const dot = document.querySelector("[data-live-tablet-indicator]");
-
-    if (!text || !dot) return;
-
-    if (e.detail === true) {
-      text.textContent = "Live Now";
-      dot.classList.remove("hidden");
-    } else {
-      text.textContent = "Live";
-      dot.classList.add("hidden");
-    }
-  });
-</script>
+  
 
 </header>
