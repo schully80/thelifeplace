@@ -1,7 +1,10 @@
-import { defineConfig } from "astro/config";
-import cloudflare from "@astrojs/cloudflare";
+import { defineConfig } from 'astro/config';
+import cloudflare from '@astrojs/cloudflare'; // npm i -D @astrojs/cloudflare
 
 export default defineConfig({
-  output: "server",      // SSR on Pages Functions
-  adapter: cloudflare(),
+  output: 'server',              // or 'hybrid' (keeps static pages + functions)
+  adapter: cloudflare({
+    // entry: 'entry' // default is fine
+  }),
+  site: 'https://thelifeplace.org',
 });
