@@ -1,10 +1,12 @@
 import { defineConfig } from 'astro/config';
-import cloudflare from '@astrojs/cloudflare'; // npm i -D @astrojs/cloudflare
+import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  output: 'server',              // or 'hybrid' (keeps static pages + functions)
-  adapter: cloudflare({
-    // entry: 'entry' // default is fine
-  }),
-  site: 'https://thelifeplace.org',
+  integrations: [tailwind()],
+
+  vite: {
+    define: {
+      'process.env': process.env
+    }
+  }
 });
