@@ -11,6 +11,7 @@
     "gemini": "gemini"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.6.12",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/montserrat": "^5.2.8",
     "astro": "^5.16.6",

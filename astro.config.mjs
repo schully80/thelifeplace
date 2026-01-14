@@ -1,12 +1,7 @@
-import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import { defineConfig } from "astro/config";
+import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
-  integrations: [tailwind()],
-
-  vite: {
-    define: {
-      'process.env': process.env
-    }
-  }
+  output: "server",      // SSR on Pages Functions
+  adapter: cloudflare(),
 });
