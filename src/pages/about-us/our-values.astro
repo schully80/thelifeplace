@@ -10,7 +10,14 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
 
 <!-- HERO IMAGE SECTION — Full-Bleed, No Rounded Corners -->
 <section class="relative left-1/2 right-1/2 -mx-[50vw] w-screen h-[70vh] overflow-hidden tlp-grayscale rounded-none">
-  <img src="/our-values2.png" alt="Our Values Hero" class="absolute inset-0 w-full h-full object-cover rounded-none" style="border-radius:0!important;" />
+  <img
+    src="/our-values6.jpg"
+    alt="Our Values Hero"
+    class="absolute inset-0 w-full h-full object-cover rounded-none"
+    style="border-radius:0!important; z-index:0;"
+  />
+  <!-- ensure any overlay/text sits above the image -->
+  <div class="absolute inset-0 pointer-events-none" style="z-index:1"></div>
 </section>
 
 <!-- ====================================================== -->
