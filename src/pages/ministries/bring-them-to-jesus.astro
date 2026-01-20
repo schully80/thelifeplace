@@ -11,18 +11,19 @@ const event = url.searchParams.get("event");
 
 <BaseLayout title="Bring Them To Jesus">
   <!-- Hero -->
-  <section class="relative full-bleed">
-    <div class="relative min-h-[38vh] md:min-h-[60vh] flex items-center justify-center">
-      <img
-        src="/father-child3.jpg"
-        alt="Only Jesus"
-        class="absolute inset-0 h-full w-full object-cover tlp-grayscale"
-        loading="eager"
-        decoding="async"
-      />
-      <div class="absolute inset-0 bg-black/20"></div>
+  <section class="relative left-1/2 right-1/2 -mx-[50vw] w-screen h-[70vh] overflow-hidden tlp-grayscale rounded-none">
+    <img
+      src="/father-child3.jpg"
+      alt="Only Jesus"
+      class="absolute inset-0 w-full h-full object-cover tlp-grayscale rounded-none"
+      style="border-radius:0!important;"
+      loading="eager"
+      decoding="async"
+    />
+    <div class="absolute inset-0 bg-black/20"></div>
 
-      <div class="relative z-10 px-4 text-center">
+    <div class="relative z-10 px-4 text-center flex items-center justify-center h-full">
+      <div>
         <h1 class="text-3xl md:text-5xl font-bold text-white drop-shadow">
           Bring Them to Jesus
         </h1>
@@ -35,19 +36,13 @@ const event = url.searchParams.get("event");
 
   <section class="relative py-10 md:py-16">
     <div class="container-x px-4 md:px-8">
-      <!-- Header -->
-      <header class="text-center mb-8 md:mb-12">
-        <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Bring Them To Jesus</h1>
-        <p class="mt-4 md:mt-5 text-xl md:text-2xl text-brand-warmgray-700">
-          Come. See. <span class="text-brand-red">Jesus</span>
-        </p>
-      </header>
+    
 
       <!-- Content Grid -->
       <section class="container-x pt-12 md:pt-16 pb-12 md:pb-14">
         <div class="grid gap-6 md:gap-8 md:grid-cols-3">
           <!-- Objective -->
-          <article class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
+          <article class="rounded-[36px] border bg-white p-6 shadow-sm ring-1 ring-brand-red">
             <h2 class="text-center text-2xl md:text-2xl font-sembold text-brand-red mb-3">Objective</h2>
             <p class="text-lg md:text-lg leading-7 md:leading-8 mt-3 text-brand-warmgray-800">
               We invite parents into a Jesus-centred dedication journey—filled with encouragement, practical resources for parenting, and the joy of building friendships with other parents along the way.
@@ -55,7 +50,7 @@ const event = url.searchParams.get("event");
           </article>
 
           <!-- Duration -->
-          <article class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
+          <article class="rounded-[36px] border bg-white p-6 shadow-sm ring-1 ring-brand-red">
             <h2 class="text-center text-2xl md:text-2xl font-semibold text-brand-red mb-3">Duration</h2>
             <p class="text-lg md:text-lg leading-7 md:leading-8 text-brand-warmgray-800">
               <strong>Two-weeks</strong>, two sessions, ninety minutes each — preparing you for a lifetime commitment.
@@ -63,7 +58,7 @@ const event = url.searchParams.get("event");
           </article>
 
           <!-- Program Features -->
-          <article class="rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red">
+          <article class="rounded-[36px] border bg-white p-6 shadow-sm ring-1 ring-brand-red">
             <h2 class="text-center text-2xl md:text-2xl font-semibold text-brand-red mb-3">Program Features</h2>
             <ul class="text-lg md:text-lg leading-7 md:leading-8 space-y-3 text-brand-warmgray-800 list-disc pl-5">
               <li><span class="font-bold">Style:</span> Warm, engaging, short gospel presentation, Q&amp;A session, and prayer.</li>
@@ -74,7 +69,7 @@ const event = url.searchParams.get("event");
         </div>
 
         <!-- Costs -->
-        <article class="mt-10 max-w-xl mx-auto rounded-xl border bg-white p-6 shadow-sm ring-1 ring-brand-red text-center">
+        <article class="mt-10 max-w-xl mx-auto rounded-[36px] border bg-white p-6 shadow-sm ring-1 ring-brand-red text-center">
           <h2 class="text-2xl md:text-2xl font-semibold text-brand-red mb-3">Costs</h2>
           <p class="text-lg md:text-lg leading-7 md:leading-8 text-brand-warmgray-800">
             <span class="font-medium text-warm-gray"> A one-time registration cost per household for the 2-week class (covers catering &amp; admin, non-refundable).
@@ -82,7 +77,7 @@ const event = url.searchParams.get("event");
         </article>
 
 <!-- Registration Form -->
-<div class="mt-10 md:mt-12 max-w-2xl mx-auto px-4 md:px-0 cine-zoom-apple-hover">
+<div class="mt-10 md:mt-12 max-w-2xl mx-auto px-4 md:px-0">
  <FormCard
   title="Bring Them To Jesus "
   eventName="Bring Them To Jesus"

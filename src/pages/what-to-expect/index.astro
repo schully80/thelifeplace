@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import FadeDivider from "../../components/tlp/FadeDivider.astro";
+
 ---
 
 <BaseLayout title="What to Expect">
@@ -72,7 +73,7 @@ import FadeDivider from "../../components/tlp/FadeDivider.astro";
       </div>
 
       <!-- RIGHT BANNER TEXT -->
-      <div class="flex items-center justify-center md:pl-12 lg:pl-20 mt-10 md:-mt-16 cine-zoom-apple-hover">
+      <div class="flex items-center justify-center md:pl-12 lg:pl-20 mt-10 md:-mt-16">
       
         <h2 class="text-4xl md:text-6xl lg:text-6xl font-extrabold text-gray-900 leading-tight max-w-xl text-center">
           We open our bibles<br />
@@ -178,7 +179,7 @@ import FadeDivider from "../../components/tlp/FadeDivider.astro";
       <!-- BIG HEADLINE -->
       <div class="order-2 md:order-1 max-w-4xl mx-auto px-6 text-center mt-10 md:-mt-16">
         
-        <h3 class="cine-zoom-apple-hover text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+        <h3 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
           With music and dancing, we celebrate <span class="text-brand-red">Jesus</span> with joy, 
           beauty, and wonder.
         </h3>
@@ -251,7 +252,7 @@ import FadeDivider from "../../components/tlp/FadeDivider.astro";
       </div>
 
       <!-- RIGHT: MASSIVE TEXT -->
-      <div class="flex items-center justify-center text-center md:text-left -mt-14 mb-20 cine-zoom-apple-hover">
+      <div class="flex items-center justify-center text-center md:text-left -mt-14 mb-20">
       
         <h2 class="text-center text-4xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 leading-tight max-w-xl">
           At <br /> the Lord&rsquo;s Table<br />
@@ -317,7 +318,7 @@ import FadeDivider from "../../components/tlp/FadeDivider.astro";
         experience His truth, goodness, beauty, and kindness.
       </p>
 
-      <div class="w-full flex justify-center text-center mt-16 cine-zoom-apple-hover">
+      <div class="w-full flex justify-center text-center mt-16">
       
         <p class="text-2xl md:text-3xl lg:text-4xl font-semibold max-w-3xl leading-tight tracking-tight text-gray-900">
           Children are welcome to remain with their parents during service.
@@ -371,7 +372,7 @@ import FadeDivider from "../../components/tlp/FadeDivider.astro";
 
      
           <h3 class="text-4xl md:text-5xl font-semibold text-gray-900 leading-tight">
-            Watch Messages
+            Watch Live
           </h3>
 
           <p class="mt-5 text-xl md:text-2xl text-gray-600 leading-relaxed">
@@ -380,7 +381,7 @@ import FadeDivider from "../../components/tlp/FadeDivider.astro";
         </div>
 
         <a
-          href="/messages/"
+          href="/live/"
           class="mx-auto md:mx-0 inline-flex items-center gap-4 text-brand-red font-bold tracking-wide text-2xl md:text-5xl hover:opacity-85 transition cine-zoom-apple-hover -mt-14 mb-20"
         >
           Watch
@@ -395,8 +396,6 @@ import FadeDivider from "../../components/tlp/FadeDivider.astro";
 
       <!-- GENEROSITY CTA ROW -->
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 py-2 md:py-3">
-
-      
 
         <div class="text-center md:text-left max-w-xl">
           <h3 class="text-4xl md:text-5xl font-semibold text-gray-900 leading-tight">
@@ -421,8 +420,191 @@ import FadeDivider from "../../components/tlp/FadeDivider.astro";
         </a>
       </div>
 
+
+    
+    <!-- FADE DIVIDER -->
+<FadeDivider mt="mt-40" mb="mb-20" />
+
+<!-- First-Time Guest FAQ -->
+<section class="max-w-4xl mx-auto px-6 mt-32 mb-40" data-faq-accordion>
+  <!-- Header -->
+  <div class="text-center mb-12">
+    <h2 class="text-3xl md:text-6xl font-extrabold tracking-tight text-gray-900">
+      First-Time Guest FAQs
+    </h2>
+    <p class="mt-4 text-xl text-gray-600">
+      Helpful guidance for your first visit to The Life Place.
+    </p>
+  </div>
+
+  <!-- FAQ Accordion -->
+  <div class="space-y-4">
+
+    <!-- FAQ ITEM -->
+    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
+      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-xl font-semibold text-gray-900">
+        What time should I arrive?
+        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </span>
+      </button>
+      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
+        <p class="mt-4 text-xl text-gray-600 leading-relaxed">
+          Arrive 10–15 minutes early to settle in, find seating, and enjoy the atmosphere before service begins.
+        </p>
+      </div>
     </div>
-  </section>
+
+    <!-- FAQ ITEM -->
+    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
+      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-xl font-semibold text-gray-900">
+        What should I wear?
+        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </span>
+      </button>
+      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
+        <p class="mt-4 text-xl text-gray-600 leading-relaxed">
+          Wear what you’re comfortable in — casual, smart, or in-between. Come as you are.
+        </p>
+      </div>
+    </div>
+
+    <!-- FAQ ITEM -->
+    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
+      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-xl font-semibold text-gray-900">
+        What about my children?
+        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </span>
+      </button>
+      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
+        <p class="mt-4 text-xl text-gray-600 leading-relaxed">
+          Children are welcome to remain with their parents during the service. A dedicated kids space will launch soon.
+        </p>
+      </div>
+    </div>
+
+    <!-- FAQ ITEM -->
+    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
+      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-xl font-semibold text-gray-900">
+        How long is the service?
+        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </span>
+      </button>
+      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
+        <p class="mt-4 text-xl text-gray-600 leading-relaxed">
+          Our gatherings run for about 90 minutes, including worship, teaching, and ministry moments.
+        </p>
+      </div>
+    </div>
+
+    <!-- FAQ ITEM -->
+    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
+      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-xl font-semibold text-gray-900">
+        Will I be singled out as a first-time guest?
+        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </span>
+      </button>
+      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
+        <p class="mt-4 text-xl text-gray-600 leading-relaxed">
+          No — you won't be asked to stand or introduce yourself. We’re honoured to have you, quietly and sincerely.
+        </p>
+      </div>
+    </div>
+
+    <!-- FAQ ITEM -->
+    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
+      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-xl font-semibold text-gray-900">
+        Do I need to register?
+        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </span>
+      </button>
+      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
+        <p class="mt-4 text-xl text-gray-600 leading-relaxed">
+          No registration needed. Simply come. If an event ever requires registration, we’ll make it clear.
+        </p>
+      </div>
+    </div>
+
+  </div><!-- NEXT STEPS — CINEMATIC MINIMAL TYPOGRAPHY -->
+<section class="w-full py-[10rem] md:py-[14rem] bg-white">
+
+  <div class="max-w-6xl mx-auto px-6">
+
+    <!-- GIANT HEADLINE -->
+    <h2 class="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] text-gray-900 mb-[6rem]">
+      Step deeper into<br />
+      the story of who we are.
+    </h2>
+
+    <!-- STACKED CTA COLUMNS -->
+    <div class="space-y-[8rem]">
+
+      <!-- ABOUT US BLOCK -->
+      <div class="group cine-zoom-apple-hover">
+        <p class="text-xl md:text-2xl text-gray-600 max-w-2xl leading-relaxed mb-10">
+          Learn who we are, why we exist, and how everything at The Life Place revolves
+          around the person and finished work of <span class="text-brand-red font-semibold">Jesus</span>.
+        </p>
+
+        <a
+          href="/about-us/"
+          class="inline-flex items-center gap-4 text-brand-red font-bold text-3xl md:text-4xl tracking-tight hover:opacity-80 transition"
+        >
+          Learn More
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 md:w-14 md:h-14"
+               fill="none" stroke="currentColor" stroke-width="2"
+               viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- PLAN A VISIT BLOCK -->
+      <div class="group cine-zoom-apple-hover">
+        <p class="text-xl md:text-2xl text-gray-600 max-w-2xl leading-relaxed mb-10">
+          Find service times, parking, what to expect, and how to feel at home the moment
+          you walk in.
+        </p>
+
+        <a
+          href="/visit/"
+          class="inline-flex items-center gap-4 text-brand-red font-bold text-3xl md:text-4xl tracking-tight hover:opacity-80 transition"
+        >
+          Start Here
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 md:w-14 md:h-14"
+               fill="none" stroke="currentColor" stroke-width="2"
+               viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+</section>
+
 
   <style>
     .kids-slide-img {
@@ -617,5 +799,36 @@ window.addEventListener("load", revealCards);
 </script>
 
 
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const items = document.querySelectorAll(".faq-item");
+
+    items.forEach((item) => {
+      const summary = item.querySelector(".faq-summary");
+      const content = item.querySelector(".faq-content");
+      const icon = summary.querySelector("svg");
+
+      summary.addEventListener("click", () => {
+        const isOpen = content.style.maxHeight && content.style.maxHeight !== "0px";
+
+        // Close all
+        items.forEach((other) => {
+          const otherContent = other.querySelector(".faq-content");
+          const otherIcon = other.querySelector("svg");
+          if (otherContent) otherContent.style.maxHeight = null;
+          if (otherIcon) otherIcon.style.transform = "rotate(0deg)";
+          other.classList.remove("open");
+        });
+
+        // Open clicked one
+        if (!isOpen) {
+          content.style.maxHeight = content.scrollHeight + "px";
+          if (icon) icon.style.transform = "rotate(180deg)";
+          item.classList.add("open");
+        }
+      });
+    });
+  });
+</script>
 
 </BaseLayout>

@@ -8,39 +8,16 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
 <BaseLayout title="Our Values">
 
 
-<!-- ====================================================== -->
-<!-- OUR VALUES — CINEMATIC FULL-WIDTH SPLIT HERO (TLP STYLE) -->
-<!-- ====================================================== -->
-<!-- ====================================================== -->
-<!-- OUR VALUES — FULL-WIDTH BIG HEADER (NO IMAGE)          -->
-<!-- ====================================================== -->
-
-<section
-  class="relative w-screen h-[70vh] 
-         left-1/2 -mx-[50vw]
-         overflow-hidden bg-gray-100 flex items-center justify-center"
->
-
-  <!-- Optional soft gradient for depth -->
-  <div class="absolute inset-0 bg-gradient-to-b 
-              from-white via-gray-100 to-gray-200 opacity-70"></div>
-
-  <!-- CENTERED CONTENT -->
-  <div class="relative z-10 text-center px-6">
-    <h1 class="text-4xl md:text-7xl font-black tracking-tight text-gray-900">
-      Our Values
-    </h1>
-
+<!-- HERO IMAGE SECTION — Full-Bleed, No Rounded Corners -->
+<section class="relative left-1/2 right-1/2 -mx-[50vw] w-screen h-[70vh] overflow-hidden tlp-grayscale rounded-none">
+  <img src="/our-values2.png" alt="Our Values Hero" class="absolute inset-0 w-full h-full object-cover rounded-none" style="border-radius:0!important;" />
 </section>
-
-
-
 
 <!-- ====================================================== -->
 <!-- INTRO NARRATIVE — FULL LEFT-ALIGNED BLOCK -->
 <!-- ====================================================== -->
 <section class="w-full py-32 bg-white">
-  <div class="w-full px-6 lg:px-12 xl:px-20 cine-zoom-apple-hover">
+  <div class="w-full px-6 lg:px-12 xl:px-20">
 
     <div class="max-w-5xl text-left">
       <p class="text-2xl md:text-3xl font-medium text-gray-800 leading-relaxed">
@@ -48,7 +25,7 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
         we are and do communicates the beauty, gentleness and kindness of who <span class="text-brand-red">Jesus</span> is and what He did for us—a community defined and sweetened by the gospel.
       </p>
 
-      <p class="mt-6 text-gray-500 text-xl">
+      <p class="mt-6 text-gray-500 text-xl text-right">
         Schulter & Genevieve Etyang
       </p>
     </div>
@@ -63,7 +40,7 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
 <!-- VALUE 1 — SECTION INTRO (Option A Badge) -->
 <!-- ====================================================== -->
 <section class="w-full py-32">
-  <div class="max-w-4xl mx-auto px-6 cine-zoom-apple-hover">
+  <div class="max-w-4xl mx-auto px-6">
 
     <!-- BADGE + TITLE -->
     <div class="flex items-center gap-6 mb-10">
@@ -71,8 +48,8 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
         <span class="text-brand-red font-black text-2xl">1</span>
       </div>
 
-      <h2 class="text-3xl md:text-4xl font-black tracking-tight text-gray-900">
-        Seeing Jesus in the Bible
+      <h2 class="text-3xl md:text-6xl font-black tracking-tight text-gray-900">
+        Seeing <span class="text-brand-red">Jesus</span> in the Bible
       </h2>
     </div>
 
@@ -123,7 +100,7 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
 <!-- ====================================================== -->
 <section class="w-full pt-20 pb-32">
 
-  <div class="max-w-4xl mx-auto px-6 cine-zoom-apple-hover">
+  <div class="max-w-4xl mx-auto px-6">
 
     <!-- BADGE + TITLE -->
     <div class="flex items-center gap-6 mb-10">
@@ -131,14 +108,14 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
         <span class="text-brand-red font-black text-2xl">2</span>
       </div>
 
-      <h2 class="text-3xl md:text-4xl font-black tracking-tight text-gray-900">
+      <h2 class="text-3xl md:text-6xl font-black tracking-tight text-gray-900">
         Diverse <span class="text-brand-red">Community</span>
       </h2>
     </div>
 
     <!-- NARRATIVE -->
     <p class="text-2xl md:text-3xl font-regular text-gray-800 leading-relaxed">
-      The gospel creates a new kind of community — every race, ethnicity, tribe, people and language.
+      The gospel creates a new kind of community—every ethnicity, tribe, people and language.
       Rooted in Jesus' finished work, we celebrate every story, background and culture.
     </p>
 
@@ -181,7 +158,7 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
 <!-- VALUE 3 — SECTION INTRO -->
 <!-- ====================================================== -->
 <section class="w-full pt-20 pb-32">
-  <div class="max-w-4xl mx-auto px-6 cine-zoom-apple-hover">
+  <div class="max-w-4xl mx-auto px-6">
 
     <!-- BADGE + TITLE -->
     <div class="flex items-center gap-6 mb-10">
@@ -189,7 +166,7 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
         <span class="text-brand-red font-black text-2xl">3</span>
       </div>
 
-      <h2 class="text-3xl md:text-4xl font-black tracking-tight text-gray-900">
+      <h2 class="text-3xl md:text-6xl font-black tracking-tight text-gray-900">
        Extravagant <span class="text-brand-red">Generosity</span>
       </h2>
     </div>
@@ -239,14 +216,14 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
 <!-- VALUE 4 — SECTION INTRO -->
 <!-- ====================================================== -->
 <section class="w-full pt-20 pb-32">
-  <div class="max-w-4xl mx-auto px-6 cine-zoom-apple-hover">
+  <div class="max-w-4xl mx-auto px-6">
 
     <div class="flex items-center gap-6 mb-10">
       <div class="h-14 w-14 rounded-full bg-gray-200 flex items-center justify-center">
         <span class="text-brand-red font-black text-2xl">4</span>
       </div>
 
-      <h2 class="text-3xl md:text-4xl font-black tracking-tight text-gray-900">
+      <h2 class="text-3xl md:text-6xl font-black tracking-tight text-gray-900">
        Graceful <span class="text-brand-red">Compassion</span>
       </h2>
     </div>
@@ -294,14 +271,14 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
 <!-- VALUE 5 — SECTION INTRO -->
 <!-- ====================================================== -->
 <section class="w-full pt-20 pb-32">
-  <div class="max-w-4xl mx-auto px-6 cine-zoom-apple-hover">
+  <div class="max-w-4xl mx-auto px-6">
 
     <div class="flex items-center gap-6 mb-10">
       <div class="h-14 w-14 rounded-full bg-gray-200 flex items-center justify-center">
         <span class="text-brand-red font-black text-2xl">5</span>
       </div>
 
-      <h2 class="text-3xl md:text-4xl font-black tracking-tight text-gray-900">
+      <h2 class="text-3xl md:text-6xl font-black tracking-tight text-gray-900">
         Go and tell the <span class="text-brand-red">Story</span> 
       </h2>
     </div>
@@ -332,7 +309,7 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
       <div class="value-card w-full max-w-[560px] p-12 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20">
 
         <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900">
-          Go tell the <span class="text-brand-red">story</span>
+          Go and tell the <span class="text-brand-red">story</span>
         </h2>
 
       </div>
@@ -348,7 +325,7 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
 <!-- ====================================================== -->
 <!-- SCRIPTURE FOOTER -->
 <!-- ====================================================== -->
-<section class="text-center max-w-2xl mx-auto px-6 py-20">
+<section class="text-center max-w-2xl mx-auto px-6 py-20 cine-zoom-apple-hover">
   <blockquote class="text-2xl md:text-3xl italic text-gray-700 leading-relaxed">
     “I came that they may have and enjoy life and have it in abundance (to the full, till it overflows).”
   </blockquote>

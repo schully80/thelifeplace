@@ -9,7 +9,7 @@ import FadeDivider from "../components/tlp/FadeDivider.astro";
 <!-- ===========================
       HERO — Cinematic & Pastoral (Swapped Order)
 =========================== -->
-<section class="w-full bg-gray-50 min-h-[850px] justify-center flex items-center py-32 pt-32 pb-32 mt-32 cine-zoom-apple-hover">
+<section class="w-full bg-gray-50 min-h-[850px] justify-center flex items-center py-32 pt-32 pb-32 mt-32">
   <div class="max-w-7xl mx-auto px-6">
 
     <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -25,9 +25,13 @@ import FadeDivider from "../components/tlp/FadeDivider.astro";
       </div>
 
       <div class="max-w-xl space-y-6">
+      
 
         <!-- WELCOME TITLE — Premium Apple-Style Heading -->
+        
         <div class="w-full text-center mb-10 opacity-0 animate-fadeUp">
+        
+        
           <h1 
             class="text-gray-900 text-4xl md:text-6xl font-extrabold tracking-tight"
           >
@@ -62,7 +66,7 @@ import FadeDivider from "../components/tlp/FadeDivider.astro";
 
     <!-- LEFT — IMAGE BLOCK (moved to second position) -->
     <div class="relative w-full h-[440px] md:h-[560px] lg:h-[620px] -mt-10 mb-20 
-                overflow-hidden rounded-3xl shadow-xl ">
+                overflow-hidden rounded-3xl shadow-xl">
 
       <!-- Subtle overlay -->
       <div class="absolute inset-0 bg-black/10 z-10 pointer-events-none"></div>
@@ -71,7 +75,7 @@ import FadeDivider from "../components/tlp/FadeDivider.astro";
         id="welcomePhoto"
         src="/welcome.jpg"
         alt="welcomehome"
-        class="w-full h-full  object-center tlp-grayscale"
+        class="w-full h-full  object-center tlp-grayscale cine-zoom-apple-hover"
       />
     </div>
 
@@ -91,7 +95,9 @@ import FadeDivider from "../components/tlp/FadeDivider.astro";
 
       <!-- JESUS PILL -->
          <!-- Retro sign with nails -->
-          <span class="relative inline-block px-3 py-0 rounded-[9px] bg-[#B3282D] text-white font-bold border-4 border-white shadow-lg drop-shadow-xl tracking-wide rotate-[-2deg] cine-zoom-apple-hover">
+          <span class="relative inline-block px-3 py-0 rounded-[9px] bg-[#B3282D] text-white font-bold border-4
+           border-white shadow-lg drop-shadow-xl tracking-wide rotate-[-2deg] 
+           cine-zoom-apple-hover">
             Jesus
             <!-- Left nail -->
             <span
@@ -130,7 +136,7 @@ import FadeDivider from "../components/tlp/FadeDivider.astro";
 
 
 <section id="what-we-believe" 
-class="bg-white pt-20 md:pt-28 pb-16 md:pb-24 cine-zoom-apple-hover">
+class="bg-white pt-20 md:pt-28 pb-16 md:pb-24">
 
 
     <!-- Section Title -->
@@ -139,8 +145,11 @@ class="bg-white pt-20 md:pt-28 pb-16 md:pb-24 cine-zoom-apple-hover">
   <span class="text-brand-red">BELIEVE</span>
 </h2>
 
+       <!-- Subtle divider -->
+    <div class="mx-auto mt-6 mb-8 h-[3px] w-16 rounded-full bg-brand-red/90"></div>
+
     <!-- Intro Paragraph -->
-    <p class="text-center text-lg md:text-xl text-gray-700 leading-relaxed mb-10">
+    <p class="text-center text-lg md:text-xl text-gray-700 leading-relaxed mb-20">
       Sound doctrine isn’t about rules; it’s about <span class="text-brand-red">JESUS</span>—who He is, what He has done, and how His finished work shapes what we believe and how we live.
     </p>
 
@@ -345,7 +354,7 @@ Isaiah 65:17; 2 Peter 3:13; Revelation 21:1–4; 1 Corinthians 15:51–53; Phili
 },
 
         ].map(({ title, content }) => (
-        <details class="border border-l-4 border-brand-red rounded-lg bg-white shadow-sm transition">
+        <details class="border border-brand-red rounded-[36px] bg-white shadow-sm transition">
           <summary class="flex items-center justify-between px-4 py-3 cursor-pointer text-lg md:text-xl font-semibold text-brand-darkgray hover:text-brand-red">
             <span>{title}</span>
             <svg
@@ -354,7 +363,7 @@ Isaiah 65:17; 2 Peter 3:13; Revelation 21:1–4; 1 Corinthians 15:51–53; Phili
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 9l-7 7-7-7M19 13l-7 7-7-7" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 9l-7 7-7-7" />
             </svg>
           </summary>
          <div class="overflow-hidden transition-all duration-700 ease-in-out group-open:max-h-[2000px] px-4 pb-4 pt-2 text-base sm:text-lg leading-relaxed text-gray-700">
@@ -406,7 +415,7 @@ Isaiah 65:17; 2 Peter 3:13; Revelation 21:1–4; 1 Corinthians 15:51–53; Phili
 <!-- ===========================
      HISTORIC CONFESSIONS — Mini Section (With Red Rings)
 =========================== -->
-<section class="w-full py-28 bg-white cine-zoom-apple-hover">
+<section class="w-full py-28 bg-white">
   <div class="max-w-5xl mx-auto px-6 text-center space-y-10">
 
     <!-- Section Title -->
@@ -528,7 +537,7 @@ Isaiah 65:17; 2 Peter 3:13; Revelation 21:1–4; 1 Corinthians 15:51–53; Phili
 <!-- ====================================================== -->
 <!-- THEOLOGICAL FRAMEWORK -->
 <!-- ====================================================== -->
-<section class="w-full py-24 bg-white cine-zoom-apple-hover">
+<section class="w-full py-24 bg-white">
   <div class="max-w-6xl mx-auto px-6">
 
     <!-- Section Title -->
