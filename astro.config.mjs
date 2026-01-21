@@ -1,16 +1,13 @@
-import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import { defineConfig } from "astro/config";
+import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
-
 
 export default defineConfig({
   site: "https://thelifeplace.org",
-  integrations: [sitemap()],
-  integrations:[tailwind()],
-
+  integrations: [tailwind(), sitemap()],
   vite: {
     define: {
-      'process.env': process.env
-    }
-  }
+      "process.env": process.env,
+    },
+  },
 });
