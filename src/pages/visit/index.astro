@@ -10,37 +10,96 @@ import FormCard from "../../components/FormCard.astro";
 import { site } from "../../../site.config.js";
 
 const email = site?.contact?.email ?? "hello@thelifeplace.org";
+
+// ✅ Address + Google Maps links
+const addressLine1 = "1251 Villa Monte Catini, 1 Elm Avenue";
+const addressLine2 = "Craigavon AH, 2191";
+const addressLine3 = "Sandton, South Africa";
+const fullAddress = `${addressLine1}, ${addressLine2}`;
+
+const mapsQueryUrl = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}`;
+const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`;
 ---
+<BaseLayout
+  title="Plan a Visit | The Life Place"
+  description="Plan your visit to The Life Place in Craigavon AH, Sandton. Sundays 9:00–11:00. Directions and what to expect."
+>
+<section class="container-x py-14 md:py-24">
+  <!-- Heading block -->
+  <div class="text-center max-w-3xl mx-auto space-y-4 md:space-y-6">
+    <h1 class="text-3xl md:text-6xl font-extrabold tracking-tight leading-[1.05]">
+      Visit Us
+    </h1>
 
-<BaseLayout title="Plan a Visit">
-  <section class="container-x py-12 md:py-20">
-
-    <!-- Heading -->
-    <h1 class="text-3xl md:text-5xl font-extrabold text-center">Visit Us</h1>
-
-
-    <!-- Church Address -->
-    <p class="mt-4 mb-6 md:mb-8 text-center text-lg md:text-2xl">
-      1 Elm Avenue, Craigavon AH, 2191, Sandton
+    <p class="text-base md:text-3xl text-gray-900">
+      Sundays : <span class="font-semibold text-gray-900">9:00 – 11:00am</span>
     </p>
 
-    <!-- Email CTA -->
-    <div class="text-center">
-      <a class="btn btn-outline text-m md:text-xl" href={`mailto:${email}`}>
-        email us: {email}
-      </a>
-    </div>
+    <p class="text-lg md:text-2xl text-gray-800 leading-relaxed">
+      {addressLine1}<br />{addressLine2} 
+     <br />{addressLine3}
+    </p>
+  </div>
 
-<!-- Registration Form -->
-<div class="mt-10 md:mt-12 max-w-2xl mx-auto px-4 md:px-0 cine-zoom-apple-hover">
- <FormCard
-  title="Plan a Visit"
-  eventName="Plan a Visit"
-  ctaText="I'll Visit"
-  showComingSoon={true}
-  comingSoonMessage="Visitor sign-ups opening soon — Come. See. Jesus."
-/>
+  <!-- Add breathing room before the map -->
+  <div class="mt-10 md:mt-14">
+    <!-- map block here -->
+  </div>
+</section>
 
+
+    <!-- ✅ Google Map Embed -->
+    <div class="max-w-5xl mx-auto px-4 md:px-0">
+      <div class="rounded-[30px] overflow-hidden border border-black/10 bg-white/80 backdrop-blur-xl shadow-sm">
+        <div class="relative w-full aspect-[16/10]">
+          <iframe
+            class="absolute inset-0 w-full h-full"
+            src={mapsEmbedUrl}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+            title="The Life Place map"
+          ></iframe>
+        </div>
+
+      
+<div class="p-6 md:p-8">
+  
+
+  <div class="mt-5 md:mt-6 flex flex-wrap gap-12 justify-center">
+    <a
+      href={mapsQueryUrl}
+      target="_blank"
+      rel="noopener"
+      class="inline-flex items-center justify-center rounded-[30px] px-5 py-2.5 text-lg font-semibold
+              text-gray ring ring-brand-red hover:opacity-90 transition"
+    >
+      Get Directions
+    </a>
+
+    <a
+      href="https://maps.app.goo.gl/kWtzKtuyASu3qRxo7"
+      target="_blank"
+      rel="noopener"
+      class="inline-flex items-center justify-center rounded-[30px] px-5 py-2.5 text-lg font-semibold
+             border border-black/10 bg-white ring ring-brand-red  text-gray-900 hover:bg-gray-50 transition"
+    >
+      Open in Google Maps
+    </a>
+  </div>
 </div>
+
+
+
+    <!-- Registration Form -->
+    <div class="mt-10 md:mt-12 max-w-2xl mx-auto px-4 md:px-0">
+      <FormCard
+        title="Plan a Visit"
+        eventName="Plan a Visit"
+        ctaText="I'll Visit"
+        showComingSoon={true}
+        comingSoonMessage="Visitor sign-ups opening soon — Come. See. Jesus."
+      />
+    </div>
   </section>
 </BaseLayout>

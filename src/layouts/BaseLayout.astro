@@ -12,7 +12,7 @@ import AppButton from "../components/AppButton.astro";
 
 const {
   title = "The Life Place",
-  description = "Come. See. Jesus.",
+  description = "The Life Place is a church in Craigavon AH, Sandton. Join us Sundays from 9:00–11:00am. Come. See. Jesus. Find directions, sermons, and what to expect.",
 } = Astro.props;
 
 const path = Astro.url.pathname;
@@ -29,6 +29,11 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
   <meta name="viewport" content="width=device-width" />
   <meta name="description" content={description} />
   <title>{title}</title>
+
+
+    <!-- ✅ SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
 
   <!-- Fonts -->
   <link
@@ -53,6 +58,39 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
   src={`https://maps.googleapis.com/maps/api/js?key=${import.meta.env.PUBLIC_GOOGLE_PLACES_KEY}&callback=initMap&libraries=places&v=weekly`}
   async defer
 ></script>
+
+<!-- ✅ Schema -->
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": ["Church", "Organization"],
+        "@id": `${siteUrl}/#church`,
+        name: "The Life Place",
+        url: siteUrl,
+        slogan: "Come. See. Jesus.",
+        sameAs: [
+          "https://facebook.com/thelifeplacesa",
+          "https://instagram.com/thelifeplacesa",
+          "https://youtube.com/@thelifeplacesa",
+        ],
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "51 Villa Monte Catini, 1 Elm Avenue",
+          addressLocality: "Craigavon AH, Sandton",
+          postalCode: "2191",
+          addressCountry: "ZA",
+        },
+        openingHoursSpecification: [
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: "Sunday",
+            opens: "09:00",
+            closes: "11:00",
+          },
+        ],
+      })}
+    </script>
+
 </head>
 
   <body class="min-h-screen flex flex-col bg-white antialiased">
