@@ -6,8 +6,6 @@ export default defineConfig({
   site: "https://thelifeplace.org",
   integrations: [tailwind(), sitemap()],
   vite: {
-    define: {
-      "process.env": process.env,
-    },
+    define: { "process.env": process.env },
   },
 });

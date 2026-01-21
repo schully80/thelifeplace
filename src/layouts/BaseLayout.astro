@@ -16,6 +16,7 @@ const {
 } = Astro.props;
 
 const path = Astro.url.pathname;
+const siteUrl = "https://thelifeplace.org";
 const whatsappNumber = "27765639460";
 const whatsappMessage = "Hi The Life Place, I'd love to get in touch.";
 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
@@ -58,7 +59,6 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
   src={`https://maps.googleapis.com/maps/api/js?key=${import.meta.env.PUBLIC_GOOGLE_PLACES_KEY}&callback=initMap&libraries=places&v=weekly`}
   async defer
 ></script>
-
 <!-- ✅ Schema -->
     <script type="application/ld+json">
       {JSON.stringify({
@@ -88,6 +88,11 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
             closes: "11:00",
           },
         ],
+        image: `${siteUrl}/logo.png`,
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteUrl}/logo.png`,
+        },
       })}
     </script>
 
