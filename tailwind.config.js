@@ -12,8 +12,8 @@ export default {
         // BODY FONT — Montserrat
         body: ['Montserrat', 'system-ui', 'ui-sans-serif', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif'],
 
-        // HEADING FONT — Inter
-        heading: ['Inter', 'system-ui', 'ui-sans-serif', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif'],
+        // HEADING FONT — Montserrat
+        heading: ['Montserrat', 'system-ui', 'ui-sans-serif', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif'],
 
         // Default sans fallback (used if nothing else specified)
         sans: ['Montserrat', 'system-ui', 'ui-sans-serif', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif'],
