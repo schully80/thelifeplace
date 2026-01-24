@@ -16,6 +16,12 @@ const {
   noindex = false, // set true on utility pages like /thank-you/, /search/, /register-error/
   serviceName = null, // For ministry/service pages
   serviceDescription = null, // For ministry/service pages
+  articleTitle = null, // For blog/article pages (e.g., messages)
+  articleDescription = null, // For blog/article pages
+  articleAuthor = null, // Author name
+  articleDate = null, // Publication date (ISO format: YYYY-MM-DD)
+  articleImage = null, // Featured image URL
+  articleContent = null, // Article body text (for wordCount)
 } = Astro.props;
 
 const path = Astro.url.pathname;
@@ -230,6 +236,31 @@ pathParts.forEach((part, index) => {
       "areaServed": ["Sandton", "Johannesburg", "South Africa"],
       "url": `https://thelifeplace.org${pathname}`
     })}></script>}
+
+    <!-- ✅ Article/Blog Schema -->
+    {articleTitle && <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "@id": `https://thelifeplace.org${pathname}#article`,
+      "headline": articleTitle,
+      "description": articleDescription || description,
+      "image": articleImage || "https://thelifeplace.org/logo.png",
+      "datePublished": articleDate,
+      "dateModified": articleDate,
+      "author": {
+        "@type": "Person",
+        "name": articleAuthor || "The Life Place Team"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://thelifeplace.org/#church",
+        "name": "The Life Place",
+        "image": "https://thelifeplace.org/logo.png"
+      },
+      "url": `https://thelifeplace.org${pathname}`,
+      ...(articleContent && { "wordCount": Math.ceil(articleContent.split(/\s+/).length) })
+    })}></script>}
+
 </head>
 
   <body class="min-h-screen flex flex-col bg-white antialiased">
