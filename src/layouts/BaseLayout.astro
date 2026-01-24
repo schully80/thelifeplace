@@ -66,34 +66,34 @@ const canonicalUrl =
 
 <!-- ✅ Schema -->
     <script type="application/ld+json">
-      {JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": ["Church", "Organization"],
-        "@id": `${siteUrl}/#church`,
-        name: "The Life Place",
-        url: siteUrl,
-        slogan: "Come. See. Jesus.",
-        sameAs: [
-          "https://facebook.com/thelifeplacesa",
-          "https://instagram.com/thelifeplacesa",
-          "https://youtube.com/@thelifeplacesa"
-        ],
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "1251 Villa Monte Catini, 1 Elm Avenue",
-          addressLocality: "Craigavon AH, Sandton",
-          postalCode: "2191",
-          addressCountry: "ZA"
-        },
-        openingHoursSpecification: [
-          {
-            "@type": "OpeningHoursSpecification",
-            dayOfWeek: "Sunday",
-            opens: "09:00",
-            closes: "11:00"
-          }
-        ]
-      })}
+{
+  "@context": "https://schema.org",
+  "@type": ["Church", "Organization"],
+  "@id": "https://thelifeplace.org/#church",
+  "name": "The Life Place",
+  "url": "https://thelifeplace.org",
+  "slogan": "Come. See. Jesus.",
+  "sameAs": [
+    "https://facebook.com/thelifeplacesa",
+    "https://instagram.com/thelifeplacesa",
+    "https://youtube.com/@thelifeplacesa"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1251 Villa Monte Catini, 1 Elm Avenue",
+    "addressLocality": "Craigavon AH, Sandton",
+    "postalCode": "2191",
+    "addressCountry": "ZA"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Sunday",
+      "opens": "09:00",
+      "closes": "11:00"
+    }
+  ]
+}
     </script>
 </head>
 
