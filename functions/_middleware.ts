@@ -1,7 +1,67 @@
 // /functions/_middleware.ts
 
-export const onRequest: PagesFunction = async ({ next }) => {
+// ✅ In-memory rate limiting (per IP)
+const rateLimitMap = new Map<string, { count: number; reset: number }>();
+
+function getRateLimitKey(ip: string, endpoint: string): string {
+  return `${ip}:${endpoint}`;
+}
+
+function checkRateLimit(ip: string, endpoint: string, maxRequests: number = 10, windowMs: number = 60000): boolean {
+  const key = getRateLimitKey(ip, endpoint);
+  const now = Date.now();
+  const record = rateLimitMap.get(key);
+
+  if (!record || now > record.reset) {
+    rateLimitMap.set(key, { count: 1, reset: now + windowMs });
+    return true;
+  }
+
+  if (record.count >= maxRequests) {
+    return false; // Rate limited
+  }
+
+  record.count++;
+  return true;
+}
+
+// ✅ Generate cryptographically secure CSRF token
+function generateCSRFToken(): string {
+  return crypto.randomUUID().replace(/-/g, "");
+}
+
+// ✅ Additional security headers
+export const onRequest: PagesFunction = async ({ request, next }) => {
   const nonce = crypto.randomUUID().replace(/-/g, "");
+  const csrfToken = generateCSRFToken();
+  
+  // Extract IP for rate limiting
+  const ip = request.headers.get("cf-connecting-ip") || request.headers.get("x-forwarded-for") || "unknown";
+  const pathname = new URL(request.url).pathname;
+
+  // Rate limit API endpoints
+  const isApiEndpoint = pathname.startsWith("/api") || pathname.startsWith("/functions");
+  if (isApiEndpoint && request.method !== "GET") {
+    const isAllowed = checkRateLimit(ip, pathname, 15, 60000); // 15 requests per minute
+    if (!isAllowed) {
+      return new Response(JSON.stringify({ error: "Rate limit exceeded" }), {
+        status: 429,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+  }
+
+  // Rate limit form submissions more strictly
+  if (request.method === "POST" && pathname.includes("register|verify")) {
+    const isAllowed = checkRateLimit(ip, `form:${pathname}`, 5, 300000); // 5 requests per 5 minutes
+    if (!isAllowed) {
+      return new Response(JSON.stringify({ error: "Too many requests. Please try again later." }), {
+        status: 429,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+  }
+
   const res = await next();
 
   // Only modify HTML responses
@@ -15,8 +75,15 @@ export const onRequest: PagesFunction = async ({ next }) => {
     .replaceAll("<script", `<script nonce="${nonce}"`)
     .replaceAll("<style", `<style nonce="${nonce}"`);
 
+  // Inject CSRF token into hidden form field
+  html = html.replace(
+    /<form[^>]*>/g,
+    match => match + `\n<input type="hidden" name="csrf_token" value="${csrfToken}" />`
+  );
+
   // Rebuild response with strict CSP using the same nonce
   const strict = new Response(html, res);
+  
   strict.headers.set(
     "Content-Security-Policy",
     [
@@ -28,28 +95,39 @@ export const onRequest: PagesFunction = async ({ next }) => {
 
       // images & fonts
       `img-src 'self' data: https:`,
-      // 👇 allow Google Fonts *and* Font Awesome (cdnjs) fonts
       `font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:`,
 
       // styles (Astro inline + Google Fonts + Font Awesome CSS)
       `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com https://cdnjs.cloudflare.com`,
 
       // scripts (Astro inline + Cloudflare analytics + reCAPTCHA)
-      `script-src 'self' 'nonce-${nonce}' https://static.cloudflareinsights.com https://www.google.com https://www.gstatic.com`,
+      `script-src 'self' 'nonce-${nonce}' https://static.cloudflareinsights.com https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com`,
 
       // XHR / fetch
       `connect-src 'self' https:`,
 
-      // iframes (YouTube + reCAPTCHA)
-      `frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com`,
+      // iframes (YouTube + reCAPTCHA + Turnstile)
+      `frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://challenges.cloudflare.com`,
 
-      // workers (for things that use blob: workers)
+      // workers
       `worker-src 'self' blob:`,
 
       // audio / video
       `media-src 'self' https:`,
     ].join("; ")
   );
+
+  // ✅ Additional security headers
+  strict.headers.set("X-Content-Type-Options", "nosniff"); // Prevent MIME type sniffing
+  strict.headers.set("X-Frame-Options", "DENY"); // Prevent clickjacking
+  strict.headers.set("X-XSS-Protection", "1; mode=block"); // Enable XSS filtering
+  strict.headers.set("Referrer-Policy", "strict-origin-when-cross-origin"); // Control referrer info
+  strict.headers.set("Permissions-Policy", "geolocation=(), microphone=(), camera=()"); // Disable unnecessary APIs
+  strict.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload"); // HSTS
+  strict.headers.set("Content-Security-Policy-Report-Only", `report-uri /api/csp-report; report-to csp-endpoint`);
+  
+  // ✅ Cookie security headers
+  strict.headers.append("Set-Cookie", "Path=/; HttpOnly; Secure; SameSite=Strict");
 
   return strict;
 };
