@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 629 629">
+  <!-- Red circle background -->
+  <circle cx="314.5" cy="314.5" r="305" fill="#C73C3C"/>
+  
+  <!-- White circle outline -->
+  <circle cx="314.5" cy="314.5" r="305" fill="none" stroke="white" stroke-width="25"/>
+  
+  <!-- "Life" text in white -->
+  <text x="314.5" y="370" font-family="Georgia, serif" font-size="160" font-weight="300" fill="white" text-anchor="middle" letter-spacing="8">Life</text>
+  
+  <!-- Top text "THE" -->
+  <text x="314.5" y="120" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="8">THE</text>
+  
+  <!-- Bottom text "PLACE" -->
+  <text x="314.5" y="540" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="8">PLACE</text>
+  
+  <!-- Small text "come. See. Jesus." -->
+  <text x="314.5" y="590" font-family="Arial, sans-serif" font-size="30" fill="white" text-anchor="middle" letter-spacing="3">come. See. Jesus.</text>
+</svg>
