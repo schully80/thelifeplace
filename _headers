@@ -1,4 +1,23 @@
 /*
+  # ✅ Security Headers - CSP
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https:; frame-src https://challenges.cloudflare.com https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com; worker-src 'self' blob:; media-src 'self' https:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
+
+  # ✅ HSTS - Force HTTPS
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # ✅ Additional Security Headers
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
+
+  # ✅ Cache Control for Security
+  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+/*
   Content-Security-Policy: default-src 'self';
     script-src 'self' https://challenges.cloudflare.com;
     style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
