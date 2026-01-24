@@ -5,6 +5,12 @@
   - header lines indented by two spaces
 */
 
+/favicon.png
+  Cache-Control: public, max-age=0, must-revalidate
+
+/favicon.ico
+  Cache-Control: public, max-age=0, must-revalidate
+
 /*
   Default: apply to all routes
 */
