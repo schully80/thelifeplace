@@ -145,6 +145,50 @@ const canonicalUrl =
   ]
 }
     </script>
+
+    <!-- ✅ Event Schema (Sunday Service) -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "@id": "https://thelifeplace.org/#sunday-service",
+  "name": "Sunday Worship Service",
+  "description": "Join The Life Place for worship, prayer, and community fellowship every Sunday morning.",
+  "image": "https://thelifeplace.org/logo.png",
+  "startDate": "2026-01-26T09:00:00+02:00",
+  "endDate": "2026-01-26T11:00:00+02:00",
+  "eventStatus": "EventScheduled",
+  "eventAttendanceMode": "OfflineEventAttendanceMode",
+  "recurrenceRule": "FREQ=WEEKLY;BYDAY=SU",
+  "location": {
+    "@type": "Place",
+    "@id": "https://thelifeplace.org/#church-location",
+    "name": "The Life Place",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1251 Villa Monte Catini, 1 Elm Avenue",
+      "addressLocality": "Craigavon AH, Sandton",
+      "postalCode": "2191",
+      "addressCountry": "ZA"
+    }
+  },
+  "organizer": {
+    "@type": "Organization",
+    "@id": "https://thelifeplace.org/#church",
+    "name": "The Life Place",
+    "url": "https://thelifeplace.org"
+  },
+  "url": "https://thelifeplace.org/visit",
+  "offers": {
+    "@type": "Offer",
+    "url": "https://thelifeplace.org/visit",
+    "price": "0",
+    "priceCurrency": "ZAR",
+    "availability": "https://schema.org/InStock",
+    "validFrom": "2026-01-26T00:00:00Z"
+  }
+}
+    </script>
 </head>
 
   <body class="min-h-screen flex flex-col bg-white antialiased">
