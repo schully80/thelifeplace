@@ -40,6 +40,27 @@ const canonicalUrl =
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    
+    <!-- Open Graph (Social Sharing) -->
+    <meta property="og:site_name" content="The Life Place" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://thelifeplace.org/logo.png" />
+    <meta property="og:image:alt" content="The Life Place - Come. See. Jesus." />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://thelifeplace.org/logo.png" />
+    
+    <!-- Additional SEO -->
+    <meta name="theme-color" content="#B3282D" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
   <!-- Fonts -->
   <link
