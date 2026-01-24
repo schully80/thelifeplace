@@ -23,6 +23,6 @@
     "vite.config.*",
     "tailwind.config.*",
     "postcss.config.*"
-  ],
+, "src/pages/sitemap-index.xml.ts"  ],
   "exclude": ["node_modules"]
 }

@@ -12,10 +12,12 @@ import { site } from "../../../site.config.js";
 const email = site?.contact?.email ?? "hello@thelifeplace.org";
 
 // ✅ Address + Google Maps links
-const addressLine1 = "1251 Villa Monte Catini | 1 Elm Avenue";
-const addressLine2 = "Craigavon AH | 2191";
-const addressLine3 = "Sandton | South Africa";
-const fullAddress = `${addressLine1}, ${addressLine2}`;
+const addressLine1 = "1251 Villa Monte Catini, 1 Elm Avenue";
+const addressLine2 = "Craigavon AH, 2191";
+const addressLine3 = "Sandton";
+const addressLine4 = "South Africa";
+
+const fullAddress = `${addressLine1}, ${addressLine2}, ${addressLine3}, ${addressLine3},`;
 
 const mapsQueryUrl = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}`;
 const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`;
@@ -34,7 +36,7 @@ const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(fullAdd
     </h1>
 
     <p class="text-base md:text-3xl text-gray-900 pt-8">
-      Sundays | <span class="font-semibold text-gray-900">9:00 – 11:00am</span>
+      Sundays - <span class="font-semibold text-gray-900">9:00 – 11:00am</span>
     </p>
 
 <!-- Divider -->
@@ -45,6 +47,7 @@ const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(fullAdd
     <p class="text-lg md:text-2xl text-gray-900 leading-relaxed">
       {addressLine1}<br />{addressLine2} 
      <br />{addressLine3}
+      <br />{addressLine4}
     </p>
   </div>
 
@@ -89,7 +92,7 @@ const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(fullAdd
       target="_blank"
       rel="noopener"
       class="inline-flex items-center justify-center rounded-[30px] px-5 py-2.5 text-lg font-semibold
-             border border-black/10 bg-white ring-1 ring-brand-red  text-gray-900 hover:bg-gray-50 transition"
+             border border-black/10 bg-white ring-1 ring-brand-red text-gray-900 hover:bg-gray-50 transition"
     >
       Open in Google Maps
     </a>

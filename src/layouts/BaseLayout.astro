@@ -1,7 +1,6 @@
 ---
 import "../styles/global.css";
 import "../styles/global-interactions.css";
-
 import CookieConsent from "../components/CookieConsent.astro";
 import HeaderMobile from "../components/HeaderMobile.astro";
 import HeaderDesktop from "../components/HeaderDesktop.astro";
@@ -13,56 +12,59 @@ import AppButton from "../components/AppButton.astro";
 
 const {
   title = "The Life Place",
-  description = "The Life Place is a church in Craigavon AH, Sandton. Join us Sundays from 9:00–11:00am. Come. See. Jesus. Find directions, sermons, and what to expect.",
+  description = "The Life Place. Come. See. Jesus. Join us Sundays from 9:00–11:00am. Find directions, sermons, and what to expect.",
 } = Astro.props;
 
 const path = Astro.url.pathname;
-
-const siteUrl = "https://thelifeplace.org"; // ✅ needed for JSON-LD
-
 const whatsappNumber = "27765639460";
 const whatsappMessage = "Hi The Life Place, I'd love to get in touch.";
 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
   whatsappMessage
 )}`;
----
 
+const siteUrl = "https://thelifeplace.org";
+
+const { pathname } = Astro.url;
+const canonicalUrl =
+  pathname === "/" ? "https://thelifeplace.org" : `https://thelifeplace.org${pathname}`;
+---
 <!DOCTYPE html>
 <html lang="en" class="min-h-screen">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
 
-    <!-- ✅ Single SEO set (remove duplicates) -->
+  <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+
+    <!-- ✅ SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
 
-    <!-- Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
 
-    <!-- Icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      crossorigin="anonymous"
-    />
+  <!-- Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    crossorigin="anonymous"
+  />
 
-    <!-- Inject env variable for client scripts (fix: real value, not a string) -->
-    <script is:inline>
-      window.PUBLIC_GOOGLE_PLACES_KEY = {JSON.stringify(import.meta.env.PUBLIC_GOOGLE_PLACES_KEY)};
-    </script>
+<!-- Inject env variable for client scripts -->
+<script is:inline>
+  window.PUBLIC_GOOGLE_PLACES_KEY = "{import.meta.env.PUBLIC_GOOGLE_PLACES_KEY}";
+</script>
 
-    <!-- Load Maps JS with Places + callback -->
-    <script
-      src={`https://maps.googleapis.com/maps/api/js?key=${import.meta.env.PUBLIC_GOOGLE_PLACES_KEY}&callback=initMap&libraries=places&v=weekly`}
-      async
-      defer
-    ></script>
+<!-- Load Maps JS with Places + callback -->
+<script
+  src={`https://maps.googleapis.com/maps/api/js?key=${import.meta.env.PUBLIC_GOOGLE_PLACES_KEY}&callback=initMap&libraries=places&v=weekly`}
+  async defer
+></script>
 
-    <!-- ✅ Enhanced Schema with contact info, geo coordinates, and event data -->
+<!-- ✅ Schema -->
     <script type="application/ld+json">
       {JSON.stringify({
         "@context": "https://schema.org",
@@ -71,13 +73,6 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
         name: "The Life Place",
         url: siteUrl,
         slogan: "Come. See. Jesus.",
-        telephone: "+27-76-563-9460",
-        email: "hello@thelifeplace.org",
-        image: `${siteUrl}/logo.png`,
-        logo: {
-          "@type": "ImageObject",
-          url: `${siteUrl}/logo.png`,
-        },
         sameAs: [
           "https://facebook.com/thelifeplacesa",
           "https://instagram.com/thelifeplacesa",
@@ -85,117 +80,77 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
         ],
         address: {
           "@type": "PostalAddress",
-          streetAddress: "51 Villa Monte Catini, 1 Elm Avenue",
+          streetAddress: "1251 Villa Monte Catini, 1 Elm Avenue",
           addressLocality: "Craigavon AH, Sandton",
           postalCode: "2191",
           addressCountry: "ZA",
         },
-        geo: {
-          "@type": "GeoCoordinates",
-          latitude: -26.0511,
-          longitude: 28.0608,
-        },
         openingHoursSpecification: [
           {
             "@type": "OpeningHoursSpecification",
-            dayOfWeek: "https://schema.org/Sunday",
+            dayOfWeek: "Sunday",
             opens: "09:00",
             closes: "11:00",
           },
         ],
-        event: {
-          "@type": "Event",
-          name: "Sunday Service",
-          description: "Join us for worship, teaching, and community",
-          eventSchedule: {
-            "@type": "Schedule",
-            byDay: "https://schema.org/Sunday",
-            startTime: "09:00",
-            endTime: "11:00",
-          },
-          location: {
-            "@type": "Place",
-            name: "The Life Place",
-            address: {
-              "@type": "PostalAddress",
-              streetAddress: "51 Villa Monte Catini, 1 Elm Avenue",
-              addressLocality: "Craigavon AH, Sandton",
-              postalCode: "2191",
-              addressCountry: "ZA",
-            },
-          },
-          eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-          eventStatus: "https://schema.org/EventScheduled",
-        },
       })}
     </script>
-  </head>
+</head>
 
   <body class="min-h-screen flex flex-col bg-white antialiased">
-    <div
-      id="tlpLiveRibbon"
-      class="hidden fixed top-0 left-0 right-0 z-[99999]
-             bg-red-600 text-white text-center py-2 font-semibold shadow-lg
-             animate-[pulse_2s_ease-in-out_infinite]"
-    >
-      🔴 We Are Live Now — <a href="/live/" class="underline">Join the Stream</a>
-    </div>
 
-    <script is:inline>
-      document.addEventListener("tlp-live-updated", (e) => {
-        const ribbon = document.getElementById("tlpLiveRibbon");
-        if (!ribbon) return;
-        ribbon.classList.toggle("hidden", !e.detail);
-      });
-    </script>
+  <div
+  id="tlpLiveRibbon"
+  class="hidden fixed top-0 left-0 right-0 z-[99999]
+         bg-red-600 text-white text-center py-2 font-semibold shadow-lg
+         animate-[pulse_2s_ease-in-out_infinite]"
+>
+  🔴 We Are Live Now — <a href="/live/" class="underline">Join the Stream</a>
+</div>
 
-    <style>
-      @keyframes pulse {
-        0% { opacity: .7; }
-        50% { opacity: 1; }
-        100% { opacity: .7; }
-      }
-    </style>
+<script is:inline>
+  document.addEventListener("tlp-live-updated", (e) => {
+    const ribbon = document.getElementById("tlpLiveRibbon");
+    ribbon.classList.toggle("hidden", !e.detail);
+  });
+</script>
+
+<style>
+@keyframes pulse {
+  0% { opacity: .7; }
+  50% { opacity: 1; }
+  100% { opacity: .7; }
+}
+</style>
+
 
     <!-- ⭐ PREMIUM APPLE-STYLE SCROLL BARS -->
-    <div
-      id="scroll-progress-top"
-      class="fixed top-2 left-0 h-[3px] w-0 z-[9999]
-             rounded-full transition-all duration-200
-             bg-gray-400"
-    ></div>
+    <div id="scroll-progress-top"
+         class="fixed top-2 left-0 h-[3px] w-0 z-[9999]
+                rounded-full transition-all duration-200
+                bg-gray-400"></div>
 
-    <div
-      id="scroll-progress-side-wrapper"
-      class="fixed top-1/2 right-2 -translate-y-1/2 z-[9999] opacity-0
-             transition-opacity duration-300 pointer-events-none"
-    >
-      <div
-        id="scroll-progress-side"
-        class="w-[3px] h-0 rounded-full bg-gray-400
-               transition-all duration-200"
-      ></div>
+    <div id="scroll-progress-side-wrapper"
+         class="fixed top-1/2 right-2 -translate-y-1/2 z-[9999] opacity-0 
+                transition-opacity duration-300 pointer-events-none">
+      <div id="scroll-progress-side"
+           class="w-[3px] h-0 rounded-full bg-gray-400
+                  transition-all duration-200"></div>
     </div>
 
     <!-- SPLASH SCREEN (homepage only) -->
     {path === "/" && (
-      <div
-        id="splash-screen"
-        class="fixed inset-0 z-[9999] flex items-center justify-center
-               bg-white pointer-events-none"
-      >
+      <div id="splash-screen"
+           class="fixed inset-0 z-[9999] flex items-center justify-center 
+                  bg-white pointer-events-none">
         <div id="splash-inner" class="relative flex items-center justify-center z-10">
-          <div
-            id="splash-flash"
-            class="absolute inset-0 bg-brand-red opacity-0 rounded-full scale-75 z-0"
-          ></div>
+          <div id="splash-flash"
+               class="absolute inset-0 bg-brand-red opacity-0 rounded-full scale-75 z-0"></div>
 
-          <img
-            src="/logo.png"
-            alt="The Life Place"
-            class="relative h-28 w-auto opacity-0 z-20"
-            id="splash-logo"
-          />
+          <img src="/logo.png"
+               alt="The Life Place"
+               class="relative h-28 w-auto opacity-0 z-20"
+               id="splash-logo" />
         </div>
       </div>
     )}
@@ -206,10 +161,8 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     <HeaderDesktop class="hidden xl:block" />
 
     <!-- MAIN CONTENT -->
-    <main
-      class="flex-1 max-w-6xl xl:max-w-7xl 2xl:max-w-[88rem]
-             mx-auto px-4 sm:px-6 lg:px-8 py-10"
-    >
+    <main class="flex-1 max-w-6xl xl:max-w-7xl 2xl:max-w-[88rem]
+                 mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <slot />
     </main>
 
@@ -221,11 +174,16 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     />
 
     <CookieConsent />
+
+    <!-- FOOTER -->
     <Footer />
 
     <!-- Site JS -->
     <script src="/js/search.js" defer></script>
     <script src="/js/dropdowns.js" defer></script>
+
+    <!-- REMOVE THIS: <script src="/js/places-new.js" defer></script> -->
+    <!-- It no longer exists after cleaning. -->
 
     <!-- SPLASH & SCROLL ANIMATIONS -->
     <style is:inline>
@@ -260,19 +218,19 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
             const flash = document.getElementById("splash-flash");
 
             setTimeout(() => {
-              if (logo) logo.style.animation = "splash-logo-in 0.9s ease-out forwards";
+              logo.style.animation = "splash-logo-in 0.9s ease-out forwards";
             }, 100);
 
             setTimeout(() => {
-              if (flash) flash.style.animation = "splash-flash-pulse 0.35s ease-out forwards";
+              flash.style.animation = "splash-flash-pulse 0.35s ease-out forwards";
             }, 700);
 
             setTimeout(() => {
-              if (screen) screen.style.opacity = "0";
+              screen.style.opacity = "0";
             }, 1200);
 
             setTimeout(() => {
-              if (screen) screen.style.display = "none";
+              screen.style.display = "none";
             }, 2000);
           });
         } else {
@@ -282,8 +240,8 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
       </script>
     )}
 
-    <!-- Highlight "Jesus" -->
-    <script is:inline>
+    <!-- Highlight “Jesus” -->
+    <script>
       document.addEventListener("DOMContentLoaded", () => {
         const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
         const regex = /\bJesus\b/g;
@@ -292,10 +250,7 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
         while ((node = walker.nextNode())) {
           if (regex.test(node.nodeValue)) {
             const span = document.createElement("span");
-            span.innerHTML = node.nodeValue.replace(
-              regex,
-              '<span class="word-jesus">Jesus</span>'
-            );
+            span.innerHTML = node.nodeValue.replace(regex, '<span class="word-jesus">Jesus</span>');
             node.parentNode.replaceChild(span, node);
           }
         }
@@ -326,18 +281,18 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     <!-- Fade-in + Parallax -->
     <script is:inline>
       const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
+        entries => {
+          entries.forEach(entry => {
             if (entry.isIntersecting) entry.target.classList.add("is-visible");
           });
         },
         { threshold: 0.15 }
       );
 
-      document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
+      document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
 
       window.addEventListener("scroll", () => {
-        document.querySelectorAll("[data-parallax]").forEach((el) => {
+        document.querySelectorAll("[data-parallax]").forEach(el => {
           const speed = parseFloat(el.dataset.parallax) || 0.03;
           el.style.transform = `translateY(${window.scrollY * speed}px)`;
         });
@@ -346,21 +301,21 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 
     <!-- Micro-interactions -->
     <script is:inline>
-      document
-        .querySelectorAll(".rounded-xl, .rounded-2xl, .rounded-3xl")
-        .forEach((card) => {
-          if (!card.classList.contains("no-hover"))
-            card.classList.add("hover-elevate", "fade-in");
+      document.querySelectorAll(".rounded-xl, .rounded-2xl, .rounded-3xl")
+        .forEach(card => {
+          if (!card.classList.contains("no-hover")) card.classList.add("hover-elevate","fade-in");
         });
 
-      document.querySelectorAll("button, a.button, a[href]").forEach((btn) => {
-        if (!btn.classList.contains("no-press")) btn.classList.add("pressable");
-      });
+      document.querySelectorAll("button, a.button, a[href]")
+        .forEach(btn => {
+          if (!btn.classList.contains("no-press")) btn.classList.add("pressable");
+        });
 
-      document.querySelectorAll(".hero-img, .hero-bg").forEach((el) => {
-        el.dataset.parallax = "0.03";
-        el.classList.add("parallax", "fade-in");
-      });
+      document.querySelectorAll(".hero-img, .hero-bg")
+        .forEach(el => {
+          el.dataset.parallax = "0.03";
+          el.classList.add("parallax", "fade-in");
+        });
 
       const pastor = document.getElementById("pastorsPhoto");
       if (pastor) {
@@ -369,61 +324,69 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
       }
     </script>
 
-    <!-- (Optional) legacy live label checker - safe to keep -->
-    <script is:inline>
-      async function checkGlobalLiveStatus() {
-        const liveLabel = document.querySelector("[data-live-label]");
-        const liveDot = document.querySelector("[data-live-indicator]");
-        if (!liveLabel || !liveDot) return;
+<script>
+  async function checkGlobalLiveStatus() {
+    const liveLabel = document.querySelector("[data-live-label]");
+    const liveDot = document.querySelector("[data-live-indicator]");
 
-        try {
-          const isLive = window.__TLP_IS_LIVE || false;
+    if (!liveLabel || !liveDot) return;
 
-          if (isLive) {
-            liveLabel.textContent = "LIVE NOW";
-            liveLabel.classList.add("text-brand-red", "font-semibold");
-            liveDot.classList.remove("hidden");
-            liveDot.classList.add("inline-block");
-          } else {
-            liveLabel.textContent = "Live";
-            liveLabel.classList.remove("text-brand-red", "font-semibold");
-            liveDot.classList.add("hidden");
-          }
-        } catch (err) {
-          console.error("Live status check failed:", err);
-        }
+    try {
+      // Replace with real API later
+      const isLive = window.__TLP_IS_LIVE || false;
+
+      if (isLive) {
+        liveLabel.textContent = "LIVE NOW";
+        liveLabel.classList.add("text-brand-red", "font-semibold");
+        liveDot.classList.remove("hidden");
+        liveDot.classList.add("inline-block");
+      } else {
+        liveLabel.textContent = "Live";
+        liveLabel.classList.remove("text-brand-red", "font-semibold");
+        liveDot.classList.add("hidden");
       }
 
-      checkGlobalLiveStatus();
-      setInterval(checkGlobalLiveStatus, 20000);
-    </script>
+    } catch (err) {
+      console.error("Live status check failed:", err);
+    }
+  }
 
-    <script is:inline>
-      async function tlpGlobalLiveCheck() {
-        try {
-          const res = await fetch("/api/live-status.json");
-          const data = await res.json();
+  // Auto-run every 20 seconds (NICE UX)
+  checkGlobalLiveStatus();
+  setInterval(checkGlobalLiveStatus, 20000);
+</script>
 
-          window.__TLP_LIVE__ = data.live;
-          document.dispatchEvent(new CustomEvent("tlp-live-updated", { detail: data.live }));
-        } catch (e) {
-          console.warn("Global live detection failed", e);
-        }
-      }
+<script is:inline>
+  async function tlpGlobalLiveCheck() {
+    try {
+      const res = await fetch("/api/live-status.json");
+      const data = await res.json();
 
-      tlpGlobalLiveCheck();
-      setInterval(tlpGlobalLiveCheck, 60000);
-    </script>
+      window.__TLP_LIVE__ = data.live;
 
-    <script is:inline>
-      document.addEventListener("tlp-live-updated", (e) => {
-        const isLive = e.detail;
+      document.dispatchEvent(new CustomEvent("tlp-live-updated", { detail: data.live }));
+    } catch (e) {
+      console.warn("Global live detection failed", e);
+    }
+  }
 
-        // Prevent redirect loop on /live/
-        if (window.location.pathname === "/live/") return;
+  tlpGlobalLiveCheck();
+  setInterval(tlpGlobalLiveCheck, 60000);
+</script>
 
-        if (isLive) window.location.href = "/live/";
-      });
-    </script>
+<script is:inline>
+  document.addEventListener("tlp-live-updated", (e) => {
+    const isLive = e.detail;
+
+    // Prevent redirect loop on /live/
+    if (window.location.pathname === "/live/") return;
+
+    if (isLive) {
+      window.location.href = "/live/";
+    }
+  });
+</script>
+
+
   </body>
 </html>
