@@ -14,6 +14,8 @@ const {
   title = "The Life Place — Come. See. Jesus. | Craigavon, Sandton",
   description = "The Life Place — Come. See. Jesus. A church in Craigavon AH, Sandton. Join us Sundays 9:00–11:00. Plan a visit, get directions, watch messages, and take your next step.",
   noindex = false, // set true on utility pages like /thank-you/, /search/, /register-error/
+  serviceName = null, // For ministry/service pages
+  serviceDescription = null, // For ministry/service pages
 } = Astro.props;
 
 const path = Astro.url.pathname;
@@ -28,6 +30,22 @@ const siteUrl = "https://thelifeplace.org";
 const { pathname } = Astro.url;
 const canonicalUrl =
   pathname === "/" ? "https://thelifeplace.org" : `https://thelifeplace.org${pathname}`;
+
+// Generate breadcrumb data
+const pathParts = pathname === "/" ? [] : pathname.split("/").filter(p => p);
+const breadcrumbItems = [
+  { position: 1, name: "Home", item: "https://thelifeplace.org" }
+];
+let accumulatedPath = "";
+pathParts.forEach((part, index) => {
+  accumulatedPath += `/${part}`;
+  const name = part.charAt(0).toUpperCase() + part.slice(1).replace(/-/g, " ");
+  breadcrumbItems.push({
+    position: index + 2,
+    name: name,
+    item: `https://thelifeplace.org${accumulatedPath}`
+  });
+});
 ---
 <!DOCTYPE html>
 <html lang="en" class="min-h-screen">
@@ -188,6 +206,30 @@ const canonicalUrl =
   }
 }
     </script>
+
+    <!-- ✅ Breadcrumb Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": "https://thelifeplace.org/breadcrumbs",
+      "itemListElement": breadcrumbItems
+    })}></script>
+
+    {serviceName && <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "@id": `https://thelifeplace.org${pathname}#service`,
+      "name": serviceName,
+      "description": serviceDescription || description,
+      "provider": {
+        "@type": "Organization",
+        "@id": "https://thelifeplace.org/#church",
+        "name": "The Life Place",
+        "url": "https://thelifeplace.org"
+      },
+      "areaServed": ["Sandton", "Johannesburg", "South Africa"],
+      "url": `https://thelifeplace.org${pathname}`
+    })}></script>}
 </head>
 
   <body class="min-h-screen flex flex-col bg-white antialiased">
