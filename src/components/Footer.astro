@@ -2,11 +2,8 @@
 // No script required
 
 const churchName = "The Life Place";
-const addressLine1 = "1251 Villa Monte Catini, 1 Elm Avenue";
-const addressLine2 = "Craigavon AH, 2191";
-const addressLine3 = "Sandton";
-const addressLine4 = "South Africa";
-
+const addressLine1 = "51 Villa Monte Catini, 1 Elm Avenue";
+const addressLine2 = "Craigavon AH, Sandton, 2191, South Africa";
 const serviceHours = "Sundays 9:00–11:00";
 const email = "hello@thelifeplace.org";
 const mapsUrl = "https://maps.app.goo.gl/kWtzKtuyASu3qRxo7";
@@ -69,50 +66,50 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
         </ul>
       </div>
 
-      <!-- CONTACT / MAP (CENTERED UNDER ALL 3 COLUMNS) -->
-      <div class="md:col-span-3 mt-8 flex justify-center text-center">
-        <div class="max-w-xl">
-          <h3 class="font-semibold text-gray-900 mb-4 text-base uppercase tracking-wide">
-            Contact
-          </h3>
+    </div>
 
-          <div class="space-y-2 text-gray-700">
-            <p class="font-semibold text-gray-900">{churchName}</p>
+    <!-- CONTACT / MAP (CENTERED UNDER GRID) -->
+    <div class="mt-16 text-center">
+      <div class="inline-block text-center">
+        <h3 class="font-semibold text-gray-900 mb-4 text-base uppercase tracking-wide">
+          Contact
+        </h3>
 
-            <p>
-              <a
-                href={mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hover:text-brand-red transition"
-              >
-                {addressLine1}<br />{addressLine2} <br />{addressLine3} <br />{addressLine4} 
+        <div class="space-y-2 text-gray-700">
+          <p class="font-semibold text-gray-900">{churchName}</p>
+          <p>{addressLine1}</p>
+          <p>{addressLine2}</p>
+          <p class="text-gray-900 font-medium">{serviceHours}</p>
+
+          <p class="flex items-center justify-center gap-2">
+            <i class="fa-solid fa-envelope text-gray-900"></i>
+            <a href={`mailto:${email}`} class="hover:text-brand-red transition">
+              {email}
+            </a>
+          </p>
+
+          {phoneDisplay && phoneHref && (
+            <p class="flex items-center justify-center gap-2">
+              <i class="fa-solid fa-phone text-gray-900"></i>
+              <a href={phoneHref} class="hover:text-brand-red transition">
+                {phoneDisplay}
               </a>
             </p>
+          )}
 
-            <p>{serviceHours}</p>
-
-            <p>
-              <a
-                href={`mailto:${email}`}
-                class="inline-flex items-center justify-center gap-2 hover:text-brand-red transition"
-              >
-                <i class="fa-solid fa-envelope"></i>
-                <span>{email}</span>
-              </a>
-            </p>
-
-            {phoneDisplay && phoneHref && (
-              <p>
-                <a href={phoneHref} class="hover:text-brand-red transition">
-                  {phoneDisplay}
-                </a>
-              </p>
-            )}
-          </div>
+          <!-- Added: link to /visit/ -->
+          <p class="flex items-center justify-center gap-2 pt-2">
+            <i class="fa-solid fa-location-dot text-gray-900"></i>
+            <a href="/visit/" class="hover:text-brand-red transition font-medium">
+              Plan a Visit
+            </a>
+            <span class="text-gray-400">•</span>
+            <a href={mapsUrl} target="_blank" rel="noopener" class="hover:text-brand-red transition font-medium">
+              Open in Maps
+            </a>
+          </p>
         </div>
       </div>
-
     </div>
 
     <!-- SOCIAL ICONS -->
@@ -140,7 +137,7 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
 
     <!-- COPYRIGHT -->
     <p class="text-center text-gray-500 text-xs mt-10">
-      © 2025 The Life Place. All rights reserved.
+© {new Date().getFullYear()} The Life Place. All rights reserved.
     </p>
 
   </div>
