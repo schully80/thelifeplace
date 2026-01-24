@@ -9,6 +9,8 @@ export default defineConfig({
     tailwind(),
     sitemap({
       filter: (page) => {
+        if (!page || !page.pathname) return true;
+        
         const p = page.pathname;
 
         // ✅ Exclude test / draft / legacy routes from sitemap
