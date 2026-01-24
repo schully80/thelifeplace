@@ -55,10 +55,9 @@ pathParts.forEach((part, index) => {
 ---
 <!DOCTYPE html>
 <html lang="en" class="min-h-screen">
-
   <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
 
     <!-- ✅ SEO -->
     <title>{title}</title>
@@ -265,47 +264,42 @@ pathParts.forEach((part, index) => {
       ...(articleContent && { "wordCount": Math.ceil(articleContent.split(/\s+/).length) })
     })}></script>}
 
-</head>
+  </head>
 
   <body class="min-h-screen flex flex-col bg-white antialiased">
 
-  <div
-  id="tlpLiveRibbon"
-  class="hidden fixed top-0 left-0 right-0 z-[99999]
-         bg-red-600 text-white text-center py-2 font-semibold shadow-lg
-         animate-[pulse_2s_ease-in-out_infinite]"
->
-  🔴 We Are Live Now — <a href="/live/" class="underline">Join the Stream</a>
-</div>
+    <!-- Live Ribbon -->
+    <div
+      id="tlpLiveRibbon"
+      class="hidden fixed top-0 left-0 right-0 z-[99999]
+             bg-red-600 text-white text-center py-2 font-semibold shadow-lg
+             animate-[pulse_2s_ease-in-out_infinite]"
+    >
+      🔴 We Are Live Now — <a href="/live/" class="underline">Join the Stream</a>
+    </div>
 
-<script is:inline>
-  document.addEventListener("tlp-live-updated", (e) => {
-    const ribbon = document.getElementById("tlpLiveRibbon");
-    ribbon.classList.toggle("hidden", !e.detail);
-  });
-</script>
+    <style>
+      @keyframes pulse {
+        0% { opacity: .7; }
+        50% { opacity: 1; }
+        100% { opacity: .7; }
+      }
+    </style>
 
-<style>
-@keyframes pulse {
-  0% { opacity: .7; }
-  50% { opacity: 1; }
-  100% { opacity: .7; }
-}
-</style>
+    <!-- Scroll Progress Indicators -->
+    <div
+      id="scroll-progress-top"
+      class="fixed top-2 left-0 h-[3px] w-0 z-[9999] rounded-full transition-all duration-200 bg-gray-400"
+    ></div>
 
-
-    <!-- ⭐ PREMIUM APPLE-STYLE SCROLL BARS -->
-    <div id="scroll-progress-top"
-         class="fixed top-2 left-0 h-[3px] w-0 z-[9999]
-                rounded-full transition-all duration-200
-                bg-gray-400"></div>
-
-    <div id="scroll-progress-side-wrapper"
-         class="fixed top-1/2 right-2 -translate-y-1/2 z-[9999] opacity-0 
-                transition-opacity duration-300 pointer-events-none">
-      <div id="scroll-progress-side"
-           class="w-[3px] h-0 rounded-full bg-gray-400
-                  transition-all duration-200"></div>
+    <div
+      id="scroll-progress-side-wrapper"
+      class="fixed top-1/2 right-2 -translate-y-1/2 z-[9999] opacity-0 transition-opacity duration-300 pointer-events-none"
+    >
+      <div
+        id="scroll-progress-side"
+        class="w-[3px] h-0 rounded-full bg-gray-400 transition-all duration-200"
+      ></div>
     </div>
 
     <!-- SPLASH SCREEN (homepage only) -->
@@ -352,10 +346,9 @@ pathParts.forEach((part, index) => {
     <script src="/js/search.js" defer></script>
     <script src="/js/dropdowns.js" defer></script>
 
-    <!-- REMOVE THIS: <script src="/js/places-new.js" defer></script> -->
-    <!-- It no longer exists after cleaning. -->
 
-    <!-- SPLASH & SCROLL ANIMATIONS -->
+
+    <!-- Animations -->
     <style is:inline>
       #splash-screen.fade-out {
         opacity: 0;
@@ -494,69 +487,67 @@ pathParts.forEach((part, index) => {
       }
     </script>
 
-<script>
-  async function checkGlobalLiveStatus() {
-    const liveLabel = document.querySelector("[data-live-label]");
-    const liveDot = document.querySelector("[data-live-indicator]");
+    <!-- Live Status Monitor -->
+    <script>
+      async function checkGlobalLiveStatus() {
+        const liveLabel = document.querySelector("[data-live-label]");
+        const liveDot = document.querySelector("[data-live-indicator]");
 
-    if (!liveLabel || !liveDot) return;
+        if (!liveLabel || !liveDot) return;
 
-    try {
-      // Replace with real API later
-      const isLive = window.__TLP_IS_LIVE || false;
+        try {
+          // Replace with real API later
+          const isLive = window.__TLP_IS_LIVE || false;
 
-      if (isLive) {
-        liveLabel.textContent = "LIVE NOW";
-        liveLabel.classList.add("text-brand-red", "font-semibold");
-        liveDot.classList.remove("hidden");
-        liveDot.classList.add("inline-block");
-      } else {
-        liveLabel.textContent = "Live";
-        liveLabel.classList.remove("text-brand-red", "font-semibold");
-        liveDot.classList.add("hidden");
+          if (isLive) {
+            liveLabel.textContent = "LIVE NOW";
+            liveLabel.classList.add("text-brand-red", "font-semibold");
+            liveDot.classList.remove("hidden");
+            liveDot.classList.add("inline-block");
+          } else {
+            liveLabel.textContent = "Live";
+            liveLabel.classList.remove("text-brand-red", "font-semibold");
+            liveDot.classList.add("hidden");
+          }
+
+        } catch (err) {
+          console.error("Live status check failed:", err);
+        }
       }
 
-    } catch (err) {
-      console.error("Live status check failed:", err);
-    }
-  }
+      // Auto-run every 20 seconds
+      checkGlobalLiveStatus();
+      setInterval(checkGlobalLiveStatus, 20000);
+    </script>
 
-  // Auto-run every 20 seconds (NICE UX)
-  checkGlobalLiveStatus();
-  setInterval(checkGlobalLiveStatus, 20000);
-</script>
+    <!-- Global Live Check -->
+    <script is:inline>
+      async function tlpGlobalLiveCheck() {
+        try {
+          const res = await fetch("/api/live-status.json");
+          const data = await res.json();
 
-<script is:inline>
-  async function tlpGlobalLiveCheck() {
-    try {
-      const res = await fetch("/api/live-status.json");
-      const data = await res.json();
+          window.__TLP_LIVE__ = data.live;
 
-      window.__TLP_LIVE__ = data.live;
+          document.dispatchEvent(new CustomEvent("tlp-live-updated", { detail: data.live }));
+        } catch (e) {
+          console.warn("Global live detection failed", e);
+        }
+      }
 
-      document.dispatchEvent(new CustomEvent("tlp-live-updated", { detail: data.live }));
-    } catch (e) {
-      console.warn("Global live detection failed", e);
-    }
-  }
+      tlpGlobalLiveCheck();
+      setInterval(tlpGlobalLiveCheck, 60000);
+    </script>
 
-  tlpGlobalLiveCheck();
-  setInterval(tlpGlobalLiveCheck, 60000);
-</script>
+    <!-- Live Redirect Handler -->
+    <script is:inline>
+      document.addEventListener("tlp-live-updated", (e) => {
+        const isLive = e.detail;
 
-<script is:inline>
-  document.addEventListener("tlp-live-updated", (e) => {
-    const isLive = e.detail;
-
-    // Prevent redirect loop on /live/
-    if (window.location.pathname === "/live/") return;
-
-    if (isLive) {
-      window.location.href = "/live/";
-    }
-  });
-</script>
-
-
+        // Prevent redirect loop on /live/
+        if (window.location.pathname === "/live/") return;
+        if (isLive) window.location.href = "/live/";
+      });
+    </script>
   </body>
 </html>
