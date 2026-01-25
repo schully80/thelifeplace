@@ -17,26 +17,26 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
 ---
 
 <footer class="relative w-full bg-gray-100
-         border-t border-gray-300/40 mt-52">
+         border-t border-gray-300/40 mt-12 md:mt-52">
   
-  <div class="max-w-6xl mx-auto px-4 py-16">
+  <div class="max-w-6xl mx-auto px-4 py-4 md:py-16">
 
     <!-- BRAND BLOCK (CENTERED) -->
-    <div class="text-center max-w-lg mx-auto space-y-4 mb-16">
-      <p class="text-gray-900 font-semibold tracking-wide text-2xl">
+    <div class="text-center max-w-lg mx-auto space-y-2 md:space-y-4 mb-4 md:mb-16">
+      <p class="text-gray-900 font-semibold tracking-wide text-lg md:text-2xl">
         Come. See. <span class="text-brand-red font-semibold">Jesus</span>
       </p>
     </div>
 
     <!-- 3-COLUMN CENTERED GRID -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 text-center">
 
       <!-- EXPLORE -->
       <div>
-        <h3 class="font-semibold text-gray-900 mb-4 text-base uppercase tracking-wide">
+        <h3 class="font-semibold text-gray-900 mb-2 md:mb-4 text-xs md:text-base uppercase tracking-wide">
           Explore
         </h3>
-        <ul class="space-y-2 text-gray-700">
+        <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-700">
           <li><a href="/about/" class="hover:text-brand-red transition">About</a></li>
           <li><a href="/leadership/" class="hover:text-brand-red transition">Leadership</a></li>
           <li><a href="/visit/" class="hover:text-brand-red transition">Plan a Visit</a></li>
@@ -46,10 +46,10 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
 
       <!-- NEXT STEPS -->
       <div>
-        <h3 class="font-semibold text-gray-900 mb-4 text-base uppercase tracking-wide">
+        <h3 class="font-semibold text-gray-900 mb-2 md:mb-4 text-xs md:text-base uppercase tracking-wide">
           Next Steps
         </h3>
-        <ul class="space-y-2 text-gray-700">
+        <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-700">
           <li><a href="/give/" class="hover:text-brand-red transition">Giving</a></li>
           <li><a href="/prayer/" class="hover:text-brand-red transition">Prayer Requests</a></li>
           <li><a href="/contact/" class="hover:text-brand-red transition">Contact</a></li>
@@ -59,10 +59,10 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
 
       <!-- LEGAL -->
       <div>
-        <h3 class="font-semibold text-gray-900 mb-4 text-base uppercase tracking-wide">
+        <h3 class="font-semibold text-gray-900 mb-2 md:mb-4 text-xs md:text-base uppercase tracking-wide">
           Legal
         </h3>
-        <ul class="space-y-2 text-gray-700">
+        <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-700">
           <li><a href="/privacy/" class="hover:text-brand-red transition">Privacy Policy</a></li>
           <li><a href="/terms/" class="hover:text-brand-red transition">Terms & Conditions</a></li>
           <li><a href="/cookies/" class="hover:text-brand-red transition">Cookie Policy</a></li>
@@ -72,30 +72,30 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
     </div>
 
     <!-- CONTACT / MAP (CENTERED UNDER GRID) -->
-    <div class="mt-16 text-center">
+    <div class="mt-4 md:mt-16 text-center">
       <div class="inline-block text-center">
-        <h3 class="font-semibold text-gray-900 mb-4 text-base uppercase tracking-wide">
+        <h3 class="font-semibold text-gray-900 mb-2 md:mb-4 text-xs md:text-base uppercase tracking-wide">
           Contact
         </h3>
 
-        <div class="space-y-2 text-gray-700">
-          <p class="font-semibold text-gray-900">{churchName}</p>
-          <p>{addressLine1}</p>
-          <p>{addressLine2}</p>
-            <p>{addressLine3}</p>
-              <p>{addressLine4}</p>
-          <p class="text-gray-900 font-medium">{serviceHours}</p>
+        <div class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-700">
+          <p class="font-semibold text-gray-900 text-xs md:text-sm">{churchName}</p>
+          <p class="text-xs md:text-sm">{addressLine1}</p>
+          <p class="text-xs md:text-sm">{addressLine2}</p>
+            <p class="text-xs md:text-sm">{addressLine3}</p>
+              <p class="text-xs md:text-sm">{addressLine4}</p>
+          <p class="text-gray-900 font-medium text-xs md:text-sm">{serviceHours}</p>
 
-          <p class="flex items-center justify-center gap-2">
-            <i class="fa-solid fa-envelope text-gray-900"></i>
+          <p class="flex items-center justify-center gap-1 md:gap-2 text-xs md:text-sm">
+            <i class="fa-solid fa-envelope text-gray-900 text-xs md:text-sm"></i>
             <a href={`mailto:${email}`} class="hover:text-brand-red transition">
               {email}
             </a>
           </p>
 
           {phoneDisplay && phoneHref && (
-            <p class="flex items-center justify-center gap-2">
-              <i class="fa-solid fa-phone text-gray-900"></i>
+            <p class="flex items-center justify-center gap-1 md:gap-2 text-xs md:text-sm">
+              <i class="fa-solid fa-phone text-gray-900 text-xs md:text-sm"></i>
               <a href={phoneHref} class="hover:text-brand-red transition">
                 {phoneDisplay}
               </a>
@@ -103,8 +103,8 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
           )}
 
           <!-- Added: link to /visit/ -->
-          <p class="flex items-center justify-center gap-2 pt-2">
-            <i class="fa-solid fa-location-dot text-gray-900"></i>
+          <p class="flex items-center justify-center gap-1 md:gap-2 pt-1 md:pt-2 text-xs md:text-sm">
+            <i class="fa-solid fa-location-dot text-gray-900 text-xs md:text-sm"></i>
             <a href="/visit/" class="hover:text-brand-red transition font-medium">
               Plan a Visit
             </a>
@@ -118,30 +118,30 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
     </div>
 
     <!-- SOCIAL ICONS -->
-    <div class="flex justify-center gap-4 mt-16">
-      <a href="https://facebook.com/thelifeplacesa" target="_blank" rel="noopener" aria-label="Facebook" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fa-brands fa-facebook-f text-2xl text-white"></i>
+    <div class="flex justify-center gap-2 md:gap-4 mt-4 md:mt-16">
+      <a href="https://facebook.com/thelifeplacesa" target="_blank" rel="noopener" aria-label="Facebook" class="w-9 h-9 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
+        <i class="fa-brands fa-facebook-f text-sm md:text-2xl text-white"></i>
       </a>
 
-      <a href="https://instagram.com/thelifeplacesa" target="_blank" rel="noopener" aria-label="Instagram" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fa-brands fa-instagram text-2xl text-white"></i>
+      <a href="https://instagram.com/thelifeplacesa" target="_blank" rel="noopener" aria-label="Instagram" class="w-9 h-9 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
+        <i class="fa-brands fa-instagram text-sm md:text-2xl text-white"></i>
       </a>
 
-      <a href="https://youtube.com/@thelifeplacesa" target="_blank" rel="noopener" aria-label="YouTube" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fa-brands fa-youtube text-2xl text-white"></i>
+      <a href="https://youtube.com/@thelifeplacesa" target="_blank" rel="noopener" aria-label="YouTube" class="w-9 h-9 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
+        <i class="fa-brands fa-youtube text-sm md:text-2xl text-white"></i>
       </a>
 
-      <a href="https://open.spotify.com/show/31hbtgq5cvmqr4tyzs2faygvrzaa?si=61b073370e034f21" target="_blank" rel="noopener" aria-label="Spotify" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fa-brands fa-spotify text-2xl text-white"></i>
+      <a href="https://open.spotify.com/show/31hbtgq5cvmqr4tyzs2faygvrzaa?si=61b073370e034f21" target="_blank" rel="noopener" aria-label="Spotify" class="w-9 h-9 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
+        <i class="fa-brands fa-spotify text-sm md:text-2xl text-white"></i>
       </a>
 
-      <a href="https://podcasts.apple.com/us/podcast/the-life-place/id1816955719" target="_blank" rel="noopener" aria-label="Apple Podcasts" class="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
-        <i class="fa-solid fa-podcast text-2xl text-white"></i>
+      <a href="https://podcasts.apple.com/us/podcast/the-life-place/id1816955719" target="_blank" rel="noopener" aria-label="Apple Podcasts" class="w-9 h-9 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
+        <i class="fa-solid fa-podcast text-sm md:text-2xl text-white"></i>
       </a>
     </div>
 
     <!-- COPYRIGHT -->
-    <p class="text-center text-gray-500 text-xs mt-10">
+    <p class="text-center text-gray-500 text-xs mt-3 md:mt-10">
 © {new Date().getFullYear()} The Life Place. All rights reserved.
     </p>
 
