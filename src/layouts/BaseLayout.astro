@@ -98,10 +98,11 @@ pathParts.forEach((part, index) => {
       gtag('config', 'G-K583CXSM0Y');
     </script>
 
-  <!-- Fonts (Google Fonts over HTTPS, protected by CSP) -->
+  <!-- Fonts (with SRI) -->
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet"
+    integrity="sha384-+d0R+8q2j+11eSYxxpOFBXQeqzkrQg6h6gNFEV4sCZIS3q3fy1JsH//OkbyVP4Z3Xu"
     crossorigin="anonymous"
   />
 
@@ -109,7 +110,7 @@ pathParts.forEach((part, index) => {
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    integrity="sha384-PPIZEGYM1v8zp5Py7UjFb79S58UeqCL9pYVnVPURKEqvioPROaVAJKKLzvH2rDnI"
+    integrity="sha512-EvmtgiiAacvnRnk7KFS/UF5QkJqyX3L+EvyZaIIrr91S3VAcqrznUUUbZe04lPVrWTJNuk58t+FGedyqv5zwXg=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
@@ -486,67 +487,69 @@ pathParts.forEach((part, index) => {
       }
     </script>
 
-    <!-- Live Status Monitor -->
-    <script>
-      async function checkGlobalLiveStatus() {
-        const liveLabel = document.querySelector("[data-live-label]");
-        const liveDot = document.querySelector("[data-live-indicator]");
+<script>
+  async function checkGlobalLiveStatus() {
+    const liveLabel = document.querySelector("[data-live-label]");
+    const liveDot = document.querySelector("[data-live-indicator]");
 
-        if (!liveLabel || !liveDot) return;
+    if (!liveLabel || !liveDot) return;
 
-        try {
-          // Replace with real API later
-          const isLive = window.__TLP_IS_LIVE || false;
+    try {
+      // Replace with real API later
+      const isLive = window.__TLP_IS_LIVE || false;
 
-          if (isLive) {
-            liveLabel.textContent = "LIVE NOW";
-            liveLabel.classList.add("text-brand-red", "font-semibold");
-            liveDot.classList.remove("hidden");
-            liveDot.classList.add("inline-block");
-          } else {
-            liveLabel.textContent = "Live";
-            liveLabel.classList.remove("text-brand-red", "font-semibold");
-            liveDot.classList.add("hidden");
-          }
-
-        } catch (err) {
-          console.error("Live status check failed:", err);
-        }
+      if (isLive) {
+        liveLabel.textContent = "LIVE NOW";
+        liveLabel.classList.add("text-brand-red", "font-semibold");
+        liveDot.classList.remove("hidden");
+        liveDot.classList.add("inline-block");
+      } else {
+        liveLabel.textContent = "Live";
+        liveLabel.classList.remove("text-brand-red", "font-semibold");
+        liveDot.classList.add("hidden");
       }
 
-      // Auto-run every 20 seconds
-      checkGlobalLiveStatus();
-      setInterval(checkGlobalLiveStatus, 20000);
-    </script>
+    } catch (err) {
+      console.error("Live status check failed:", err);
+    }
+  }
 
-    <!-- Global Live Check -->
-    <script is:inline>
-      async function tlpGlobalLiveCheck() {
-        try {
-          const res = await fetch("/api/live-status.json");
-          const data = await res.json();
+  // Auto-run every 20 seconds (NICE UX)
+  checkGlobalLiveStatus();
+  setInterval(checkGlobalLiveStatus, 20000);
+</script>
 
-          window.__TLP_LIVE__ = data.live;
+<script is:inline>
+  async function tlpGlobalLiveCheck() {
+    try {
+      const res = await fetch("/api/live-status.json");
+      const data = await res.json();
 
-          document.dispatchEvent(new CustomEvent("tlp-live-updated", { detail: data.live }));
-        } catch (e) {
-          console.warn("Global live detection failed", e);
-        }
-      }
+      window.__TLP_LIVE__ = data.live;
 
-      tlpGlobalLiveCheck();
-      setInterval(tlpGlobalLiveCheck, 60000);
-    </script>
+      document.dispatchEvent(new CustomEvent("tlp-live-updated", { detail: data.live }));
+    } catch (e) {
+      console.warn("Global live detection failed", e);
+    }
+  }
 
-    <!-- Live Redirect Handler -->
-    <script is:inline>
-      document.addEventListener("tlp-live-updated", (e) => {
-        const isLive = e.detail;
+  tlpGlobalLiveCheck();
+  setInterval(tlpGlobalLiveCheck, 60000);
+</script>
 
-        // Prevent redirect loop on /live/
-        if (window.location.pathname === "/live/") return;
-        if (isLive) window.location.href = "/live/";
-      });
-    </script>
+<script is:inline>
+  document.addEventListener("tlp-live-updated", (e) => {
+    const isLive = e.detail;
+
+    // Prevent redirect loop on /live/
+    if (window.location.pathname === "/live/") return;
+
+    if (isLive) {
+      window.location.href = "/live/";
+    }
+  });
+</script>
+
+
   </body>
 </html>
