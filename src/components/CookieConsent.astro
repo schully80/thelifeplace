@@ -22,6 +22,13 @@ const CONSENT_KEY = 'tlp_cookie_consent'; // "accepted" | "declined"
     padding: 1rem;
     display: none;                   /* hidden until we decide to show */
     box-shadow: 0 -8px 24px rgba(0,0,0,.06);
+    z-index: 45;
+  }
+  /* Add bottom padding on mobile for bottom nav */
+  @media (max-width: 767px) {
+    .cc-bar {
+      bottom: 4rem;
+    }
   }
   .cc-bar.show { display: block; }
 
@@ -45,7 +52,7 @@ const CONSENT_KEY = 'tlp_cookie_consent'; // "accepted" | "declined"
   }
 
   .cc-actions {
-    display: flex; gap: .5rem; flex-wrap: wrap;
+    display: flex; gap: 0.75rem; flex-wrap: wrap;
     justify-content: flex-start;
   }
 
@@ -53,11 +60,14 @@ const CONSENT_KEY = 'tlp_cookie_consent'; // "accepted" | "declined"
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: .625rem 1rem;
-    border-radius: .5rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: 36px;
     font-weight: 600;
     cursor: pointer;
-    border: 1px solid transparent;
+    border: 1px solid #B3282D;
+    box-shadow: 0 0 0 1px #B3282D;
+    font-size: 0.95rem;
+    white-space: nowrap;
   }
   .cc-accept {
     background: #B3282D;   /* brand red */
@@ -69,6 +79,8 @@ const CONSENT_KEY = 'tlp_cookie_consent'; // "accepted" | "declined"
   .cc-decline {
     background: #6B7280;   /* gray-500 */
     color: #ffffff;
+    border: 1px solid transparent;
+    box-shadow: none;
   }
   .cc-decline:hover {
     filter: brightness(0.95);

@@ -1,0 +1,104 @@
+---
+// Mobile Contact Floating Action Button
+// Shows WhatsApp, Email, and Maps contact options
+// Styled to match the old WhatsAppWidget design
+---
+
+<div class="fixed bottom-20 right-4 z-30 md:hidden" id="contactFAB">
+  <!-- FAB Menu (hidden by default) -->
+  <div
+    id="fabMenu"
+    class="absolute bottom-16 right-0 bg-black rounded-lg shadow-lg py-2 hidden"
+    role="menu"
+  >
+    <!-- WhatsApp -->
+    <a
+      href="https://wa.me/27765639460?text=Hi%20The%20Life%20Place%2C%20I'd%20love%20to%20get%20in%20touch."
+      target="_blank"
+      rel="noopener noreferrer"
+      role="menuitem"
+      class="flex items-center gap-3 px-4 py-3 text-white hover:bg-brand-red transition"
+      aria-label="Chat on WhatsApp"
+    >
+      <i class="fa-brands fa-whatsapp text-xl"></i>
+      <span class="text-sm font-medium">WhatsApp</span>
+    </a>
+
+    <!-- Email -->
+    <a
+      href="mailto:hello@thelifeplace.org"
+      role="menuitem"
+      class="flex items-center gap-3 px-4 py-3 text-white hover:bg-brand-red transition"
+      aria-label="Send email"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg"
+           viewBox="0 0 24 24"
+           class="h-5 w-5 fill-current">
+        <path d="M2 4h20v16H2V4zm18 2l-8 5-8-5v12h16V6z"/>
+      </svg>
+      <span class="text-sm font-medium">Email</span>
+    </a>
+
+    <!-- Maps / Direction -->
+    <a
+      href="https://maps.app.goo.gl/kWtzKtuyASu3qRxo7"
+      target="_blank"
+      rel="noopener noreferrer"
+      role="menuitem"
+      class="flex items-center gap-3 px-4 py-3 text-white hover:bg-brand-red transition"
+      aria-label="Get directions"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg"
+           class="h-5 w-5 fill-current"
+           viewBox="0 0 24 24">
+        <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5
+                 c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z"/>
+      </svg>
+      <span class="text-sm font-medium">Directions</span>
+    </a>
+  </div>
+
+  <!-- Main FAB Button -->
+  <button
+    id="fabButton"
+    type="button"
+    aria-label="Contact us"
+    aria-expanded="false"
+    aria-controls="fabMenu"
+    class="w-14 h-14 rounded-full bg-brand-red text-white shadow-lg hover:bg-red-700 transition flex items-center justify-center active:scale-95"
+  >
+    <i class="fa-solid fa-message text-xl"></i>
+  </button>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const fabButton = document.getElementById("fabButton");
+    const fabMenu = document.getElementById("fabMenu");
+
+    if (!fabButton || !fabMenu) return;
+
+    // Toggle menu on button click
+    fabButton.addEventListener("click", () => {
+      const isHidden = fabMenu.classList.contains("hidden");
+      fabMenu.classList.toggle("hidden");
+      fabButton.setAttribute("aria-expanded", isHidden ? "true" : "false");
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest("#contactFAB")) {
+        fabMenu.classList.add("hidden");
+        fabButton.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    // Close menu on ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        fabMenu.classList.add("hidden");
+        fabButton.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+</script>

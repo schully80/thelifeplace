@@ -1,0 +1,404 @@
+---
+/**
+ * ContactWidget.astro
+ * Centralized widget settings for mobile, tablet, and desktop
+ * Controls responsive layout and display logic
+ */
+
+const {
+  whatsapp = "27XXXXXXXXX",
+  email = "hello@thelifeplace.org",
+  mapsUrl = "https://www.google.com/maps/place/The+Life+Place/",
+  mobileStyle = "fab", // "fab" or "dock"
+  tabletStyle = "dock", // "fab" or "dock" or "hidden"
+  desktopStyle = "hidden" // "fab" or "dock" or "hidden"
+} = Astro.props;
+
+const waUrl = `https://wa.me/${whatsapp}?text=${encodeURIComponent(
+  "Hi The Life Place, I'd love to get in touch."
+)}`;
+
+const mailUrl = `mailto:${email}`;
+
+// Determine visibility classes
+const getMobileClass = (style: string) => style !== "hidden" ? "" : "hidden";
+const getTabletClass = (style: string) => style !== "hidden" ? "md:block" : "md:hidden";
+const getDesktopClass = (style: string) => style !== "hidden" ? "lg:block" : "lg:hidden";
+---
+
+<style>
+  /* Tooltip Styles */
+  .dock-tooltip {
+    @apply absolute right-full top-1/2 -translate-y-1/2 mr-3 
+           px-4 py-1 rounded-full
+           text-sm font-medium bg-black text-white
+           shadow-md whitespace-nowrap opacity-0 translate-x-2
+           pointer-events-none transition-all duration-300 z-50;
+  }
+
+  .dock-item:hover .dock-tooltip {
+    @apply opacity-100 translate-x-0;
+  }
+
+  /* Contact Button Base Styles */
+  .contact-btn {
+    @apply w-12 h-12 rounded-full flex items-center justify-center
+           bg-black hover:bg-brand-red transition shadow-md;
+  }
+
+  .contact-item-label {
+    @apply text-xs font-semibold text-gray-900 mt-1 text-center whitespace-nowrap;
+  }
+
+  /* FAB Styles */
+  .fab-button {
+    @apply w-14 h-14 rounded-full bg-brand-red flex items-center justify-center
+           shadow-lg hover:shadow-xl transition-all hover:scale-110 duration-300;
+  }
+
+  .fab-button.hidden {
+    @apply opacity-0 pointer-events-none scale-0;
+  }
+
+  .fab-icon {
+    @apply h-7 w-7 text-white transition-transform duration-300;
+  }
+
+  .fab-icon.open {
+    @apply rotate-45;
+  }
+
+  /* Dock Styles */
+  .dock-container {
+    @apply fixed bottom-6 right-5 z-50 flex flex-col gap-4;
+  }
+
+  /* Contact Buttons Container for FAB */
+  .contact-buttons {
+    @apply flex flex-col gap-4 fixed bottom-6 right-5 z-50 transition-all duration-300
+           p-4;
+  }
+
+  .contact-buttons.hidden {
+    @apply opacity-0 pointer-events-none;
+  }
+
+  .contact-buttons.visible {
+    @apply opacity-100 pointer-events-auto;
+  }
+</style>
+
+<!-- MOBILE: FAB + Expandable Buttons -->
+<div class={`${getMobileClass(mobileStyle)} md:hidden`}>
+  {mobileStyle === "fab" && (
+    <>
+      <!-- FAB Button -->
+      <button
+        id="contactFAB"
+        type="button"
+        aria-label="Open contact options"
+        aria-expanded="false"
+        class="fab-button fixed bottom-6 right-5 z-50"
+      >
+        <svg id="fabIcon" class="fab-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+        </svg>
+      </button>
+
+      <!-- Contact Buttons -->
+      <div id="contactButtons" class="contact-buttons hidden">
+        <!-- WhatsApp -->
+        <div class="dock-item relative flex flex-col items-center z-10">
+          <a href={waUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+            <img src="/whatsapp.svg" alt="WhatsApp" class="h-6 w-6 invert" />
+          </a>
+          <span class="contact-item-label">WhatsApp</span>
+        </div>
+
+        <!-- Email -->
+        <div class="dock-item relative flex flex-col items-center z-10">
+          <a href={mailUrl} class="contact-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 text-white" fill="currentColor">
+              <path d="M2 4h20v16H2V4zm18 2l-8 5-8-5v12h16V6z"/>
+            </svg>
+          </a>
+          <span class="contact-item-label">Email</span>
+        </div>
+
+        <!-- Location -->
+        <div class="dock-item relative flex flex-col items-center z-10">
+          <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z"/>
+            </svg>
+          </a>
+          <span class="contact-item-label">Find us</span>
+        </div>
+      </div>
+    </>
+  )}
+
+  {mobileStyle === "dock" && (
+    <div class="dock-container">
+      <!-- WhatsApp -->
+      <div class="dock-item relative flex items-center z-10">
+        <div class="dock-tooltip">WhatsApp Us</div>
+        <a href={waUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+          <img src="/whatsapp.svg" alt="WhatsApp" class="h-6 w-6 invert" />
+        </a>
+      </div>
+
+      <!-- Email -->
+      <div class="dock-item relative flex items-center z-10">
+        <div class="dock-tooltip">Email us</div>
+        <a href={mailUrl} class="contact-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 text-white" fill="currentColor">
+            <path d="M2 4h20v16H2V4zm18 2l-8 5-8-5v12h16V6z"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Location -->
+      <div class="dock-item relative flex items-center z-10">
+        <div class="dock-tooltip">Find us</div>
+        <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  )}
+</div>
+
+<!-- TABLET: Dock or FAB -->
+<div class={`${getTabletClass(tabletStyle)} hidden`}>
+  {tabletStyle === "fab" && (
+    <>
+      <!-- FAB Button -->
+      <button
+        id="contactFABTablet"
+        type="button"
+        aria-label="Open contact options"
+        aria-expanded="false"
+        class="fab-button fixed bottom-6 right-5 z-50"
+      >
+        <svg id="fabIconTablet" class="fab-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+      </button>
+
+      <!-- Contact Buttons -->
+      <div id="contactButtonsTablet" class="contact-buttons hidden">
+        <!-- WhatsApp -->
+        <div class="dock-item relative flex flex-col items-center z-10">
+          <a href={waUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+            <img src="/whatsapp.svg" alt="WhatsApp" class="h-6 w-6 invert" />
+          </a>
+          <span class="contact-item-label">WhatsApp</span>
+        </div>
+
+        <!-- Email -->
+        <div class="dock-item relative flex flex-col items-center z-10">
+          <a href={mailUrl} class="contact-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 text-white" fill="currentColor">
+              <path d="M2 4h20v16H2V4zm18 2l-8 5-8-5v12h16V6z"/>
+            </svg>
+          </a>
+          <span class="contact-item-label">Email</span>
+        </div>
+
+        <!-- Location -->
+        <div class="dock-item relative flex flex-col items-center z-10">
+          <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z"/>
+            </svg>
+          </a>
+          <span class="contact-item-label">Find us</span>
+        </div>
+      </div>
+    </>
+  )}
+
+  {tabletStyle === "dock" && (
+    <div class="dock-container">
+      <!-- WhatsApp -->
+      <div class="dock-item relative flex items-center z-10">
+        <div class="dock-tooltip">WhatsApp Us</div>
+        <a href={waUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+          <img src="/whatsapp.svg" alt="WhatsApp" class="h-6 w-6 invert" />
+        </a>
+      </div>
+
+      <!-- Email -->
+      <div class="dock-item relative flex items-center z-10">
+        <div class="dock-tooltip">Email us</div>
+        <a href={mailUrl} class="contact-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 text-white" fill="currentColor">
+            <path d="M2 4h20v16H2V4zm18 2l-8 5-8-5v12h16V6z"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Location -->
+      <div class="dock-item relative flex items-center z-10">
+        <div class="dock-tooltip">Find us</div>
+        <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  )}
+</div>
+
+<!-- DESKTOP: Hidden by default -->
+<div class={`${getDesktopClass(desktopStyle)} hidden`}>
+  {desktopStyle === "dock" && (
+    <div class="dock-container">
+      <!-- Widgets for desktop -->
+      <div class="dock-item relative flex items-center z-10">
+        <div class="dock-tooltip">WhatsApp Us</div>
+        <a href={waUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+          <img src="/whatsapp.svg" alt="WhatsApp" class="h-6 w-6 invert" />
+        </a>
+      </div>
+
+      <div class="dock-item relative flex items-center z-10">
+        <div class="dock-tooltip">Email us</div>
+        <a href={mailUrl} class="contact-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 text-white" fill="currentColor">
+            <path d="M2 4h20v16H2V4zm18 2l-8 5-8-5v12h16V6z"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="dock-item relative flex items-center z-10">
+        <div class="dock-tooltip">Find us</div>
+        <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  )}
+</div>
+
+<script is:inline>
+  // Mobile FAB Handler
+  (function() {
+    const fab = document.getElementById("contactFAB");
+    const fabIcon = document.getElementById("fabIcon");
+    const buttons = document.getElementById("contactButtons");
+
+    if (!fab || !buttons) return;
+
+    let isOpen = false;
+    let closeTimeout;
+
+    const closeFAB = () => {
+      isOpen = false;
+      fab.setAttribute("aria-expanded", false);
+      fabIcon.classList.remove("open");
+      buttons.classList.add("hidden");
+      fab.classList.remove("hidden");
+      clearTimeout(closeTimeout);
+    };
+
+    const openFAB = () => {
+      isOpen = true;
+      fab.setAttribute("aria-expanded", true);
+      fabIcon.classList.add("open");
+      buttons.classList.remove("hidden");
+      fab.classList.add("hidden");
+      
+      // Auto-close after 5 seconds
+      clearTimeout(closeTimeout);
+      closeTimeout = setTimeout(closeFAB, 5000);
+    };
+
+    fab.addEventListener("click", (e) => {
+      e.stopPropagation();
+      isOpen ? closeFAB() : openFAB();
+    });
+
+    // Close on click outside
+    document.addEventListener("click", (e) => {
+      if (isOpen && !buttons.contains(e.target) && !fab.contains(e.target)) {
+        closeFAB();
+      }
+    });
+
+    // Close on escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen) {
+        closeFAB();
+      }
+    });
+
+    // Close on button click
+    buttons.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeFAB);
+    });
+  })();
+
+  // Tablet FAB Handler
+  (function() {
+    const fab = document.getElementById("contactFABTablet");
+    const fabIcon = document.getElementById("fabIconTablet");
+    const buttons = document.getElementById("contactButtonsTablet");
+
+    if (!fab || !buttons) return;
+
+    let isOpen = false;
+    let closeTimeout;
+
+    const closeFAB = () => {
+      isOpen = false;
+      fab.setAttribute("aria-expanded", false);
+      fabIcon.classList.remove("open");
+      buttons.classList.add("hidden");
+      fab.classList.remove("hidden");
+      clearTimeout(closeTimeout);
+    };
+
+    const openFAB = () => {
+      isOpen = true;
+      fab.setAttribute("aria-expanded", true);
+      fabIcon.classList.add("open");
+      buttons.classList.remove("hidden");
+      fab.classList.add("hidden");
+      
+      // Auto-close after 5 seconds
+      clearTimeout(closeTimeout);
+      closeTimeout = setTimeout(closeFAB, 5000);
+    };
+
+    fab.addEventListener("click", (e) => {
+      e.stopPropagation();
+      isOpen ? closeFAB() : openFAB();
+    });
+
+    // Close on click outside
+    document.addEventListener("click", (e) => {
+      if (isOpen && !buttons.contains(e.target) && !fab.contains(e.target)) {
+        closeFAB();
+      }
+    });
+
+    // Close on escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen) {
+        closeFAB();
+      }
+    });
+
+    // Close on button click
+    buttons.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeFAB);
+    });
+  })();
+</script>

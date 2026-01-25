@@ -4,6 +4,9 @@ import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
   site: "https://thelifeplace.org",
+  devToolbar: {
+    enabled: false,
+  },
 
   integrations: [
     tailwind(),
