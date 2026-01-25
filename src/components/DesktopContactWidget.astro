@@ -1,4 +1,11 @@
 ---
+/**
+ * DesktopContactWidget.astro
+ * Legacy desktop-only contact widget
+ * Now replaced by ContactWidget.astro for responsive design
+ * Kept for reference - can be deleted if not needed
+ */
+
 const {
   whatsapp = "27XXXXXXXXX",
   email = "hello@thelifeplace.org",
@@ -20,39 +27,38 @@ const mailUrl = `mailto:${email}`;
            transition transform hover:scale-105;
   }
 
-.dock-tooltip {
-  @apply absolute right-full top-1/2 -translate-y-1/2 mr-3 
-         px-4 py-1 rounded-full   /* pill shape */
-         text-sm font-medium bg-black text-white
-         shadow-md whitespace-nowrap opacity-0 translate-x-2
-         pointer-events-none transition-all duration-300 z-50;
-}
+  .dock-tooltip {
+    @apply absolute right-full top-1/2 -translate-y-1/2 mr-3 
+           px-4 py-1 rounded-full   /* pill shape */
+           text-sm font-medium bg-black text-white
+           shadow-md whitespace-nowrap opacity-0 translate-x-2
+           pointer-events-none transition-all duration-300 z-50;
+  }
 
-.dock-item:hover .dock-tooltip {
-  @apply opacity-100 translate-x-0;
-}
+  .dock-item:hover .dock-tooltip {
+    @apply opacity-100 translate-x-0;
+  }
 </style>
 
 <div class="fixed bottom-6 right-5 z-50 flex flex-col gap-4">
-<!-- WhatsApp -->
-<div class="dock-item relative flex items-center z-10">
-  <div class="dock-tooltip">WhatsApp Us</div>
+  <!-- WhatsApp -->
+  <div class="dock-item relative flex items-center z-10">
+    <div class="dock-tooltip">WhatsApp Us</div>
 
-  <a
-    href={waUrl}
-    target="_blank"
-    rel="noopener noreferrer"
-    class="w-12 h-12 rounded-full bg-black flex items-center justify-center
-           hover:bg-brand-red transition"
-  >
-    <img 
-      src="/whatsapp.svg" 
-      alt="WhatsApp" 
-      class="h-6 w-6 invert"
-    />
-  </a>
-</div>
-
+    <a
+      href={waUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="w-12 h-12 rounded-full bg-black flex items-center justify-center
+             hover:bg-brand-red transition"
+    >
+      <img 
+        src="/whatsapp.svg" 
+        alt="WhatsApp" 
+        class="h-6 w-6 invert"
+      />
+    </a>
+  </div>
 
   <!-- Email -->
   <div class="dock-item relative flex items-center z-10">
@@ -82,5 +88,4 @@ const mailUrl = `mailto:${email}`;
       </svg>
     </a>
   </div>
-
 </div>

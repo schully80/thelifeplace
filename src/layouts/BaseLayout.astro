@@ -1,11 +1,12 @@
 ---
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../styles/global.css";
 import "../styles/global-interactions.css";
 import CookieConsent from "../components/CookieConsent.astro";
 import HeaderMobile from "../components/HeaderMobile.astro";
 import HeaderDesktop from "../components/HeaderDesktop.astro";
 import HeaderLaptop from "../components/HeaderLaptop.astro";
-import WhatsAppWidget from "../components/WhatsAppWidget.astro";
+import ContactWidget from "../components/ContactWidget.astro";
 import HeaderTablet from "../components/HeaderTablet.astro";
 import Footer from "../components/Footer.astro";
 import AppButton from "../components/AppButton.astro";
@@ -103,15 +104,6 @@ pathParts.forEach((part, index) => {
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet"
     crossorigin="anonymous"
-  />
-
-  <!-- Icons (Font Awesome with SRI) -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    integrity="sha512-EvmtgiiAacvnRnk7KFS/UF5QkJqyX3L+EvyZaIIrr91S3VAcqrznUUUbZe04lPVrWTJNuk58t+FGedyqv5zwXg=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
   />
 
 <!-- Inject env variable for client scripts -->
@@ -329,11 +321,14 @@ pathParts.forEach((part, index) => {
       <slot />
     </main>
 
-    <!-- WIDGETS -->
-    <WhatsAppWidget
+    <!-- CONTACT WIDGET (Responsive) -->
+    <ContactWidget
       whatsapp={whatsappNumber}
       email="hello@thelifeplace.org"
       mapsUrl="https://maps.app.goo.gl/kWtzKtuyASu3qRxo7"
+      mobileStyle="fab"
+      tabletStyle="dock"
+      desktopStyle="hidden"
     />
 
     <CookieConsent />
