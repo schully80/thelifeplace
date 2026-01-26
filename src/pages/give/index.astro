@@ -1,11 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SnapScanConfirmForm from "../../components/SnapScanConfirmForm.astro";
-import FullBleed from "../components/tlp/FullBleed.astro";
-import HeroTitle from "../components/tlp/HeroTitle.astro";
-import SectionWrapper from "../components/tlp/SectionWrapper.astro";
-import FadeDivider from "../components/tlp/FadeDivider.astro";
-import WarmBackground from "../components/tlp/WarmBackground.astro";
+import FullBleed from "../../components/tlp/FullBleed.astro";
+import HeroTitle from "../../components/tlp/HeroTitle.astro";
+import SectionWrapper from "../../components/tlp/SectionWrapper.astro";
+import FadeDivider from "../../components/tlp/FadeDivider.astro";
+import WarmBackground from "../../components/tlp/WarmBackground.astro";
 import QuickGive from "../../components/giving/QuickGive.astro";
 const url = new URL(Astro.request.url);
 const event = url.searchParams.get("event");
@@ -15,11 +15,11 @@ const event = url.searchParams.get("event");
 
 <!-- HERO / Giving -->
 <section
-  class="relative w-screen h-[70vh]
+  class="relative w-screen h-[30vh] md:h-[70vh]
          overflow-hidden
          left-1/2 right-1/2 -mx-[50vw]"
 >
-  <div class="absolute inset-0 grid grid-cols-1 md:grid-cols-2">
+  <div class="absolute inset-0 grid grid-cols-2">
     <img src="/giving-hero2.jpg" alt="Community members giving together at The Life Place" class="w-full h-full object-cover" />
     <img src="/giving-hero7.jpg" alt="Generosity in action at The Life Place" class="w-full h-full object-cover" />
   </div>
@@ -27,17 +27,17 @@ const event = url.searchParams.get("event");
   <!-- Seam softener -->
   <div
     class="pointer-events-none absolute inset-y-0 left-1/2 w-24 -translate-x-1/2
-           bg-gradient-to-r from-transparent via-black/70 to-transparent">
+           bg-gradient-to-r from-transparent via-black/40 to-transparent">
   </div>
 
-  <div class="absolute inset-0 bg-black/40"></div>
-  <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/60 to-transparent"></div>
+  <div class="absolute inset-0 bg-black/10"></div>
+  <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/15 to-transparent"></div>
 </section>
 
 
 <!-- PAGE HEADER -->
-<section class="bg-white">
-  <div class="max-w-6xl mx-auto px-6 py-24 md:py-32 text-center">
+<section class="w-full px-4 md:px-6 lg:px-8 py-16 md:py-20 bg-white relative">
+  <div class="max-w-6xl mx-auto px-6 py-28 md:py-36 text-center">
 
     <h1
       class="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900"
@@ -56,281 +56,305 @@ const event = url.searchParams.get("event");
   </div>
 </section>
 
-<!-- QUICK GIVE -->
-<section class="bg-gray-50">
-  <div class="max-w-7xl mx-auto px-6 py-20 md:py-28
-  ">
+<!-- SUBTLE DIVIDER -->
+<FadeDivider mt="mt-0" mb="mb-0" color="bg-gray-300" width="w-[98%]" />
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-
-    <!-- Guided Giving -->
-    <div class="lg:col-span-8">
-      <QuickGive
-        subtitle="Below is a simple, guided way to give generously — step by step."
-      />
-    </div>
-
-    <!-- TRUST -->
-    <aside
-      class="lg:col-span-4 rounded-[36px]
-             bg-white p-10
-             border border-brand-red
-         shadow-sm hover:shadow-md
-         transition transform hover:-translate-y-0.5"
-             >
-
-
-      <h3 class="text-2xl md:text-3xl text-center font-extrabold tracking-tight mb-8">
-        Giving you can trust
-      </h3>
-
-      <ul class="space-y-6 text-gray-800 text-lg leading-relaxed">
-        <li><strong>EFT</strong> — Direct bank transfer</li>
-        <li><strong>SnapScan</strong> — Secure mobile giving</li>
-        <li><strong>PayPal</strong> — International giving</li>
-        <li><strong>In-person</strong> — Weekend gatherings</li>
-      </ul>
-
-      <p class="mt-10 text-base text-gray-500 leading-relaxed">
-        All platforms listed are official giving channels of The Life Place.
-      </p>
-    </aside>
-
+<!-- IMPACT STATEMENT -->
+<section class="w-full px-4 md:px-6 lg:px-8 py-16 md:py-24">
+  <div class="max-w-3xl mx-auto">
+    <h2
+      class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] text-gray-900 mb-[5rem]"
+    >
+      Your generosity creates more space and resources so others can
+      <span class="block text-brand-red">
+        Come. See. Jesus
+      </span>
+    </h2>
   </div>
 </section>
 
-<!-- METHODS -->
-<section id="giving-methods" 
+<!-- QUICK GIVE + METHODS (Unified Container) -->
+<section class="w-full px-4 md:px-6 lg:px-8 py-16 md:py-28 relative">
+  <div class="max-w-6xl mx-auto">
 
-class="max-w-7xl mx-auto px-6 pb-36">
+    <!-- Unified Container: QuickGive + Methods -->
+    <div class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red shadow-sm hover:shadow-md transition overflow-hidden">
+      
+      <!-- QuickGive Section (Top) -->
+      <div class="p-10 md:p-20 pb-8 md:pb-10 border-b border-black/5">
+        <QuickGive
+          subtitle="Below is a simple, guided way to give generously — step by step."
+        />
+      </div>
 
-<div class="flex flex-col items-center justify-center text-center py-24">
+      <!-- Methods Section (Bottom) -->
+      <div id="giving-methods" class="pt-8 md:pt-10 p-10 md:p-20">
 
 
-<!-- WAYS TO GIVE — SECTION BREAK -->
-<section class="max-w-6xl mx-auto px-6 py-20 md:py-20 text-center">
-  <h2
-    class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900"
-  >
-    Ways to Give
-  </h2>
+        <!-- Step 3 Heading -->
+        <h2 class="text-xl md:text-2xl font-extrabold text-gray-900 mb-16 md:mb-20">Step 3 · CHOOSE PAYMENT METHOD</h2>
 
-  <p class="mt-6 text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-    Choose the method that works best for you.
-  </p>
+        <!-- Desktop Methods Grid -->
+        <div class="hidden md:grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 md:gap-14">
+
+          <!-- EFT -->
+          <div
+            class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-10 md:p-16 fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all"
+            style="animation-delay: 0ms"
+          >
+            <h3 class="text-center text-xl md:text-2xl font-extrabold mb-6 md:mb-8">EFT (Bank Transfer)</h3>
+            <div class="flex justify-center mb-6">
+              <img
+                src="/reshot-icon-laptop-Y6XNMWGB8C.svg"
+                alt="Laptop icon"
+                class="h-10 w-10 md:h-12 md:w-12"
+              />
+            </div>
+            <ul class="space-y-2 md:space-y-3 text-base md:text-lg text-gray-700 text-left">
+              <li><strong>Bank:</strong> Standard Bank</li>
+              <li><strong>Account:</strong> The Life Place</li>
+              <li><strong>Number:</strong> 301524351</li>
+              <li><strong>Branch:</strong> 051001</li>
+              <li><strong>SWIFT:</strong> SBZAZAJJ</li>
+            </ul>
+            <p class="mt-8 text-center text-sm md:text-base text-gray-500">
+              Reference: Tithe / Offering / Your name
+            </p>
+          </div>
+
+          <!-- SNAPSCAN -->
+          <a href="https://pos.snapscan.io/qr/VISFNLkM" class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-10 md:p-16 text-center fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all block" style="animation-delay: 100ms">
+            <h3 class="text-center text-xl md:text-2xl font-extrabold mb-6 md:mb-8">SnapScan</h3>
+            <div class="flex justify-center mb-6">
+              <img
+                src="/reshot-icon-hand-holding-smartphone-4L7F8HCGWT.svg"
+                alt="Hand holding smartphone icon"
+                class="h-10 w-10 md:h-12 md:w-12"
+              />
+            </div>
+            <p class="text-base md:text-lg text-gray-700 mb-6 md:mb-8">
+              Scan QR or click button or anywhere on this card to give 
+            </p>
+            <img
+              src="/SnapCode_1 grayscale.png"
+              alt="SnapScan QR"
+              class="mx-auto w-40 h-40 md:w-48 md:h-48 object-contain mb-6 md:mb-8"
+            />
+
+            <span class="inline-flex justify-center rounded-full px-6 md:px-8 py-3 md:py-4
+                     text-base md:text-lg font-bold
+                     border border-brand-red
+                     text-brand-red">
+              Give via SnapScan
+            </span>
+          </a>
+
+          <!-- PAYPAL -->
+          <form
+            action="https://www.paypal.com/donate"
+            method="post"
+            target="_top"
+            class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-10 md:p-16 text-center fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all flex flex-col items-center gap-6 md:gap-8 cursor-pointer"
+            style="animation-delay: 200ms"
+          >
+            <input type="hidden" name="hosted_button_id" value="4L3NWWAZ9PPV6" />
+            <h3 class="text-center text-xl md:text-2xl font-extrabold">PayPal</h3>
+            <div class="flex justify-center">
+              <img
+                src="/paypal-blue.svg"
+                alt="PayPal"
+                class="h-10 w-10 md:h-12 md:w-12"
+              />
+            </div>
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+              <span class="block font-semibold uppercase tracking-wide">International Giving</span>
+              <span class="block mt-1 text-sm text-gray-500">(Outside South Africa)</span>
+            </p>
+            <p class="text-xs md:text-sm text-gray-500 mb-4">Click on button or anywhere on this card to give</p>
+            <button type="submit">
+              <img
+                src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
+                class="rounded-2xl border p-2 md:p-4 bg-white shadow-md pointer-events-none"
+              />
+            </button>
+            <button
+              type="submit"
+              class="rounded-full px-6 md:px-8 py-3 md:py-4
+                     text-base md:text-lg font-bold
+                     border border-brand-red
+                     text-brand-red
+                     hover:bg-brand-red hover:text-white transition pointer-events-none"
+            >
+              Give via PayPal
+            </button>
+          </form>
+
+        </div>
+
+        <!-- Mobile Tab Interface -->
+        <div class="md:hidden space-y-5">
+          <!-- Tabs -->
+          <div class="flex gap-3 mb-8">
+            <button class="methodTab active rounded-full px-4 md:px-6 py-2 md:py-3 text-base font-semibold transition" data-tab="eft" style="background-color: #DC2626; color: white;">
+              EFT
+            </button>
+            <button class="methodTab rounded-full px-4 md:px-6 py-2 md:py-3 text-base font-semibold transition" data-tab="snapscan" style="background-color: #f5f5f5; color: #333;">
+              SnapScan
+            </button>
+            <button class="methodTab rounded-full px-4 md:px-6 py-2 md:py-3 text-base font-semibold transition" data-tab="paypal" style="background-color: #f5f5f5; color: #333;">
+              PayPal
+            </button>
+            <button class="methodTab rounded-full px-4 md:px-6 py-2 md:py-3 text-base font-semibold transition" data-tab="inperson" style="background-color: #f5f5f5; color: #333;">
+              In Person
+            </button>
+          </div>
+
+          <!-- EFT Tab Content -->
+          <div class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-10 fadeIn shadow-sm hover:shadow-md transition" data-tab-content="eft">
+            <h3 class="text-xl font-extrabold mb-6 text-center">EFT (Bank Transfer)</h3>
+            <div class="flex justify-center mb-6">
+              <img
+                src="/reshot-icon-laptop-Y6XNMWGB8C.svg"
+                alt="Laptop icon"
+                class="h-10 w-10"
+              />
+            </div>
+            <ul class="space-y-3 text-base text-gray-700 text-left">
+              <li><strong>Bank:</strong> Standard Bank</li>
+              <li><strong>Account:</strong> The Life Place</li>
+              <li><strong>Number:</strong> 301524351</li>
+              <li><strong>Branch:</strong> 051001</li>
+              <li><strong>SWIFT:</strong> SBZAZAJJ</li>
+            </ul>
+            <p class="mt-6 text-center text-sm text-gray-500">
+              Reference: Tithe / Offering / Your name
+            </p>
+          </div>
+
+          <!-- SnapScan Tab Content -->
+          <a href="https://pos.snapscan.io/qr/VISFNLkM" class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-10 hidden fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all block" data-tab-content="snapscan">
+            <h3 class="text-xl font-extrabold mb-6 text-center">SnapScan</h3>
+            <div class="flex justify-center mb-6">
+              <img
+                src="/reshot-icon-hand-holding-smartphone-4L7F8HCGWT.svg"
+                alt="Hand holding smartphone icon"
+                class="h-10 w-10"
+              />
+            </div>
+            <p class="text-base text-gray-700 mb-6 text-center">
+              Scan or click to give instantly.
+            </p>
+            <img
+              src="/SnapCode_1 grayscale.png"
+              alt="SnapScan QR"
+              class="mx-auto w-40 h-40 object-contain mb-6"
+            />
+            <span
+              class="block text-center rounded-full px-6 py-3
+                     text-base font-bold
+                     border border-brand-red
+                     text-brand-red"
+            >
+              Give via SnapScan
+            </span>
+          </a>
+
+          <!-- PayPal Tab Content -->
+          <form
+            action="https://www.paypal.com/donate"
+            method="post"
+            target="_top"
+            class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-10 hidden fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all flex flex-col items-center gap-6 cursor-pointer"
+            data-tab-content="paypal"
+          >
+            <input type="hidden" name="hosted_button_id" value="4L3NWWAZ9PPV6" />
+            <h3 class="text-xl font-extrabold mb-4 text-center">PayPal</h3>
+            <div class="flex justify-center mb-4">
+              <img
+                src="/paypal-blue.svg"
+                alt="PayPal"
+                class="h-10 w-10"
+              />
+            </div>
+            <p class="text-base text-gray-700 mb-6 text-center">
+              <span class="block font-semibold uppercase text-sm">International Giving</span>
+              <span class="block text-sm text-gray-500">(Outside South Africa)</span>
+            </p>
+            <p class="text-xs text-gray-500 mb-4 text-center">Click anywhere on this card to pay</p>
+            <button type="submit">
+              <img
+                src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
+                class="rounded-2xl border p-2 bg-white shadow-md pointer-events-none"
+              />
+            </button>
+            <button
+              type="submit"
+              class="rounded-full px-6 py-3 w-full
+                     text-base font-bold
+                     border border-brand-red
+                     text-brand-red
+                     hover:bg-brand-red hover:text-white transition pointer-events-none"
+            >
+              Give via PayPal
+            </button>
+          </form>
+
+          <!-- In Person Tab Content -->
+          <div class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-10 hidden fadeIn shadow-sm hover:shadow-md transition" data-tab-content="inperson">
+            <h3 class="text-xl font-extrabold mb-4 text-center">Give in Person</h3>
+            <p class="text-base text-gray-700 leading-relaxed">
+              While we encourage online giving for security and simplicity, we gladly receive in-person gifts during our weekend gatherings.
+            </p>
+            <p class="mt-4 text-sm text-gray-500 text-center">
+              No pressure. No obligation. Simply an expression of worship.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-
- <!-- 👇 GRAY WRAPPER (cards only) -->
-    <div class="bg-gray-50 mt-10 md:mt-14 px-8 py-14 md:px-12 md:py-20">
-
-
-  <div class="mt-20 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
-
-    <!-- EFT -->
-    <div
-      class="rounded-3xl bg-white
-             border border-brand-red
-         shadow-sm hover:shadow-md
-         transition transform hover:-translate-y-0.5 p-10"
-    >
-      <h3 class="text-center text-4xl font-extrabold mb-6">EFT (Bank Transfer)</h3>
-
- <!-- ICON -->
-  <div class="mt-6 flex justify-center">
-    <img
-      src="/reshot-icon-laptop-Y6XNMWGB8C.svg"
-      alt="Laptop icon"
-      class="h-10 w-10 md:h-12 md:w-12"
-    />
-  </div>
-
-      <ul class="space-y-3 text-xl text-gray-700 py-8">
-        <li><strong>Bank:</strong> Standard Bank</li>
-        <li><strong>Account:</strong> The Life Place</li>
-        <li><strong>Number:</strong> 301524351</li>
-        <li><strong>Branch:</strong> 051001</li>
-        <li><strong>SWIFT:</strong> SBZAZAJJ</li>
-      </ul>
-
-      <p class="mt-8 text-center text-lg text-gray-500">
-        Reference: Tithe / Offering / Your name
-      </p>
-    </div>
-
-    <!-- SNAPSCAN -->
-    <div
-      class="rounded-3xl bg-white
-             border border-brand-red
-         shadow-sm hover:shadow-md
-         transition transform hover:-translate-y-0.5 p-10 text-center"
-    >
-      <h3 class="text-center text-4xl font-extrabold mb-4">SnapScan</h3>
-
-<!-- ICON -->
-  <div class="mt-6 flex justify-center">
-    <img
-      src="/reshot-icon-hand-holding-smartphone-4L7F8HCGWT.svg"
-      alt="Hand holding smartphone icon"
-      class="h-10 w-10 md:h-12 md:w-12"
-    />
-  </div>
-
-      <p class="text-center text-xl text-gray-700 mb-8 py-8">
-        Scan or click to give instantly.
-      </p>
-
+<!-- GIVE IN PERSON TEXT ONLY (outside container) -->
+<section class="w-full px-4 md:px-6 lg:px-8 py-16 md:py-24 relative">
+  <div class="max-w-3xl mx-auto text-center">
+    <div class="flex justify-center mb-6">
       <img
-        src="/SnapCode_1 grayscale.png"
-        alt="SnapScan QR"
-        class="mx-auto w-48 h-48 md:w-48 md:h-48 object-contain"
+        src="/hand-holding-heart.png"
+        alt="Give in person"
+        class="h-12 w-12 md:h-14 md:w-14 opacity-90"
       />
-
-      <a
-        href="https://pos.snapscan.io/qr/VISFNLkM"
-        class="mt-8 inline-flex justify-center rounded-full px-8 py-4
-               text-lg font-bold
-               border border-brand-red
-               text-brand-red
-               hover:bg-brand-red hover:text-white transition"
-      >
-        Give via SnapScan
-      </a>
     </div>
-
-    <!-- PAYPAL -->
-      <div
-      class="rounded-3xl bg-white
-             border border-brand-red
-         shadow-sm hover:shadow-md
-         transition transform hover:-translate-y-0.5 p-10 text-center"
-    >
-      <form
-        action="https://www.paypal.com/donate"
-        method="post"
-        target="_top"
-        class="flex flex-col items-center gap-6"
-      >
-        <input type="hidden" name="hosted_button_id" value="4L3NWWAZ9PPV6" />
-
-      <h3 class="text-center text-4xl font-extrabold mb-4">PayPal</h3>
-
-  <!-- PAYPAL ICON (restored, under header) -->
-  <div class="mt-3 flex justify-center -translate-y-4">
-    <img
-      src="/paypal-blue.svg"
-      alt="PayPal"
-      class="h-10 w-10 md:h-12 md:w-12"
-    />
+    <p class="text-2xl md:text-3xl leading-relaxed text-gray-700">
+      While we encourage online giving for security and simplicity, we gladly receive in-person gifts during our weekend gatherings.
+    </p>
   </div>
-
-
-    <p class="mt-2 text-xl text-center text-gray-700 leading-relaxed">
-  <span class="block font-semibold uppercase tracking-wide">
-    International Giving
-  </span>
-  <span class="block mt-1 text-md text-gray-500">
-    (Outside South Africa)
-  </span>
-</p>
-
-
-        <button type="submit">
-          <img
-            src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
-            class="rounded-2xl border p-4 bg-white shadow-md"
-          />
-        </button>
-
-        <button
-          type="submit"
-          class="mt-2 rounded-full px-8 py-4
-                 text-lg font-bold
-                 border border-brand-red
-                 text-brand-red
-                 hover:bg-brand-red hover:text-white transition"
-        >
-          Give via PayPal
-        </button>
-      </form>
-    </div>
-
-  </div>
-
- <!-- GIVE IN PERSON — PASTORAL CARD -->
-<div class="mt-20 max-w-5xl mx-auto rounded-[36px]
-    bg-white border border-brand-red
-  shadow-sm hover:shadow-md transition transform hover:-translate-y-0.5
-  p-10 md:p-14
-    text-center
-    motion-safe:animate-[floatSlow_6s_ease-in-out_infinite]
-  "
->
-
-  <!-- Icon -->
-  <div class="flex justify-center mb-6">
-    <img
-      src="/hand-holding-heart.png"
-      alt="Give in person"
-      class="h-12 w-12 md:h-14 md:w-14 opacity-90"
-    />
-  </div>
-
-  <!-- Heading -->
-  <h3 class="text-2xl md:text-3xl font-extrabold text-gray-900">
-    Give in Person
-  </h3>
-
-  <!-- Copy -->
-  <p class="mt-4 text-lg md:text-2xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
-    While we encourage online giving for security and simplicity,  
-    we gladly receive in-person gifts during our weekend gatherings.
-  </p>
-
-  <!-- Soft reassurance -->
-  <p class="mt-6 text-sm md:text-base text-gray-500">
-    No pressure. No obligation. Simply an expression of worship.
-  </p>
-</div>
-
-
-  <p
-    class="mt-28 text-center text-2xl md:text-3xl
-           leading-relaxed text-gray-700
-           max-w-3xl mx-auto"
-  >
-    Whether once-off or recurring, your generosity helps us create more space
-    and resources so others can
-    <span class="font-semibold">
-    Come. See. <span class="text-brand-red">Jesus</span>
-  </span>
-</p>
-
 </section>
 
  <!-- Annual Report (featured card) -->
-<section class="max-w-6xl mx-auto px-6 pb-32">
-  <div
-    class="relative overflow-hidden rounded-[36px] border bg-white ring-1 ring-brand-red shadow-sm
-           p-6 sm:p-8 md:p-10"
-    aria-labelledby="annual-report-title"
-  >
+<section class="w-full px-4 md:px-6 lg:px-8 py-16 md:py-24">
+  <div class="max-w-6xl mx-auto">
+    <div
+      class="relative overflow-hidden rounded-3xl md:rounded-[36px] border bg-white ring-1 ring-brand-red shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition
+             p-8 md:p-14"
+      aria-labelledby="annual-report-title"
+    >
     
-    <div class="flex items-start gap-3 sm:gap-4">
+    <div class="flex flex-col items-center gap-4">
       <!-- Icon -->
-      <div class="hidden sm:flex h-12 w-12 items-center justify-center rounded-xl">
+      <div class="hidden md:flex h-12 w-12 items-center justify-center rounded-xl">
        
       </div>
 
       
-      <div class="flex-1">
+      <div class="flex-1 w-full">
         <h2 id="annual-report-title"
-            class="text-2xl md:text-4xl text-center font-bold tracking-tight text-gray-900">
+            class="text-xl md:text-4xl text-center font-bold tracking-tight text-gray-900">
           Annual Financial Report
         </h2>
      
       <p
-        class="mt-5 text-lg md:text-xl text-center
+        class="mt-4 md:mt-5 text-base md:text-xl text-center
                leading-relaxed text-gray-700"
       >
         We value transparency and faithful stewardship.
@@ -357,23 +381,24 @@ class="max-w-7xl mx-auto px-6 pb-36">
 
 
 <!-- Giving FAQ -->
-<section class="max-w-4xl mx-auto px-6 mt-32 mb-40 data-faq-accordion">
+<section class="w-full px-4 md:px-6 lg:px-8 py-16 md:py-24">
+  <div class="max-w-6xl mx-auto data-faq-accordion">
   <!-- Header -->
-  <div class="text-center mb-12">
-    <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">
+  <div class="text-center mb-10 md:mb-14">
+    <h2 class="text-2xl md:text-4xl font-extrabold tracking-tight text-gray-900">
       Giving FAQs
     </h2>
-    <p class="mt-4 text-lg text-gray-600">
+    <p class="mt-3 md:mt-4 text-base md:text-lg text-gray-600">
       Common questions about giving at The Life Place.
     </p>
   </div>
 
   <!-- FAQ Accordion -->
-  <div class="space-y-4">
+  <div class="space-y-4 md:space-y-5">
 
     <!-- FAQ ITEM -->
-    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
-      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-lg font-semibold text-gray-900">
+    <div class="faq-item rounded-2xl md:rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-4 md:p-6">
+      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-base md:text-lg font-semibold text-gray-900">
         Is my donation secure?
         <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
@@ -513,6 +538,62 @@ class="max-w-7xl mx-auto px-6 pb-36">
 
 <script is:inline>
   document.addEventListener("DOMContentLoaded", () => {
+    // Method tabs functionality
+    const methodTabs = document.querySelectorAll(".methodTab");
+    
+    methodTabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const tabName = tab.dataset.tab;
+        
+        // Deactivate all tabs and hide all content
+        methodTabs.forEach((t) => {
+          t.classList.remove("active");
+          t.style.backgroundColor = "#f5f5f5";
+          t.style.color = "#333";
+        });
+        
+        document.querySelectorAll(".methodTabContent").forEach((content) => {
+          content.classList.add("hidden");
+        });
+        
+        // Activate clicked tab
+        tab.classList.add("active");
+        tab.style.backgroundColor = "#DC2626";
+        tab.style.color = "white";
+        
+        // Show corresponding content
+        const content = document.querySelector(`[data-tab-content="${tabName}"]`);
+        if (content) {
+          content.classList.remove("hidden");
+        }
+        
+        // Smooth scroll to methods section
+        const methodsSection = document.getElementById("giving-methods");
+        if (methodsSection) {
+          methodsSection.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }
+      });
+    });
+
+    // Make PayPal form containers fully clickable
+    const paypalForms = document.querySelectorAll('form[action*="paypal.com"]');
+    paypalForms.forEach((form) => {
+      form.addEventListener("click", (e) => {
+        // Only submit if clicking on form itself or non-interactive elements
+        if (e.target === form || e.target.closest("img")) {
+          // Find and click the submit button
+          const submitButton = form.querySelector('button[type="submit"]');
+          if (submitButton) {
+            submitButton.click();
+          }
+        }
+      });
+    });
+  });
+</script>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
     const items = document.querySelectorAll(".faq-item");
 
     items.forEach((item) => {
@@ -546,3 +627,26 @@ class="max-w-7xl mx-auto px-6 pb-36">
 
 
 </BaseLayout>
+
+<style>
+  /* Method card fade-in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fadeIn {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  /* QuickGive intro text styling */
+  .quickgive-intro {
+    animation: fadeIn 0.5s ease-out;
+  }
+</style>
