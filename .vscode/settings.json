@@ -6,5 +6,11 @@
     "astro": "html",
     "plaintext": "html"
   },
-  "search.useParentIgnoreFiles": true
+  "search.useParentIgnoreFiles": true,
+  "chat.checkpoints.showFileChanges": true,
+  "chat.customAgentInSubagent.enabled": true,
+  "chat.editor.fontSize": 14,
+  "chat.fontSize": 14,
+  "chat.restoreLastPanelSession": true,
+  "chat.renderRelatedFiles": true
 }

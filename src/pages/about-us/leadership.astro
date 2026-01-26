@@ -9,14 +9,14 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
 <!-- ===========================
       HERO — Cinematic & Pastoral (Swapped Order)
 =========================== -->
-<section class="w-full bg-gray-50 min-h-[850px] justify-center flex items-center py-32 pt-32 pb-32 mt-32">
+<section class="w-full bg-gray-50 min-h-auto justify-center flex items-center py-4 md:py-12 mt-0">
   <div class="max-w-7xl mx-auto px-6">
 
     <div class="grid md:grid-cols-2 gap-16 items-center">
 
 
     <!-- RIGHT — TEXT BLOCK (moved to be FIRST in DOM for UX flow) -->
-    <div class="relative flex items-center justify-center text-center md:text-left -mt-10 mb-20 font-body z-[5]">
+    <div class="relative flex items-center justify-center text-center md:text-left -mt-2 md:-mt-0 mb-6 md:mb-8 font-body z-[5] order-2 md:order-2">
 
       <!-- Soft ambient glow -->
       <div 
@@ -64,8 +64,8 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
     </div>
 
     <!-- LEFT — IMAGE BLOCK (moved to second position) -->
-    <div class="relative w-full h-[440px] md:h-[560px] lg:h-[620px] -mt-10 mb-20 
-                overflow-hidden rounded-3xl shadow-xl ">
+    <div class="relative w-[calc(100%+2rem)] md:w-full h-[440px] md:h-[560px] lg:h-[620px] -mt-0 mb-6 md:mb-0 -mx-4 md:mx-0
+                overflow-hidden rounded-3xl shadow-xl order-1 md:order-1">
 
       <!-- Subtle overlay -->
       <div class="absolute inset-0 bg-black/10 z-10 pointer-events-none"></div>
@@ -82,21 +82,21 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
 </section>
 
 <!-- FADE DIVIDER -->
-<FadeDivider mt="mt-40" mb="mb-20" />
+<FadeDivider mt="mt-12" mb="mb-8" />
 
 
 <!-- ===========================
        CONNECT • PARTNER • SUBSCRIBE
 =========================== -->
-<section class="max-w-5xl mx-auto px-6 pt-24 pb-32 mt-48 bg-gray-50">
+<section class="max-w-5xl mx-auto px-6 pt-8 md:pt-12 pb-20 md:pb-24 mt-0 bg-gray-50">
 
-  <h2 class="font-body text-center text-5xl font-semibold text-gray-900 mb-20">
+  <h2 class="font-body text-center text-5xl font-semibold text-gray-900 mb-10">
     CONNECT • PARTNER • SUBSCRIBE
   </h2>
   
 
   <!-- INTRO PARAGRAPH -->
-  <p class="text-left text-lg md:text-2xl leading-relaxed text-gray-800 max-w-3xl mx-auto mb-12">
+  <p class="text-left text-lg md:text-2xl leading-relaxed text-gray-800 max-w-3xl mx-auto mb-10 md:mb-14">
     Schulter writes regularly at 
     <a 
       href="https://schulteretyang.substack.com" 
@@ -109,7 +109,7 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
   </p>
 
   <!-- GRID CARDS -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
 
     <!-- SUBSTACK CARD -->
     <div class="rounded-3xl p-6 bg-white border border-brand-red shadow-sm hover:shadow-md transition">
@@ -159,7 +159,7 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
 
 
   <!-- PAYPAL -->
-  <div class="max-w-xl mx-auto mt-20">
+  <div class="max-w-xl mx-auto mt-12 md:mt-16">
     <div class="rounded-3xl p-6 bg-white border border-brand-red shadow-sm hover:shadow-md transition">
 
       <div class="flex items-center gap-6">

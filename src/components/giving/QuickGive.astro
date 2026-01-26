@@ -9,76 +9,25 @@ const amounts = ["R100", "R250", "R500", "R1,000", "Custom"];
 
 <section
   data-quick-give
-  class="rounded-[32px] bg-white/80 backdrop-blur-xl
-         border border-black/10 
-         p-10 md:p-14 ring-1 ring-brand-red 
-         shadow-sm hover:shadow-md transition transform hover:-translate-y-0.5"
 >
   <!-- INTRO -->
-  <p class="text-xl md:text-2xl text-gray-700 leading-relaxed mb-10 max-w-2xl">
+  <p class="text-xl md:text-2xl text-gray-700 text-center mb-12 md:mb-16 max-w-2xl whitespace-nowrap mx-auto">
     {subtitle}
   </p>
 
-  <!-- STEP 1: FREQUENCY -->
-  <div class="mb-10">
-    <p class="text-xl md:text-2xl font-extrabold text-gray-900 mb-4">
-      Step 1 · Frequency
+  <!-- STEP 1: AMOUNT -->
+  <div class="mb-10 md:mb-12">
+    <p class="text-xl md:text-2xl font-extrabold text-gray-900 mb-6 md:mb-8">
+      Step 1 · CHOOSE AMOUNT 
     </p>
 
-    <div class="inline-flex bg-black/5 rounded-full p-2">
-      <button
-        type="button"
-        class="freqBtn px-8 py-4 rounded-full bg-white
-               text-xl font-extrabold text-gray-900 shadow-md"
-        data-frequency="Once-off"
-      >
-        Once-off
-      </button>
-      <button
-        type="button"
-        class="freqBtn px-8 py-4 rounded-full
-               text-xl font-extrabold text-gray-700"
-        data-frequency="Monthly"
-      >
-        Monthly
-      </button>
-    </div>
-  </div>
-
-  <!-- STEP 2: CATEGORY -->
-  <div class="mb-10">
-    <p class="text-xl md:text-2xl font-extrabold text-gray-900 mb-4">
-      Step 2 · Purpose
-    </p>
-
-    <div class="flex flex-wrap gap-4">
-      {categories.map((c) => (
-        <button
-          type="button"
-          class="categoryBtn rounded-full px-7 py-4
-                 bg-white border border-black/10
-                 text-xl font-extrabold text-gray-900"
-          data-category={c}
-        >
-          {c}
-        </button>
-      ))}
-    </div>
-  </div>
-
-  <!-- STEP 3: AMOUNT -->
-  <div class="mb-10">
-    <p class="text-xl md:text-2xl font-extrabold text-gray-900 mb-4">
-      Step 3 · Amount
-    </p>
-
-    <div class="flex flex-wrap gap-4">
+    <div class="flex flex-wrap gap-4 md:gap-5">
       {amounts.map((a) => (
         <button
           type="button"
           class="amountBtn rounded-full px-7 py-4
                  bg-black/5 border border-black/10
-                 text-xl font-extrabold text-gray-900"
+                 text-xl font-extrabold text-gray-900 transition-all duration-300"
           data-amount={a}
         >
           {a}
@@ -87,48 +36,24 @@ const amounts = ["R100", "R250", "R500", "R1,000", "Custom"];
     </div>
   </div>
 
-  <!-- CONFIRMATION + METHODS (DROPDOWN) -->
-  <div
-    id="methodStep"
-    class="hidden mt-12 transition-all duration-500 ease-out"
-  >
-    <div
-      class="rounded-3xl bg-white border border-black/10
-             p-8 md:p-10 shadow-xl"
-    >
-      <p
-        id="summaryText"
-        class="text-2xl md:text-3xl font-extrabold text-gray-900"
-      ></p>
+  <!-- STEP 2: CATEGORY -->
+  <div class="mb-0">
+    <p class="text-xl md:text-2xl font-extrabold text-gray-900 mb-6 md:mb-8">
+      Step 2 · PURPOSE
+    </p>
 
-      <p class="mt-4 text-lg text-gray-600">
-        Choose how you’d like to give.
-      </p>
-
-      <!-- METHOD BUTTONS -->
-      <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
-     <button
-  class="methodBtn rounded-full px-4 py-3 bg-brand-red text-white text-xl font-bold"
-  data-scroll="#giving-methods"
->
-  EFT
-</button>
+    <div class="flex flex-wrap gap-4 md:gap-5">
+      {categories.map((c) => (
         <button
-          class="methodBtn rounded-full px-6 py-4
-                 bg-brand-red text-white text-xl font-extrabold"
-          data-scroll="#giving-methods"
+          type="button"
+          class="categoryBtn rounded-full px-7 py-4
+                 bg-white border border-black/10
+                 text-xl font-extrabold text-gray-900 transition-all duration-300"
+          data-category={c}
         >
-          SnapScan
+          {c}
         </button>
-
-        <button
-          class="methodBtn rounded-full px-6 py-4
-                 bg-brand-red text-white text-xl font-extrabold"
-          data-scroll="#giving-methods"
-        >
-          PayPal
-        </button>
-      </div>
+      ))}
     </div>
   </div>
 </section>
@@ -138,57 +63,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const root = document.querySelector("[data-quick-give]");
   if (!root) return;
 
-  let frequency = "Once-off";
-  let category = null;
   let amount = null;
-  let revealed = false;
+  let category = null;
 
-  const freqBtns = root.querySelectorAll(".freqBtn");
-  const categoryBtns = root.querySelectorAll(".categoryBtn");
   const amountBtns = root.querySelectorAll(".amountBtn");
-  const methodBtns = root.querySelectorAll(".methodBtn");
-
-  const methodStep = root.querySelector("#methodStep");
-  const summaryText = root.querySelector("#summaryText");
+  const categoryBtns = root.querySelectorAll(".categoryBtn");
 
   function revealIfReady() {
-    if (!category || !amount) return;
+    if (!amount || !category) return;
 
-    summaryText.innerHTML = `
-      You’re giving <span class="text-brand-red">${amount}</span>
-      (${frequency} · ${category})
-    `;
-
-    if (!revealed) {
-      methodStep.classList.remove("hidden");
-      methodStep.scrollIntoView({ behavior: "smooth", block: "start" });
-      revealed = true;
-    }
+    // Scroll directly to giving methods section
+    setTimeout(() => {
+      document.querySelector("#giving-methods")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
   }
-
-  // FREQUENCY
-  freqBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      frequency = btn.dataset.frequency;
-      freqBtns.forEach(b =>
-        b.classList.remove("bg-white", "shadow-md", "text-gray-900")
-      );
-      btn.classList.add("bg-white", "shadow-md", "text-gray-900");
-      revealIfReady();
-    });
-  });
-
-  // CATEGORY
-  categoryBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      category = btn.dataset.category;
-      categoryBtns.forEach(b =>
-        b.classList.remove("border-brand-red", "ring-2", "ring-brand-red/30")
-      );
-      btn.classList.add("border-brand-red", "ring-2", "ring-brand-red/30");
-      revealIfReady();
-    });
-  });
 
   // AMOUNT
   amountBtns.forEach(btn => {
@@ -202,13 +90,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // METHOD → SCROLL
-  methodBtns.forEach(btn => {
+  // CATEGORY
+  categoryBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-      const target = btn.dataset.scroll;
-      if (!target) return;
-      document.querySelector(target)
-        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      category = btn.dataset.category;
+      categoryBtns.forEach(b =>
+        b.classList.remove("border-brand-red", "ring-2", "ring-brand-red/30")
+      );
+      btn.classList.add("border-brand-red", "ring-2", "ring-brand-red/30");
+      revealIfReady();
     });
   });
 });
