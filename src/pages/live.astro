@@ -14,51 +14,92 @@ const serviceMinute = 0;
 >
   
   <!-- Hero -->
-  <section class="bg-gradient-to-b from-gray-50 to-white py-10 md:py-16 text-center">
-    <h1 class="text-3xl md:text-5xl font-bold text-gray-900">Join Us Live</h1>
-    <p class="mt-3 text-gray-600 text-lg">Sundays • 10:00 AM (SAST)</p>
-    <div id="countdown" class="mt-6 text-2xl font-semibold text-brand-red"></div>
+  <section class="relative mx-auto max-w-6xl overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900/95 to-gray-900 py-16 md:py-24 rounded-3xl md:rounded-4xl">
+    <!-- Modern gradient mesh background -->
+    <div class="absolute inset-0 opacity-40">
+      <div class="absolute top-0 -left-1/2 w-full h-full bg-gradient-to-r from-brand-red/30 to-transparent rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-red-600/20 to-transparent rounded-full blur-3xl"></div>
+    </div>
+
+    <!-- Animated particles - enhanced -->
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-brand-red rounded-full mix-blend-screen filter blur-3xl animate-blob"></div>
+      <div class="absolute top-40 right-10 w-72 h-72 bg-red-600 rounded-full mix-blend-screen filter blur-3xl animate-blob animation-delay-2000"></div>
+      <div class="absolute -bottom-8 left-20 w-72 h-72 bg-red-500 rounded-full mix-blend-screen filter blur-3xl animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 text-center px-6">
+      <div class="w-full max-w-5xl mx-auto">
+        <!-- Eyebrow text with service time -->
+        <p class="text-sm md:text-base font-semibold text-red-400 uppercase tracking-widest mb-6 opacity-90">
+          Sunday 9:00 - 11:00 AM SAST
+        </p>
+        
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-8 leading-relaxed tracking-tighter">
+          Join Us <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-brand-red to-red-600 drop-shadow-lg">Live</span>
+        </h1>
+        
+        <!-- Countdown with enhanced styling -->
+        <div id="countdown" class="text-xl md:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-red-300 to-red-500 mb-8 leading-relaxed"></div>
+        
+        <!-- CTA Button -->
+        <button onclick="document.querySelector('[id=liveFrame]').scrollIntoView({behavior:'smooth'})" class="inline-flex items-center gap-2 px-5 py-3 md:gap-3 md:px-8 md:py-4 bg-gradient-to-r from-brand-red to-red-600 hover:from-brand-red hover:to-red-700 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group text-base md:text-lg">
+          <span>Watch Now</span>
+          <svg class="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </button>
+      </div>
+    </div>
   </section>
 
-  <!-- Cinematic Live Player -->
-  <section class="max-w-7xl mx-auto px-4 pb-16 relative">
+  <!-- Cinematic Live Player — Industry Standard Design -->
+  <section class="w-full px-4 md:px-6 lg:px-8 py-12 md:py-16 bg-gradient-to-b from-gray-50 to-white relative">
+    <!-- Glow effect behind player -->
+    <div class="absolute inset-0 -z-10">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-96 bg-brand-red/10 rounded-full blur-3xl"></div>
+    </div>
 
-    <div class="absolute inset-0 -z-10 blur-3xl opacity-30 bg-brand-red/30 animate-pulse rounded-full"></div>
-
-    <div class="rounded-[36px] overflow-hidden shadow-2xl bg-black relative">
-      
+    <div class="max-w-6xl mx-auto">
+      <!-- Player Container — 16:9 Aspect Ratio with Glow -->
+      <div class="relative">
+        <!-- Gradient border glow -->
+        <div class="absolute -inset-1 bg-gradient-to-r from-brand-red to-red-600 rounded-3xl opacity-0 group-hover:opacity-100 blur transition duration-500 -z-10"></div>
+        
+        <div class="relative w-full bg-black rounded-3xl overflow-hidden shadow-2xl" style="aspect-ratio: 16/9;">
+          
   <!-- Live Status Badge -->
-<div class="absolute top-6 left-6 z-20">
+<div class="absolute top-4 left-4 z-20">
   <span
     id="liveStatusBadge"
-    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold bg-gray-500 text-white"
+    class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs md:text-sm font-semibold bg-green-500 text-white backdrop-blur-md shadow-lg"
   >
-    ● Checking…
+    <span class="w-2.5 h-2.5 bg-white rounded-full animate-pulse"></span>
+    LIVE
   </span>
 </div>
 
-      <!-- Player -->
-      <div class="aspect-video w-full">
-        <iframe
-          id="liveFrame"
-          src="https://www.youtube.com/embed/live_stream?channel=YOUR_CHANNEL_ID"
-          class="w-full h-full"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
+          <!-- Player — 16:9 Fill -->
+          <iframe
+            id="liveFrame"
+            src="https://www.youtube.com/embed/live_stream?channel=UC2f4d_FFU4HiTT_DiPhZwvw"
+            class="absolute inset-0 w-full h-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
       </div>
     </div>
 
-    <!-- SHARE BUTTON (Apple Standard) -->
-    <div class="mt-8 flex justify-center">
+    <!-- SHARE BUTTON WITH MENU -->
+    <div class="mt-12 flex justify-center relative">
       <button
         id="tlpShareBtn"
-        class="group relative px-6 py-3 rounded-full bg-brand-red text-white font-semibold
-               shadow-sm hover:bg-brand-red/90 hover:shadow-lg active:scale-[0.97]
-               transition-all duration-300 flex items-center gap-2"
+        class="group relative px-5 py-3 md:px-8 md:py-4 rounded-full bg-gradient-to-r from-brand-red to-red-600 text-white font-semibold text-base md:text-lg shadow-lg hover:shadow-2xl hover:from-brand-red hover:to-red-700 active:scale-95 transition-all duration-300 flex items-center gap-2 md:gap-2.5 border border-red-500/50 backdrop-blur-sm hover:animate-pulse-soft"
       >
         <svg 
-          class="w-5 h-5 transition-transform duration-300 group-hover:-translate-y-0.5"
+          class="w-5 h-5 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12"
           fill="none" stroke="currentColor" stroke-width="2"
           stroke-linecap="round" stroke-linejoin="round"
           viewBox="0 0 24 24"
@@ -69,120 +110,168 @@ const serviceMinute = 0;
           <path d="M8.59 13.51l6.83 3.98" />
           <path d="M15.41 6.51L8.59 10.49" />
         </svg>
-        <span>Share</span>
+        <span class="group-hover:tracking-wide transition-all duration-300">Share</span>
       </button>
+
+      <!-- SHARE MENU (Hidden by default) -->
+      <div
+        id="tlpShareMenu"
+        class="absolute top-full mt-3 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-2xl p-4 min-w-[220px] hidden z-50
+               backdrop-blur-xl border border-white/20 opacity-0 scale-95 transition-all duration-300"
+      >
+        <!-- Copy Link -->
+        <a
+          id="shareLink"
+          href="#"
+          class="flex items-center gap-3 w-full px-4 py-3 text-left text-gray-700 hover:bg-gray-50 rounded-lg transition"
+        >
+          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.658 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+          </svg>
+          <span class="font-medium">Copy Link</span>
+        </a>
+
+        <!-- Facebook -->
+        <a
+          id="shareFacebook"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-3 w-full px-4 py-3 text-left text-gray-700 hover:bg-gray-50 rounded-lg transition"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          <span class="font-medium">Facebook</span>
+        </a>
+
+        <!-- Twitter/X -->
+        <a
+          id="shareTwitter"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-3 w-full px-4 py-3 text-left text-gray-700 hover:bg-gray-50 rounded-lg transition"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a14.028 14.028 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+          </svg>
+          <span class="font-medium">Twitter</span>
+        </a>
+
+        <!-- WhatsApp -->
+        <a
+          id="shareWhatsapp"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-3 w-full px-4 py-3 text-left text-gray-700 hover:bg-gray-50 rounded-lg transition"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-9.746 9.798c0 2.734.844 5.404 2.437 7.621L.96 23.953l8.141-2.687a9.844 9.844 0 004.746 1.207h.005c5.444 0 9.868-4.43 9.868-9.98 0-2.649-.826-5.147-2.38-7.27A9.833 9.833 0 0011.651 6.979z"/>
+          </svg>
+          <span class="font-medium">WhatsApp</span>
+        </a>
+
+        <!-- Email -->
+        <a
+          id="shareEmail"
+          class="flex items-center gap-3 w-full px-4 py-3 text-left text-gray-700 hover:bg-gray-50 rounded-lg transition"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          <span class="font-medium">Email</span>
+        </a>
+      </div>
     </div>
 
   </section>
 
-  <!-- OUR MISSION -->
-<section class="max-w-5xl mx-auto px-6 py-24 pt-24 pb-32 text-center">
-
-  <p class="max-w-4xl mx-auto text-3xl sm:text-6xl font-semibold leading-snug text-gray-900">
-    Every time we meet, we see how true, good, beautiful and kind
-    <span
-      class="relative inline-block px-3 py-0 rounded-[9px] bg-brand-red text-white font-bold border-4 border-white shadow-lg tracking-wide rotate-[-2deg]"
-    >
-      Jesus
-      <span class="absolute top-1 left-1 w-2 h-2 rounded-full border border-gray-700 shadow bg-gray-300"></span>
-      <span class="absolute top-1 right-1 w-2 h-2 rounded-full border border-gray-700 shadow bg-gray-300"></span>
-    </span>
-    is
-  </p>
-</section>
-
-
+  <!-- NEXT STEPS & CTA SECTION -->
+  <section class="w-full bg-white py-16 md:py-24">
   <!-- GRID -->
-    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
+    <div class="px-4 md:px-6 grid gap-6 md:gap-10 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
 
    <!-- INLINE GLASS APP DOWNLOAD CARD -->
 <div
   id="download-app"
-  class="mx-auto mt-16 max-w-md backdrop-blur-xl bg-white/20 border border-white/30
-         cine-zoom-apple-hover shadow-2xl rounded-[36px] p-8 text-center ring-1 ring-brand-red animate-floatSlow"
+  class="w-full max-w-sm mx-auto backdrop-blur-xl bg-white/20 border border-white/30
+         cine-zoom-apple-hover shadow-2xl rounded-2xl md:rounded-[36px] p-6 md:p-8 text-center ring-1 ring-brand-red animate-floatSlow cursor-pointer transition-all duration-300 hover:shadow-2xl"
 >
 
   <img 
     src="/expo-qr.png"
     alt="Download App QR"
-    class="w-36 h-36 mx-auto mb-4 rounded-lg shadow-md"
+    class="w-24 md:w-36 h-24 md:h-36 mx-auto mb-3 md:mb-4 rounded-lg shadow-md"
   />
 
-  <h3 class="text-2xl font-semibold text-gray-900 mb-2">
+  <h3 class="text-xl md:text-2xl font-semibold text-gray-900 mb-2">
     Download Our App
   </h3>
 
   <!-- ⚠️ DISABLED APP STORE AND GOOGLE PLAY BADGES -->
-  <div class="flex justify-center items-center gap-4 mb-4 opacity-90 cursor-not-allowed select-none">
+  <div class="flex flex-col sm:flex-row justify-center items-center gap-2 md:gap-4 mb-4 opacity-90 cursor-not-allowed select-none">
     <img 
       src="/app-store-badge.svg"
       alt="Download on the App Store"
-      class="h-12 w-auto"
+      class="h-10 md:h-12 w-auto"
     />
 
 <img 
     src="/google-play-badge.jpg"
     alt="Get it on Google Play"
-    class="h-16 w-auto"
+    class="h-10 md:h-16 w-auto"
   />
 
   </div>
 
-  <p class="text-md text-gray-600 italic">
+  <p class="text-sm md:text-base text-gray-600 italic">
     Download coming soon
   </p>
 
 </div>
 
       <!-- GIVE -->
-      <div
-        class="cine-zoom-apple-hover relative rounded-[36px] p-10
+      <a
+        href="/give"
+        class="block w-full max-w-sm cine-zoom-apple-hover relative rounded-2xl md:rounded-[36px] p-6 md:p-10
                backdrop-blur-xl bg-white/10 ring-1 ring-brand-red 
-               shadow-[0_8px_40px_rgba(0,0,0,0.25)] text-center overflow-hidden"
+               shadow-[0_8px_40px_rgba(0,0,0,0.25)] text-center overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-[0_12px_50px_rgba(0,0,0,0.35)]"
       >
         <img 
   src="/hand-holding-heart.png" 
   alt="Give Icon"
-  class="w-16 h-16 mx-auto mb-5 opacity-90"
+  class="w-12 md:w-16 h-12 md:h-16 mx-auto mb-3 md:mb-5 opacity-90"
 />
 
 
-        <h3 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-3">
+        <h3 class="text-xl md:text-3xl font-semibold text-gray-900 mb-2 md:mb-3">
           Partner With Us
         </h3>
-        <p class="text-gray-700 mb-6 text-lg">
+        <p class="text-sm md:text-base text-gray-700 mb-4 md:mb-6">
           Your generosity moves the mission of <span class="word-jesus">Jesus</span> forward.
         </p>
-
-        <a href="/give" class="inline-block mt-2 text-brand-red font-semibold hover:underline">
-          Give Online →
-        </a>
-      </div>
+      </a>
 
       <!-- PLAN A VISIT -->
-      <div
-        class="cine-zoom-apple-hover relative rounded-[36px] p-10
+      <a
+        href="/visit"
+        class="block w-full max-w-sm cine-zoom-apple-hover relative rounded-2xl md:rounded-[36px] p-6 md:p-10
                backdrop-blur-xl bg-white/10 ring-1 ring-brand-red 
-               shadow-[0_8px_40px_rgba(0,0,0,0.25)] text-center overflow-hidden sm:col-span-2 lg:col-span-1"
+               shadow-[0_8px_40px_rgba(0,0,0,0.25)] text-center overflow-hidden sm:col-span-2 lg:col-span-1 cursor-pointer transition-all duration-300 hover:shadow-[0_12px_50px_rgba(0,0,0,0.35)]"
       >
            <img 
   src="/home.svg" 
   alt="Give Icon"
-  class="w-16 h-16 mx-auto mb-5 opacity-90"
+  class="w-12 md:w-16 h-12 md:h-16 mx-auto mb-3 md:mb-5 opacity-90"
 />
 
 
-        <h3 class="text-2xl md:text-3xl font-semibold text-gray-900 mb-3">
+        <h3 class="text-xl md:text-3xl font-semibold text-gray-900 mb-2 md:mb-3">
           Plan a Visit
         </h3>
-        <p class="text-gray-700 mb-6 text-lg">
+        <p class="text-sm md:text-base text-gray-700 mb-4 md:mb-6">
           We would love to welcome you this Sunday.
         </p>
-
-        <a href="/visit" class="inline-block mt-2 text-brand-red font-semibold hover:underline">
-          Plan Your Visit →
-        </a>
-      </div>
+      </a>
 
     </div>
     <!-- END GRID -->
@@ -194,39 +283,52 @@ const serviceMinute = 0;
   <!-- Scripts -->
   <script>
     /* ---------------------------
-       SHARE BUTTON
+       SHARE BUTTON WITH MENU
     ----------------------------*/
     const shareBtn = document.getElementById("tlpShareBtn");
+    const shareMenu = document.getElementById("tlpShareMenu");
+    const pageUrl = window.location.href;
+    const pageTitle = "Join us live at The Life Place!";
 
-    shareBtn.addEventListener("click", async () => {
-      const shareData = {
-        title: document.title,
-        text: "Join us live at The Life Place!",
-        url: window.location.href
-      };
+    // Toggle menu
+    shareBtn.addEventListener("click", () => {
+      shareMenu.classList.toggle("hidden");
+    });
 
-      // Native share
-      if (navigator.share) {
-        try {
-          await navigator.share(shareData);
-          return;
-        } catch (e) {
-          console.warn("Share cancelled:", e);
-        }
+    // Close menu when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!shareBtn.contains(e.target) && !shareMenu.contains(e.target)) {
+        shareMenu.classList.add("hidden");
       }
+    });
 
-      // Fallback
+    // Copy Link
+    document.getElementById("shareLink").addEventListener("click", async (e) => {
+      e.preventDefault();
       try {
-        await navigator.clipboard.writeText(window.location.href);
-        tlpCopiedToast();
+        await navigator.clipboard.writeText(pageUrl);
+        tlpCopiedToast("Link copied!");
+        shareMenu.classList.add("hidden");
       } catch {
         alert("Link copied!");
       }
     });
 
-    function tlpCopiedToast() {
+    // Facebook
+    document.getElementById("shareFacebook").href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`;
+
+    // Twitter
+    document.getElementById("shareTwitter").href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(pageTitle)}&url=${encodeURIComponent(pageUrl)}`;
+
+    // WhatsApp
+    document.getElementById("shareWhatsapp").href = `https://wa.me/?text=${encodeURIComponent(pageTitle + " " + pageUrl)}`;
+
+    // Email
+    document.getElementById("shareEmail").href = `mailto:?subject=${encodeURIComponent("Join us live at The Life Place!")}&body=${encodeURIComponent(pageTitle + "\n" + pageUrl)}`;
+
+    function tlpCopiedToast(message = "Copied!") {
       const t = document.createElement("div");
-      t.textContent = "Link copied!";
+      t.textContent = message;
       t.className =
         "tlp-toast-red fixed bottom-6 right-6 px-4 py-2 text-white text-sm font-medium " +
         "rounded-full shadow-xl backdrop-blur-xl animate-toastSlide z-[99999]";
@@ -310,64 +412,69 @@ window.__TLP_IS_LIVE = true; // if truly LIVE
   setInterval(updateLiveBadge, 60000);
 </script>
 
-  <!-- ANIMATIONS -->
+  <!-- ANIMATIONS & STYLES -->
 <style>
-  @keyframes fog {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(20px); }
+  /* Blob animation */
+  @keyframes blob {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
   }
-  .animate-fog { animation: fog 10s ease-in-out infinite alternate; }
+  .animate-blob { animation: blob 7s infinite; }
+  .animation-delay-2000 { animation-delay: 2s; }
+  .animation-delay-4000 { animation-delay: 4s; }
 
+  /* Pulse soft */
+  @keyframes pulse-soft {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+    50% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+  }
+  .hover\:animate-pulse-soft:hover { animation: pulse-soft 2s infinite; }
+
+  /* Menu animations */
+  #tlpShareMenu.hidden { 
+    display: none;
+  }
+  #tlpShareMenu:not(.hidden) {
+    opacity: 1 !important;
+    scale: 1 !important;
+    animation: menuSlideUp 0.3s ease-out;
+  }
+  @keyframes menuSlideUp {
+    from {
+      opacity: 0;
+      scale: 0.95;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      scale: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Fade up animations */
   @keyframes fadeUp {
     0% { opacity: 0; transform: translateY(25px); }
     100% { opacity: 1; transform: translateY(0); }
   }
-  .animate-fadeUp { animation: fadeUp .8s ease-out both; }
+  .animate-fadeUp { animation: fadeUp 0.8s ease-out both; }
 
-  @keyframes iconRise {
-    0% { transform: translateY(30px) scale(0.8); opacity: 0; }
-    100% { transform: translateY(0) scale(1); opacity: 1; }
+  /* Stagger animation */
+  @keyframes staggerIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
-  .animate-iconRise { animation: iconRise .9s cubic-bezier(.25,.46,.45,.94) forwards; }
-
-  .sheen::after {
-    content:""; position:absolute; top:0; left:-150%; width:200%; height:100%;
-    background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent);
-    animation:sheenMove 2.6s ease-in-out infinite;
-  }
-  @keyframes sheenMove {
-    0% { left:-150%; }
-    50% { left:100%; }
-    100% { left:100%; }
-  }
-
-  .particle-layer {
-    background-image: radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 1px);
-    background-size: 3px 3px;
-  }
-
-  .sparkle-layer {
-    background-image:
-      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.25), transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.18), transparent 50%);
-    animation: sparkleMove 8s ease-in-out infinite alternate;
-  }
-  @keyframes sparkleMove {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(10px); }
-  }
-
-  .gradient-underline {
-    position:absolute; left:0; bottom:-4px;
-    width:100%; height:3px; border-radius:999px;
-    background:linear-gradient(90deg, transparent 0%, #B3282D 50%, transparent 100%);
-    background-size:200% 100%;
-    animation: gradientSlide 2.8s ease-in-out infinite;
-  }
-  @keyframes gradientSlide {
-    0% { background-position:200% 0; }
-    50% { background-position:0% 0; }
-    100% { background-position:-200% 0; }
+  
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2.25rem;
+    }
+    #tlpShareBtn {
+      padding: 0.875rem 1.5rem;
+      font-size: 1rem;
+    }
   }
 </style>
 

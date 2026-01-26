@@ -8,12 +8,12 @@ import AppDownloadCard from "../../components/AppDownloadCard.astro";
 <BaseLayout title="Our Values">
 
 
-<!-- HERO IMAGE SECTION — Full-Bleed, No Rounded Corners -->
-<section class="relative left-1/2 right-1/2 -mx-[50vw] w-screen h-[70vh] overflow-hidden tlp-grayscale rounded-none">
+<!-- HERO IMAGE SECTION — Full-Bleed using CSS Grid Escape -->
+<section class="w-[100vw] h-[50vh] md:h-[70vh] overflow-hidden tlp-grayscale rounded-none" style="margin-left: calc(50% - 50vw); position: relative;">
   <img
     src="/our-values6.jpg"
     alt="Our Values Hero"
-    class="absolute inset-0 w-full h-full object-cover rounded-none"
+    class="absolute inset-0 w-full h-full object-cover object-center rounded-none !rounded-none"
     style="border-radius:0!important; z-index:0;"
   />
   <!-- ensure any overlay/text sits above the image -->

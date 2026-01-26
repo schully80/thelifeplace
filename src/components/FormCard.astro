@@ -57,18 +57,18 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     </div>
 
     <!-- Submit Button + Flash Message -->
-    <div class="text-center pt-1">
+    <div class="text-center pt-4 md:pt-6">
       <button
         type="submit"
         id="tlpSubmitBtn"
         disabled
-        class="btn-outline disabled:opacity-50 disabled:cursor-not-allowed"
+        class="px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-brand-red to-red-600 text-white text-base md:text-lg font-bold rounded-full shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:scale-105"
       >
         {ctaText}
       </button>
 
       {showComingSoon && (
-        <p class="mt-3 text-sm text-brand-red animate-pulse">
+        <p class="mt-4 text-sm md:text-base text-brand-red font-medium">
           {comingSoonMessage}
         </p>
       )}
@@ -95,8 +95,6 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     color: white;
     box-shadow: 0 4px 14px rgba(179, 40, 45, 0.25);
   }
-
-  <style>
   /* Soft fade-in for instruction text */
   .fade-in-soft {
     opacity: 0;

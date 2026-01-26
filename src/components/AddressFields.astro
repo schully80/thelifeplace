@@ -6,51 +6,65 @@
   /* Floating label wrapper */
   .field {
     position: relative;
-    padding-top: 1.2rem;
   }
 
   .field input {
     width: 100%;
-    border: none;
-    border-bottom: 1.5px solid #d1d5db;
-    padding: 6px 2px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 14px 12px;
     font-size: 15px;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.7);
     outline: none;
-    transition: border-color .25s ease;
+    transition: all .25s ease;
+    font-family: inherit;
   }
 
   .field input:focus {
-    border-bottom-color: #B3282D;
+    border-color: #B3282D;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 0 3px rgba(179, 40, 45, 0.1);
   }
 
   .field label {
     position: absolute;
-    left: 2px;
-    bottom: 6px;
+    left: 12px;
+    top: 14px;
     font-size: 15px;
     color: #9ca3af;
     pointer-events: none;
     transition: all .25s ease;
+    font-weight: 500;
+    origin: left top;
+    background: white;
+    padding: 0 4px;
   }
 
   .field input:focus + label,
   .field input:not(:placeholder-shown) + label {
-    transform: translateY(-1.2rem);
+    transform: translateY(-30px) scale(0.85);
     font-size: 12px;
     color: #B3282D;
+    font-weight: 600;
+    background: white;
   }
 
   /* Error message */
   .error-text {
     font-size: 13px;
     color: #B3282D;
-    margin-top: 4px;
+    margin-top: 6px;
     display: none;
+    font-weight: 500;
   }
 
   .show-error .error-text {
     display: block;
+  }
+
+  .show-error .field input {
+    border-color: #B3282D;
+    background: rgba(179, 40, 45, 0.05);
   }
 
   /* Shake animation */
@@ -67,13 +81,13 @@
   }
 </style>
 
-<section class="space-y-10 pb-8">
+<section class="space-y-12 pb-8">
 
   <!-- USER INFO -->
-  <h2 class="text-xl font-semibold mt-6">Your Details</h2>
+  <h2 class="text-xl font-semibold mt-8 text-center">Your Details</h2>
 
 
-<p class="text-sm text-gray-500 mt-2 mb-4">
+<p class="text-sm text-gray-500 mt-3 mb-6">
   * Required fields
 </p>
 
@@ -115,7 +129,7 @@
   </div>
 
   <!-- ADDRESS -->
-  <h2 class="text-xl font-semibold mt-6">Your Address</h2>
+  <h2 class="text-xl font-semibold mt-6 text-center">Your Address</h2>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 

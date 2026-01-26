@@ -18,17 +18,20 @@ export default function initQuickGive(root) {
     summaryText.innerHTML = `
       <strong>You’re giving ${amount}</strong>
       (${frequency} · ${category})<br />
-      <span class="text-gray-600">
+      <span class="text-gray-600 text-sm md:text-base">
         Choose how you’d like to give.
       </span>
     `;
 
     methodStep.classList.remove("hidden");
 
-    methodStep.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    // Smooth scroll with better mobile UX
+    setTimeout(() => {
+      methodStep.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }, 100);
   }
 
   // Frequency
@@ -51,9 +54,9 @@ export default function initQuickGive(root) {
       category = btn.dataset.category;
 
       categoryBtns.forEach((b) =>
-        b.classList.remove("border-brand-red", "ring-2")
+        b.classList.remove("border-brand-red", "ring-2", "ring-brand-red/30")
       );
-      btn.classList.add("border-brand-red", "ring-2");
+      btn.classList.add("border-brand-red", "ring-2", "ring-brand-red/30");
 
       updateSummary();
     });
@@ -65,9 +68,9 @@ export default function initQuickGive(root) {
       amount = btn.dataset.amount;
 
       amountBtns.forEach((b) =>
-        b.classList.remove("bg-brand-red", "text-white")
+        b.classList.remove("bg-brand-red", "text-white", "border-brand-red")
       );
-      btn.classList.add("bg-brand-red", "text-white");
+      btn.classList.add("bg-brand-red", "text-white", "border-brand-red");
 
       updateSummary();
     });
