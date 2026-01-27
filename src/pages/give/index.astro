@@ -10,32 +10,42 @@ import QuickGive from "../../components/giving/QuickGive.astro";
 const url = new URL(Astro.request.url);
 const event = url.searchParams.get("event");
 ---
-
 <BaseLayout title="Generosity — The Life Place">
-  <main class="w-full overflow-x-hidden">
 
+<!-- FULL-WIDTH HERO SECTION -->
+<section class="relative w-screen h-[30vh] md:h-[70vh] overflow-hidden -ml-[calc((100vw-100%)/2)]">
+  <div class="absolute inset-0 w-full h-full">
 
-<!-- HERO / Giving -->
-<section class="relative w-full h-[30vh] md:h-[70vh] overflow-hidden">
-  <div class="absolute inset-0 grid grid-cols-2 gap-0">
-    <img src="/giving-hero2.jpg" alt="Community members giving together at The Life Place" class="w-full h-full object-cover" />
-    <img src="/giving-hero7.jpg" alt="Generosity in action at The Life Place" class="w-full h-full object-cover" />
+    <div class="absolute inset-0 grid grid-cols-2 w-full h-full">
+      <img
+        src="/giving-hero2.jpg"
+        alt="Community members giving together"
+        class="w-full h-full object-cover col-start-1 row-start-1"
+      />
+      <img
+        src="/giving-hero7.jpg"
+        alt="Generosity in action"
+        class="w-full h-full object-cover col-start-2 row-start-1"
+      />
+    </div>
+
+    <div
+      class="pointer-events-none absolute inset-y-0 left-1/2 w-32 -translate-x-1/2
+             bg-gradient-to-r from-transparent via-black/60 to-transparent z-10">
+    </div>
+
+    <div class="absolute inset-0 bg-black/10"></div>
+    <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/20 to-transparent"></div>
+
   </div>
-
-  <!-- Seam softener - blends the middle seamlessly -->
-  <div
-    class="pointer-events-none absolute inset-y-0 left-1/2 w-48 -translate-x-1/2
-           bg-gradient-to-r from-transparent via-black/70 to-transparent z-10">
-  </div>
-
-  <div class="absolute inset-0 bg-black/10"></div>
-  <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/15 to-transparent"></div>
 </section>
 
+<!-- PAGE CONTENT CONTAINER -->
+<div class="w-full max-w-6xl xl:max-w-7xl 2xl:max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8">
 
 <!-- PAGE HEADER -->
-<section class="w-full px-4 md:px-6 lg:px-8 py-16 md:py-20 bg-white relative">
-  <div class="max-w-6xl mx-auto px-6 py-28 md:py-36 text-center">
+<section class="w-full px-0 py-8 md:py-20 bg-white relative">
+  <div class="max-w-6xl mx-auto px-6 py-12 md:py-36 text-center">
 
     <h1
       class="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900"
@@ -63,7 +73,7 @@ const event = url.searchParams.get("event");
     <h2
       class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] text-gray-900 mb-[5rem]"
     >
-      Your generosity creates more space and resources so others can
+      Your generosity creates more opportunities and resources so others can
       <span class="block text-brand-red">
         Come. See. Jesus
       </span>
@@ -72,17 +82,20 @@ const event = url.searchParams.get("event");
 </section>
 
 <!-- QUICK GIVE + METHODS (Unified Container) -->
-<section class="w-full px-4 md:px-6 lg:px-8 py-16 md:py-28 relative">
+<section class="w-full px-4 md:px-6 lg:px-8 py-8 md:py-28 relative">
   <div class="max-w-6xl mx-auto">
+
+    <!-- Guide Text (Above Container) -->
+    <p class="text-lg sm:text-xl md:text-2xl text-gray-700 text-center mb-10 md:mb-16 md:max-w-full mx-auto leading-relaxed">
+      Below is a simple, guided way to give generously — step by step.
+    </p>
 
     <!-- Unified Container: QuickGive + Methods -->
     <div class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red shadow-sm hover:shadow-md transition overflow-hidden">
       
       <!-- QuickGive Section (Top) -->
-<div class="p-6 sm:p-8 md:p-20 pb-6 md:pb-10 ...">
-        <QuickGive
-          subtitle="Below is a simple, guided way to give generously — step by step."
-        />
+      <div class="p-4 sm:p-6 md:p-20 pb-4 md:pb-10">
+        <QuickGive />
       </div>
 
       <!-- Methods Section (Bottom) -->
@@ -192,24 +205,21 @@ const event = url.searchParams.get("event");
         <!-- Mobile Tab Interface -->
         <div class="md:hidden space-y-5">
           <!-- Tabs -->
-<div class="flex gap-2 mb-6 overflow-x-auto no-scrollbar -mx-2 px-2 pb-2">
-            <button class="methodTab active shrink-0 rounded-full px-4 md:px-6 py-2 md:py-3 text-base font-semibold transition" data-tab="eft" 
+          <div class="flex flex-col gap-3 mb-6">
+            <button class="methodTab active shrink-0 rounded-full px-4 md:px-6 py-2 md:py-3 text-base font-semibold transition w-full" data-tab="eft" 
             style="background-color: #DC2626; color:#ffffff;">
               EFT
             </button>
-<button class="methodTab active shrink-0 rounded-full px-4 py-2 text-base font-semibold transition" ...>
+            <button class="methodTab shrink-0 rounded-full px-4 py-2 text-base font-semibold transition w-full" data-tab="snapscan" style="background-color: #f5f5f5; color:#333;">
               SnapScan
             </button>
-<button class="methodTab active shrink-0 rounded-full px-4 py-2 text-base font-semibold transition" ...>
+            <button class="methodTab shrink-0 rounded-full px-4 py-2 text-base font-semibold transition w-full" data-tab="paypal" style="background-color: #f5f5f5; color:#333;">
               PayPal
-            </button>
-<button class="methodTab active shrink-0 rounded-full px-4 py-2 text-base font-semibold transition" ...>
-              In Person
             </button>
           </div>
 
           <!-- EFT Tab Content -->
-          <div class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-10 fadeIn shadow-sm hover:shadow-md transition" data-tab-content="eft">
+          <div class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-6 fadeIn shadow-sm hover:shadow-md transition" data-tab-content="eft">
             <h3 class="text-xl font-extrabold mb-6 text-center">EFT (Bank Transfer)</h3>
             <div class="flex justify-center mb-6">
               <img
@@ -231,7 +241,7 @@ const event = url.searchParams.get("event");
           </div>
 
           <!-- SnapScan Tab Content -->
-          <a href="https://pos.snapscan.io/qr/VISFNLkM" class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-10 hidden fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all block" data-tab-content="snapscan">
+          <a href="https://pos.snapscan.io/qr/VISFNLkM" class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-6 hidden fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all flex flex-col items-center" data-tab-content="snapscan">
             <h3 class="text-xl font-extrabold mb-6 text-center">SnapScan</h3>
             <div class="flex justify-center mb-6">
               <img
@@ -263,27 +273,27 @@ const event = url.searchParams.get("event");
             action="https://www.paypal.com/donate"
             method="post"
             target="_top"
-            class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-10 hidden fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all flex flex-col items-center gap-6 cursor-pointer"
+            class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-6 hidden fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all flex flex-col items-center gap-0 cursor-pointer"
             data-tab-content="paypal"
           >
             <input type="hidden" name="hosted_button_id" value="4L3NWWAZ9PPV6" />
-            <h3 class="text-xl font-extrabold mb-4 text-center">PayPal</h3>
-            <div class="flex justify-center mb-4">
+            <h3 class="text-lg font-extrabold mb-3 text-center">PayPal</h3>
+            <div class="flex justify-center mb-3">
               <img
                 src="/paypal-blue.svg"
                 alt="PayPal"
                 class="h-10 w-10"
               />
             </div>
-            <p class="text-base text-gray-700 mb-6 text-center">
-              <span class="block font-semibold uppercase text-sm">International Giving</span>
-              <span class="block text-sm text-gray-500">(Outside South Africa)</span>
+            <p class="text-sm text-gray-700 mb-3 text-center">
+              <span class="block font-semibold uppercase text-xs">International Giving</span>
+              <span class="block text-xs text-gray-500">(Outside South Africa)</span>
             </p>
-            <p class="text-xs text-gray-500 mb-4 text-center">Click anywhere on this card to pay</p>
-            <button type="submit">
+            <p class="text-xs text-gray-500 mb-3 text-center">Click button or anywhere on this card to give</p>
+            <button type="submit" class="mb-3">
               <img
                 src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
-                class="rounded-2xl border p-2 bg-white shadow-md pointer-events-none"
+                class="h-auto max-w-xs rounded-lg border p-1 bg-white shadow-sm pointer-events-none"
               />
             </button>
             <button
@@ -297,17 +307,6 @@ const event = url.searchParams.get("event");
               Give via PayPal
             </button>
           </form>
-
-          <!-- In Person Tab Content -->
-          <div class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-10 hidden fadeIn shadow-sm hover:shadow-md transition" data-tab-content="inperson">
-            <h3 class="text-xl font-extrabold mb-4 text-center">Give in Person</h3>
-            <p class="text-base text-gray-700 leading-relaxed">
-              While we encourage online giving for security and simplicity, we gladly receive in-person gifts during our weekend gatherings.
-            </p>
-            <p class="mt-4 text-sm text-gray-500 text-center">
-              No pressure. No obligation. Simply an expression of worship.
-            </p>
-          </div>
         </div>
       </div>
     </div>
@@ -534,6 +533,10 @@ const event = url.searchParams.get("event");
   </p>
 </section>
 
+</div>
+<!-- END PAGE CONTENT CONTAINER -->
+
+</BaseLayout>
 
 <script is:inline>
   document.addEventListener("DOMContentLoaded", () => {
@@ -566,11 +569,13 @@ const event = url.searchParams.get("event");
           content.classList.remove("hidden");
         }
         
-        // Smooth scroll to methods section
-        const methodsSection = document.getElementById("giving-methods");
-        if (methodsSection) {
-          methodsSection.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        }
+        // Smooth scroll after animation starts (delays scroll to let fade-in play)
+        setTimeout(() => {
+          const methodsSection = document.getElementById("giving-methods");
+          if (methodsSection) {
+            methodsSection.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }
+        }, 150);
       });
     });
 
@@ -623,11 +628,6 @@ const event = url.searchParams.get("event");
   });
 </script>
 
-
-
-  </main>
-</BaseLayout>
-
 <style>
   /* Method card fade-in animation */
   @keyframes fadeIn {
@@ -642,7 +642,19 @@ const event = url.searchParams.get("event");
   }
 
   .fadeIn {
-    animation: fadeIn 0.6s ease-out forwards;
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+
+  /* Smooth transitions for tab content */
+  .methodTabContent {
+    transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+  }
+
+  .methodTabContent.hidden {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 
   /* QuickGive intro text styling */

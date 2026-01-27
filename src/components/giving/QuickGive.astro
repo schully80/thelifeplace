@@ -10,18 +10,13 @@ const amounts = ["R100", "R250", "R500", "R1,000", "Custom"];
 <section
   data-quick-give
 >
-  <!-- INTRO -->
-  <p class="text-lg sm:text-xl md:text-2xl text-gray-700 text-center mb-10 md:mb-16 max-w-2xl mx-auto leading-relaxed text-balance">
-    {subtitle}
-  </p>
-
   <!-- STEP 1: AMOUNT -->
-  <div class="mb-10 md:mb-12">
-    <p class="text-xl md:text-2xl font-extrabold text-gray-900 mb-6 md:mb-8">
+  <div class="mb-6 md:mb-12">
+    <p class="text-lg md:text-2xl font-extrabold text-gray-900 mb-4 md:mb-8">
       Step 1 · CHOOSE AMOUNT 
     </p>
 
-    <div class="flex flex-wrap gap-4 md:gap-5">
+    <div class="flex flex-wrap gap-3 md:gap-5">
       {amounts.map((a) => (
         <button
           type="button"
@@ -39,11 +34,11 @@ const amounts = ["R100", "R250", "R500", "R1,000", "Custom"];
 
   <!-- STEP 2: CATEGORY -->
   <div class="mb-0">
-    <p class="text-xl md:text-2xl font-extrabold text-gray-900 mb-6 md:mb-8">
+    <p class="text-lg md:text-2xl font-extrabold text-gray-900 mb-4 md:mb-8">
       Step 2 · PURPOSE
     </p>
 
-    <div class="flex flex-wrap gap-4 md:gap-5">
+    <div class="flex flex-wrap gap-3 md:gap-5">
       {categories.map((c) => (
         <button
           type="button"

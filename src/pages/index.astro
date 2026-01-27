@@ -65,7 +65,7 @@ import FadeDivider from "../components/tlp/FadeDivider.astro";
     </div>
 
     <!-- LEFT — IMAGE BLOCK (moved to second position) -->
-    <div class="relative w-full h-[350px] md:h-[450px] lg:h-[550px]
+    <div class="relative w-full h-[400px] md:h-[450px] lg:h-[600px]
                 overflow-hidden rounded-3xl shadow-xl">
 
       <!-- Subtle overlay -->
@@ -83,7 +83,7 @@ import FadeDivider from "../components/tlp/FadeDivider.astro";
 </section>
 
 <!-- FADE DIVIDER -->
-<FadeDivider mt="mt-16" mb="mb-16" />
+<FadeDivider mt="mt-16" mb="mb-16" width="w-[90%] max-w-6xl" />
 
 <!-- SLOGAN BLOCK -->
 <div id="slogan-block" class="w-full text-center py-12 md:py-20 bg-white relative">
@@ -132,7 +132,7 @@ import FadeDivider from "../components/tlp/FadeDivider.astro";
 <!-- SECTION WHAT WE BELIEVE -->
 
 <!-- FADE DIVIDER -->
-<FadeDivider mt="mt-40" mb="mb-20" />
+<FadeDivider mt="mt-40" mb="mb-20" width="w-[90%] max-w-6xl" />
 
 
 <section id="what-we-believe" 
@@ -149,13 +149,14 @@ class="bg-white pt-20 md:pt-28 pb-16 md:pb-24">
     <div class="mx-auto mt-6 mb-8 h-[3px] w-16 rounded-full bg-brand-red/90"></div>
 
     <!-- Intro Paragraph -->
-    <p class="text-center text-lg md:text-xl text-gray-700 leading-relaxed mb-20">
+    <p class="text-center text-lg md:text-xl text-gray-700 leading-relaxed mb-20 max-w-3xl mx-auto">
       Sound doctrine isn’t about rules; it’s about <span class="text-brand-red">JESUS</span>—who He is, what He has done, and how His finished work shapes what we believe and how we live.
     </p>
 
     <div id="believe-anchor"></div>
 
    <!-- Belief Categories -->
+<div class="mx-auto max-w-6xl px-4">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
   {[   
    { title: "GOD", 
@@ -372,6 +373,7 @@ Isaiah 65:17; 2 Peter 3:13; Revelation 21:1–4; 1 Corinthians 15:51–53; Phili
 </details>
       ))}
     </div>
+</div>
   </div>
 </section>
 
@@ -410,7 +412,7 @@ Isaiah 65:17; 2 Peter 3:13; Revelation 21:1–4; 1 Corinthians 15:51–53; Phili
 </style>
 
 <!-- FADE DIVIDER -->
-<FadeDivider mt="mt-20" mb="mb-20" />
+<FadeDivider mt="mt-20" mb="mb-20" width="w-[90%] max-w-6xl" />
 
 <!-- ===========================
      HISTORIC CONFESSIONS — Mini Section (With Red Rings)
@@ -531,7 +533,7 @@ Isaiah 65:17; 2 Peter 3:13; Revelation 21:1–4; 1 Corinthians 15:51–53; Phili
 
 
 <!-- FADE DIVIDER -->
-<FadeDivider mt="mt-20" mb="mb-20" />
+<FadeDivider mt="mt-20" mb="mb-20" width="w-[90%] max-w-6xl" />
 
 
 <!-- ====================================================== -->
@@ -577,7 +579,7 @@ Isaiah 65:17; 2 Peter 3:13; Revelation 21:1–4; 1 Corinthians 15:51–53; Phili
 
 
 <!-- FADE DIVIDER -->
-<FadeDivider mt="mt-20" mb="mb-20" />
+<FadeDivider mt="mt-20" mb="mb-20" width="w-[90%] max-w-6xl" />
 
 </BaseLayout>
 
