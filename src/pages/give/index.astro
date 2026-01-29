@@ -47,9 +47,7 @@ const event = url.searchParams.get("event");
 <section class="w-full px-0 py-8 md:py-20 bg-white relative">
   <div class="max-w-6xl mx-auto px-6 py-12 md:py-36 text-center">
 
-    <h1
-      class="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900"
-    >
+    <h1 class="heading-1">
       Extravagant Generosity
     </h1>
 
@@ -70,9 +68,7 @@ const event = url.searchParams.get("event");
 <!-- IMPACT STATEMENT -->
 <section class="w-full px-4 md:px-6 lg:px-8 py-16 md:py-24">
   <div class="max-w-3xl mx-auto">
-    <h2
-      class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.05] text-gray-900 mb-[5rem]"
-    >
+    <h2 class="heading-2 leading-[1.05] mb-[5rem]">
       Your generosity creates more opportunities and resources so others can
       <span class="block text-brand-red">
         Come. See. Jesus
@@ -91,7 +87,7 @@ const event = url.searchParams.get("event");
     </p>
 
     <!-- Unified Container: QuickGive + Methods -->
-    <div class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red shadow-sm hover:shadow-md transition overflow-hidden">
+    <div class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 shadow-sm hover:shadow-md transition overflow-hidden">
       
       <!-- QuickGive Section (Top) -->
       <div class="p-4 sm:p-6 md:p-20 pb-4 md:pb-10">
@@ -110,7 +106,7 @@ const event = url.searchParams.get("event");
 
           <!-- EFT -->
           <div
-            class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-10 md:p-16 fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all"
+            class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 p-10 md:p-16 fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all"
             style="animation-delay: 0ms"
           >
             <h3 class="text-center text-xl md:text-2xl font-extrabold mb-6 md:mb-8">EFT (Bank Transfer)</h3>
@@ -134,7 +130,7 @@ const event = url.searchParams.get("event");
           </div>
 
           <!-- SNAPSCAN -->
-          <a href="https://pos.snapscan.io/qr/VISFNLkM" class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-10 md:p-16 text-center fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all block" style="animation-delay: 100ms">
+          <a href="https://pos.snapscan.io/qr/VISFNLkM" class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 p-10 md:p-16 text-center fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all block" style="animation-delay: 100ms">
             <h3 class="text-center text-xl md:text-2xl font-extrabold mb-6 md:mb-8">SnapScan</h3>
             <div class="flex justify-center mb-6">
               <img
@@ -165,7 +161,7 @@ const event = url.searchParams.get("event");
             action="https://www.paypal.com/donate"
             method="post"
             target="_top"
-            class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-10 md:p-16 text-center fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all flex flex-col items-center gap-6 md:gap-8 cursor-pointer"
+            class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 p-10 md:p-16 text-center fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all flex flex-col items-center gap-6 md:gap-8 cursor-pointer"
             style="animation-delay: 200ms"
           >
             <input type="hidden" name="hosted_button_id" value="4L3NWWAZ9PPV6" />
@@ -219,7 +215,7 @@ const event = url.searchParams.get("event");
           </div>
 
           <!-- EFT Tab Content -->
-          <div class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-6 fadeIn shadow-sm hover:shadow-md transition" data-tab-content="eft">
+          <div class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 p-6 fadeIn shadow-sm hover:shadow-md transition" data-tab-content="eft">
             <h3 class="text-xl font-extrabold mb-6 text-center">EFT (Bank Transfer)</h3>
             <div class="flex justify-center mb-6">
               <img
@@ -241,7 +237,7 @@ const event = url.searchParams.get("event");
           </div>
 
           <!-- SnapScan Tab Content -->
-          <a href="https://pos.snapscan.io/qr/VISFNLkM" class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-6 fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all flex flex-col items-center" style="display: none;" data-tab-content="snapscan">
+          <a href="https://pos.snapscan.io/qr/VISFNLkM" class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 p-6 fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all flex flex-col items-center hidden" data-tab-content="snapscan">
             <h3 class="text-xl font-extrabold mb-6 text-center">SnapScan</h3>
             <div class="flex justify-center mb-6">
               <img
@@ -273,8 +269,7 @@ const event = url.searchParams.get("event");
             action="https://www.paypal.com/donate"
             method="post"
             target="_top"
-            class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 ring-1 ring-brand-red hover:ring-0 p-6 fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all flex flex-col items-center gap-0 cursor-pointer"
-            style="display: none;"
+            class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 p-6 fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all flex flex-col items-center gap-0 cursor-pointer hidden"
             data-tab-content="paypal"
           >
             <input type="hidden" name="hosted_button_id" value="4L3NWWAZ9PPV6" />
@@ -334,7 +329,7 @@ const event = url.searchParams.get("event");
 <section class="w-full px-4 md:px-6 lg:px-8 py-16 md:py-24">
   <div class="max-w-6xl mx-auto">
     <div
-      class="relative overflow-hidden rounded-3xl md:rounded-[36px] border bg-white ring-1 ring-brand-red shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition
+      class="relative overflow-hidden rounded-3xl md:rounded-[36px] border bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition
              p-8 md:p-14"
       aria-labelledby="annual-report-title"
     >
@@ -347,8 +342,7 @@ const event = url.searchParams.get("event");
 
       
       <div class="flex-1 w-full">
-        <h2 id="annual-report-title"
-            class="text-xl md:text-4xl text-center font-bold tracking-tight text-gray-900">
+        <h2 id="annual-report-title" class="heading-2 text-center">
           Annual Financial Report
         </h2>
      
@@ -367,7 +361,7 @@ const event = url.searchParams.get("event");
 <p class="mt-4 text-center text-base md:text-lg text-gray-600 leading-relaxed">
   To receive this report, contact us at
   <a href="mailto:giving@thelifeplace.org" class="font-semibold text-brand-red hover:underline">
-    giving@thelifeplace.org
+    hello@thelifeplace.org
   </a>
   or during office hours at
   <a href="tel:+27765639460" class="font-semibold text-brand-red hover:underline">
@@ -384,7 +378,7 @@ const event = url.searchParams.get("event");
   <div class="max-w-6xl mx-auto data-faq-accordion">
   <!-- Header -->
   <div class="text-center mb-10 md:mb-14">
-    <h2 class="text-2xl md:text-4xl font-extrabold tracking-tight text-gray-900">
+    <h2 class="heading-2">
       Giving FAQs
     </h2>
     <p class="mt-3 md:mt-4 text-base md:text-lg text-gray-600">
@@ -652,7 +646,7 @@ const event = url.searchParams.get("event");
   }
 
   .methodTabContent.hidden {
-    display: none;
+    display: none !important;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;

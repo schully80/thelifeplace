@@ -1,0 +1,526 @@
+---
+const {
+  title = "The Life Place",
+  logoSrc = "/logo.png",
+  class: className,
+} = Astro.props;
+
+const path = Astro.url.pathname;
+const isActive = (href) =>
+  href === "/"
+    ? path === "/"
+    : path === href || (href !== "/" && path.startsWith(href) && path.charAt(href.length) === "/");
+---
+
+<header class:list={[
+  "relative z-50 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 h-20 sm:h-24",
+  className,
+]}>
+  <!-- Top bar: 3-column grid -->
+  <div class="h-20 grid grid-cols-[1fr,auto] items-center px-4 gap-2">
+
+    <!-- LEFT: Logo + Title + Slogan -->
+    <div class="flex items-center gap-3 min-w-0">
+      <img src="/logo.png" alt="Logo" class="h-14 w-14 flex-shrink-0" />
+
+      <a
+        href="/"
+        class="flex flex-col items-center min-w-0"
+        aria-label={`${title} — Home`}
+      >
+        <span
+          class="font-bold text-brand-red text-[20px] sm:text-[24px] leading-tight text-center"
+        >
+          {title}
+        </span>
+
+        <span
+          class="text-[12px] sm:text-[13px] text-brand-warmgray-600 tracking-wide text-center"
+        >
+          Come. See. <span class="text-[#B3282D]">Jesus</span>
+        </span>
+      </a>
+    </div>
+
+    <!-- RIGHT: Hamburger Menu Button -->
+    <div class="flex items-center gap-2 flex-shrink-0 ml-auto">
+      <button
+        id="mobileMenuButton"
+        type="button"
+        aria-label="Open menu"
+        aria-controls="mobileNavDrawer"
+        aria-expanded="false"
+        class="p-2 rounded-md hover:bg-gray-100 transition"
+      >
+        <svg viewBox="0 0 24 24" class="h-6 w-6 text-gray-900" aria-hidden="true">
+          <path
+            d="M3 6h18M3 12h18M3 18h18"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+        <span class="sr-only">Open menu</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- OVERLAY -->
+  <div
+    id="mobileNavOverlay"
+    class="fixed inset-0 bg-white opacity-0 pointer-events-none transition-opacity z-[9998] md:hidden"
+    data-overlay
+  ></div>
+
+  <!-- DRAWER -->
+  <aside
+    id="mobileNavDrawer"
+    class="fixed inset-y-0 right-0 w-[86%] max-w-sm bg-white shadow-xl transition-transform will-change-transform z-[9999] focus:outline-none md:hidden translate-x-full"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Mobile Navigation"
+    tabindex="-1"
+    data-drawer
+  >
+    <!-- Drawer header -->
+    <div class="h-16 px-4 flex items-center justify-end border-b">
+      <button
+        id="mobileMenuClose"
+        type="button"
+        aria-label="Close menu"
+      >
+        <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
+          <path
+            d="M6 6l12 12M18 6l-12 12"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+        <span class="sr-only">Close menu</span>
+      </button>
+    </div>
+
+        <!-- Drawer nav -->
+    <nav
+      class="px-4 py-3 overflow-y-auto max-h-[calc(100dvh-4rem)] space-y-2"
+      aria-label="Mobile"
+    >
+      <!-- What to Expect -->
+      <a
+        href="/what-to-expect/"
+        class={`block px-4 py-3.5 rounded-full text-base ${
+          isActive("/what-to-expect/")
+            ? "text-brand-red font-semibold bg-red-50"
+            : "text-brand-darkgray hover:bg-gray-50"
+        }`}
+      >
+        What to Expect
+      </a>
+
+      <!-- ABOUT US ACCORDION -->
+      <section class="mt-2" data-accordion>
+        <button
+          type="button"
+          class="w-full flex items-center justify-between px-4 py-3.5 rounded-full text-left text-base hover:bg-gray-50"
+          data-accordion-trigger
+          aria-expanded="false"
+          aria-controls="acc-about"
+        >
+          <span>About Us</span>
+          <svg class="h-6 w-6 transition-transform" viewBox="0 0 24 24">
+            <path d="M5 10l7 7 7-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
+          </svg>
+        </button>
+
+        <div
+          id="acc-about"
+          class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out"
+          data-accordion-panel
+        >
+          <div class="overflow-hidden">
+            <ul class="py-1">
+              <li>
+                <a
+                  href="/about-us/"
+                  class={`block px-5 py-3 text-[15px] rounded-full ${
+                    isActive("/about-us/")
+                      ? "text-brand-red font-semibold bg-red-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
+                  }`}
+                >
+                 What We Do
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="/about-us/our-values"
+                  class={`block px-5 py-3 text-[15px] rounded-full ${
+                    isActive("/about-us/our-values")
+                      ? "text-brand-red font-semibold bg-red-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
+                  }`}
+                >
+                  Our Values
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="/about-us/leadership"
+                  class={`block px-5 py-3 text-[15px] rounded-full ${
+                    isActive("/about-us/leadership")
+                      ? "text-brand-red font-semibold bg-red-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
+                  }`}
+                >
+                  Schulter and Genevieve
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+  
+          <!-- Messages (TEMPORARILY DISABLED) -->
+          <!--
+          <a
+            href="/messages/"
+            class={`relative px-2 py-2 
+              after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red
+              ${isActive("/messages/") ? "after:w-full text-brand-red font-semibold" : "text-brand-darkgray hover:text-brand-red after:w-0"}
+              hover:after:w-full after:transition-all after:duration-300`}
+          >
+            Messages
+          </a>
+          -->
+
+
+
+ <!-- LIVE -->
+<a
+  href="/live/"
+  class={`block px-4 py-3.5 rounded-full text-base ${
+    isActive("/live/")
+      ? "text-brand-red font-semibold bg-red-50"
+      : "text-brand-darkgray hover:bg-gray-50"
+  }`}
+>
+  <span class="flex items-center gap-2">
+    <span data-live-mobile-text>Live</span>
+    <span
+      data-live-mobile-indicator
+      class="hidden h-2 w-2 rounded-full bg-red-600"
+    ></span>
+  </span>
+</a>
+
+
+
+      <!-- MINISTRIES ACCORDION -->
+      <section class="mt-2" data-accordion>
+        <button
+          type="button"
+          class="w-full flex items-center justify-between px-4 py-3.5 rounded-full text-left text-base hover:bg-gray-50"
+          data-accordion-trigger
+          aria-expanded="false"
+          aria-controls="acc-ministries"
+        >
+          <span>Ministries</span>
+          <svg class="h-6 w-6 transition-transform" viewBox="0 0 24 24">
+            <path d="M5 10l7 7 7-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
+          </svg>
+        </button>
+
+        <div
+          id="acc-ministries"
+          class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out"
+          data-accordion-panel
+        >
+          <div class="overflow-hidden">
+            <ul class="py-1">
+
+              <li>
+                <a
+                  href="/ministries/new-members/"
+                  class={`block px-5 py-3 text-[15px] rounded-full ${
+                    isActive("/ministries/new-members/")
+                      ? "text-brand-red font-semibold bg-red-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
+                  }`}
+                >
+                  New @The Life Place
+                </a>
+              </li>
+
+              <li class="px-5 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">
+                Family
+              </li>
+
+              <li>
+                <a
+                  href="/ministries/bring-them-to-jesus/"
+                  class={`block px-5 py-3 text-[15px] rounded-full ${
+                    isActive("/ministries/bring-them-to-jesus/")
+                      ? "text-brand-red font-semibold bg-red-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
+                  }`}
+                >
+                  Bring Them To Jesus
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="/ministries/kids/"
+                  class={`block px-5 py-3 text-[15px] rounded-full ${
+                    isActive("/ministries/kids/")
+                      ? "text-brand-red font-semibold bg-red-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
+                  }`}
+                >
+                  Kids @The Life Place
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="/ministries/gen/"
+                  class={`block px-5 py-3 text-[15px] rounded-full ${
+                    isActive("/ministries/gen/")
+                      ? "text-brand-red font-semibold bg-red-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
+                  }`}
+                >
+                  ThisGen
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="/ministries/premarital-counseling/"
+                  class={`block px-5 py-3 text-[15px] rounded-full ${
+                    isActive("/ministries/premarital-counseling/")
+                      ? "text-brand-red font-semibold bg-red-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
+                  }`}
+                >
+                  Premarital Counseling
+                </a>
+              </li>
+
+              <li class="px-5 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">
+                Formation
+              </li>
+
+              <li>
+                <a
+                  href="/ministries/institute/"
+                  class={`block px-5 py-3 text-[15px] rounded-full ${
+                    isActive("/ministries/institute/")
+                      ? "text-brand-red font-semibold bg-red-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
+                  }`}
+                >
+                  The Life Place Institute
+                </a>
+              </li>
+
+              <li class="px-5 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">
+                Outreach
+              </li>
+
+              <li>
+                <a
+                  href="/ministries/relief-center/"
+                  class={`block px-5 py-3 text-[15px] rounded-full ${
+                    isActive("/ministries/relief-center/")
+                      ? "text-brand-red font-semibold bg-red-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
+                  }`}
+                >
+                  Relief Center
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </section>  
+      
+      <!-- GENEROSITY (Give) — after Ministries in desktop, but in mobile we place BEFORE Ministries for UX clarity -->
+      <a
+        href="/give/"
+        class={`mt-3 inline-flex items-center justify-center px-4 py-2 rounded-full bg-brand-red text-white font-semibold shadow-md hover:bg-red-700 hover:shadow-lg transition`}
+      >
+        Generosity
+      </a>
+
+
+      <!-- VISIT -->
+      <a
+        href="/visit/"
+        class={`mt-4 block px-4 py-4 rounded-full text-base font-medium ${
+          isActive("/visit/")
+            ? "text-brand-red font-semibold bg-red-50"
+            : "text-brand-darkgray hover:bg-gray-50"
+        }`}
+      >
+        Plan A Visit
+      </a>
+
+        <!-- BLOG (last) -->
+        <a
+          href="https://schulteretyang.substack.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class={`w-full text-left block px-4 py-3 rounded-full text-base text-brand-darkgray hover:bg-gray-50`}
+        >Our Blog</a>
+      </a>
+    </nav>
+
+  </aside>
+
+  <!-- Behaviour script -->
+  <script is:inline>
+    (function () {
+      const body = document.documentElement;
+      const btnOpen = document.getElementById("mobileMenuButton");
+      const btnClose = document.getElementById("mobileMenuClose");
+      const drawer = document.getElementById("mobileNavDrawer");
+      const overlay = document.getElementById("mobileNavOverlay");
+
+      if (!btnOpen || !btnClose || !drawer || !overlay) return;
+
+      // Move overlay/drawer to body for proper stacking
+      if (overlay.parentElement !== document.body) document.body.appendChild(overlay);
+      if (drawer.parentElement !== document.body) document.body.appendChild(drawer);
+
+      const open = () => {
+        drawer.classList.remove("translate-x-full");
+        overlay.classList.remove("pointer-events-none");
+        overlay.classList.add("opacity-100");
+        btnOpen.setAttribute("aria-expanded", "true");
+        // Prevent layout shift from scrollbar disappearing
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        body.style.overflow = "hidden";
+        body.style.paddingRight = scrollbarWidth + "px";
+        drawer.focus();
+      };
+
+      const close = () => {
+        drawer.classList.add("translate-x-full");
+        overlay.classList.add("pointer-events-none");
+        overlay.classList.remove("opacity-100");
+        btnOpen.setAttribute("aria-expanded", "false");
+        body.style.overflow = "";
+        body.style.paddingRight = "";
+        btnOpen.blur();
+      };
+
+      btnOpen.addEventListener("click", open);
+      btnClose.addEventListener("click", close);
+      overlay.addEventListener("click", close);
+
+      // ESC closes
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") close();
+      });
+
+      // Close drawer when clicking nav links
+      drawer.querySelectorAll("a[href]").forEach((link) => {
+        link.addEventListener("click", () => {
+          // Check if link is inside an accordion
+          const isInsideAccordion = link.closest("[data-accordion]");
+          
+          // If link is NOT inside an accordion, close all accordions
+          if (!isInsideAccordion) {
+            document.querySelectorAll("[data-accordion]").forEach((acc) => {
+              const trigger = acc.querySelector("[data-accordion-trigger]");
+              const panel = acc.querySelector("[data-accordion-panel]");
+              if (trigger && panel) {
+                trigger.setAttribute("aria-expanded", "false");
+                const icon = trigger.querySelector("svg");
+                if (icon) icon.style.transform = "";
+                panel.style.gridTemplateRows = "0fr";
+                localStorage.setItem(`accordion-${panel.id}`, "false");
+              }
+            });
+          }
+          close();
+        });
+      });
+
+      // Accordions with persistent state
+      document.querySelectorAll("[data-accordion]").forEach((acc) => {
+        const trigger = acc.querySelector("[data-accordion-trigger]");
+        const panel = acc.querySelector("[data-accordion-panel]");
+        if (!trigger || !panel) return;
+
+        const panelId = panel.id;
+        const storageKey = `accordion-${panelId}`;
+
+        // Check if any link in this accordion is currently active (on the page)
+        const hasActiveLink = Array.from(acc.querySelectorAll("a[href]")).some(link => {
+          const href = link.getAttribute("href");
+          if (!href || href.startsWith("http")) return false;
+          const currentPath = window.location.pathname;
+          return href === "/" 
+            ? currentPath === "/" 
+            : currentPath === href || (href !== "/" && currentPath.startsWith(href));
+            
+        });
+
+        // Apply active styling to trigger if it has active links
+        if (hasActiveLink) {
+          trigger.classList.add("text-brand-red", "font-semibold", "bg-red-50");
+          trigger.classList.remove("text-brand-darkgray");
+        } else {
+          trigger.classList.add("text-brand-darkgray");
+          trigger.classList.remove("text-brand-red", "font-semibold", "bg-red-50");
+        }
+
+        // Auto-open if has active link or if saved state says it should be open
+        const savedState = localStorage.getItem(storageKey) === "true";
+        const shouldOpen = savedState || hasActiveLink;
+        
+        if (shouldOpen) {
+          trigger.setAttribute("aria-expanded", "true");
+          const icon = trigger.querySelector("svg");
+          if (icon) icon.style.transform = "rotate(180deg)";
+          panel.style.gridTemplateRows = "1fr";
+        }
+
+        trigger.addEventListener("click", () => {
+          const expanded = trigger.getAttribute("aria-expanded") === "true";
+          trigger.setAttribute("aria-expanded", !expanded);
+          const icon = trigger.querySelector("svg");
+          if (icon) icon.style.transform = expanded ? "" : "rotate(180deg)";
+          panel.style.gridTemplateRows = expanded ? "0fr" : "1fr";
+          // Save state to localStorage
+          localStorage.setItem(storageKey, !expanded);
+        });
+      });
+    })();
+  </script>
+
+  <script is:inline>
+  document.addEventListener("tlp-live-updated", (e) => {
+    const text = document.querySelector("[data-live-mobile-text]");
+    const dot = document.querySelector("[data-live-mobile-indicator]");
+
+    if (e.detail) {
+      text.textContent = "Live Now";
+      dot.classList.remove("hidden");
+    } else {
+      text.textContent = "Live";
+      dot.classList.add("hidden");
+    }
+  });
+</script>
+
+
+
+</header>
