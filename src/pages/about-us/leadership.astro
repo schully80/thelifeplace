@@ -112,91 +112,61 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
   <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
 
     <!-- SUBSTACK CARD -->
-    <div class="rounded-3xl p-6 bg-white border border-brand-red shadow-sm hover:shadow-md transition">
-      <div class="flex items-center gap-6">
-        <img src="/substack-qr2.png" width="140" height="140" class="rounded-2xl border" />
-        <div class="space-y-2">
-          <h3 class="font-heading text-xl font-semibold">Subscribe to Schulter’s Substack</h3>
-          <p class="text-gray-700 text-sm leading-relaxed">
-            Scan or tap below to receive new articles and reflections.
-          </p>
-          <a 
-            href="https://schulteretyang.substack.com"
-            class="inline-flex items-center justify-center rounded-full px-5 py-2 
-                   text-brand-red border border-brand-red hover:bg-brand-red hover:text-white 
-                   transition font-medium"
-          >
-            Substack
-          </a>
-        </div>
+    <a href="https://schulteretyang.substack.com" target="_blank" class="group p-6 rounded-3xl border border-gray-200 bg-gray-50 hover:bg-white hover:shadow-xl transition-all flex items-center gap-6">
+      <img src="/substack-qr2.png" width="140" height="140" class="rounded-2xl border flex-shrink-0" />
+      <div class="space-y-2">
+        <h3 class="font-heading text-xl font-semibold group-hover:text-brand-red transition">Subscribe to Schulter's Substack</h3>
+        <p class="text-gray-700 text-sm leading-relaxed">
+          Scan or tap below to receive new articles and reflections.
+        </p>
+        <span class="inline-flex items-center justify-center rounded-full px-5 py-2 text-brand-red border border-brand-red group-hover:bg-brand-red group-hover:text-white transition font-medium">
+          Substack →
+        </span>
       </div>
-    </div>
+    </a>
 
-    <!-- SNAPSCAN -->
-    <div class="rounded-3xl p-6 bg-white border border-brand-red shadow-sm hover:shadow-md transition">
-      <div class="flex items-center gap-6">
-        <a href={SNAPSCAN_URL} target="_blank">
-          <img src="/snapscan-qr2.png" width="140" height="140" class="rounded-2xl border" />
-        </a>
-        <div class="space-y-2">
-          <h3 class="font-heading text-xl font-semibold">Partner with The Life Place</h3>
-          <p class="text-gray-700 text-sm leading-relaxed">
-            Scan or tap to open our giving portal.
-          </p>
-          <a 
-            href={SNAPSCAN_URL}
-            class="inline-flex items-center justify-center rounded-full px-5 py-2 
-                   text-brand-red border border-brand-red hover:bg-brand-red hover:text-white 
-                   transition font-medium"
-          >
-            SnapScan
-          </a>
-        </div>
+    <!-- SNAPSCAN CARD -->
+    <a href={SNAPSCAN_URL} target="_blank" class="group p-6 rounded-3xl border border-gray-200 bg-gray-50 hover:bg-white hover:shadow-xl transition-all flex items-center gap-6">
+      <img src="/snapscan-qr2.png" width="140" height="140" class="rounded-2xl border flex-shrink-0" />
+      <div class="space-y-2">
+        <h3 class="font-heading text-xl font-semibold group-hover:text-brand-red transition">Partner with The Life Place</h3>
+        <p class="text-gray-700 text-sm leading-relaxed">
+          Scan or tap to open our giving portal.
+        </p>
+        <span class="inline-flex items-center justify-center rounded-full px-5 py-2 text-brand-red border border-brand-red group-hover:bg-brand-red group-hover:text-white transition font-medium">
+          SnapScan →
+        </span>
       </div>
-    </div>
+    </a>
 
   </div>
 
 
-  <!-- PAYPAL -->
+  <!-- PAYPAL CARD -->
   <div class="max-w-xl mx-auto mt-12 md:mt-16">
-    <div class="rounded-3xl p-6 bg-white border border-brand-red shadow-sm hover:shadow-md transition">
-
-      <div class="flex items-center gap-6">
-
-        <!-- PayPal Button -->
-        <form action="https://www.paypal.com/donate" method="post" target="_top" class="shrink-0">
-          <input type="hidden" name="hosted_button_id" value="4L3NWWAZ9PPV6" />
-          <input 
-            type="image"
-            src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
-            width="140" height="140"
-            class="rounded-2xl border object-contain bg-white p-3"
-          />
-        </form>
-
-        <!-- Text -->
-        <div class="space-y-2">
-          <h3 class="font-heading text-xl font-semibold">Support via PayPal</h3>
-          <p class="text-gray-700 text-sm leading-relaxed">
-            Donate securely through PayPal. Tap below to open our giving portal.
-          </p>
-
-          <form action="https://www.paypal.com/donate" method="post" target="_top">
-            <input type="hidden" name="hosted_button_id" value="4L3NWWAZ9PPV6" />
-            <button
-              class="inline-flex items-center justify-center rounded-full px-5 py-2 
-                     text-brand-red border border-brand-red hover:bg-brand-red hover:text-white 
-                     transition font-medium"
-            >
-              PayPal
-            </button>
-          </form>
-
-        </div>
+    <a href={PAYPAL_URL} target="_blank" class="group p-6 rounded-3xl border border-gray-200 bg-gray-50 hover:bg-white hover:shadow-xl transition-all flex items-center gap-6 block">
+      <!-- PayPal QR/Icon -->
+      <div class="flex-shrink-0 w-[140px] h-[140px] rounded-2xl border bg-white flex items-center justify-center">
+        <img 
+          src="https://www.paypalobjects.com/webstatic/icon/pp258.png" 
+          alt="PayPal" 
+          width="80" 
+          height="80"
+          class="object-contain"
+        />
       </div>
 
-    </div>
+      <!-- Text -->
+      <div class="space-y-2">
+        <h3 class="font-heading text-xl font-semibold group-hover:text-brand-red transition">Support via PayPal</h3>
+        <p class="text-gray-700 text-sm leading-relaxed">
+          Donate securely through PayPal. Tap below to open our giving portal.
+        </p>
+        <span class="inline-flex items-center justify-center rounded-full px-5 py-2 text-brand-red border border-brand-red group-hover:bg-brand-red group-hover:text-white transition font-medium">
+          PayPal →
+        </span>
+      </div>
+    </a>
   </div>
 
   <p class="text-center text-sm text-gray-600 mt-6">

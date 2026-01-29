@@ -44,7 +44,7 @@ const amounts = ["R100", "R250", "R500", "R1,000", "Custom"];
           type="button"
 class="categoryBtn rounded-full px-5 sm:px-7 py-3 sm:py-4
        bg-white border border-black/10
-       text-base sm:text-lg md:text-xl font-extrabold text-gray-900 transition-all duration-300"
+       text-base sm:text-lg md:text-xl font-extrabold text-gray-900 transition-all duration-300 hover:shadow-md hover:border-brand-red"
 
           data-category={c}
         >
@@ -92,9 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => {
       category = btn.dataset.category;
       categoryBtns.forEach(b =>
-        b.classList.remove("border-brand-red", "ring-2", "ring-brand-red/30")
+        b.classList.remove("bg-brand-red", "text-white", "border-brand-red")
       );
-      btn.classList.add("border-brand-red", "ring-2", "ring-brand-red/30");
+      btn.classList.add("bg-brand-red", "text-white", "border-brand-red");
       revealIfReady();
     });
   });
