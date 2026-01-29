@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
+import BlogSignupModal from "../components/BlogSignupModal.astro";
 
 ---
 
@@ -149,7 +150,7 @@ class="bg-white pt-20 md:pt-28 pb-16 md:pb-24">
     <div class="mx-auto mt-6 mb-8 h-[3px] w-16 rounded-full bg-brand-red/90"></div>
 
     <!-- Intro Paragraph -->
-    <p class="text-center text-lg md:text-xl text-gray-700 leading-relaxed mb-20 max-w-3xl mx-auto">
+    <p class="text-center text-lg md:text-2xl text-gray-700 leading-relaxed mb-20 max-w-3xl mx-auto">
       Sound doctrine isn’t about rules; it’s about <span class="text-brand-red">JESUS</span>—who He is, what He has done, and how His finished work shapes what we believe and how we live.
     </p>
 
@@ -597,4 +598,28 @@ Isaiah 65:17; 2 Peter 3:13; Revelation 21:1–4; 1 Corinthians 15:51–53; Phili
     animation: fadeBounce 0.6s ease-out forwards;
   }
 </style>
+
+<!-- Blog Signup Modal for Home Page -->
+<BlogSignupModal />
+
+<!-- Auto-trigger modal on home page (scroll-based) -->
+<script is:inline>
+  let blogModalShown = false;
+  
+  window.addEventListener("scroll", () => {
+    if (blogModalShown) return;
+    
+    // Calculate scroll percentage
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (window.scrollY / scrollHeight) * 100;
+    
+    // Trigger modal at 55% scroll (slightly later for better UX)
+    if (scrollPercent >= 55) {
+      if (typeof openBlogSignupModal === "function") {
+        openBlogSignupModal();
+        blogModalShown = true;
+      }
+    }
+  });
+</script>
 

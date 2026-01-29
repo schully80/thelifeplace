@@ -3,11 +3,9 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../styles/global.css";
 import "../styles/global-interactions.css";
 import CookieConsent from "../components/CookieConsent.astro";
-import HeaderMobile from "../components/HeaderMobile.astro";
-import HeaderDesktop from "../components/HeaderDesktop.astro";
-import HeaderLaptop from "../components/HeaderLaptop.astro";
+import Header from "../components/Header.astro";
 import ContactWidget from "../components/ContactWidget.astro";
-import HeaderTablet from "../components/HeaderTablet.astro";
+import BlogSignupModal from "../components/BlogSignupModal.astro";
 import Footer from "../components/Footer.astro";
 import AppButton from "../components/AppButton.astro";
 
@@ -310,10 +308,8 @@ pathParts.forEach((part, index) => {
       </div>
     )}
 
-    <!-- HEADERS -->
-    <HeaderMobile class="md:hidden" />
-    <HeaderTablet class="hidden md:block xl:hidden" />
-    <HeaderDesktop class="hidden xl:block" />
+    <!-- UNIFIED HEADER (handles all breakpoints) -->
+    <Header />
 
     <!-- MAIN CONTENT -->
     <main class="flex-1 w-full">
@@ -327,10 +323,13 @@ pathParts.forEach((part, index) => {
       mapsUrl="https://maps.app.goo.gl/kWtzKtuyASu3qRxo7"
       mobileStyle="fab"
       tabletStyle="dock"
-      desktopStyle="hidden"
+      desktopStyle="fab"
     />
 
     <CookieConsent />
+
+    <!-- BLOG SIGNUP MODAL -->
+    <BlogSignupModal />
 
     <!-- FOOTER -->
     <Footer />
