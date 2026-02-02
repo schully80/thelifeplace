@@ -11,6 +11,8 @@
     "gemini": "gemini"
   },
   "dependencies": {
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/cloudflare": "^11.0.3",
     "@astrojs/sitemap": "^3.7.0",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/montserrat": "^5.2.8",

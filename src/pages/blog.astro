@@ -1,0 +1,420 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import customTags from "../data/blog-tags.json";
+import blogTagLinks from "../data/blog-tag-links.json";
+
+export const prerender = false;
+
+const FEED_URL = "https://schulteretyang.substack.com/feed";
+const PAGE_SIZE = 11;
+const FEED_TIMEOUT_MS = 8000; // abort slow requests after 8s
+const FEED_TTL_MS = 5 * 60 * 1000; // cache feed for 5 minutes
+
+// Simple in-memory cache for parsed feed items
+let feedCache = { items: null, fetchedAt: 0 };
+
+let items = [];
+let error = null;
+let page = 1;
+let totalPages = 1;
+let pagedItems = [];
+let monthGroups = [];
+let allMonthArchives = [];
+let allYearArchives = [];
+let allTags = [];
+let displayTags = [];
+let usingFallbackTags = false;
+let paginationItems = [];
+
+
+function cleanCdata(str) {
+  return (str || "").replace(/<!\[CDATA\[/g, "").replace(/\]\]>/g, "").trim();
+}
+
+function pick(chunk, re) {
+  const m = chunk.match(re);
+  if (!m) return "";
+  return cleanCdata(m[1] || m[2] || "");
+}
+
+function decodeHtmlEntities(str) {
+  if (!str) return "";
+  return str
+    // decimal numeric entities
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+    // hex numeric entities
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
+    // common named entities
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+}
+
+function isValidDate(d) {
+  return d instanceof Date && !isNaN(d.getTime());
+}
+
+function formatDate(d, fallback) {
+  return isValidDate(d)
+    ? d.toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric" })
+    : (fallback || "");
+}
+
+function monthKey(d) {
+  if (!isValidDate(d)) return "unknown";
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+}
+
+function monthLabel(d) {
+  return isValidDate(d)
+    ? `${d.toLocaleString("en-US", { month: "long" })} ${d.getFullYear()}`
+    : "Unknown";
+}
+
+// Per-image object-position tweak for specific posts to reduce face cropping
+function imageObjectPosition(item) {
+  const title = (item?.title || "");
+  const link = (item?.link || "");
+  const hay = `${title} ${link}`.toLowerCase();
+  // Target: "My admiration for hard-working people..." (May 2025)
+  // Match by keywords to be resilient across minor title changes/slug patterns
+  const needsTopBias = /hard\s*-?\s*working\s+people/.test(hay);
+  // Bias to show more of the upper area where the face is
+  return needsTopBias ? "center 20%" : "center";
+}
+
+function getPaginationItems(total, current, sibling = 1) {
+  const items = [];
+  if (total <= 1) return items;
+  const first = 1;
+  const last = total;
+  const startPage = Math.max(current - sibling, 2);
+  const endPage = Math.min(current + sibling, total - 1);
+  items.push({ type: "page", page: first, current: current === first });
+  if (startPage > 2) items.push({ type: "ellipsis" });
+  for (let p = startPage; p <= endPage; p++) {
+    items.push({ type: "page", page: p, current: p === current });
+  }
+  if (endPage < total - 1) items.push({ type: "ellipsis" });
+  if (total > 1) items.push({ type: "page", page: last, current: current === last });
+  return items;
+}
+
+// Resolve a tag's link with case-insensitive override support
+function tagHref(tag) {
+  const key = (tag || "");
+  const lower = key.toLowerCase();
+  return blogTagLinks?.[key] ?? blogTagLinks?.[lower] ?? `https://schulteretyang.substack.com/t/${encodeURIComponent(key)}`;
+}
+
+try {
+  // Use cached items if still fresh
+  const now = Date.now();
+  const cacheValid = feedCache.items && (now - feedCache.fetchedAt) < FEED_TTL_MS;
+  if (cacheValid) {
+    items = feedCache.items.slice();
+  } else {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), FEED_TIMEOUT_MS);
+    const res = await fetch(FEED_URL, {
+      headers: {
+        Accept: "application/rss+xml, application/xml, text/xml",
+        "User-Agent": "thelifeplace-blog-list"
+      },
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+    if (!res.ok) throw new Error(`Feed fetch failed: HTTP ${res.status}`);
+    const xml = await res.text();
+    const chunks = xml.split("<item>").slice(1);
+    items = chunks.map((chunk) => {
+      const title = decodeHtmlEntities(pick(chunk, /<title>(?:<!\[CDATA\[(.*?)\]\]>|(.*?))<\/title>/s));
+      const link = pick(chunk, /<link>(.*?)<\/link>/s);
+      const date = pick(chunk, /<pubDate>(.*?)<\/pubDate>/s);
+      const dateObj = new Date(date);
+      const description = decodeHtmlEntities(pick(chunk, /<description>(?:<!\[CDATA\[(.*?)\]\]>|(.*?))<\/description>/s));
+      const enclosureMatch = chunk.match(/<enclosure[^>]*url="(.*?)"[^>]*>/s);
+      const imageUrl = enclosureMatch ? enclosureMatch[1] : "";
+      const catMatches = Array.from(chunk.matchAll(/<category>(?:<!\[CDATA\[(.*?)\]\]>|(.*?))<\/category>/g));
+      const categories = catMatches.map((m) => decodeHtmlEntities(cleanCdata(m[1] || m[2] || ""))).filter(Boolean);
+      return { title, link, date, dateObj, description, imageUrl, categories };
+    });
+
+    // Save to cache
+    feedCache.items = items.slice();
+    feedCache.fetchedAt = Date.now();
+  }
+
+  // RSS-only mode: do not supplement with index items
+
+  // Sort recent first
+  items.sort((a, b) => {
+    const at = isValidDate(a.dateObj) ? a.dateObj.getTime() : 0;
+    const bt = isValidDate(b.dateObj) ? b.dateObj.getTime() : 0;
+    return bt - at;
+  });
+
+  // Pagination
+  const param = Astro.url.searchParams.get("page");
+  page = Math.max(1, Math.min(Number(param) || 1, Math.max(1, Math.ceil(items.length / PAGE_SIZE))));
+  totalPages = Math.max(1, Math.ceil(items.length / PAGE_SIZE));
+  const start = (page - 1) * PAGE_SIZE;
+  pagedItems = items.slice(start, start + PAGE_SIZE);
+  paginationItems = getPaginationItems(totalPages, page, 1);
+
+  // Group by month for the current page
+  const groupsMap = new Map();
+  for (const item of pagedItems) {
+    const key = monthKey(item.dateObj);
+    const label = monthLabel(item.dateObj);
+    if (!groupsMap.has(key)) groupsMap.set(key, { label, items: [] });
+    groupsMap.get(key).items.push(item);
+  }
+  monthGroups = Array.from(groupsMap.values());
+
+  // RSS-only mode: remove archive derivation logic
+
+  // Build tag cloud from all items
+  const tagSet = new Set();
+  for (const it of items) {
+    (it.categories || []).forEach((c) => tagSet.add(c));
+  }
+  // Case-insensitive sort for consistency
+  allTags = Array.from(tagSet)
+    .filter(Boolean)
+    .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+  usingFallbackTags = allTags.length === 0;
+  displayTags = (usingFallbackTags ? (customTags?.tags ?? []) : allTags)
+    .slice()
+    .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+} catch (e) {
+  // Normalize abort timeout error
+  const isAbort = e && typeof e === "object" && (e.name === "AbortError");
+  const msg = isAbort ? "Feed request timed out. Please try again." : (e instanceof Error ? e.message : String(e));
+  error = msg;
+}
+
+// SEO / canonical
+const canonicalHref = (() => {
+  const base = `${Astro.url.origin}/blog`;
+  if (page > 1) return `${base}?page=${page}`;
+  return base;
+})();
+---
+
+<BaseLayout title="Blog">
+  <Fragment slot="head">
+    <meta name="description" content="Latest posts from The Life Place Substack—listings, excerpts, and links to full articles." />
+    <link rel="canonical" href={canonicalHref} />
+    <meta property="og:title" content="Blog — The Life Place" />
+    <meta property="og:description" content="Latest posts from The Life Place Substack—listings, excerpts, and links to full articles." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalHref} />
+  </Fragment>
+
+  <style is:global>
+    /* Visible horizontal scrollbar styling (WebKit + Firefox) */
+    .scrollbar-visible { scrollbar-width: thin; scrollbar-color: rgba(239, 68, 68, 0.35) rgba(239, 68, 68, 0.12); }
+    .scrollbar-visible::-webkit-scrollbar { height: 8px; }
+    .scrollbar-visible::-webkit-scrollbar-track { background-color: rgba(239, 68, 68, 0.12); border-radius: 9999px; }
+    .scrollbar-visible::-webkit-scrollbar-thumb { background-color: rgba(239, 68, 68, 0.35); border-radius: 9999px; }
+
+    /* Hide native scrollbars while preserving scroll functionality */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+
+  <!-- Page Hero -->
+  <section class="relative w-full py-32 md:py-48 overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-r from-brand-red/95 via-red-600/90 to-brand-red/95"></div>
+    <div class="absolute top-0 right-0 w-96 h-96 bg-brand-red/15 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+    <div class="relative max-w-6xl mx-auto px-6 text-center z-10">
+      <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 md:mb-8">Latest from The Life Place</h1>
+      <p class="text-base md:text-3xl text-white/80 max-w-2xl mx-auto">Weekly posts that help you see Jesus — because seeing Him changes everything. </p>
+    </div>
+  </section>
+
+  
+
+  <!-- Feed Cards -->
+  <section class="w-full mt-16 md:mt-20 py-14 md:py-18 bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+      {error ? (
+        <div class="rounded-2xl border border-red-200 bg-red-50 p-4">
+          <p class="text-red-700 font-semibold">We’re having trouble loading the feed right now.</p>
+          {import.meta.env.DEV && (
+            <p class="text-red-700 text-sm mt-1">{error}</p>
+          )}
+          <div class="mt-3">
+            <a href="https://schulteretyang.substack.com" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-red-600 text-white hover:bg-red-700 transition">
+              View latest on Substack
+            </a>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <!-- Local Search + far-right sort note -->
+          <div class="mb-6 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <input id="blogSearch" type="search" inputmode="search" placeholder="Type…" class="w-full max-w-md px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-red/30 focus:border-brand-red/40" aria-label="Search blog posts" />
+              <button id="blogSearchClear" type="button" class="px-3 py-2 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-50">Clear</button>
+            </div>
+            <span class="ml-auto inline-flex items-center px-3 py-1 rounded-2xl border border-gray-300 text-gray-700 text-lg">Latest posts appear first</span>
+          </div>
+          
+          <div id="blogNoResults" class="hidden rounded-2xl border border-gray-200 bg-gray-50 p-4 text-gray-700">No matching posts.</div>
+          {monthGroups.map((group) => (
+            <section class="mb-10" data-month-group>
+              <h2 class="text-xl md:text-2xl font-bold text-brand-warmgray-800 mb-4">{group.label}</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6 sm:gap-8 md:gap-10 xl:gap-12">
+                {group.items.map((item) => (
+                  <a href={item.link} class="group block rounded-3xl overflow-hidden border border-gray-200 bg-white shadow-md hover:shadow-xl transition-shadow" data-card data-title={item.title || item.link} data-desc={item.description || ""}>
+                    {item.imageUrl ? (
+                      <div class="relative">
+                        <img src={item.imageUrl} alt={item.title} class="w-full h-64 md:h-72 lg:h-80 object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]" style={`object-position: ${imageObjectPosition(item)};`} loading="lazy" decoding="async" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+                      </div>
+                    ) : (
+                      <div class="relative w-full h-64 md:h-72 lg:h-80 bg-gradient-to-r from-brand-red/20 via-red-500/10 to-brand-red/20">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"></div>
+                      </div>
+                    )}
+                    <div class="p-7 md:p-8">
+                      <div class="flex items-center gap-2">
+                        <span class="inline-flex items-center px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-xs">{formatDate(item.dateObj, item.date)}</span>
+                      </div>
+                      <h3 class="mt-4 text-lg md:text-xl font-semibold tracking-tight text-gray-800 group-hover:text-brand-red transition-colors">{item.title || item.link}</h3>
+                      <span class="mt-1 block text-xs text-gray-500">Opens on Substack</span>
+                      {item.categories && item.categories.length > 0 && (
+                        <div class="mt-4 flex flex-wrap gap-3">
+                          {[...item.categories].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())).map((cat) => (
+                            <a href={tagHref(cat)} class="inline-flex items-center px-2 py-1 rounded-2xl text-xs text-gray-700 hover:bg-brand-red/10 hover:text-brand-red transition-colors">
+                              {cat}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                      {item.description && (
+                        <p class="text-sm md:text-base text-gray-700 mt-4 line-clamp-4">{item.description}</p>
+                      )}
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+          ))}
+
+          <!-- Search script -->
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              const input = document.getElementById('blogSearch');
+              const clearBtn = document.getElementById('blogSearchClear');
+              const noResults = document.getElementById('blogNoResults');
+              const groups = Array.from(document.querySelectorAll('section[data-month-group]'));
+              const cards = Array.from(document.querySelectorAll('a[data-card]'));
+
+              function applyFilter(q) {
+                const query = (q || '').trim().toLowerCase();
+                let visibleCardCount = 0;
+                cards.forEach(card => {
+                  const title = (card.getAttribute('data-title') || '').toLowerCase();
+                  const desc = (card.getAttribute('data-desc') || '').toLowerCase();
+                  const match = !query || title.includes(query) || desc.includes(query);
+                  card.classList.toggle('hidden', !match);
+                  if (match) visibleCardCount++;
+                });
+                // Hide empty groups
+                groups.forEach(group => {
+                  const groupCards = Array.from(group.querySelectorAll('a[data-card]'));
+                  const anyVisible = groupCards.some(c => !c.classList.contains('hidden'));
+                  group.classList.toggle('hidden', !anyVisible);
+                });
+                noResults.classList.toggle('hidden', visibleCardCount > 0);
+              }
+
+              input?.addEventListener('input', (e) => applyFilter(e.target.value));
+              clearBtn?.addEventListener('click', () => { input.value = ''; applyFilter(''); input.focus(); });
+            });
+          </script>
+
+          
+
+          <!-- Pagination -->
+          <nav aria-label="Pagination" class="mt-12">
+              <div class="w-full overflow-x-scroll scroll-px-4 sm:scroll-px-0 pb-4 sm:pb-2 scrollbar-visible sm:no-scrollbar" style="scrollbar-gutter: stable both-edges;">
+              <div class="flex items-center gap-2 px-2 pr-6 sm:pr-0 whitespace-nowrap justify-start sm:justify-center snap-x snap-mandatory">
+              {page > 1 ? (
+                <a href={`/blog?page=1`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-900 hover:bg-gray-50 flex-shrink-0 snap-start">First</a>
+              ) : (
+                <span class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-gray-100 text-gray-400 cursor-not-allowed flex-shrink-0 snap-start">First</span>
+              )}
+              {page > 1 ? (
+                <a href={`/blog?page=${page - 1}`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-900 hover:bg-gray-50 flex-shrink-0 snap-start">Prev</a>
+              ) : (
+                <span class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-gray-100 text-gray-400 cursor-not-allowed flex-shrink-0 snap-start">Prev</span>
+              )}
+
+              {getPaginationItems(totalPages, page, 1).map((it) => (
+                it.type === "ellipsis" ? (
+                  <span class="px-2 text-gray-500 select-none flex-shrink-0 snap-start">&hellip;</span>
+                ) : it.current ? (
+                  <span aria-current="page" class="inline-flex items-center justify-center px-4 h-9 rounded-full bg-brand-red text-white font-medium shadow-sm flex-shrink-0 snap-start">{it.page}</span>
+                ) : (
+                  <a href={`/blog?page=${it.page}`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-900 hover:bg-gray-50 flex-shrink-0 snap-start">{it.page}</a>
+                )
+              ))}
+
+              {page < totalPages ? (
+                <a href={`/blog?page=${page + 1}`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-900 hover:bg-gray-50 flex-shrink-0 snap-start">Next</a>
+              ) : (
+                <span class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-gray-100 text-gray-400 cursor-not-allowed flex-shrink-0 snap-start">Next</span>
+              )}
+              {page < totalPages ? (
+                <a href={`/blog?page=${totalPages}`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-900 hover:bg-gray-50 flex-shrink-0 snap-start">Last</a>
+              ) : (
+                <span class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-gray-100 text-gray-400 cursor-not-allowed flex-shrink-0 snap-start">Last</span>
+              )}
+              <span aria-hidden="true" class="w-2 flex-shrink-0"></span>
+              </div>
+            </div>
+          </nav>
+
+          <!-- Tags -->
+          {displayTags.length > 0 && (
+            <section class="mt-14">
+              <div class="mb-3 flex items-center gap-2">
+                <h2 class="text-2xl font-bold text-brand-warmgray-800">Tags</h2>
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-2xl border border-gray-300 text-gray-700 text-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <path d="M15 3h6v6"/>
+                    <path d="M10 14 21 3"/>
+                  </svg>
+                  <span>Tags open on Substack</span>
+                </span>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                {displayTags.map((tag) => (
+                  <a href={tagHref(tag)} class="inline-flex items-center px-2 py-1 rounded-2xl text-md text-gray-800 hover:bg-brand-red/10 hover:text-brand-red transition-colors">
+                    {tag}
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <div class="mt-8 text-center">
+            <a href="https://schulteretyang.substack.com" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-brand-red to-red-600 text-white font-bold shadow-md hover:shadow-lg transition">
+              Read more on Substack
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+  
+  
+</BaseLayout>
