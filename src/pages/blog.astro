@@ -260,12 +260,12 @@ const canonicalHref = (() => {
           <div class="mb-6 flex items-center justify-between gap-3">
             <div class="flex items-center gap-3">
               <input id="blogSearch" type="search" inputmode="search" placeholder="Type…" class="w-full max-w-md px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-red/30 focus:border-brand-red/40" aria-label="Search blog posts" />
-              <button id="blogSearchClear" type="button" class="px-3 py-2 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-50">Clear</button>
+              <button id="blogSearchClear" type="button" class="px-3 py-2 rounded-xl border border-gray-300 text-gray-600 hover:bg-gray-50">Clear</button>
             </div>
-            <span class="ml-auto inline-flex items-center px-3 py-1 rounded-2xl border border-gray-300 text-gray-700 text-lg">Latest posts appear first</span>
+            <span class="ml-auto inline-flex items-center px-3 py-1 rounded-2xl border border-gray-300 text-gray-600 text-lg">Latest posts appear first</span>
           </div>
           
-          <div id="blogNoResults" class="hidden rounded-2xl border border-gray-200 bg-gray-50 p-4 text-gray-700">No matching posts.</div>
+          <div id="blogNoResults" class="hidden rounded-2xl border border-gray-200 bg-gray-50 p-4 text-gray-600">No matching posts.</div>
           {monthGroups.map((group) => (
             <section class="mb-10" data-month-group>
               <h2 class="text-xl md:text-2xl font-bold text-brand-warmgray-800 mb-4">{group.label}</h2>
@@ -284,21 +284,21 @@ const canonicalHref = (() => {
                     )}
                     <div class="p-7 md:p-8">
                       <div class="flex items-center gap-2">
-                        <span class="inline-flex items-center px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-xs">{formatDate(item.dateObj, item.date)}</span>
+                        <span class="inline-flex items-center px-2 py-1 rounded-full bg-gray-100 text-gray-600 text-xs">{formatDate(item.dateObj, item.date)}</span>
                       </div>
                       <h3 class="mt-4 text-lg md:text-xl font-semibold tracking-tight text-gray-800 group-hover:text-brand-red transition-colors">{item.title || item.link}</h3>
                       <span class="mt-1 block text-xs text-gray-500">Opens on Substack</span>
                       {item.categories && item.categories.length > 0 && (
                         <div class="mt-4 flex flex-wrap gap-3">
                           {[...item.categories].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())).map((cat) => (
-                            <a href={tagHref(cat)} class="inline-flex items-center px-2 py-1 rounded-2xl text-xs text-gray-700 hover:bg-brand-red/10 hover:text-brand-red transition-colors">
+                            <a href={tagHref(cat)} class="inline-flex items-center px-2 py-1 rounded-2xl text-xs text-gray-600 hover:bg-brand-red/10 hover:text-brand-red transition-colors">
                               {cat}
                             </a>
                           ))}
                         </div>
                       )}
                       {item.description && (
-                        <p class="text-sm md:text-base text-gray-700 mt-4 line-clamp-4">{item.description}</p>
+                        <p class="text-sm md:text-base text-gray-600 mt-4 line-clamp-4">{item.description}</p>
                       )}
                     </div>
                   </a>
@@ -347,12 +347,12 @@ const canonicalHref = (() => {
               <div class="w-full overflow-x-scroll scroll-px-4 sm:scroll-px-0 pb-4 sm:pb-2 scrollbar-visible sm:no-scrollbar" style="scrollbar-gutter: stable both-edges;">
               <div class="flex items-center gap-2 px-2 pr-6 sm:pr-0 whitespace-nowrap justify-start sm:justify-center snap-x snap-mandatory">
               {page > 1 ? (
-                <a href={`/blog?page=1`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-900 hover:bg-gray-50 flex-shrink-0 snap-start">First</a>
+                <a href={`/blog?page=1`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-800 hover:bg-gray-50 flex-shrink-0 snap-start">First</a>
               ) : (
                 <span class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-gray-100 text-gray-400 cursor-not-allowed flex-shrink-0 snap-start">First</span>
               )}
               {page > 1 ? (
-                <a href={`/blog?page=${page - 1}`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-900 hover:bg-gray-50 flex-shrink-0 snap-start">Prev</a>
+                <a href={`/blog?page=${page - 1}`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-800 hover:bg-gray-50 flex-shrink-0 snap-start">Prev</a>
               ) : (
                 <span class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-gray-100 text-gray-400 cursor-not-allowed flex-shrink-0 snap-start">Prev</span>
               )}
@@ -363,17 +363,17 @@ const canonicalHref = (() => {
                 ) : it.current ? (
                   <span aria-current="page" class="inline-flex items-center justify-center px-4 h-9 rounded-full bg-brand-red text-white font-medium shadow-sm flex-shrink-0 snap-start">{it.page}</span>
                 ) : (
-                  <a href={`/blog?page=${it.page}`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-900 hover:bg-gray-50 flex-shrink-0 snap-start">{it.page}</a>
+                  <a href={`/blog?page=${it.page}`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-800 hover:bg-gray-50 flex-shrink-0 snap-start">{it.page}</a>
                 )
               ))}
 
               {page < totalPages ? (
-                <a href={`/blog?page=${page + 1}`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-900 hover:bg-gray-50 flex-shrink-0 snap-start">Next</a>
+                <a href={`/blog?page=${page + 1}`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-800 hover:bg-gray-50 flex-shrink-0 snap-start">Next</a>
               ) : (
                 <span class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-gray-100 text-gray-400 cursor-not-allowed flex-shrink-0 snap-start">Next</span>
               )}
               {page < totalPages ? (
-                <a href={`/blog?page=${totalPages}`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-900 hover:bg-gray-50 flex-shrink-0 snap-start">Last</a>
+                <a href={`/blog?page=${totalPages}`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-800 hover:bg-gray-50 flex-shrink-0 snap-start">Last</a>
               ) : (
                 <span class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-gray-100 text-gray-400 cursor-not-allowed flex-shrink-0 snap-start">Last</span>
               )}
@@ -387,7 +387,7 @@ const canonicalHref = (() => {
             <section class="mt-14">
               <div class="mb-3 flex items-center gap-2">
                 <h2 class="text-2xl font-bold text-brand-warmgray-800">Tags</h2>
-                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-2xl border border-gray-300 text-gray-700 text-sm">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-2xl border border-gray-300 text-gray-600 text-sm">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
                     <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                     <path d="M15 3h6v6"/>

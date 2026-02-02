@@ -42,8 +42,8 @@ try {
 <BaseLayout title="RSS Feed Test">
   <section class="w-full py-16 bg-white">
     <div class="max-w-4xl mx-auto px-6">
-      <h1 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">RSS Feed Test</h1>
-      <p class="text-gray-700 mb-6">Testing Substack RSS integration.</p>
+      <h1 class="text-3xl md:text-4xl font-black text-gray-800 mb-4">RSS Feed Test</h1>
+      <p class="text-gray-600 mb-6">Testing Substack RSS integration.</p>
 
       <div class="rounded-2xl border border-gray-200 bg-gray-50 p-4 mb-6">
         <p class="text-sm text-gray-600">Feed URL: <a href={FEED_URL} target="_blank" rel="noopener" class="text-brand-red underline">{FEED_URL}</a></p>
@@ -57,14 +57,14 @@ try {
         </div>
       ) : (
         <div>
-          <h2 class="text-xl font-bold text-gray-900 mb-3">Latest items</h2>
+          <h2 class="text-xl font-bold text-gray-800 mb-3">Latest items</h2>
           <ul class="space-y-4">
             {items.map((item) => (
               <li class="rounded-2xl border border-gray-200 bg-white p-4">
                 <a href={item.link} target="_blank" rel="noopener" class="text-brand-red font-bold underline">{item.title || item.link}</a>
                 <p class="text-xs text-gray-500 mt-1">{item.date}</p>
                 {item.description && (
-                  <p class="text-sm text-gray-700 mt-2 line-clamp-3">{item.description}</p>
+                  <p class="text-sm text-gray-600 mt-2 line-clamp-3">{item.description}</p>
                 )}
               </li>
             ))}
@@ -72,7 +72,7 @@ try {
 
           <div class="rounded-2xl border border-gray-200 bg-gray-50 p-4 mt-6">
             <p class="text-sm text-gray-600 font-semibold">XML preview (first 800 chars)</p>
-            <pre class="mt-2 overflow-x-auto text-xs text-gray-700">{xmlPreview}</pre>
+            <pre class="mt-2 overflow-x-auto text-xs text-gray-600">{xmlPreview}</pre>
           </div>
         </div>
       )}

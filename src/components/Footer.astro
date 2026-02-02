@@ -23,7 +23,7 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
 
     <!-- BRAND BLOCK (CENTERED) -->
     <div class="text-center max-w-lg mx-auto space-y-2 md:space-y-4 mb-4 md:mb-16">
-      <p class="text-gray-900 font-semibold tracking-wide text-lg md:text-2xl">
+      <p class="text-gray-800 font-semibold tracking-wide text-lg md:text-2xl">
         Come. See. <span class="text-brand-red font-semibold">Jesus</span>
       </p>
     </div>
@@ -33,10 +33,10 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
 
       <!-- EXPLORE -->
       <div>
-        <h3 class="font-semibold text-gray-900 mb-2 md:mb-4 text-xs md:text-base uppercase tracking-wide">
+        <h3 class="font-semibold text-gray-800 mb-2 md:mb-4 text-xs md:text-base uppercase tracking-wide">
           Explore
         </h3>
-        <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-700">
+        <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-600">
           <li><a href="/about/" class="hover:text-brand-red transition">About</a></li>
           <li><a href="/leadership/" class="hover:text-brand-red transition">Leadership</a></li>
           <li><a href="/visit/" class="hover:text-brand-red transition">Plan a Visit</a></li>
@@ -46,10 +46,10 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
 
       <!-- NEXT STEPS -->
       <div>
-        <h3 class="font-semibold text-gray-900 mb-2 md:mb-4 text-xs md:text-base uppercase tracking-wide">
+        <h3 class="font-semibold text-gray-800 mb-2 md:mb-4 text-xs md:text-base uppercase tracking-wide">
           Next Steps
         </h3>
-        <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-700">
+        <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-600">
           <li><a href="/give/" class="hover:text-brand-red transition">Giving</a></li>
           <li><a href="/prayer/" class="hover:text-brand-red transition">Prayer Requests</a></li>
           <li><a href="/contact/" class="hover:text-brand-red transition">Contact</a></li>
@@ -59,10 +59,10 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
 
       <!-- LEGAL -->
       <div>
-        <h3 class="font-semibold text-gray-900 mb-2 md:mb-4 text-xs md:text-base uppercase tracking-wide">
+        <h3 class="font-semibold text-gray-800 mb-2 md:mb-4 text-xs md:text-base uppercase tracking-wide">
           Legal
         </h3>
-        <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-700">
+        <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-600">
           <li><a href="/privacy/" class="hover:text-brand-red transition">Privacy Policy</a></li>
           <li><a href="/terms/" class="hover:text-brand-red transition">Terms & Conditions</a></li>
           <li><a href="/cookies/" class="hover:text-brand-red transition">Cookie Policy</a></li>
@@ -74,20 +74,20 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
     <!-- CONTACT / MAP (CENTERED UNDER GRID) -->
     <div class="mt-4 md:mt-16 text-center">
       <div class="inline-block text-center">
-        <h3 class="font-semibold text-gray-900 mb-2 md:mb-4 text-xs md:text-base uppercase tracking-wide">
+        <h3 class="font-semibold text-gray-800 mb-2 md:mb-4 text-xs md:text-base uppercase tracking-wide">
           Contact
         </h3>
 
-        <div class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-700">
-          <p class="font-semibold text-gray-900 text-xs md:text-sm">{churchName}</p>
+        <div class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-600">
+          <p class="font-semibold text-gray-800 text-xs md:text-sm">{churchName}</p>
           <p class="text-xs md:text-sm">{addressLine1}</p>
           <p class="text-xs md:text-sm">{addressLine2}</p>
             <p class="text-xs md:text-sm">{addressLine3}</p>
               <p class="text-xs md:text-sm">{addressLine4}</p>
-          <p class="text-gray-900 font-medium text-xs md:text-sm">{serviceHours}</p>
+          <p class="text-gray-800 font-medium text-xs md:text-sm">{serviceHours}</p>
 
           <p class="flex items-center justify-center gap-1 md:gap-2 text-xs md:text-sm">
-            <i class="fa-solid fa-envelope text-gray-900 text-xs md:text-sm"></i>
+            <i class="fa-solid fa-envelope text-gray-800 text-xs md:text-sm"></i>
             <a href={`mailto:${email}`} class="hover:text-brand-red transition">
               {email}
             </a>
@@ -95,7 +95,7 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
 
           {phoneDisplay && phoneHref && (
             <p class="flex items-center justify-center gap-1 md:gap-2 text-xs md:text-sm">
-              <i class="fa-solid fa-phone text-gray-900 text-xs md:text-sm"></i>
+              <i class="fa-solid fa-phone text-gray-800 text-xs md:text-sm"></i>
               <a href={phoneHref} class="hover:text-brand-red transition">
                 {phoneDisplay}
               </a>
@@ -104,7 +104,7 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
 
           <!-- Added: link to /visit/ -->
           <p class="flex items-center justify-center gap-1 md:gap-2 pt-1 md:pt-2 text-xs md:text-sm">
-            <i class="fa-solid fa-location-dot text-gray-900 text-xs md:text-sm"></i>
+            <i class="fa-solid fa-location-dot text-gray-800 text-xs md:text-sm"></i>
             <a href="/visit/" class="hover:text-brand-red transition font-medium">
               Plan a Visit
             </a>

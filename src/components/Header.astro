@@ -45,7 +45,7 @@ const isActive = (href) =>
       aria-expanded="false"
       class="p-2 rounded-md hover:bg-gray-100 transition"
     >
-      <svg viewBox="0 0 24 24" class="h-6 w-6 text-gray-900" aria-hidden="true">
+      <svg viewBox="0 0 24 24" class="h-6 w-6 text-gray-800" aria-hidden="true">
         <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
       </svg>
     </button>
@@ -74,7 +74,7 @@ const isActive = (href) =>
           class={`px-1 py-2 ${
             isActive("/what-to-expect/")
               ? "text-brand-red font-semibold"
-              : "text-brand-darkgray hover:text-brand-red"
+              : "text-gray-700 hover:text-gray-800"
           }`}
         >What to Expect</a>
 
@@ -87,14 +87,14 @@ const isActive = (href) =>
             class={`relative px-1 py-2 ${
               isActive("/about-us/")
                 ? "text-brand-red font-semibold"
-                : "text-brand-darkgray hover:text-brand-red"
+                : "text-gray-700 hover:text-gray-800"
             }`}
           >About Us</button>
 
         <div data-menu class="absolute left-0 top-full mt-1 w-56 rounded-md border bg-white shadow-lg hidden">
-          <a href="/about-us/" class="block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">What We Do</a>
-          <a href="/about-us/our-values" class="block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">Our Values</a>
-          <a href="/about-us/leadership" class="block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red">Schulter & Genevieve</a>
+          <a href="/about-us/" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">What We Do</a>
+          <a href="/about-us/our-values" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">Our Values</a>
+          <a href="/about-us/leadership" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">Schulter & Genevieve</a>
         </div>
       </div>
 
@@ -102,7 +102,7 @@ const isActive = (href) =>
         <a
           href="/live/"
           class={`px-2 py-2 flex items-center gap-1 ${
-            isActive("/live/") ? "text-brand-red font-semibold" : "text-brand-darkgray hover:text-brand-red"
+            isActive("/live/") ? "text-brand-red font-semibold" : "text-gray-700 hover:text-gray-800"
           }`}
         >
         <span data-live-mid-text>Live</span>
@@ -118,21 +118,21 @@ const isActive = (href) =>
             class={`px-1 py-2 whitespace-nowrap ${
               isActive("/ministries/")
                 ? "text-brand-red font-semibold"
-                : "text-brand-darkgray hover:text-brand-red"
+                : "text-gray-700 hover:text-gray-800"
             }`}
           >Ministries</button>
 
         <div data-menu class="absolute left-0 top-full mt-1 w-64 rounded-md border bg-white shadow-lg hidden max-h-[70vh] overflow-y-auto">
-          <a href="/ministries/new-members/" class="block px-3 py-2 text-sm hover:text-brand-red">New @The Life Place</a>
+          <a href="/ministries/new-members/" class="block px-3 py-2 text-sm hover:text-gray-800">New @The Life Place</a>
           <div class="px-3 pt-2 pb-1 text-[11px] uppercase text-gray-400">Family</div>
-          <a href="/ministries/bring-them-to-jesus/" class="block px-3 py-2 text-sm hover:text-brand-red">Bring Them To Jesus</a>
-          <a href="/ministries/kids/" class="block px-3 py-2 text-sm hover:text-brand-red">Kids @The Life Place</a>
-          <a href="/ministries/gen/" class="block px-3 py-2 text-sm hover:text-brand-red">ThisGen</a>
+          <a href="/ministries/bring-them-to-jesus/" class="block px-3 py-2 text-sm hover:text-gray-800">Bring Them To Jesus</a>
+          <a href="/ministries/kids/" class="block px-3 py-2 text-sm hover:text-gray-800">Kids @The Life Place</a>
+          <a href="/ministries/gen/" class="block px-3 py-2 text-sm hover:text-gray-800">ThisGen</a>
           <div class="px-3 pt-2 pb-1 text-[11px] uppercase text-gray-400">Formation</div>
-          <a href="/ministries/premarital-counseling/" class="block px-3 py-2 text-sm hover:text-brand-red">Premarital Counseling</a>
-          <a href="/ministries/institute/" class="block px-3 py-2 text-sm hover:text-brand-red">The Life Place Institute</a>
+          <a href="/ministries/premarital-counseling/" class="block px-3 py-2 text-sm hover:text-gray-800">Premarital Counseling</a>
+          <a href="/ministries/institute/" class="block px-3 py-2 text-sm hover:text-gray-800">The Life Place Institute</a>
           <div class="px-3 pt-2 pb-1 text-[11px] uppercase text-gray-400">Outreach</div>
-          <a href="/ministries/relief-center/" class="block px-3 py-2 text-sm hover:text-brand-red">Relief Center</a>
+          <a href="/ministries/relief-center/" class="block px-3 py-2 text-sm hover:text-gray-800">Relief Center</a>
         </div>
       </div>
 
@@ -148,7 +148,7 @@ const isActive = (href) =>
           class={`px-1 py-2 ${
             isActive("/visit/")
               ? "text-brand-red font-semibold"
-              : "text-brand-darkgray hover:text-brand-red"
+              : "text-gray-700 hover:text-gray-800"
           }`}
         >Plan A Visit</a>
 
@@ -156,7 +156,7 @@ const isActive = (href) =>
         <a
           href="/blog/"
           class={`px-1 py-2 ${
-            isActive("/blog/") ? "text-brand-red font-semibold" : "text-brand-darkgray hover:text-brand-red"
+            isActive("/blog/") ? "text-brand-red font-semibold" : "text-gray-700 hover:text-gray-800"
           }`}
         >Our Blog</a>
     </nav>
@@ -200,8 +200,8 @@ const isActive = (href) =>
       <!-- What to Expect -->
       <a
         href="/what-to-expect/"
-        class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-          isActive("/what-to-expect") ? "after:w-full text-brand-red font-semibold" : "text-brand-darkgray hover:text-brand-red after:w-0"
+        class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+          isActive("/what-to-expect") ? "after:w-full after:bg-brand-red text-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-gray-300"
         }`}
       >What to Expect</a>
 
@@ -210,8 +210,8 @@ const isActive = (href) =>
         <button
           data-trigger
           type="button"
-          class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-            isActive("/about-us/") ? "text-brand-red after:w-full font-semibold" : "text-brand-warmgray-700 hover:text-brand-red"
+          class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+            isActive("/about-us/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-gray-300"
           }`}
         >About Us</button>
 
@@ -219,17 +219,17 @@ const isActive = (href) =>
           data-menu
           class="absolute left-0 top-full -mt-px w-56 rounded-md border bg-white shadow-lg z-50 hidden max-h-80 overflow-y-auto overscroll-contain pt-1"
         >
-          <a href="/about-us/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">What We Do</span></a>
-          <a href="/about-us/our-values" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Our Values</span></a>
-          <a href="/about-us/leadership" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Schulter and Genevieve</span></a>
+          <a href="/about-us/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">What We Do</span></a>
+          <a href="/about-us/our-values" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">Our Values</span></a>
+          <a href="/about-us/leadership" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">Schulter and Genevieve</span></a>
         </div>
       </div>
 
       <!-- Live -->
       <a
         href="/live/"
-        class={`relative px-2 py-2 flex items-center gap-1 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-          isActive("/live/") ? "after:w-full text-brand-red font-semibold" : "text-brand-darkgray hover:text-brand-red after:w-0"
+        class={`relative px-2 py-2 flex items-center gap-1 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+          isActive("/live/") ? "after:w-full after:bg-brand-red text-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-gray-300"
         }`}
       >
         <span data-live-text>Live</span>
@@ -241,8 +241,8 @@ const isActive = (href) =>
         <button
           data-trigger
           type="button"
-          class={`relative px-2 py-2 whitespace-nowrap after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-            isActive("/ministries/") ? "text-brand-red after:w-full font-semibold" : "text-brand-warmgray hover:text-brand-red"
+          class={`relative px-2 py-2 whitespace-nowrap after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+            isActive("/ministries/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-gray-300"
           }`}
         >Ministries</button>
 
@@ -250,16 +250,16 @@ const isActive = (href) =>
           data-menu
           class="absolute left-0 top-full -mt-px w-64 xl:w-72 2xl:w-80 rounded-md border bg-white shadow-lg z-50 hidden max-h-[75vh] xl:max-h-[85vh] overflow-y-auto overscroll-contain pt-1"
         >
-          <a href="/ministries/new-members/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">New @The Life Place</span></a>
+          <a href="/ministries/new-members/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">New @The Life Place</span></a>
           <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Family</div>
-          <a href="/ministries/bring-them-to-jesus/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Bring Them To Jesus</span></a>
-          <a href="/ministries/kids/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Kids @The Life Place</span></a>
-          <a href="/ministries/gen/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">ThisGen</span></a>
-          <a href="/ministries/premarital-counseling/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Premarital Counseling</span></a>
+          <a href="/ministries/bring-them-to-jesus/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">Bring Them To Jesus</span></a>
+          <a href="/ministries/kids/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">Kids @The Life Place</span></a>
+          <a href="/ministries/gen/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">ThisGen</span></a>
+          <a href="/ministries/premarital-counseling/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">Premarital Counseling</span></a>
           <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Formation</div>
-          <a href="/ministries/institute/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">The Life Place Institute</span></a>
+          <a href="/ministries/institute/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">The Life Place Institute</span></a>
           <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Outreach</div>
-          <a href="/ministries/relief-center/" class="group block px-3 py-2 text-sm text-brand-darkgray hover:text-brand-red"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Relief Center</span></a>
+          <a href="/ministries/relief-center/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">Relief Center</span></a>
         </div>
       </div>
 
@@ -273,16 +273,16 @@ const isActive = (href) =>
       <!-- Plan A Visit -->
       <a
         href="/visit/"
-        class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-          isActive("/visit/") ? "text-brand-red after:w-full font-semibold" : "text-brand-darkgray hover:text-brand-red"
+        class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+          isActive("/visit/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-gray-300"
         }`}
       >Plan A Visit</a>
 
       <!-- Blog (internal listing) -->
       <a
         href="/blog/"
-        class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-          isActive("/blog/") ? "text-brand-red after:w-full font-semibold" : "text-brand-darkgray hover:text-brand-red"
+        class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+          isActive("/blog/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-gray-300"
         }`}
       >Our Blog</a>
     </nav>
@@ -545,9 +545,9 @@ const isActive = (href) =>
 
         if (hasActiveLink) {
           trigger.classList.add("text-brand-red", "font-semibold", "bg-red-50");
-          trigger.classList.remove("text-brand-darkgray");
+          trigger.classList.remove("text-gray-700");
         } else {
-          trigger.classList.add("text-brand-darkgray");
+          trigger.classList.add("text-gray-700");
           trigger.classList.remove("text-brand-red", "font-semibold", "bg-red-50");
         }
 
