@@ -20,7 +20,7 @@
 @layer base {
   html, body {
     background-color: #fff;
-    color: #1f2937; /* Tailwind's text-gray-800 */
+    color: #4b5563; /* Tailwind's text-gray-600 - softer body text */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
@@ -28,11 +28,11 @@
 
   html {
     font-weight: 500;
-    color: #111827; /* Tailwind's text-gray-900 */
+    color: #1f2937; /* Tailwind's text-gray-800 - softer than pure black */
   }
 
   p {
-    color: #374151; /* Tailwind's text-gray-700 */
+    color: #4b5563; /* Tailwind's text-gray-600 - body text comfort */
     line-height: 1.75;
   }
 
@@ -40,6 +40,7 @@
     font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     letter-spacing: -0.02em;
     line-height: 1.25;
+    color: #1f2937; /* text-gray-800 - heading hierarchy */
   }
 
   h1 { 
@@ -107,15 +108,15 @@
   .container-x { @apply max-w-6xl mx-auto px-4; }
 
   /* Standardized Heading Classes */
-  .heading-1 { @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-gray-900; }
-  .heading-2 { @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-gray-900; }
-  .heading-3 { @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900; }
-  .heading-4 { @apply text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-gray-900; }
+  .heading-1 { @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-gray-800; }
+  .heading-2 { @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-gray-800; }
+  .heading-3 { @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800; }
+  .heading-4 { @apply text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-gray-800; }
 
   /* Buttons */
   .btn { @apply inline-flex items-center justify-center rounded-lg px-5 py-3 font-medium transition-colors; }
   .btn-primary { @apply btn text-white bg-[#B3282D] hover:bg-[#9f2429]; }
-  .btn-outline { @apply btn border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white; }
+  .btn-outline { @apply btn border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white; }
   .btn-ghost  { @apply btn border border-gray-300 text-gray-800 hover:bg-gray-100; }
 
   /* Branded pill button */
@@ -170,7 +171,7 @@
 
   /* Nav underline */
   .nav-underline {
-    @apply relative inline-block no-underline text-gray-700 transition-colors duration-200 ease-out;
+    @apply relative inline-block no-underline text-gray-600 transition-colors duration-200 ease-out;
   }
   .nav-underline::after {
     content: "";
@@ -258,7 +259,7 @@
     .tap-lg { @apply py-3 px-3; }
     .nav-sm { @apply text-base leading-6; }
     .mobile-hero-ttl { @apply text-3xl leading-tight font-bold; }
-    .mobile-hero-sub { @apply text-base leading-6 text-gray-700; }
+    .mobile-hero-sub { @apply text-base leading-6 text-gray-600; }
     .px-mobile { padding-left: 1rem; padding-right: 1rem; }
     .py-mobile { padding-top: 1rem;  padding-bottom: 1rem; }
   }
@@ -266,7 +267,7 @@
 
 /* Brand gray utilities */
 @layer utilities {
-  .text-brand-gray-700 { @apply text-gray-700; }
+  .text-brand-gray-700 { @apply text-gray-600; }
   .text-brand-gray-800 { @apply text-gray-800; }
 
   .bg-brand-gray-100 { @apply bg-gray-100; }

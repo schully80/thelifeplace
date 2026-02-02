@@ -10,7 +10,7 @@ const { speakers, activeSpeaker } = Astro.props;
     class={`px-4 py-2 rounded-full text-sm border transition ${
       !activeSpeaker
         ? "bg-brand-red text-white border-brand-red"
-        : "bg-white text-gray-700 hover:bg-gray-100 border-gray-300"
+        : "bg-white text-gray-600 hover:bg-gray-100 border-gray-300"
     }`}
   >
     All Speakers
@@ -23,7 +23,7 @@ const { speakers, activeSpeaker } = Astro.props;
       class={`px-4 py-2 rounded-full text-sm border transition ${
         activeSpeaker === sp
           ? "bg-brand-red text-white border-brand-red"
-          : "bg-white text-gray-700 hover:bg-gray-100 border-gray-300"
+          : "bg-white text-gray-600 hover:bg-gray-100 border-gray-300"
       }`}
     >
       {sp}

@@ -247,7 +247,7 @@ const canonicalHref = `${Astro.url.origin}/blog/${yearParam}`;
           <p class="text-red-700 text-sm mt-1">{error}</p>
         </div>
       ) : items.length === 0 ? (
-        <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6 text-center text-gray-700">
+        <div class="rounded-2xl border border-gray-200 bg-gray-50 p-6 text-center text-gray-600">
           No posts found for {yearParam}.
         </div>
       ) : (
@@ -270,21 +270,21 @@ const canonicalHref = `${Astro.url.origin}/blog/${yearParam}`;
                     )}
                     <div class="p-7 md:p-8">
                       <div class="flex items-center gap-2">
-                        <span class="inline-flex items-center px-2 py-1 rounded-full bg-gray-100 text-gray-700 text-xs">{formatDate(item.dateObj, item.date)}</span>
+                        <span class="inline-flex items-center px-2 py-1 rounded-full bg-gray-100 text-gray-600 text-xs">{formatDate(item.dateObj, item.date)}</span>
                       </div>
                       <h3 class="mt-4 text-lg md:text-xl font-semibold tracking-tight text-gray-800 group-hover:text-brand-red transition-colors">{item.title || item.link}</h3>
                       <span class="mt-1 block text-xs text-gray-500">Opens on Substack</span>
                       {item.categories && item.categories.length > 0 && (
                         <div class="mt-4 flex flex-wrap gap-3">
                           {[...item.categories].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())).map((cat) => (
-                            <a href={`https://schulteretyang.substack.com/t/${encodeURIComponent(cat)}`} class="inline-flex items-center px-2 py-1 rounded-2xl text-xs text-gray-700 hover:bg-brand-red/10 hover:text-brand-red transition-colors">
+                            <a href={`https://schulteretyang.substack.com/t/${encodeURIComponent(cat)}`} class="inline-flex items-center px-2 py-1 rounded-2xl text-xs text-gray-600 hover:bg-brand-red/10 hover:text-brand-red transition-colors">
                               {cat}
                             </a>
                           ))}
                         </div>
                       )}
                       {item.description && (
-                        <p class="text-sm md:text-base text-gray-700 mt-4 line-clamp-4">{item.description}</p>
+                        <p class="text-sm md:text-base text-gray-600 mt-4 line-clamp-4">{item.description}</p>
                       )}
                     </div>
                   </a>
