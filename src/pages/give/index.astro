@@ -237,7 +237,7 @@ const event = url.searchParams.get("event");
           </div>
 
           <!-- SnapScan Tab Content -->
-          <a href="https://pos.snapscan.io/qr/VISFNLkM" class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 p-6 fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all flex flex-col items-center hidden" data-tab-content="snapscan">
+          <a href="https://pos.snapscan.io/qr/VISFNLkM" class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 p-6 fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all hidden" data-tab-content="snapscan">
             <h3 class="text-xl font-extrabold mb-6 text-center">SnapScan</h3>
             <div class="flex justify-center mb-6">
               <img
@@ -269,7 +269,7 @@ const event = url.searchParams.get("event");
             action="https://www.paypal.com/donate"
             method="post"
             target="_top"
-            class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 p-6 fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all flex flex-col items-center gap-0 cursor-pointer hidden"
+            class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 p-6 fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all cursor-pointer hidden"
             data-tab-content="paypal"
           >
             <input type="hidden" name="hosted_button_id" value="4L3NWWAZ9PPV6" />
@@ -643,6 +643,9 @@ const event = url.searchParams.get("event");
   /* Smooth transitions for tab content */
   .methodTabContent {
     transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .methodTabContent.hidden {

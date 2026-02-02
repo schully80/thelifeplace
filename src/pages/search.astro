@@ -8,15 +8,83 @@ const title = q ? `Search: ${q}` : "Search";
 ---
 <BaseLayout title={title}>
   <section class="max-w-4xl mx-auto py-12 px-4">
-    <h1 class="heading-1 mb-6">Search Results</h1>
+    <h1 class="heading-1 mb-4">Search</h1>
+    <div class="flex items-center gap-3 mb-4">
+      <input id="q" type="search" inputmode="search" placeholder="Search titles & excerpts…" class="w-full max-w-md px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-red/30 focus:border-brand-red/40" value={q} aria-label="Search blog posts" />
+      <button id="clear" type="button" class="px-3 py-2 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-50">Clear</button>
+    </div>
+    <p id="status" class="text-gray-500 mb-4">{q ? (<>Searching for <span class="font-semibold">{q}</span>…</>) : (<>Type a keyword to search the full archive.</>)} </p>
 
-    {q ? (
-      <p class="text-gray-600 mb-6">You searched for: <span class="font-semibold">{q}</span></p>
-    ) : (
-      <p class="text-gray-500">Type something in the search box above to get started.</p>
-    )}
+    <div id="noResults" class="hidden rounded-2xl border border-gray-200 bg-gray-50 p-4 text-gray-700">No matching posts.</div>
 
-    <!-- Results will come from client-side script -->
     <div id="results" class="space-y-4" data-query={q}></div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        const input = document.getElementById('q');
+        const clearBtn = document.getElementById('clear');
+        const status = document.getElementById('status');
+        const results = document.getElementById('results');
+        const noResults = document.getElementById('noResults');
+        const initialQ = results.getAttribute('data-query') || '';
+        let index = [];
+
+        async function loadIndex() {
+          try {
+            status.textContent = 'Loading full-archive index…';
+            const res = await fetch('/api/blog-index.json');
+            const data = await res.json();
+            index = Array.isArray(data.items) ? data.items : [];
+            status.textContent = `Loaded ${index.length} posts.`;
+          } catch (e) {
+            status.textContent = 'Failed to load archive index.';
+          }
+        }
+
+        function render(items) {
+          results.innerHTML = '';
+          if (!items || items.length === 0) {
+            noResults.classList.remove('hidden');
+            return;
+          }
+          noResults.classList.add('hidden');
+          const fragment = document.createDocumentFragment();
+          for (const it of items) {
+            const a = document.createElement('a');
+            a.href = it.link;
+            a.className = 'block rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow p-4';
+            a.innerHTML = `
+              <div class=\"flex items-start gap-3\">
+                <div class=\"flex-1\">
+                  <div class=\"text-xs text-gray-500\">${it.date ? it.date : (it.year ? `${new Date(it.year, (it.month||1)-1, 1).toLocaleString('en-US', { month: 'short', year: 'numeric' })}` : '')}</div>
+                  <div class=\"mt-1 text-base md:text-lg font-semibold tracking-tight text-gray-800\">${it.title || it.link}</div>
+                  ${it.excerpt ? `<p class=\"mt-2 text-sm text-gray-700 line-clamp-3\">${it.excerpt}</p>` : ''}
+                  <span class=\"mt-1 block text-xs text-gray-500\">Opens on Substack</span>
+                </div>
+              </div>
+            `;
+            fragment.appendChild(a);
+          }
+          results.appendChild(fragment);
+        }
+
+        function filter(q) {
+          const query = (q || '').trim().toLowerCase();
+          if (!query) { render([]); status.textContent = 'Type a keyword to search the full archive.'; return; }
+          const matched = index.filter(it => {
+            const t = (it.title || '').toLowerCase();
+            const e = (it.excerpt || '').toLowerCase();
+            return t.includes(query) || e.includes(query);
+          });
+          render(matched);
+          status.textContent = `Found ${matched.length} posts for \"${q}\".`;
+        }
+
+        await loadIndex();
+        if (initialQ) filter(initialQ);
+        input?.addEventListener('input', (e) => filter(e.target.value));
+        clearBtn?.addEventListener('click', () => { input.value = ''; render([]); status.textContent = 'Type a keyword to search the full archive.'; input.focus(); });
+      });
+    </script>
   </section>
 </BaseLayout>

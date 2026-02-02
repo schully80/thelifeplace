@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const FEED_URL = "https://schulteretyang.substack.com/feed";
+let items = [];
+let error = null;
+let xmlPreview = "";
+
+function cleanCdata(str) {
+  return (str || "").replace(/<!\[CDATA\[/g, "").replace(/\]\]>/g, "").trim();
+}
+
+function pick(chunk, re) {
+  const m = chunk.match(re);
+  if (!m) return "";
+  return cleanCdata(m[1] || m[2] || "");
+}
+
+try {
+  const res = await fetch(FEED_URL, {
+    headers: {
+      Accept: "application/rss+xml, application/xml, text/xml",
+      "User-Agent": "thelifeplace-test-feed"
+    }
+  });
+  if (!res.ok) throw new Error(`Feed fetch failed: HTTP ${res.status}`);
+  const xml = await res.text();
+  xmlPreview = xml.slice(0, 800);
+  const chunks = xml.split("<item>").slice(1);
+  items = chunks.slice(0, 10).map((chunk) => {
+    const title = pick(chunk, /<title>(?:<!\[CDATA\[(.*?)\]\]>|(.*?))<\/title>/s);
+    const link = pick(chunk, /<link>(.*?)<\/link>/s);
+    const date = pick(chunk, /<pubDate>(.*?)<\/pubDate>/s);
+    const description = pick(chunk, /<description>(?:<!\[CDATA\[(.*?)\]\]>|(.*?))<\/description>/s);
+    return { title, link, date, description };
+  });
+} catch (e) {
+  error = e instanceof Error ? e.message : String(e);
+}
+---
+
+<BaseLayout title="RSS Feed Test">
+  <section class="w-full py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <h1 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">RSS Feed Test</h1>
+      <p class="text-gray-700 mb-6">Testing Substack RSS integration.</p>
+
+      <div class="rounded-2xl border border-gray-200 bg-gray-50 p-4 mb-6">
+        <p class="text-sm text-gray-600">Feed URL: <a href={FEED_URL} target="_blank" rel="noopener" class="text-brand-red underline">{FEED_URL}</a></p>
+        <p class="text-sm text-gray-600 mt-1">Note: The URL you provided (https://substack.com/schulteretyang/feed) returns 404. Substack feeds are typically at your subdomain, e.g., <code>https://schulteretyang.substack.com/feed</code>.</p>
+      </div>
+
+      {error ? (
+        <div class="rounded-2xl border border-red-200 bg-red-50 p-4">
+          <p class="text-red-700 font-semibold">Error fetching feed:</p>
+          <p class="text-red-700 text-sm mt-1">{error}</p>
+        </div>
+      ) : (
+        <div>
+          <h2 class="text-xl font-bold text-gray-900 mb-3">Latest items</h2>
+          <ul class="space-y-4">
+            {items.map((item) => (
+              <li class="rounded-2xl border border-gray-200 bg-white p-4">
+                <a href={item.link} target="_blank" rel="noopener" class="text-brand-red font-bold underline">{item.title || item.link}</a>
+                <p class="text-xs text-gray-500 mt-1">{item.date}</p>
+                {item.description && (
+                  <p class="text-sm text-gray-700 mt-2 line-clamp-3">{item.description}</p>
+                )}
+              </li>
+            ))}
+          </ul>
+
+          <div class="rounded-2xl border border-gray-200 bg-gray-50 p-4 mt-6">
+            <p class="text-sm text-gray-600 font-semibold">XML preview (first 800 chars)</p>
+            <pre class="mt-2 overflow-x-auto text-xs text-gray-700">{xmlPreview}</pre>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

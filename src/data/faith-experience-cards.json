@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "icon": "worship",
+    "title": "Worship that makes room for Jesus' presence.",
+    "description": ""
+  },
+  {
+    "id": 2,
+    "icon": "bible",
+    "title": "The Bible taught as one story of grace, always pointing to Jesus.",
+    "description": ""
+  },
+  {
+    "id": 3,
+    "icon": "community",
+    "title": "A diverse community that gathers to see Jesus.",
+    "description": ""
+  },
+  {
+    "id": 4,
+    "icon": "belonging",
+    "title": "At the Lord's Table we remember what Jesus has done for us.",
+    "description": ""
+  },
+  {
+    "id": 5,
+    "icon": "sent",
+    "title": "We are sent out to live Jesus' story in our city, our nation, and the world.",
+    "description": ""
+  },
+  {
+    "id": 6,
+    "icon": "card6",
+    "title": "Growing in faith together through prayer and Scripture study.",
+    "description": ""
+  }
+]

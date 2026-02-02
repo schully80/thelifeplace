@@ -371,14 +371,13 @@ const isActive = (href) =>
         Plan A Visit
       </a>
 
-        <!-- BLOG (last) -->
+        <!-- BLOG (last, internal listing) -->
         <a
-          href="https://schulteretyang.substack.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          class={`w-full text-left block px-4 py-3 rounded-full text-base text-brand-darkgray hover:bg-gray-50`}
+          href="/blog/"
+          class={`w-full text-left block px-4 py-3 rounded-full text-base ${
+            isActive("/blog/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"
+          }`}
         >Our Blog</a>
-      </a>
     </nav>
 
   </aside>

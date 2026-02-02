@@ -1,0 +1,495 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FadeDivider from "../components/tlp/FadeDivider.astro";
+
+---
+
+<BaseLayout title="The Life Place — Modern Test">
+
+<!-- ===== WELCOME STATEMENT - FULL PROMINENCE ===== -->
+<section class="relative py-28 md:py-48 overflow-hidden">
+  
+  <!-- Background switched to white -->
+  <div class="absolute inset-0 bg-white"></div>
+  
+
+  <div class="relative max-w-5xl mx-auto px-6 z-10">
+    
+    <!-- Preheader -->
+    <p class="text-gray-900 text-xl font-semibold uppercase tracking-[0.2em] mb-10 opacity-0 animate-fadeUp">
+      Welcome to The Life Place
+    </p>
+    
+    <!-- Main welcome heading -->
+    <h2 class="text-6xl md:text-7xl lg:text-8xl font-black text-gray-900 leading-tight mb-8 opacity-0 animate-fadeUp delay-100">
+      We open wide our doors with a welcome from
+      <span class="block text-brand-red opacity-90">Jesus,</span>
+      <br />
+      the <span class="text-brand-red opacity-90">Embracer</span> of the outsider,
+      <span class="block">the <span class="text-brand-red opacity-90">Defender</span> of the guilty,</span>
+      <br />
+      the <span class="text-brand-red opacity-90">Justifier</span> of the ungodly,
+      <span class="block">the <span class="text-brand-red opacity-90">Friend</span> of sinners.</span>
+    </h2>
+
+    
+    <!-- CTA buttons -->
+    <div class="flex flex-col sm:flex-row gap-6 mt-16 opacity-0 animate-fadeUp delay-400">
+      <a href="/visit" class="inline-flex items-center justify-center px-10 py-5 bg-gradient-to-r from-white to-gray-100 text-brand-red font-black text-lg rounded-2xl hover:shadow-2xl hover:scale-110 transition-all duration-300 hover:from-gray-50 hover:to-white">
+        Join Us This Sunday
+      </a>
+      <a href="/get-connected" class="inline-flex items-center justify-center px-10 py-5 bg-gradient-to-r from-white/30 to-white/10 text-white font-black text-lg rounded-2xl border-2 border-white hover:bg-gradient-to-r hover:from-white/50 hover:to-white/20 transition-all duration-300 backdrop-blur-sm">
+        Get Connected
+      </a>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- Faded divider between Welcome and Our Invitation (visible, tuned) -->
+<FadeDivider width="w-[80%]" height="h-[2px]" color="bg-gray-400" mt="mt-6 md:mt-8" mb="mb-10 md:mb-12" />
+
+<!-- ===== OUR INVITATION SECTION ===== -->
+<section class="w-full bg-white py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <p class="text-lg md:text-xl text-brand-red font-bold uppercase tracking-widest mb-8 opacity-0 animate-fadeUp">Our Invitation</p>
+    <h2 class="text-6xl md:text-7xl lg:text-8xl font-black leading-tight opacity-0 animate-fadeUp delay-100">
+      <span class="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+        Come.
+      </span>
+      <br />
+      <span class="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+        See.
+      </span>
+      <br />
+      <span class="text-brand-red drop-shadow-lg">Jesus.</span>
+    </h2>
+  </div>
+</section>
+
+<!-- ===== VISUAL DIVIDER ===== -->
+<div class="h-1 bg-gradient-to-r from-transparent via-brand-red/30 to-transparent"></div>
+
+<!-- ===== HERO SECTION WITH VISION STATEMENT (MODERN REDESIGN) ===== -->
+<section class="relative w-full py-32 md:py-48 overflow-hidden flex items-center">
+  
+  <!-- Background image with overlay -->
+  <img
+    src="/sandton-skyline-grayscale.jpg"
+    alt="Sandton skyline"
+    class="absolute inset-0 h-full w-full object-cover"
+    loading="eager"
+    decoding="async"
+  />
+  
+  <!-- Dark overlay for text readability -->
+  <div class="absolute inset-0 bg-black/30"></div>
+  
+
+
+  <!-- Hero Content -->
+  <div class="relative max-w-6xl mx-auto px-6 py-12 text-center z-10">
+
+    <!-- What We Do Label - Modern Typography -->
+    <p class="text-base md:text-lg text-white font-semibold uppercase tracking-[0.15em] mb-6 opacity-0 animate-fadeUp delay-100">What We Do</p>
+
+    <!-- Vision Statement - Modern, Bold, Spacious -->
+    <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight text-white mb-12 opacity-0 animate-fadeUp delay-200 max-w-5xl mx-auto">
+      Every time we meet
+      <span class="block mt-4 md:mt-6">
+        we see how <span class="text-yellow-200">true, good, beautiful and kind</span>
+      </span>
+      <span class="block mt-4 md:mt-6">Jesus is.</span>
+    </h1>
+
+    <!-- Vision Supporting Text - Modern and Clean -->
+    <p class="text-base md:text-2xl text-white max-w-3xl mx-auto leading-relaxed font-medium mb-4 opacity-0 animate-fadeUp delay-300">
+      This is what we're about—encountering Jesus together and letting who he is and what he did for us transform everything.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- White space separator between Vision and Our Faith & Our Feel -->
+<div class="py-16 bg-white"></div>
+
+<!-- ===== OUR FAITH & OUR FEEL ===== -->
+<section class="w-full py-24 md:py-40 relative overflow-hidden">
+  <!-- Modern, layered background for visual impact -->
+  <div class="absolute inset-0 z-0">
+    <!-- Match welcome statement background -->
+    <div class="absolute inset-0 bg-gradient-to-r from-brand-red/95 via-red-600/90 to-brand-red/95"></div>
+    <div class="absolute top-0 right-0 w-96 h-96 bg-white/15 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-black/10 rounded-full blur-3xl"></div>
+  </div>
+  
+  <div class="absolute inset-0">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-brand-red/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-6 z-10">
+    
+    <!-- Header -->
+    <div class="mb-16 text-center opacity-0 animate-fadeUp delay-100">
+      <h2 class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4">
+    Five things you will experience with us
+      </h2>
+    </div>
+
+    <!-- Expandable Sections -->
+    <div class="space-y-6 opacity-0 animate-fadeUp delay-200">
+      
+      <!-- Section 1: For Newcomers (Default Open) -->
+      <div>
+          <div>
+          
+            <div class="flex justify-center">
+              <div class="grid grid-cols-3 gap-6 mb-6">
+              <!-- Card 1 -->
+              <div class="rounded-2xl bg-gray-50 border border-gray-100 p-7 flex flex-col items-start shadow-sm hover:shadow-lg transition-all">
+                <div class="text-3xl mb-3">🙏</div>
+                <h4 class="font-bold text-gray-900 mb-2">Worship that makes room for Jesus' presence.</h4>
+              </div>
+              <!-- Card 2 -->
+              <div class="rounded-2xl bg-gray-50 border border-gray-100 p-7 flex flex-col items-start shadow-sm hover:shadow-lg transition-all">
+                <div class="text-3xl mb-3">📖</div>
+                <h4 class="font-bold text-gray-900 mb-2">The Bible taught as one story of grace, always pointing to Jesus.</h4>
+              </div>
+              <!-- Card 3 -->
+              <div class="rounded-2xl bg-gray-50 border border-gray-100 p-7 flex flex-col items-start shadow-sm hover:shadow-lg transition-all">
+                <div class="text-3xl mb-3">🤝</div>
+                <h4 class="font-bold text-gray-900 mb-2">A diverse community that gathers to see Jesus.</h4>
+              </div>
+              <!-- Card 4 -->
+              <div class="rounded-2xl bg-gray-50 border border-gray-100 p-7 flex flex-col items-start shadow-sm hover:shadow-lg transition-all">
+                <div class="text-3xl mb-3">🫂</div>
+                <h4 class="font-bold text-gray-900 mb-2">At the Lord’s Table we remember what Jesus has done for us. </h4>
+              </div>
+              <!-- Card 5 -->
+              <div class="rounded-2xl bg-gray-50 border border-gray-100 p-7 flex flex-col items-start shadow-sm hover:shadow-lg transition-all">
+                <div class="text-3xl mb-3">🙌</div>
+                <h4 class="font-bold text-gray-900 mb-2">We are sent out to live Jesus' story in our city, our nation, and the world.</h4>
+              </div>
+            </div>
+          </div>
+
+      <!-- Section 2: Explore Full Beliefs -->
+      <div class="rounded-3xl border border-gray-200 bg-white overflow-hidden">
+        <a href="/what-to-expect" class="w-full p-8 md:p-10 text-left flex items-start justify-between hover:bg-gray-50 transition-colors duration-300 group">
+          <div class="pr-4">
+            <div class="inline-block px-3 py-1 rounded-full bg-blue-600/10 border border-blue-600/30 text-xs font-bold text-blue-600 uppercase tracking-wider mb-3">
+              Explore More
+            </div>
+            <h3 class="text-2xl md:text-3xl font-black text-gray-900 group-hover:text-blue-600 transition-colors">Want the full theological detail?</h3>
+            <p class="text-gray-600 mt-2">Dive deeper into our beliefs, convictions, and the biblical foundation of our faith.</p>
+          </div>
+          <div class="text-2xl text-gray-400 group-hover:text-gray-600 transition-colors flex-shrink-0 mt-1">→</div>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script is:inline>
+  function toggleSection(button) {
+    const section = button.parentElement;
+    const content = section.querySelector('.content-section');
+    const icon = button.querySelector('div:last-child');
+    
+    content.classList.toggle('hidden');
+    icon.textContent = content.classList.contains('hidden') ? '+' : '−';
+  }
+</script>
+
+<!-- ===== SERVICE TIMES & LOCATION ===== -->
+<section class="w-full py-24 md:py-32 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+    
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      
+      <!-- Left: Service Info -->
+      <div>
+        <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-8">
+          When & <span class="text-brand-red">Where</span>
+        </h2>
+        
+        <div class="space-y-8">
+          
+          <!-- Sunday Service -->
+          <div class="border-l-4 border-brand-red pl-6">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Sunday Worship</h3>
+            <p class="text-xl text-gray-700 mb-2">
+              <span class="font-semibold">10:00 AM</span>
+            </p>
+            <p class="text-gray-600">Join us for worship, prayer, and community every Sunday morning.</p>
+          </div>
+
+          <!-- Location -->
+          <div class="border-l-4 border-brand-red pl-6">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">📍 Our Location</h3>
+            <p class="text-lg text-gray-700 mb-2">The Life Place</p>
+            <p class="text-gray-600 leading-relaxed">
+              Sandton, Johannesburg<br />
+              South Africa
+            </p>
+          </div>
+
+          <!-- Visitor Info -->
+          <div class="border-l-4 border-brand-red pl-6">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">First Time Visiting?</h3>
+            <p class="text-gray-600 mb-4">
+              We'd love to meet you! We believe in genuine community and a warm welcome for everyone.
+            </p>
+            <a href="/visit" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-brand-red to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-full transition-all hover:shadow-xl hover:-translate-y-1 transform duration-300">
+              Plan Your Visit
+              <span>→</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right: Map or Visual -->
+      <div class="relative rounded-3xl overflow-hidden shadow-2xl h-96 md:h-full min-h-96 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+        <div class="text-center">
+          <div class="text-6xl mb-4">📍</div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-2">Sandton, Johannesburg</h3>
+          <p class="text-gray-600">In the heart of the city</p>
+        </div>
+        <!-- In future, replace this with actual embedded map -->
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ===== COMMUNITY HIGHLIGHTS ===== -->
+<section class="py-24 md:py-32 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-6">
+    
+    <h2 class="text-4xl md:text-5xl font-black text-gray-900 text-center mb-20">
+      Experience Community
+    </h2>
+
+    <!-- Urban Community Highlights -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Card 1 - Skyscraper/Building Icon -->
+      <div class="group p-6 rounded-2xl bg-white shadow-sm hover:shadow-2xl hover:border-brand-red transition-all duration-300 border border-gray-100 hover:scale-105 hover:-translate-y-2">
+        <div class="text-4xl mb-4 group-hover:scale-125 transition-transform duration-300">🏢</div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-brand-red transition-colors">City Builders</h3>
+        <p class="text-sm text-gray-600">Weekly gatherings in the heart of the city where we worship authentically and experience Jesus together.</p>
+      </div>
+
+      <!-- Card 2 - Neighborhood/Street Icon -->
+      <div class="group p-6 rounded-2xl bg-white shadow-sm hover:shadow-2xl hover:border-brand-red transition-all duration-300 border border-gray-100 hover:scale-105 hover:-translate-y-2">
+        <div class="text-4xl mb-4 group-hover:scale-125 transition-transform duration-300">🏘️</div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-brand-red transition-colors">Neighborhood Life Groups</h3>
+        <p class="text-sm text-gray-600">Small gatherings throughout the city where we study Scripture, pray, and grow in community.</p>
+      </div>
+
+      <!-- Card 3 - City Care/Service Icon -->
+      <div class="group p-6 rounded-2xl bg-white shadow-sm hover:shadow-2xl hover:border-brand-red transition-all duration-300 border border-gray-100 hover:scale-105 hover:-translate-y-2">
+        <div class="text-4xl mb-4 group-hover:scale-125 transition-transform duration-300">🚗</div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-brand-red transition-colors">City Service</h3>
+        <p class="text-sm text-gray-600">Active service and generous giving transforming neighborhoods and serving the city we love.</p>
+      </div>
+
+      <!-- Card 4 - Urban Outreach Icon -->
+      <div class="group p-6 rounded-2xl bg-white shadow-sm hover:shadow-2xl hover:border-brand-red transition-all duration-300 border border-gray-100 hover:scale-105 hover:-translate-y-2">
+        <div class="text-4xl mb-4 group-hover:scale-125 transition-transform duration-300">🌆</div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-brand-red transition-colors">Urban Ministries</h3>
+        <p class="text-sm text-gray-600">Serving students, young professionals, families, and generations transforming the city for Christ.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== CTA SECTION ===== -->
+<section class="py-24 md:py-32 bg-white">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    
+    <h2 class="text-4xl md:text-5xl font-black mb-6 text-gray-900">
+      Come. See. <span class="text-brand-red">Jesus</span>
+    </h2>
+
+    <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+      Join us this Sunday.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="/visit" class="px-8 py-4 bg-gradient-to-r from-brand-red to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-full transition-all hover:shadow-xl hover:-translate-y-1 transform duration-300">
+        Plan Your Visit
+      </a>
+      <a href="/contact" class="px-8 py-4 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white font-bold rounded-full transition-all hover:shadow-xl duration-300">
+        Get in Touch
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== STAY CONNECTED (Option A Prototype) ===== -->
+<section class="py-24 md:py-32 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <!-- Section Header -->
+    <h2 class="text-center text-4xl md:text-5xl font-black text-gray-900 mb-12">
+      STAY <span class="text-brand-red">CONNECTED</span>
+    </h2>
+
+    <!-- Two-column layout with thin vertical divider -->
+    <div class="grid md:grid-cols-[1fr_auto_1fr] gap-10 items-start">
+
+      <!-- Left: Feature image card -->
+      <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-200">
+        <div class="relative">
+          <img src="/sandton-skyline-grayscale.jpg" alt="Latest highlight" class="w-full h-72 md:h-[22rem] object-cover" loading="lazy" decoding="async" />
+          <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/50 to-transparent text-white">
+            <div class="text-3xl md:text-4xl font-black tracking-tight">Latest Message Highlight</div>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-gray-900 font-bold text-lg md:text-xl mb-2">Marriage Weekend | February 21 &amp; 22</h3>
+          <p class="text-gray-700 text-sm md:text-base leading-relaxed">A powerful, encouraging message designed to strengthen relationships and help you grow closer to Jesus.</p>
+          <div class="mt-4">
+            <a href="/messages" class="inline-flex items-center text-brand-red font-bold uppercase tracking-wider text-sm">View Messages<span class="ml-2">→</span></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vertical divider -->
+      <div class="hidden md:block w-px bg-brand-red/90 h-full mx-auto"></div>
+
+      <!-- Right: Stacked value props and newsletter form -->
+      <div class="space-y-8">
+
+        <!-- Item 1: Experience Church Online (restored) -->
+        <div>
+          <div class="flex items-start gap-4">
+            <div class="text-brand-red text-2xl">💬</div>
+            <div class="flex-1">
+              <h4 class="text-gray-900 font-bold uppercase tracking-wider">Experience church online</h4>
+              <p class="text-gray-700 mt-1 text-sm md:text-base">Join us online and be part of a community of people from around the world.</p>
+              <div class="mt-3">
+                <a href="/live" class="inline-flex items-center text-brand-red font-bold uppercase tracking-wider text-sm">Join Live<span class="ml-2">→</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="my-6 h-px bg-gray-300"></div>
+        </div>
+
+        <!-- Item 3 -->
+        <div>
+          <div class="flex items-start gap-4">
+            <div class="text-brand-red text-2xl">📱</div>
+            <div class="flex-1">
+              <h4 class="text-gray-900 font-bold uppercase tracking-wider">Download the app</h4>
+              <p class="text-gray-700 mt-1 text-sm md:text-base">Everything you need—events, messages, prayer, reading plans, and more.</p>
+              <div class="mt-3">
+                <a href="/app" class="inline-flex items-center text-brand-red font-bold uppercase tracking-wider text-sm">Download<span class="ml-2">→</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="my-6 h-px bg-gray-300"></div>
+        </div>
+
+        <!-- Newsletter block (now last item) -->
+        <div>
+          <div class="flex items-start gap-4">
+            <!-- Icon -->
+            <div class="text-brand-red">
+              <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
+                <path d="M3 7l9 6 9-6"></path>
+              </svg>
+            </div>
+            <!-- Content -->
+            <div class="flex-1">
+              <h4 class="text-gray-900 font-bold uppercase tracking-wider">SUBSCRIBE</h4>
+              <p class="text-gray-700 mt-1 text-sm md:text-base">Join our community and receive weekly posts that help you see Jesus — because seeing Him changes everything.</p>
+              <form id="newsletterFormTest" class="mt-3 flex flex-col sm:flex-row gap-3">
+                <input 
+                  type="email" 
+                  placeholder="Enter your email" 
+                  class="flex-1 px-6 py-4 rounded-full bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-brand-red transition-all"
+                  autocomplete="email"
+                  name="email"
+                  id="newsletterEmailTest"
+                  aria-label="Email address"
+                  required
+                />
+                <button 
+                  type="submit"
+                  class="px-8 py-4 bg-gradient-to-r from-brand-red to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-full transition-all hover:shadow-xl duration-300"
+                  aria-label="Subscribe to our blog"
+                  id="newsletterSubscribeBtnTest"
+                >
+                  Subscribe
+                </button>
+              </form>
+              <p class="text-sm text-gray-500 mt-3">You’ll confirm your subscription on Substack.</p>
+              <p class="text-sm text-gray-500">We respect your privacy. Unsubscribe at any time.</p>
+            </div>
+          </div>
+        </div>
+
+        
+        <script is:inline>
+          // Newsletter form: open Substack in new tab after native validation
+          (() => {
+            const form = document.getElementById('newsletterFormTest');
+            const emailInput = document.getElementById('newsletterEmailTest');
+            if (!form || !emailInput) return;
+            form.addEventListener('submit', (e) => {
+              e.preventDefault();
+              if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+              }
+              const email = emailInput.value.trim();
+              const url = `https://schulteretyang.substack.com/subscribe?email=${encodeURIComponent(email)}`;
+              window.open(url, '_blank', 'noopener');
+            });
+          })();
+        </script>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeUp {
+    animation: fadeUp 0.8s ease-out forwards;
+  }
+
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-1000 { animation-delay: 1s; }
+</style>
+
+</BaseLayout>

@@ -4,8 +4,9 @@ const {
   mb = "mb-24",
   color = "bg-gray-400",
   width = "w-[95%]",
+  height = "h-[2px]",
 } = Astro.props;
 ---
 <div class={`w-full ${mt} ${mb}`}>
-  <div class={`${width} mx-auto h-[2px] ${color}`}></div>
+  <div class={`${width} mx-auto ${height} ${color}`}></div>
 </div>
