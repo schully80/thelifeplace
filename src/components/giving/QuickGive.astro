@@ -12,7 +12,7 @@ const amounts = ["R100", "R250", "R500", "R1,000", "Custom"];
 >
   <!-- STEP 1: AMOUNT -->
   <div class="mb-6 md:mb-12">
-    <p class="text-lg md:text-2xl font-extrabold text-gray-800 mb-4 md:mb-8">
+    <p class="text-lg md:text-2xl font-bold text-gray-800 mb-4 md:mb-8">
       Step 1 · CHOOSE AMOUNT 
     </p>
 
@@ -20,10 +20,9 @@ const amounts = ["R100", "R250", "R500", "R1,000", "Custom"];
       {amounts.map((a) => (
         <button
           type="button"
- class="amountBtn rounded-full px-5 sm:px-7 py-3 sm:py-4
-       bg-black/5 border border-black/10
-       text-base sm:text-lg md:text-xl font-extrabold text-gray-800 transition-all duration-300"
-
+          class="amountBtn rounded-full px-5 sm:px-7 py-3 sm:py-4
+                 bg-black/5 border border-black/10
+                 text-base sm:text-lg md:text-xl font-extrabold text-gray-800 transition-all duration-300"
           data-amount={a}
         >
           {a}
@@ -34,7 +33,7 @@ const amounts = ["R100", "R250", "R500", "R1,000", "Custom"];
 
   <!-- STEP 2: CATEGORY -->
   <div class="mb-0">
-    <p class="text-lg md:text-2xl font-extrabold text-gray-800 mb-4 md:mb-8">
+    <p class="text-lg md:text-2xl font-bold text-gray-800 mb-4 md:mb-8">
       Step 2 · PURPOSE
     </p>
 
@@ -42,10 +41,9 @@ const amounts = ["R100", "R250", "R500", "R1,000", "Custom"];
       {categories.map((c) => (
         <button
           type="button"
-class="categoryBtn rounded-full px-5 sm:px-7 py-3 sm:py-4
-       bg-white border border-black/10
-       text-base sm:text-lg md:text-xl font-extrabold text-gray-800 transition-all duration-300 hover:shadow-md hover:border-brand-red"
-
+          class="categoryBtn rounded-full px-5 sm:px-7 py-3 sm:py-4
+                 bg-white border border-black/10
+                 text-base sm:text-lg md:text-xl font-extrabold text-gray-800 transition-all duration-300 hover:shadow-md hover:border-brand-red"
           data-category={c}
         >
           {c}
@@ -79,9 +77,15 @@ document.addEventListener("DOMContentLoaded", () => {
   amountBtns.forEach(btn => {
     btn.addEventListener("click", () => {
       amount = btn.dataset.amount;
-      amountBtns.forEach(b =>
-        b.classList.remove("bg-brand-red", "text-white", "border-brand-red")
-      );
+      // Reset all amount buttons to inactive state
+      amountBtns.forEach(b => {
+        b.classList.remove("bg-brand-red", "text-white", "border-brand-red");
+        b.classList.remove("bg-black/5", "text-gray-800", "border-black/10");
+        b.classList.add("bg-black/5", "text-gray-800", "border-black/10");
+      });
+
+      // Activate clicked button with clear contrast
+      btn.classList.remove("bg-black/5", "text-gray-800", "border-black/10");
       btn.classList.add("bg-brand-red", "text-white", "border-brand-red");
       revealIfReady();
     });
@@ -91,9 +95,15 @@ document.addEventListener("DOMContentLoaded", () => {
   categoryBtns.forEach(btn => {
     btn.addEventListener("click", () => {
       category = btn.dataset.category;
-      categoryBtns.forEach(b =>
-        b.classList.remove("bg-brand-red", "text-white", "border-brand-red")
-      );
+      // Reset all category buttons to inactive state
+      categoryBtns.forEach(b => {
+        b.classList.remove("bg-brand-red", "text-white", "border-brand-red");
+        b.classList.remove("bg-white", "text-gray-800", "border-black/10");
+        b.classList.add("bg-white", "text-gray-800", "border-black/10");
+      });
+
+      // Activate clicked button with clear contrast
+      btn.classList.remove("bg-white", "text-gray-800", "border-black/10");
       btn.classList.add("bg-brand-red", "text-white", "border-brand-red");
       revealIfReady();
     });
