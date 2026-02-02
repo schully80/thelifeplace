@@ -577,43 +577,105 @@ const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(fullAddress)}&na
     requestAnimationFrame(scroll);
   }
   
-  // Open ministries menu from Stay Connected section
+  // Open ministries menu from Stay Connected section (and shared behaviours)
   function openMinistries() {
-    if (window.innerWidth < 768) {
-      // Mobile: click the hamburger menu button
+    const width = window.innerWidth;
+
+    // MOBILE: open drawer and expand Ministries accordion
+    if (width < 768) {
       const mobileBtn = document.getElementById('mobileMenuButton');
       if (mobileBtn) {
         mobileBtn.click();
+
+        setTimeout(() => {
+          const mobileDrawer = document.getElementById('mobileNavDrawer');
+          if (!mobileDrawer) return;
+
+          const accPanel = mobileDrawer.querySelector('#acc-ministries');
+          if (!accPanel) return;
+
+          const acc = accPanel.closest('[data-accordion]');
+          if (!acc) return;
+
+          const trigger = acc.querySelector('[data-accordion-trigger]');
+          const panel = acc.querySelector('[data-accordion-panel]');
+          if (!trigger || !panel) return;
+
+          trigger.setAttribute('aria-expanded', 'true');
+          const icon = trigger.querySelector('svg');
+          if (icon) icon.style.transform = 'rotate(180deg)';
+          panel.style.gridTemplateRows = '1fr';
+        }, 300);
       }
-    } else {
-      // Desktop/Tablet: open and keep the ministries dropdown open
-      const ministriesDropdown = document.querySelector('[id="dd-ministries"]');
-      
-      if (ministriesDropdown) {
-        const menu = ministriesDropdown.querySelector('[data-menu]');
-        const trigger = ministriesDropdown.querySelector('[data-trigger]');
-        
-        if (menu && trigger) {
-          // Scroll to top with gentle, smooth animation
-          gentleScrollToTop();
-          
-          // Trigger mouseenter to activate the Header's open handler
-          trigger.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
-          menu.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
-          
-          // Keep the menu open by continuously removing the hidden class
-          const keepOpen = setInterval(() => {
-            if (menu.classList.contains('hidden')) {
-              menu.classList.remove('hidden');
-              trigger.setAttribute('aria-expanded', 'true');
-            }
-          }, 50);
-          
-          // Stop keeping it open when user moves mouse to the menu
-          menu.addEventListener('mouseenter', () => {
+      return;
+    }
+
+    // TABLET PORTRAIT: open tablet drawer and expand Ministries accordion
+    if (width < 1280) {
+      const tabletBtn = document.getElementById('tabletMenuButton');
+      if (tabletBtn) {
+        tabletBtn.click();
+
+        setTimeout(() => {
+          const tabletDrawer = document.getElementById('tabletNavDrawer');
+          if (!tabletDrawer) return;
+
+          const accPanel = tabletDrawer.querySelector('#acc-ministries-tablet');
+          if (!accPanel) return;
+
+          const trigger = tabletDrawer.querySelector('[data-accordion-trigger][aria-controls="acc-ministries-tablet"]');
+          const panel = accPanel;
+          if (!trigger || !panel) return;
+
+          trigger.setAttribute('aria-expanded', 'true');
+          const icon = trigger.querySelector('svg');
+          if (icon) icon.style.transform = 'rotate(180deg)';
+          panel.style.gridTemplateRows = '1fr';
+        }, 300);
+      }
+      return;
+    }
+
+    // DESKTOP (xl+): open and keep the Ministries dropdown open in the header nav
+    // We look for the dropdown whose trigger text includes "Ministries".
+    const dropdowns = document.querySelectorAll('header [data-dropdown]');
+    let ministriesDropdown = null;
+
+    dropdowns.forEach((wrap) => {
+      const trigger = wrap.querySelector('[data-trigger]');
+      if (trigger && trigger.textContent && trigger.textContent.trim().includes('Ministries')) {
+        ministriesDropdown = wrap;
+      }
+    });
+
+    if (ministriesDropdown) {
+      const menu = ministriesDropdown.querySelector('[data-menu]');
+      const trigger = ministriesDropdown.querySelector('[data-trigger]');
+
+      if (menu && trigger) {
+        // Scroll to top with gentle, smooth animation
+        gentleScrollToTop();
+
+        // Trigger mouseenter to activate the Header's open handler
+        trigger.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+        menu.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+
+        // Keep the menu open by continuously removing the hidden class
+        const keepOpen = setInterval(() => {
+          if (menu.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+            trigger.setAttribute('aria-expanded', 'true');
+          }
+        }, 50);
+
+        // Stop keeping it open when user moves mouse to the menu
+        menu.addEventListener(
+          'mouseenter',
+          () => {
             clearInterval(keepOpen);
-          }, { once: true });
-        }
+          },
+          { once: true }
+        );
       }
     }
   }

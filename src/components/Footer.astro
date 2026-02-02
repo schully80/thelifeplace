@@ -37,10 +37,18 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
           Explore
         </h3>
         <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-600">
-          <li><a href="/about/" class="hover:text-brand-red transition">About</a></li>
-          <li><a href="/leadership/" class="hover:text-brand-red transition">Leadership</a></li>
+          <li><a href="/" class="hover:text-brand-red transition">About</a></li>
+          <li><a href="/about-us/leadership/" class="hover:text-brand-red transition">Leadership</a></li>
           <li><a href="/visit/" class="hover:text-brand-red transition">Plan a Visit</a></li>
-          <li><a href="/ministries/" class="hover:text-brand-red transition">Ministries</a></li>
+          <li>
+            <a
+              href="/ministries/"
+              class="hover:text-brand-red transition"
+              onclick="if (typeof openMinistries === 'function') { openMinistries(); return false; }"
+            >
+              Ministries
+            </a>
+          </li>
         </ul>
       </div>
 
@@ -52,7 +60,7 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
         <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-600">
           <li><a href="/give/" class="hover:text-brand-red transition">Giving</a></li>
           <li><a href="/prayer/" class="hover:text-brand-red transition">Prayer Requests</a></li>
-          <li><a href="/contact/" class="hover:text-brand-red transition">Contact</a></li>
+          <li><a href="/visit/" class="hover:text-brand-red transition">Contact</a></li>
           <li><a href="/app/" class="hover:text-brand-red transition">Get the App</a></li>
         </ul>
       </div>
@@ -63,7 +71,7 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
           Legal
         </h3>
         <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-600">
-          <li><a href="/privacy/" class="hover:text-brand-red transition">Privacy Policy</a></li>
+          <li><a href="/privacy-policy/" class="hover:text-brand-red transition">Privacy Policy</a></li>
           <li><a href="/terms/" class="hover:text-brand-red transition">Terms & Conditions</a></li>
           <li><a href="/cookies/" class="hover:text-brand-red transition">Cookie Policy</a></li>
         </ul>
