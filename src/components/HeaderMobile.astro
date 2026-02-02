@@ -13,7 +13,7 @@ const isActive = (href) =>
 ---
 
 <header class:list={[
-  "relative z-50 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 h-20 sm:h-24",
+  "relative z-50 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 h-20 sm:h-24 md:hidden",
   className,
 ]}>
   <!-- Top bar: 3-column grid -->
@@ -52,7 +52,7 @@ const isActive = (href) =>
         aria-expanded="false"
         class="p-2 rounded-md hover:bg-gray-100 transition"
       >
-        <svg viewBox="0 0 24 24" class="h-6 w-6 text-gray-800" aria-hidden="true">
+        <svg viewBox="0 0 24 24" class="h-6 w-6 text-gray-900" aria-hidden="true">
           <path
             d="M3 6h18M3 12h18M3 18h18"
             stroke="currentColor"
@@ -112,7 +112,7 @@ const isActive = (href) =>
         class={`block px-4 py-3.5 rounded-full text-base ${
           isActive("/what-to-expect/")
             ? "text-brand-red font-semibold bg-red-50"
-            : "text-gray-700 hover:bg-gray-50"
+            : "text-brand-darkgray hover:bg-gray-50"
         }`}
       >
         What to Expect
@@ -146,7 +146,7 @@ const isActive = (href) =>
                   class={`block px-5 py-3 text-[15px] rounded-full ${
                     isActive("/about-us/")
                       ? "text-brand-red font-semibold bg-red-50"
-                      : "text-gray-700 hover:bg-gray-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
                   }`}
                 >
                  What We Do
@@ -159,7 +159,7 @@ const isActive = (href) =>
                   class={`block px-5 py-3 text-[15px] rounded-full ${
                     isActive("/about-us/our-values")
                       ? "text-brand-red font-semibold bg-red-50"
-                      : "text-gray-700 hover:bg-gray-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
                   }`}
                 >
                   Our Values
@@ -172,7 +172,7 @@ const isActive = (href) =>
                   class={`block px-5 py-3 text-[15px] rounded-full ${
                     isActive("/about-us/leadership")
                       ? "text-brand-red font-semibold bg-red-50"
-                      : "text-gray-700 hover:bg-gray-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
                   }`}
                 >
                   Schulter and Genevieve
@@ -205,7 +205,7 @@ const isActive = (href) =>
   class={`block px-4 py-3.5 rounded-full text-base ${
     isActive("/live/")
       ? "text-brand-red font-semibold bg-red-50"
-      : "text-gray-700 hover:bg-gray-50"
+      : "text-brand-darkgray hover:bg-gray-50"
   }`}
 >
   <span class="flex items-center gap-2">
@@ -248,7 +248,7 @@ const isActive = (href) =>
                   class={`block px-5 py-3 text-[15px] rounded-full ${
                     isActive("/ministries/new-members/")
                       ? "text-brand-red font-semibold bg-red-50"
-                      : "text-gray-700 hover:bg-gray-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
                   }`}
                 >
                   New @The Life Place
@@ -265,7 +265,7 @@ const isActive = (href) =>
                   class={`block px-5 py-3 text-[15px] rounded-full ${
                     isActive("/ministries/bring-them-to-jesus/")
                       ? "text-brand-red font-semibold bg-red-50"
-                      : "text-gray-700 hover:bg-gray-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
                   }`}
                 >
                   Bring Them To Jesus
@@ -278,7 +278,7 @@ const isActive = (href) =>
                   class={`block px-5 py-3 text-[15px] rounded-full ${
                     isActive("/ministries/kids/")
                       ? "text-brand-red font-semibold bg-red-50"
-                      : "text-gray-700 hover:bg-gray-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
                   }`}
                 >
                   Kids @The Life Place
@@ -291,7 +291,7 @@ const isActive = (href) =>
                   class={`block px-5 py-3 text-[15px] rounded-full ${
                     isActive("/ministries/gen/")
                       ? "text-brand-red font-semibold bg-red-50"
-                      : "text-gray-700 hover:bg-gray-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
                   }`}
                 >
                   ThisGen
@@ -304,7 +304,7 @@ const isActive = (href) =>
                   class={`block px-5 py-3 text-[15px] rounded-full ${
                     isActive("/ministries/premarital-counseling/")
                       ? "text-brand-red font-semibold bg-red-50"
-                      : "text-gray-700 hover:bg-gray-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
                   }`}
                 >
                   Premarital Counseling
@@ -321,7 +321,7 @@ const isActive = (href) =>
                   class={`block px-5 py-3 text-[15px] rounded-full ${
                     isActive("/ministries/institute/")
                       ? "text-brand-red font-semibold bg-red-50"
-                      : "text-gray-700 hover:bg-gray-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
                   }`}
                 >
                   The Life Place Institute
@@ -338,7 +338,7 @@ const isActive = (href) =>
                   class={`block px-5 py-3 text-[15px] rounded-full ${
                     isActive("/ministries/relief-center/")
                       ? "text-brand-red font-semibold bg-red-50"
-                      : "text-gray-700 hover:bg-gray-50"
+                      : "text-brand-darkgray hover:bg-gray-50"
                   }`}
                 >
                   Relief Center
@@ -365,44 +365,38 @@ const isActive = (href) =>
         class={`mt-4 block px-4 py-4 rounded-full text-base font-medium ${
           isActive("/visit/")
             ? "text-brand-red font-semibold bg-red-50"
-            : "text-gray-700 hover:bg-gray-50"
+            : "text-brand-darkgray hover:bg-gray-50"
         }`}
       >
         Plan A Visit
       </a>
 
-        <!-- BLOG (last, internal listing) -->
+        <!-- BLOG (last) -->
         <a
-          href="/blog/"
-          class={`w-full text-left block px-4 py-3 rounded-full text-base ${
-            isActive("/blog/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"
-          }`}
+          href="https://schulteretyang.substack.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class={`w-full text-left block px-4 py-3 rounded-full text-base text-brand-darkgray hover:bg-gray-50`}
         >Our Blog</a>
+      </a>
     </nav>
 
   </aside>
 
   <!-- Behaviour script -->
   <script is:inline>
-    (function () {
-      const body = document.documentElement;
-      const btnOpen = document.getElementById("mobileMenuButton");
-      const btnClose = document.getElementById("mobileMenuClose");
-      const drawer = document.getElementById("mobileNavDrawer");
-      const overlay = document.getElementById("mobileNavOverlay");
+    const btnOpen = document.getElementById("mobileMenuButton");
+    const btnClose = document.getElementById("mobileMenuClose");
+    const drawer = document.getElementById("mobileNavDrawer");
+    const overlay = document.getElementById("mobileNavOverlay");
+    const body = document.documentElement;
 
-      if (!btnOpen || !btnClose || !drawer || !overlay) return;
-
-      // Move overlay/drawer to body for proper stacking
-      if (overlay.parentElement !== document.body) document.body.appendChild(overlay);
-      if (drawer.parentElement !== document.body) document.body.appendChild(drawer);
-
+    if (btnOpen && btnClose && drawer && overlay) {
       const open = () => {
         drawer.classList.remove("translate-x-full");
         overlay.classList.remove("pointer-events-none");
         overlay.classList.add("opacity-100");
         btnOpen.setAttribute("aria-expanded", "true");
-        // Prevent layout shift from scrollbar disappearing
         const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
         body.style.overflow = "hidden";
         body.style.paddingRight = scrollbarWidth + "px";
@@ -416,27 +410,20 @@ const isActive = (href) =>
         btnOpen.setAttribute("aria-expanded", "false");
         body.style.overflow = "";
         body.style.paddingRight = "";
-        btnOpen.blur();
       };
 
       btnOpen.addEventListener("click", open);
       btnClose.addEventListener("click", close);
       overlay.addEventListener("click", close);
-
-      // ESC closes
       window.addEventListener("keydown", (e) => {
         if (e.key === "Escape") close();
       });
 
-      // Close drawer when clicking nav links
       drawer.querySelectorAll("a[href]").forEach((link) => {
         link.addEventListener("click", () => {
-          // Check if link is inside an accordion
           const isInsideAccordion = link.closest("[data-accordion]");
-          
-          // If link is NOT inside an accordion, close all accordions
           if (!isInsideAccordion) {
-            document.querySelectorAll("[data-accordion]").forEach((acc) => {
+            drawer.querySelectorAll("[data-accordion]").forEach((acc) => {
               const trigger = acc.querySelector("[data-accordion-trigger]");
               const panel = acc.querySelector("[data-accordion-panel]");
               if (trigger && panel) {
@@ -444,7 +431,6 @@ const isActive = (href) =>
                 const icon = trigger.querySelector("svg");
                 if (icon) icon.style.transform = "";
                 panel.style.gridTemplateRows = "0fr";
-                localStorage.setItem(`accordion-${panel.id}`, "false");
               }
             });
           }
@@ -452,57 +438,24 @@ const isActive = (href) =>
         });
       });
 
-      // Accordions with persistent state
-      document.querySelectorAll("[data-accordion]").forEach((acc) => {
+      drawer.querySelectorAll("[data-accordion]").forEach((acc) => {
         const trigger = acc.querySelector("[data-accordion-trigger]");
         const panel = acc.querySelector("[data-accordion-panel]");
         if (!trigger || !panel) return;
 
         const panelId = panel.id;
-        const storageKey = `accordion-${panelId}`;
 
-        // Check if any link in this accordion is currently active (on the page)
-        const hasActiveLink = Array.from(acc.querySelectorAll("a[href]")).some(link => {
-          const href = link.getAttribute("href");
-          if (!href || href.startsWith("http")) return false;
-          const currentPath = window.location.pathname;
-          return href === "/" 
-            ? currentPath === "/" 
-            : currentPath === href || (href !== "/" && currentPath.startsWith(href));
-            
-        });
-
-        // Apply active styling to trigger if it has active links
-        if (hasActiveLink) {
-          trigger.classList.add("text-brand-red", "font-semibold", "bg-red-50");
-          trigger.classList.remove("text-gray-700");
-        } else {
-          trigger.classList.add("text-gray-700");
-          trigger.classList.remove("text-brand-red", "font-semibold", "bg-red-50");
-        }
-
-        // Auto-open if has active link or if saved state says it should be open
-        const savedState = localStorage.getItem(storageKey) === "true";
-        const shouldOpen = savedState || hasActiveLink;
-        
-        if (shouldOpen) {
-          trigger.setAttribute("aria-expanded", "true");
-          const icon = trigger.querySelector("svg");
-          if (icon) icon.style.transform = "rotate(180deg)";
-          panel.style.gridTemplateRows = "1fr";
-        }
-
-        trigger.addEventListener("click", () => {
+        trigger.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
           const expanded = trigger.getAttribute("aria-expanded") === "true";
           trigger.setAttribute("aria-expanded", !expanded);
           const icon = trigger.querySelector("svg");
           if (icon) icon.style.transform = expanded ? "" : "rotate(180deg)";
           panel.style.gridTemplateRows = expanded ? "0fr" : "1fr";
-          // Save state to localStorage
-          localStorage.setItem(storageKey, !expanded);
         });
       });
-    })();
+    }
   </script>
 
   <script is:inline>

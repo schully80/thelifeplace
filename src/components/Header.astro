@@ -52,17 +52,17 @@ const isActive = (href) =>
   </div>
 
   <!-- TABLET + LAPTOP: md–xl (horizontal nav with optional drawer in portrait) -->
-  <div class="hidden md:flex xl:hidden h-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 justify-between items-center gap-6">
+  <div class="hidden md:flex xl:hidden h-20 sm:h-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 justify-between items-center gap-6">
     <!-- Logo + Title -->
     <a
       href="/"
       class="shrink-0 flex items-center gap-3 min-w-0"
       aria-label={`${title} — Home`}
     >
-      <img src={logoSrc} alt="Logo" class="h-12 w-auto" />
+      <img src={logoSrc} alt="Logo" class="h-14 w-auto" />
       <div class="flex flex-col min-w-0">
         <span class="font-bold text-brand-red text-xl md:text-2xl leading-tight truncate">{title}</span>
-        <span class="text-sm text-gray-600 tracking-wide">Come. See. <span class="text-[#B3282D]">Jesus</span></span>
+        <span class="text-center text-sm text-gray-600 tracking-wide">Come. See. <span class="text-[#B3282D]">Jesus</span></span>
       </div>
     </a>
 
@@ -71,10 +71,10 @@ const isActive = (href) =>
       <!-- What to Expect -->
         <a
           href="/what-to-expect/"
-          class={`px-1 py-2 ${
+          class={`px-2 py-2 rounded-full ${
             isActive("/what-to-expect/")
-              ? "text-brand-red font-semibold"
-              : "text-gray-700 hover:text-gray-800"
+              ? "text-brand-red font-semibold bg-red-50"
+              : "text-gray-700 hover:bg-gray-50"
           }`}
         >What to Expect</a>
 
@@ -84,14 +84,14 @@ const isActive = (href) =>
             data-trigger
             type="button"
             aria-expanded="false"
-            class={`relative px-1 py-2 ${
+            class={`relative px-2 py-2 rounded-full ${
               isActive("/about-us/")
-                ? "text-brand-red font-semibold"
-                : "text-gray-700 hover:text-gray-800"
+                ? "text-brand-red font-semibold bg-red-50"
+                : "text-gray-700 hover:bg-gray-50"
             }`}
           >About Us</button>
 
-        <div data-menu class="absolute left-0 top-full mt-1 w-56 rounded-md border bg-white shadow-lg hidden">
+        <div data-menu class="absolute left-0 top-full mt-1 w-56 md:w-64 rounded-md border bg-white shadow-lg hidden">
           <a href="/about-us/" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">What We Do</a>
           <a href="/about-us/our-values" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">Our Values</a>
           <a href="/about-us/leadership" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">Schulter & Genevieve</a>
@@ -101,12 +101,12 @@ const isActive = (href) =>
       <!-- Live -->
         <a
           href="/live/"
-          class={`px-2 py-2 flex items-center gap-1 ${
-            isActive("/live/") ? "text-brand-red font-semibold" : "text-gray-700 hover:text-gray-800"
+          class={`px-2 py-2 flex items-center gap-1 rounded-full ${
+            isActive("/live/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"
           }`}
         >
         <span data-live-mid-text>Live</span>
-        <span data-live-mid-indicator class="hidden h-2 w-2 rounded-full bg-red-600 animate-ping absolute -right-3 top-1/2 -translate-y-1/2"></span>
+        <span data-live-mid-indicator class="hidden h-2 w-2 rounded-full bg-red-600"></span>
       </a>
 
       <!-- Ministries Dropdown -->
@@ -115,14 +115,14 @@ const isActive = (href) =>
             data-trigger
             type="button"
             aria-expanded="false"
-            class={`px-1 py-2 whitespace-nowrap ${
+            class={`px-2 py-2 whitespace-nowrap rounded-full ${
               isActive("/ministries/")
-                ? "text-brand-red font-semibold"
-                : "text-gray-700 hover:text-gray-800"
+                ? "text-brand-red font-semibold bg-red-50"
+                : "text-gray-700 hover:bg-gray-50"
             }`}
           >Ministries</button>
 
-        <div data-menu class="absolute left-0 top-full mt-1 w-64 rounded-md border bg-white shadow-lg hidden max-h-[70vh] overflow-y-auto">
+        <div data-menu class="absolute left-0 top-full mt-1 w-64 md:w-72 rounded-md border bg-white shadow-lg hidden max-h-[70vh] overflow-y-auto">
           <a href="/ministries/new-members/" class="block px-3 py-2 text-sm hover:text-gray-800">New @The Life Place</a>
           <div class="px-3 pt-2 pb-1 text-[11px] uppercase text-gray-400">Family</div>
           <a href="/ministries/bring-them-to-jesus/" class="block px-3 py-2 text-sm hover:text-gray-800">Bring Them To Jesus</a>
@@ -145,18 +145,18 @@ const isActive = (href) =>
       <!-- Plan A Visit -->
         <a
           href="/visit/"
-          class={`px-1 py-2 ${
+          class={`px-2 py-2 rounded-full ${
             isActive("/visit/")
-              ? "text-brand-red font-semibold"
-              : "text-gray-700 hover:text-gray-800"
+              ? "text-brand-red font-semibold bg-red-50"
+              : "text-gray-700 hover:bg-gray-50"
           }`}
         >Plan A Visit</a>
 
       <!-- Blog (internal listing) -->
         <a
           href="/blog/"
-          class={`px-1 py-2 ${
-            isActive("/blog/") ? "text-brand-red font-semibold" : "text-gray-700 hover:text-gray-800"
+          class={`px-2 py-2 rounded-full ${
+            isActive("/blog/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"
           }`}
         >Our Blog</a>
     </nav>
@@ -168,9 +168,9 @@ const isActive = (href) =>
       aria-label="Open menu"
       aria-controls="tabletNavDrawer"
       aria-expanded="false"
-      class="hamburger hidden portrait:flex items-center justify-center h-10 w-10 rounded-md border border-brand-red bg-white"
+      class="hamburger hidden portrait:flex items-center justify-center p-2 rounded-md hover:bg-gray-100 transition"
     >
-      <svg viewBox="0 0 24 24" class="h-6 w-6">
+      <svg viewBox="0 0 24 24" class="h-6 w-6 text-gray-800">
         <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
       </svg>
     </button>
@@ -189,7 +189,7 @@ const isActive = (href) =>
         <span class="font-bold text-brand-red text-lg sm:text-xl md:text-2xl leading-tight truncate">
           {title}
         </span>
-        <span class="text-sm text-gray-600 tracking-wide">
+        <span class="text-md text-gray-600 tracking-wide">
           Come. See. <span class="text-[#B3282D]">Jesus</span>
         </span>
       </div>
@@ -201,7 +201,7 @@ const isActive = (href) =>
       <a
         href="/what-to-expect/"
         class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-          isActive("/what-to-expect") ? "after:w-full after:bg-brand-red text-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-gray-300"
+          isActive("/what-to-expect") ? "after:w-full after:bg-brand-red text-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-brand-red"
         }`}
       >What to Expect</a>
 
@@ -211,7 +211,7 @@ const isActive = (href) =>
           data-trigger
           type="button"
           class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-            isActive("/about-us/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-gray-300"
+            isActive("/about-us/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-brand-red"
           }`}
         >About Us</button>
 
@@ -219,9 +219,9 @@ const isActive = (href) =>
           data-menu
           class="absolute left-0 top-full -mt-px w-56 rounded-md border bg-white shadow-lg z-50 hidden max-h-80 overflow-y-auto overscroll-contain pt-1"
         >
-          <a href="/about-us/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">What We Do</span></a>
-          <a href="/about-us/our-values" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">Our Values</span></a>
-          <a href="/about-us/leadership" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">Schulter and Genevieve</span></a>
+          <a href="/about-us/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">What We Do</span></a>
+          <a href="/about-us/our-values" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Our Values</span></a>
+          <a href="/about-us/leadership" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Schulter and Genevieve</span></a>
         </div>
       </div>
 
@@ -229,7 +229,7 @@ const isActive = (href) =>
       <a
         href="/live/"
         class={`relative px-2 py-2 flex items-center gap-1 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-          isActive("/live/") ? "after:w-full after:bg-brand-red text-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-gray-300"
+          isActive("/live/") ? "after:w-full after:bg-brand-red text-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-brand-red"
         }`}
       >
         <span data-live-text>Live</span>
@@ -242,7 +242,7 @@ const isActive = (href) =>
           data-trigger
           type="button"
           class={`relative px-2 py-2 whitespace-nowrap after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-            isActive("/ministries/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-gray-300"
+            isActive("/ministries/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-brand-red"
           }`}
         >Ministries</button>
 
@@ -250,16 +250,16 @@ const isActive = (href) =>
           data-menu
           class="absolute left-0 top-full -mt-px w-64 xl:w-72 2xl:w-80 rounded-md border bg-white shadow-lg z-50 hidden max-h-[75vh] xl:max-h-[85vh] overflow-y-auto overscroll-contain pt-1"
         >
-          <a href="/ministries/new-members/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">New @The Life Place</span></a>
+          <a href="/ministries/new-members/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">New @The Life Place</span></a>
           <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Family</div>
-          <a href="/ministries/bring-them-to-jesus/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">Bring Them To Jesus</span></a>
-          <a href="/ministries/kids/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">Kids @The Life Place</span></a>
-          <a href="/ministries/gen/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">ThisGen</span></a>
-          <a href="/ministries/premarital-counseling/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">Premarital Counseling</span></a>
+          <a href="/ministries/bring-them-to-jesus/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Bring Them To Jesus</span></a>
+          <a href="/ministries/kids/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Kids @The Life Place</span></a>
+          <a href="/ministries/gen/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">ThisGen</span></a>
+          <a href="/ministries/premarital-counseling/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Premarital Counseling</span></a>
           <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Formation</div>
-          <a href="/ministries/institute/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">The Life Place Institute</span></a>
+          <a href="/ministries/institute/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">The Life Place Institute</span></a>
           <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Outreach</div>
-          <a href="/ministries/relief-center/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-gray-300 after:w-0 hover:after:w-full after:transition-all after:duration-300">Relief Center</span></a>
+          <a href="/ministries/relief-center/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Relief Center</span></a>
         </div>
       </div>
 
@@ -274,7 +274,7 @@ const isActive = (href) =>
       <a
         href="/visit/"
         class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-          isActive("/visit/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-gray-300"
+          isActive("/visit/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-brand-red"
         }`}
       >Plan A Visit</a>
 
@@ -282,187 +282,89 @@ const isActive = (href) =>
       <a
         href="/blog/"
         class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-          isActive("/blog/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-gray-300"
+          isActive("/blog/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-brand-red"
         }`}
       >Our Blog</a>
     </nav>
   </div>
 
-  <!-- OVERLAYS & DRAWERS (Mobile & Tablet Portrait) -->
-  <div
-    id="mobileNavOverlay"
-    class="fixed inset-0 bg-white opacity-0 pointer-events-none transition-opacity z-[9998] md:hidden"
-    data-overlay
-  ></div>
+  <!-- OVERLAYS & DRAWERS (Tablet Portrait Only) -->
+  <!-- Tablet Portrait Overlay & Drawer -->
+  <div id="tabletNavOverlay" class="fixed inset-0 bg-white opacity-0 pointer-events-none transition-opacity z-[9998]"></div>
 
-  <aside
-    id="mobileNavDrawer"
-    class="fixed inset-y-0 right-0 w-[86%] max-w-sm bg-white shadow-xl transition-transform will-change-transform z-[9999] focus:outline-none md:hidden translate-x-full"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Mobile Navigation"
-    tabindex="-1"
-    data-drawer
-  >
+  <aside id="tabletNavDrawer" class="fixed inset-y-0 right-0 w-[86%] max-w-sm bg-white shadow-xl transition-transform will-change-transform z-[9999] focus:outline-none hidden portrait:block translate-x-full" role="dialog" aria-modal="true" tabindex="-1">
     <div class="h-16 px-4 flex items-center justify-end border-b">
-      <button id="mobileMenuClose" type="button" aria-label="Close menu">
-        <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
+      <button id="tabletMenuClose" type="button" aria-label="Close menu" class="p-2 rounded-md hover:bg-gray-100 transition">
+        <svg viewBox="0 0 24 24" class="h-6 w-6 text-gray-800">
           <path d="M6 6l12 12M18 6l-12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
         </svg>
       </button>
     </div>
 
-    <nav class="px-4 py-3 overflow-y-auto max-h-[calc(100dvh-4rem)] space-y-2" aria-label="Mobile">
-      <!-- What to Expect -->
-      <a href="/what-to-expect/" class={`block px-4 py-3.5 rounded-full text-base ${isActive("/what-to-expect/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>
+    <nav class="px-4 py-3 overflow-y-auto max-h-[calc(100dvh-4rem)] space-y-2" aria-label="Tablet">
+      <a href="/what-to-expect/" class={`block px-4 py-3.5 rounded-full text-base ${isActive("/what-to-expect/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
         What to Expect
       </a>
 
-      <!-- About Us Accordion -->
       <section class="mt-2" data-accordion>
-        <button type="button" class="w-full flex items-center justify-between px-4 py-3.5 rounded-full text-left text-base hover:bg-gray-50" data-accordion-trigger aria-expanded="false" aria-controls="acc-about">
+        <button type="button" class="w-full flex items-center justify-between px-4 py-3.5 rounded-full text-left text-base hover:bg-gray-50" data-accordion-trigger aria-expanded="false" aria-controls="acc-about-tablet">
           <span>About Us</span>
           <svg class="h-6 w-6 transition-transform" viewBox="0 0 24 24">
             <path d="M5 10l7 7 7-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
           </svg>
         </button>
-        <div id="acc-about" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out" data-accordion-panel>
+        <div id="acc-about-tablet" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out" data-accordion-panel>
           <div class="overflow-hidden">
             <ul class="py-1">
-              <li><a href="/about-us/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/about-us/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>What We Do</a></li>
-              <li><a href="/about-us/our-values" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/about-us/our-values") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>Our Values</a></li>
-              <li><a href="/about-us/leadership" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/about-us/leadership") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>Schulter and Genevieve</a></li>
+              <li><a href="/about-us/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/about-us/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>What We Do</a></li>
+              <li><a href="/about-us/our-values" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/about-us/our-values") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>Our Values</a></li>
+              <li><a href="/about-us/leadership" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/about-us/leadership") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>Schulter and Genevieve</a></li>
             </ul>
           </div>
         </div>
       </section>
 
-      <!-- Live -->
-      <a href="/live/" class={`block px-4 py-3.5 rounded-full text-base ${isActive("/live/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>
+      <a href="/live/" class={`block px-4 py-3.5 rounded-full text-base ${isActive("/live/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
         <span class="flex items-center gap-2">
-          <span data-live-mobile-text>Live</span>
-          <span data-live-mobile-indicator class="hidden h-2 w-2 rounded-full bg-red-600"></span>
+          <span data-live-tablet-text>Live</span>
+          <span data-live-tablet-indicator class="hidden h-2 w-2 rounded-full bg-red-600"></span>
         </span>
       </a>
 
-      <!-- Ministries Accordion -->
       <section class="mt-2" data-accordion>
-        <button type="button" class="w-full flex items-center justify-between px-4 py-3.5 rounded-full text-left text-base hover:bg-gray-50" data-accordion-trigger aria-expanded="false" aria-controls="acc-ministries">
+        <button type="button" class="w-full flex items-center justify-between px-4 py-3.5 rounded-full text-left text-base hover:bg-gray-50" data-accordion-trigger aria-expanded="false" aria-controls="acc-ministries-tablet">
           <span>Ministries</span>
           <svg class="h-6 w-6 transition-transform" viewBox="0 0 24 24">
             <path d="M5 10l7 7 7-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
           </svg>
         </button>
-        <div id="acc-ministries" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out" data-accordion-panel>
+        <div id="acc-ministries-tablet" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out" data-accordion-panel>
           <div class="overflow-hidden">
             <ul class="py-1">
-              <li><a href="/ministries/new-members/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/ministries/new-members/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>New @The Life Place</a></li>
+              <li><a href="/ministries/new-members/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/ministries/new-members/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>New @The Life Place</a></li>
               <li class="px-5 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Family</li>
-              <li><a href="/ministries/bring-them-to-jesus/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/ministries/bring-them-to-jesus/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>Bring Them To Jesus</a></li>
-              <li><a href="/ministries/kids/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/ministries/kids/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>Kids @The Life Place</a></li>
-              <li><a href="/ministries/gen/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/ministries/gen/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>ThisGen</a></li>
-              <li><a href="/ministries/premarital-counseling/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/ministries/premarital-counseling/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>Premarital Counseling</a></li>
+              <li><a href="/ministries/bring-them-to-jesus/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/ministries/bring-them-to-jesus/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>Bring Them To Jesus</a></li>
+              <li><a href="/ministries/kids/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/ministries/kids/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>Kids @The Life Place</a></li>
+              <li><a href="/ministries/gen/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/ministries/gen/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>ThisGen</a></li>
+              <li><a href="/ministries/premarital-counseling/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/ministries/premarital-counseling/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>Premarital Counseling</a></li>
               <li class="px-5 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Formation</li>
-              <li><a href="/ministries/institute/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/ministries/institute/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>The Life Place Institute</a></li>
+              <li><a href="/ministries/institute/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/ministries/institute/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>The Life Place Institute</a></li>
               <li class="px-5 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Outreach</li>
-              <li><a href="/ministries/relief-center/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/ministries/relief-center/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>Relief Center</a></li>
+              <li><a href="/ministries/relief-center/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/ministries/relief-center/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>Relief Center</a></li>
             </ul>
           </div>
         </div>
       </section>
 
-      <!-- Generosity -->
       <a href="/give/" class={`mt-3 inline-flex items-center justify-center px-4 py-2 rounded-full bg-brand-red text-white font-semibold shadow-md hover:bg-red-700 hover:shadow-lg transition`}>
         Generosity
       </a>
 
-      <!-- Plan A Visit -->
-      <a href="/visit/" class={`mt-4 block px-4 py-4 rounded-full text-base font-medium ${isActive("/visit/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>
+      <a href="/visit/" class={`mt-4 block px-4 py-4 rounded-full text-base font-medium ${isActive("/visit/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
         Plan A Visit
       </a>
 
-      <!-- Blog (internal listing) -->
-      <a href="/blog/" class={`w-full text-left block px-4 py-3 rounded-full text-base ${isActive("/blog/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>
-        Our Blog
-      </a>
-    </nav>
-  </aside>
-
-  <!-- Tablet Portrait Overlay & Drawer -->
-  <div id="tabletNavOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-[9998]"></div>
-
-  <aside id="tabletNavDrawer" class="fixed inset-y-0 right-0 w-[86%] sm:w-[80%] max-w-sm bg-white shadow-xl translate-x-full transition-transform will-change-transform z-[9999] hidden portrait:block" role="dialog" aria-modal="true" tabindex="-1">
-    <div class="h-20 px-4 flex items-center justify-end border-b">
-      <button id="tabletMenuClose" type="button" aria-label="Close menu" class="h-10 w-10 inline-flex items-center justify-center rounded-md border border-brand-red bg-white">
-        <svg viewBox="0 0 24 24" class="h-6 w-6">
-          <path d="M6 6l12 12M18 6l-12 12" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
-        </svg>
-      </button>
-    </div>
-
-    <nav class="px-2 py-2 overflow-y-auto max-h-[calc(100svh-5rem)]">
-      <a href="/what-to-expect/" class={`block px-4 py-3 rounded-lg text-base ${isActive("/what-to-expect/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>
-        What to Expect
-      </a>
-
-      <section data-dropdown class="mt-1 relative">
-        <button data-trigger aria-expanded="false" class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-base text-brand-darkgray hover:bg-gray-50">
-          <span>About Us</span>
-          <svg class="h-5 w-5 transition-transform" viewBox="0 0 24 24">
-            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" />
-          </svg>
-        </button>
-        <div data-menu class="hidden mt-1 w-full rounded-md border bg-white shadow-lg">
-          <a href="/about-us/" class="block px-4 py-2 text-sm hover:text-brand-red">What We Do</a>
-          <a href="/about-us/our-values" class="block px-4 py-2 text-sm hover:text-brand-red">Our Values</a>
-          <a href="/about-us/leadership" class="block px-4 py-2 text-sm hover:text-brand-red">Schulter & Genevieve</a>
-        </div>
-      </section>
-
-      <a href="/live/" class={`block px-4 py-3 rounded-lg text-base ${isActive("/live/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>
-        <span class="flex items-center gap-2">
-          <span>Live</span>
-          <span class="hidden h-2 w-2 rounded-full bg-red-600"></span>
-        </span>
-      </a>
-
-      <section data-dropdown class="mt-3 relative">
-        <button data-trigger aria-expanded="false" class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-base text-brand-darkgray hover:bg-gray-50">
-          <span>Ministries</span>
-          <svg class="h-5 w-5 transition-transform" viewBox="0 0 24 24">
-            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" />
-          </svg>
-        </button>
-        <div data-menu class="hidden mt-1 w-full rounded-md border bg-white shadow-lg max-h-[70vh] overflow-y-auto">
-          <a href="/ministries/new-members/" class="block px-4 py-2 text-sm hover:text-brand-red">New @The Life Place</a>
-          <div class="px-4 pt-2 pb-1 text-[11px] uppercase text-gray-400">Family</div>
-          <a href="/ministries/bring-them-to-jesus/" class="block px-4 py-2 text-sm hover:text-brand-red">Bring Them To Jesus</a>
-          <a href="/ministries/kids/" class="block px-4 py-2 text-sm hover:text-brand-red">Kids @The Life Place</a>
-          <a href="/ministries/gen/" class="block px-4 py-2 text-sm hover:text-brand-red">ThisGen</a>
-          <div class="px-4 pt-2 pb-1 text-[11px] uppercase text-gray-400">Formation</div>
-          <a href="/ministries/premarital-counseling/" class="block px-4 py-2 text-sm hover:text-brand-red">Premarital Counseling</a>
-          <a href="/ministries/institute/" class="block px-4 py-2 text-sm hover:text-brand-red">The Life Place Institute</a>
-          <div class="px-4 pt-2 pb-1 text-[11px] uppercase text-gray-400">Outreach</div>
-          <a href="/ministries/relief-center/" class="block px-4 py-2 text-sm hover:text-brand-red">Relief Center</a>
-        </div>
-      </section>
-
-      <a href="/give/" class="mt-4 inline-flex items-center justify-center px-4 py-2 rounded-full bg-brand-red text-white font-semibold shadow-md hover:bg-red-700 transition">
-        Generosity
-      </a>
-
-      <a href="/visit/" class={`block px-4 py-3 rounded-lg text-base ${isActive("/visit/") ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"}`}>
-        Plan A Visit
-      </a>
-
-      <a
-        href="https://schulteretyang.substack.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        class={`w-full text-left block px-4 py-3 rounded-lg text-base ${
-          false ? "text-brand-red font-semibold bg-red-50" : "text-brand-darkgray hover:bg-gray-50"
-        }`}
-      >
+      <a href="/blog/" class={`w-full text-left block px-4 py-3 rounded-full text-base ${isActive("/blog/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
         Our Blog
       </a>
     </nav>
@@ -470,23 +372,32 @@ const isActive = (href) =>
 
   <!-- Scripts -->
   <script is:inline>
-    // Mobile drawer
-    (function () {
-      const btnOpen = document.getElementById("mobileMenuButton");
-      const btnClose = document.getElementById("mobileMenuClose");
-      const drawer = document.getElementById("mobileNavDrawer");
-      const overlay = document.getElementById("mobileNavOverlay");
+    function initNavDrawer() {
+      const tabletBtn = document.getElementById("tabletMenuButton");
+      const mobileBtn = document.getElementById("mobileMenuButton");
+      const btnClose = document.getElementById("tabletMenuClose");
+      const drawer = document.getElementById("tabletNavDrawer");
+      const overlay = document.getElementById("tabletNavOverlay");
 
-      if (!btnOpen || !btnClose || !drawer || !overlay) return;
+      // Require core elements (drawer, overlay, close button). At least one open button is sufficient.
+      if (!btnClose || !drawer || !overlay || (!tabletBtn && !mobileBtn)) {
+        setTimeout(initNavDrawer, 50);
+        return;
+      }
 
       if (overlay.parentElement !== document.body) document.body.appendChild(overlay);
       if (drawer.parentElement !== document.body) document.body.appendChild(drawer);
+
+      const setExpanded = (value) => {
+        if (tabletBtn) tabletBtn.setAttribute("aria-expanded", String(value));
+        if (mobileBtn) mobileBtn.setAttribute("aria-expanded", String(value));
+      };
 
       const open = () => {
         drawer.classList.remove("translate-x-full");
         overlay.classList.remove("pointer-events-none");
         overlay.classList.add("opacity-100");
-        btnOpen.setAttribute("aria-expanded", "true");
+        setExpanded(true);
         const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
         document.documentElement.style.overflow = "hidden";
         document.documentElement.style.paddingRight = scrollbarWidth + "px";
@@ -497,44 +408,26 @@ const isActive = (href) =>
         drawer.classList.add("translate-x-full");
         overlay.classList.add("pointer-events-none");
         overlay.classList.remove("opacity-100");
-        btnOpen.setAttribute("aria-expanded", "false");
+        setExpanded(false);
         document.documentElement.style.overflow = "";
         document.documentElement.style.paddingRight = "";
-        btnOpen.blur();
+        if (tabletBtn) tabletBtn.blur();
+        if (mobileBtn) mobileBtn.blur();
       };
 
-      btnOpen.addEventListener("click", open);
+      if (tabletBtn) tabletBtn.addEventListener("click", open);
+      if (mobileBtn) mobileBtn.addEventListener("click", open);
       btnClose.addEventListener("click", close);
       overlay.addEventListener("click", close);
       window.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
 
-      drawer.querySelectorAll("a[href]").forEach((link) => {
-        link.addEventListener("click", () => {
-          const isInsideAccordion = link.closest("[data-accordion]");
-          if (!isInsideAccordion) {
-            document.querySelectorAll("[data-accordion]").forEach((acc) => {
-              const trigger = acc.querySelector("[data-accordion-trigger]");
-              const panel = acc.querySelector("[data-accordion-panel]");
-              if (trigger && panel) {
-                trigger.setAttribute("aria-expanded", "false");
-                const icon = trigger.querySelector("svg");
-                if (icon) icon.style.transform = "";
-                panel.style.gridTemplateRows = "0fr";
-                localStorage.setItem(`accordion-${panel.id}`, "false");
-              }
-            });
-          }
-          close();
-        });
-      });
-
-      document.querySelectorAll("[data-accordion]").forEach((acc) => {
+      drawer.querySelectorAll("[data-accordion]").forEach((acc) => {
         const trigger = acc.querySelector("[data-accordion-trigger]");
         const panel = acc.querySelector("[data-accordion-panel]");
         if (!trigger || !panel) return;
 
         const panelId = panel.id;
-        const storageKey = `accordion-${panelId}`;
+        const storageKey = `accordion-tablet-${panelId}`;
 
         const hasActiveLink = Array.from(acc.querySelectorAll("a[href]")).some(link => {
           const href = link.getAttribute("href");
@@ -561,7 +454,9 @@ const isActive = (href) =>
           panel.style.gridTemplateRows = "1fr";
         }
 
-        trigger.addEventListener("click", () => {
+        trigger.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
           const expanded = trigger.getAttribute("aria-expanded") === "true";
           trigger.setAttribute("aria-expanded", !expanded);
           const icon = trigger.querySelector("svg");
@@ -570,60 +465,29 @@ const isActive = (href) =>
           localStorage.setItem(storageKey, !expanded);
         });
       });
-    })();
 
-    // Tablet drawer
-    (function () {
-      const btnOpen = document.getElementById("tabletMenuButton");
-      const btnClose = document.getElementById("tabletMenuClose");
-      const drawer = document.getElementById("tabletNavDrawer");
-      const overlay = document.getElementById("tabletNavOverlay");
-
-      if (!btnOpen || !btnClose || !drawer || !overlay) return;
-
-      if (overlay.parentElement !== document.body) document.body.appendChild(overlay);
-      if (drawer.parentElement !== document.body) document.body.appendChild(drawer);
-
-      const open = () => {
-        drawer.classList.remove("translate-x-full");
-        overlay.classList.remove("pointer-events-none");
-        overlay.classList.add("opacity-100");
-        btnOpen.setAttribute("aria-expanded", "true");
-        document.body.style.overflow = "hidden";
-        drawer.focus();
-      };
-
-      const close = () => {
-        drawer.classList.add("translate-x-full");
-        overlay.classList.add("pointer-events-none");
-        overlay.classList.remove("opacity-100");
-        btnOpen.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
-        btnOpen.focus();
-      };
-
-      btnOpen.addEventListener("click", open);
-      btnClose.addEventListener("click", close);
-      overlay.addEventListener("click", close);
-      window.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
-
-      drawer.querySelectorAll("[data-dropdown]").forEach((wrap) => {
-        const trigger = wrap.querySelector("[data-trigger]");
-        const menu = wrap.querySelector("[data-menu]");
-        if (!trigger || !menu) return;
-
-        trigger.addEventListener("click", (e) => {
-          e.preventDefault();
-          const hidden = menu.classList.contains("hidden");
-          drawer.querySelectorAll("[data-menu]").forEach((m) => m.classList.add("hidden"));
-          if (hidden) menu.classList.remove("hidden");
-        });
-
-        drawer.addEventListener("click", (e) => {
-          if (!wrap.contains(e.target)) menu.classList.add("hidden");
+      drawer.querySelectorAll("a[href]").forEach((link) => {
+        link.addEventListener("click", () => {
+          const isInsideAccordion = link.closest("[data-accordion]");
+          if (!isInsideAccordion) {
+            drawer.querySelectorAll("[data-accordion]").forEach((acc) => {
+              const trigger = acc.querySelector("[data-accordion-trigger]");
+              const panel = acc.querySelector("[data-accordion-panel]");
+              if (trigger && panel) {
+                trigger.setAttribute("aria-expanded", "false");
+                const icon = trigger.querySelector("svg");
+                if (icon) icon.style.transform = "";
+                panel.style.gridTemplateRows = "0fr";
+                localStorage.setItem(`accordion-tablet-${panel.id}`, "false");
+              }
+            });
+          }
+          close();
         });
       });
-    })();
+    }
+
+    initNavDrawer();
 
     // Desktop dropdowns
     (function () {
@@ -664,11 +528,11 @@ const isActive = (href) =>
         const res = await fetch("/api/live-status.json");
         const data = await res.json();
 
-        document.querySelectorAll("[data-live-text], [data-live-mobile-text], [data-live-mid-text]").forEach(el => {
+        document.querySelectorAll("[data-live-text], [data-live-mobile-text], [data-live-mid-text], [data-live-tablet-text]").forEach(el => {
           el.textContent = data.live ? "Live Now" : "Live";
         });
 
-        document.querySelectorAll("[data-live-indicator], [data-live-mobile-indicator], [data-live-mid-indicator]").forEach(el => {
+        document.querySelectorAll("[data-live-indicator], [data-live-mobile-indicator], [data-live-mid-indicator], [data-live-tablet-indicator]").forEach(el => {
           data.live ? el.classList.remove("hidden") : el.classList.add("hidden");
         });
       } catch (e) {
