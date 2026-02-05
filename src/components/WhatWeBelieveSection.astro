@@ -1,5 +1,5 @@
-<section class="bg-gradient-to-br from-white via-slate-50 to-white pt-20 md:pt-28 pb-16 md:pb-24">
-  <div class="max-w-6xl mx-auto px-6">
+<section class="bg-gradient-to-br from-gray-50 to-gray-50 rounded-2xl pt-20 md:pt-28 pb-16 md:pb-24">
+  <div class="max-w-7xl mx-auto px-6">
     <!-- Section Title -->
     <h2 class="heading-2 text-center mb-6">
       <span class="text-gray-600">WHAT WE</span>
@@ -8,11 +8,6 @@
 
     <!-- Subtle divider -->
     <div class="mx-auto mt-6 mb-8 h-[3px] w-16 rounded-full bg-brand-red/90"></div>
-
-    <!-- Intro Paragraph -->
-    <p class="text-center text-lg md:text-2xl text-gray-600 leading-relaxed mb-20 max-w-3xl mx-auto">
-      Sound doctrine isn't about rules; it's about <span class="text-brand-red">JESUS</span>—who He is, what He has done, and how His finished work shapes what we believe and how we live.
-    </p>
 
     <!-- Beliefs Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 auto-rows-max">
@@ -225,6 +220,7 @@
       </div>
 
       <!-- LAST THINGS -->
+      <!-- LAST THINGS -->
       <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
         <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
           <span>LAST THINGS</span>
@@ -279,6 +275,13 @@
   .accordion-icon::before {
     content: '+';
   }
+
+  /* Accessible focus ring for keyboard users */
+  .accordion-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.12);
+    border-radius: 0.5rem;
+  }
 </style>
 
 <script>
@@ -323,29 +326,49 @@
     window.addEventListener('wheel', closeAll, { passive: true });
     window.addEventListener('scroll', closeAll, { passive: true });
     
-    items.forEach((item) => {
+    items.forEach((item, idx) => {
       const btn = item.querySelector('.accordion-btn');
+      const content = item.querySelector('.accordion-content');
       if (!btn) return;
-      
+
+      // Ensure button behaves correctly and is keyboard accessible
+      try { btn.type = 'button'; } catch (e) {}
+
+      // Assign accessible ids and attributes
+      const contentId = content && content.id ? content.id : `accordion-content-${idx}`;
+      if (content && !content.id) content.id = contentId;
+      btn.setAttribute('aria-controls', contentId);
+      btn.setAttribute('aria-expanded', 'false');
+
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        
+
         const pairedItems = pairMap.get(item);
-        
+
         if (pairedItems) {
           const isActive = pairedItems[0].classList.contains('active');
-          
+
           if (isActive) {
             // Close both
-            pairedItems.forEach(paired => paired.classList.remove('active'));
+            pairedItems.forEach(paired => {
+              paired.classList.remove('active');
+              const b = paired.querySelector('.accordion-btn');
+              if (b) b.setAttribute('aria-expanded', 'false');
+            });
           } else {
             // Open both
-            pairedItems.forEach(paired => paired.classList.add('active'));
+            pairedItems.forEach(paired => {
+              paired.classList.add('active');
+              const b = paired.querySelector('.accordion-btn');
+              if (b) b.setAttribute('aria-expanded', 'true');
+            });
           }
         } else {
           // If no pair, toggle independently
+          const willBeActive = !item.classList.contains('active');
           item.classList.toggle('active');
+          btn.setAttribute('aria-expanded', willBeActive ? 'true' : 'false');
         }
       });
     });
