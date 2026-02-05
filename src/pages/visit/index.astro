@@ -1,12 +1,13 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import FullBleed from "../components/tlp/FullBleed.astro";
-import SectionWrapper from "../components/tlp/SectionWrapper.astro";
-import HeroTitle from "../components/tlp/HeroTitle.astro";
-import WarmBackground from "../components/tlp/WarmBackground.astro";
-import FadeDivider from "../components/tlp/FadeDivider.astro";
-import IconActionCard from "../components/tlp/IconActionCard.astro";
+import FullBleed from "../../components/tlp/FullBleed.astro";
+import SectionWrapper from "../../components/tlp/SectionWrapper.astro";
+import HeroTitle from "../../components/tlp/HeroTitle.astro";
+import WarmBackground from "../../components/tlp/WarmBackground.astro";
+import FadeDivider from "../../components/tlp/FadeDivider.astro";
+import IconActionCard from "../../components/tlp/IconActionCard.astro";
 import FormCard from "../../components/FormCard.astro";
+import PromptSnippetBrowser from "../../components/PromptSnippetBrowser.astro";
 import { site } from "../../../site.config.js";
 
 const email = site?.contact?.email ?? "hello@thelifeplace.org";
@@ -21,96 +22,617 @@ const fullAddress = `${addressLine1}, ${addressLine2}, ${addressLine3}, ${addres
 
 const mapsQueryUrl = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}`;
 const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`;
+const appleMapsUrl = `https://maps.apple.com/?q=${encodeURIComponent(fullAddress)}`;
+const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(fullAddress)}&navigate=yes`;
+
+// dev-only flag (Vite/ Astro)
+const isDev = import.meta.env.MODE !== 'production';
+
 ---
 <BaseLayout
   title="Plan a Visit — Come. See. Jesus. | The Life Place"
   description="The Life Place — Come. See. Jesus. Everything you need for your first Sunday: location in Craigavon AH, Sandton, service time (9:00–11:00), what to expect, parking, and how to connect."
 >
 
+{/* FULL-BLEED WRAPPER */}
+<div class="w-full max-auto relative left-1/2 right-1/2 -mx-[50vw] overflow-visible">
+
+  <!-- HERO SECTION — Clean, No Animations, No Flash -->
+  <section 
+    class="visit-hero relative h-[45vh] sm:h-[34vh] md:h-[50vh] lg:h-[70vh] flex items-center justify-center cine-zoom-apple-hover"
+  >
+
+    <!-- INSTANT BACKGROUND IMAGE (no fade, no opacity, no transition) -->
+    <img 
+      id="hero-image"
+      src="/wide-strip5.jpg"
+      alt="The Life Place Community Worship"
+      class="absolute inset-0 w-full h-full object-cover object-center brightness-[0.55] rounded-none"
+    />
+    <!-- Soft overlay -->
+    <div class="absolute inset-0 bg-black/20"></div>
+
+    <!-- TEXT BLOCK (centered and stable) -->
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-full px-6 text-right">
+      
+      <h3
+        class="text-white text-2xl md:text-5xl lg:text-6xl font-extrabold cine-zoom-smooth
+               leading-snug md:leading-[1.3]
+               tracking-[0.02em] md:tracking-[0.04em]
+               max-w-4xl mx-auto drop-shadow-xl"
+      >
+        At the heart of everything we believe and do is<br />
+        <span class="text-brand-red">Jesus</span> and His finished work.
+      </h3>
+    </div>
+
+  </section>
+</div>
+
 <section class="container-x py-14 md:py-24">
   
   
   <!-- Heading block -->
-  <div class="text-center max-w-3xl mx-auto space-y-4 md:space-y-6">
-    <h1 class="heading-1 leading-[1.05]">
-      Visit Us
+  <section class="text-center max-w-6xl mx-auto space-y-4 md:space-y-6">
+     <span class="font-black block">
+     <h1 class="font-black block heading-1 leading-[1.05]">
+     VISIT US
     </h1>
 
-    <p class="text-base md:text-3xl text-gray-800 pt-8">
-      Sundays - <span class="font-semibold text-gray-800">9:00 – 11:00am</span>
-    </p>
+  </section>
 
-<!-- Divider -->
-<div class="flex justify-center pt-2">
-  <div class="h-px w-24 md:w-28 bg-black"></div>
-</div>
-
-    <p class="text-lg md:text-2xl text-gray-800 leading-relaxed">
-      {addressLine1}<br />{addressLine2} 
-     <br />{addressLine3}
-      <br />{addressLine4}
-    </p>
-  </div>
-
-  <!-- Add breathing room before the map -->
-  <div class="mt-10 md:mt-14">
-    <!-- map block here -->
-  </div>
-</section>
-
-
-    <!-- ✅ Google Map Embed -->
-    <div class="max-w-5xl mx-auto px-4 md:px-0">
-      <div class="rounded-[30px] overflow-hidden border border-black/10 bg-white/80 backdrop-blur-xl shadow-sm">
-        <div class="relative w-full aspect-[16/10]">
-          <iframe
-            class="absolute inset-0 w-full h-full"
-            src={mapsEmbedUrl}
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allowfullscreen
-            title="The Life Place map"
-          ></iframe>
-        </div>
-
+  <!-- ===== SERVICE TIMES & LOCATION ===== -->
+  <section class="w-full pt-24 md:pt-40 pb-28 md:pb-36 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
       
-<div class="p-6 md:p-8">
-  
+      <!-- Left: Service Info -->
+      <div>
+        <h2 class="text-4xl md:text-5xl font-black text-gray-800 mb-8 opacity-0"
+            data-animate="fade-up" data-delay="0">
+          When & <span class="text-brand-red">Where</span>
+        </h2>
+        
+        <div class="space-y-8">
+          
+          <!-- Sunday Service -->
+          <div class="border-l-4 border-brand-red pl-6 opacity-0" data-animate="fade-up" data-delay="0">
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Sunday</h3>
+            <p class="text-xl text-gray-600 mb-2">
+              <span class="font-semibold">9:00-11:00 AM</span>
+            </p>
+            <p class="text-gray-600">Join us for worship, prayer, and community every Sunday morning.</p>
+          </div>
 
-  <div class="mt-5 md:mt-6 flex flex-wrap gap-12 justify-center">
-    <a
-      href={mapsQueryUrl}
-      target="_blank"
-      rel="noopener"
-      class="inline-flex items-center justify-center rounded-[30px] px-5 py-2.5 text-lg font-semibold
-              text-gray hover:opacity-90 transition"
-    >
-      Get Directions
-    </a>
+          <!-- Location -->
+          <div class="border-l-4 border-brand-red pl-6 opacity-0" data-animate="fade-up" data-delay="100">
+            <h3 class="text-2xl font-bold text-gray-800 mb-2"><i class="fa-solid fa-location-dot text-brand-red mr-2"></i>Our Location</h3>
+            <p class="text-lg text-gray-600 mb-2">The Life Place</p>
+            <p class="text-gray-600 leading-relaxed">
+              {addressLine1}<br />
+              {addressLine2}<br />
+              {addressLine3}<br />
+              {addressLine4}
+            </p>
+          </div>
 
-    <a
-      href="https://maps.app.goo.gl/kWtzKtuyASu3qRxo7"
-      target="_blank"
-      rel="noopener"
-      class="inline-flex items-center justify-center rounded-[30px] px-5 py-2.5 text-lg font-semibold
-             border border-black/10 bg-white text-gray-800 hover:bg-gray-50 hover:shadow-md transition"
-    >
-      Open in Google Maps
-    </a>
-  </div>
-</div>
+          <!-- Visitor Info -->
+          <div class="border-l-4 border-brand-red pl-6 opacity-0" data-animate="fade-up" data-delay="200">
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">First Time Visiting?</h3>
+            <p class="text-gray-600 mb-4">
+              We'd love to meet you! We believe in genuine community and a warm welcome for everyone.
+            </p>
+            <button
+              id="planVisitBtn"
+              type="button"
+              aria-controls="planVisitForm"
+              class="plan-button sm:inline-flex sm:min-w-[260px] items-center justify-center gap-2 px-10 sm:px-8 py-3 sm:py-4 border-2 border-brand-red/40 hover:border-brand-red/60 bg-white text-gray-800 font-bold rounded-2xl shadow-md transition hover:bg-gray-50 hover:shadow-lg"
+              onclick="window.scrollToPlanVisitForm && window.scrollToPlanVisitForm()"
+            >
+              Plan Your Visit
+            </button>
+            
+            <!-- Map actions: Dropdown with popular GPS platforms (moved under Plan Your Visit) -->
+            <div class="mt-4 relative inline-block">
+              <button id="mapsDropdownBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="mapsDropdownMenu" class="plan-button w-full sm:inline-flex sm:min-w-[260px] inline-flex items-center justify-center rounded-2xl px-6 sm:px-8 py-3 sm:py-4 text-base font-bold border-2 border-brand-red/40 hover:border-brand-red/60 bg-white text-gray-800 shadow-md hover:bg-gray-50 hover:shadow-lg transition">
+                <span>Get Directions</span>
+                <svg class="h-4 w-4 ml-2 transition-transform duration-600 ease-in-out" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div id="mapsDropdownMenu" aria-labelledby="mapsDropdownBtn" class="absolute left-0 mt-2 z-20 min-w-[260px] max-w-[calc(100vw-3rem)] rounded-2xl border border-black/10 bg-white shadow-xl overflow-hidden transition-all duration-600 ease-out opacity-0 invisible -translate-y-2 pointer-events-none" style="max-height:0px;">
+                <a href={mapsQueryUrl} target="_blank" rel="noopener" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-50" aria-label="Open in Google Maps">
+                  <span>Google Maps</span>
+                </a>
+                <div class="mx-4 h-px bg-gray-200"></div>
+                <a href={appleMapsUrl} target="_blank" rel="noopener" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-50" aria-label="Open in Apple Maps">
+                  <span>Apple Maps (iOS)</span>
+                </a>
+                <div class="mx-4 h-px bg-gray-200"></div>
+                <a href={wazeUrl} target="_blank" rel="noopener" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-50" aria-label="Open in Waze">
+                  <span>Waze</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right: Embedded Google Map -->
+       <div class="relative rounded-3xl overflow-hidden shadow-2xl h-64 sm:h-80 md:h-full border border-gray-200 transform-gpu map-responsive"
+         data-animate="fade-up" data-delay="250" data-parallax="map">
+        <iframe
+          class="w-full h-full"
+          src={mapsEmbedUrl}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="The Life Place Location"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+    </div>
 
 
 
     <!-- Registration Form -->
-    <div class="mt-10 md:mt-12 max-w-2xl mx-auto px-4 md:px-0">
-      <FormCard
-        title="Plan a Visit"
-        eventName="Plan a Visit"
-        ctaText="I'll Visit"
-        showComingSoon={true}
-        comingSoonMessage="Visitor sign-ups opening soon — Come. See. Jesus."
-      />
+    <script is:inline>
+      // Central cleanup registry for listeners/RAFs created on this page
+      window.__tlp_cleanup = window.__tlp_cleanup || [];
+      // Accessibility & reduced-motion flags
+      const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      (() => {
+        const btn = document.getElementById('mapsDropdownBtn');
+        const menu = document.getElementById('mapsDropdownMenu');
+        const arrow = btn?.querySelector('svg');
+        const mapEl = document.querySelector('.map-responsive');
+        let dropdownScrollHandler = null;
+        let dropdownKeyHandler = null;
+        let dropdownFocusOutHandler = null;
+        if (!btn || !menu) return;
+
+        const isMobile = () => window.matchMedia('(max-width: 640px)').matches;
+
+        const openMenu = () => {
+          // Prepare for measurement and smooth expansion
+          menu.classList.remove('invisible','opacity-0','-translate-y-2','pointer-events-none','ease-in');
+          menu.classList.add('visible','opacity-100','translate-y-0','pointer-events-auto','ease-out');
+          // Set dynamic height for gentle roll-down
+          const fullHeight = menu.scrollHeight;
+          menu.style.maxHeight = fullHeight + 'px';
+          btn.setAttribute('aria-expanded', 'true');
+          arrow?.classList.add('rotate-180');
+          // On mobile, nudge the map down so the dropdown has room
+          if (isMobile() && mapEl) {
+            // clear any transient transforms so the map jumps to its natural flow
+            mapEl.style.transform = '';
+            mapEl.classList.add('dropdown-open');
+            // trigger a scroll event so the parallax handler recalculates immediately
+            requestAnimationFrame(() => window.dispatchEvent(new Event('scroll')));
+          }
+
+          // Add a subtle entrance+parallax effect to the dropdown while it's open
+          // Remove inline transforms first so CSS entrance can run, then attach a scroll handler
+          menu.style.transform = '';
+          // create parallax handler (small vertical movement based on viewport position)
+          if (!prefersReducedMotion) {
+            const doDropdownParallax = () => {
+              if (!menu) return;
+              const rect = menu.getBoundingClientRect();
+              const windowH = window.innerHeight || 1;
+              const progress = Math.max(0, Math.min(1, (windowH - rect.top) / (windowH + rect.height)));
+              // very subtle range ~ -2px .. 2px for slowest feel
+              const translate = (progress - 0.5) * -4;
+              menu.style.transform = `translateY(${translate}px)`;
+            };
+
+            dropdownScrollHandler = () => { requestAnimationFrame(doDropdownParallax); };
+            window.addEventListener('scroll', dropdownScrollHandler, { passive: true });
+            window.addEventListener('resize', dropdownScrollHandler);
+            // run once to position immediately
+            dropdownScrollHandler();
+          }
+
+          // Accessibility: move focus to first focusable item inside the menu
+          try {
+            const first = menu.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+            if (first && typeof first.focus === 'function') first.focus();
+
+            // key handler for escape (close + return focus)
+            dropdownKeyHandler = (ev) => {
+              if (ev.key === 'Escape' || ev.key === 'Esc') {
+                ev.preventDefault();
+                closeMenu();
+                try { btn.focus(); } catch (e) {}
+              }
+            };
+            menu.addEventListener('keydown', dropdownKeyHandler);
+
+            // focusout: if focus leaves the menu and isn't on the toggle, close it
+            dropdownFocusOutHandler = (ev) => {
+              setTimeout(() => {
+                const active = document.activeElement;
+                if (active !== btn && !menu.contains(active)) {
+                  closeMenu();
+                  try { btn.focus(); } catch (e) {}
+                }
+              }, 0);
+            };
+            menu.addEventListener('focusout', dropdownFocusOutHandler);
+          } catch (err) {
+            // fail gracefully if focus methods aren't available
+            console.warn('Dropdown accessibility handlers failed', err);
+          }
+        };
+
+        const closeMenu = () => {
+          // Gentle roll-up and fade
+          menu.classList.remove('opacity-100','ease-out');
+          menu.classList.add('opacity-0','ease-in');
+          menu.style.maxHeight = '0px';
+          btn.setAttribute('aria-expanded', 'false');
+          arrow?.classList.remove('rotate-180');
+          if (mapEl) {
+            mapEl.classList.remove('dropdown-open');
+            // remove inline transform and let the parallax handler reapply the correct transform
+            mapEl.style.transform = '';
+            requestAnimationFrame(() => window.dispatchEvent(new Event('scroll')));
+          }
+
+          // teardown dropdown parallax handlers and clear inline transform
+          if (dropdownScrollHandler) {
+            window.removeEventListener('scroll', dropdownScrollHandler);
+            window.removeEventListener('resize', dropdownScrollHandler);
+            dropdownScrollHandler = null;
+          }
+          if (menu) {
+            menu.style.transform = '';
+          }
+          // remove accessibility handlers
+          try {
+            if (dropdownKeyHandler) { menu.removeEventListener('keydown', dropdownKeyHandler); dropdownKeyHandler = null; }
+            if (dropdownFocusOutHandler) { menu.removeEventListener('focusout', dropdownFocusOutHandler); dropdownFocusOutHandler = null; }
+          } catch (err) {
+            // ignore
+          }
+          // return focus to the toggle for keyboard users
+          try { btn.focus({ preventScroll: true }); } catch (e) {}
+        };
+
+        const isOpen = () => btn.getAttribute('aria-expanded') === 'true';
+
+        // After height transition completes, hide from a11y and pointer events
+        menu.addEventListener('transitionend', (e) => {
+          if (e.propertyName === 'max-height' && !isOpen()) {
+            menu.classList.add('invisible','-translate-y-2','pointer-events-none');
+            menu.classList.remove('visible');
+          }
+        });
+
+        const toggle = () => (isOpen() ? closeMenu() : openMenu());
+        // store handlers so they can be removed during cleanup
+        const btnClickHandler = (e) => { e.stopPropagation(); toggle(); };
+        const docClickHandler = () => { if (isOpen()) closeMenu(); };
+        const docKeydownHandler = (e) => { if (e.key === 'Escape') closeMenu(); };
+
+        btn.addEventListener('click', btnClickHandler);
+        document.addEventListener('click', docClickHandler);
+        document.addEventListener('keydown', docKeydownHandler);
+
+        // register cleanup for these handlers and any dropdown state
+        window.__tlp_cleanup.push(() => {
+          try { btn.removeEventListener('click', btnClickHandler); } catch (e) {}
+          try { document.removeEventListener('click', docClickHandler); } catch (e) {}
+          try { document.removeEventListener('keydown', docKeydownHandler); } catch (e) {}
+          try { if (dropdownScrollHandler) { window.removeEventListener('scroll', dropdownScrollHandler); window.removeEventListener('resize', dropdownScrollHandler); dropdownScrollHandler = null; } } catch (e) {}
+          try { if (dropdownKeyHandler) { menu.removeEventListener('keydown', dropdownKeyHandler); dropdownKeyHandler = null; } } catch (e) {}
+          try { if (dropdownFocusOutHandler) { menu.removeEventListener('focusout', dropdownFocusOutHandler); dropdownFocusOutHandler = null; } } catch (e) {}
+        });
+      })();
+
+      // Smooth scroll helper for Plan Your Visit button (animated + parallax)
+      window.scrollToPlanVisitForm = function() {
+        const el = document.getElementById('planVisitForm');
+        if (!el) return;
+
+        // detect sticky header
+        const header = document.querySelector('header, .site-header, .sticky-header, [data-sticky]');
+        const offset = header ? header.offsetHeight : 0;
+        const padding = 20; // breathing room above the form
+
+        const startY = window.pageYOffset;
+        const targetY = Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - offset - padding);
+        const distance = targetY - startY;
+        if (Math.abs(distance) < 4) {
+          // already there
+          el.setAttribute('tabindex', '-1');
+          el.focus({ preventScroll: true });
+          setTimeout(() => el.removeAttribute('tabindex'), 1000);
+          return;
+        }
+
+        // If user prefers reduced motion, skip the animated scroll and parallax boost
+        if (prefersReducedMotion) {
+          window.scrollTo(0, targetY);
+          el.setAttribute('tabindex', '-1');
+          el.focus({ preventScroll: true });
+          setTimeout(() => el.removeAttribute('tabindex'), 1000);
+          return;
+        }
+
+        const duration = 850; // ms
+        let startTime = null;
+        const mapEl = document.querySelector('[data-parallax="map"]');
+
+        // cubic easeInOut
+        function easeInOutCubic(t) {
+          return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          const elapsed = ts - startTime;
+          const progress = Math.min(1, elapsed / duration);
+          const eased = easeInOutCubic(progress);
+
+          window.scrollTo(0, Math.round(startY + distance * eased));
+
+          // temporary parallax boost during the animated scroll (subtle, reduced intensity)
+          if (!prefersReducedMotion && mapEl) {
+            // animate extra translate between -6..6px based on eased progress
+            const extra = (eased - 0.5) * -12; // reduced temporary boost for smoother motion
+            mapEl.style.transform = `translateY(${extra}px)`;
+          }
+
+          if (elapsed < duration) {
+            requestAnimationFrame(step);
+          } else {
+            // finalize
+            window.scrollTo(0, targetY);
+            if (el) {
+              el.setAttribute('tabindex', '-1');
+              el.focus({ preventScroll: true });
+              setTimeout(() => el.removeAttribute('tabindex'), 1000);
+            }
+            // allow the regular onScroll parallax to resume
+            if (mapEl) mapEl.style.transform = '';
+          }
+        }
+
+        requestAnimationFrame(step);
+      };
+
+      // IntersectionObserver for reveal-on-scroll with staggered entrance
+      (function() {
+        const els = Array.from(document.querySelectorAll('[data-animate="fade-up"]'));
+        if (!els.length || typeof IntersectionObserver === 'undefined') return;
+        const io = new IntersectionObserver((entries, obs) => {
+          // collect entries that became visible this tick
+          const visible = entries.filter(en => en.isIntersecting).sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top);
+          if (!visible.length) return;
+          visible.forEach((entry, idx) => {
+            const el = entry.target;
+            const base = parseInt(el.getAttribute('data-delay') || '0', 10);
+            const stagger = 80; // ms between items
+            setTimeout(() => {
+              el.classList.remove('opacity-0');
+              el.classList.add('opacity-100','animate-fadeUp');
+            }, base + idx * stagger);
+            obs.unobserve(el);
+          });
+        }, { threshold: 0.12 });
+        els.forEach(e => io.observe(e));
+        // cleanup for IntersectionObserver
+        window.__tlp_cleanup.push(() => {
+          try { io.disconnect(); } catch (e) {}
+        });
+      })();
+
+      // Smooth parallax for the map container (RAF-driven lerp for staggered, non-sudden motion)
+      (function() {
+        const mapEl = document.querySelector('[data-parallax="map"]');
+        if (!mapEl) return;
+        // Respect user reduced-motion preference: disable RAF parallax entirely
+        if (prefersReducedMotion) {
+          try { mapEl.style.transform = ''; } catch (e) {}
+          return;
+        }
+        let target = 0;
+        let current = 0;
+        let rafId = null;
+
+        function computeTarget() {
+          const rect = mapEl.getBoundingClientRect();
+          const windowH = window.innerHeight || 1;
+          const progress = Math.max(0, Math.min(1, (windowH - rect.top) / (windowH + rect.height)));
+            // reduced intensity for smooth feel (now very subtle)
+            target = (progress - 0.5) * -6; // -3..3
+        }
+
+        function tick() {
+          // lerp toward target (slower smoothing for very smooth motion)
+          current += (target - current) * 0.06; // slower smoothing factor
+          // round to sub-pixel for smoother GPU compositing
+          mapEl.style.transform = `translateY(${current.toFixed(2)}px)`;
+          rafId = requestAnimationFrame(tick);
+        }
+
+        // start
+        computeTarget();
+        tick();
+
+        const onScrollResize = () => { computeTarget(); };
+        window.addEventListener('scroll', onScrollResize, { passive: true });
+        window.addEventListener('resize', onScrollResize);
+        // register cleanup for parallax RAF and listeners
+        window.__tlp_cleanup.push(() => {
+          try { if (rafId) cancelAnimationFrame(rafId); } catch (e) {}
+          try { window.removeEventListener('scroll', onScrollResize); } catch (e) {}
+          try { window.removeEventListener('resize', onScrollResize); } catch (e) {}
+          try { mapEl.style.transform = ''; } catch (e) {}
+        });
+      })();
+      
+        // Listen for prompt snippet inserts and apply to the Plan a Visit form if possible
+        (function() {
+          function tryInsertIntoForm(promptText) {
+            const form = document.getElementById('planVisitForm');
+            if (!form) return false;
+            // prefer a textarea inside the form
+            const ta = form.querySelector('textarea');
+            if (ta) {
+              ta.value = (ta.value ? ta.value + '\n\n' : '') + promptText;
+              ta.focus();
+              return true;
+            }
+            // fallback to text inputs
+            const input = form.querySelector('input[type="text"], input:not([type])');
+            if (input) {
+              input.value = (input.value ? input.value + ' ' : '') + promptText;
+              input.focus();
+              return true;
+            }
+            return false;
+          }
+
+          const promptSnippetHandler = (e) => {
+            try {
+              const p = e.detail && e.detail.prompt ? e.detail.prompt : String(e.detail || '');
+              const inserted = tryInsertIntoForm(p);
+              if (!inserted) {
+                // copy to clipboard as fallback and notify
+                navigator.clipboard?.writeText(p).then(() => {
+                  // small visual feedback
+                  alert('Prompt copied to clipboard — paste into the form.');
+                }).catch(() => {
+                  console.log('Prompt:', p);
+                  alert('Prompt ready in console.');
+                });
+              }
+            } catch (err) {
+              console.error('prompt insert handler error', err);
+            }
+          };
+          window.addEventListener('promptSnippetInsert', promptSnippetHandler);
+          // cleanup for prompt snippet handler
+          window.__tlp_cleanup.push(() => {
+            try { window.removeEventListener('promptSnippetInsert', promptSnippetHandler); } catch (e) {}
+          });
+          
+          
+        })();
+
+      // Global cleanup runner: invoke registered cleanup functions on pagehide/unload
+      function __tlp_runCleanup() {
+        try {
+          if (!window.__tlp_cleanup || !window.__tlp_cleanup.length) return;
+          // call each cleanup function, swallowing errors
+          for (const fn of window.__tlp_cleanup.splice(0)) {
+            try { fn && fn(); } catch (err) {}
+          }
+        } catch (err) {
+          // ignore
+        }
+      }
+      window.addEventListener('pagehide', __tlp_runCleanup, { capture: true });
+      window.addEventListener('beforeunload', __tlp_runCleanup, { capture: true });
+      window.addEventListener('unload', __tlp_runCleanup, { capture: true });
+    </script>
+    
+    <!-- Spacer between map/service block and form (increased to lower the form) -->
+    <div class="h-24 md:h-32 lg:h-40"></div>
+    
+    <!-- Dev-only prompt snippet browser (hidden in production) -->
+    {isDev ? <PromptSnippetBrowser /> : null}
+
+    <div class="mt-12 md:mt-16 max-w-2xl mx-auto px-4 md:px-0">
+      <div id="planVisitForm" class="bg-gray-50 rounded-2xl p-6 md:p-10">
+        <FormCard
+          title="Plan a Visit"
+          eventName="Plan a Visit"
+          ctaText="I'll Visit"
+          showComingSoon={true}
+          comingSoonMessage="Visitor sign-ups opening soon — Come. See. Jesus."
+        />
+      </div>
     </div>
-  </section>
+
+  </div>
+</section>
+
+  <style is:inline>
+    /* Landscape tweaks for small/tablet devices */
+    @media (orientation: landscape) and (max-width: 1024px) {
+      .visit-hero { height: 36vh !important; }
+      .map-responsive { height: 48vw !important; }
+      .plan-button { width: 100% !important; min-width: 0 !important; }
+      /* Reduce large paddings in landscape to save vertical space */
+      #planVisitForm { padding: 1rem !important; }
+    }
+
+    /* Ensure form wrapper contrasts on small screens */
+    @media (max-width: 640px) {
+      #planVisitForm { background-color: #f7fafc; } /* tailwind bg-gray-50 fallback */
+      /* Increase spacing between the service controls and the map so the dropdown isn't blocked */
+      /* Raised for iOS/Waze dropdown visibility when dropdown is open */
+      .map-responsive.dropdown-open { margin-top: 9rem !important; }
+      /* Ensure dropdown appears above transformed/map stacking contexts */
+      #mapsDropdownMenu { z-index: 9999 !important; }
+      /* Dropdown entrance animation + smooth transform transitions for parallax */
+      #mapsDropdownMenu {
+        transform: translateY(-8px);
+        transition: transform 1000ms cubic-bezier(.2,.8,.2,1), opacity 600ms ease;
+      }
+      #mapsDropdownMenu.visible {
+        transform: translateY(0);
+      }
+
+      /* Smooth transform transitions for the map parallax itself */
+      .map-responsive {
+        transition: transform 1000ms cubic-bezier(.2,.8,.2,1);
+      }
+    }
+
+    /* Tablet-only: increase spacing when dropdown is open so menu isn't obscured by the form wrapper */
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .map-responsive.dropdown-open { margin-top: 6rem !important; }
+      /* also ensure dropdown sits above the form wrapper */
+      #mapsDropdownMenu { z-index: 9999 !important; }
+    }
+
+    /* Respect prefers-reduced-motion: remove non-essential motion and transitions */
+    @media (prefers-reduced-motion: reduce) {
+      #mapsDropdownMenu,
+      .map-responsive,
+      .plan-button,
+      .plan-button svg,
+      #mapsDropdownMenu * {
+        transition: none !important;
+        animation: none !important;
+      }
+      /* ensure transforms are cleared for reduced-motion users */
+      .map-responsive { transform: none !important; }
+      #mapsDropdownMenu { transform: none !important; opacity: 1 !important; max-height: none !important; }
+    }
+  </style>
+
+  <!-- Reduce spacing between the sections -->
+  <div class="-mt-12 md:-mt-20 lg:-mt-28"></div>
+  <!-- Final Invitation -->
+<section class="py-24 md:py-32 bg-white">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    
+    <h2 class="text-4xl md:text-5xl font-black mb-6 text-gray-800">
+      Come. See. <span class="text-brand-red">Jesus</span>
+    </h2>
+
+    <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+      Join us this Sunday.
+    </p>
+
+  </div>
+</section>
 </BaseLayout>

@@ -1,0 +1,174 @@
+---
+import promptSnippets from '../utils/promptSnippets';
+
+const snippets = Object.entries(promptSnippets).map(([key, s]) => ({ key, ...s }));
+---
+
+<section class="p-4 bg-white rounded shadow-md max-w-3xl">
+  <div class="flex items-center justify-between mb-3">
+    <h3 class="text-lg font-semibold">Prompt Snippets</h3>
+    <input id="snippet-search" class="border rounded px-2 py-1 text-sm w-64" placeholder="Search snippets..." />
+  </div>
+
+  <div id="snippet-list" class="grid gap-3">
+    <!-- List rendered by client JS -->
+  </div>
+
+  <!-- Server-embedded data for client script -->
+  <script type="application/json" id="prompt-snippets-data">{JSON.stringify(snippets)}</script>
+
+  <script type="module">
+    const dataEl = document.getElementById('prompt-snippets-data');
+    const snippets = JSON.parse(dataEl.textContent || '[]');
+
+    const listEl = document.getElementById('snippet-list');
+    const searchEl = document.getElementById('snippet-search');
+
+    function render(items) {
+      listEl.innerHTML = items
+        .map(s => `
+          <article class="border rounded p-3 bg-gray-50">
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="font-medium">${escapeHtml(s.title)}</div>
+                <div class="text-xs text-gray-600">${escapeHtml(s.description)}</div>
+              </div>
+              <div class="flex gap-2">
+                <button data-key="${s.key}" class="copy-btn bg-blue-600 text-white text-xs px-2 py-1 rounded">Copy</button>
+                <button data-key="${s.key}" class="insert-btn border text-xs px-2 py-1 rounded">Insert</button>
+              </div>
+            </div>
+            <pre class="mt-2 text-xs whitespace-pre-wrap bg-white p-2 rounded text-gray-800">${escapeHtml(s.prompt)}</pre>
+            <div class="mt-2 text-xs text-gray-500">${(s.tags || []).map(t => `<span class=\"mr-2 inline-block bg-gray-200 px-2 py-0.5 rounded\">${escapeHtml(t)}</span>`).join('')}</div>
+          </article>
+        `)
+        .join('');
+
+      // attach handlers
+      listEl.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const key = btn.getAttribute('data-key');
+          const item = snippets.find(x => x.key === key);
+          if (item) {
+            navigator.clipboard.writeText(item.prompt).then(() => {
+              btn.textContent = 'Copied';
+              setTimeout(() => (btn.textContent = 'Copy'), 1200);
+            });
+          }
+        });
+      });
+
+      listEl.querySelectorAll('.insert-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const key = btn.getAttribute('data-key');
+          const item = snippets.find(x => x.key === key);
+          if (!item) return;
+
+          // Try to auto-insert into the currently focused field (textarea, text-like input, or contentEditable)
+          const active = document.activeElement;
+          let inserted = false;
+
+          try {
+            if (active) {
+              const tag = (active.tagName || '').toUpperCase();
+              const type = (active.type || '').toLowerCase();
+
+              // Textarea
+              if (tag === 'TEXTAREA') {
+                const el = /** @type {HTMLTextAreaElement} */ (active);
+                const start = el.selectionStart ?? el.value.length;
+                const end = el.selectionEnd ?? start;
+                const newVal = el.value.slice(0, start) + item.prompt + el.value.slice(end);
+                el.value = newVal;
+                // move caret to end of inserted text
+                const pos = start + item.prompt.length;
+                el.selectionStart = el.selectionEnd = pos;
+                el.focus();
+                inserted = true;
+              }
+
+              // Text-like input
+              else if (tag === 'INPUT' && /text|search|email|url|tel|password/.test(type)) {
+                const el = /** @type {HTMLInputElement} */ (active);
+                const start = el.selectionStart ?? el.value.length;
+                const end = el.selectionEnd ?? start;
+                const newVal = el.value.slice(0, start) + item.prompt + el.value.slice(end);
+                el.value = newVal;
+                const pos = start + item.prompt.length;
+                el.selectionStart = el.selectionEnd = pos;
+                el.focus();
+                inserted = true;
+              }
+
+              // contentEditable
+              else if (active.isContentEditable) {
+                const sel = window.getSelection();
+                if (sel && sel.rangeCount > 0) {
+                  const range = sel.getRangeAt(0);
+                  range.deleteContents();
+                  const textNode = document.createTextNode(item.prompt);
+                  range.insertNode(textNode);
+                  // move caret after inserted node
+                  range.setStartAfter(textNode);
+                  range.collapse(true);
+                  sel.removeAllRanges();
+                  sel.addRange(range);
+                  active.focus();
+                  inserted = true;
+                }
+              }
+            }
+          } catch (err) {
+            // ignore insertion errors and fallback to dispatch/copy below
+            console.error('Snippet insert error', err);
+          }
+
+          // Always dispatch event for parent pages to handle (fallback insertion)
+          window.dispatchEvent(new CustomEvent('promptSnippetInsert', { detail: { key: item.key, prompt: item.prompt, autoInserted: inserted } }));
+
+          // copy to clipboard for convenience
+          navigator.clipboard.writeText(item.prompt).then(() => {
+            btn.textContent = inserted ? 'Inserted' : 'Copied';
+            setTimeout(() => (btn.textContent = 'Insert'), 1200);
+          }).catch(() => {
+            // even if copy fails, give feedback
+            btn.textContent = inserted ? 'Inserted' : 'Insert';
+            setTimeout(() => (btn.textContent = 'Insert'), 1200);
+          });
+        });
+      });
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // initial render
+    render(snippets);
+
+    // search
+    searchEl.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      if (!q) return render(snippets);
+      const filtered = snippets.filter(s => {
+        return (
+          s.title.toLowerCase().includes(q) ||
+          s.description.toLowerCase().includes(q) ||
+          s.prompt.toLowerCase().includes(q) ||
+          (s.tags || []).some(t => t.toLowerCase().includes(q))
+        );
+      });
+      render(filtered);
+    });
+
+    // allow pages to listen for user insert actions
+    // Example usage in a parent page:
+    // window.addEventListener('promptSnippetInsert', (e) => { console.log(e.detail) })
+  </script>
+</section>

@@ -6,13 +6,14 @@
   "scripts": {
     "dev": "astro dev --port 4322 --host 0.0.0.0",
     "dev:force": "sh -c 'PID=$(lsof -ti tcp:4322); if [ -n \"$PID\" ]; then kill -9 $PID; fi; astro dev --port 4322 --host 0.0.0.0'",
+    "test:dropdown": "node ./tests/check-dropdown.js",
     "build": "astro build",
     "preview": "astro preview --port 4322 --host 0.0.0.0",
     "gemini": "gemini"
   },
   "dependencies": {
-    "@astrojs/react": "^4.4.2",
     "@astrojs/cloudflare": "^12.0.0",
+    "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.7.0",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/montserrat": "^5.2.8",
@@ -28,6 +29,7 @@
     "autoprefixer": "^10.4.23",
     "png-to-ico": "^3.0.1",
     "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.19"
+    "tailwindcss": "^3.4.19",
+    "playwright": "^1.41.1"
   }
 }
