@@ -228,13 +228,18 @@ const canonicalHref = (() => {
 
   <!-- Page Hero -->
   <section 
-    class="relative h-[45vh] sm:h-[34vh] md:h-[50vh] lg:h-[70vh] flex items-center justify-center cine-zoom-apple-hover"
-  >  <div class="absolute inset-0 bg-gradient-to-r from-brand-red/95 via-red-600/90 to-brand-red/95"></div>
-    <div class="absolute top-0 right-0 w-96 h-96 bg-brand-red/15 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+    class="relative h-[45vh] sm:h-[34vh] md:h-[50vh] lg:h-[70vh] flex items-center justify-center bg-gray-100 overflow-hidden"
+    
+  <div class="absolute inset-0"></div>
+<div class="absolute inset-0 ring-1 ring-brand-red"></div>
+<div class="absolute inset-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]"></div>
+      >
+      
     <div class="relative max-w-6xl mx-auto px-6 text-center z-10">
-      <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 md:mb-8">Latest from The Life Place</h1>
-      <p class="text-base md:text-3xl text-white/80 max-w-2xl mx-auto">Weekly posts that help you see Jesus — because seeing Him changes everything. </p>
+      <h1 class="text-5xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-800 mb-6 md:mb-8">
+        Latest from <span class="text-brand-red">The Life Place</span>
+      </h1>
+      <p class="text-base md:text-2xl text-gray-600 max-w-3xl mx-auto">Weekly posts that help you see Jesus — because seeing Him changes everything. </p>
     </div>
   </section>
 

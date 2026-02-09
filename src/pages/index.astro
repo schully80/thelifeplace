@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
 import BlogSignupModal from "../components/BlogSignupModal.astro";
-import { Astro } from 'astro';
+import PromptSnippetBrowser from "../components/PromptSnippetBrowser.astro";
 // Address and Google Maps embed settings (matching Visit page)
 const addressLine1 = "51 Villa Monte Catini, 1 Elm Avenue";
 const addressLine2 = "Craigavon AH, 2191";
@@ -16,10 +16,8 @@ const appleMapsUrl = `https://maps.apple.com/?q=${encodeURIComponent(fullAddress
 const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(fullAddress)}&navigate=yes`;
 
 ---
-
-
 <BaseLayout title="The Life Place">
-  {Astro.env.MODE !== 'development' && <BlogSignupModal />}
+  <BlogSignupModal />
 
 <!-- ===== WELCOME STATEMENT - FULL PROMINENCE ===== -->
 <section class="relative py-16 md:py-32 lg:py-48 overflow-hidden">
@@ -92,7 +90,7 @@ const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(fullAddress)}&na
     <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight text-white mb-12 opacity-0 animate-fadeUp delay-200 max-w-5xl mx-auto">
       Every time we meet
       <span class="block mt-4 md:mt-6">
-        we see how <span class="text-yellow-200">true, good, beautiful and kind</span>
+        we see how <span class="text-white">true, good, beautiful and kind</span>
       </span>
       <span class="block mt-4 md:mt-6">Jesus is.</span>
     </h1>
@@ -173,8 +171,6 @@ const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(fullAddress)}&na
             </div>
             <h4 class="font-bold text-gray-800 mb-2 text-center text-lg md:text-xl lg:text-3xl">Sent out to live Jesus' story in our city, our nation, and the world.</h4>
           </div>
-
-        
         
         </div>
 
@@ -182,91 +178,58 @@ const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(fullAddress)}&na
       </div>
 
       <!-- Section 2: Explore Full Beliefs -->
-      <div class="mt-12 md:mt-16 max-w-2xl mx-auto rounded-3xl border border-gray-200 hover:border-brand-red/40 bg-white overflow-hidden">
-        <a href="/what-to-expect" class="w-full p-8 md:p-12 text-left flex items-start justify-between hover:bg-gray-50 transition-colors duration-300 group">
-          <div class="pr-4">
-            <h3 class="text-center md:text-left text-lg md:text-xl lg:text-3xl font-black text-gray-800 group-hover:text-brand-red transition-colors">Curious about our theology?</h3>
-            <p class="text-gray-600 text-center md:text-left text-lg md:text-xl lg:text-xl mt-2">Explore the theology that shapes our faith and practice.</p>
-          </div>
+      <section class="w-full py-[10rem] md:py-[14rem] bg-white">
+
+  <div class="max-w-3xl mx-auto px-6 text-center md:text-center">
+
+    <!-- GIANT HEADLINE -->
+    <h2 class="heading-2 leading-[1.05] mb-[6rem] text-center text-gray-800 opacity-0 animate-fadeUp delay-100">
+      Curious about <br />our theology?<br />
+    </h2>
+
+      <!-- ABOUT US BLOCK -->
+      <div class="group">
+        <p class="text-xl md:text-2xl text-gray-600 max-w-2xl leading-relaxed mb-10">
+          Learn what we believe and how everything at The Life Place revolves
+          around the person and finished work of <span class="text-brand-red font-semibold">Jesus</span>.
+        </p>
+
+        <a
+          href="/what-we-believe/"
+          class="inline-flex items-center gap-4 text-brand-red font-bold text-xl md:text-3xl leading-relaxed hover:opacity-80 transition"
+        >
+          Learn More
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 md:w-14 md:h-14 mt-6 transition-transform group-hover:translate-x-2"
+               fill="none" stroke="currentColor" stroke-width="2"
+               viewBox="0 0 24 24">
+          </svg>
         </a>
       </div>
-    </div>
-
-  </div>
 
 </section>
 
+<!-- ===== SERVICE TIMES, LOCATION & DIVIDERS (Unified Section) ===== -->
+<section class="w-full bg-white">
+  <FadeDivider width="w-[50%]" height="h-[2px]" color="bg-gray-400" mt="mt-6 md:mt-8" mb="mb-10 md:mb-12" />
 
-<!-- Fade divider between Our Faith & Our Feel and Service Times -->
-
-<!-- NEXT STEPS — Apple Cinematic CTA Rows -->
-<section class="w-full py-12 md:py-20 bg-white">
-  <div class="max-w-5xl mx-auto px-6 space-y-16">
-
-  </div>
-</section>
-
-<style>
-  .kids-slide-img { width:100%; height:100%; object-fit:cover; flex-shrink:0 }
-</style>
-
-<script is:inline>
-document.addEventListener('DOMContentLoaded', () => {
-  /* Kids carousel (homepage) */
-  const slidesEl = document.getElementById('kidsSlidesHome');
-  const dotIndicators = document.querySelectorAll('.kids-dot-indicator');
-  if (slidesEl && dotIndicators.length) {
-    const totalSlides = slidesEl.querySelectorAll('img').length;
-    let index = 0;
-    function updateDots() { dotIndicators.forEach((dot, i) => { dot.classList.toggle('bg-brand-red', i === index % totalSlides); dot.classList.toggle('bg-gray-300', i !== index % totalSlides); }); }
-    function updateSlide() { slidesEl.style.transform = `translateX(-${index * 100}%)`; updateDots(); }
-    function nextSlide() { index = (index + 1) % totalSlides; updateSlide(); }
-    dotIndicators.forEach((dot, i) => dot.addEventListener('click', () => { index = i; updateSlide(); }));
-    updateSlide(); setInterval(nextSlide, 3200);
-  }
-
-  /* FAQ accordion */
-  const items = document.querySelectorAll('.faq-item');
-  items.forEach((item) => {
-    const summary = item.querySelector('.faq-summary');
-    const content = item.querySelector('.faq-content');
-    const icon = summary && summary.querySelector('svg');
-    summary?.addEventListener('click', () => {
-      const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
-      items.forEach((other) => { const otherContent = other.querySelector('.faq-content'); const otherIcon = other.querySelector('svg'); if (otherContent) otherContent.style.maxHeight = null; if (otherIcon) otherIcon.style.transform = 'rotate(0deg)'; other.classList.remove('open'); });
-      if (!isOpen) { content.style.maxHeight = content.scrollHeight + 'px'; if (icon) icon.style.transform = 'rotate(180deg)'; item.classList.add('open'); }
-    });
-  });
-});
-</script>
-
-<FadeDivider width="w-[50%]" height="h-[2px]" color="bg-gray-400" mt="mt-6 md:mt-8" mb="mb-10 md:mb-12" />
-
-<!-- ===== SERVICE TIMES & LOCATION ===== -->
-<section class="w-full pt-24 md:pt-40 pb-28 md:pb-36 bg-white">
-  <div class="max-w-6xl mx-auto px-6">
-    
+  <div class="pt-24 md:pt-30 pb-28 md:pb-36 max-w-6xl mx-auto px-6">
     <div class="grid md:grid-cols-2 gap-12 items-center">
-      
       <!-- Left: Service Info -->
       <div>
         <h2 class="text-4xl md:text-5xl font-black text-gray-800 mb-8">
           When & <span class="text-brand-red">Where</span>
         </h2>
-        
         <div class="space-y-8">
-          
           <!-- Sunday Service -->
-          <div class="border-l-4 border-brand-red pl-6">
+          <div class="border-l-2 border-brand-red pl-6">
             <h3 class="text-2xl font-bold text-gray-800 mb-2">Sunday</h3>
             <p class="text-xl text-gray-600 mb-2">
               <span class="font-semibold">9:00-11:00 AM</span>
             </p>
             <p class="text-gray-600">Join us for worship, prayer, and community every Sunday morning.</p>
           </div>
-
           <!-- Location -->
-          <div class="border-l-4 border-brand-red pl-6">
+          <div class="border-l-2 border-brand-red pl-6">
             <h3 class="text-2xl font-bold text-gray-800 mb-2"><i class="fa-solid fa-location-dot text-brand-red mr-2"></i>Our Location</h3>
             <p class="text-lg text-gray-600 mb-2">The Life Place</p>
             <p class="text-gray-600 leading-relaxed">
@@ -276,9 +239,8 @@ document.addEventListener('DOMContentLoaded', () => {
               {addressLine4}
             </p>
           </div>
-
           <!-- Visitor Info -->
-          <div class="border-l-4 border-brand-red pl-6">
+          <div class="border-l-2 border-brand-red pl-6">
             <h3 class="text-2xl font-bold text-gray-800 mb-2">First Time Visiting?</h3>
             <p class="text-gray-600 mb-4">
               We'd love to meet you! We believe in genuine community and a warm welcome for everyone.
@@ -309,10 +271,8 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
             </div>
           </div>
-
         </div>
       </div>
-
       <!-- Right: Embedded Google Map -->
       <div class="relative rounded-3xl overflow-hidden shadow-2xl h-96 md:h-full min-h-96 border border-gray-200">
         <iframe
@@ -324,10 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
           allowfullscreen
         ></iframe>
       </div>
-
     </div>
-
-
     <script is:inline>
       (() => {
         const btn = document.getElementById('mapsDropdownBtn');
@@ -335,17 +292,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const arrow = btn?.querySelector('svg');
         if (!btn || !menu) return;
         const openMenu = () => {
-          // Prepare for measurement and smooth expansion
           menu.classList.remove('invisible','opacity-0','-translate-y-2','pointer-events-none','ease-in');
           menu.classList.add('visible','opacity-100','translate-y-0','pointer-events-auto','ease-out');
-          // Set dynamic height for gentle roll-down
           const fullHeight = menu.scrollHeight;
           menu.style.maxHeight = fullHeight + 'px';
           btn.setAttribute('aria-expanded', 'true');
           arrow?.classList.add('rotate-180');
         };
         const closeMenu = () => {
-          // Gentle roll-up and fade
           menu.classList.remove('opacity-100','ease-out');
           menu.classList.add('opacity-0','ease-in');
           menu.style.maxHeight = '0px';
@@ -353,7 +307,6 @@ document.addEventListener('DOMContentLoaded', () => {
           arrow?.classList.remove('rotate-180');
         };
         const isOpen = () => btn.getAttribute('aria-expanded') === 'true';
-        // After height transition completes, hide from a11y and pointer events
         menu.addEventListener('transitionend', (e) => {
           if (e.propertyName === 'max-height' && !isOpen()) {
             menu.classList.add('invisible','-translate-y-2','pointer-events-none');
@@ -366,15 +319,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
       })();
     </script>
-
   </div>
+  <FadeDivider width="w-[50%]" height="h-[2px]" color="bg-gray-400" mt="mt-6 md:mt-8" mb="mb-2 md:mb-12" />
 </section>
 
-<!-- Fade divider between Service Times and Stay Connected -->
-<FadeDivider width="w-[50%]" height="h-[2px]" color="bg-gray-400" mt="mt-6 md:mt-8" mb="mb-10 md:mb-12" />
 
-<!-- ===== STAY CONNECTED (Redesigned Two-Column Layout) ===== -->
-<section class="py-24 md:py-32 bg-white">
+<!-- =====GET CONNECTED (Redesigned Two-Column Layout) ===== -->
+<section class="py-24 md:py-48 bg-white">
   <div class="max-w-6xl mx-auto px-6">
 
     <!-- Section Header -->
@@ -435,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
 
       <!-- Vertical divider -->
-      <div class="hidden md:block w-px bg-brand-red/90 h-full mx-auto"></div>
+      <div class="hidden md:block w-px bg-brand-red h-full mx-auto"></div>
 
       <!-- Right: Stacked value props and newsletter form -->
       <div class="space-y-8">
@@ -483,7 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <input 
                   type="email" 
                   placeholder="Enter your email" 
-                  class="flex-1 px-6 py-4 rounded-full bg-white border border-gray-300 text-gray-800 placeholder-gray-500 focus:outline-none focus:border-brand-red transition-all"
+                  class="flex-1 px-6 py-4 rounded-2xl bg-white border border-gray-300 text-gray-800 placeholder-gray-500 focus:outline-none focus:border-brand-red transition-all"
                   autocomplete="email"
                   name="email"
                   id="newsletterEmail"
@@ -492,7 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 />
                 <button 
                   type="submit"
-                  class="px-8 py-4 bg-gradient-to-r from-brand-red to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-full transition-all hover:shadow-xl duration-300"
+                  class="px-8 py-4 bg-gradient-to-r from-brand-red to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-2xl transition-all hover:shadow-xl duration-300"
                   aria-label="Subscribe to our blog"
                   id="newsletterSubscribeBtn"
                 >
@@ -509,19 +460,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     </div>
   </div>
+  <!-- Faded divider after GET CONNECTED section for clear separation -->
+  <FadeDivider width="w-[50%]" height="h-[2px]" color="bg-gray-400" mt="mt-48 md:mt-56" mb="mb-48 md:mb-56" />
 </section>
 
-<!-- First-Time Guest FAQ (moved here) -->
+
 <!-- KIDS SECTION (no extra wrapper) -->
-<section class="bg-gray-50 rounded-2xl shadow-xl w-full max-w-5xl mx-auto py-16 md:py-20">
-  <div class="text-center px-6 mb-12 pt-12">
-    <span class="text-base md:text-lg text-brand-red font-bold uppercase tracking-[0.15em] mb-6 md:mb-8 opacity-0 animate-fadeUp">For Our Kids</span>
-    <div class="my-10"></div>
+<section class="bg-gray-50 rounded-2xl shadow-xl w-full max-w-5xl mx-auto -mt-8 md:-mt-12 lg:-mt-48 py-4 md:py-48 lg:py-64 border border-gray-200">
+  <div class="text-center px-6 mb-4 pt-2 md:pt-0 lg:pt-0">
+  <!--
+  Visual Example:
+
+  Before:
+  | (pt-12)
+  v
+  +-------------------+
+  |   Our Kids        |
+  +-------------------+
+
+  After:
+  | (pt-2)
+  v
+  +-------------------+
+  |Our Kids           |
+  +-------------------+
+  -->
+    <span class="text-base md:text-lg text-brand-red font-bold uppercase tracking-[0.15em] mb-12 md:mb-16 lg:mb-20 opacity-0 animate-fadeUp">Our Kids</span>
     <span class="block font-black"></span>
-    <p class="text-4xl md:text-5xl lg:text-6xl text-gray-800 font-extrabold mb-3 mt-12">
+    <p class="text-4xl md:text-5xl lg:text-6xl text-gray-800 font-extrabold mb-3 mt-8 md:mt-12 lg:mt-16 opacity-0 animate-fadeUp delay-100">
       <span class="text-brand-red">Kids</span> @ The Life Place
     </p>
-    <div class="mt-8 md:mt-10 lg:mt-12"></div>
+    <div class="mt-8 md:mt-10 lg:mt-20"></div>
     <!-- Cinematic angled 'Coming Soon' banner (modern UI flow: below headline, above description) -->
     <div class="flex justify-center my-4">
       <div class="inline-block transform -rotate-6 md:-rotate-6 shadow-2xl">
@@ -532,12 +501,12 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
 
     <div class="my-10"></div>
-    <p class="mt-6 text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
+    <p class="mt-16 text-base md:text-xl text-center text-gray-600 max-w-3xl mx-auto">
       We don’t have a kids’ church yet, but as <span class="text-brand-red">Jesus</span> provides, we’ll launch one where our kids will experience His truth, goodness, beauty, and kindness.
     </p>
 
     <div class="w-full flex justify-center text-center mt-10">
-      <p class="text-lg md:text-xl font-semibold max-w-3xl leading-tight tracking-tight text-gray-800">
+      <p class="text-lg md:text-xl font-extrabold max-w-3xl text-gray-800">
         Children are welcome to remain with their parents during service.
       </p>
     </div>
@@ -545,7 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   <!-- smaller carousel for homepage -->
   <div class="max-w-md mx-auto px-6">
-    <div class="relative mx-auto rounded-2xl overflow-hidden shadow-2xl w-full aspect-square bg-gray-200 cine-zoom-apple-hover">
+    <div class="relative mx-auto rounded-2xl overflow-hidden shadow-2xl w-full aspect-square bg-gray-200">
       <div id="kidsSlidesHome" class="flex h-full w-full transition-transform duration-[900ms] ease-in-out">
         <img src="/what-kids.jpg" alt="Kids Ministry at The Life Place" class="kids-slide-img rounded-2xl" />
         <img src="/what-kids2.jpg" alt="Children learning and worshipping at The Life Place" class="kids-slide-img rounded-2xl" />
@@ -569,13 +538,15 @@ document.addEventListener('DOMContentLoaded', () => {
       <button class="kids-dot-indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-all duration-300" data-slide="6"></button>
       </div>
     </div>
-</section>
-</div>
+  </section>
+
+
 <!-- Increased spacer between Kids section and FAQ -->
 <div class="h-16 md:h-28 lg:h-40"></div>
 <section class="max-w-4xl mx-auto px-6 mt-8 mb-6" data-faq-accordion>
   <div class="text-center mb-8">
-    <h2 class="heading-2">First-Time Guest FAQs</h2>
+  <span class="block font-black"></span>
+     <h2 class="heading-2">First-Time Guest FAQs</h2>
     <p class="mt-3 text-lg text-gray-600">Helpful guidance for your first visit to The Life Place.</p>
   </div>
 
@@ -683,6 +654,47 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 </section>
 
+
+<!-- Prompt Snippet Browser Section -->
+<div class="max-w-4xl mx-auto px-6 my-16">
+  <PromptSnippetBrowser />
+</div>
+
+
+<style>
+  .kids-slide-img { width:100%; height:100%; object-fit:cover; flex-shrink:0 }
+</style>
+
+<script is:inline>
+document.addEventListener('DOMContentLoaded', () => {
+  /* Kids carousel (homepage) */
+  const slidesEl = document.getElementById('kidsSlidesHome');
+  const dotIndicators = document.querySelectorAll('.kids-dot-indicator');
+  if (slidesEl && dotIndicators.length) {
+    const totalSlides = slidesEl.querySelectorAll('img').length;
+    let index = 0;
+    function updateDots() { dotIndicators.forEach((dot, i) => { dot.classList.toggle('bg-brand-red', i === index % totalSlides); dot.classList.toggle('bg-gray-300', i !== index % totalSlides); }); }
+    function updateSlide() { slidesEl.style.transform = `translateX(-${index * 100}%)`; updateDots(); }
+    function nextSlide() { index = (index + 1) % totalSlides; updateSlide(); }
+    dotIndicators.forEach((dot, i) => dot.addEventListener('click', () => { index = i; updateSlide(); }));
+    updateSlide(); setInterval(nextSlide, 3200);
+  }
+
+  /* FAQ accordion */
+  const items = document.querySelectorAll('.faq-item');
+  items.forEach((item) => {
+    const summary = item.querySelector('.faq-summary');
+    const content = item.querySelector('.faq-content');
+    const icon = summary && summary.querySelector('svg');
+    summary?.addEventListener('click', () => {
+      const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+      items.forEach((other) => { const otherContent = other.querySelector('.faq-content'); const otherIcon = other.querySelector('svg'); if (otherContent) otherContent.style.maxHeight = null; if (otherIcon) otherIcon.style.transform = 'rotate(0deg)'; other.classList.remove('open'); });
+      if (!isOpen) { content.style.maxHeight = content.scrollHeight + 'px'; if (icon) icon.style.transform = 'rotate(180deg)'; item.classList.add('open'); }
+    });
+  });
+});
+</script>
+
 <script is:inline>
   // Newsletter form: open Substack in new tab after native validation
   (() => {
@@ -776,6 +788,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   // Open ministries menu from Stay Connected section (and shared behaviours)
+  // Only define here if a global helper doesn't already exist (Header may provide one).
+  if (typeof window.openMinistries !== 'function') {
   function openMinistries() {
     const width = window.innerWidth;
 

@@ -1,53 +1,57 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import FadeDivider from "../components/tlp/FadeDivider.astro";
+import promptsnippet from "../components/tlp/promptsnippet.astro";
 ---
 
-<BaseLayout title="Our Values - Test">
+<BaseLayout title="Our Values - Test"
+description="Testing the values page design and content. This is a work in progress to create a compelling and visually engaging presentation of our core values at The Life Place.">
 
 <!-- ===== DRAMATIC HERO SECTION ===== -->
-<section class="w-full min-h-screen md:min-h-[80vh] relative overflow-hidden bg-gradient-to-r from-brand-red/95 via-red-600/90 to-brand-red/95 flex items-center justify-center">
+<section class="w-full min-h-screen md:min-h-[80vh] relative overflow-hidden bg-white flex items-center justify-center py-32 md:py-48">
   
   <!-- Animated background elements -->
   <div class="absolute inset-0">
-    <div class="absolute top-0 right-1/4 w-80 h-80 bg-brand-red/20 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
-    <div class="absolute top-1/3 left-1/3 w-64 h-64 bg-brand-red/5 rounded-full blur-3xl"></div>
+  <div class="absolute top-0 right-1/4 w-80 h-80 bg-brand-red/20 rounded-full blur-3xl"></div>
+  <div class="absolute top-1/3 left-1/3 w-64 h-64 bg-brand-red/5 rounded-full blur-3xl"></div>
   </div>
 
   <div class="relative max-w-6xl mx-auto px-6 py-20 text-center z-10">
-    
-    <!-- Label -->
-    <div class="mb-8 opacity-0 animate-fadeUp">
-      <span class="inline-block px-4 py-2 rounded-full bg-gradient-to-r from-brand-red/20 to-red-600/10 border border-brand-red/40 text-sm md:text-base text-brand-red font-bold uppercase tracking-widest backdrop-blur-sm">
-        Our Foundation
-      </span>
-    </div>
+  
+  <!-- Label -->
+  <div class="mb-8 opacity-0 animate-fadeUp">
+    <span class="inline-block px-4 py-2 text-sm md:text-base text-gray-500 font-bold uppercase tracking-widest backdrop-blur-sm">
+    Our values
+    </span>
+  </div>
 
-    <!-- Main heading -->
-    <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight text-white mb-16 opacity-0 animate-fadeUp delay-100 max-w-5xl mx-auto">
-      Five Values
-      <span class="block text-yellow-200 mt-4 md:mt-6">
-        Shaping Our Culture
-      </span>
-    </h1>
-
-    <!-- Subtitle & Attribution -->
-    <p class="text-base md:text-xl text-white leading-relaxed font-medium mb-8 opacity-0 animate-fadeUp delay-200 max-w-2xl mx-auto">
-      We are intentional about The Life Place being a community where all that we are and do communicates the beauty, gentleness and kindness of who Jesus is.
-    </p>
-
-    <div class="flex items-center justify-center gap-4 opacity-0 animate-fadeUp delay-300">
-      <div class="w-6 h-px bg-gradient-to-r from-transparent to-yellow-200"></div>
-      <p class="text-white text-base md:text-lg font-black italic tracking-wide">
-        — Schulter & Genevieve Etyang
-      </p>
-      <div class="w-6 h-px bg-gradient-to-l from-transparent to-yellow-200"></div>
-    </div>
+  <!-- Main heading -->
+  <span class="block font-black text-5xl md:text-6xl lg:text-7xl text-gray-800 leading-tight mb-6 opacity-0 animate-fadeUp delay-100">
+     <span class="text-brand-red">Five</span> Values
+    <span class="block font-black text-gray-800 mt-4 md:mt-6">
+    Shaping Our Culture
+    </span>
+  </span>
 
   </div>
 
 </section>
 
+<!-- Statement and attribution section-->
+<section class="w-full bg-white relative z-10">
+  <div class="max-w-7xl mx-auto px-6 py-12 md:py-20">
+    <p class="text-left text-xl md:text-5xl lg:text-5xl text-gray-600 leading-relaxed mb-20 max-w-5xl mx-auto">
+    <span class="font-black block">
+      We are intentional about The Life Place being a community where all that we are and do communicates the beauty, gentleness and kindness of who <span class="text-brand-red">Jesus</span> is. 
+    </span>
+    </p>
+  </div>
+</section>
+
+
+<FadeDivider width="w-[50%]" height="h-[2px]" color="bg-gray-400" mt="mt-2 md:mt-2" mb="mb-6 md:mb-8" />
+
+   
 <!-- ===== VALUE 1: DRAMATIC FULL-WIDTH SECTION ===== -->
 <section class="w-full py-24 md:py-40 bg-white relative overflow-hidden">
   
@@ -68,21 +72,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <p class="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
           Just as Jesus taught that everything in the Bible points to Him, we believe that every time we open the Bible, we are invited to see and meet with Him. Our commitment is to help people encounter Jesus through Scripture in a transformative way.
         </p>
-        
-        <ul class="space-y-4 mb-8">
-          <li class="flex items-start gap-3">
-            <span class="text-brand-red font-bold text-xl mt-1">→</span>
-            <span class="text-gray-600">Every passage reveals His character</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="text-brand-red font-bold text-xl mt-1">→</span>
-            <span class="text-gray-600">Every story shows His love and redemption</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="text-brand-red font-bold text-xl mt-1">→</span>
-            <span class="text-gray-600">Every word speaks to His finished work</span>
-          </li>
-        </ul>
+    
         
         <p class="text-sm text-gray-500 italic">Luke 24:47; John 1:19-35, 5:39, 46, 12:26-27, 13:3</p>
       </div>
@@ -102,7 +92,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 </section>
 
 <!-- ===== VALUE 2: DARK DRAMATIC SECTION ===== -->
-<section class="w-full py-24 md:py-40 bg-gradient-to-br from-slate-900 via-black to-slate-900 relative overflow-hidden">
+<section class="w-full py-24 md:py-40 bg-gray-50 relative overflow-hidden">
   
   <div class="absolute inset-0">
     <div class="absolute top-0 left-0 w-96 h-96 bg-green-600/10 rounded-full blur-3xl"></div>
@@ -127,28 +117,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           Value 2
         </div>
         
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight">
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-gray-800 mb-6 leading-tight">
           Diverse <span class="text-brand-red">Community</span>
         </h2>
         
-        <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-8">
+        <p class="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
           The gospel creates a new kind of community—every ethnicity, tribe, people and language. Rooted in Jesus' finished work, we celebrate every story, background and culture.
         </p>
         
-        <ul class="space-y-4 mb-8">
-          <li class="flex items-start gap-3">
-            <span class="text-brand-red font-bold text-xl mt-1">→</span>
-            <span class="text-gray-300">Barriers of race and class are broken</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="text-brand-red font-bold text-xl mt-1">→</span>
-            <span class="text-gray-300">We are one family in Christ</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="text-brand-red font-bold text-xl mt-1">→</span>
-            <span class="text-gray-300">Reflecting the beauty of God's kingdom</span>
-          </li>
-        </ul>
+      
         
         <p class="text-sm text-gray-500 italic">Acts 2:46–47; Romans 8:15; Galatians 4:6; Ephesians 3; Revelation 7:9</p>
       </div>
@@ -179,21 +156,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <p class="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
           Made rich by what Jesus has done, we joyfully give, share and overflow with generosity. It's not just about money—it's about sharing our time, talents, and resources freely.
         </p>
-        
-        <ul class="space-y-4 mb-8">
-          <li class="flex items-start gap-3">
-            <span class="text-brand-red font-bold text-xl mt-1">→</span>
-            <span class="text-gray-600">We overflow with joy and giving</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="text-brand-red font-bold text-xl mt-1">→</span>
-            <span class="text-gray-600">Jesus gave extravagantly for us</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="text-brand-red font-bold text-xl mt-1">→</span>
-            <span class="text-gray-600">We give extravagantly in return</span>
-          </li>
-        </ul>
+     
         
         <p class="text-sm text-gray-500 italic">1 Chronicles 29:1-9, Matthew 26:6-8, Acts 2:45; 4:35; 2 Corinthians 8:2–4, 9, 16–24; 9:1–15</p>
       </div>
@@ -211,12 +174,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 </section>
 
 <!-- ===== VALUE 4: DARK DRAMATIC SECTION ===== -->
-<section class="w-full py-24 md:py-40 bg-gradient-to-br from-slate-900 via-black to-slate-900 relative overflow-hidden">
-  
-  <div class="absolute inset-0">
-    <div class="absolute top-0 right-0 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-0 left-0 w-96 h-96 bg-brand-red/5 rounded-full blur-3xl"></div>
-  </div>
+<section class="w-full py-24 md:py-40 bg-gray-100 relative overflow-hidden">
+
 
   <div class="relative max-w-7xl mx-auto px-6">
     
@@ -224,7 +183,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       
       <!-- Left: Visual -->
       <div class="opacity-0 animate-fadeUp delay-100 order-2 md:order-1 relative">
-        <div class="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-purple-400/20 rounded-3xl blur-2xl"></div>
         <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-purple-600/30 h-[500px] md:h-[600px]">
           <img src="/Graceful-compassion.jpg" alt="Graceful compassion value at The Life Place" class="w-full h-full object-cover object-center" />
         </div>
@@ -236,29 +194,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           Value 4
         </div>
         
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight">
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-gray-800 mb-6 leading-tight">
           Graceful <span class="text-brand-red">Compassion</span>
         </h2>
         
-        <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-8">
+        <p class="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
           Jesus moves us toward the widow, the orphan, the poor, the imprisoned and the immigrant with grace that mirrors His. We are called to see and serve the vulnerable.
         </p>
-        
-        <ul class="space-y-4 mb-8">
-          <li class="flex items-start gap-3">
-            <span class="text-brand-red font-bold text-xl mt-1">→</span>
-            <span class="text-gray-300">Moving toward those in need</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="text-brand-red font-bold text-xl mt-1">→</span>
-            <span class="text-gray-300">Grace that mirrors Jesus</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="text-brand-red font-bold text-xl mt-1">→</span>
-            <span class="text-gray-300">Kindness and justice together</span>
-          </li>
-        </ul>
-        
+       
         <p class="text-sm text-gray-500 italic">Deut 10:18, 14:29; 16:11; 24:17, 19–21; Matt 25:35–40; Acts 6:1–3; Gal 2:9; James 1:27, 2:14–17; Jude 9</p>
       </div>
 
@@ -289,20 +232,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           The story of Jesus moves through us into our city, our nation and the world. We are a sent people, carrying His life and His good news through words, lives, and actions.
         </p>
         
-        <ul class="space-y-4 mb-8">
-          <li class="flex items-start gap-3">
-            <span class="text-brand-red font-bold text-xl mt-1">→</span>
-            <span class="text-gray-600">Jesus' story moves through us</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="text-brand-red font-bold text-xl mt-1">→</span>
-            <span class="text-gray-600">We are intentionally sent into the world</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="text-brand-red font-bold text-xl mt-1">→</span>
-            <span class="text-gray-600">Sharing His good news everywhere</span>
-          </li>
-        </ul>
+    
         
         <p class="text-sm text-gray-500 italic">Luke 8:39; John 17:18; 1 Corinthians 9:23</p>
       </div>
