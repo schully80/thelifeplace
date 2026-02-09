@@ -13,57 +13,147 @@ import WarmBackground from "../../components/tlp/WarmBackground.astro";
   title="About Us — Come. See. Jesus. | The Life Place"
   description="The Life Place — Come. See. Jesus. Learn who we are, our story, core values, and leadership team. We exist to draw people into a life-changing relationship with Jesus."
 >
-  <!-- Full-bleed hero with image + subtle overlay -->
-  <section class="relative full-bleed cine-zoom-apple-hover">
-    <div class="relative min-h-[70vh] md:min-h-[70vh] overflow-hidden">
-      <img
-        src="/sandton-skyline-grayscale.jpg"
-        alt="About The Life Place"
-        class="absolute inset-0 h-full w-full object-cover"
-        loading="eager"
-        decoding="async"
-      />
-      <!-- Soft dark overlay for legibility -->
-      <div class="absolute inset-0 bg-black/20"></div>
-
-      <!-- Centered content -->
-      <!-- Mobile: shorter & tighter; Desktop: original min-h-screen spacing preserved -->
-      <div class="relative z-20 flex h-full flex-col items-center justify-center px-4 text-center min-h-[70vh] md:min-h-screen gap-4 md:gap-8">
-         <!-- Subtle white glow behind text -->
-      <div 
-        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),transparent_70%)] 
-               blur-[80px] opacity-80 -z-10 pointer-events-none">
+  <!-- ===== HERO SECTION WITH VISION STATEMENT (MODERN REDESIGN) ===== -->
+<section class="relative w-full py-32 md:py-48 overflow-hidden flex items-center">
+  <!-- Background image with overlay -->
+  <img
+    src="/sandton-skyline-grayscale.jpg"
+    alt="Sandton skyline"
+    class="absolute inset-0 h-full w-full object-cover"
+    loading="eager"
+    decoding="async"
+  />
+  <!-- Dark overlay for text readability -->
+  <div class="absolute inset-0 bg-black/30"></div>
+  <!-- Hero Content -->
+  <div class="relative max-w-6xl mx-auto px-6 py-12 text-center z-10">
+    <!-- What We Do Label - Modern Typography -->
+    <p class="text-base md:text-lg text-white font-semibold uppercase tracking-[0.15em] mb-6 opacity-0 animate-fadeUp delay-100">What We Do</p>
+    <!-- Vision Statement - Modern, Bold, Spacious -->
+      <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-snug md:leading-tight lg:leading-tight text-white mb-12 opacity-0 animate-fadeUp delay-200 max-w-5xl mx-auto">
+      Every time we meet we see how true good beautiful and kind <br>Jesus is.
+    </h1>
+    <!-- Vision Supporting Text - Modern and Clean -->
+    <p class="text-base md:text-2xl text-white max-w-3xl mx-auto leading-relaxed font-medium mb-4 opacity-0 animate-fadeUp delay-300">
+      This is what we're about—encountering Jesus together and letting who he is and what he did for us transform everything.
+    </p>
+  </div>
+</section>
+  
+  
+  <!-- ===== OUR VALUES SECTION (Copied from test-values) ===== -->
+  <section id="our-values" class="relative w-full py-24 md:py-40 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="mb-12 text-center">
+        <span class="inline-block mb-6 md:mb-8 lg:mb-10 px-4 py-2 text-sm md:text-base text-gray-500 font-bold uppercase tracking-widest backdrop-blur-sm">Our Values</span>
+        <h2 class="font-black text-4xl md:text-5xl lg:text-6xl text-gray-800 leading-wide mb-12 md:mb-16 lg:mb-20">
+          Our Core <span class="text-brand-red"> Values</span>
+        </h2>
+        <div class="max-w-4xl mx-auto mb-12">
+          <div class="bg-gray-50 rounded-3xl p-8 md:p-12 shadow-lg ring-1 ring-gray-50">
+            <p class="block font-black text-3xl md:text-4xl -tracking-tight leading-wide text-gray-800">
+              We are intentional about The Life Place being a community where all that we are and do communicates the beauty, gentleness and kindness of who <span class="text-brand-red">Jesus</span> is.
+            </p>
+          </div>
+        </div>
       </div>
 
-        <!-- Heading -->
-        <!-- Mobile smaller (2xl); Desktop unchanged (md:5xl) -->
-        <h1 class="mb-6 md:mb-10 text-4xl md:text-7xl font-bold text-center text-white drop-shadow-lg">
-          What We Do
-        </h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10 mt-12 md:mt-16">
+        <!-- Value 1 -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 lg:p-10 flex flex-col items-center text-center h-full value-card">
+          <div class="w-full flex justify-center mb-4">
+            <span class="text-4xl md:text-5xl lg:text-6xl text-brand-red value-icon" role="img" aria-label="Seeing Jesus in the Bible"><i class="fas fa-book-open" aria-hidden="true"></i></span>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold mb-3">Seeing <span class="text-brand-red">Jesus</span> in the Bible</h3>
+          <p class="text-gray-600 mb-4 md:text-lg">Just as Jesus taught that everything in the Bible points to Him, we believe that every time we open the Bible, we are invited to see and meet with Him.</p>
+          <p class="text-sm text-gray-500 italic">Luke 24:47; John 1:19-35, 5:39, 46, 12:26-27, 13:3</p>
+        </div>
 
-        <!-- Vision statement -->
-        <!-- Mobile smaller (text-lg + tighter leading); Desktop unchanged (sm:6xl + md:leading-snug) -->
-        <p class="max-w-5xl mx-auto text-3xl sm:text-6xl font-semibold leading-7 md:leading-snug text-white">
-          Every time we meet, we see how true, good, beautiful and kind
-          <!-- Retro sign with nails -->
-          <span class="relative inline-block px-3 py-0 rounded-[9px] bg-[#B3282D] text-white font-bold border-4 border-white shadow-lg drop-shadow-xl tracking-wide rotate-[-2deg]">
-            Jesus
-            <!-- Left nail -->
-            <span
-              class="absolute top-1 left-1 w-2 h-2 rounded-full border border-gray-700 shadow"
-              style="background: radial-gradient(circle at 30% 30%, #f0f0f0, #a0a0a0 60%, #5a5a5a);"
-            />
-            <!-- Right nail -->
-            <span
-              class="absolute top-1 right-1 w-2 h-2 rounded-full border border-gray-700 shadow"
-              style="background: radial-gradient(circle at 30% 30%, #f0f0f0, #a0a0a0 60%, #5a5a5a);"
-            />
-          </span>
-          is.
-        </p>
+        <!-- Value 2 -->
+        <div class="bg-white rounded-2xl shadow-lg ring-1 ring-brand-red/20 p-6 md:p-8 lg:p-10 flex flex-col items-center text-center h-full value-card">
+          <div class="w-full flex justify-center mb-4">
+            <span class="text-4xl md:text-5xl lg:text-6xl text-brand-red value-icon" role="img" aria-label="Diverse community"><i class="fas fa-users" aria-hidden="true"></i></span>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold mb-3">Diverse <span class="text-brand-red">Community</span></h3>
+          <p class="text-gray-600 mb-4 md:text-lg">Rooted in Jesus' finished work, our community seeks to be a forerunner of the city of God - every ethnicity, tribe, people and language.</p>
+          <p class="text-sm text-gray-500 italic">Acts 2:46–47; Romans 8:15; Galatians 4:6; Ephesians 3; Revelation 7:9</p>
+        </div>
+
+        <!-- Value 3 -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 lg:p-10 flex flex-col items-center text-center h-full value-card">
+          <div class="w-full flex justify-center mb-4">
+            <span class="text-4xl md:text-5xl lg:text-6xl text-brand-red value-icon" role="img" aria-label="Extravagant generosity"><i class="fas fa-hand-holding-heart" aria-hidden="true"></i></span>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold mb-3">Extravagant <span class="text-brand-red">Generosity</span></h3>
+          <p class="text-gray-600 mb-4 md:text-lg">Made rich by what Jesus has done, we joyfully give, share and overflow with generosity.</p>
+          <p class="text-sm text-gray-500 italic">1 Chronicles 29:1-9, Matthew 26:6-8, Acts 2:45; 4:35; 2 Corinthians 8:2–4, 9, 16–24; 9:1–15</p>
+        </div>
+
+        <!-- Value 4 -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 lg:p-10 flex flex-col items-center text-center h-full value-card">
+          <div class="w-full flex justify-center mb-4">
+            <span class="text-4xl md:text-5xl lg:text-6xl text-brand-red value-icon" role="img" aria-label="Graceful compassion"><i class="fas fa-hands-helping" aria-hidden="true"></i></span>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold mb-3">Graceful <span class="text-brand-red">Compassion</span></h3>
+          <p class="text-gray-600 mb-4 md:text-lg">Jesus moves us toward the widow, orphan, poor, prisoner and the immigrant with grace that mirrors His.</p>
+          <p class="text-sm text-gray-500 italic">Deut 10:18, 14:29; 16:11; 24:17, 19–21; Matt 25:35–40; Acts 6:1–3; Gal 2:9; James 1:27, 2:14–17; Jude 9</p>
+        </div>
+
+        <!-- Value 5 -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 lg:p-10 flex flex-col items-center text-center h-full value-card">
+          <div class="w-full flex justify-center mb-4">
+            <span class="text-4xl md:text-5xl lg:text-6xl text-brand-red value-icon" role="img" aria-label="Tell the story"><i class="fas fa-bullhorn" aria-hidden="true"></i></span>
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold mb-3">Tell the <span class="text-brand-red">Story</span></h3>
+          <p class="text-gray-600 mb-4 md:text-lg">The story of Jesus moves through us into our city, our nation and the world. We are a sent people, carrying His life and His good news through words, lives, and actions.</p>
+          <p class="text-sm text-gray-500 italic">Luke 8:39; John 17:18; 1 Corinthians 9:23</p>
+        </div>
+
       </div>
     </div>
-    
   </section>
-  
-</BaseLayout>
+
+  <!-- Final Invitation -->
+<section class="py-24 md:py-32 bg-white">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    
+    <h2 class="text-4xl md:text-5xl font-black mb-6 text-gray-800">
+      Come. See. <span class="text-brand-red">Jesus</span>
+    </h2>
+
+    <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+      Join us this Sunday.
+    </p>
+
+  </div>
+</section>
+
+  <style>
+    /* Values section responsive tweaks */
+    #our-values .value-card { min-height: 18rem; }
+    #our-values .value-icon { font-size: 1.75rem; }
+
+    /* Tighter cards on small screens, more breathing room on larger */
+    @media (min-width: 640px) {
+      #our-values .value-card { min-height: 20rem; }
+      #our-values .value-icon { font-size: 2rem; }
+    }
+
+    @media (min-width: 768px) {
+      #our-values .value-card { min-height: 22rem; }
+      #our-values .value-icon { font-size: 2.25rem; }
+    }
+
+    @media (min-width: 1024px) {
+      #our-values .value-card { min-height: 0; }
+      #our-values .value-icon { font-size: 2.5rem; }
+    }
+
+    /* Reduce vertical padding on very small devices */
+    @media (max-width: 380px) {
+      #our-values .value-card { padding: 1rem; }
+      #our-values .value-card p { font-size: 0.95rem; }
+    }
+  </style>
+
+  </BaseLayout>

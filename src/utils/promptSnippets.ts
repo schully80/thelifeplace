@@ -37,7 +37,7 @@ export const promptSnippets: Record<string, PromptSnippet> = {
       "Rewrite the following text to be {{TONE}}. Keep the original meaning and key details, but adjust word choice and sentence structure to match the tone: {{TEXT}}",
     tags: ["rewrite", "tone", "editing"],
   },
-
+// TypeScript type definition for prompt snippets
   code_generate: {
     title: "Generate code",
     description: "Implement a function or small module from a specification.",

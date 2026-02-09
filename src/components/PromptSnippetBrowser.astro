@@ -1,21 +1,23 @@
 ---
 import promptSnippets from '../utils/promptSnippets';
 
-const snippets = Object.entries(promptSnippets).map(([key, s]) => ({ key, ...s }));
+const serverSnippets = Object.entries(promptSnippets).map(([key, s]) => ({ key, ...s }));
 ---
 
 <section class="p-4 bg-white rounded shadow-md max-w-3xl">
   <div class="flex items-center justify-between mb-3">
     <h3 class="text-lg font-semibold">Prompt Snippets</h3>
-    <input id="snippet-search" class="border rounded px-2 py-1 text-sm w-64" placeholder="Search snippets..." />
+      <input id="snippet-search" class="border rounded px-2 py-1 text-sm w-64" placeholder="Search snippets..." />
   </div>
+
+    <!-- server-side snippet count removed after verification -->
 
   <div id="snippet-list" class="grid gap-3">
     <!-- List rendered by client JS -->
   </div>
 
   <!-- Server-embedded data for client script -->
-  <script type="application/json" id="prompt-snippets-data">{JSON.stringify(snippets)}</script>
+  <script type="application/json" id="prompt-snippets-data" set:html={JSON.stringify(serverSnippets)}></script>
 
   <script type="module">
     const dataEl = document.getElementById('prompt-snippets-data');
@@ -23,6 +25,22 @@ const snippets = Object.entries(promptSnippets).map(([key, s]) => ({ key, ...s }
 
     const listEl = document.getElementById('snippet-list');
     const searchEl = document.getElementById('snippet-search');
+
+    // Track the last-focused editable element so clicking "Insert" doesn't lose the target focus
+    let lastFocusedEditable = null;
+    function isEditable(el) {
+      if (!el) return false;
+      const tag = (el.tagName || '').toUpperCase();
+      const type = (el.type || '').toLowerCase();
+      return (
+        tag === 'TEXTAREA' ||
+        (tag === 'INPUT' && /text|search|email|url|tel|password/.test(type)) ||
+        el.isContentEditable
+      );
+    }
+    document.addEventListener('focusin', (e) => {
+      if (isEditable(e.target)) lastFocusedEditable = e.target;
+    });
 
     function render(items) {
       listEl.innerHTML = items
@@ -65,7 +83,8 @@ const snippets = Object.entries(promptSnippets).map(([key, s]) => ({ key, ...s }
           if (!item) return;
 
           // Try to auto-insert into the currently focused field (textarea, text-like input, or contentEditable)
-          const active = document.activeElement;
+          // prefer the last-focused editable element (clicking the button moves focus to the button)
+          const active = lastFocusedEditable || document.activeElement;
           let inserted = false;
 
           try {

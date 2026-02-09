@@ -35,28 +35,28 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
           </h1>
         </div>
 
-        <p class="text-lg md:text-2xl leading-relaxed text-gray-600">
+        <p class="text-lg md:text-2xl leading-relaxed text-gray-700">
           Schulter and Genevieve Etyang lead 
           <span class="text-brand-red">The Life Place</span>.
         </p>
 
-        <p class="text-lg md:text-2xl leading-relaxed text-gray-600">
+        <p class="text-lg md:text-2xl leading-relaxed text-gray-700">
           Fifteen years ago, the good news of who Jesus is became real to us.  
           Since then, our lives have been shaped by one simple invitation —  
           <span class="font-semibold text-brand-red">Come. See. Jesus</span>.
         </p>
 
-        <p class="text-lg md:text-2xl leading-relaxed text-gray-600">
+        <p class="text-lg md:text-2xl leading-relaxed text-gray-700">
           It remains the heartbeat of our lives, our conversations,  
           and the community we serve.
         </p>
 
-        <p class="text-lg md:text-2xl leading-relaxed text-gray-600">
+        <p class="text-lg md:text-2xl leading-relaxed text-gray-700">
           We care deeply about people discovering how true, good, beautiful,  
           and kind <span class="text-brand-red">Jesus</span> is.
         </p>
 
-        <p class="text-center text-lg md:text-2xl leading-relaxed text-gray-600">
+        <p class="text-center text-lg md:text-2xl leading-relaxed text-gray-700">
           Seeing <span class="text-brand-red">Jesus</span> changes everything.
         </p>
 
@@ -81,13 +81,17 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
   </div>
 </section>
 
+<!-- Add extra margin between sections -->
+<div class="my-32"></div>
 <!-- FADE DIVIDER -->
-<FadeDivider mt="mt-12" mb="mb-8" />
+<FadeDivider width="w-[50%]" height="h-[2px]" color="bg-gray-400" mt="mt-4 md:mt-6" mb="mb-8 md:mb-10" />
 
 
 <!-- ===========================
        CONNECT • PARTNER • SUBSCRIBE
 =========================== -->
+<div class="my-24"></div>
+
 <section class="max-w-5xl mx-auto px-6 pt-8 md:pt-12 pb-20 md:pb-24 mt-0 bg-gray-50">
 
   <h2 class="font-body text-center text-5xl font-semibold text-gray-800 mb-10">
@@ -116,7 +120,7 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
       <img src="/substack-qr2.png" width="140" height="140" class="rounded-2xl border flex-shrink-0" />
       <div class="space-y-2">
         <h3 class="font-heading text-xl font-semibold group-hover:text-brand-red transition">Subscribe to Schulter's Substack</h3>
-        <p class="text-gray-600 text-sm leading-relaxed">
+        <p class="text-gray-700 text-sm leading-relaxed">
           Scan or tap below to receive new articles and reflections.
         </p>
         <span class="inline-flex items-center justify-center rounded-full px-5 py-2 text-brand-red border border-brand-red group-hover:bg-brand-red group-hover:text-white transition font-medium">
@@ -130,7 +134,7 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
       <img src="/snapscan-qr2.png" width="140" height="140" class="rounded-2xl border flex-shrink-0" />
       <div class="space-y-2">
         <h3 class="font-heading text-xl font-semibold group-hover:text-brand-red transition">Partner with The Life Place</h3>
-        <p class="text-gray-600 text-sm leading-relaxed">
+        <p class="text-gray-700 text-sm leading-relaxed">
           Scan or tap to open our giving portal.
         </p>
         <span class="inline-flex items-center justify-center rounded-full px-5 py-2 text-brand-red border border-brand-red group-hover:bg-brand-red group-hover:text-white transition font-medium">
@@ -144,7 +148,7 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
 
   <!-- PAYPAL CARD -->
   <div class="max-w-xl mx-auto mt-12 md:mt-16">
-    <a href={PAYPAL_URL} target="_blank" class="group p-6 rounded-3xl border border-gray-200 bg-gray-50 hover:bg-white hover:shadow-xl transition-all flex items-center gap-6">
+    <a href={PAYPAL_URL} target="_blank" class="group p-6 rounded-3xl border border-gray-200 bg-gray-50 hover:bg-white hover:shadow-xl transition-all flex items-center gap-6 block">
       <!-- PayPal QR/Icon -->
       <div class="flex-shrink-0 w-[140px] h-[140px] rounded-2xl border bg-white flex items-center justify-center">
         <img 
@@ -159,7 +163,7 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
       <!-- Text -->
       <div class="space-y-2">
         <h3 class="font-heading text-xl font-semibold group-hover:text-brand-red transition">Support via PayPal</h3>
-        <p class="text-gray-600 text-sm leading-relaxed">
+        <p class="text-gray-700 text-sm leading-relaxed">
           Donate securely through PayPal. Tap below to open our giving portal.
         </p>
         <span class="inline-flex items-center justify-center rounded-full px-5 py-2 text-brand-red border border-brand-red group-hover:bg-brand-red group-hover:text-white transition font-medium">
