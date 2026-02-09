@@ -106,17 +106,7 @@ const isActive = (href) =>
       class="px-4 py-3 overflow-y-auto max-h-[calc(100dvh-4rem)] space-y-2"
       aria-label="Mobile"
     >
-      <!-- What to Expect -->
-      <a
-        href="/what-to-expect/"
-        class={`block px-4 py-3.5 rounded-full text-base ${
-          isActive("/what-to-expect/")
-            ? "text-brand-red font-semibold bg-red-50"
-            : "text-brand-darkgray hover:bg-gray-50"
-        }`}
-      >
-        What to Expect
-      </a>
+      <!-- ...existing code... -->
 
       <!-- ABOUT US ACCORDION -->
       <section class="mt-2" data-accordion>
@@ -149,23 +139,22 @@ const isActive = (href) =>
                       : "text-brand-darkgray hover:bg-gray-50"
                   }`}
                 >
-                 What We Do
+                  What We Do
                 </a>
               </li>
-
+              
               <li>
                 <a
-                  href="/about-us/our-values"
+                  href="/what-we-believe/"
                   class={`block px-5 py-3 text-[15px] rounded-full ${
-                    isActive("/about-us/our-values")
+                    isActive("/what-we-believe/")
                       ? "text-brand-red font-semibold bg-red-50"
                       : "text-brand-darkgray hover:bg-gray-50"
                   }`}
                 >
-                  Our Values
+                  What We Believe
                 </a>
               </li>
-
               <li>
                 <a
                   href="/about-us/leadership"
@@ -219,136 +208,7 @@ const isActive = (href) =>
 
 
 
-      <!-- MINISTRIES ACCORDION -->
-      <section class="mt-2" data-accordion>
-        <button
-          type="button"
-          class="w-full flex items-center justify-between px-4 py-3.5 rounded-full text-left text-base hover:bg-gray-50"
-          data-accordion-trigger
-          aria-expanded="false"
-          aria-controls="acc-ministries"
-        >
-          <span>Ministries</span>
-          <svg class="h-6 w-6 transition-transform" viewBox="0 0 24 24">
-            <path d="M5 10l7 7 7-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
-          </svg>
-        </button>
-
-        <div
-          id="acc-ministries"
-          class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out"
-          data-accordion-panel
-        >
-          <div class="overflow-hidden">
-            <ul class="py-1">
-
-              <li>
-                <a
-                  href="/ministries/new-members/"
-                  class={`block px-5 py-3 text-[15px] rounded-full ${
-                    isActive("/ministries/new-members/")
-                      ? "text-brand-red font-semibold bg-red-50"
-                      : "text-brand-darkgray hover:bg-gray-50"
-                  }`}
-                >
-                  New @The Life Place
-                </a>
-              </li>
-
-              <li class="px-5 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">
-                Family
-              </li>
-
-              <li>
-                <a
-                  href="/ministries/bring-them-to-jesus/"
-                  class={`block px-5 py-3 text-[15px] rounded-full ${
-                    isActive("/ministries/bring-them-to-jesus/")
-                      ? "text-brand-red font-semibold bg-red-50"
-                      : "text-brand-darkgray hover:bg-gray-50"
-                  }`}
-                >
-                  Bring Them To Jesus
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="/ministries/kids/"
-                  class={`block px-5 py-3 text-[15px] rounded-full ${
-                    isActive("/ministries/kids/")
-                      ? "text-brand-red font-semibold bg-red-50"
-                      : "text-brand-darkgray hover:bg-gray-50"
-                  }`}
-                >
-                  Kids @The Life Place
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="/ministries/gen/"
-                  class={`block px-5 py-3 text-[15px] rounded-full ${
-                    isActive("/ministries/gen/")
-                      ? "text-brand-red font-semibold bg-red-50"
-                      : "text-brand-darkgray hover:bg-gray-50"
-                  }`}
-                >
-                  ThisGen
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="/ministries/premarital-counseling/"
-                  class={`block px-5 py-3 text-[15px] rounded-full ${
-                    isActive("/ministries/premarital-counseling/")
-                      ? "text-brand-red font-semibold bg-red-50"
-                      : "text-brand-darkgray hover:bg-gray-50"
-                  }`}
-                >
-                  Premarital Counseling
-                </a>
-              </li>
-
-              <li class="px-5 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">
-                Formation
-              </li>
-
-              <li>
-                <a
-                  href="/ministries/institute/"
-                  class={`block px-5 py-3 text-[15px] rounded-full ${
-                    isActive("/ministries/institute/")
-                      ? "text-brand-red font-semibold bg-red-50"
-                      : "text-brand-darkgray hover:bg-gray-50"
-                  }`}
-                >
-                  The Life Place Institute
-                </a>
-              </li>
-
-              <li class="px-5 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">
-                Outreach
-              </li>
-
-              <li>
-                <a
-                  href="/ministries/relief-center/"
-                  class={`block px-5 py-3 text-[15px] rounded-full ${
-                    isActive("/ministries/relief-center/")
-                      ? "text-brand-red font-semibold bg-red-50"
-                      : "text-brand-darkgray hover:bg-gray-50"
-                  }`}
-                >
-                  Relief Center
-                </a>
-              </li>
-
-            </ul>
-          </div>
-        </div>
-      </section>  
+      <!-- Ministries nav removed -->
       
       <!-- GENEROSITY (Give) — after Ministries in desktop, but in mobile we place BEFORE Ministries for UX clarity -->
       <a
