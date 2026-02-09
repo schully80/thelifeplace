@@ -68,15 +68,6 @@ const isActive = (href) =>
 
     <!-- Desktop-style nav (landscape) -->
     <nav class="nav-links hidden landscape:flex items-center gap-6 font-montserrat text-base">
-      <!-- What to Expect -->
-        <a
-          href="/what-to-expect/"
-          class={`px-2 py-2 rounded-full ${
-            isActive("/what-to-expect/")
-              ? "text-brand-red font-semibold bg-red-50"
-              : "text-gray-700 hover:bg-gray-50"
-          }`}
-        >What to Expect</a>
 
       <!-- About Us Dropdown -->
       <div data-dropdown class="relative">
@@ -93,7 +84,7 @@ const isActive = (href) =>
 
         <div data-menu class="absolute left-0 top-full mt-1 w-56 md:w-64 rounded-md border bg-white shadow-lg hidden">
           <a href="/about-us/" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">What We Do</a>
-          <a href="/about-us/our-values" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">Our Values</a>
+          <a href="/what-we-believe/" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">What We Believe</a>
           <a href="/about-us/leadership" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">Schulter & Genevieve</a>
         </div>
       </div>
@@ -109,32 +100,7 @@ const isActive = (href) =>
         <span data-live-mid-indicator class="hidden h-2 w-2 rounded-full bg-red-600"></span>
       </a>
 
-      <!-- Ministries Dropdown -->
-      <div data-dropdown class="relative">
-          <button
-            data-trigger
-            type="button"
-            aria-expanded="false"
-            class={`px-2 py-2 whitespace-nowrap rounded-full ${
-              isActive("/ministries/")
-                ? "text-brand-red font-semibold bg-red-50"
-                : "text-gray-700 hover:bg-gray-50"
-            }`}
-          >Ministries</button>
-
-        <div data-menu class="absolute left-0 top-full mt-1 w-64 md:w-72 rounded-md border bg-white shadow-lg hidden max-h-[70vh] overflow-y-auto">
-          <a href="/ministries/new-members/" class="block px-3 py-2 text-sm hover:text-gray-800">New @The Life Place</a>
-          <div class="px-3 pt-2 pb-1 text-[11px] uppercase text-gray-400">Family</div>
-          <a href="/ministries/bring-them-to-jesus/" class="block px-3 py-2 text-sm hover:text-gray-800">Bring Them To Jesus</a>
-          <a href="/ministries/kids/" class="block px-3 py-2 text-sm hover:text-gray-800">Kids @The Life Place</a>
-          <a href="/ministries/gen/" class="block px-3 py-2 text-sm hover:text-gray-800">ThisGen</a>
-          <div class="px-3 pt-2 pb-1 text-[11px] uppercase text-gray-400">Formation</div>
-          <a href="/ministries/premarital-counseling/" class="block px-3 py-2 text-sm hover:text-gray-800">Premarital Counseling</a>
-          <a href="/ministries/institute/" class="block px-3 py-2 text-sm hover:text-gray-800">The Life Place Institute</a>
-          <div class="px-3 pt-2 pb-1 text-[11px] uppercase text-gray-400">Outreach</div>
-          <a href="/ministries/relief-center/" class="block px-3 py-2 text-sm hover:text-gray-800">Relief Center</a>
-        </div>
-      </div>
+      <!-- Ministries nav removed -->
 
       <!-- Generosity -->
       <a
@@ -197,13 +163,7 @@ const isActive = (href) =>
 
     <!-- Nav -->
     <nav class="flex items-center gap-8 font-montserrat text-base xl:text-lg">
-      <!-- What to Expect -->
-      <a
-        href="/what-to-expect/"
-        class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-          isActive("/what-to-expect") ? "after:w-full after:bg-brand-red text-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-brand-red"
-        }`}
-      >What to Expect</a>
+      <!-- ...existing code... -->
 
       <!-- About Us -->
       <div id="dd-about" data-dropdown class="relative focus-within:z-50">
@@ -220,7 +180,7 @@ const isActive = (href) =>
           class="absolute left-0 top-full -mt-px w-56 rounded-md border bg-white shadow-lg z-50 hidden max-h-80 overflow-y-auto overscroll-contain pt-1"
         >
           <a href="/about-us/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">What We Do</span></a>
-          <a href="/about-us/our-values" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Our Values</span></a>
+          <a href="/what-we-believe/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">What We Believe</span></a>
           <a href="/about-us/leadership" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Schulter and Genevieve</span></a>
         </div>
       </div>
@@ -236,32 +196,7 @@ const isActive = (href) =>
         <span data-live-indicator class="hidden h-2 w-2 rounded-full bg-red-600 absolute -right-3 top-1/2 -translate-y-1/2"></span>
       </a>
 
-      <!-- Ministries -->
-      <div id="dd-ministries" data-dropdown class="relative">
-        <button
-          data-trigger
-          type="button"
-          class={`relative px-2 py-2 whitespace-nowrap after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-            isActive("/ministries/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-brand-red"
-          }`}
-        >Ministries</button>
-
-        <div
-          data-menu
-          class="absolute left-0 top-full -mt-px w-64 xl:w-72 2xl:w-80 rounded-md border bg-white shadow-lg z-50 hidden max-h-[75vh] xl:max-h-[85vh] overflow-y-auto overscroll-contain pt-1"
-        >
-          <a href="/ministries/new-members/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">New @The Life Place</span></a>
-          <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Family</div>
-          <a href="/ministries/bring-them-to-jesus/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Bring Them To Jesus</span></a>
-          <a href="/ministries/kids/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Kids @The Life Place</span></a>
-          <a href="/ministries/gen/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">ThisGen</span></a>
-          <a href="/ministries/premarital-counseling/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Premarital Counseling</span></a>
-          <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Formation</div>
-          <a href="/ministries/institute/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">The Life Place Institute</span></a>
-          <div class="px-3 pt-2 pb-1 text-[11px] uppercase tracking-wide text-gray-400">Outreach</div>
-          <a href="/ministries/relief-center/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Relief Center</span></a>
-        </div>
-      </div>
+      <!-- Ministries nav removed -->
 
       <!-- Generosity -->
       <a
@@ -302,9 +237,7 @@ const isActive = (href) =>
     </div>
 
     <nav class="px-4 py-3 overflow-y-auto max-h-[calc(100dvh-4rem)] space-y-2" aria-label="Tablet">
-      <a href="/what-to-expect/" class={`block px-4 py-3.5 rounded-full text-base ${isActive("/what-to-expect/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
-        What to Expect
-      </a>
+      <!-- ...existing code... -->
 
       <section class="mt-2" data-accordion>
         <button type="button" class="w-full flex items-center justify-between px-4 py-3.5 rounded-full text-left text-base hover:bg-gray-50" data-accordion-trigger aria-expanded="false" aria-controls="acc-about-tablet">
@@ -317,7 +250,8 @@ const isActive = (href) =>
           <div class="overflow-hidden">
             <ul class="py-1">
               <li><a href="/about-us/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/about-us/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>What We Do</a></li>
-              <li><a href="/about-us/our-values" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/about-us/our-values") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>Our Values</a></li>
+              
+              <li><a href="/what-we-believe/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/what-we-believe/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>What We Believe</a></li>
               <li><a href="/about-us/leadership" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/about-us/leadership") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>Schulter and Genevieve</a></li>
             </ul>
           </div>
@@ -488,6 +422,157 @@ const isActive = (href) =>
     }
 
     initNavDrawer();
+
+    // Expose helper to open Ministries from other parts of the page (e.g., footer)
+    window.openMinistries = function openMinistries(forceMode) {
+      // Robust routine with retries to handle timing/race conditions across breakpoints
+      // forceMode: 'force-drawer' will prefer opening the drawer even on large viewports
+      const attemptOpen = (triesLeft = 10) => {
+        try {
+          // Debug trace
+          console.debug('openMinistries: attempt, triesLeft=', triesLeft);
+          // mark that we've attempted to open (helps debug when nothing else sets the dataset)
+          try { document.body.dataset.openMinistries = 'attempting'; document.body.dataset.openMinistriesAttempt = String(Date.now()); } catch (e) { /* ignore */ }
+          // Smooth scroll to top to reveal header/nav
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+
+          // 1) Desktop dropdown (only on large viewports)
+          const dd = document.getElementById('dd-ministries');
+          const desktopBtn = dd && dd.querySelector('[data-trigger]');
+          const desktopMenu = dd && dd.querySelector('[data-menu]');
+          const width = window.innerWidth || document.documentElement.clientWidth;
+          const preferDesktop = (forceMode !== 'force-drawer') && (width >= 1280); // allow caller to force drawer
+          // helper: is element visible in current layout (more robust)
+          const isVisible = (el) => {
+            if (!el) return false;
+            const style = window.getComputedStyle(el);
+            if (style.display === 'none' || style.visibility === 'hidden') return false;
+            if (el.offsetParent === null) return false; // hidden by display:none or not in layout
+            const rect = el.getBoundingClientRect();
+            return !!(rect.width || rect.height || el.getClientRects().length);
+          };
+          if (preferDesktop && desktopMenu && desktopBtn && isVisible(desktopBtn)) {
+            console.debug('openMinistries: opening desktop dropdown');
+            // Trigger mouseenter to ensure any hover handlers run
+            try { desktopBtn.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true })); } catch (e) {}
+            desktopMenu.classList.remove('hidden');
+            desktopBtn.setAttribute('aria-expanded', 'true');
+            desktopMenu.querySelector('a,button,[tabindex]:not([tabindex="-1"])')?.focus();
+            document.body.dataset.openMinistries = 'desktop';
+
+            // Keep removing hidden for a short window to avoid race with hide timers
+            let keepCount = 0;
+            const keepOpen = setInterval(() => {
+              if (desktopMenu.classList.contains('hidden')) {
+                desktopMenu.classList.remove('hidden');
+                desktopBtn.setAttribute('aria-expanded', 'true');
+              }
+              keepCount += 1;
+              if (keepCount > 80) { // ~4s (80 * 50ms)
+                clearInterval(keepOpen);
+              }
+            }, 50);
+
+            // Stop the keepOpen when user enters the menu
+            const onMenuEnter = () => { clearInterval(keepOpen); desktopMenu.removeEventListener('mouseenter', onMenuEnter); };
+            desktopMenu.addEventListener('mouseenter', onMenuEnter);
+
+            return true;
+          }
+
+          // 2) Tablet / Mobile drawer
+          const tabletBtn = document.getElementById('tabletMenuButton');
+          const mobileBtn = document.getElementById('mobileMenuButton');
+          const openBtn = tabletBtn || mobileBtn;
+          const drawerElem = document.getElementById('tabletNavDrawer') || document.getElementById('mobileNavDrawer');
+          const overlayElem = document.getElementById('tabletNavOverlay') || document.getElementById('mobileNavOverlay');
+
+          if (openBtn) {
+            console.debug('openMinistries: clicking openBtn', openBtn.id || openBtn);
+            // Set dataset early so tests can see we attempted opening the drawer
+            try { document.body.dataset.openMinistries = 'drawer-attempted'; } catch (e) {}
+            openBtn.click();
+          }
+
+          if (drawerElem) {
+            console.debug('openMinistries: programmatically opening drawer', drawerElem.id);
+            drawerElem.classList.remove('translate-x-full');
+            if (overlayElem) {
+              overlayElem.classList.remove('pointer-events-none');
+              overlayElem.classList.add('opacity-100');
+            }
+            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+            document.documentElement.style.overflow = 'hidden';
+            document.documentElement.style.paddingRight = scrollbarWidth + 'px';
+            if (tabletBtn) tabletBtn.setAttribute('aria-expanded', 'true');
+            if (mobileBtn) mobileBtn.setAttribute('aria-expanded', 'true');
+            document.body.dataset.openMinistries = 'drawer';
+            drawerElem.focus();
+
+            // expand ministries accordion inside drawer
+            const triggerSelector = '[data-accordion] [data-accordion-trigger]';
+            const triggers = drawerElem.querySelectorAll(triggerSelector);
+            let expanded = false;
+            triggers.forEach(t => {
+              const ctl = t.getAttribute('aria-controls') || '';
+              const txt = (t.textContent || '').trim().toLowerCase();
+              if (ctl.toLowerCase().includes('ministries') || /ministries/.test(txt)) {
+                const panel = document.getElementById(ctl);
+                t.setAttribute('aria-expanded', 'true');
+                const icon = t.querySelector('svg'); if (icon) icon.style.transform = 'rotate(180deg)';
+                if (panel) panel.style.gridTemplateRows = '1fr';
+                panel?.querySelector('a,button')?.focus();
+                // Safely compute panel id for dataset (avoid referencing undefined variables)
+                const panelIdSafe = (panel && (panel.id || panel.getAttribute('id'))) || ctl || '';
+                document.body.dataset.openMinistriesPanel = panelIdSafe;
+                console.debug('openMinistries: expanded drawer panel', panelIdSafe);
+                expanded = true;
+              }
+            });
+            if (!expanded && triggers[0]) {
+              // open first accordion as fallback
+              const t = triggers[0];
+              const ctl = t.getAttribute('aria-controls');
+              const panel = document.getElementById(ctl);
+              t.setAttribute('aria-expanded', 'true');
+              const icon = t.querySelector('svg'); if (icon) icon.style.transform = 'rotate(180deg)';
+              if (panel) panel.style.gridTemplateRows = '1fr';
+              panel?.querySelector('a,button')?.focus();
+              const panelIdSafe = (panel && (panel.id || panel.getAttribute('id'))) || ctl || '';
+              document.body.dataset.openMinistriesPanel = panelIdSafe;
+              console.debug('openMinistries: expanded fallback drawer panel', panelIdSafe);
+            }
+            return true;
+          }
+
+          // 3) Fallback: show any header dropdown matching ministries
+          const anyMenu = Array.from(document.querySelectorAll('header [data-dropdown]')).map(w => ({wrap: w, btn: w.querySelector('[data-trigger]'), menu: w.querySelector('[data-menu]')})).find(x => (x.btn && /ministries/i.test(x.btn.textContent || '')) || (x.menu && /ministries/i.test(x.menu.textContent || '')));
+          if (anyMenu && anyMenu.menu && anyMenu.btn) {
+            anyMenu.menu.classList.remove('hidden');
+            anyMenu.btn.setAttribute('aria-expanded', 'true');
+            anyMenu.menu.querySelector('a,button')?.focus();
+            return true;
+          }
+
+          return false;
+        } catch (e) {
+          console.warn('openMinistries attempt failed', e);
+          return false;
+        }
+      };
+
+      // Try immediately, then retry a few times to allow initNavDrawer to finish wiring listeners
+      let tries = 0;
+      const maxTries = 12;
+      const retry = () => {
+        const ok = attemptOpen(maxTries - tries);
+        if (ok) return;
+        tries += 1;
+        if (tries <= maxTries) setTimeout(retry, 150);
+        else console.warn('openMinistries: could not open ministries menu after retries');
+      };
+      retry();
+    };
 
     // Desktop dropdowns
     (function () {
