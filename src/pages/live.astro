@@ -14,7 +14,7 @@ const serviceMinute = 0;
 >
   
   <!-- Hero -->
-  <section class="relative mx-auto max-w-6xl overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900/95 to-gray-900 py-16 md:py-24 rounded-3xl md:rounded-4xl">
+  <section class="relative mx-auto max-w-6xl overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900/95 to-gray-900 py-16 md:py-24 rounded-none md:rounded-none lg:rounded-3xl shadow-2xl">
     <!-- Modern gradient mesh background -->
     <div class="absolute inset-0 opacity-40">
       <div class="absolute top-0 -left-1/2 w-full h-full bg-gradient-to-r from-brand-red/30 to-transparent rounded-full blur-3xl"></div>
@@ -44,11 +44,8 @@ const serviceMinute = 0;
         <div id="countdown" class="text-xl md:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-red-300 to-red-500 mb-8 leading-relaxed"></div>
         
         <!-- CTA Button -->
-        <button onclick="document.querySelector('[id=liveFrame]').scrollIntoView({behavior:'smooth'})" class="inline-flex items-center gap-2 px-5 py-3 md:gap-3 md:px-8 md:py-4 bg-gradient-to-r from-brand-red to-red-600 hover:from-brand-red hover:to-red-700 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group text-base md:text-lg">
+        <button onclick="document.querySelector('[id=liveFrame]').scrollIntoView({behavior:'smooth'})" class="inline-flex items-center gap-2 px-5 py-3 md:gap-3 md:px-8 md:py-4 bg-gradient-to-r from-brand-red to-red-600 hover:from-brand-red hover:to-red-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 group text-base md:text-lg">
           <span>Watch Now</span>
-          <svg class="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-          </svg>
         </button>
       </div>
     </div>
@@ -96,20 +93,9 @@ const serviceMinute = 0;
     <div class="mt-12 flex justify-center relative">
       <button
         id="tlpShareBtn"
-        class="group relative px-5 py-3 md:px-8 md:py-4 rounded-full bg-gradient-to-r from-brand-red to-red-600 text-white font-semibold text-base md:text-lg shadow-lg hover:shadow-2xl hover:from-brand-red hover:to-red-700 active:scale-95 transition-all duration-300 flex items-center gap-2 md:gap-2.5 border border-red-500/50 backdrop-blur-sm hover:animate-pulse-soft"
+        class="group relative px-5 py-3 md:px-8 md:py-4 rounded-2xl bg-gradient-to-r from-brand-red to-red-600 text-white font-semibold text-base md:text-lg shadow-lg hover:shadow-2xl hover:from-brand-red hover:to-red-700 active:scale-95 transition-all duration-300 flex items-center gap-2 md:gap-2.5 border border-red-500/50 backdrop-blur-sm hover:animate-pulse-soft"
       >
-        <svg 
-          class="w-5 h-5 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12"
-          fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round"
-          viewBox="0 0 24 24"
-        >
-          <circle cx="18" cy="5" r="3"></circle>
-          <circle cx="6" cy="12" r="3"></circle>
-          <circle cx="18" cy="19" r="3"></circle>
-          <path d="M8.59 13.51l6.83 3.98" />
-          <path d="M15.41 6.51L8.59 10.49" />
-        </svg>
+        <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
         <span class="group-hover:tracking-wide transition-all duration-300">Share</span>
       </button>
 
@@ -118,16 +104,13 @@ const serviceMinute = 0;
         id="tlpShareMenu"
         class="absolute top-full mt-3 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-2xl p-4 min-w-[220px] hidden z-50
                backdrop-blur-xl border border-white/20 opacity-0 scale-95 transition-all duration-300"
-      >
         <!-- Copy Link -->
         <a
           id="shareLink"
           href="#"
           class="flex items-center gap-3 w-full px-4 py-3 text-left text-gray-600 hover:bg-gray-50 rounded-lg transition"
         >
-          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.658 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-          </svg>
+          <i class="fa-solid fa-link text-brand-red text-lg" aria-hidden="true"></i>
           <span class="font-medium">Copy Link</span>
         </a>
 
@@ -138,9 +121,7 @@ const serviceMinute = 0;
           rel="noopener noreferrer"
           class="flex items-center gap-3 w-full px-4 py-3 text-left text-gray-600 hover:bg-gray-50 rounded-lg transition"
         >
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-          </svg>
+          <i class="fa-brands fa-facebook-f text-brand-red text-lg" aria-hidden="true"></i>
           <span class="font-medium">Facebook</span>
         </a>
 
@@ -151,9 +132,7 @@ const serviceMinute = 0;
           rel="noopener noreferrer"
           class="flex items-center gap-3 w-full px-4 py-3 text-left text-gray-600 hover:bg-gray-50 rounded-lg transition"
         >
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a14.028 14.028 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-          </svg>
+          <i class="fa-brands fa-x-twitter text-brand-red text-lg" aria-hidden="true"></i>
           <span class="font-medium">Twitter</span>
         </a>
 
@@ -164,9 +143,7 @@ const serviceMinute = 0;
           rel="noopener noreferrer"
           class="flex items-center gap-3 w-full px-4 py-3 text-left text-gray-600 hover:bg-gray-50 rounded-lg transition"
         >
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-9.746 9.798c0 2.734.844 5.404 2.437 7.621L.96 23.953l8.141-2.687a9.844 9.844 0 004.746 1.207h.005c5.444 0 9.868-4.43 9.868-9.98 0-2.649-.826-5.147-2.38-7.27A9.833 9.833 0 0011.651 6.979z"/>
-          </svg>
+          <i class="fa-brands fa-whatsapp text-brand-red text-lg" aria-hidden="true"></i>
           <span class="font-medium">WhatsApp</span>
         </a>
 
@@ -175,9 +152,7 @@ const serviceMinute = 0;
           id="shareEmail"
           class="flex items-center gap-3 w-full px-4 py-3 text-left text-gray-600 hover:bg-gray-50 rounded-lg transition"
         >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
+          <i class="fa-solid fa-envelope text-brand-red text-lg" aria-hidden="true"></i>
           <span class="font-medium">Email</span>
         </a>
       </div>
@@ -197,11 +172,7 @@ const serviceMinute = 0;
          cine-zoom-apple-hover shadow-2xl rounded-2xl md:rounded-[36px] p-6 md:p-8 text-center animate-floatSlow cursor-pointer transition-all duration-300 hover:shadow-2xl"
 >
 
-  <img 
-    src="/expo-qr.png"
-    alt="Download App QR"
-    class="w-24 md:w-36 h-24 md:h-36 mx-auto mb-3 md:mb-4 rounded-lg shadow-md"
-  />
+  <i class="fa-solid fa-download text-brand-red mx-auto mb-3 md:mb-5 text-3xl md:text-4xl opacity-90" aria-hidden="true"></i>
 
   <h3 class="text-xl md:text-2xl font-semibold text-gray-800 mb-2">
     Download Our App
@@ -236,11 +207,7 @@ const serviceMinute = 0;
                backdrop-blur-xl bg-white/10 
                shadow-[0_8px_40px_rgba(0,0,0,0.25)] text-center overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-[0_12px_50px_rgba(0,0,0,0.35)]"
       >
-        <img 
-  src="/hand-holding-heart.png" 
-  alt="Give Icon"
-  class="w-12 md:w-16 h-12 md:h-16 mx-auto mb-3 md:mb-5 opacity-90"
-/>
+        <i class="fa-solid fa-hand-holding-heart text-brand-red mx-auto mb-3 md:mb-5 text-3xl md:text-4xl opacity-90" aria-hidden="true"></i>
 
 
         <h3 class="text-xl md:text-3xl font-semibold text-gray-800 mb-2 md:mb-3">
@@ -258,11 +225,7 @@ const serviceMinute = 0;
                backdrop-blur-xl bg-white/10 
                shadow-[0_8px_40px_rgba(0,0,0,0.25)] text-center overflow-hidden sm:col-span-2 lg:col-span-1 cursor-pointer transition-all duration-300 hover:shadow-[0_12px_50px_rgba(0,0,0,0.35)]"
       >
-           <img 
-  src="/home.svg" 
-  alt="Give Icon"
-  class="w-12 md:w-16 h-12 md:h-16 mx-auto mb-3 md:mb-5 opacity-90"
-/>
+           <i class="fa-solid fa-house text-brand-red mx-auto mb-3 md:mb-5 text-3xl md:text-4xl opacity-90" aria-hidden="true"></i>
 
 
         <h3 class="text-xl md:text-3xl font-semibold text-gray-800 mb-2 md:mb-3">
