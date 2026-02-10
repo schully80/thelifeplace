@@ -7,7 +7,6 @@ import WarmBackground from "../../components/tlp/WarmBackground.astro";
 import FadeDivider from "../../components/tlp/FadeDivider.astro";
 import IconActionCard from "../../components/tlp/IconActionCard.astro";
 import FormCard from "../../components/FormCard.astro";
-import PromptSnippetBrowser from "../../components/PromptSnippetBrowser.astro";
 import { site } from "../../../site.config.js";
 
 const email = site?.contact?.email ?? "hello@thelifeplace.org";
@@ -546,7 +545,6 @@ const isDev = import.meta.env.MODE !== 'production';
     <div class="h-24 md:h-32 lg:h-40"></div>
     
     <!-- Dev-only prompt snippet browser (hidden in production) -->
-    {isDev ? <PromptSnippetBrowser /> : null}
 
     <div class="mt-12 md:mt-16 max-w-2xl mx-auto px-4 md:px-0">
       <div id="planVisitForm" class="bg-gray-50 rounded-2xl p-6 md:p-10">
