@@ -5,18 +5,22 @@ const SNAPSCAN_URL = "https://pos.snapscan.io/qr/VISFNLkM";
 const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
 ---
 
-<BaseLayout title="Leadership – Schulter & Genevieve">
+<BaseLayout title="Leadership – Schulter & Genevieve" 
+  description="Learn about the leadership of The Life Place, led by Schulter and Genevieve Etyang. Discover their story, vision, and passion for helping people encounter Jesus and live out His story in every sphere of life."
+>
+
 <!-- ===========================
       HERO — Cinematic & Pastoral (Swapped Order)
 =========================== -->
-<section class="w-full bg-gray-50 min-h-auto justify-center flex items-center py-4 md:py-12 mt-0">
+<section class="w-full bg-gray-50 min-h-auto justify-center flex items-center py-4 md:py-32 mt-0">
   <div class="max-w-7xl mx-auto px-6">
 
-    <div class="grid md:grid-cols-2 gap-16 items-center">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+
 
 
     <!-- RIGHT — TEXT BLOCK (moved to be FIRST in DOM for UX flow) -->
-    <div class="relative flex items-center justify-center text-center md:text-left -mt-2 md:-mt-0 mb-6 md:mb-8 font-body z-[5] order-2 md:order-2">
+    <div class="relative flex items-center justify-center text-center md:text-left -mt-2 md:-mt-0 mb-6 md:mb-8 font-body z-[5] order-3 lg:order-2">
 
       <!-- Soft ambient glow -->
       <div 
@@ -24,39 +28,37 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
                blur-[80px] opacity-80 -z-10 pointer-events-none">
       </div>
 
-      <div class="max-w-xl space-y-6">
+      <div class="max-w-7xl space-y-4 md:space-y-6 lg:space-y-8">
 
-        <!-- PASTORS NAME — Premium Apple-Style Heading -->
-        <div class="w-full text-center mb-10 opacity-0 animate-fadeUp">
+        <!-- PASTORS NAME — Premium Apple-Style Heading (desktop only) -->
+        <div class="w-full mb-10 md:mb-12 lg:mb-8 hidden lg:block">
           <h1 
-            class="font-body text-gray-800 text-4xl md:text-5xl font-bold tracking-tight leading-tight antialiased"
-          >
-            Schulter & Genevieve
-          </h1>
+            class="block text-gray-800 text-2xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-relaxed antialiased"
+          >Schulter & Genevieve Etyang</h1>
         </div>
 
-        <p class="text-lg md:text-2xl leading-relaxed text-gray-700">
-          Schulter and Genevieve Etyang lead 
+        <p class="text-lg md:text-2xl md:text-center lg:text-justify leading-relaxed text-gray-600">
+          Schulter and Genevieve lead 
           <span class="text-brand-red">The Life Place</span>.
         </p>
 
-        <p class="text-lg md:text-2xl leading-relaxed text-gray-700">
-          Fifteen years ago, the good news of who Jesus is became real to us.  
+        <p class="text-lg md:text-2xl md:text-center lg:text-justify leading-relaxed text-gray-600">
+        Fifteen years ago, the good news of who Jesus is became real to us.  
           Since then, our lives have been shaped by one simple invitation —  
           <span class="font-semibold text-brand-red">Come. See. Jesus</span>.
         </p>
 
-        <p class="text-lg md:text-2xl leading-relaxed text-gray-700">
+        <p class="text-lg md:text-2xl md:text-center lg:text-justify leading-relaxed text-gray-600">
           It remains the heartbeat of our lives, our conversations,  
           and the community we serve.
         </p>
 
-        <p class="text-lg md:text-2xl leading-relaxed text-gray-700">
+        <p class="text-lg md:text-2xl md:text-center lg:text-justify leading-relaxed text-gray-600">
           We care deeply about people discovering how true, good, beautiful,  
           and kind <span class="text-brand-red">Jesus</span> is.
         </p>
 
-        <p class="text-center text-lg md:text-2xl leading-relaxed text-gray-700">
+        <p class="text-center text-lg md:text-2xl md:text-center lg:text-center leading-relaxed text-gray-600">
           Seeing <span class="text-brand-red">Jesus</span> changes everything.
         </p>
 
@@ -64,8 +66,16 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
     </div>
 
     <!-- LEFT — IMAGE BLOCK (moved to second position) -->
-    <div class="relative w-[calc(100%+2rem)] md:w-full h-[440px] md:h-[560px] lg:h-[620px] -mt-0 mb-6 md:mb-0 -mx-4 md:mx-0
-                overflow-hidden rounded-3xl shadow-xl order-1 md:order-1">
+
+    <!-- PASTORS NAME — Mobile & Tablet (visible only on md and below, placed above image) -->
+    <div class="w-full mt-12 md:mt-6 md:mb-8 block lg:hidden">
+      <h1 class="block text-center md:text-center text-gray-800 text-3xl md:text-6xl font-extrabold tracking-tight leading-relaxed antialiased">
+        Schulter & Genevieve <br>Etyang
+      </h1>
+    </div>
+
+    <div class="relative w-[calc(100%+2rem)] md:w-full h-[300px] md:h-[560px] lg:h-[620px] -mt-6 mb-6 md:mb-0 -mx-4 md:mx-0 lg:mx-0
+          overflow-hidden rounded-3xl shadow-xl order-2 lg:order-1">
 
       <!-- Subtle overlay -->
       <div class="absolute inset-0 bg-black/10 z-10 pointer-events-none"></div>
@@ -83,8 +93,6 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
 
 <!-- Add extra margin between sections -->
 <div class="my-32"></div>
-<!-- FADE DIVIDER -->
-<FadeDivider width="w-[50%]" height="h-[2px]" color="bg-gray-400" mt="mt-4 md:mt-6" mb="mb-8 md:mb-10" />
 
 
 <!-- ===========================
@@ -94,7 +102,7 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
 
 <section class="max-w-5xl mx-auto px-6 pt-8 md:pt-12 pb-20 md:pb-24 mt-0 bg-gray-50">
 
-  <h2 class="font-body text-center text-5xl font-semibold text-gray-800 mb-10">
+  <h2 class="font-body block text-center text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800 mb-10">
     CONNECT • PARTNER • SUBSCRIBE
   </h2>
   
@@ -113,7 +121,7 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
   </p>
 
   <!-- GRID CARDS -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-12 lg:gap-16">
 
     <!-- SUBSTACK CARD -->
     <a href="https://schulteretyang.substack.com" target="_blank" class="group p-6 rounded-3xl border border-gray-200 bg-gray-50 hover:bg-white hover:shadow-xl transition-all flex items-center gap-6">
@@ -123,8 +131,8 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
         <p class="text-gray-700 text-sm leading-relaxed">
           Scan or tap below to receive new articles and reflections.
         </p>
-        <span class="inline-flex items-center justify-center rounded-full px-5 py-2 text-brand-red border border-brand-red group-hover:bg-brand-red group-hover:text-white transition font-medium">
-          Substack →
+        <span class="inline-flex items-center justify-center rounded-2xl px-5 py-2 text-brand-red border border-brand-red group-hover:bg-brand-red group-hover:text-white transition font-medium">
+          Substack
         </span>
       </div>
     </a>
@@ -137,8 +145,8 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
         <p class="text-gray-700 text-sm leading-relaxed">
           Scan or tap to open our giving portal.
         </p>
-        <span class="inline-flex items-center justify-center rounded-full px-5 py-2 text-brand-red border border-brand-red group-hover:bg-brand-red group-hover:text-white transition font-medium">
-          SnapScan →
+        <span class="inline-flex items-center justify-center rounded-2xl px-5 py-2 text-brand-red border border-brand-red group-hover:bg-brand-red group-hover:text-white transition font-medium">
+          SnapScan
         </span>
       </div>
     </a>
@@ -148,16 +156,10 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
 
   <!-- PAYPAL CARD -->
   <div class="max-w-xl mx-auto mt-12 md:mt-16">
-    <a href={PAYPAL_URL} target="_blank" class="group p-6 rounded-3xl border border-gray-200 bg-gray-50 hover:bg-white hover:shadow-xl transition-all flex items-center gap-6 block">
+    <a href={PAYPAL_URL} target="_blank" class="group p-6 rounded-3xl border border-gray-200 bg-gray-50 hover:bg-white hover:shadow-xl transition-all flex items-center gap-6">
       <!-- PayPal QR/Icon -->
-      <div class="flex-shrink-0 w-[140px] h-[140px] rounded-2xl border bg-white flex items-center justify-center">
-        <img 
-          src="https://www.paypalobjects.com/webstatic/icon/pp258.png" 
-          alt="PayPal" 
-          width="80" 
-          height="80"
-          class="object-contain"
-        />
+      <div class="flex-shrink-0 w-[140px] h-[140px] rounded-2xl border border-brand-red bg-white flex items-center justify-center">
+        <i class="fa-brands fa-paypal text-brand-red text-5xl" aria-hidden="true"></i>
       </div>
 
       <!-- Text -->
@@ -166,20 +168,32 @@ const PAYPAL_URL = "https://www.paypal.com/paypalme/thelifeplace";
         <p class="text-gray-700 text-sm leading-relaxed">
           Donate securely through PayPal. Tap below to open our giving portal.
         </p>
-        <span class="inline-flex items-center justify-center rounded-full px-5 py-2 text-brand-red border border-brand-red group-hover:bg-brand-red group-hover:text-white transition font-medium">
-          PayPal →
+        <span class="inline-flex items-center justify-center rounded-2xl px-5 py-2 text-brand-red border border-brand-red group-hover:bg-brand-red group-hover:text-white transition font-medium">
+          PayPal 
         </span>
       </div>
     </a>
   </div>
 
   <p class="text-center text-sm text-gray-600 mt-6">
-    If QR codes don’t scan, tap the buttons above to open the links instantly.
+    If QR codes don’t scan, tap the buttons to open the links instantly.
   </p>
 
 </section>
 
+  <!-- Final Invitation -->
+<section class="py-24 md:py-32 bg-white">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    
+    <h2 class="text-4xl md:text-5xl font-black mb-6 text-gray-800">
+      Come. See. <span class="text-brand-red">Jesus</span>
+    </h2>
 
+    <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+      Join us this Sunday.
+
+  </div>
+</section>
 <style>
 /* Fade + Lift + Scale Entrance */
 .motion-card {
