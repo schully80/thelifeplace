@@ -8,7 +8,6 @@
   @apply py-6 md:py-10 bg-white;
 }
 
-
 /* Tailwind layers */
 @tailwind base;
 @tailwind components;
@@ -97,6 +96,62 @@
   }
   a:hover {
     text-decoration-color: currentColor;
+  }
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+  .theme {
+    --animate-rippling: rippling var(--duration) ease-out;
   }
 }
 
@@ -414,7 +469,6 @@ details[open] summary .details-arrow {
   to { opacity: 1; transform: translateY(0); }
 }
 
-
 @keyframes zoomSlow {
   from { transform: scale(1.15); }
   to { transform: scale(1.05); }
@@ -422,7 +476,6 @@ details[open] summary .details-arrow {
 .animate-zoomSlow {
   animation: zoomSlow 10s ease-out forwards;
 }
-
 
 /* Animated Vertical Line (red bar) */
 @keyframes growY {
@@ -460,7 +513,6 @@ details[open] summary .details-arrow {
 .delay-900 { animation-delay: 0.9s; }
 .delay-\[1100ms\] { animation-delay: 1.1s; }
 .delay-\[1300ms\] { animation-delay: 1.3s; }
-
 
 @keyframes arrowVision {
   0%, 100% { transform: translateY(0) translateX(-50%); }
@@ -506,7 +558,6 @@ details[open] summary .details-arrow {
   animation: arrowBounce 2.4s ease-in-out infinite;
 }
 
-
 @keyframes fingerBounce {
   0%, 100% { transform: translateY(-50%) translateX(0); }
   50%      { transform: translateY(-50%) translateX(-12px); }
@@ -531,7 +582,6 @@ details[open] summary .details-arrow {
   filter: invert(17%) sepia(87%) saturate(7480%) hue-rotate(348deg) brightness(88%) contrast(102%);
 }
 
-
 @keyframes fadeBounce {
   0% { opacity: 0; transform: scale(0.9) translateY(20px); }
   60% { opacity: 1; transform: scale(1.05) translateY(-5px); }
@@ -555,7 +605,6 @@ details[open] summary .details-arrow {
 .fade-in {
   animation: fadeIn 1s ease-out forwards;
 }
-
 
 @keyframes fadeOut {
   from {
@@ -723,7 +772,6 @@ details[open] summary .details-arrow {
   animation: fadeUpCinematic 1s cubic-bezier(.16,1,.3,1) forwards;
   animation-play-state: paused; /* IMPORTANT */
 }
-
 
 /* Optional duration modifiers */
 .fade-up-slow {
@@ -930,7 +978,6 @@ details[open] summary .details-arrow {
   animation: pillPulse 3.5s ease-in-out infinite;
 }
 
-
 /* fade + pulse on scroll */
 .pulse-in {
   opacity: 0;
@@ -1038,7 +1085,6 @@ details[open] summary .details-arrow {
   transform: scale(1.06);
 }
 
-
 /* Apple-style smooth horizontal push-in */
 .cine-zoom-apple-bar {
   transform: scaleX(1);
@@ -1049,7 +1095,6 @@ details[open] summary .details-arrow {
 .cine-zoom-apple-bar:hover {
   transform: scaleX(1.12); /* wider only */
 }
-
 
 /* Global Clean Divider — Site Standard */
 .divider {
@@ -1173,7 +1218,6 @@ html {
   scrollbar-width: none;
 }
 
-
 @keyframes glowIn {
   0% { opacity: 0; transform: translateY(-10px); }
   60% { opacity: 1; transform: translateY(0); }
@@ -1208,7 +1252,6 @@ html {
   scrollbar-width: none;
 }
 
-
 .leaders-slide-img {
   @apply w-full h-full object-cover flex-shrink-0;
 }
@@ -1216,7 +1259,6 @@ html {
 .leaders-fade-img {
   @apply absolute inset-0 w-full h-full object-cover transition-opacity duration-[1200ms] ease-out;
 }
-
 
 .parallax-image img {
   transform: scale(1.12);
@@ -1275,4 +1317,31 @@ html {
   font-weight: 700;
   display: flex;
   align-items: center;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@theme inline {
+  @keyframes rippling {
+  0% {
+    opacity: 1;
+    }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+    }
+  }
+}
+
+@layer utilities {
+  .duration-\[1200ms\] {
+    animation-duration: 1200ms;
+  }
 }
