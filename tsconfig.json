@@ -14,15 +14,19 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve",
-    "jsxImportSource": "preact"
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": [
     "src",
     "astro.config.*",
     "vite.config.*",
     "tailwind.config.*",
-    "postcss.config.*"
-, "src/pages/sitemap-index.xml.ts"  ],
+    "postcss.config.*",
+    "src/pages/sitemap-index.xml.ts"
+  ],
   "exclude": ["node_modules"]
 }
