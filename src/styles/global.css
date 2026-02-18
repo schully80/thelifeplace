@@ -1345,3 +1345,47 @@ html {
     animation-duration: 1200ms;
   }
 }
+
+
+.chat-bubble {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  background-color: #B3282D;
+  /* Points to 2 o'clock: [Top-Left: 28px] [Top-Right: 4px] [Bottom-Right: 28px] [Bottom-Left: 28px] */
+  border-radius: 28px 4px 28px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.18), 0 8px 24px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow, filter;
+}
+
+.chat-bubble:hover,
+.chat-bubble:focus {
+  /* Subtle lift, rotation, and scale on hover/focus */
+  transform: translateY(-5px) rotate(2deg) scale(1.10);
+  filter: brightness(1.05);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.22), 0 10px 32px rgba(0,0,0,0.18);
+}
+
+.chat-bubble:active {
+  /* Slight shrink on click */
+  transform: scale(0.96);
+  filter: brightness(0.98);
+}
+
+/* Ensure the chat-bubble hides when the JS toggles the `hidden` class */
+.chat-bubble.hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: scale(0) !important;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
