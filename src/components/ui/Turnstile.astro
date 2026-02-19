@@ -1,0 +1,73 @@
+---
+const { sitekey, name = 'cf-turnstile-response', theme = 'light', ariaLabel = 'Human verification' } = Astro.props;
+const id = `turnstile_${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div id={"wrap_" + id} class="tlp-turnstile-wrapper" role="group" aria-labelledby={"label_" + id} tabindex="0" aria-describedby={"status_" + id}>
+  <span id={"label_" + id} class="sr-only">{ariaLabel}</span>
+  <div id={id} class="cf-turnstile" data-sitekey={sitekey} data-theme={theme} data-callback={"__cf_turnstile_cb_" + id} aria-hidden="false"></div>
+  <input type="hidden" name={name} id={"input_" + id} aria-hidden="true" />
+  <div id={"status_" + id} class="tlp-turnstile-status" aria-live="polite">Please complete the verification</div>
+</div>
+
+<style>
+  .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  .tlp-turnstile-wrapper { display:flex; flex-direction:column; align-items:center; gap:0.5rem; max-width:360px; margin:0 auto; animation: tlp-fade-in .28s ease-out both; }
+  .tlp-turnstile-wrapper:focus { outline: 3px solid rgba(179,40,45,0.18); border-radius: 12px; }
+  .tlp-turnstile-wrapper:focus-visible { outline: 3px solid rgba(179,40,45,0.28); }
+  .tlp-turnstile-status { font-size:0.92rem; color:#6b7280; min-height:1.2rem; }
+  .tlp-turnstile-wrapper.tlp-verified .tlp-turnstile-status { color: #16a34a; font-weight:600; }
+  @keyframes tlp-fade-in { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform: translateY(0); } }
+</style>
+
+<script>
+  (function(){
+    const widgetId = "{id}".replace(/^{/, '').replace(/}$/, '') || "{id}";
+    const inputId = "input_{id}";
+    const wrapId = "wrap_{id}";
+    const statusId = "status_{id}";
+
+    // Load Turnstile script once
+    if (!window.__turnstile_loaded) {
+      const s = document.createElement('script');
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+      s.async = true;
+      s.defer = true;
+      document.head.appendChild(s);
+      window.__turnstile_loaded = true;
+    }
+
+    // Define the callback that Turnstile will call on success for this widget
+    window[`__cf_turnstile_cb_${id}`] = function(token) {
+      const input = document.getElementById(inputId);
+      if (input) {
+        input.value = token;
+      }
+      const el = document.getElementById(widgetId);
+      if (el) {
+        el.dispatchEvent(new CustomEvent('turnstile:verified', { detail: { token } }));
+      }
+
+      // update status UI
+      try {
+        const wrap = document.getElementById(wrapId);
+        const status = document.getElementById(statusId);
+        if (status) status.textContent = 'Verified';
+        if (wrap) wrap.classList.add('tlp-verified');
+      } catch (e) { /* ignore UI update errors */ }
+    };
+
+    // Expose a small reset helper
+    window[`__cf_turnstile_reset_${id}`] = function(){
+      try {
+        const input = document.getElementById(inputId);
+        const wrap = document.getElementById(wrapId);
+        const status = document.getElementById(statusId);
+        if (input) input.value = '';
+        if (status) status.textContent = 'Please complete the verification';
+        if (wrap) wrap.classList.remove('tlp-verified');
+      } catch(e){}
+    };
+
+  })();
+</script>
