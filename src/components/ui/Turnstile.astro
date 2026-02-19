@@ -48,10 +48,12 @@ const id = `turnstile_${Math.random().toString(36).slice(2, 9)}`;
 
 <script>
   (function(){
-    const widgetId = "{id}".replace(/^{/, '').replace(/}$/, '') || "{id}";
-    const inputId = "input_{id}";
-    const wrapId = "wrap_{id}";
-    const statusId = "status_{id}";
+    // Server-injected widget id (safe string)
+    const widgetId = "{id}";
+    if (!widgetId) return;
+    const inputId = "input_" + widgetId;
+    const wrapId = "wrap_" + widgetId;
+    const statusId = "status_" + widgetId;
 
     // Load Turnstile script once
     if (!window.__turnstile_loaded) {
@@ -64,7 +66,7 @@ const id = `turnstile_${Math.random().toString(36).slice(2, 9)}`;
     }
 
     // Define the callback that Turnstile will call on success for this widget
-    window[`__cf_turnstile_cb_${id}`] = function(token) {
+    window[`__cf_turnstile_cb_${widgetId}`] = function(token) {
       const input = document.getElementById(inputId);
       if (input) {
         input.value = token;
@@ -84,7 +86,7 @@ const id = `turnstile_${Math.random().toString(36).slice(2, 9)}`;
     };
 
     // Expose a small reset helper
-    window[`__cf_turnstile_reset_${id}`] = function(){
+    window[`__cf_turnstile_reset_${widgetId}`] = function(){
       try {
         const input = document.getElementById(inputId);
         const wrap = document.getElementById(wrapId);

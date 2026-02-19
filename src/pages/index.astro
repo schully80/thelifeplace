@@ -2,11 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
 import BlogSignupModal from "../components/BlogSignupModal.astro";
-<<<<<<< Updated upstream
 import Turnstile from "../components/ui/Turnstile.astro";
-// Turnstile removed
-=======
->>>>>>> Stashed changes
 // Address and Google Maps embed settings (matching Visit page)
 const addressLine1 = "51 Villa Monte Catini, 1 Elm Avenue";
 const addressLine2 = "Craigavon AH, 2191";
@@ -459,43 +455,7 @@ const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(fullAddress)}&na
                  </button>
                 </div>
               </form>
-<<<<<<< Updated upstream
-              <!-- Turnstile event handling -->
-              <script>
-                (function(){
-                  const form = document.getElementById('newsletterForm');
-                  const btn = document.getElementById('newsletterSubscribeBtn');
-                  if (!form || !btn) return;
-                  const hasToken = () => {
-                    const e = form.querySelector('input[name="cf-turnstile-response-newsletter"]');
-                    return !!(e && e.value && e.value.length > 0);
-                  };
-                  const setDisabled = (disabled) => {
-                    btn.disabled = disabled;
-                    if (disabled) {
-                      btn.classList.add('opacity-60', 'cursor-not-allowed');
-                      btn.setAttribute('aria-disabled', 'true');
-                    } else {
-                      btn.classList.remove('opacity-60', 'cursor-not-allowed');
-                      btn.removeAttribute('aria-disabled');
-                    }
-                  };
-                  setDisabled(!hasToken());
-                  form.addEventListener('turnstile:verified', function(){ setDisabled(false); });
-                  form.addEventListener('submit', function(e){
-                    if (!hasToken()) {
-                      e.preventDefault();
-                      setDisabled(true);
-                      alert('Please complete the verification before submitting.');
-                    } else {
-                      btn.setAttribute('aria-busy', 'true');
-                    }
-                  });
-                })();
-              </script>
-=======
               
->>>>>>> Stashed changes
               <p class="text-sm text-gray-500 mt-3">You'll confirm your subscription on Substack.</p>
               <p class="text-sm text-gray-500">We respect your privacy. Unsubscribe at any time.</p>
             </div>

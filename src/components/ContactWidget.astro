@@ -91,7 +91,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
 <!-- MOBILE: FAB + Expandable Buttons -->
 <div class={`${getMobileClass(mobileStyle)} md:hidden`}>
   {mobileStyle === "fab" && (
-    <>
+    <Fragment>
       <!-- FAB Button -->
       <button
         id="contactFAB"
@@ -135,7 +135,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
           <span class="contact-item-label">Find us</span>
         </div>
       </div>
-    </>
+    </Fragment>
   )}
 
   {mobileStyle === "dock" && (
@@ -174,7 +174,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
 <!-- TABLET: Dock or FAB -->
 <div class={`${getTabletClass(tabletStyle)}`}>
   {tabletStyle === "fab" && (
-    <>
+    <Fragment>
       <!-- FAB Button -->
       <button
         id="contactFABTablet"
@@ -226,7 +226,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
           <span class="contact-item-label">Find us</span>
         </div>
       </div>
-    </>
+    </Fragment>
   )}
 
   {tabletStyle === "dock" && (
@@ -265,7 +265,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
 <!-- DESKTOP: FAB or Dock -->
 <div class={`${getDesktopClass(desktopStyle)}`}>
   {desktopStyle === "fab" && (
-    <>
+    <Fragment>
       <!-- FAB Button -->
       <button
         id="contactFABDesktop"
@@ -311,7 +311,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
           <span class="contact-item-label">Find us</span>
         </div>
       </div>
-    </>
+    </Fragment>
   )}
 </div>
 
