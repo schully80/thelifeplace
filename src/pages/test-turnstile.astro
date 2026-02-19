@@ -1,0 +1,101 @@
+---
+import Turnstile from '../components/ui/Turnstile.astro';
+const SITEKEY = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '';
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Turnstile test</title>
+  </head>
+  <body>
+    <main style="max-width:720px;margin:2rem auto;padding:1rem;">
+      <h1>Cloudflare Turnstile — Test Page</h1>
+
+      <p>Use this page to exercise the Turnstile widget and verify tokens.</p>
+
+      <form id="turnstile-form">
+        <!-- hidden token field the Turnstile component should populate -->
+        <input type="hidden" name="token" id="turnstile-token" />
+
+        <Turnstile sitekey={import.meta.env.PUBLIC_TURNSTILE_SITEKEY} />
+
+        <div style="margin-top:1rem;">
+          <button type="submit">Verify token</button>
+        </div>
+      </form>
+
+      <pre id="result" style="margin-top:1rem;background:#f6f8fa;padding:1rem;border-radius:6px;white-space:pre-wrap;">Waiting for action...</pre>
+
+      <script type="module">
+        const form = document.getElementById('turnstile-form');
+        const resultEl = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const token = document.getElementById('turnstile-token').value;
+          if (!token) {
+            resultEl.textContent = 'No token found — complete the challenge first.';
+            return;
+          }
+
+          resultEl.textContent = 'Verifying...';
+
+          try {
+            const res = await fetch('/api/turnstile-verify.json', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ token }),
+            });
+            const json = await res.json();
+            resultEl.textContent = JSON.stringify(json, null, 2);
+          } catch (err) {
+            resultEl.textContent = 'Error: ' + String(err);
+          }
+        });
+      </script>
+    </main>
+  </body>
+</html>
+---
+import Turnstile from '../components/ui/Turnstile.astro';
+const SITEKEY = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Turnstile test</title>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Test Cloudflare Turnstile</h1>
+
+      <form id="testForm">
+        <label>
+          Name
+          <input name="name" />
+        </label>
+
+        <Turnstile sitekey="0x4AAAAAACfg9tPI9K5HByKf" />
+
+        <button type="submit">Submit</button>
+      </form>
+
+      <pre id="result" style="white-space:pre-wrap; margin-top:1rem;"></pre>
+    </main>
+
+    <script>
+      document.getElementById('testForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const form = e.target;
+        const fd = new FormData(form);
+        const res = await fetch('/api/turnstile-verify', { method: 'POST', body: fd });
+        const json = await res.json();
+        document.getElementById('result').textContent = JSON.stringify(json, null, 2);
+      });
+    </script>
+  </body>
+</html>

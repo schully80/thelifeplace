@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
 import BlogSignupModal from "../components/BlogSignupModal.astro";
+import Turnstile from "../components/ui/Turnstile.astro";
 // Turnstile removed
 // Address and Google Maps embed settings (matching Visit page)
 const addressLine1 = "51 Villa Monte Catini, 1 Elm Avenue";
@@ -443,8 +444,8 @@ const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(fullAddress)}&na
                   aria-label="Email address"
                   required
                 />
-                <div class="flex items-center gap-3">
-                  <!-- CAPTCHA removed -->
+                <div class="flex flex-col items-center gap-3 w-full">
+                  <Turnstile sitekey={import.meta.env.PUBLIC_TURNSTILE_SITEKEY} name="cf-turnstile-response-newsletter" />
                   <button 
                    type="submit"
                    class="px-8 py-4 bg-gradient-to-r from-brand-red to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-2xl transition-all hover:shadow-xl duration-300"
@@ -455,7 +456,39 @@ const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(fullAddress)}&na
                  </button>
                 </div>
               </form>
-              <!-- Turnstile event handling removed -->
+              <!-- Turnstile event handling -->
+              <script>
+                (function(){
+                  const form = document.getElementById('newsletterForm');
+                  const btn = document.getElementById('newsletterSubscribeBtn');
+                  if (!form || !btn) return;
+                  const hasToken = () => {
+                    const e = form.querySelector('input[name="cf-turnstile-response-newsletter"]');
+                    return !!(e && e.value && e.value.length > 0);
+                  };
+                  const setDisabled = (disabled) => {
+                    btn.disabled = disabled;
+                    if (disabled) {
+                      btn.classList.add('opacity-60', 'cursor-not-allowed');
+                      btn.setAttribute('aria-disabled', 'true');
+                    } else {
+                      btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                      btn.removeAttribute('aria-disabled');
+                    }
+                  };
+                  setDisabled(!hasToken());
+                  form.addEventListener('turnstile:verified', function(){ setDisabled(false); });
+                  form.addEventListener('submit', function(e){
+                    if (!hasToken()) {
+                      e.preventDefault();
+                      setDisabled(true);
+                      alert('Please complete the verification before submitting.');
+                    } else {
+                      btn.setAttribute('aria-busy', 'true');
+                    }
+                  });
+                })();
+              </script>
               <p class="text-sm text-gray-500 mt-3">You'll confirm your subscription on Substack.</p>
               <p class="text-sm text-gray-500">We respect your privacy. Unsubscribe at any time.</p>
             </div>
@@ -722,182 +755,5 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 </BaseLayout>
-
-<div id="page-top"></div>
-
-<style>
-  @keyframes fadeBounce {
-    0% { opacity: 0; transform: scale(0.9) translateY(20px); }
-    60% { opacity: 1; transform: scale(1.05) translateY(-5px); }
-    80% { transform: scale(0.98) translateY(2px); }
-    100% { transform: scale(1) translateY(0); }
-  }
-
-  .fade-bounce {
-    animation: fadeBounce 0.6s ease-out forwards;
-  }
-
-  button:focus-visible, a:focus-visible, input:focus-visible {
-    outline: 2px solid #d32f2f;
-    outline-offset: 2px;
-  }
-</style>
-
-<!-- Blog Signup Modal for Home Page -->
-<BlogSignupModal />
-
-<!-- Auto-trigger modal on home page (scroll-based) -->
-<script is:inline>
-  let blogModalShown = false;
-  
-  window.addEventListener("scroll", () => {
-    if (blogModalShown) return;
-    
-    // Calculate scroll percentage
-    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = (window.scrollY / scrollHeight) * 100;
-    
-    // Trigger modal at 55% scroll (slightly later for better UX)
-    if (scrollPercent >= 55) {
-      if (typeof openBlogSignupModal === "function") {
-        openBlogSignupModal();
-        blogModalShown = true;
-      }
-    }
-  });
-
-  // Smooth, gentle scroll animation
-  function gentleScrollToTop() {
-    const duration = 1200; // milliseconds
-    const startY = window.scrollY;
-    const startTime = Date.now();
-    
-    function easeInOutCubic(t) {
-      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    }
-    
-    function scroll() {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const ease = easeInOutCubic(progress);
-      
-      window.scrollY = startY - startY * ease;
-      window.scrollTo(0, startY - startY * ease);
-      
-      if (progress < 1) {
-        requestAnimationFrame(scroll);
-      }
-    }
-    
-    requestAnimationFrame(scroll);
-  }
-  
-  // Open ministries menu from Stay Connected section (and shared behaviours)
-  // Only define here if a global helper doesn't already exist (Header may provide one).
-  if (typeof window.openMinistries !== 'function') {
-  function openMinistries() {
-    const width = window.innerWidth;
-
-    // MOBILE: open drawer and expand Ministries accordion
-    if (width < 768) {
-      const mobileBtn = document.getElementById('mobileMenuButton');
-      if (mobileBtn) {
-        mobileBtn.click();
-
-        setTimeout(() => {
-          const mobileDrawer = document.getElementById('mobileNavDrawer');
-          if (!mobileDrawer) return;
-
-          const accPanel = mobileDrawer.querySelector('#acc-ministries');
-          if (!accPanel) return;
-
-          const acc = accPanel.closest('[data-accordion]');
-          if (!acc) return;
-
-          const trigger = acc.querySelector('[data-accordion-trigger]');
-          const panel = acc.querySelector('[data-accordion-panel]');
-          if (!trigger || !panel) return;
-
-          trigger.setAttribute('aria-expanded', 'true');
-          const icon = trigger.querySelector('svg');
-          if (icon) icon.style.transform = 'rotate(180deg)';
-          panel.style.gridTemplateRows = '1fr';
-        }, 300);
-      }
-      return;
-    }
-
-    // TABLET PORTRAIT: open tablet drawer and expand Ministries accordion
-    if (width < 1280) {
-      const tabletBtn = document.getElementById('tabletMenuButton');
-      if (tabletBtn) {
-        tabletBtn.click();
-
-        setTimeout(() => {
-          const tabletDrawer = document.getElementById('tabletNavDrawer');
-          if (!tabletDrawer) return;
-
-          const accPanel = tabletDrawer.querySelector('#acc-ministries-tablet');
-          if (!accPanel) return;
-
-          const trigger = tabletDrawer.querySelector('[data-accordion-trigger][aria-controls="acc-ministries-tablet"]');
-          const panel = accPanel;
-          if (!trigger || !panel) return;
-
-          trigger.setAttribute('aria-expanded', 'true');
-          const icon = trigger.querySelector('svg');
-          if (icon) icon.style.transform = 'rotate(180deg)';
-          panel.style.gridTemplateRows = '1fr';
-        }, 300);
-      }
-      return;
-    }
-
-    // DESKTOP (xl+): open and keep the Ministries dropdown open in the header nav
-    // We look for the dropdown whose trigger text includes "Ministries".
-    const dropdowns = document.querySelectorAll('header [data-dropdown]');
-    let ministriesDropdown = null;
-
-    dropdowns.forEach((wrap) => {
-      const trigger = wrap.querySelector('[data-trigger]');
-      if (trigger && trigger.textContent && trigger.textContent.trim().includes('Ministries')) {
-        ministriesDropdown = wrap;
-      }
-    });
-
-    if (ministriesDropdown) {
-      const menu = ministriesDropdown.querySelector('[data-menu]');
-      const trigger = ministriesDropdown.querySelector('[data-trigger]');
-
-      if (menu && trigger) {
-        // Scroll to top with gentle, smooth animation
-        gentleScrollToTop();
-
-        // Trigger mouseenter to activate the Header's open handler
-        trigger.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
-        menu.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
-
-        // Keep the menu open by continuously removing the hidden class
-        const keepOpen = setInterval(() => {
-          if (menu.classList.contains('hidden')) {
-            menu.classList.remove('hidden');
-            trigger.setAttribute('aria-expanded', 'true');
-          }
-        }, 50);
-
-        // Stop keeping it open when user moves mouse to the menu
-        menu.addEventListener(
-          'mouseenter',
-          () => {
-            clearInterval(keepOpen);
-          },
-          { once: true }
-        );
-      }
-    }
-  }
-  
-  window.openMinistries = openMinistries;
-</script>
 
 
