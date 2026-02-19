@@ -11,7 +11,7 @@
     "preview": "astro preview --port 4322 --host 0.0.0.0"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.12",
+    "@astrojs/cloudflare": "^12.6.5",
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.7.0",
     "@fontsource/inter": "^5.2.8",
@@ -27,16 +27,22 @@
     "lucide-react": "^0.563.0",
     "node-fetch": "^3.3.2",
     "qr-code-styling": "^1.9.2",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.23",
+    "csstype": "^3.2.3",
     "playwright": "^1.41.1",
     "png-to-ico": "^3.0.1",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.19",
+    "typescript": "^5.9.3",
     "wrangler": "^4.66.0"
   }
 }

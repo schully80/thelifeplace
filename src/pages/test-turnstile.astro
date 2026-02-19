@@ -1,0 +1,41 @@
+---
+import Turnstile from '../components/ui/Turnstile.astro';
+const SITEKEY = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Turnstile test</title>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Test Cloudflare Turnstile</h1>
+
+      <form id="testForm">
+        <label>
+          Name
+          <input name="name" />
+        </label>
+
+        <Turnstile sitekey="0x4AAAAAACfg9tPI9K5HByKf" />
+
+        <button type="submit">Submit</button>
+      </form>
+
+      <pre id="result" style="white-space:pre-wrap; margin-top:1rem;"></pre>
+    </main>
+
+    <script>
+      document.getElementById('testForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const form = e.target;
+        const fd = new FormData(form);
+        const res = await fetch('/api/turnstile-verify', { method: 'POST', body: fd });
+        const json = await res.json();
+        document.getElementById('result').textContent = JSON.stringify(json, null, 2);
+      });
+    </script>
+  </body>
+</html>

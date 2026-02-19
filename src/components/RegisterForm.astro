@@ -4,7 +4,13 @@ const {
   description = "Fill in your details below.",
   eventCode = "DEFAULT_EVENT",
   eventName = "Your Event",
+  // Turnstile controls
+  enableTurnstile = (import.meta.env.PUBLIC_ENABLE_TURNSTILE === 'true') || false,
+  turnstileTheme = 'light',
+  turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '',
 } = Astro.props;
+
+import Turnstile from './ui/Turnstile.astro';
 
  
 
@@ -70,11 +76,70 @@ const ctaLabel = getCTA(eventCode);
     <button
       type="submit"
       id="tlpSubmitBtn"
-      class="w-full rounded-full bg-brand-red text-white text-lg font-semibold py-3 transition-all">
+      disabled
+      class="w-full rounded-full bg-gray-400 text-white text-lg font-semibold py-3
+             disabled:opacity-60 disabled:cursor-not-allowed transition-all">
       {ctaLabel}
     </button>
+
+    {enableTurnstile && (
+      <div class="mt-4">
+        <Turnstile sitekey={turnstileSiteKey} name="cf-turnstile-response" theme={turnstileTheme} />
+      </div>
+    )}
   </form>
 </section>
+
+{enableTurnstile && (
+  <script>
+    (function(){
+      try {
+        const form = document.getElementById('registrationForm');
+        const btn = document.getElementById('tlpSubmitBtn');
+        if (!form || !btn) return;
+
+        function hasToken(){
+          const input = form.querySelector('input[name="cf-turnstile-response"]');
+          return input && input.value && input.value.length > 0;
+        }
+
+        const setBtn = (enabled) => {
+          btn.disabled = !enabled;
+          if (!enabled) {
+            btn.classList.add('opacity-60','cursor-not-allowed');
+            btn.setAttribute('aria-disabled','true');
+          } else {
+            btn.classList.remove('opacity-60','cursor-not-allowed');
+            btn.removeAttribute('aria-disabled');
+            try{ btn.focus(); } catch(e){}
+          }
+        };
+
+        setBtn(hasToken());
+        form.addEventListener('turnstile:verified', function(){ setBtn(true); });
+        form.addEventListener('submit', function(e){ if (!hasToken()){ e.preventDefault(); setBtn(false); alert('Please complete the verification before submitting.'); } else { btn.setAttribute('aria-busy','true'); } });
+
+        // Fallback: show manual-review input after short delay if no token
+        setTimeout(() => {
+          if (hasToken()) return;
+          if (form.querySelector('[data-tlp-fallback]')) return;
+          const fb = document.createElement('div');
+          fb.className = 'mt-4 text-center';
+          fb.setAttribute('data-tlp-fallback','1');
+          fb.innerHTML = `
+            <div class="text-sm text-gray-600 mb-2">Turnstile seems blocked — type <strong>human</strong> to request manual review</div>
+            <input name="tlp_fallback_answer" placeholder="Type 'human'" class="px-4 py-2 rounded-md border w-64" />
+            <input type="hidden" name="tlp_manual_review" value="1" />
+          `;
+          const container = form.querySelector('#tlpSubmitBtn')?.parentElement;
+          container && container.insertAdjacentElement('afterend', fb);
+          const inp = fb.querySelector('input[name="tlp_fallback_answer"]');
+          inp && inp.addEventListener('input', (e) => { if ((e.target.value||'').toString().trim().toLowerCase() === 'human') setBtn(true); });
+        }, 5000);
+      } catch (err) { console.warn('Turnstile UX init error', err); }
+    })();
+  </script>
+)}
 
 <!-- Turnstile removed: submit enabled by default -->
 
