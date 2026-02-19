@@ -5,13 +5,9 @@ import SectionWrapper from "../components/tlp/SectionWrapper.astro";
 import FullBleed from "../components/tlp/FullBleed.astro";
 import WarmBackground from "../components/tlp/WarmBackground.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
-import Turnstile from "../components/ui/Turnstile.astro";
 
 const url = Astro.url;
 const isDemoSuccess = url.searchParams.get("demo") === "success";
-
-const TURNSTILE_SITEKEY = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '';
-
 
 // Add your Formspree endpoint (e.g. https://formspree.io/f/abcd1234)
 const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
@@ -91,13 +87,11 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
     required
     placeholder=" "
     data-validate
-    class="peer block w-full px-5 py-4 rounded-full
-           bg-white border border-brand-red/50 
-           focus:ring-2 focus:ring-brand-red/40 focus:border-brand-red
-           transition-all duration-300 outline-none
-           invalid:border-red-400 invalid:ring-red-200"
-
-            <!-- Turnstile event handling removed -->
+        class="peer block w-full px-5 py-4 rounded-full
+          bg-white border border-brand-red/50 
+          focus:ring-2 focus:ring-brand-red/40 focus:border-brand-red
+          transition-all duration-300 outline-none
+          invalid:border-red-400 invalid:ring-red-200"
   />
 
   <!-- Floating label -->
@@ -226,10 +220,7 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
   </svg>
 </button>
 
-  <!-- Turnstile widget (below CTA) -->
-  <div class="mt-4 flex justify-center">
-    <Turnstile sitekey={TURNSTILE_SITEKEY} name="cf-turnstile-response" />
-  </div>
+  
 
 <!-- INLINE GLASS APP DOWNLOAD CARD -->
 <div
@@ -289,7 +280,7 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
 </BaseLayout>
 
 
-  <!-- Word Limit + Turnstile verification -->
+  <!-- Word Limit verification -->
   <script>
     window.tlpPrayerSubmit = async (e) => {
       e.preventDefault();
@@ -306,59 +297,12 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
         return false;
       }
 
-      const tokenInput = form.querySelector('input[name="cf-turnstile-response"]');
-      const fallbackInput = form.querySelector('input[name="tlp_fallback_answer"]');
-      const submitBtn = document.getElementById('tlpSubmitBtn');
-
-      if (tokenInput) {
-        const token = (tokenInput.value || '').toString().trim();
-        if (!token) {
-          alert('Please complete the verification before submitting.');
-          return false;
-        }
-
-        try {
-          submitBtn && submitBtn.setAttribute('aria-busy', 'true');
-          const res = await fetch('/api/turnstile-verify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ token })
-          });
-          const json = await res.json();
-          if (!json || !json.success) {
-            submitBtn && submitBtn.removeAttribute('aria-busy');
-            alert('Verification failed. Please try again.');
-            const status = form.querySelector('.tlp-turnstile-status');
-            status && status.focus();
-            return false;
-          }
-        } catch (err) {
-          submitBtn && submitBtn.removeAttribute('aria-busy');
-          console.error('Turnstile verify error', err);
-          alert('Verification service is unavailable. Please try again later.');
-          return false;
-        }
-
-        submitBtn && submitBtn.removeAttribute('aria-busy');
-
-      } else if (fallbackInput) {
-        if ((fallbackInput.value || '').toString().trim().toLowerCase() === 'human') {
-          if (!form.querySelector('input[name="tlp_manual_review"]')) {
-            const h = document.createElement('input');
-            h.type = 'hidden';
-            h.name = 'tlp_manual_review';
-            h.value = '1';
-            form.appendChild(h);
-          }
-          form.submit();
-          return false;
-        } else {
-          alert('Please complete the verification or type human to request manual review.');
-          return false;
-        }
+      // simplified submit flow: word limit + spam checks only
+      try {
+        form.submit();
+      } catch (err) {
+        console.error(err);
       }
-
-      form.submit();
       return false;
     };
   </script>

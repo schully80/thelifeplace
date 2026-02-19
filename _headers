@@ -1,17 +1,2 @@
-/*
-Cloudflare Pages Headers Configuration
-Applied to all routes in the deployment
-*/
-
-/* Apply security headers to all paths */
-/*
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: DENY
-  X-XSS-Protection: 1; mode=block
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
-  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate
-  Pragma: no-cache
-  Expires: 0
-*/
+/* Minimal _headers file for the project.
+   Add any necessary headers below as required by your deployment. */
