@@ -1,6 +1,5 @@
 ---
 import AddressFields from "../components/AddressFields.astro";
-
 const {
   title = "Register",
   eventName = "General",
@@ -13,7 +12,7 @@ const {
   instructionText = "Fill in your details below to reserve your spot. This information helps us plan and care for you on the day.",
 } = Astro.props;
 
-const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+
 ---
 
 <section class="max-w-4xl mx-auto px-4 py-8 md:py-12">
@@ -42,24 +41,14 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     <!-- MAIN FORM BLOCK -->
     <AddressFields />
 
-    <!-- Turnstile CAPTCHA -->
-    <div class="flex justify-center pt-2">
-      <div
-        class="cf-turnstile"
-        data-sitekey={siteKey}
-        data-callback="onTurnstileSuccess"
-        data-expired-callback="onTurnstileExpired"
-        data-error-callback="onTurnstileError"
-      ></div>
-    </div>
+    <!-- CAPTCHA removed -->
 
     <!-- Submit Button + Flash Message -->
     <div class="text-center pt-4 md:pt-6">
       <button
         type="submit"
         id="tlpSubmitBtn"
-        disabled
-        class="px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-brand-red to-red-600 text-white text-base md:text-lg font-bold rounded-full shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:scale-105"
+        class="px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-brand-red to-red-600 text-white text-base md:text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
       >
         {ctaText}
       </button>
@@ -117,24 +106,4 @@ const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 
 </style>
 
-<!-- Turnstile -->
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-
-<!-- Turnstile Logic -->
-<script>
-  function onTurnstileSuccess() {
-    const btn = document.getElementById("tlpSubmitBtn");
-    btn.disabled = false;
-  }
-
-  function onTurnstileExpired() {
-    const btn = document.getElementById("tlpSubmitBtn");
-    btn.disabled = true;
-  }
-
-  function onTurnstileError() {
-    const btn = document.getElementById("tlpSubmitBtn");
-    btn.disabled = true;
-    console.error("Turnstile failed to load or validate.");
-  }
-</script>
+<!-- Turnstile removed: submit enabled by default -->

@@ -5,6 +5,7 @@ import SectionWrapper from "../components/tlp/SectionWrapper.astro";
 import FullBleed from "../components/tlp/FullBleed.astro";
 import WarmBackground from "../components/tlp/WarmBackground.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
+// Turnstile removed
 
 const url = Astro.url;
 const isDemoSuccess = url.searchParams.get("demo") === "success";
@@ -67,6 +68,9 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
            transition-all"
   >
     Name <span class="text-brand-red">*</span>
+
+            <!-- CAPTCHA removed -->
+
   </label>
 
   <!-- Green Check -->
@@ -90,6 +94,8 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
            focus:ring-2 focus:ring-brand-red/40 focus:border-brand-red
            transition-all duration-300 outline-none
            invalid:border-red-400 invalid:ring-red-200"
+
+            <!-- Turnstile event handling removed -->
   />
 
   <!-- Floating label -->
@@ -175,10 +181,10 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
 
 
            <!-- Apple-style CTA -->
-<button
-  type="submit"
-  id="tlpSubmitBtn"
-  class="relative mx-auto px-20 py-2 rounded-full bg-brand-red text-white text-lg font-semibold
+            <button
+          type="submit"
+          id="tlpSubmitBtn"
+          class="relative mx-auto px-20 py-2 rounded-full bg-brand-red text-white text-lg font-semibold
          shadow-sm flex items-center justify-center gap-2 group
          transition-all duration-300 ease-[cubic-bezier(.25,.46,.45,.94)]
          hover:scale-[1.03] active:scale-[0.98]

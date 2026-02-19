@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
+// Turnstile removed
+
 
 ---
 
@@ -430,16 +432,20 @@ import FadeDivider from "../components/tlp/FadeDivider.astro";
                   aria-label="Email address"
                   required
                 />
-                <button 
-                  type="submit"
-                  class="px-8 py-4 bg-gradient-to-r from-brand-red to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-full transition-all hover:shadow-xl duration-300"
-                  aria-label="Subscribe to our blog"
-                  id="newsletterSubscribeBtnTest"
-                >
-                  Subscribe
-                </button>
+                <div class="flex items-center gap-3">
+                  <!-- CAPTCHA removed -->
+                  <button 
+                    type="submit"
+                    class="px-8 py-4 bg-gradient-to-r from-brand-red to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-full transition-all hover:shadow-xl duration-300"
+                    aria-label="Subscribe to our blog"
+                    id="newsletterSubscribeBtnTest"
+                  >
+                    Subscribe
+                  </button>
+                </div>
               </form>
               <p class="text-sm text-gray-500 mt-3">You’ll confirm your subscription on Substack.</p>
+              <!-- Turnstile event handling removed -->
               <p class="text-sm text-gray-500">We respect your privacy. Unsubscribe at any time.</p>
             </div>
           </div>

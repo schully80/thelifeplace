@@ -50,6 +50,10 @@ const blogUrl = "https://schulteretyang.substack.com";
           />
         </div>
 
+        <div class="pt-2 flex justify-center">
+          <!-- CAPTCHA removed -->
+        </div>
+
         <button
           id="subscribeBtn"
           type="submit"
@@ -85,10 +89,6 @@ const blogUrl = "https://schulteretyang.substack.com";
 </div>
 
 <script is:inline>
-  document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("blogSignupModal");
-    const backdrop = document.getElementById("blogSignupBackdrop");
-    const closeBtn = document.getElementById("blogSignupClose");
     const form = document.getElementById("blogSignupForm");
 
     // Open modal function
@@ -116,7 +116,6 @@ const blogUrl = "https://schulteretyang.substack.com";
       }
     });
 
-    // Handle form submission
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = document.getElementById("email").value;
@@ -144,7 +143,6 @@ const blogUrl = "https://schulteretyang.substack.com";
         form.reset();
       }, 800);
     });
-  });
 </script>
 
 <style>

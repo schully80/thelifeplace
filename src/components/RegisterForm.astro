@@ -6,7 +6,7 @@ const {
   eventName = "Your Event",
 } = Astro.props;
 
-const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
+ 
 
 // Dynamic CTA wording based on eventCode
 function getCTA(event) {
@@ -64,52 +64,19 @@ const ctaLabel = getCTA(eventCode);
     <!-- Honeypot -->
     <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
 
-    <!-- reCAPTCHA -->
-    <div class="pt-4 flex justify-center">
-      <div class="g-recaptcha"
-           data-sitekey={recaptchaSiteKey}
-           data-callback="onRecaptchaSuccess"
-           data-expired-callback="onRecaptchaExpired"
-           data-error-callback="onRecaptchaError">
-      </div>
-    </div>
+    <!-- CAPTCHA removed -->
 
     <!-- SUBMIT BUTTON -->
     <button
       type="submit"
       id="tlpSubmitBtn"
-      disabled
-      class="w-full rounded-full bg-gray-400 text-white text-lg font-semibold py-3
-             disabled:opacity-60 disabled:cursor-not-allowed transition-all">
+      class="w-full rounded-full bg-brand-red text-white text-lg font-semibold py-3 transition-all">
       {ctaLabel}
     </button>
   </form>
 </section>
 
-<!-- reCAPTCHA -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-<script>
-  function onRecaptchaSuccess() {
-    const btn = document.getElementById("tlpSubmitBtn");
-    btn.disabled = false;
-    btn.classList.remove("bg-gray-400");
-    btn.classList.add("bg-brand-red");
-  }
-  function onRecaptchaExpired() {
-    const btn = document.getElementById("tlpSubmitBtn");
-    btn.disabled = true;
-    btn.classList.remove("bg-brand-red");
-    btn.classList.add("bg-gray-400");
-  }
-  function onRecaptchaError() {
-    const btn = document.getElementById("tlpSubmitBtn");
-    btn.disabled = true;
-    btn.classList.remove("bg-brand-red");
-    btn.classList.add("bg-gray-400");
-    console.error("reCAPTCHA failed to load.");
-  }
-</script>
+<!-- Turnstile removed: submit enabled by default -->
 
 <style>
   /* Floating label fields */
