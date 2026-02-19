@@ -7,11 +7,12 @@ import react from "@astrojs/react";
 
 export default defineConfig({
   site: "https://thelifeplace.org",
-  adapter: cloudflare(),
+  adapter: cloudflare({ imageService: "compile" }),
   output: "server",
   devToolbar: {
     enabled: false,
   },
+  // Adapter-level imageService set to compile to allow image optimizations at build time
 
   integrations: [
     tailwind(),
@@ -40,9 +41,6 @@ export default defineConfig({
     react(),
   ],
 
-  vite: {
-    define: {
-      "process.env": process.env,
-    },
-  },
+  // Avoid passing full process.env into Vite define (security risk).
+  // Vite/ Astro exposes import.meta.env for runtime env access; only define specific vars here if needed.
 });

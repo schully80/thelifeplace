@@ -1257,7 +1257,9 @@ html {
 }
 
 .leaders-fade-img {
-  @apply absolute inset-0 w-full h-full object-cover transition-opacity duration-[1200ms] ease-out;
+  @apply absolute inset-0 w-full h-full object-cover transition-opacity ease-out;
+  /* Tailwind arbitrary utilities cannot be used inside @apply; set duration via CSS */
+  transition-duration: 1200ms;
 }
 
 .parallax-image img {
