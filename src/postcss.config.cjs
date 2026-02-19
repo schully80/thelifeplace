@@ -1,8 +1,7 @@
 module.exports = {
   plugins: {
-    // put postcss-import FIRST if you use it
-    'postcss-import': {},
-    // Then Tailwind + autoprefixer
+    // Removed `postcss-import` due to PostCSS `from` warning in Vite/Astro environments.
+    // Re-add only if you actually rely on CSS `@import` — otherwise Tailwind + autoprefixer are enough.
     tailwindcss: {},
     autoprefixer: {},
     // If you use nesting, prefer the official one:
