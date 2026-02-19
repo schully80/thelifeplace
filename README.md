@@ -8,9 +8,37 @@ Start the dev server with:
 npm run dev
 ```
 
-## CAPTCHA
 
-This project previously used a third-party CAPTCHA provider. CAPTCHA integration has been removed from the codebase; no CAPTCHA env vars are required by default.
+## Cloudflare Turnstile (Human Verification)
+
+This project uses [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/) for human verification on all user-facing forms.
+
+### Environment Variables
+
+- `PUBLIC_TURNSTILE_SITEKEY` — Your Turnstile sitekey (required for all environments)
+- `TURNSTILE_SECRET_KEY` — Your Turnstile secret key (for server-side verification, if needed)
+
+You can use a single sitekey for both development and production. If you want to use separate keys, add logic in your `.env` and component to select the correct key based on environment.
+
+**Example `.env` setup:**
+
+```env
+PUBLIC_TURNSTILE_SITEKEY=your-sitekey-here
+TURNSTILE_SECRET_KEY=your-secret-key-here
+```
+
+### Fallback Logic
+
+The Turnstile component will use the `sitekey` prop if provided, or fall back to `PUBLIC_TURNSTILE_SITEKEY` from your environment. If neither is set, it safely falls back to an empty string (no breakage).
+
+### Dev vs Production Behavior
+
+- In development, Cloudflare may auto-verify (showing “success” instantly) if using a production sitekey. This is normal and only affects local/dev environments.
+- In production, real users must complete the challenge; no auto-success.
+
+### Customization
+
+Spacing and typography for the Turnstile widget are set globally in the component. You can further adjust spacing for specific forms by wrapping the component or using custom classes.
 
 ## PostCSS warning (dev)
 

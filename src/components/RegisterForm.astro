@@ -1,4 +1,5 @@
 ---
+import Turnstile from "./ui/Turnstile.astro";
 const {
   title = "Register",
   description = "Fill in your details below.",
@@ -64,7 +65,10 @@ const ctaLabel = getCTA(eventCode);
     <!-- Honeypot -->
     <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
 
-    <!-- CAPTCHA removed -->
+    <!-- Turnstile widget -->
+    <div class="mt-4 flex justify-center">
+      <Turnstile name="cf-turnstile-response" />
+    </div>
 
     <!-- SUBMIT BUTTON -->
     <button
@@ -113,3 +117,65 @@ const ctaLabel = getCTA(eventCode);
     color: #B3282D;
   }
 </style>
+
+<!-- Turnstile UX initializer for this form -->
+<script>
+  (function(){
+    try {
+      const form = document.getElementById('registrationForm');
+      const btn = document.getElementById('tlpSubmitBtn');
+      if (!form || !btn) return;
+
+      const hasToken = () => {
+        const e = form.querySelector('input[name="cf-turnstile-response"]');
+        return !!(e && e.value && e.value.length > 0);
+      };
+
+      const setDisabled = (disabled) => {
+        btn.disabled = disabled;
+        if (disabled) {
+          btn.classList.add('opacity-60', 'cursor-not-allowed');
+          btn.setAttribute('aria-disabled', 'true');
+        } else {
+          btn.classList.remove('opacity-60', 'cursor-not-allowed');
+          btn.removeAttribute('aria-disabled');
+        }
+      };
+
+      setDisabled(!hasToken());
+
+      form.addEventListener('turnstile:verified', function(){ setDisabled(false); });
+
+      form.addEventListener('submit', function(e){
+        if (!hasToken()) {
+          e.preventDefault();
+          setDisabled(true);
+          alert('Please complete the verification before submitting.');
+        } else {
+          btn.setAttribute('aria-busy', 'true');
+        }
+      });
+
+      // Fallback: allow manual review trigger
+      setTimeout(function(){
+        if (hasToken() || form.querySelector('[data-tlp-fallback]')) return;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'mt-4 text-center';
+        wrapper.setAttribute('data-tlp-fallback','1');
+        wrapper.innerHTML = `
+          <label class="sr-only" for="tlp_fallback_input">If you cannot verify, type human</label>
+          <input id="tlp_fallback_input" name="tlp_fallback_answer" placeholder="Type 'human' here" class="px-4 py-2 rounded-md border w-64" />
+          <input type="hidden" name="tlp_manual_review" value="1" />
+        `;
+        btn.parentElement?.insertAdjacentElement('afterend', wrapper);
+        const input = wrapper.querySelector('#tlp_fallback_input');
+        input && input.addEventListener('input', function(evt){
+          if ((evt.target.value||'').toString().trim().toLowerCase() === 'human') setDisabled(false);
+        });
+      }, 5000);
+
+    } catch (err) {
+      console.warn('Turnstile UX init error', err);
+    }
+  })();
+</script>

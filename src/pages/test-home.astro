@@ -432,8 +432,8 @@ import FadeDivider from "../components/tlp/FadeDivider.astro";
                   aria-label="Email address"
                   required
                 />
-                <div class="flex items-center gap-3">
-                  <!-- CAPTCHA removed -->
+                <div class="flex flex-col items-center gap-3 w-full">
+                  <Turnstile sitekey={import.meta.env.PUBLIC_TURNSTILE_SITEKEY} name="cf-turnstile-response-newsletter-test" />
                   <button 
                     type="submit"
                     class="px-8 py-4 bg-gradient-to-r from-brand-red to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-full transition-all hover:shadow-xl duration-300"
@@ -445,7 +445,39 @@ import FadeDivider from "../components/tlp/FadeDivider.astro";
                 </div>
               </form>
               <p class="text-sm text-gray-500 mt-3">You’ll confirm your subscription on Substack.</p>
-              <!-- Turnstile event handling removed -->
+              <!-- Turnstile event handling -->
+              <script>
+                (function(){
+                  const form = document.getElementById('newsletterFormTest');
+                  const btn = document.getElementById('newsletterSubscribeBtnTest');
+                  if (!form || !btn) return;
+                  const hasToken = () => {
+                    const e = form.querySelector('input[name="cf-turnstile-response-newsletter-test"]');
+                    return !!(e && e.value && e.value.length > 0);
+                  };
+                  const setDisabled = (disabled) => {
+                    btn.disabled = disabled;
+                    if (disabled) {
+                      btn.classList.add('opacity-60', 'cursor-not-allowed');
+                      btn.setAttribute('aria-disabled', 'true');
+                    } else {
+                      btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                      btn.removeAttribute('aria-disabled');
+                    }
+                  };
+                  setDisabled(!hasToken());
+                  form.addEventListener('turnstile:verified', function(){ setDisabled(false); });
+                  form.addEventListener('submit', function(e){
+                    if (!hasToken()) {
+                      e.preventDefault();
+                      setDisabled(true);
+                      alert('Please complete the verification before submitting.');
+                    } else {
+                      btn.setAttribute('aria-busy', 'true');
+                    }
+                  });
+                })();
+              </script>
               <p class="text-sm text-gray-500">We respect your privacy. Unsubscribe at any time.</p>
             </div>
           </div>
