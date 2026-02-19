@@ -232,7 +232,7 @@ const canonicalHref = (() => {
     {items && items.length > 0 && (
       <section class="relative w-full h-[45vh] sm:h-[34vh] md:h-[50vh] lg:h-[70vh] flex items-center justify-center bg-gray-100 overflow-hidden">
         {items[0].imageUrl ? (
-          <>
+          <Fragment>
             <img
               src={items[0].imageUrl}
               alt={items[0].title}
@@ -246,7 +246,7 @@ const canonicalHref = (() => {
               background: linear-gradient(120deg, rgba(24,24,27,0.55) 0%, rgba(24,24,27,0.25) 60%, rgba(0,0,0,0.10) 100%);
               z-index: 1;
             "></div>
-          </>
+          </Fragment>
         ) : (
           <div class="absolute inset-0 bg-gradient-to-r from-brand-red/20 via-red-500/10 to-brand-red/20"></div>
         )}

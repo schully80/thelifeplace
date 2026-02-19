@@ -1,5 +1,6 @@
 ---
 import AddressFields from "../components/AddressFields.astro";
+import Turnstile from "./ui/Turnstile.astro";
 const {
   title = "Register",
   eventName = "General",
@@ -9,6 +10,9 @@ const {
   // Flashing message controls
   showComingSoon = false,
   comingSoonMessage = "Registration will open soon…",
+  // Turnstile controls
+  enableTurnstile = false,
+  turnstileTheme = 'light',
   instructionText = "Fill in your details below to reserve your spot. This information helps us plan and care for you on the day.",
 } = Astro.props;
 
@@ -53,15 +57,11 @@ const {
           {ctaText}
         </button>
 
-<<<<<<< Updated upstream
       {enableTurnstile && (
         <div class="mt-4 flex justify-center">
           <Turnstile name="cf-turnstile-response" theme={turnstileTheme} />
         </div>
       )}
-=======
-      
->>>>>>> Stashed changes
 
       {showComingSoon && (
         <p class="mt-4 text-sm md:text-base text-brand-red font-medium">
