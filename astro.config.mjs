@@ -1,7 +1,5 @@
 import { defineConfig } from "astro/config";
-// tailwind integration intentionally disabled for Tailwind v4 PostCSS plugin testing.
-// We'll rely on @tailwindcss/postcss in PostCSS config instead.
-// import tailwind from "@astrojs/tailwind";
+import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
@@ -17,7 +15,7 @@ export default defineConfig({
   // Adapter-level imageService set to compile to allow image optimizations at build time
 
   integrations: [
-    // tailwind(),
+    tailwind(),
     sitemap({
       filter: (page) => {
         if (!page || !page.pathname) return true;
