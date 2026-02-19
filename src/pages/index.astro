@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
 import BlogSignupModal from "../components/BlogSignupModal.astro";
+// Turnstile removed
 // Address and Google Maps embed settings (matching Visit page)
 const addressLine1 = "51 Villa Monte Catini, 1 Elm Avenue";
 const addressLine2 = "Craigavon AH, 2191";
@@ -443,15 +444,19 @@ const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(fullAddress)}&na
                   aria-label="Email address"
                   required
                 />
-                <button 
-                  type="submit"
-                  class="px-8 py-4 bg-gradient-to-r from-brand-red to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-2xl transition-all hover:shadow-xl duration-300"
-                  aria-label="Subscribe to our blog"
-                  id="newsletterSubscribeBtn"
-                >
-                  Subscribe
-                </button>
+                <div class="flex items-center gap-3">
+                  <!-- CAPTCHA removed -->
+                  <button 
+                   type="submit"
+                   class="px-8 py-4 bg-gradient-to-r from-brand-red to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-2xl transition-all hover:shadow-xl duration-300"
+                   aria-label="Subscribe to our blog"
+                   id="newsletterSubscribeBtn"
+                 >
+                   Subscribe
+                 </button>
+                </div>
               </form>
+              <!-- Turnstile event handling removed -->
               <p class="text-sm text-gray-500 mt-3">You'll confirm your subscription on Substack.</p>
               <p class="text-sm text-gray-500">We respect your privacy. Unsubscribe at any time.</p>
             </div>

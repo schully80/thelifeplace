@@ -63,13 +63,15 @@ const {
       ></textarea>
     </div>
 
+    <!-- CAPTCHA removed -->
+
     <!-- CTA -->
     <div class="pt-2">
       <button
         type="submit"
+        id="snapConfirmBtn"
         class="inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 rounded-full font-semibold shadow-md
-               bg-brand-red text-white hover:bg-red-700 hover:shadow-lg transition
-               focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2"
+               bg-brand-red text-white hover:bg-red-700 hover:shadow-lg transition focus:outline-none focus:ring-2 focus:ring-red-700 focus:ring-offset-2"
       >
         <span class="text-sm md:text-base">{ctaText}</span>
         <!-- arrow -->
@@ -91,6 +93,8 @@ const {
     document.addEventListener("DOMContentLoaded", () => {
       const form = document.getElementById("snapConfirmForm");
       const success = document.getElementById("snapSuccess");
+
+      // Turnstile-related event listeners removed
 
       form.addEventListener("submit", function (e) {
         e.preventDefault();

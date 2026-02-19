@@ -101,13 +101,13 @@ export const onRequest: PagesFunction = async ({ request, next }) => {
       `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com https://cdnjs.cloudflare.com`,
 
       // scripts (Astro inline + Cloudflare analytics + reCAPTCHA)
-      `script-src 'self' 'nonce-${nonce}' https://static.cloudflareinsights.com https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com`,
+      `script-src 'self' 'nonce-${nonce}' https://static.cloudflareinsights.com https://www.google.com https://www.gstatic.com`,
 
       // XHR / fetch
       `connect-src 'self' https:`,
 
-      // iframes (YouTube + reCAPTCHA + Turnstile)
-      `frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://challenges.cloudflare.com`,
+      // iframes (YouTube + reCAPTCHA)
+      `frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com`,
 
       // workers
       `worker-src 'self' blob:`,

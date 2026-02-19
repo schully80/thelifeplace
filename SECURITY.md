@@ -84,7 +84,7 @@ Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
 
 ### 11. **Bot Protection Layers**
 1. Honeypot field (hidden "website" field in forms)
-2. Turnstile CAPTCHA (Cloudflare)
+2. CAPTCHA (third-party provider)
 3. reCAPTCHA v2/v3 (on registration)
 - **Status**: ✅ Multi-layer detection active
 
@@ -108,13 +108,13 @@ Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
 - ✅ Input validation ✓
 - ✅ Secure logging ✓
 
-### 13. **Enhanced Turnstile Endpoint** (`/functions/verify-turnstile.js`)
-**Security added**:
-- ✅ Origin validation
-- ✅ Rate limiting integration
-- ✅ Audit logging for all attempts
-- ✅ Secure error responses
-- ✅ Security event tracking
+### 13. **Verification Endpoint**
+If you have an external CAPTCHA provider, keep a server-side verification endpoint that:
+- ✅ Validates request origin
+- ✅ Integrates with rate limiting
+- ✅ Performs audit logging for attempts
+- ✅ Returns secure error responses
+- ✅ Tracks security events
 
 ## 💳 Payment Security (Online Giving)
 
@@ -134,7 +134,7 @@ Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
 - ✅ CSP restrictions on payment frame-src
 - ✅ Rate limiting on donation endpoints
 - ✅ Audit logging of all payment attempts
-- ✅ Turnstile bot protection on payment forms
+- ✅ CAPTCHA bot protection on payment forms (optional)
 
 ## 🔍 Monitoring & Alerts
 
@@ -179,7 +179,8 @@ curl -X POST https://thelifeplace.org/api/endpoint -d "..." # No token → fails
 ```env
 # Cloudflare Pages Settings > Environment Variables
 RECAPTCHA_SECRET_KEY=your_google_recaptcha_secret_key
-TURNSTILE_SECRET=your_cloudflare_turnstile_secret
+# If using a CAPTCHA provider, set its secret here, e.g.:
+CAPTCHA_SECRET=your_captcha_secret
 ```
 
 ## 📈 Performance Impact
