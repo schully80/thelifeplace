@@ -5,9 +5,12 @@ import SectionWrapper from "../components/tlp/SectionWrapper.astro";
 import FullBleed from "../components/tlp/FullBleed.astro";
 import WarmBackground from "../components/tlp/WarmBackground.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
+import Turnstile from "../components/ui/Turnstile.astro";
 
 const url = Astro.url;
 const isDemoSuccess = url.searchParams.get("demo") === "success";
+
+const TURNSTILE_SITEKEY = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '';
 
 
 // Add your Formspree endpoint (e.g. https://formspree.io/f/abcd1234)
@@ -223,6 +226,11 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
   </svg>
 </button>
 
+  <!-- Turnstile widget (below CTA) -->
+  <div class="mt-4 flex justify-center">
+    <Turnstile sitekey={TURNSTILE_SITEKEY} name="cf-turnstile-response" />
+  </div>
+
 <!-- INLINE GLASS APP DOWNLOAD CARD -->
 <div
   class="mx-auto mt-16 max-w-md backdrop-blur-xl bg-white/20 border border-white/30
@@ -281,18 +289,79 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
 </BaseLayout>
 
 
-  <!-- Word Limit -->
-<script>
-  window.tlpPrayerSubmit = (e) => {
-    const form = e.target;
-    const words = new FormData(form).get("request").trim().split(/\s+/).length;
-    if (words > 75) {
-      alert("Please keep your request within 75 words.");
+  <!-- Word Limit + Turnstile verification -->
+  <script>
+    window.tlpPrayerSubmit = async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const requestText = (new FormData(form).get("request") || "").toString().trim();
+      const words = requestText ? requestText.split(/\s+/).length : 0;
+      if (words > 75) {
+        alert("Please keep your request within 75 words.");
+        return false;
+      }
+
+      if (typeof window.tlpSpamCheck === 'function' && !window.tlpSpamCheck({ target: form })) {
+        alert('Spam check failed.');
+        return false;
+      }
+
+      const tokenInput = form.querySelector('input[name="cf-turnstile-response"]');
+      const fallbackInput = form.querySelector('input[name="tlp_fallback_answer"]');
+      const submitBtn = document.getElementById('tlpSubmitBtn');
+
+      if (tokenInput) {
+        const token = (tokenInput.value || '').toString().trim();
+        if (!token) {
+          alert('Please complete the verification before submitting.');
+          return false;
+        }
+
+        try {
+          submitBtn && submitBtn.setAttribute('aria-busy', 'true');
+          const res = await fetch('/api/turnstile-verify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token })
+          });
+          const json = await res.json();
+          if (!json || !json.success) {
+            submitBtn && submitBtn.removeAttribute('aria-busy');
+            alert('Verification failed. Please try again.');
+            const status = form.querySelector('.tlp-turnstile-status');
+            status && status.focus();
+            return false;
+          }
+        } catch (err) {
+          submitBtn && submitBtn.removeAttribute('aria-busy');
+          console.error('Turnstile verify error', err);
+          alert('Verification service is unavailable. Please try again later.');
+          return false;
+        }
+
+        submitBtn && submitBtn.removeAttribute('aria-busy');
+
+      } else if (fallbackInput) {
+        if ((fallbackInput.value || '').toString().trim().toLowerCase() === 'human') {
+          if (!form.querySelector('input[name="tlp_manual_review"]')) {
+            const h = document.createElement('input');
+            h.type = 'hidden';
+            h.name = 'tlp_manual_review';
+            h.value = '1';
+            form.appendChild(h);
+          }
+          form.submit();
+          return false;
+        } else {
+          alert('Please complete the verification or type human to request manual review.');
+          return false;
+        }
+      }
+
+      form.submit();
       return false;
-    }
-    return true;
-  };
-</script>
+    };
+  </script>
 
 <!-- Spam Protection -->
 <script>
