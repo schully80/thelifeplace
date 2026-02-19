@@ -1,26 +1,15 @@
-/*
-  Global security & sitemap headers
-  Cloudflare Pages (_headers) syntax:
-  - path on its own line
-  - header lines indented by two spaces
-*/
-
 /favicon.png
   Cache-Control: public, max-age=0, must-revalidate
 
 /favicon.ico
   Cache-Control: public, max-age=0, must-revalidate
 
-/*
-  Default: apply to all routes
-*/
- /*
-  If you already had CSP/security headers, add them back here (below this line),
-  but keep the sitemap rules as written further down.
-*/
- /*
-/* If you don't need global headers yet, you can leave this section empty. */
-*/
-
-/*
-
+# Add other global headers below using the Netlify/Cloudflare Pages `_headers` format:
+# <path>
+#   Header-Name: Header value
+# Example:
+# /*
+#   X-Frame-Options: DENY
+#
+# Note: keep header values indented by two spaces. Avoid free-form comments inside
+# a path block — use commented lines (starting with #) only between blocks as above.
