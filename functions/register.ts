@@ -54,46 +54,59 @@ export const onRequestPost: PagesFunction = async (context) => {
       return Response.redirect(errUrl.toString(), 303);
     }
 
-    // 🔐 reCAPTCHA verification
-    const recaptchaSecret = env.RECAPTCHA_SECRET_KEY;
-    if (!recaptchaSecret) {
-      console.error("Missing RECAPTCHA_SECRET_KEY in environment");
-      logSecurityEvent("Missing reCAPTCHA secret", "high", { endpoint: "/register" }, ip);
-      const errUrl = new URL("/register-error/", request.url);
-      return Response.redirect(errUrl.toString(), 303);
-    }
-
-    const recaptchaResponse =
-      (formData.get("g-recaptcha-response") || "").toString().trim();
-
-    if (!recaptchaResponse) {
-      logSecurityEvent("Missing reCAPTCHA response on registration", "medium", { endpoint: "/register" }, ip);
-      const errUrl = new URL("/register-error/", request.url);
-      return Response.redirect(errUrl.toString(), 303);
-    }
-
-    const verifyBody = new URLSearchParams({
-      secret: recaptchaSecret,
-      response: recaptchaResponse,
-    });
-
-    const verifyRes = await fetch(
-      "https://www.google.com/recaptcha/api/siteverify",
-      {
-        method: "POST",
-        body: verifyBody,
+    // CAPTCHA / Turnstile verification
+    const turnstileSecret = env.TURNSTILE_SECRET;
+    if (turnstileSecret) {
+      // Prefer Turnstile when secret is provided
+      const turnstileResponse = (formData.get("cf-turnstile-response") || "").toString().trim();
+      // Allow manual-review fallback when enabled in environment
+      const manualReviewFlag = (formData.get("tlp_manual_review") || "").toString().trim();
+      const allowFallback = env.ALLOW_TURNSTILE_FALLBACK === 'true';
+      if (!turnstileResponse) {
+        if (allowFallback && manualReviewFlag === '1') {
+          // Record event and continue — mark for manual review in forwarded data later
+          logSecurityEvent("Turnstile missing but accepted via fallback: manual review requested", "low", { endpoint: "/register" }, ip);
+        } else {
+          logSecurityEvent("Missing Turnstile response on registration", "medium", { endpoint: "/register" }, ip);
+          const errUrl = new URL("/register-error/", request.url);
+          return Response.redirect(errUrl.toString(), 303);
+        }
       }
-    );
 
-    const verifyJson = (await verifyRes.json()) as {
-      success: boolean;
-      "error-codes"?: string[];
-    };
+      const verifyBody = new URLSearchParams({ secret: turnstileSecret, response: turnstileResponse });
+      const verifyRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body: verifyBody });
+      const verifyJson = await verifyRes.json();
+      // Cloudflare returns { success: boolean, ... }
+      if (!verifyJson || !verifyJson.success) {
+        logSecurityEvent("Turnstile validation failed on registration", "medium", { errors: verifyJson }, ip);
+        const errUrl = new URL("/register-error/", request.url);
+        return Response.redirect(errUrl.toString(), 303);
+      }
+    } else {
+      // Fallback to reCAPTCHA for backward compatibility
+      const recaptchaSecret = env.RECAPTCHA_SECRET_KEY;
+      if (!recaptchaSecret) {
+        console.error("Missing RECAPTCHA_SECRET_KEY in environment and TURNSTILE_SECRET not set");
+        logSecurityEvent("Missing captcha secret", "high", { endpoint: "/register" }, ip);
+        const errUrl = new URL("/register-error/", request.url);
+        return Response.redirect(errUrl.toString(), 303);
+      }
 
-    if (!verifyJson.success) {
-      logSecurityEvent("reCAPTCHA validation failed on registration", "medium", { errors: verifyJson["error-codes"] }, ip);
-      const errUrl = new URL("/register-error/", request.url);
-      return Response.redirect(errUrl.toString(), 303);
+      const recaptchaResponse = (formData.get("g-recaptcha-response") || "").toString().trim();
+      if (!recaptchaResponse) {
+        logSecurityEvent("Missing reCAPTCHA response on registration", "medium", { endpoint: "/register" }, ip);
+        const errUrl = new URL("/register-error/", request.url);
+        return Response.redirect(errUrl.toString(), 303);
+      }
+
+      const verifyBody = new URLSearchParams({ secret: recaptchaSecret, response: recaptchaResponse });
+      const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", { method: "POST", body: verifyBody });
+      const verifyJson = (await verifyRes.json()) as { success: boolean; "error-codes"?: string[] };
+      if (!verifyJson.success) {
+        logSecurityEvent("reCAPTCHA validation failed on registration", "medium", { errors: verifyJson["error-codes"] }, ip);
+        const errUrl = new URL("/register-error/", request.url);
+        return Response.redirect(errUrl.toString(), 303);
+      }
     }
 
     // ✅ Create sanitized FormData for Formspree
@@ -103,6 +116,14 @@ export const onRequestPost: PagesFunction = async (context) => {
     sanitizedFormData.append("email", email);
     if (phone) sanitizedFormData.append("phone", phone);
     if (message) sanitizedFormData.append("message", message);
+
+    // If manual review was requested, tag the submission
+    const manualReview = (formData.get("tlp_manual_review") || "").toString().trim();
+    if (manualReview === '1') {
+      sanitizedFormData.append('manual_review', 'true');
+      sanitizedFormData.append('manual_review_reason', 'turnstile_missing');
+      logFormSubmission('registration', { status: 'manual_review_requested', email }, ip);
+    }
 
     // ✅ Forward to Formspree
     const formspreeEndpoint = "https://formspree.io/f/xldwoekj";

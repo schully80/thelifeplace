@@ -5,6 +5,7 @@ import SectionWrapper from "../components/tlp/SectionWrapper.astro";
 import FullBleed from "../components/tlp/FullBleed.astro";
 import WarmBackground from "../components/tlp/WarmBackground.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
+import Turnstile from "../components/ui/Turnstile.astro";
 // Turnstile removed
 
 const url = Astro.url;
@@ -13,6 +14,8 @@ const isDemoSuccess = url.searchParams.get("demo") === "success";
 
 // Add your Formspree endpoint (e.g. https://formspree.io/f/abcd1234)
 const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
+const ENABLE_TURNSTILE = import.meta.env.PUBLIC_ENABLE_TURNSTILE === 'true';
+const TURNSTILE_SITEKEY = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '';
 ---
 
 <BaseLayout title="Prayer Request">
@@ -25,15 +28,14 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
     <div class="max-w-5xl mx-auto px-6">
 
   <!-- Heading w/ animated underline -->
-  <h1 class="text-3xl text-center font-semibold text-gray-800 mb-2 tracking-tight">
-  <span class="relative inline-block font-bold text-brand-red premium-underline">
+  <h1 class="text-4xl text-center lg:text-7xl font-extrabold text-gray-800 mb-12 tracking-tight">
+  <span class="block relative font-extrabold text-brand-red premium-underline leading-relaxed ">
     Jesus
-    <span class="gradient-underline"></span>
   </span>
-  prays for you. We pray for you
+  prays for you. <br />We pray for you.
 </h1>
 
-      <p class="text-gray-600 text-md text-center mb-10 leading-relaxed">
+      <p class="text-gray-600 text-md text-center mb-12 leading-relaxed">
         We'll keep your details private and only share with our prayer team.
       </p>
 
@@ -53,7 +55,7 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
     required
     placeholder=" "
     data-validate
-    class="peer block w-full px-5 py-4 rounded-full
+    class="peer block w-full px-5 py-4 rounded-2xl
            bg-white border border-brand-red/50 
            focus:ring-2 focus:ring-brand-red/40 focus:border-brand-red
            transition-all duration-300 outline-none
@@ -62,7 +64,7 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
 
   <!-- Floating label -->
   <label
-    class="absolute left-6 top-3 text-gray-500 bg-white px-1 rounded-full
+    class="absolute left-6 top-3 text-gray-500 bg-white px-1 rounded-2xl
            peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red
            peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
            transition-all"
@@ -89,18 +91,16 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
     required
     placeholder=" "
     data-validate
-    class="peer block w-full px-5 py-4 rounded-full
+    class="peer block w-full px-5 py-4 rounded-2xl
            bg-white border border-brand-red/50 
            focus:ring-2 focus:ring-brand-red/40 focus:border-brand-red
            transition-all duration-300 outline-none
            invalid:border-red-400 invalid:ring-red-200"
-
-            <!-- Turnstile event handling removed -->
   />
 
   <!-- Floating label -->
   <label
-    class="absolute left-6 top-3 text-gray-500 bg-white px-1 rounded-full
+    class="absolute left-6 top-3 text-gray-500 bg-white px-1 rounded-2xl
            peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red
            peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
            transition-all"
@@ -136,7 +136,7 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
   ></textarea>
 
   <label
-    class="absolute left-6 top-3 text-gray-500 bg-white px-1 rounded-full
+    class="absolute left-6 top-3 text-gray-500 bg-white px-1 rounded-2xl
            peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red
            peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
            transition-all"
@@ -184,7 +184,7 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
             <button
           type="submit"
           id="tlpSubmitBtn"
-          class="relative mx-auto px-20 py-2 rounded-full bg-brand-red text-white text-lg font-semibold
+          class="relative mx-auto px-20 py-2 rounded-2xl bg-brand-red text-white text-lg font-semibold
          shadow-sm flex items-center justify-center gap-2 group
          transition-all duration-300 ease-\[cubic-bezier(.25,.46,.45,.94)\];
          hover:scale-[1.03] active:scale-[0.98]
@@ -224,43 +224,12 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
   </svg>
 </button>
 
-<!-- INLINE GLASS APP DOWNLOAD CARD -->
-<div
-  class="mx-auto mt-16 max-w-md backdrop-blur-xl bg-white/20 border border-white/30
-         shadow-2xl rounded-3xl p-8 text-center ring-1 ring-black/5 animate-floatSlow"
->
-  <img 
-    src="/expo-qr.png"
-    alt="Download App QR"
-    class="w-36 h-36 mx-auto mb-4 rounded-lg shadow-md"
-  />
+{ENABLE_TURNSTILE && (
+  <div class="mt-4 flex justify-center">
+    <Turnstile sitekey={TURNSTILE_SITEKEY} name="cf-turnstile-response" />
+  </div>
+)}
 
-  <h3 class="text-2xl font-semibold text-gray-800 mb-2">
-    Download Our App
-  </h3>
-
-  <p class="text-gray-600 text-sm leading-relaxed mb-5">
-    Scan the QR code to open the app instantly in Expo Go.
-  </p>
-
-  <a
-    href="https://expo.dev/"
-    target="_blank"
-    class="inline-flex items-center gap-2 rounded-full px-6 py-3
-           bg-brand-red text-white font-semibold shadow-sm
-           hover:bg-brand-red/90 hover:shadow-md active:scale-[0.97]
-           transition-all"
-  >
-    Get Expo Go
-    <svg 
-      class="w-5 h-5"
-      fill="none" stroke="currentColor" stroke-width="2"
-      viewBox="0 0 24 24">
-      <path d="M22 2 11 13" />
-      <path d="M22 2 15 22 11 13 2 9 22 2z" />
-    </svg>
-  </a>
-</div>
 
           <!-- Honeypot field (hidden from users, bots will fill it) -->
 <input
@@ -279,19 +248,95 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
     </div>
   </section>
   )}
+
+  <!-- Final Invitation -->
+<section class="py-24 md:py-32 bg-white">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    
+    <h2 class="text-4xl md:text-5xl font-black mb-6 text-gray-800">
+      Come. See. <span class="text-brand-red">Jesus</span>
+    </h2>
+
+    <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+      Join us this Sunday.
+    </p>
+
+  </div>
 </BaseLayout>
 
 
   <!-- Word Limit -->
 <script>
-  window.tlpPrayerSubmit = (e) => {
+  window.tlpPrayerSubmit = async (e) => {
+    e.preventDefault();
     const form = e.target;
-    const words = new FormData(form).get("request").trim().split(/\s+/).length;
+
+    // Word count
+    const requestText = (new FormData(form).get("request") || "").toString().trim();
+    const words = requestText ? requestText.split(/\s+/).length : 0;
     if (words > 75) {
       alert("Please keep your request within 75 words.");
       return false;
     }
-    return true;
+
+    // Spam check (honeypot/start time)
+    if (typeof window.tlpSpamCheck === 'function' && !window.tlpSpamCheck({ target: form })) {
+      alert('Spam check failed.');
+      return false;
+    }
+
+    // If a Turnstile token is present, verify it server-side before submitting
+    const tokenInput = form.querySelector('input[name="cf-turnstile-response"]');
+    // If no token after some time, allow fallback manual-review answer
+    const fallbackInput = form.querySelector('input[name="tlp_fallback_answer"]');
+    const submitBtn = document.getElementById('tlpSubmitBtn');
+    if (tokenInput) {
+      const token = tokenInput.value && tokenInput.value.trim();
+      if (!token) {
+        alert('Please complete the verification before submitting.');
+        return false;
+      }
+
+      try {
+        if (submitBtn) submitBtn.setAttribute('aria-busy','true');
+        const res = await fetch('/api/turnstile-verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token })
+        });
+        const json = await res.json();
+        if (!json || !json.success) {
+          if (submitBtn) submitBtn.removeAttribute('aria-busy');
+          alert('Verification failed. Please try again.');
+          // focus Turnstile status if available
+          const status = form.querySelector('.tlp-turnstile-status');
+          if (status) status.focus();
+          return false;
+        }
+      } catch (err) {
+        if (submitBtn) submitBtn.removeAttribute('aria-busy');
+        console.error('Turnstile verify error', err);
+        alert('Verification service is unavailable. Please try again later.');
+        return false;
+      }
+      if (submitBtn) submitBtn.removeAttribute('aria-busy');
+    } else if (fallbackInput) {
+      const val = (fallbackInput.value || '').toString().trim().toLowerCase();
+      const allowFallback = true; // client-side: server must accept fallback via env flag
+      if (allowFallback && val === 'human') {
+        // mark for manual review and submit
+        form.querySelector('input[name="tlp_manual_review"]') || form.appendChild(Object.assign(document.createElement('input'),{type:'hidden',name:'tlp_manual_review',value:'1'}));
+        form.submit();
+        return false;
+      } else {
+        alert('Please complete the verification or type human to request manual review.');
+        return false;
+      }
+    }
+
+    // All checks passed — submit to Formspree
+    form.submit();
+    return false;
   };
 </script>
 

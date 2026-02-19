@@ -1,5 +1,6 @@
 ---
 import AddressFields from "../components/AddressFields.astro";
+import Turnstile from "./ui/Turnstile.astro";
 const {
   title = "Register",
   eventName = "General",
@@ -10,6 +11,10 @@ const {
   showComingSoon = false,
   comingSoonMessage = "Registration will open soon…",
   instructionText = "Fill in your details below to reserve your spot. This information helps us plan and care for you on the day.",
+  // Turnstile feature
+  enableTurnstile = (import.meta.env.PUBLIC_ENABLE_TURNSTILE === 'true') || false,
+  turnstileTheme = 'light',
+  turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '',
 } = Astro.props;
 
 
@@ -48,10 +53,17 @@ const {
       <button
         type="submit"
         id="tlpSubmitBtn"
-        class="px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-brand-red to-red-600 text-white text-base md:text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+        disabled
+        class="px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-brand-red to-red-600 text-white text-base md:text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:scale-105"
       >
         {ctaText}
       </button>
+
+      {enableTurnstile && (
+        <div class="mt-4 flex justify-center">
+          <Turnstile sitekey={turnstileSiteKey} name="cf-turnstile-response" theme={turnstileTheme} />
+        </div>
+      )}
 
       {showComingSoon && (
         <p class="mt-4 text-sm md:text-base text-brand-red font-medium">
@@ -62,7 +74,82 @@ const {
 
   </form>
 
+
 </section>
+
+{/** Client-side UX: when Turnstile is enabled, block submit until token present. */}
+{enableTurnstile && (
+  <script>
+    (function(){
+      try {
+        const form = document.getElementById('registrationForm');
+        const btn = document.getElementById('tlpSubmitBtn');
+        if (!form || !btn) return;
+
+        function hasToken(){
+          const input = form.querySelector('input[name="cf-turnstile-response"]');
+          return input && input.value && input.value.length > 0;
+        }
+
+        // initial state
+        const updateBtnState = (enabled) => {
+          btn.disabled = !enabled;
+          if (!enabled) {
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+            btn.setAttribute('aria-disabled','true');
+          } else {
+            btn.classList.remove('opacity-60', 'cursor-not-allowed');
+            btn.removeAttribute('aria-disabled');
+            try { btn.focus(); } catch(e){}
+          }
+        };
+
+        updateBtnState(hasToken());
+
+        // when a widget dispatches the verified event, enable the button
+        form.addEventListener('turnstile:verified', function(){
+          updateBtnState(true);
+        });
+
+        // prevent submit if still no token
+        form.addEventListener('submit', function(e){
+          if (!hasToken()){
+            e.preventDefault();
+            // simple inline feedback
+            updateBtnState(false);
+            alert('Please complete the verification before submitting.');
+          } else {
+            // mark busy for assistive tech
+            btn.setAttribute('aria-busy','true');
+          }
+        });
+
+        // Graceful fallback: show a small manual-review field after 5s if still no token
+        setTimeout(() => {
+          if (hasToken()) return;
+          if (form.querySelector('[data-tlp-fallback]')) return;
+          const wrapper = document.createElement('div');
+          wrapper.className = 'mt-4 text-center';
+          wrapper.setAttribute('data-tlp-fallback','1');
+          wrapper.innerHTML = `
+            <label class="sr-only" for="tlp_fallback_input">If you cannot verify, type 'human' here</label>
+            <div class="text-sm text-gray-600 mb-2">If verification is blocked, please type <strong>human</strong> below to request manual review.</div>
+            <input id="tlp_fallback_input" name="tlp_fallback_answer" placeholder="Type 'human' here" class="px-4 py-2 rounded-md border w-64" />
+            <input type="hidden" name="tlp_manual_review" value="1" />
+          `;
+          form.querySelector('.text-center')?.insertAdjacentElement('afterend', wrapper);
+          const input = wrapper.querySelector('#tlp_fallback_input');
+          input && input.addEventListener('input', (ev) => {
+            const val = (ev.target.value || '').toString().trim().toLowerCase();
+            if (val === 'human') {
+              updateBtnState(true);
+            }
+          });
+        }, 5000);
+      } catch (err) { console.warn('Turnstile UX init error', err); }
+    })();
+  </script>
+)}
 
 <!-- BUTTON + UI STYLES -->
 <style>
