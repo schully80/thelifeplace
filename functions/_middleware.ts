@@ -88,7 +88,8 @@ export const onRequest: PagesFunction = async ({ request, next }) => {
     "Content-Security-Policy",
     [
       // basic / global
-      `default-src 'self'`,
+      // Allow data: URIs by default to accommodate inline fonts and data-URI assets
+      `default-src 'self' data:`,
       `base-uri 'self'`,
       `object-src 'none'`,
       `frame-ancestors 'none'`,
