@@ -31,10 +31,14 @@ export const onRequestPost: PagesFunction = async (context) => {
   }
 
   try {
+    // include an idempotency key to help with retries and duplicate requests
+    const idempotency = (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') ? crypto.randomUUID() : `id-${Date.now()}-${Math.floor(Math.random()*100000)}`;
+
     const verifyBody = new URLSearchParams({
       secret: secret.toString(),
       response: token,
       remoteip: ip,
+      idempotency_key: idempotency,
     });
 
     const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
@@ -45,7 +49,27 @@ export const onRequestPost: PagesFunction = async (context) => {
     const verifyJson = await verifyRes.json();
 
     if (!verifyJson.success) {
-      logSecurityEvent('Turnstile verification failed', 'medium', { errors: verifyJson['error-codes'] || verifyJson }, ip);
+      // Log details and map known error codes to friendly responses
+      const errors = verifyJson['error-codes'] || [];
+      logSecurityEvent('Turnstile verification failed', 'medium', { errors, endpoint: '/api/turnstile-verify' }, ip);
+
+      const codeMap: Record<string, { status: number; code: string; message: string }> = {
+        'missing-input-secret': { status: 500, code: 'missing_input_secret', message: 'Server misconfigured (missing secret)' },
+        'invalid-input-secret': { status: 500, code: 'invalid_input_secret', message: 'Invalid Turnstile secret key' },
+        'missing-input-response': { status: 400, code: 'missing_input_response', message: 'Missing Turnstile token' },
+        'invalid-input-response': { status: 400, code: 'invalid_input_response', message: 'Invalid or expired Turnstile token' },
+        'timeout-or-duplicate': { status: 400, code: 'timeout_or_duplicate', message: 'Turnstile token expired or already used' },
+        'internal-error': { status: 500, code: 'internal_error', message: 'Turnstile internal error' },
+      };
+
+      // Choose the first known error to return a clearer response
+      for (const e of errors) {
+        if (codeMap[e]) {
+          return secureAPIResponse({ success: false, error: codeMap[e].code, detail: codeMap[e].message, raw: verifyJson }, codeMap[e].status);
+        }
+      }
+
+      // Unknown error: return the raw response with 400
       return secureAPIResponse({ success: false, detail: verifyJson }, 400);
     }
 

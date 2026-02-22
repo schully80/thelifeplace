@@ -46,14 +46,42 @@ const id = `turnstile_${Math.random().toString(36).slice(2, 9)}`;
   @keyframes tlp-fade-in { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform: translateY(0); } }
 </style>
 
-<script>
+<script data-widget-id={id} data-widget-name={name}>
   (function(){
-    // Server-injected widget id (safe string)
-    const widgetId = "{id}";
+    // Resolve the widget id and name for this script instance.
+    const cs = document.currentScript;
+    const widgetId = (cs && cs.dataset && cs.dataset.widgetId) || (function(){
+      try {
+        const prev = cs && cs.previousElementSibling;
+        if (prev) {
+          const el = prev.querySelector && prev.querySelector('.cf-turnstile');
+          if (el && el.id) return el.id;
+        }
+      } catch(e){}
+      return null;
+    })();
+    const widgetName = (cs && cs.dataset && cs.dataset.widgetName) || 'cf-turnstile-response';
     if (!widgetId) return;
     const inputId = "input_" + widgetId;
     const wrapId = "wrap_" + widgetId;
     const statusId = "status_" + widgetId;
+
+    // Deduplicate: if this widget lives inside a form and that form already contains
+    // another input with the same name, remove this widget to avoid duplicate renders.
+    try {
+      const el = document.getElementById(widgetId);
+      if (el) {
+        const form = el.closest && el.closest('form');
+        if (form) {
+          const inputs = form.querySelectorAll('input[name="' + widgetName + '"]');
+          if (inputs && inputs.length > 1) {
+            const wrap = document.getElementById(wrapId);
+            wrap && wrap.parentElement && wrap.parentElement.removeChild(wrap);
+            return;
+          }
+        }
+      }
+    } catch(e) { /* ignore dedupe errors */ }
 
     // Load Turnstile script once
     if (!window.__turnstile_loaded) {
