@@ -5,6 +5,7 @@ import SectionWrapper from "../components/tlp/SectionWrapper.astro";
 import FullBleed from "../components/tlp/FullBleed.astro";
 import WarmBackground from "../components/tlp/WarmBackground.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
+import Turnstile from "../components/ui/Turnstile.astro";
 
 const url = Astro.url;
 const isDemoSuccess = url.searchParams.get("demo") === "success";
@@ -15,23 +16,39 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
 
 <BaseLayout title="Prayer Request">
 
+<!-- Modern Hero Section (2025+) -->
+<section class="relative w-full h-[40vh] md:h-[50vh] lg:h-[70vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-brand-red/10 via-white to-brand-red/5">
+  <img
+    src="/prayer.jpg"
+    alt="Prayer Hero"
+    class="absolute inset-0 w-full h-full object-cover object-center opacity-80 scale-105 blur-[2px] md:blur-2px transition-all duration-700"
+    loading="eager"
+    decoding="async"
+  />
+  <div class="relative z-10 max-w-3xl mx-auto px-6 py-16 md:py-24 text-center flex flex-col items-center justify-center">
+    <!-- Heading w/ animated underline -->
+  <h1 class="text-4xl md:text-6xl lg:text-7xl text-center font-black text-white shadow-lg mb-12 tracking-tight">
+  <span class="block relative font-extrabold text-white premium-underline leading-relaxed">
+    Jesus
+  </span>
+  prays for you. 
+  <br />We pray for you.
+</h1>
+    <a href="#prayer-form" class="inline-block rounded-2xl bg-brand-red text-white text-md font-semibold px-6 py-4 shadow-lg hover:bg-brand-red/90 transition-all animate-fadeUp delay-200">
+      Submit a Prayer Request
+    </a>
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-white/0 pointer-events-none"></div>
+</section>
+
   <!-- If in demo mode, show the Success Page instead of the form -->
   {isDemoSuccess && <SuccessPage />}
 
   {!isDemoSuccess && (
 <section class="bg-white py-20 rounded-3xl">
-    <div class="max-w-5xl mx-auto px-6">
+    <div class="max-w-5xl mx-auto px-6" id="prayer-form">
 
-  <!-- Heading w/ animated underline -->
-  <h1 class="text-3xl text-center font-semibold text-gray-800 mb-2 tracking-tight">
-  <span class="relative inline-block font-bold text-brand-red premium-underline">
-    Jesus
-    <span class="gradient-underline"></span>
-  </span>
-  prays for you. We pray for you
-</h1>
-
-      <p class="text-gray-600 text-md text-center mb-10 leading-relaxed">
+      <p class="text-gray-600 text-md lg:text-2xl text-center mb-10 leading-relaxed">
         We'll keep your details private and only share with our prayer team.
       </p>
 
@@ -51,7 +68,7 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
     required
     placeholder=" "
     data-validate
-    class="peer block w-full px-5 py-4 rounded-full
+    class="peer block w-full px-5 py-4 rounded-2xl
            bg-white border border-brand-red/50 
            focus:ring-2 focus:ring-brand-red/40 focus:border-brand-red
            transition-all duration-300 outline-none
@@ -60,7 +77,7 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
 
   <!-- Floating label -->
   <label
-    class="absolute left-6 top-3 text-gray-500 bg-white px-1 rounded-full
+    class="absolute left-6 top-3 text-gray-500 bg-white px-1 rounded-2xl
            peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red
            peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
            transition-all"
@@ -87,7 +104,7 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
     required
     placeholder=" "
     data-validate
-        class="peer block w-full px-5 py-4 rounded-full
+        class="peer block w-full px-5 py-4 rounded-2xl
           bg-white border border-brand-red/50 
           focus:ring-2 focus:ring-brand-red/40 focus:border-brand-red
           transition-all duration-300 outline-none
@@ -96,7 +113,7 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
 
   <!-- Floating label -->
   <label
-    class="absolute left-6 top-3 text-gray-500 bg-white px-1 rounded-full
+    class="absolute left-6 top-3 text-gray-500 bg-white px-1 rounded-2xl
            peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red
            peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
            transition-all"
@@ -180,7 +197,7 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
             <button
           type="submit"
           id="tlpSubmitBtn"
-          class="relative mx-auto px-20 py-2 rounded-full bg-brand-red text-white text-lg font-semibold
+          class="relative mx-auto px-20 py-2 rounded-2xl bg-brand-red text-white text-lg font-semibold
          shadow-sm flex items-center justify-center gap-2 group
          transition-all duration-300 ease-\[cubic-bezier(.25,.46,.45,.94)\];
          hover:scale-[1.03] active:scale-[0.98]
@@ -220,45 +237,12 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
   </svg>
 </button>
 
-  
+          {/* Turnstile widget for spam protection */}
+          <div class="mt-6 flex justify-center">
+            <Turnstile />
+          </div>
 
-<!-- INLINE GLASS APP DOWNLOAD CARD -->
-<div
-  class="mx-auto mt-16 max-w-md backdrop-blur-xl bg-white/20 border border-white/30
-         shadow-2xl rounded-3xl p-8 text-center ring-1 ring-black/5 animate-floatSlow"
->
-  <img 
-    src="/expo-qr.png"
-    alt="Download App QR"
-    class="w-36 h-36 mx-auto mb-4 rounded-lg shadow-md"
-  />
 
-  <h3 class="text-2xl font-semibold text-gray-800 mb-2">
-    Download Our App
-  </h3>
-
-  <p class="text-gray-600 text-sm leading-relaxed mb-5">
-    Scan the QR code to open the app instantly in Expo Go.
-  </p>
-
-  <a
-    href="https://expo.dev/"
-    target="_blank"
-    class="inline-flex items-center gap-2 rounded-full px-6 py-3
-           bg-brand-red text-white font-semibold shadow-sm
-           hover:bg-brand-red/90 hover:shadow-md active:scale-[0.97]
-           transition-all"
-  >
-    Get Expo Go
-    <svg 
-      class="w-5 h-5"
-      fill="none" stroke="currentColor" stroke-width="2"
-      viewBox="0 0 24 24">
-      <path d="M22 2 11 13" />
-      <path d="M22 2 15 22 11 13 2 9 22 2z" />
-    </svg>
-  </a>
-</div>
 
           <!-- Honeypot field (hidden from users, bots will fill it) -->
 <input
@@ -277,6 +261,21 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
     </div>
   </section>
   )}
+
+  <!-- Final Invitation -->
+<section class="py-24 md:py-32 bg-white">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    
+    <h2 class="text-4xl md:text-5xl font-black mb-6 text-gray-800">
+      Come. See. <span class="text-brand-red">Jesus</span>
+    </h2>
+
+    <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+      Join us this Sunday.
+    </p>
+
+  </div>
+</section>
 </BaseLayout>
 
 
@@ -423,4 +422,9 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
   /* Fade transitions */
   .fade-out { opacity: 0; transform: translateY(-4px); }
   .fade-in { opacity: 1; transform: translateY(0); }
+
+  /* Parallax scroll effect for form */
+  .parallax-scroll {
+    scroll-behavior: smooth;
+  }
 </style>
