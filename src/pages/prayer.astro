@@ -27,8 +27,8 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
   />
   <div class="relative z-10 max-w-3xl mx-auto px-6 py-16 md:py-24 text-center flex flex-col items-center justify-center">
     <!-- Heading w/ animated underline -->
-  <h1 class="text-4xl md:text-6xl lg:text-7xl text-center font-black text-white shadow-lg mb-12 tracking-tight">
-  <span class="block relative font-extrabold text-white premium-underline leading-relaxed">
+  <h1 class="block text-4xl md:text-6xl lg:text-7xl text-center font-black text-white shadow-lg mb-12 tracking-tight">
+  <span class="relative font-extrabold text-white premium-underline leading-relaxed">
     Jesus
   </span>
   prays for you. 
@@ -45,12 +45,17 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
   {isDemoSuccess && <SuccessPage />}
 
   {!isDemoSuccess && (
-<section class="bg-white py-20 rounded-3xl">
+<section class="bg-white py-20">
     <div class="max-w-5xl mx-auto px-6" id="prayer-form">
 
-      <p class="text-gray-600 text-md lg:text-2xl text-center mb-10 leading-relaxed">
-        We'll keep your details private and only share with our prayer team.
-      </p>
+      <div class="max-w-3xl mx-auto rounded-[28px] border border-black/5 shadow-lg shadow-black/5 bg-white/85 backdrop-blur-md px-6 sm:px-10 md:px-14 py-12 md:py-14 space-y-10">
+        <div class="text-center space-y-3">
+          <p class="text-sm md:text-base font-semibold tracking-[0.08em] text-brand-red uppercase">Prayer Request</p>
+          <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">Share how we can pray with you</h2>
+          <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+            We'll keep your details private and only share with our prayer team.
+          </p>
+        </div>
 
         <form
           action={FORMSPREE}
@@ -60,204 +65,71 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
         >
           <input type="hidden" name="_redirect" value="/prayer/success/" />
 
-          <!-- Name -->
-          <div class="relative validate-wrapper transition-all">
-  <input
-    type="text"
-    name="name"
-    required
-    placeholder=" "
-    data-validate
-    class="peer block w-full px-5 py-4 rounded-2xl
-           bg-white border border-brand-red/50 
-           focus:ring-2 focus:ring-brand-red/40 focus:border-brand-red
-           transition-all duration-300 outline-none
-           invalid:border-red-400 invalid:ring-red-200"
-  />
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="field">
+              <input type="text" name="name" placeholder=" " required autocomplete="name" />
+              <label>Name *</label>
+            </div>
 
-  <!-- Floating label -->
-  <label
-    class="absolute left-6 top-3 text-gray-500 bg-white px-1 rounded-2xl
-           peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red
-           peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
-           transition-all"
-  >
-    Name <span class="text-brand-red">*</span>
-
-            <!-- CAPTCHA removed -->
-
-  </label>
-
-  <!-- Green Check -->
-  <svg
-    class="valid-check absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-green-500 opacity-0 transition-opacity duration-300"
-    fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-  </svg>
-</div>
-
-
-<div class="relative validate-wrapper transition-all">
-  <input
-    type="email"
-    name="email"
-    required
-    placeholder=" "
-    data-validate
-        class="peer block w-full px-5 py-4 rounded-2xl
-          bg-white border border-brand-red/50 
-          focus:ring-2 focus:ring-brand-red/40 focus:border-brand-red
-          transition-all duration-300 outline-none
-          invalid:border-red-400 invalid:ring-red-200"
-  />
-
-  <!-- Floating label -->
-  <label
-    class="absolute left-6 top-3 text-gray-500 bg-white px-1 rounded-2xl
-           peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red
-           peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
-           transition-all"
-  >
-    Email <span class="text-brand-red">*</span>
-  </label>
-
-  <!-- Helper text -->
-  <p class="text-gray-500 text-sm mt-2 text-right">
-    We’ll send a confirmation to this address.
-  </p>
-
-  <!-- Green Check -->
-  <svg
-    class="valid-check absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-green-500 opacity-0 transition-opacity duration-300"
-    fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-  </svg>
-</div>
-
-          <!-- Request (rounded square) -->
-<div class="relative">
-  <textarea
-    name="request"
-    rows="4"
-    required
-    placeholder=" "
-    maxlength="800"
-    class="peer block w-full px-5 py-4 min-h-[140px]
-           bg-white border border-brand-red/60 rounded-2xl 
-           focus:ring-2 focus:ring-brand-red/40 focus:border-brand-red
-           outline-none transition-all duration-300 resize-none"
-  ></textarea>
-
-  <label
-    class="absolute left-6 top-3 text-gray-500 bg-white px-1 rounded-full
-           peer-focus:-top-2 peer-focus:text-xs peer-focus:text-brand-red
-           peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
-           transition-all"
-  >
-    Prayer Request (75 words max) <span class="text-brand-red">*</span>
-  </label>
-</div>
-
-   <!-- Consent -->
-<label class="flex items-start gap-3 text-gray-600 text-md leading-snug select-none">
-
-  <span class="relative flex items-center justify-center">
-    <input
-      type="checkbox"
-      name="consent"
-      required
-      class="
-        peer h-5 w-5 appearance-none rounded-md bg-white 
-        border-2 border-brand-red 
-        transition-all duration-300
-        cursor-pointer
-        hover:border-brand-red/80
-        focus:outline-none focus:ring-4 focus:ring-brand-red/30
-      "
-    />
-
-    <!-- Custom Checkmark -->
-    <svg
-      class="absolute pointer-events-none w-4 h-4 text-brand-red 
-             opacity-0 scale-75 transition-all duration-300 
-             peer-checked:opacity-100 peer-checked:scale-100"
-      fill="none" stroke="currentColor" stroke-width="3"
-      stroke-linecap="round" stroke-linejoin="round"
-      viewBox="0 0 24 24"
-    >
-      <path d="M5 13l4 4L19 7" />
-    </svg>
-  </span>
-
-  I consent to The Life Place using this information solely to respond to my request.
-</label>
-
-
-           <!-- Apple-style CTA -->
-            <button
-          type="submit"
-          id="tlpSubmitBtn"
-          class="relative mx-auto px-20 py-2 rounded-2xl bg-brand-red text-white text-lg font-semibold
-         shadow-sm flex items-center justify-center gap-2 group
-         transition-all duration-300 ease-\[cubic-bezier(.25,.46,.45,.94)\];
-         hover:scale-[1.03] active:scale-[0.98]
-         hover:shadow-[0_0_15px_-3px_rgba(179,40,45,0.45)]
-         overflow-hidden sheen"
->
-
-  <span class="btn-text">Send</span>
-
-  <!-- Send Icon -->
-  <svg 
-    class="btn-icon w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round"
-    viewBox="0 0 24 24">
-    <path d="M22 2 11 13" />
-    <path d="M22 2 15 22 11 13 2 9 22 2z" />
-  </svg>
-
-  <!-- Spinner for sending -->
-  <svg
-    class="spinner hidden absolute w-6 h-6 animate-spin text-white"
-    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-    stroke-width="2" stroke-linecap="round">
-    <circle cx="12" cy="12" r="10" stroke-opacity="0.3"></circle>
-    <path d="M12 2a10 10 0 0 1 10 10" />
-  </svg>
-
-  <!-- Success check -->
-  <svg
-    class="success-check hidden absolute w-7 h-7 text-white"
-    fill="none" stroke="currentColor" stroke-width="3"
-    stroke-linecap="round" stroke-linejoin="round"
-    viewBox="0 0 24 24">
-    <path d="M5 13l4 4L19 7" />
-  </svg>
-</button>
-
-          {/* Turnstile widget for spam protection */}
-          <div class="mt-6 flex justify-center">
-            <Turnstile />
+            <div class="field">
+              <input type="email" name="email" placeholder=" " required autocomplete="email" />
+              <label>Email *</label>
+              <p class="helper">We’ll send a confirmation to this address.</p>
+            </div>
           </div>
 
+          <div class="field">
+            <textarea name="request" rows="4" placeholder=" " required maxlength="800"></textarea>
+            <label>Prayer Request (75 words max) *</label>
+          </div>
 
+          <label class="consent">
+            <input type="checkbox" name="consent" required />
+            <span class="checkbox"></span>
+            <span class="consent-text">I consent to The Life Place using this information solely to respond to my request.</span>
+          </label>
 
-          <!-- Honeypot field (hidden from users, bots will fill it) -->
-<input
-  type="text"
-  name="website"
-  autocomplete="off"
-  tabindex="-1"
-  class="hidden"
-  aria-hidden="true"
-/>
+          <div class="space-y-6 pt-2">
+            <div class="flex justify-center">
+              <Turnstile />
+            </div>
 
-<!-- Timestamp (anti-spam) -->
-        <input type="hidden" name="tlp_start_time" id="tlp_start_time" />
+            <div class="text-center">
+              <button
+                type="submit"
+                id="tlpSubmitBtn"
+                class="inline-flex items-center justify-center gap-2 px-10 py-3 rounded-2xl bg-gradient-to-r from-brand-red to-red-600 text-white text-base md:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                <span class="btn-text">Send</span>
+                <svg class="btn-icon w-5 h-5 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M22 2 11 13" />
+                  <path d="M22 2 15 22 11 13 2 9 22 2z" />
+                </svg>
+                <svg class="spinner hidden w-5 h-5 animate-spin text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+                  <path d="M12 2a10 10 0 0 1 10 10" />
+                </svg>
+                <svg class="success-check hidden w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M5 13l4 4L19 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
 
-     </form>
+          {/* Honeypot field (hidden from users, bots will fill it) */}
+          <input
+            type="text"
+            name="website"
+            autocomplete="off"
+            tabindex="-1"
+            class="hidden"
+            aria-hidden="true"
+          />
+
+          {/* Timestamp (anti-spam) */}
+          <input type="hidden" name="tlp_start_time" id="tlp_start_time" />
+        </form>
+      </div>
     </div>
   </section>
   )}
@@ -327,20 +199,51 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
 <!-- Validation + Shake -->
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const fields = document.querySelectorAll("[data-validate]");
-    fields.forEach((field) => {
-      const wrapper = field.closest(".validate-wrapper");
-      const check = wrapper.querySelector(".valid-check");
+    const form = document.querySelector("#prayer-form form");
+    if (!form) return;
+    const btn = document.getElementById("tlpSubmitBtn");
+    const text = btn?.querySelector(".btn-text");
+    const icon = btn?.querySelector(".btn-icon");
+    const spinner = btn?.querySelector(".spinner");
+    const check = btn?.querySelector(".success-check");
 
-      field.addEventListener("input", () => {
-        if (field.checkValidity()) {
-          check.classList.remove("opacity-0");
-          check.classList.add("opacity-100");
-        } else {
-          check.classList.remove("opacity-100");
-          check.classList.add("opacity-0");
-        }
-      });
+    const hasToken = () => {
+      const el = form.querySelector('input[name="cf-turnstile-response"]');
+      return !!(el && el.value && el.value.length > 0);
+    };
+    const setDisabled = (disabled) => {
+      if (!btn) return;
+      btn.disabled = disabled;
+    };
+    setDisabled(!hasToken());
+    form.addEventListener("turnstile:verified", () => setDisabled(false));
+
+    form.addEventListener("submit", () => {
+      if (!hasToken()) {
+        setDisabled(true);
+        alert("Please complete the verification before submitting.");
+        return;
+      }
+      if (btn && text && icon && spinner && check) {
+        text.classList.add("fade-out");
+        icon.classList.add("fade-out");
+        setTimeout(() => {
+          text.style.display = "none";
+          icon.style.display = "none";
+          spinner.classList.remove("hidden");
+          spinner.classList.add("fade-in");
+        }, 150);
+
+        setTimeout(() => {
+          spinner.classList.add("fade-out");
+          setTimeout(() => {
+            spinner.classList.add("hidden");
+            check.classList.remove("hidden");
+            check.classList.add("fade-in");
+            btn.classList.add("bg-green-600");
+          }, 220);
+        }, 900);
+      }
     });
   });
 </script>
@@ -350,8 +253,10 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
   let submitting = false;
 
   window.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector("form");
+    const form = document.querySelector("#prayer-form form");
     const btn = document.getElementById("tlpSubmitBtn");
+    if (!form || !btn) return;
+
     const text = btn.querySelector(".btn-text");
     const icon = btn.querySelector(".btn-icon");
     const spinner = btn.querySelector(".spinner");
@@ -361,22 +266,22 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
       if (submitting) return;
       submitting = true;
 
-      text.classList.add("fade-out");
-      icon.classList.add("fade-out");
+      text?.classList.add("fade-out");
+      icon?.classList.add("fade-out");
 
       setTimeout(() => {
-        text.style.display = "none";
-        icon.style.display = "none";
-        spinner.classList.remove("hidden");
-        spinner.classList.add("fade-in");
+        if (text) text.style.display = "none";
+        if (icon) icon.style.display = "none";
+        spinner?.classList.remove("hidden");
+        spinner?.classList.add("fade-in");
       }, 200);
 
       setTimeout(() => {
-        spinner.classList.add("fade-out");
+        spinner?.classList.add("fade-out");
         setTimeout(() => {
-          spinner.classList.add("hidden");
-          check.classList.remove("hidden");
-          check.classList.add("fade-in");
+          spinner?.classList.add("hidden");
+          check?.classList.remove("hidden");
+          check?.classList.add("fade-in");
           btn.classList.add("bg-green-600");
         }, 250);
       }, 1000);
@@ -426,5 +331,99 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
   /* Parallax scroll effect for form */
   .parallax-scroll {
     scroll-behavior: smooth;
+  }
+
+  /* Shared form styling (aligned with main form template) */
+  .field {
+    position: relative;
+  }
+  .field input,
+  .field textarea {
+    width: 100%;
+    border: 1.6px solid #e5e7eb;
+    border-radius: 0.85rem;
+    padding: 14px 14px 12px;
+    font-size: 15px;
+    background: rgba(255,255,255,0.92);
+    outline: none;
+    transition: all .22s ease;
+    font-family: inherit;
+  }
+  .field textarea { min-height: 140px; resize: vertical; }
+  .field input:focus,
+  .field textarea:focus {
+    border-color: #B3282D;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(179, 40, 45, 0.12);
+  }
+  .field label {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    font-size: 15px;
+    color: #9ca3af;
+    pointer-events: none;
+    transition: all .2s ease;
+    font-weight: 500;
+    background: white;
+    padding: 0 6px;
+    border-radius: 10px;
+  }
+  .field input:focus + label,
+  .field textarea:focus + label,
+  .field input:not(:placeholder-shown) + label,
+  .field textarea:not(:placeholder-shown) + label {
+    transform: translateY(-26px) scale(0.88);
+    font-size: 12px;
+    color: #B3282D;
+    font-weight: 700;
+  }
+  .field .helper {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #6b7280;
+  }
+
+  /* Consent checkbox */
+  .consent {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    align-items: start;
+    gap: 10px;
+    font-size: 15px;
+    color: #374151;
+    line-height: 1.5;
+    user-select: none;
+  }
+  .consent input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .checkbox {
+    width: 22px;
+    height: 22px;
+    border-radius: 8px;
+    border: 2px solid #B3282D;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .2s ease;
+    box-shadow: 0 0 0 0 rgba(179,40,45,0);
+  }
+  .consent input:checked + .checkbox {
+    background: #B3282D;
+    box-shadow: 0 0 0 4px rgba(179,40,45,0.12);
+  }
+  .consent input:checked + .checkbox::after {
+    content: "✓";
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+  }
+  .consent .consent-text { grid-column: 3; }
+  @media (max-width: 640px) {
+    .consent { grid-template-columns: auto 1fr; }
+    .consent .consent-text { grid-column: 2; }
   }
 </style>
