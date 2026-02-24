@@ -1370,6 +1370,24 @@ html {
   will-change: transform, box-shadow, filter;
 }
 
+@media (max-width: 767px) {
+  /* Mobile FAB scales down to a 48px touch target while keeping the chat-bubble silhouette */
+  .chat-bubble {
+    bottom: 18px;
+    right: 18px;
+    width: 48px;
+    height: 48px;
+    border-radius: 22px 4px 22px 22px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16), 0 6px 18px rgba(0, 0, 0, 0.12);
+  }
+
+  .chat-bubble:hover,
+  .chat-bubble:focus {
+    transform: translateY(-4px) rotate(2deg) scale(1.08);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.20), 0 8px 20px rgba(0, 0, 0, 0.14);
+  }
+}
+
 .chat-bubble:hover,
 .chat-bubble:focus {
   /* Subtle lift, rotation, and scale on hover/focus */
