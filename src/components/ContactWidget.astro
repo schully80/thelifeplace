@@ -64,6 +64,13 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
     @apply h-7 w-7 text-white transition-transform duration-300;
   }
 
+  @media (max-width: 767px) {
+    /* Smaller icon to balance the 48px mobile FAB */
+    .fab-icon {
+      @apply h-6 w-6;
+    }
+  }
+
   .fab-icon.open {
     @apply rotate-45;
   }
