@@ -122,60 +122,99 @@ import Turnstile from "./ui/Turnstile.astro";
 </div>
 
 <script is:inline>
-    const form = document.getElementById("blogSignupForm");
+    (() => {
+      const modal = document.getElementById("blogSignupModal");
+      const closeBtn = document.getElementById("blogSignupClose");
+      const backdrop = document.getElementById("blogSignupBackdrop");
+      const form = document.getElementById("blogSignupForm");
+      const emailInput = document.getElementById("email");
+      const subscribeBtn = document.getElementById("subscribeBtn");
 
-    // Open modal function
-    window.openBlogSignupModal = () => {
-      modal.style.display = "flex";
-      document.body.style.overflow = "hidden";
-    };
+      if (!modal || !closeBtn || !backdrop || !form || !subscribeBtn) return;
 
-    // Close modal function
-    const closeModal = () => {
-      modal.style.display = "none";
-      document.body.style.overflow = "";
-    };
+      const STORAGE_KEY = "tlp_blog_modal_seen_v1";
+      const SCROLL_FRACTION = 0.75; // show after 75% of page height scrolled
 
-    // Close button
-    closeBtn.addEventListener("click", closeModal);
+      const openModal = () => {
+        modal.style.display = "flex";
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        sessionStorage.setItem(STORAGE_KEY, "shown");
+        setTimeout(() => emailInput?.focus(), 50);
+      };
 
-    // Backdrop click
-    backdrop.addEventListener("click", closeModal);
+      const closeModal = () => {
+        modal.style.display = "none";
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      };
 
-    // Close on Escape key
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal.style.display === "flex") {
-        closeModal();
-      }
-    });
+      window.openBlogSignupModal = openModal;
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("email").value;
-      const submitBtn = document.getElementById("subscribeBtn");
-      const originalText = submitBtn.textContent;
+      // Open once per session when user scrolls past 75% of the page
+      const onScroll = () => {
+        if (sessionStorage.getItem(STORAGE_KEY)) {
+          window.removeEventListener("scroll", onScroll);
+          return;
+        }
+        const doc = document.documentElement;
+        const scrollable = doc.scrollHeight - window.innerHeight;
+        if (scrollable <= 0) return;
+        const progress = window.scrollY / scrollable;
+        if (progress >= SCROLL_FRACTION) {
+          openModal();
+          window.removeEventListener("scroll", onScroll);
+        }
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
 
-      // Show loading state
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Redirecting to Substack...";
-      submitBtn.classList.add("opacity-75");
+      // Attach manual triggers
+      document.querySelectorAll("[data-blog-modal-trigger]").forEach((node) => {
+        node.addEventListener("click", (event) => {
+          event.preventDefault();
+          openModal();
+        });
+      });
 
-      // Small delay for smooth UX
-      setTimeout(() => {
-        // Redirect to Substack with email prefilled
-        const subStackUrl = `https://schulteretyang.substack.com?email=${encodeURIComponent(email)}`;
-        window.open(subStackUrl, "_blank");
+      // Close button
+      closeBtn.addEventListener("click", closeModal);
 
-        // Reset button state
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-        submitBtn.classList.remove("opacity-75");
+      // Backdrop click
+      backdrop.addEventListener("click", closeModal);
 
-        // Close modal and reset form
-        closeModal();
-        form.reset();
-      }, 800);
-    });
+      // Close on Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.style.display === "flex") {
+          closeModal();
+        }
+      });
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = emailInput?.value || "";
+        const originalText = subscribeBtn.textContent;
+
+        // Show loading state
+        subscribeBtn.disabled = true;
+        subscribeBtn.textContent = "Redirecting to Substack...";
+        subscribeBtn.classList.add("opacity-75");
+
+        // Small delay for smooth UX
+        setTimeout(() => {
+          const subStackUrl = `https://schulteretyang.substack.com?email=${encodeURIComponent(email)}`;
+          window.open(subStackUrl, "_blank");
+
+          // Reset button state
+          subscribeBtn.disabled = false;
+          subscribeBtn.textContent = originalText;
+          subscribeBtn.classList.remove("opacity-75");
+
+          // Close modal and reset form
+          closeModal();
+          form.reset();
+        }, 800);
+      });
+    })();
 </script>
 
 <style>
