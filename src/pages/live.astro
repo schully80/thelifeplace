@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/toast.css"; // 🍎 Imports premium red toast
+import FullBleed from "../components/tlp/FullBleed.astro";
 
 // SERVICE TIME FOR COUNTDOWN
 const serviceDay = 0; // Sunday (0 = Sunday)
@@ -14,7 +15,7 @@ const serviceMinute = 0;
 >
   
   <!-- Hero -->
-  <section class="relative mx-auto max-w-6xl overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900/95 to-gray-900 py-16 md:py-24 rounded-none md:rounded-none lg:rounded-3xl shadow-2xl cine-zoom-apple-hover">
+  <FullBleed class="overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900/95 to-gray-900 py-16 md:py-24 px-6 md:px-10 h-[35vh] md:h-[50vh] lg:h-[70vh]">
     <!-- Modern gradient mesh background -->
     <div class="absolute inset-0 opacity-40">
       <div class="absolute top-0 -left-1/2 w-full h-full bg-gradient-to-r from-brand-red/30 to-transparent rounded-full blur-3xl"></div>
@@ -29,14 +30,14 @@ const serviceMinute = 0;
     </div>
 
     <!-- Content -->
-    <div class="relative z-10 text-center px-6">
+    <div class="relative z-10 text-center h-full md:flex md:items-center md:justify-center">
       <div class="w-full max-w-5xl mx-auto">
         <!-- Eyebrow text with service time -->
         <p class="text-sm md:text-base font-semibold text-red-400 uppercase tracking-widest mb-6 opacity-90">
-          Sunday 9:00 - 11:00 AM SAST
+          Sunday 9:00 AM SAST
         </p>
         
-        <h1 class="text-white heading-1 mb-8 leading-relaxed tracking-tighter">
+        <h1 class=" block text-white heading-1 mb-8 leading-relaxed tracking-tighter">
           Join Us <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-brand-red to-red-600 drop-shadow-lg">Live</span>
         </h1>
         
@@ -44,12 +45,15 @@ const serviceMinute = 0;
         <div id="countdown" class="text-xl md:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-red-300 to-red-500 mb-8 leading-relaxed"></div>
         
         <!-- CTA Button -->
-        <button onclick="document.querySelector('[id=liveFrame]').scrollIntoView({behavior:'smooth'})" class="inline-flex items-center gap-2 px-5 py-3 md:gap-3 md:px-8 md:py-4 bg-gradient-to-r from-brand-red to-red-600 hover:from-brand-red hover:to-red-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 group text-base md:text-lg">
+        <button onclick="document.querySelector('[id=liveFrame]').scrollIntoView({behavior:'smooth'})" class="inline-flex items-center gap-2 px-5 py-3 md:gap-3 md:px-8 md:py-4 
+        bg-gradient-to-r from-brand-red to-red-600 hover:from-brand-red hover:to-red-700
+         text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl 
+         transition-all duration-300 group text-base md:text-lg">
           <span>Watch Now</span>
         </button>
       </div>
     </div>
-  </section>
+  </FullBleed>
 
   <!-- Cinematic Live Player — Industry Standard Design -->
   <section class="w-full px-4 md:px-6 lg:px-8 py-12 md:py-16 bg-gradient-to-b from-gray-50 to-white relative">
@@ -90,10 +94,14 @@ const serviceMinute = 0;
     </div>
 
     <!-- SHARE BUTTON WITH MENU -->
-    <div class="mt-12 flex justify-center relative">
+    <div class="mt-12 flex flex-col items-center gap-3">
       <button
         id="tlpShareBtn"
-        class="group relative px-5 py-3 md:px-8 md:py-4 rounded-2xl bg-gradient-to-r from-brand-red to-red-600 text-white font-semibold text-base md:text-lg shadow-lg hover:shadow-2xl hover:from-brand-red hover:to-red-700 active:scale-95 transition-all duration-300 flex items-center gap-2 md:gap-2.5 border border-red-500/50 backdrop-blur-sm hover:animate-pulse-soft"
+        type="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+        aria-controls="tlpShareMenu"
+        class="group relative px-5 py-3 md:px-4 md:py-2 lg:px-6 lg:py-4 rounded-2xl bg-gradient-to-r from-brand-red to-red-600 text-white font-semibold text-base md:text-lg shadow-lg hover:shadow-2xl hover:from-brand-red hover:to-red-700 active:scale-95 transition-all duration-300 flex items-center gap-2 md:gap-2.5 border border-red-500/50 backdrop-blur-sm"
       >
         <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
         <span class="group-hover:tracking-wide transition-all duration-300">Share</span>
@@ -102,8 +110,9 @@ const serviceMinute = 0;
       <!-- SHARE MENU (Hidden by default) -->
       <div
         id="tlpShareMenu"
-        class="absolute top-full mt-3 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-2xl p-4 min-w-[220px] hidden z-50
-               backdrop-blur-xl border border-white/20 opacity-0 scale-95 transition-all duration-300"
+        class="w-full max-w-[14rem] bg-white rounded-2xl shadow-2xl p-4 z-40
+               backdrop-blur-xl border border-white/20 overflow-hidden transition-[max-height,opacity] duration-200 ease-out max-h-0 opacity-0 pointer-events-none"
+      >
         <!-- Copy Link -->
         <a
           id="shareLink"
@@ -252,18 +261,30 @@ const serviceMinute = 0;
     const shareMenu = document.getElementById("tlpShareMenu");
     const pageUrl = window.location.href;
     const pageTitle = "Join us live at The Life Place!";
+    let setOpen = null;
 
-    // Toggle menu
-    shareBtn.addEventListener("click", () => {
-      shareMenu.classList.toggle("hidden");
-    });
+    if (shareBtn && shareMenu && !shareBtn.dataset.bound) {
+      shareBtn.dataset.bound = "true";
 
-    // Close menu when clicking outside
-    document.addEventListener("click", (e) => {
-      if (!shareBtn.contains(e.target) && !shareMenu.contains(e.target)) {
-        shareMenu.classList.add("hidden");
-      }
-    });
+      setOpen = (isOpen) => {
+        shareMenu.classList.toggle("is-open", isOpen);
+        shareBtn.setAttribute("aria-expanded", String(isOpen));
+      };
+
+      // Toggle menu
+      shareBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = !shareMenu.classList.contains("is-open");
+        setOpen(isOpen);
+      }, { once: false });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!shareBtn.contains(e.target) && !shareMenu.contains(e.target)) {
+          setOpen(false);
+        }
+      });
+    }
 
     // Copy Link
     document.getElementById("shareLink").addEventListener("click", async (e) => {
@@ -271,7 +292,7 @@ const serviceMinute = 0;
       try {
         await navigator.clipboard.writeText(pageUrl);
         tlpCopiedToast("Link copied!");
-        shareMenu.classList.add("hidden");
+        setOpen ? setOpen(false) : shareMenu.classList.remove("is-open");
       } catch {
         alert("Link copied!");
       }
@@ -394,27 +415,9 @@ window.__TLP_IS_LIVE = true; // if truly LIVE
   }
   .hover\:animate-pulse-soft:hover { animation: pulse-soft 2s infinite; }
 
-  /* Menu animations */
-  #tlpShareMenu.hidden { 
-    display: none;
-  }
-  #tlpShareMenu:not(.hidden) {
-    opacity: 1 !important;
-    scale: 1 !important;
-    animation: menuSlideUp 0.3s ease-out;
-  }
-  @keyframes menuSlideUp {
-    from {
-      opacity: 0;
-      scale: 0.95;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      scale: 1;
-      transform: translateY(0);
-    }
-  }
+  /* Menu visibility */
+  #tlpShareMenu { max-height: 0; opacity: 0; pointer-events: none; }
+  #tlpShareMenu.is-open { max-height: 500px; opacity: 1; pointer-events: auto; }
 
   /* Fade up animations */
   @keyframes fadeUp {
