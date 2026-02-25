@@ -56,7 +56,7 @@ const serviceMinute = 0;
   </FullBleed>
 
   <!-- Cinematic Live Player — Industry Standard Design -->
-  <section class="w-full px-4 md:px-6 lg:px-8 py-12 md:py-16 bg-gradient-to-b from-gray-50 to-white relative">
+  <section class="w-full px-4 md:px-6 lg:px-8 py-24 md:py-32 bg-gradient-to-b from-gray-50 to-white relative">
     <!-- Glow effect behind player -->
     <div class="absolute inset-0 -z-10">
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-96 bg-brand-red/10 rounded-full blur-3xl"></div>
@@ -276,7 +276,7 @@ const serviceMinute = 0;
         e.stopPropagation();
         const isOpen = !shareMenu.classList.contains("is-open");
         setOpen(isOpen);
-      }, { once: false });
+      });
 
       // Close menu when clicking outside
       document.addEventListener("click", (e) => {
@@ -415,7 +415,7 @@ window.__TLP_IS_LIVE = true; // if truly LIVE
   }
   .hover\:animate-pulse-soft:hover { animation: pulse-soft 2s infinite; }
 
-  /* Menu visibility */
+  /* Share menu */
   #tlpShareMenu { max-height: 0; opacity: 0; pointer-events: none; }
   #tlpShareMenu.is-open { max-height: 500px; opacity: 1; pointer-events: auto; }
 
