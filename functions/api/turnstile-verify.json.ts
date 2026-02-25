@@ -1,3 +1,4 @@
+import type { PagesFunction } from "@cloudflare/workers-types";
 import { getClientIP, parseJSONRequest, secureAPIResponse, apiErrorResponse } from '../../src/utils/api-auth';
 import { logSecurityEvent } from '../../src/utils/secure-logging';
 
@@ -7,7 +8,7 @@ export const onRequestPost: PagesFunction = async (context) => {
 
   const bodyResult = await parseJSONRequest(request);
   if (!bodyResult.valid) {
-    return bodyResult.errorResponse || apiErrorResponse('Invalid request body', 400);
+    return apiErrorResponse(bodyResult.error || 'Invalid request body', 400);
   }
 
   const data = bodyResult.data || {};

@@ -12,7 +12,10 @@ import { chromium } from 'playwright';
     { name: 'desktop', width: 1280, height: 800 },
   ];
 
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({
+    // CI/sandbox friendly flags
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
   const context = await browser.newContext();
   const page = await context.newPage();
 
