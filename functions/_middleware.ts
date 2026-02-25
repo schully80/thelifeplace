@@ -1,4 +1,5 @@
 // /functions/_middleware.ts
+import type { PagesFunction } from "@cloudflare/workers-types";
 
 // ✅ In-memory rate limiting (per IP)
 const rateLimitMap = new Map<string, { count: number; reset: number }>();
@@ -31,7 +32,8 @@ function generateCSRFToken(): string {
 }
 
 // ✅ Additional security headers
-export const onRequest: PagesFunction = async ({ request, next }) => {
+export const onRequest: PagesFunction = async (context) => {
+  const { request, next } = context;
   const nonce = crypto.randomUUID().replace(/-/g, "");
   const csrfToken = generateCSRFToken();
   
@@ -78,7 +80,7 @@ export const onRequest: PagesFunction = async ({ request, next }) => {
   // Inject CSRF token into hidden form field
   html = html.replace(
     /<form[^>]*>/g,
-    match => match + `\n<input type="hidden" name="csrf_token" value="${csrfToken}" />`
+    (match: string) => match + `\n<input type="hidden" name="csrf_token" value="${csrfToken}" />`
   );
 
   // Rebuild response with strict CSP using the same nonce

@@ -13,13 +13,11 @@ import SeriesChips from "../components/SeriesChips.astro";
 import SpeakerChips from "../components/SpeakerChips.astro";
 import SearchBar from "../components/SearchBar.astro";
 import Pagination from "../components/Pagination.astro";
-import fs from "fs";
+import messagesData from "../data/messages.json";
 
 
-// Load all messages
-const messages = JSON.parse(
-  fs.readFileSync("src/data/messages.json", "utf-8")
-);
+// Load all messages (static import keeps it edge-safe)
+const messages = [...messagesData];
 
 // Sort messages by date (newest first)
 messages.sort((a, b) => new Date(b.date) - new Date(a.date));
