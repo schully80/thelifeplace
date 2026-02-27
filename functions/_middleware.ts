@@ -84,7 +84,11 @@ export const onRequest: PagesFunction = async (context) => {
   );
 
   // Rebuild response with strict CSP using the same nonce
-  const strict = new Response(html, res);
+  const strict = new Response(html, {
+    status: res.status,
+    statusText: res.statusText,
+    headers: res.headers,
+  });
   
   strict.headers.set(
     "Content-Security-Policy",
