@@ -3,7 +3,15 @@ const {
   title = "The Life Place",
   logoSrc = "/logo.png",
   class: className,
+  navButtonVariant = "glass", // options: "glass" (default) or "solid"
 } = Astro.props;
+
+// Allow quick dev preview via ?navBtn=solid|glass
+let resolvedNavVariant = navButtonVariant;
+const queryVariant = Astro.url?.searchParams?.get("navBtn");
+if (queryVariant === "solid" || queryVariant === "glass") {
+  resolvedNavVariant = queryVariant;
+}
 
 const path = Astro.url.pathname;
 const isActive = (href) =>
@@ -12,12 +20,12 @@ const isActive = (href) =>
     : path === href || (href !== "/" && path.startsWith(href) && path.charAt(href.length) === "/");
 ---
 
-<header class:list={[
+  <header class:list={[
   "relative z-50 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70",
   className,
 ]}>
 
-  <!-- MOBILE: 0–md (flex layout with hamburger) -->
+  <!-- MOBILE: 0–md (flex layout with hamburger) — primary mobile UI lives here -->
   <div class="md:hidden h-20 grid grid-cols-[1fr,auto] items-center px-4 gap-2">
     <!-- Logo + Title -->
     <div class="flex items-center gap-3 min-w-0">
@@ -43,10 +51,13 @@ const isActive = (href) =>
       aria-label="Open menu"
       aria-controls="mobileNavDrawer"
       aria-expanded="false"
-      class="p-2 rounded-md hover:bg-gray-100 transition"
+      class={resolvedNavVariant === "solid"
+        ? "relative inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-red text-white shadow-lg ring-0 transition hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(179,40,45,0.35)] active:translate-y-0"
+        : "relative inline-flex h-11 w-11 items-center justify-center rounded-full bg-transparent text-gray-900 transition hover:-translate-y-0.5 active:translate-y-0"
+      }
     >
-      <svg viewBox="0 0 24 24" class="h-6 w-6 text-gray-800" aria-hidden="true">
-        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      <svg viewBox="0 0 24 24" class={`h-7 w-7 ${resolvedNavVariant === "solid" ? "text-white" : "text-gray-800"}`} aria-hidden="true">
+        <path d="M2 8.5h16M3 15.5h30" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
       </svg>
     </button>
   </div>
@@ -134,10 +145,13 @@ const isActive = (href) =>
       aria-label="Open menu"
       aria-controls="tabletNavDrawer"
       aria-expanded="false"
-      class="hamburger hidden portrait:flex items-center justify-center p-2 rounded-md hover:bg-gray-100 transition"
+      class={resolvedNavVariant === "solid"
+        ? "hamburger hidden portrait:flex items-center justify-center h-11 w-11 rounded-full bg-brand-red text-white shadow-lg ring-0 transition hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(179,40,45,0.35)] active:translate-y-0"
+        : "hamburger hidden portrait:flex items-center justify-center h-11 w-11 rounded-full bg-transparent text-gray-900 transition hover:-translate-y-0.5 active:translate-y-0"
+      }
     >
-      <svg viewBox="0 0 24 24" class="h-6 w-6 text-gray-800">
-        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      <svg viewBox="0 0 24 24" class={`h-7 w-7 ${resolvedNavVariant === "solid" ? "text-white" : "text-gray-800"}`}>
+        <path d="M4 8.5h16M3 15.5h20" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
       </svg>
     </button>
   </div>
@@ -225,41 +239,51 @@ const isActive = (href) =>
 
   <!-- OVERLAYS & DRAWERS (Tablet Portrait Only) -->
   <!-- Tablet Portrait Overlay & Drawer -->
-  <div id="tabletNavOverlay" class="fixed inset-0 bg-white opacity-0 pointer-events-none transition-opacity z-[9998]"></div>
+  <div id="tabletNavOverlay" class="fixed inset-0 bg-white opacity-0 pointer-events-none transition-opacity duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] z-[9998]"></div>
 
-  <aside id="tabletNavDrawer" class="fixed inset-y-0 right-0 w-[86%] max-w-sm bg-white shadow-xl transition-transform will-change-transform z-[9999] focus:outline-none hidden portrait:block translate-x-full" role="dialog" aria-modal="true" tabindex="-1">
-    <div class="h-16 px-4 flex items-center justify-end border-b">
-      <button id="tabletMenuClose" type="button" aria-label="Close menu" class="p-2 rounded-md hover:bg-gray-100 transition">
-        <svg viewBox="0 0 24 24" class="h-6 w-6 text-gray-800">
-          <path d="M6 6l12 12M18 6l-12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+  <aside
+    id="tabletNavDrawer"
+    class="fixed inset-x-0 top-0 w-full max-w-full bg-white shadow-xl transition-transform transition-opacity duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] will-change-transform z-[9999] focus:outline-none hidden portrait:block -translate-y-full opacity-0 pointer-events-none"
+    role="dialog"
+    aria-modal="true"
+    tabindex="-1"
+  >
+    <div class="h-16 px-6 flex items-center justify-end border-b">
+      <button id="tabletMenuClose" type="button" aria-label="Close menu" class={resolvedNavVariant === "solid"
+        ? "inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-red text-white shadow-lg ring-0 transition hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(179,40,45,0.35)] active:translate-y-0"
+        : "inline-flex h-11 w-11 items-center justify-center rounded-full bg-transparent text-gray-900 transition hover:-translate-y-0.5 active:translate-y-0"
+      }>
+        <svg viewBox="0 0 24 24" class={`h-7 w-7 ${resolvedNavVariant === "solid" ? "text-white" : "text-gray-800"}`}>
+          <path d="M6.5 6.5l11 11M17.5 6.5l-11 11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
         </svg>
       </button>
     </div>
 
-    <nav class="px-4 py-3 overflow-y-auto max-h-[calc(100dvh-4rem)] space-y-2" aria-label="Tablet">
+    <nav class="px-6 py-7 overflow-y-auto max-h-[calc(100dvh-4rem)] space-y-4 text-center items-center flex flex-col" aria-label="Tablet">
       <!-- ...existing code... -->
 
       <section class="mt-2" data-accordion>
-        <button type="button" class="w-full flex items-center justify-between px-4 py-3.5 rounded-full text-left text-base hover:bg-gray-50" data-accordion-trigger aria-expanded="false" aria-controls="acc-about-tablet">
+        <button type="button" class="w-full flex items-center justify-center gap-3 px-6 py-5 rounded-full text-center text-xl font-extrabold uppercase tracking-wide hover:bg-gray-50" data-accordion-trigger aria-expanded="false" aria-controls="acc-about-tablet">
           <span>About Us</span>
-          <svg class="h-6 w-6 transition-transform" viewBox="0 0 24 24">
-            <path d="M5 10l7 7 7-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
+          <svg class="h-8 w-8 transition-transform" viewBox="0 0 24 24">
+            <path d="M7 9.2h10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+            <path d="M5 14.8h16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
           </svg>
         </button>
         <div id="acc-about-tablet" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out" data-accordion-panel>
           <div class="overflow-hidden">
             <ul class="py-1">
-              <li><a href="/about-us/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/about-us/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>What We Do</a></li>
+              <li><a href="/about-us/" class={`block px-6 py-4 text-xl font-semibold rounded-full uppercase tracking-wide ${isActive("/about-us/") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>What We Do</a></li>
               
-              <li><a href="/what-we-believe/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/what-we-believe/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>What We Believe</a></li>
-              <li><a href="/about-us/leadership" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/about-us/leadership") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>Schulter and Genevieve</a></li>
+              <li><a href="/what-we-believe/" class={`block px-6 py-4 text-xl font-semibold rounded-full uppercase tracking-wide ${isActive("/what-we-believe/") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>What We Believe</a></li>
+              <li><a href="/about-us/leadership" class={`block px-6 py-4 text-xl font-semibold rounded-full uppercase tracking-wide ${isActive("/about-us/leadership") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>Schulter and Genevieve</a></li>
             </ul>
           </div>
         </div>
       </section>
 
-      <a href="/live/" class={`block px-4 py-3.5 rounded-full text-base ${isActive("/live/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
-        <span class="flex items-center gap-2">
+      <a href="/live/" class={`block w-full px-6 py-5 rounded-full text-xl font-extrabold uppercase tracking-wide ${isActive("/live/") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
+        <span class="flex items-center justify-center gap-3">
           <span data-live-tablet-text>Live</span>
           <span data-live-tablet-indicator class="hidden h-2 w-2 rounded-full bg-red-600"></span>
         </span>
@@ -267,21 +291,21 @@ const isActive = (href) =>
 
       <!-- Ministries nav removed from tablet drawer -->
 
-      <a href="/give/" class={`mt-3 inline-flex items-center justify-center px-4 py-2 rounded-full bg-brand-red text-white font-semibold shadow-md hover:bg-red-700 hover:shadow-lg transition`}>
+      <a href="/give/" class={`mt-5 inline-flex items-center justify-center px-6 py-4 rounded-full bg-brand-red text-white text-xl font-extrabold uppercase tracking-wide shadow-md hover:bg-red-700 hover:shadow-lg transition`}>
         Generosity
       </a>
 
-      <a href="/visit/" class={`mt-4 block px-4 py-4 rounded-full text-base font-medium ${isActive("/visit/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
+      <a href="/visit/" class={`mt-4 block w-full px-6 py-5 rounded-full text-xl font-extrabold uppercase tracking-wide ${isActive("/visit/") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
         Plan A Visit
       </a>
 
-      <a href="/blog/" class={`w-full text-left block px-4 py-3 rounded-full text-base ${isActive("/blog/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
+      <a href="/blog/" class={`w-full block px-6 py-4 rounded-full text-xl font-extrabold uppercase tracking-wide ${isActive("/blog/") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
         Our Blog
       </a>
     </nav>
   </aside>
 
-  <!-- Scripts -->
+  <!-- Scripts (drawer + accordions for mobile/tablet live here) -->
   <script is:inline>
     function initNavDrawer() {
       const tabletBtn = document.getElementById("tabletMenuButton");
@@ -305,7 +329,8 @@ const isActive = (href) =>
       };
 
       const open = () => {
-        drawer.classList.remove("translate-x-full");
+        drawer.classList.remove("-translate-y-full", "opacity-0", "pointer-events-none");
+        drawer.classList.add("opacity-100");
         overlay.classList.remove("pointer-events-none");
         overlay.classList.add("opacity-100");
         setExpanded(true);
@@ -316,7 +341,8 @@ const isActive = (href) =>
       };
 
       const close = () => {
-        drawer.classList.add("translate-x-full");
+        drawer.classList.add("-translate-y-full", "opacity-0", "pointer-events-none");
+        drawer.classList.remove("opacity-100");
         overlay.classList.add("pointer-events-none");
         overlay.classList.remove("opacity-100");
         setExpanded(false);
@@ -473,7 +499,8 @@ const isActive = (href) =>
 
           if (drawerElem) {
             console.debug('openMinistries: programmatically opening drawer', drawerElem.id);
-            drawerElem.classList.remove('translate-x-full');
+            drawerElem.classList.remove('-translate-y-full', 'opacity-0', 'pointer-events-none');
+            drawerElem.classList.add('opacity-100');
             if (overlayElem) {
               overlayElem.classList.remove('pointer-events-none');
               overlayElem.classList.add('opacity-100');
