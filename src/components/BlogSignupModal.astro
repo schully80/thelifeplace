@@ -171,7 +171,7 @@ import Turnstile from "./ui/Turnstile.astro";
       if (!modal || !closeBtn || !backdrop || !form || !subscribeBtn) return;
 
       const STORAGE_KEY = "tlp_blog_modal_seen_v1";
-      const SCROLL_FRACTION = 0.75; // show after 75% of page height scrolled
+      const SCROLL_FRACTION = 0.5; // show after 50% of page height scrolled
 
       const openModal = () => {
         modal.style.display = "flex";
