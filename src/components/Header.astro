@@ -239,11 +239,11 @@ const isActive = (href) =>
 
   <!-- OVERLAYS & DRAWERS (Tablet Portrait Only) -->
   <!-- Tablet Portrait Overlay & Drawer -->
-  <div id="tabletNavOverlay" class="fixed inset-0 bg-white opacity-0 pointer-events-none transition-opacity duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] z-[9998]"></div>
+  <div id="tabletNavOverlay" class="fixed inset-0 bg-white opacity-0 pointer-events-none transition-opacity duration-500 ease-overlay z-[9998]"></div>
 
   <aside
     id="tabletNavDrawer"
-    class="fixed inset-x-0 top-0 w-full max-w-full bg-white shadow-xl transition-transform transition-opacity duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] will-change-transform z-[9999] focus:outline-none hidden portrait:block -translate-y-full opacity-0 pointer-events-none"
+    class="fixed inset-x-0 top-0 w-full max-w-full bg-white shadow-xl transition-transform transition-opacity duration-500 ease-overlay will-change-transform z-[9999] focus:outline-none hidden portrait:block -translate-y-full opacity-0 pointer-events-none"
     role="dialog"
     aria-modal="true"
     tabindex="-1"

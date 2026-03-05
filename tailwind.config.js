@@ -87,6 +87,9 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		transitionTimingFunction: {
+  			overlay: 'cubic-bezier(0.19, 1, 0.22, 1)'
   		}
   	}
   },

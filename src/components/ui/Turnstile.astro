@@ -4,7 +4,7 @@ let resolvedSitekey = Astro.props.sitekey;
 if (!resolvedSitekey) {
   resolvedSitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '';
 }
-const { name = 'cf-turnstile-response', theme = 'light', ariaLabel = 'Human verification' } = Astro.props;
+const { name = 'cf-turnstile-response', theme = 'light', ariaLabel = 'Human verification', hideStatus = false } = Astro.props;
 const id = `turnstile_${Math.random().toString(36).slice(2, 9)}`;
 ---
 
@@ -12,7 +12,7 @@ const id = `turnstile_${Math.random().toString(36).slice(2, 9)}`;
   <span id={"label_" + id} class="sr-only">{ariaLabel}</span>
   <div id={id} class="cf-turnstile" data-sitekey={resolvedSitekey} data-theme={theme} data-callback={"__cf_turnstile_cb_" + id} aria-hidden="false"></div>
   <input type="hidden" name={name} id={"input_" + id} aria-hidden="true" />
-  <div id={"status_" + id} class="tlp-turnstile-status" aria-live="polite">Please complete the verification</div>
+  {!hideStatus && <div id={"status_" + id} class="tlp-turnstile-status" aria-live="polite">Please complete the verification</div>}
 </div>
 
 <style>
@@ -127,4 +127,3 @@ const id = `turnstile_${Math.random().toString(36).slice(2, 9)}`;
 
   })();
 </script>
-

@@ -2,57 +2,106 @@
 const blogUrl = "https://schulteretyang.substack.com";
 import Turnstile from "./ui/Turnstile.astro";
 ---
-<div id="blogSignupModal" class="fixed inset-0 z-50 items-center justify-center p-4" style="display: none;">
+<div
+  id="blogSignupModal"
+  class="fixed inset-0 z-50 items-center justify-center p-3"
+  style="display: none;"
+>
   <!-- Backdrop -->
   <div
     id="blogSignupBackdrop"
-    class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+    class="absolute inset-0 bg-black/10 backdrop-blur-sm transition-opacity"
   ></div>
 
   <!-- Modal -->
-  <div class="relative bg-white rounded-2xl shadow-2xl max-w-md w-full z-10 overflow-hidden animate-fadeIn">
+  <div class="relative bg-white rounded-xl shadow-xl max-w-xs sm:max-w-sm md:max-w-md w-full z-10 overflow-hidden animate-fadeIn border border-gray-100">
     <!-- Close button -->
     <button
       id="blogSignupClose"
       type="button"
       aria-label="Close modal"
-      class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition z-20"
+      class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition z-20"
     >
-      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
 
     <!-- Content -->
-    <div class="p-8">
+    <div class="p-5 md:p-6 space-y-4 md:space-y-5">
       <!-- Header -->
-      <div class="mb-6">
-        <h2 class="heading-2 text-center mb-2">
-          Stay Updated
-        </h2>
-        <p class="text-gray-600 text-sm">
-          Join our community for thoughtful insights, updates, and exclusive content delivered to your inbox.
+      <div class="space-y-2 text-center">
+        <h2 class="text-lg md:text-2xl font-bold text-gray-900 leading-tight">SUBSCRIBE</h2>
+        <p class="text-gray-600 text-[12px] md:text-sm">
+          Subscribe and receive the latest updates directly in your inbox.
         </p>
       </div>
 
+      <!-- Social / identity options -->
+      <div class="space-y-2">
+        <p class="text-[10px] md:text-[11px] font-semibold text-gray-600 uppercase tracking-[0.18em] text-center">Subscribe with</p>
+        <div class="grid grid-cols-1 gap-2">
+          <button
+            type="button"
+            data-provider-btn="google"
+            class="w-full flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 md:px-3.5 text-[12px] md:text-sm font-semibold text-gray-800 shadow-sm transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-red/70"
+            aria-label="Subscribe with Google"
+            title="Subscribe with Google"
+          >
+            <i class="fa-brands fa-google text-lg md:text-xl text-gray-800" aria-hidden="true"></i>
+            <span class="sr-only">Subscribe with Google</span>
+          </button>
+
+          <button
+            type="button"
+            data-provider-btn="apple"
+            class="w-full flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 md:px-3.5 text-[12px] md:text-sm font-semibold text-gray-800 shadow-sm transition focus:outline-none focus:ring-2 focus:ring-brand-red/70"
+            aria-label="Subscribe with Apple"
+            title="Subscribe with Apple"
+          >
+            <i class="fa-brands fa-apple text-lg md:text-xl text-gray-800" aria-hidden="true"></i>
+            <span class="sr-only">Subscribe with Apple</span>
+          </button>
+
+          <button
+            type="button"
+            data-provider-btn="facebook"
+            class="w-full flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 md:px-3.5 text-[12px] md:text-sm font-semibold text-gray-800 shadow-sm transition focus:outline-none focus:ring-2 focus:ring-brand-red/70"
+            aria-label="Subscribe with Facebook"
+            title="Subscribe with Facebook"
+          >
+            <i class="fa-brands fa-facebook text-lg md:text-xl text-gray-800" aria-hidden="true"></i>
+            <span class="sr-only">Subscribe with Facebook</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Divider to email form -->
+      <div class="flex items-center my-4 text-gray-400">
+        <div class="flex-1 border-t border-gray-200"></div>
+        <span class="px-2 text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-gray-500">
+        Email</span>
+        <div class="flex-1 border-t border-gray-200"></div>
+      </div>
+
       <!-- Form -->
-      <form id="blogSignupForm" class="space-y-4">
+      <form id="blogSignupForm" class="space-y-3">
         <div>
-          <label for="email" class="block text-sm font-semibold text-gray-600 mb-2">
-            Email Address
-          </label>
+         
           <input
             id="email"
             type="email"
             placeholder="your@email.com"
             required
-            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent transition"
+            class="w-full px-3 py-2 md:px-3.5 md:py-2.5 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-red focus:border-transparent transition text-[12px] md:text-sm"
           />
         </div>
 
-
-        <div class="pt-2 flex flex-col items-center gap-3">
-          <Turnstile name="cf-turnstile-response-blog" />
+        <div class="pt-1 flex flex-col items-center gap-2">
+          <div class="w-full max-w-[200px] mx-auto text-center">
+            <Turnstile name="cf-turnstile-response-blog" hideStatus={true} />
+            <p class="mt-1 text-[11px] md:text-xs text-gray-500 text-center">Please complete the verification</p>
+          </div>
         </div>
 <script>
   (function(){
@@ -90,33 +139,15 @@ import Turnstile from "./ui/Turnstile.astro";
         <button
           id="subscribeBtn"
           type="submit"
-          class="w-full bg-brand-red hover:bg-red-700 text-white font-semibold py-3 rounded-2xl transition duration-200 transform hover:scale-105"
+          class="w-full bg-brand-red hover:bg-red-700 text-white font-semibold py-2.5 rounded-xl transition duration-150"
         >
-          Subscribe on Substack
+          Subscribe
         </button>
       </form>
 
-      <!-- Footer message -->
-      <p class="text-xs text-gray-500 text-center mt-4">
-        You'll be redirected to confirm your subscription. We respect your privacy.
+      <p class="text-[11px] text-gray-500 text-center mt-2">
+        You'll be redirected to confirm your subscription. Privacy respected.
       </p>
-
-      <!-- Divider -->
-      <div class="flex items-center my-6">
-        <div class="flex-1 border-t border-gray-300"></div>
-        <span class="px-3 text-sm text-gray-500">or</span>
-        <div class="flex-1 border-t border-gray-300"></div>
-      </div>
-
-      <!-- Direct link -->
-      <a
-        href={blogUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="block text-center px-4 py-3 rounded-2xl border border-brand-red text-brand-red hover:bg-red-50 font-semibold transition text-sm"
-      >
-        Visit Our Blog Directly
-      </a>
     </div>
   </div>
 </div>
@@ -124,11 +155,18 @@ import Turnstile from "./ui/Turnstile.astro";
 <script is:inline>
     (() => {
       const modal = document.getElementById("blogSignupModal");
+      const hostname = window.location.hostname;
+      const IS_DEV =
+        hostname === "localhost" ||
+        hostname === "127.0.0.1" ||
+        hostname === "0.0.0.0" ||
+        window.location.port === "4322";
       const closeBtn = document.getElementById("blogSignupClose");
       const backdrop = document.getElementById("blogSignupBackdrop");
       const form = document.getElementById("blogSignupForm");
       const emailInput = document.getElementById("email");
       const subscribeBtn = document.getElementById("subscribeBtn");
+      const providerButtons = modal?.querySelectorAll("[data-provider-btn]") || [];
 
       if (!modal || !closeBtn || !backdrop || !form || !subscribeBtn) return;
 
@@ -139,7 +177,9 @@ import Turnstile from "./ui/Turnstile.astro";
         modal.style.display = "flex";
         modal.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
-        sessionStorage.setItem(STORAGE_KEY, "shown");
+        if (!IS_DEV) {
+          sessionStorage.setItem(STORAGE_KEY, "shown");
+        }
         setTimeout(() => emailInput?.focus(), 50);
       };
 
@@ -149,30 +189,66 @@ import Turnstile from "./ui/Turnstile.astro";
         document.body.style.overflow = "";
       };
 
-      window.openBlogSignupModal = openModal;
+      const providerAction = (provider) => {
+        const handlerName = `onBlogSubscribeWith${provider.charAt(0).toUpperCase()}${provider.slice(1)}`;
+        const handler = window[handlerName];
+        const detail = { provider, email: emailInput?.value || "" };
 
-      // Open once per session when user scrolls past 75% of the page
-      const onScroll = () => {
-        if (sessionStorage.getItem(STORAGE_KEY)) {
-          window.removeEventListener("scroll", onScroll);
-          return;
+        // Give priority to a named global hook if present
+        if (typeof handler === "function") {
+          handler(detail);
         }
-        const doc = document.documentElement;
-        const scrollable = doc.scrollHeight - window.innerHeight;
-        if (scrollable <= 0) return;
-        const progress = window.scrollY / scrollable;
-        if (progress >= SCROLL_FRACTION) {
-          openModal();
-          window.removeEventListener("scroll", onScroll);
+
+        // Broadcast an event so other scripts can listen without globals
+        window.dispatchEvent(new CustomEvent("blog:subscribe", { detail }));
+
+        if (typeof handler !== "function") {
+          console.info(
+            `[BlogSignupModal] No handler named ${handlerName} found. Listen for 'blog:subscribe' to intercept provider clicks.`,
+          );
         }
       };
-      window.addEventListener("scroll", onScroll, { passive: true });
+
+      window.openBlogSignupModal = openModal;
+
+      if (IS_DEV) {
+        // In dev, always surface the modal immediately for design/QA
+        sessionStorage.removeItem(STORAGE_KEY);
+        openModal();
+      } else {
+        // Open once per session when user scrolls past 75% of the page
+        const onScroll = () => {
+          if (sessionStorage.getItem(STORAGE_KEY)) {
+            window.removeEventListener("scroll", onScroll);
+            return;
+          }
+          const doc = document.documentElement;
+          const scrollable = doc.scrollHeight - window.innerHeight;
+          if (scrollable <= 0) return;
+          const progress = window.scrollY / scrollable;
+          if (progress >= SCROLL_FRACTION) {
+            openModal();
+            window.removeEventListener("scroll", onScroll);
+          }
+        };
+        window.addEventListener("scroll", onScroll, { passive: true });
+      }
 
       // Attach manual triggers
       document.querySelectorAll("[data-blog-modal-trigger]").forEach((node) => {
         node.addEventListener("click", (event) => {
           event.preventDefault();
           openModal();
+        });
+      });
+
+      // Provider buttons (Google/Apple/Facebook)
+      providerButtons.forEach((btn) => {
+        btn.addEventListener("click", (event) => {
+          event.preventDefault();
+          const provider = btn.getAttribute("data-provider-btn");
+          if (!provider) return;
+          providerAction(provider);
         });
       });
 
@@ -238,21 +314,10 @@ import Turnstile from "./ui/Turnstile.astro";
     }
   }
 
-  #blogSignupBackdrop {
-    animation: backdropFadeIn 0.6s ease-out forwards;
-  }
-
-  #blogSignupModal > div:last-child {
-    animation: modalSlideUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    animation-delay: 0.1s;
-  }
-
-  .animate-fadeIn {
-    animation: modalSlideUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
-  /* Show modal as flex when not hidden */
-  #blogSignupModal[style*="display: flex"] {
-    display: flex !important;
-  }
+  #blogSignupBackdrop { animation: backdropFadeIn 0.35s ease-out forwards; }
+  #blogSignupModal > div:last-child { animation: modalSlideUp 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+  .animate-fadeIn { animation: modalSlideUp 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  #blogSignupModal[style*="display: flex"] { display: flex !important; }
+  /* Hide default Turnstile status inside modal; we render our own helper */
+  #blogSignupModal .tlp-turnstile-status { display: none; }
 </style>
