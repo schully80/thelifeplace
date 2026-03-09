@@ -411,13 +411,13 @@ pathParts.forEach((part, index) => {
           }, 550);
           spinner.style.animation = "splash-spinner-spin 0.7s linear infinite";
 
-          // auto-hide after 2.8s
+          // auto-hide ~2s total (fade starts sooner to cut wait time)
           setTimeout(() => {
             screen.classList.add("fade-out");
-          }, 2000);
+          }, 1200);
           setTimeout(() => {
             screen.style.display = "none";
-          }, 2800);
+          }, 2000);
         };
 
         if (!splashAlreadyShown) {
