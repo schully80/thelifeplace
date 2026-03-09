@@ -16,7 +16,7 @@ const SITEKEY = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '';
       <p>Use this page to exercise the Turnstile widget and verify tokens.</p>
 
       <form id="turnstile-form">
-        <!-- hidden token field the Turnstile component should populate -->
+        <!-- hidden token field we populate when Turnstile verifies -->
         <input type="hidden" name="token" id="turnstile-token" />
 
         <Turnstile sitekey={import.meta.env.PUBLIC_TURNSTILE_SITEKEY} />
@@ -31,12 +31,21 @@ const SITEKEY = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '';
       <script type="module">
         const form = document.getElementById('turnstile-form');
         const resultEl = document.getElementById('result');
+        const manualToken = document.getElementById('turnstile-token');
+        let lastToken = '';
+
+        // Mirror the Turnstile token into our own hidden input so submit always finds it
+        form.addEventListener('turnstile:verified', (ev) => {
+          const token = ev?.detail?.token || '';
+          lastToken = token;
+          if (manualToken) manualToken.value = token;
+        });
 
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
-          // Prefer Turnstile-generated input(s) first, fall back to any token field
+          // Prefer Turnstile-generated input(s) first, fall back to our mirrored token field
           const tokenInput = form.querySelector('input[name^="cf-turnstile-response"], input[name="cf-turnstile-response"], input[name="token"], input[name="turnstile-token"]');
-          const token = tokenInput ? tokenInput.value : '';
+          const token = tokenInput && tokenInput.value ? tokenInput.value : lastToken;
           if (!token) {
             resultEl.textContent = 'No token found — complete the challenge first.';
             return;
@@ -45,13 +54,18 @@ const SITEKEY = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '';
           resultEl.textContent = 'Verifying...';
 
           try {
-            const res = await fetch('/api/turnstile-verify.json', {
+            const res = await fetch('/api/turnstile-verify', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ token }),
             });
-            const json = await res.json();
-            resultEl.textContent = JSON.stringify(json, null, 2);
+            const text = await res.text();
+            try {
+              const json = JSON.parse(text);
+              resultEl.textContent = JSON.stringify(json, null, 2);
+            } catch (jsonErr) {
+              resultEl.textContent = `Non-JSON response (status ${res.status}):\\n${text}`;
+            }
           } catch (err) {
             resultEl.textContent = 'Error: ' + String(err);
           }

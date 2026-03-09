@@ -9,9 +9,6 @@ import Turnstile from "../components/ui/Turnstile.astro";
 
 const url = Astro.url;
 const isDemoSuccess = url.searchParams.get("demo") === "success";
-
-// Add your Formspree endpoint (e.g. https://formspree.io/f/abcd1234)
-const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
 ---
 
 <BaseLayout title="Prayer Request">
@@ -58,7 +55,7 @@ const FORMSPREE = import.meta.env.PUBLIC_FORMSPREE_PRAYER_ENDPOINT;
         </div>
 
         <form
-          action={FORMSPREE}
+          action="/api/prayer"
           method="POST"
           onsubmit="return window.tlpPrayerSubmit(event)"
           class="space-y-8"

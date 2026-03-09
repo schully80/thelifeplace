@@ -4,6 +4,9 @@ let resolvedSitekey = Astro.props.sitekey;
 if (!resolvedSitekey) {
   resolvedSitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '';
 }
+if (!resolvedSitekey) {
+  throw new Error('Turnstile sitekey missing. Set PUBLIC_TURNSTILE_SITEKEY (and PUBLIC_TURNSTILE_SITE_KEY) in your environment.');
+}
 const { name = 'cf-turnstile-response', theme = 'light', ariaLabel = 'Human verification', hideStatus = false } = Astro.props;
 const id = `turnstile_${Math.random().toString(36).slice(2, 9)}`;
 ---
@@ -101,7 +104,7 @@ const id = `turnstile_${Math.random().toString(36).slice(2, 9)}`;
       }
       const el = document.getElementById(widgetId);
       if (el) {
-        el.dispatchEvent(new CustomEvent('turnstile:verified', { detail: { token } }));
+        el.dispatchEvent(new CustomEvent('turnstile:verified', { detail: { token }, bubbles: true, composed: true }));
       }
 
       // update status UI
