@@ -3,8 +3,10 @@ import type { APIRoute } from "astro";
 import { getClientIP, apiErrorResponse, secureAPIResponse } from "../../utils/api-auth";
 import { logSecurityEvent } from "../../utils/secure-logging";
 
-export const POST: APIRoute = async ({ request }) => {
-  const isDev = import.meta.env.DEV || import.meta.env.MODE === "development";
+export const POST: APIRoute = async ({ request, locals }) => {
+  const runtimeEnv = locals?.runtime?.env as Record<string, string | undefined> | undefined;
+  const envValue = (key: string) => runtimeEnv?.[key] ?? import.meta.env[key];
+  const isDev = (import.meta.env.DEV || import.meta.env.MODE === "development" || runtimeEnv?.STAGE === "development") ?? false;
   const ip = getClientIP(request.headers);
 
   let formData: FormData;
@@ -21,8 +23,8 @@ export const POST: APIRoute = async ({ request }) => {
     (formData.get("token") as string | null);
 
   const turnstileDisabled =
-    import.meta.env.PRAYER_TURNSTILE_DISABLED === "true" ||
-    (isDev && import.meta.env.PRAYER_TURNSTILE_DISABLE_DEV === "true");
+    envValue("PRAYER_TURNSTILE_DISABLED") === "true" ||
+    (isDev && envValue("PRAYER_TURNSTILE_DISABLE_DEV") === "true");
 
   if (!token && !turnstileDisabled) {
     logSecurityEvent("Missing Turnstile token on prayer form", "medium", { endpoint: "/api/prayer" }, ip);
@@ -30,7 +32,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const secret =
-    import.meta.env.TURNSTILE_SECRET_KEY ||
+    envValue("TURNSTILE_SECRET_KEY") ||
     (isDev ? "1x0000000000000000000000000000000AA" : undefined);
 
   if (!secret && !turnstileDisabled) {
@@ -76,8 +78,8 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   // Prepare email via MailChannels-compatible HTTP send
-  const fromEmail = import.meta.env.MAIL_FROM || "mystory@thelifeplace.org";
-  const toEmail = import.meta.env.MAIL_TO || fromEmail;
+  const fromEmail = envValue("MAIL_FROM") || "mystory@thelifeplace.org";
+  const toEmail = envValue("MAIL_TO") || fromEmail;
   const name = (formData.get("name") as string) || "Unknown";
   const userEmail = (formData.get("email") as string) || "";
   const requestText = ((formData.get("request") as string) || "").toString().trim();
@@ -106,8 +108,8 @@ export const POST: APIRoute = async ({ request }) => {
   };
 
   const emailDisabled =
-    import.meta.env.PRAYER_EMAIL_DISABLED === "true" ||
-    (isDev && import.meta.env.PRAYER_EMAIL_DISABLE_DEV === "true");
+    envValue("PRAYER_EMAIL_DISABLED") === "true" ||
+    (isDev && envValue("PRAYER_EMAIL_DISABLE_DEV") === "true");
 
   if (!emailDisabled) {
     const mailRes = await fetch("https://api.mailchannels.net/tx/v1/send", {

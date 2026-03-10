@@ -2,9 +2,11 @@
 import type { APIRoute } from "astro";
 import { secureAPIResponse, apiErrorResponse } from "../../utils/api-auth";
 
-export const GET: APIRoute = async ({ request }) => {
-  const fromEmail = import.meta.env.MAIL_FROM || "mystory@thelifeplace.org";
-  const toEmail = import.meta.env.MAIL_TO || fromEmail;
+export const GET: APIRoute = async ({ request, locals }) => {
+  const runtimeEnv = locals?.runtime?.env as Record<string, string | undefined> | undefined;
+  const envValue = (key: string) => runtimeEnv?.[key] ?? import.meta.env[key];
+  const fromEmail = envValue("MAIL_FROM") || "mystory@thelifeplace.org";
+  const toEmail = envValue("MAIL_TO") || fromEmail;
 
   const mailPayload = {
     personalizations: [
