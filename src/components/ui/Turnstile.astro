@@ -1,11 +1,16 @@
 ---
-// Fallback logic for sitekey: use env if not provided, fallback to empty string
+// Resolve site key with sensible dev fallback so the form still works locally.
+// In dev, default to Cloudflare's "always pass" test key if nothing is set.
+const isDev = import.meta.env?.DEV;
 let resolvedSitekey = Astro.props.sitekey;
 if (!resolvedSitekey) {
-  resolvedSitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || '';
+  resolvedSitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY || import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '';
+}
+if (!resolvedSitekey && isDev) {
+  resolvedSitekey = "1x00000000000000000000AA"; // Cloudflare test site key
 }
 if (!resolvedSitekey) {
-  throw new Error('Turnstile sitekey missing. Set PUBLIC_TURNSTILE_SITEKEY (and PUBLIC_TURNSTILE_SITE_KEY) in your environment.');
+  throw new Error('Turnstile sitekey missing. Set PUBLIC_TURNSTILE_SITEKEY in your environment.');
 }
 const { name = 'cf-turnstile-response', theme = 'light', ariaLabel = 'Human verification', hideStatus = false } = Astro.props;
 const id = `turnstile_${Math.random().toString(36).slice(2, 9)}`;

@@ -6,44 +6,22 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 <!-- CLEAN SECTION (no cinematic background, keeps underline working) -->
 <section
-  class="relative min-h-screen flex items-center justify-center px-6 py-28"
+  class="relative min-h-screen flex items-center justify-center px-6 py-24 bg-white"
 >
-
-  <!-- Empty background layer (keeps stacking context safe) -->
-  <div class="absolute inset-0 bg-transparent -z-10"></div>
-
-  <!-- Soft moving fog -->
-  <div
-    class="absolute inset-0 -z-10 opacity-[0.18] blur-3xl animate-fog"
-    style="background: radial-gradient(circle at 30% 30%, #B3282D55, transparent 60%),
-             radial-gradient(circle at 70% 70%, #7A1C2055, transparent 60%);"
-  ></div>
-
-  <!-- Floating grain -->
-  <div class="absolute inset-0 -z-10 opacity-[0.08] mix-blend-overlay bg-[url('/grain.png')]"></div>
-
-  <!-- Floating particles -->
-  <div class="absolute inset-0 -z-10 pointer-events-none particle-layer"></div>
 
   <!-- SUCCESS CARD -->
   <div
-    class="relative max-w-xl mx-auto bg-white/90 backdrop-blur-xl rounded-3xl p-12 text-center
-           shadow-2xl border border-white/60 ring-1 ring-white/40 animate-fadeUp"
-    style="box-shadow: 0 20px 60px rgba(0,0,0,0.25);"
+    class="relative max-w-xl mx-auto bg-white rounded-3xl p-10 md:p-12 text-center
+           shadow-xl border border-gray-100 animate-fadeUp"
   >
-
-    <!-- Floating sparkles -->
-    <div class="absolute inset-0 pointer-events-none sparkle-layer"></div>
 
     <!-- Success Icon -->
     <div
-      class="mx-auto mb-6 w-24 h-24 flex items-center justify-center rounded-full
-             bg-brand-red text-white shadow-2xl animate-iconRise relative overflow-hidden"
-      style="box-shadow: 0 10px 30px rgba(179,40,45,0.45);"
+      class="mx-auto mb-6 w-20 h-20 flex items-center justify-center rounded-full
+             bg-brand-red text-white shadow-md animate-iconRise"
     >
-      <div class="absolute inset-0 sheen"></div>
       <svg
-        class="w-12 h-12 animate-checkPulse"
+        class="w-10 h-10"
         fill="none" stroke="currentColor" stroke-width="2.5"
         stroke-linecap="round" stroke-linejoin="round"
         viewBox="0 0 24 24">
@@ -52,38 +30,28 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     </div>
 
     <!-- Heading -->
-    <h1 class="heading-1 mb-4">
+    <h1 class="heading-1 text-gray-800 mb-3">
       Thank You
     </h1>
 
     <!-- Subtitle -->
     <p class="text-center text-gray-600 text-lg leading-relaxed mb-10">
-Your prayer request has been received.<br />
-<span class="relative inline-block premium-underline font-semibold text-brand-red">
-  Jesus
-  <span class="gradient-underline"></span>
-</span>
-is praying for you. We are praying for you.
-
+      Your prayer request has been received.<br />
+      <span class="relative inline-block premium-underline font-semibold text-brand-red">
+        Jesus
+      </span>
+      is praying for you. We are praying for you.
     </p>
 
     <!-- CTA -->
     <a
       href="/prayer/"
-      class="group relative w-full text-center py-4 rounded-full bg-brand-red text-white font-semibold
+      class="group relative w-full text-center py-4 rounded-2xl bg-brand-red text-white font-semibold
              hover:bg-brand-red/90 active:scale-[0.98] transition-all duration-300
              flex items-center justify-center gap-2 shadow-sm hover:shadow-xl"
     >
-      <span>Send Another Request</span>
+      <span>Back to Prayer Request</span>
 
-      <svg 
-        class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
-        fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round"
-        viewBox="0 0 24 24">
-        <path d="M22 2 11 13" />
-        <path d="M22 2 15 22 11 13 2 9 22 2z" />
-      </svg>
     </a>
 
   </div>
@@ -92,134 +60,66 @@ is praying for you. We are praying for you.
 
 
 <!-- SUPER-SIZED QUICK ACTIONS -->
-<section class="max-w-6xl mx-auto px-6 py-24">
+<section class="max-w-6xl mx-auto px-6 py-20 ">
 
  <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
 
   <!-- PLAN A VISIT -->
   <a
     href="/visit/"
-    class="rounded-3xl border-2 bg-white p-10 text-center shadow-xl
-           hover:shadow-2xl hover:scale-[1.02] active:scale-[0.99] transition-all"
+    class="rounded-3xl border border-gray-100 bg-white p-8 text-center shadow-md
+           hover:shadow-lg hover:-translate-y-1 transition-all"
   >
-    <img 
-      src="/home.svg"
-      alt="Visit Icon"
-      class="mx-auto w-12 h-12 mb-4 opacity-80"
-    />
-    <span class="block text-2xl font-semibold text-brand-red mb-1">Visit</span>
-    <span class="text-gray-600 text-lg font-medium">Always Welcome</span>
+    <i class="fa-solid fa-house text-brand-red text-4xl mx-auto mb-4" aria-hidden="true"></i>
+    <span class="block text-2xl font-semibold text-gray-800 mb-1">Visit</span>
+    <span class="text-gray-600 text-base font-medium">Always Welcome</span>
   </a>
 
   <!-- GIVE -->
   <a
     href="/give/"
-    class="rounded-3xl border-2 bg-white p-10 text-center shadow-xl
-           hover:shadow-2xl hover:scale-[1.02] active:scale-[0.99] transition-all"
+    class="rounded-3xl border border-gray-100 bg-white p-8 text-center shadow-md
+           hover:shadow-lg hover:-translate-y-1 transition-all"
   >
-    <img 
-      src="/hand-holding-heart.png"
-      alt="Give Icon"
-      class="mx-auto w-12 h-12 mb-4 opacity-80"
-    />
-    <span class="block text-2xl font-semibold text-brand-red mb-1">Give</span>
-    <span class="text-gray-600 text-lg font-medium">Safe & Secure</span>
+    <i class="fa-solid fa-hand-holding-heart text-brand-red text-4xl mx-auto mb-4" aria-hidden="true"></i>
+    <span class="block text-2xl font-semibold text-gray-800 mb-1">Give</span>
+    <span class="text-gray-600 text-base font-medium">Safe & Secure</span>
   </a>
 
   <!-- MESSAGES -->
   <a
-    href="/messages/"
-    class="rounded-3xl border-2 bg-white p-10 text-center shadow-xl
-           hover:shadow-2xl hover:scale-[1.02] active:scale-[0.99] transition-all"
+    href="/live/"
+    class="rounded-3xl border border-gray-100 bg-white p-8 text-center shadow-md
+           hover:shadow-lg hover:-translate-y-1 transition-all"
   >
-    <img 
-      src="/tv.svg"
-      alt="Messages Icon"
-      class="mx-auto w-12 h-12 mb-4 opacity-80"
-    />
-    <span class="block text-2xl font-semibold text-brand-red mb-1">Messages</span>
-    <span class="text-gray-600 text-lg font-medium">Watch & Listen</span>
+    <i class="fa-solid fa-tv text-brand-red text-4xl mx-auto mb-4" aria-hidden="true"></i>
+    <span class="block text-2xl font-semibold text-gray-800 mb-1">Watch</span>
+    <span class="text-gray-600 text-base font-medium">Watch our Live Services</span>
   </a>
 
 </div>
-
-
-<!-- OUR MISSION -->
-<section class="max-w-5xl mx-auto px-6 py-24 text-center">
-
-  <p class="max-w-4xl mx-auto text-3xl sm:text-6xl font-semibold leading-snug text-gray-800">
-    Every time we meet, we see how true, good, beautiful and kind
-    <span
-      class="relative inline-block px-3 py-0 rounded-[9px] bg-brand-red text-white font-bold border-4 border-white shadow-lg tracking-wide rotate-[-2deg]"
-    >
-      Jesus
-      <span class="absolute top-1 left-1 w-2 h-2 rounded-full border border-gray-700 shadow bg-gray-300"></span>
-      <span class="absolute top-1 right-1 w-2 h-2 rounded-full border border-gray-700 shadow bg-gray-300"></span>
-    </span>
-    is
-  </p>
-
-  <!-- Slogan -->
-  <p class="text-center text-gray-600 mt-14 text-3xl">
-    Come. See.
-    <span class="relative inline-block premium-underline text-brand-red font-semibold">
-      Jesus
-      <span class="gradient-underline"></span>
-    </span>
-  </p>
 
 </section>
 
+<!-- Final Invitation -->
+<section class="py-24 md:py-32 bg-white">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    
+    <h2 class="text-3xl md:text-5xl font-black mb-6 text-gray-800">
+      Come. See. <span class="text-brand-red">Jesus</span>
+    </h2>
 
-<!-- INLINE GLASS APP CARD -->
-<div
-  class="mx-auto mt-16 max-w-md backdrop-blur-xl bg-white/20 border border-white/30
-         shadow-2xl rounded-3xl p-8 text-center ring-1 ring-black/5 animate-floatSlow"
->
-  <img 
-    src="/expo-qr.png"
-    alt="Download App QR"
-    class="w-36 h-36 mx-auto mb-4 rounded-lg shadow-md"
-  />
+    <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+      Join us this Sunday.
+    </p>
 
-  <h3 class="text-2xl font-semibold text-gray-800 mb-2">
-    Download Our App
-  </h3>
-
-  <p class="text-gray-600 text-sm leading-relaxed mb-5">
-    Scan the QR code to open the app instantly in Expo Go.
-  </p>
-
-  <a
-    href="https://expo.dev/"
-    target="_blank"
-    class="inline-flex items-center gap-2 rounded-full px-6 py-3
-           bg-brand-red text-white font-semibold shadow-sm
-           hover:bg-brand-red/90 hover:shadow-md active:scale-[0.97]
-           transition-all"
-  >
-    Get Expo Go
-    <svg 
-      class="w-5 h-5"
-      fill="none" stroke="currentColor" stroke-width="2"
-      viewBox="0 0 24 24">
-      <path d="M22 2 11 13" />
-      <path d="M22 2 15 22 11 13 2 9 22 2z" />
-    </svg>
-  </a>
-</div>
+  </div>
 
 </section>
 
 
 <!-- ANIMATIONS -->
 <style>
-  @keyframes fog {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(20px); }
-  }
-  .animate-fog { animation: fog 10s ease-in-out infinite alternate; }
-
   @keyframes fadeUp {
     0% { opacity: 0; transform: translateY(25px); }
     100% { opacity: 1; transform: translateY(0); }
@@ -231,33 +131,6 @@ is praying for you. We are praying for you.
     100% { transform: translateY(0) scale(1); opacity: 1; }
   }
   .animate-iconRise { animation: iconRise .9s cubic-bezier(.25,.46,.45,.94) forwards; }
-
-  .sheen::after {
-    content:""; position:absolute; top:0; left:-150%; width:200%; height:100%;
-    background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent);
-    animation:sheenMove 2.6s ease-in-out infinite;
-  }
-  @keyframes sheenMove {
-    0% { left:-150%; }
-    50% { left:100%; }
-    100% { left:100%; }
-  }
-
-  .particle-layer {
-    background-image: radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 1px);
-    background-size: 3px 3px;
-  }
-
-  .sparkle-layer {
-    background-image:
-      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.25), transparent 50%),
-      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.18), transparent 50%);
-    animation: sparkleMove 8s ease-in-out infinite alternate;
-  }
-  @keyframes sparkleMove {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(10px); }
-  }
 
   .gradient-underline {
     position:absolute; left:0; bottom:-4px;

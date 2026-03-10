@@ -1,11 +1,10 @@
-import type { PagesFunction } from "@cloudflare/workers-types";
-import { getClientIP, apiErrorResponse, secureAPIResponse } from "../../src/utils/api-auth";
-import { logSecurityEvent } from "../../src/utils/secure-logging";
+/// <reference types="astro/client" />
+import type { APIRoute } from "astro";
+import { getClientIP, apiErrorResponse, secureAPIResponse } from "../../utils/api-auth";
+import { logSecurityEvent } from "../../utils/secure-logging";
 
-export const onRequestPost: PagesFunction = async (context) => {
-  const { request, env } = context;
-  const envStage = (env?.STAGE || env?.NODE_ENV || "production").toString();
-  const isDev = envStage === "development" || request.url.includes("localhost") || request.url.includes("127.0.0.1");
+export const POST: APIRoute = async ({ request }) => {
+  const isDev = import.meta.env.DEV || import.meta.env.MODE === "development";
   const ip = getClientIP(request.headers);
 
   let formData: FormData;
@@ -22,8 +21,8 @@ export const onRequestPost: PagesFunction = async (context) => {
     (formData.get("token") as string | null);
 
   const turnstileDisabled =
-    env.PRAYER_TURNSTILE_DISABLED === "true" ||
-    (isDev && env.PRAYER_TURNSTILE_DISABLE_DEV === "true");
+    import.meta.env.PRAYER_TURNSTILE_DISABLED === "true" ||
+    (isDev && import.meta.env.PRAYER_TURNSTILE_DISABLE_DEV === "true");
 
   if (!token && !turnstileDisabled) {
     logSecurityEvent("Missing Turnstile token on prayer form", "medium", { endpoint: "/api/prayer" }, ip);
@@ -31,7 +30,7 @@ export const onRequestPost: PagesFunction = async (context) => {
   }
 
   const secret =
-    env.TURNSTILE_SECRET_KEY ||
+    import.meta.env.TURNSTILE_SECRET_KEY ||
     (isDev ? "1x0000000000000000000000000000000AA" : undefined);
 
   if (!secret && !turnstileDisabled) {
@@ -39,7 +38,6 @@ export const onRequestPost: PagesFunction = async (context) => {
     return apiErrorResponse("Server misconfigured", 500, "server_misconfigured");
   }
 
-  // Verify token with Cloudflare
   if (!turnstileDisabled) {
     const verifyBody = new URLSearchParams({
       secret: secret!.toString(),
@@ -52,7 +50,7 @@ export const onRequestPost: PagesFunction = async (context) => {
       body: verifyBody,
     });
 
-    const verifyJson = await verifyRes.json();
+    const verifyJson: any = await verifyRes.json();
 
     if (!verifyJson.success) {
       const errors = verifyJson["error-codes"] || [];
@@ -77,9 +75,9 @@ export const onRequestPost: PagesFunction = async (context) => {
     }
   }
 
-  // Prepare email via MailChannels (Cloudflare-supported)
-  const fromEmail = (env.MAIL_FROM as string) || "mystory@thelifeplace.org";
-  const toEmail = (env.MAIL_TO as string) || fromEmail;
+  // Prepare email via MailChannels-compatible HTTP send
+  const fromEmail = import.meta.env.MAIL_FROM || "mystory@thelifeplace.org";
+  const toEmail = import.meta.env.MAIL_TO || fromEmail;
   const name = (formData.get("name") as string) || "Unknown";
   const userEmail = (formData.get("email") as string) || "";
   const requestText = ((formData.get("request") as string) || "").toString().trim();
@@ -108,8 +106,8 @@ export const onRequestPost: PagesFunction = async (context) => {
   };
 
   const emailDisabled =
-    env.PRAYER_EMAIL_DISABLED === "true" ||
-    (isDev && env.PRAYER_EMAIL_DISABLE_DEV === "true");
+    import.meta.env.PRAYER_EMAIL_DISABLED === "true" ||
+    (isDev && import.meta.env.PRAYER_EMAIL_DISABLE_DEV === "true");
 
   if (!emailDisabled) {
     const mailRes = await fetch("https://api.mailchannels.net/tx/v1/send", {
@@ -137,6 +135,7 @@ export const onRequestPost: PagesFunction = async (context) => {
       return Response.redirect(target.toString(), 303);
     } catch (err) {
       logSecurityEvent("Invalid redirect URL", "medium", { redirect, error: String(err) }, ip);
+      // fall through to JSON success if redirect is malformed
     }
   }
 

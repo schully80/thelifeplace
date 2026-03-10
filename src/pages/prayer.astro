@@ -9,6 +9,9 @@ import Turnstile from "../components/ui/Turnstile.astro";
 
 const url = Astro.url;
 const isDemoSuccess = url.searchParams.get("demo") === "success";
+const turnstileOptional =
+  import.meta.env.PRAYER_TURNSTILE_DISABLED === "true" ||
+  (import.meta.env.DEV && import.meta.env.PRAYER_TURNSTILE_DISABLE_DEV === "true");
 ---
 
 <BaseLayout title="Prayer Request">
@@ -59,6 +62,7 @@ const isDemoSuccess = url.searchParams.get("demo") === "success";
           method="POST"
           onsubmit="return window.tlpPrayerSubmit(event)"
           class="space-y-8"
+          data-turnstile-optional={turnstileOptional}
         >
           <input type="hidden" name="_redirect" value="/prayer/success/" />
 
@@ -204,7 +208,10 @@ const isDemoSuccess = url.searchParams.get("demo") === "success";
     const spinner = btn?.querySelector(".spinner");
     const check = btn?.querySelector(".success-check");
 
+    const turnstileOptional = form.dataset.turnstileOptional === "true";
+
     const hasToken = () => {
+      if (turnstileOptional) return true;
       const el = form.querySelector('input[name="cf-turnstile-response"]');
       return !!(el && el.value && el.value.length > 0);
     };
