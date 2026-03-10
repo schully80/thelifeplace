@@ -112,21 +112,27 @@ export const onRequestPost: PagesFunction = async (context) => {
     (isDev && env.PRAYER_EMAIL_DISABLE_DEV === "true");
 
   if (!emailDisabled) {
-    const mailRes = await fetch("https://api.mailchannels.net/tx/v1/send", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(mailPayload),
-    });
+    try {
+      const mailRes = await fetch("https://api.mailchannels.net/tx/v1/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(mailPayload),
+      });
 
-    if (!mailRes.ok) {
-      const detail = await mailRes.text().catch(() => "");
-      logSecurityEvent("MailChannels send failed", "medium", { status: mailRes.status, detail }, ip);
-      if (!isDev) {
+      if (!mailRes.ok) {
+        const detail = await mailRes.text().catch(() => "");
+        logSecurityEvent("MailChannels send failed", "medium", { status: mailRes.status, detail }, ip);
         return secureAPIResponse(
-          { success: false, error: "email_error", status: mailRes.status, detail },
-          502
+          { success: true, email_error: true, status: mailRes.status, detail },
+          200
         );
       }
+    } catch (err) {
+      logSecurityEvent("MailChannels send exception", "medium", { error: String(err) }, ip);
+      return secureAPIResponse(
+        { success: true, email_error: true, detail: String(err) },
+        200
+      );
     }
   }
 
