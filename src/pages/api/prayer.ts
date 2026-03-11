@@ -2,6 +2,7 @@
 import type { APIRoute } from "astro";
 import { getClientIP, apiErrorResponse, secureAPIResponse } from "../../utils/api-auth";
 import { logSecurityEvent } from "../../utils/secure-logging";
+import { teamHtml, confirmHtml, confirmText } from "../../utils/prayer-email-templates";
 
 export const POST: APIRoute = async ({ request, locals }) => {
   const runtimeEnv = locals?.runtime?.env as Record<string, string | undefined> | undefined;
@@ -136,6 +137,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
           to: [toEmail],
           subject: "New prayer request from the site",
           text: textBody,
+          html: teamHtml({ name, userEmail, requestText, consent }),
           reply_to: userEmail || undefined,
         }),
       });
@@ -169,7 +171,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
             from: resendFrom,
             to: [userEmail],
             subject: "We received your prayer request",
-            text: `Hi ${name || "friend"},\n\nWe’ve received your prayer request and our team is praying for you.\n\nYour request:\n${requestText || "(empty)"}\n\n— The Life Place Prayer Team`,
+            text: confirmText({ name, requestText }),
+            html: confirmHtml({ name, requestText }),
           }),
         });
       } catch (err) {
