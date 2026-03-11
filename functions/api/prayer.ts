@@ -78,8 +78,8 @@ export const onRequestPost: PagesFunction = async (context) => {
   }
 
   // Prepare email via MailChannels (Cloudflare-supported)
-  const fromEmail = (env.MAIL_FROM as string) || "schulter@thelifeplace.org";
-  const toEmail = (env.MAIL_TO as string) || fromEmail;
+  const fromEmail = (env.MAIL_FROM as string) || "prayer@thelifeplace.org";
+  const toEmail = (env.MAIL_TO as string) || "mystory@thelifeplace.org";
   const name = (formData.get("name") as string) || "Unknown";
   const userEmail = (formData.get("email") as string) || "";
   const requestText = ((formData.get("request") as string) || "").toString().trim();
@@ -118,61 +118,40 @@ export const onRequestPost: PagesFunction = async (context) => {
       env.MAIL_FROM ||
       (isDev ? "onboarding@resend.dev" : "schulter@thelifeplace.org");
 
-    if (resendKey) {
-      try {
-        const resendRes = await fetch("https://api.resend.com/emails", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${resendKey}`,
-          },
-          body: JSON.stringify({
-            from: resendFrom,
-            to: [toEmail],
-            subject: "New prayer request from the site",
-            text: textBody,
-            reply_to: userEmail || undefined,
-          }),
-        });
+    if (!resendKey) {
+      logSecurityEvent("Resend API key missing", "high", { endpoint: "/api/prayer" }, ip);
+      return apiErrorResponse("Email service not configured", 500, "email_not_configured");
+    }
+    try {
+      const resendRes = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${resendKey}`,
+        },
+        body: JSON.stringify({
+          from: resendFrom,
+          to: [toEmail],
+          subject: "New prayer request from the site",
+          text: textBody,
+          reply_to: userEmail || undefined,
+        }),
+      });
 
-        if (!resendRes.ok) {
-          const detail = await resendRes.text().catch(() => "");
-          logSecurityEvent("Resend send failed", "medium", { status: resendRes.status, detail }, ip);
-          return secureAPIResponse(
-            { success: true, email_error: true, provider: "resend", status: resendRes.status, detail },
-            200
-          );
-        }
-      } catch (err) {
-        logSecurityEvent("Resend send exception", "medium", { error: String(err) }, ip);
+      if (!resendRes.ok) {
+        const detail = await resendRes.text().catch(() => "");
+        logSecurityEvent("Resend send failed", "medium", { status: resendRes.status, detail }, ip);
         return secureAPIResponse(
-          { success: true, email_error: true, provider: "resend", detail: String(err) },
+          { success: true, email_error: true, provider: "resend", status: resendRes.status, detail },
           200
         );
       }
-    } else {
-      try {
-        const mailRes = await fetch("https://api.mailchannels.net/tx/v1/send", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(mailPayload),
-        });
-
-        if (!mailRes.ok) {
-          const detail = await mailRes.text().catch(() => "");
-          logSecurityEvent("MailChannels send failed", "medium", { status: mailRes.status, detail }, ip);
-          return secureAPIResponse(
-            { success: true, email_error: true, provider: "mailchannels", status: mailRes.status, detail },
-            200
-          );
-        }
-      } catch (err) {
-        logSecurityEvent("MailChannels send exception", "medium", { error: String(err) }, ip);
-        return secureAPIResponse(
-          { success: true, email_error: true, provider: "mailchannels", detail: String(err) },
-          200
-        );
-      }
+    } catch (err) {
+      logSecurityEvent("Resend send exception", "medium", { error: String(err) }, ip);
+      return secureAPIResponse(
+        { success: true, email_error: true, provider: "resend", detail: String(err) },
+        200
+      );
     }
   }
 

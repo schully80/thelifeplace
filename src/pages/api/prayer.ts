@@ -78,8 +78,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   // Prepare email via MailChannels-compatible HTTP send
-  const fromEmail = envValue("MAIL_FROM") || "mystory@thelifeplace.org";
-  const toEmail = envValue("MAIL_TO") || fromEmail;
+  const fromEmail = envValue("MAIL_FROM") || "prayer@thelifeplace.org";
+  const toEmail = envValue("MAIL_TO") || "mystory@thelifeplace.org";
   const name = (formData.get("name") as string) || "Unknown";
   const userEmail = (formData.get("email") as string) || "";
   const requestText = ((formData.get("request") as string) || "").toString().trim();
