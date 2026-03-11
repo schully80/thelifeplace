@@ -15,70 +15,37 @@ export const GET: APIRoute = async ({ request, locals }) => {
     envValue("RESEND_FROM_DEV") ||
     fromEmail;
 
-  // Prefer Resend if configured
-  if (resendKey) {
-    try {
-      const resendRes = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${resendKey}`,
-        },
-        body: JSON.stringify({
-          from: resendFrom,
-          to: [toEmail],
-          subject: "Test mail from prayer-test endpoint",
-          text: textBody,
-          reply_to: fromEmail,
-        }),
-      });
-
-      if (!resendRes.ok) {
-        const detail = await resendRes.text().catch(() => "");
-        return apiErrorResponse(
-          `Resend failed (status ${resendRes.status})`,
-          502,
-          detail || "email_error"
-        );
-      }
-
-      return secureAPIResponse({ success: true, provider: "resend", sent_to: toEmail });
-    } catch (err) {
-      return apiErrorResponse("Resend send failed", 500, String(err));
-    }
+  if (!resendKey) {
+    return apiErrorResponse("Resend not configured (missing RESEND_API_KEY)", 500, "email_not_configured");
   }
 
-  // Fallback to MailChannels
-  const mailPayload = {
-    personalizations: [
-      {
-        to: [{ email: toEmail }],
-        reply_to: { email: fromEmail, name: "Prayer Team" },
-      },
-    ],
-    from: { email: fromEmail, name: "Prayer Requests (test)" },
-    subject: "Test mail from prayer-test endpoint",
-    content: [{ type: "text/plain", value: textBody }],
-  };
-
   try {
-    const mailRes = await fetch("https://api.mailchannels.net/tx/v1/send", {
+    const resendRes = await fetch("https://api.resend.com/emails", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(mailPayload),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${resendKey}`,
+      },
+      body: JSON.stringify({
+        from: resendFrom,
+        to: [toEmail],
+        subject: "Test mail from prayer-test endpoint",
+        text: textBody,
+        reply_to: fromEmail,
+      }),
     });
 
-    if (!mailRes.ok) {
-      const detail = await mailRes.text().catch(() => "");
+    if (!resendRes.ok) {
+      const detail = await resendRes.text().catch(() => "");
       return apiErrorResponse(
-        `MailChannels failed (status ${mailRes.status})`,
+        `Resend failed (status ${resendRes.status})`,
         502,
         detail || "email_error"
       );
     }
 
-    return secureAPIResponse({ success: true, provider: "mailchannels", sent_to: toEmail });
+    return secureAPIResponse({ success: true, provider: "resend", sent_to: toEmail });
   } catch (err) {
-    return apiErrorResponse("MailChannels send failed", 500, String(err));
+    return apiErrorResponse("Resend send failed", 500, String(err));
   }
 };

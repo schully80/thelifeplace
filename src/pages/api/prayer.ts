@@ -116,12 +116,50 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const resendFrom =
       (isDev ? envValue("RESEND_FROM_DEV") : envValue("RESEND_FROM")) ||
       envValue("MAIL_FROM") ||
-      (isDev ? "onboarding@resend.dev" : "mystory@thelifeplace.org");
+      (isDev ? "onboarding@resend.dev" : "prayer@thelifeplace.org");
 
-    // Prefer Resend if key is provided
-    if (resendKey) {
+    if (!resendKey) {
+      logSecurityEvent("Resend API key missing", "high", { endpoint: "/api/prayer" }, ip);
+      return secureAPIResponse({ success: true, email_error: true, provider: "resend", detail: "missing RESEND_API_KEY" }, 200);
+    }
+
+    // Send to team
+    try {
+      const resendRes = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${resendKey}`,
+        },
+        body: JSON.stringify({
+          from: resendFrom,
+          to: [toEmail],
+          subject: "New prayer request from the site",
+          text: textBody,
+          reply_to: userEmail || undefined,
+        }),
+      });
+
+      if (!resendRes.ok) {
+        const detail = await resendRes.text().catch(() => "");
+        logSecurityEvent("Resend send failed", "medium", { status: resendRes.status, detail }, ip);
+        return secureAPIResponse(
+          { success: true, email_error: true, provider: "resend", status: resendRes.status, detail },
+          200
+        );
+      }
+    } catch (err) {
+      logSecurityEvent("Resend send exception", "medium", { error: String(err) }, ip);
+      return secureAPIResponse(
+        { success: true, email_error: true, provider: "resend", detail: String(err) },
+        200
+      );
+    }
+
+    // Confirmation to submitter
+    if (userEmail) {
       try {
-        const resendRes = await fetch("https://api.resend.com/emails", {
+        await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -129,51 +167,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
           },
           body: JSON.stringify({
             from: resendFrom,
-            to: [toEmail],
-            subject: "New prayer request from the site",
-            text: textBody,
-            reply_to: userEmail || undefined,
+            to: [userEmail],
+            subject: "We received your prayer request",
+            text: `Hi ${name || "friend"},\n\nWe’ve received your prayer request and our team is praying for you.\n\nYour request:\n${requestText || "(empty)"}\n\n— The Life Place Prayer Team`,
           }),
         });
-
-        if (!resendRes.ok) {
-          const detail = await resendRes.text().catch(() => "");
-          logSecurityEvent("Resend send failed", "medium", { status: resendRes.status, detail }, ip);
-          return secureAPIResponse(
-            { success: true, email_error: true, provider: "resend", status: resendRes.status, detail },
-            200
-          );
-        }
       } catch (err) {
-        logSecurityEvent("Resend send exception", "medium", { error: String(err) }, ip);
-        return secureAPIResponse(
-          { success: true, email_error: true, provider: "resend", detail: String(err) },
-          200
-        );
-      }
-    } else {
-      // MailChannels default path
-      try {
-        const mailRes = await fetch("https://api.mailchannels.net/tx/v1/send", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(mailPayload),
-        });
-
-        if (!mailRes.ok) {
-          const detail = await mailRes.text().catch(() => "");
-          logSecurityEvent("MailChannels send failed", "medium", { status: mailRes.status, detail }, ip);
-          return secureAPIResponse(
-            { success: true, email_error: true, provider: "mailchannels", status: mailRes.status, detail },
-            200
-          );
-        }
-      } catch (err) {
-        logSecurityEvent("MailChannels send exception", "medium", { error: String(err) }, ip);
-        return secureAPIResponse(
-          { success: true, email_error: true, provider: "mailchannels", detail: String(err) },
-          200
-        );
+        logSecurityEvent("Resend confirmation failed", "low", { error: String(err) }, ip);
       }
     }
   }

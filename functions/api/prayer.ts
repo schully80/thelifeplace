@@ -122,6 +122,7 @@ export const onRequestPost: PagesFunction = async (context) => {
       logSecurityEvent("Resend API key missing", "high", { endpoint: "/api/prayer" }, ip);
       return apiErrorResponse("Email service not configured", 500, "email_not_configured");
     }
+    // Send prayer request to team
     try {
       const resendRes = await fetch("https://api.resend.com/emails", {
         method: "POST",
@@ -152,6 +153,36 @@ export const onRequestPost: PagesFunction = async (context) => {
         { success: true, email_error: true, provider: "resend", detail: String(err) },
         200
       );
+    }
+
+    // Send confirmation email to sender (if email provided)
+      if (userEmail) {
+        const confirmationSubject = "We've received your prayer request";
+        const confirmationBody =
+          `Hi ${name},\n\nThank you for sharing your prayer request with The Life Place.\n\nOur team will be praying with you. If you have any questions or need further support, feel free to reply to this email.\n\nWith care,\nThe Life Place Prayer Team`;
+        try {
+          const confirmRes = await fetch("https://api.resend.com/emails", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${resendKey}`,
+            },
+            body: JSON.stringify({
+              from: resendFrom,
+              to: [userEmail],
+              subject: confirmationSubject,
+              text: confirmationBody,
+            }),
+          });
+          console.log("Confirmation email send result:", JSON.stringify(confirmRes));
+          if (!confirmRes.ok) {
+            const detail = await confirmRes.text().catch(() => "");
+            logSecurityEvent("Resend confirmation send failed", "medium", { status: confirmRes.status, detail }, ip);
+          }
+        } catch (err) {
+          console.error("Error sending confirmation email:", err && (err.stack || err.message || err));
+          logSecurityEvent("Resend confirmation send exception", "medium", { error: String(err) }, ip);
+        }
     }
   }
 
