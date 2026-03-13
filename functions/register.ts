@@ -121,9 +121,22 @@ export const onRequestPost: PagesFunction = async (context) => {
       return Response.redirect(errUrl.toString(), 303);
     }
 
-    const turnstileSecret =
-      env.TURNSTILE_SECRET_KEY ||
-      (isDev ? "1x0000000000000000000000000000000AA" : undefined);
+    const resolveTurnstileSecret = () => {
+      const candidates = [
+        env.TURNSTILE_SECRET_KEY,
+        env.TURNSTILE_SECRET,
+        env.TURNSTILE_PRIVATE_KEY,
+        env.CF_TURNSTILE_SECRET,
+        env.CLOUDFLARE_TURNSTILE_SECRET_KEY,
+        env.TURNSTILE_SECRET_KEY_PROD,
+      ];
+      for (const val of candidates) {
+        if (val && val.toString().trim()) return val.toString().trim();
+      }
+      return isDev ? "1x0000000000000000000000000000000AA" : undefined;
+    };
+
+    const turnstileSecret = resolveTurnstileSecret();
 
     if (!turnstileSecret && !turnstileDisabled) {
       logSecurityEvent("Missing TURNSTILE_SECRET_KEY", "high", { endpoint: "/register" }, ip);
