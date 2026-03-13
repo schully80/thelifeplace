@@ -3,9 +3,12 @@ import { onRequestPost as workerPost, onRequestGet as workerGet } from "../../..
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async (context) => {
   try {
-    return await workerPost({ request, env: process.env } as any);
+    const runtime = (context.locals as any)?.runtime;
+    const env = runtime?.env || process.env;
+    const ctx = runtime?.ctx;
+    return await workerPost({ request: context.request, env, ctx } as any);
   } catch (err: any) {
     console.error("/api/register POST error", err);
     return new Response(
@@ -15,9 +18,9 @@ export const POST: APIRoute = async ({ request }) => {
   }
 };
 
-export const GET: APIRoute = async ({ request }) => {
+export const GET: APIRoute = async (context) => {
   try {
-    return await workerGet({ request } as any);
+    return await workerGet({ request: context.request } as any);
   } catch (err: any) {
     console.error("/api/register GET error", err);
     return new Response("Not found", { status: 404 });
