@@ -1,0 +1,137 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const variants = [
+  {
+    id: "success",
+    title: "Success",
+    icon: "✓",
+    bg: "bg-green-50",
+    border: "border-green-200",
+    iconBg: "bg-green-100",
+    iconText: "text-green-700",
+    heading: "Action completed",
+    body: "We’ve received your details and sent a confirmation email.",
+  },
+  {
+    id: "warning",
+    title: "Warning / Limit",
+    icon: "!",
+    bg: "bg-amber-50",
+    border: "border-amber-200",
+    iconBg: "bg-amber-100",
+    iconText: "text-amber-700",
+    heading: "You’ve already submitted",
+    body: "If you need to update your details, reply to your confirmation email.",
+  },
+  {
+    id: "error",
+    title: "Error",
+    icon: "✕",
+    bg: "bg-red-50",
+    border: "border-red-200",
+    iconBg: "bg-red-100",
+    iconText: "text-red-700",
+    heading: "Something went wrong",
+    body: "Please try again or contact support if this continues.",
+  },
+  {
+    id: "info",
+    title: "Info",
+    icon: "i",
+    bg: "bg-blue-50",
+    border: "border-blue-200",
+    iconBg: "bg-blue-100",
+    iconText: "text-blue-700",
+    heading: "Heads up",
+    body: "We’re processing your request. This may take a few moments.",
+  },
+];
+---
+
+<BaseLayout title="Inline Message Sandbox">
+  <section class="max-w-5xl mx-auto py-10 px-4">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">Inline Messages Sandbox</h1>
+        <p class="text-sm text-gray-600">Toggle visibility and copy markup for reuse.</p>
+      </div>
+      <div class="space-x-2">
+        <button id="show-all" class="px-3 py-2 text-sm rounded-lg bg-gray-900 text-white">Show all</button>
+        <button id="hide-all" class="px-3 py-2 text-sm rounded-lg bg-gray-100 text-gray-800">Hide all</button>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4" id="message-grid">
+      {variants.map((v) => (
+        <article
+          class={`inline-card ${v.bg} ${v.border} border shadow-sm rounded-2xl p-4 md:p-5 flex flex-col gap-3`}
+          data-variant={v.id}
+        >
+          <header class="flex items-start gap-3">
+            <div class={`h-10 w-10 rounded-full ${v.iconBg} flex items-center justify-center ${v.iconText} text-xl font-bold`}>{v.icon}</div>
+            <div class="flex-1">
+              <p class="text-xs uppercase tracking-wide text-gray-500">{v.title}</p>
+              <p class="text-lg font-semibold text-gray-900 mt-1">{v.heading}</p>
+              <p class="text-sm text-gray-700 mt-1">{v.body}</p>
+            </div>
+            <button class="text-sm text-gray-500 hover:text-gray-800" data-action="dismiss" aria-label="Dismiss">Dismiss</button>
+          </header>
+
+          <footer class="flex items-center gap-2 text-xs text-gray-500">
+            <button class="copy-btn px-3 py-1.5 rounded-lg bg-white border text-gray-700" data-variant={v.id}>Copy markup</button>
+            <span class="text-gray-400">|</span>
+            <span>Use inside forms for inline feedback.</span>
+          </footer>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <script is:inline>
+    (() => {
+      const grid = document.getElementById('message-grid');
+      const showAll = document.getElementById('show-all');
+      const hideAll = document.getElementById('hide-all');
+      if (!grid) return;
+
+      const cards = Array.from(grid.querySelectorAll('.inline-card'));
+
+      showAll?.addEventListener('click', () => {
+        cards.forEach(c => c.classList.remove('hidden'));
+      });
+      hideAll?.addEventListener('click', () => {
+        cards.forEach(c => c.classList.add('hidden'));
+      });
+
+      grid.addEventListener('click', (e) => {
+        const target = e.target;
+        if (!(target instanceof HTMLElement)) return;
+
+        if (target.dataset?.action === 'dismiss') {
+          const card = target.closest('.inline-card');
+          card?.classList.add('hidden');
+        }
+
+        if (target.classList.contains('copy-btn')) {
+          const vid = target.dataset.variant;
+          const card = grid.querySelector(`[data-variant="${vid}"]`);
+          if (!card) return;
+          const html = card.outerHTML;
+          navigator.clipboard?.writeText(html).then(() => {
+            target.textContent = 'Copied!';
+            setTimeout(() => { target.textContent = 'Copy markup'; }, 1200);
+          }).catch(() => {
+            target.textContent = 'Copy failed';
+            setTimeout(() => { target.textContent = 'Copy markup'; }, 1200);
+          });
+        }
+      });
+    })();
+  </script>
+
+  <style is:inline>
+    .inline-card { transition: opacity 180ms ease, transform 180ms ease; }
+    .inline-card.hidden { opacity: 0; transform: translateY(-6px); pointer-events: none; }
+  </style>
+</BaseLayout>

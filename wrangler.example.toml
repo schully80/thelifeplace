@@ -14,3 +14,10 @@ id = "<your-kv-namespace-id>"  # replace with the real namespace id
 
 # Add any other bindings (e.g., other KV namespaces, secrets) as needed.
 # For guidance, see Cloudflare Workers + Wrangler docs.
+
+# WhatsApp (optional, used for Plan a Visit confirmations)
+# Set the token via: wrangler secret put WHATSAPP_TOKEN
+# Set these vars via dashboard or [vars] block:
+# WHATSAPP_ENABLED = "true"
+# WHATSAPP_PHONE_ID = "<your_whatsapp_phone_number_id>"
+# WHATSAPP_API_VERSION = "v19.0" # optional, defaults to v19.0

@@ -8,9 +8,9 @@
     position: relative;
   }
 
-  .field input {
+.field input {
     width: 100%;
-    border: 1.5px solid #e5e7eb;
+    border: 1.5px solid #e5e7eb; /* gray-200 base */
     border-radius: 0.75rem;
     padding: 14px 12px;
     font-size: 15px;
@@ -21,9 +21,9 @@
   }
 
   .field input:focus {
-    border-color: #B3282D;
+    border-color: #e5e7eb;
     background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 0 0 3px rgba(179, 40, 45, 0.1);
+    box-shadow: 0 0 0 3px rgba(229, 231, 235, 0.6);
   }
 
   .field label {
@@ -38,6 +38,17 @@
     origin: left top;
     background: white;
     padding: 0 4px;
+  }
+
+  .field .valid-icon {
+    position: absolute;
+    right: 10px;
+    top: 14px;
+    color: #B3282D;
+    opacity: 0;
+    transition: opacity .2s ease;
+    font-size: 14px;
+    pointer-events: none;
   }
 
   .field input:focus + label,
@@ -67,18 +78,20 @@
     background: rgba(179, 40, 45, 0.05);
   }
 
-  /* Shake animation */
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20% { transform: translateX(-6px); }
-    40% { transform: translateX(6px); }
-    60% { transform: translateX(-4px); }
-    80% { transform: translateX(4px); }
+  .field.valid input {
+    border-color: #B3282D;
+    box-shadow: 0 0 0 3px rgba(179, 40, 45, 0.14);
   }
 
-  .shake {
-    animation: shake 0.3s ease-in-out;
+  .field.valid label {
+    color: #B3282D;
   }
+
+  .field.valid .valid-icon {
+    opacity: 1;
+  }
+
+
 </style>
 
 <section class="space-y-12 pb-8">
@@ -94,30 +107,25 @@
 
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-
-
     <div class="field">
-      <input id="firstName" name="firstName" type="text" required placeholder=" " />
-      <label>First Name *</label>
+      <input id="Name" name="Name" type="text" required placeholder=" " />
+      <label>Name *</label>
       <p class="error-text">Required</p>
     </div>
+    <input type="hidden" name="fullName" id="fullNameHidden" />
 
-    <div class="field">
-      <input id="lastName" name="lastName" type="text" required placeholder=" " />
-      <label>Last Name *</label>
-      <p class="error-text">Required</p>
-    </div>
-
-    <div class="field">
-      <input id="contact" name="contact" type="tel" required placeholder=" " />
+    <div class="field" data-validate="phone">
+      <input id="contact" name="contact" type="tel" required placeholder=" " aria-describedby="contact-help" />
       <label>Contact Number *</label>
-      <p class="error-text">Required</p>
+      <span class="valid-icon" aria-hidden="true">✓</span>
+      <p class="error-text">Valid phone format</p>
     </div>
 
-    <div class="field">
-      <input id="email" name="email" type="email" required placeholder=" " />
+    <div class="field" data-validate="email">
+      <input id="email" name="email" type="email" required placeholder=" " aria-describedby="email-help" />
       <label>Email Address *</label>
-      <p class="error-text">Enter a valid email</p>
+      <span class="valid-icon" aria-hidden="true">✓</span>
+      <p class="error-text">Valid email format</p>
     </div>
 
     <div class="field">
@@ -128,85 +136,55 @@
 
   </div>
 
-  <!-- ADDRESS -->
-  <h2 class="text-xl font-semibold mt-6 text-center">Your Address</h2>
-
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-
-    <div class="field">
-      <input id="street_number" name="street_number" type="text" required placeholder=" " />
-      <label>Street Number *</label>
-      <p class="error-text">Required</p>
-    </div>
-
-    <div class="field">
-      <input id="street_name" name="street_name" type="text" required placeholder=" " />
-      <label>Street Name *</label>
-      <p class="error-text">Required</p>
-    </div>
-
-    <div class="field">
-      <input id="suburb" name="suburb" type="text" required placeholder=" " />
-      <label>Suburb *</label>
-      <p class="error-text">Required</p>
-    </div>
-
-    <div class="field">
-      <input id="city" name="city" type="text" required placeholder=" " />
-      <label>City / Town *</label>
-      <p class="error-text">Required</p>
-    </div>
-
-    <div class="field">
-      <input id="postal_code" name="postal_code" type="text" required placeholder=" " />
-      <label>Postal Code *</label>
-      <p class="error-text">Required</p>
-    </div>
-
-    <div class="field">
-      <input id="province" name="province" type="text" required placeholder=" " />
-      <label>Province / State *</label>
-      <p class="error-text">Required</p>
-    </div>
-
-    <div class="field">
-      <input id="country" name="country" type="text" required placeholder=" " />
-      <label>Country *</label>
-      <p class="error-text">Required</p>
-    </div>
-
+    <!-- Address fields removed for Visit form simplification -->
   </div>
 </section>
 
 
 <!-- MINIMAL VALIDATION SCRIPT -->
 <script is:inline>
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const zaPhonePattern = /^(?:\+27|0)[0-9]{9}$/;
+
+  function validateField(field) {
+    const input = field.querySelector('input');
+    if (!input) return true;
+    const value = input.value.trim();
+    let valid = true;
+
+    if (input.required && !value) valid = false;
+
+    if (valid && field.dataset.validate === 'email') {
+      valid = emailPattern.test(value);
+    }
+    if (valid && field.dataset.validate === 'phone') {
+      valid = zaPhonePattern.test(value.replace(/\s|-/g, ''));
+    }
+
+    field.classList.toggle('show-error', !valid);
+    field.classList.toggle('valid', valid && value.length > 0);
+    return valid;
+  }
+
+  document.addEventListener('input', (e) => {
+    const field = e.target.closest('.field');
+    if (!field) return;
+    validateField(field);
+    // sync fullName hidden if Name field present
+    const nameInput = document.getElementById('Name');
+    const fullHidden = document.getElementById('fullNameHidden');
+    if (nameInput && fullHidden) fullHidden.value = nameInput.value;
+  });
+
   document.addEventListener("submit", (e) => {
     const form = e.target;
     const fields = form.querySelectorAll(".field");
-
     let firstInvalid = null;
 
     fields.forEach((field) => {
-      const input = field.querySelector("input");
-
-      if (input.hasAttribute("required") && !input.value.trim()) {
-        field.classList.add("show-error");
-        field.classList.add("shake");
-
-        if (!firstInvalid) firstInvalid = input;
-
-        setTimeout(() => field.classList.remove("shake"), 300);
-      } else {
-        field.classList.remove("show-error");
-      }
-
-      // Minimal email validation
-      if (input.type === "email" && input.value.trim() !== "" && !input.value.includes("@")) {
-        field.classList.add("show-error");
-        field.classList.add("shake");
-        if (!firstInvalid) firstInvalid = input;
-      }
+      const ok = validateField(field);
+      if (!ok && !firstInvalid) firstInvalid = field.querySelector('input');
     });
 
     if (firstInvalid) {
