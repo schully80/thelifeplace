@@ -108,11 +108,10 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
     <div class="field">
-      <input id="Name" name="Name" type="text" required placeholder=" " />
-      <label>Name *</label>
+      <input id="fullName" name="fullName" type="text" required placeholder=" " />
+      <label>Name (First or First & Last) *</label>
       <p class="error-text">Required</p>
     </div>
-    <input type="hidden" name="fullName" id="fullNameHidden" />
 
     <div class="field" data-validate="phone">
       <input id="contact" name="contact" type="tel" required placeholder=" " aria-describedby="contact-help" />
@@ -171,10 +170,6 @@
     const field = e.target.closest('.field');
     if (!field) return;
     validateField(field);
-    // sync fullName hidden if Name field present
-    const nameInput = document.getElementById('Name');
-    const fullHidden = document.getElementById('fullNameHidden');
-    if (nameInput && fullHidden) fullHidden.value = nameInput.value;
   });
 
   document.addEventListener("submit", (e) => {
