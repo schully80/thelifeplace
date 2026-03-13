@@ -22,6 +22,7 @@ id = "<your-kv-namespace-id>"  # replace with the real namespace id
 # WHATSAPP_PHONE_ID = "<your_whatsapp_phone_number_id>"
 # WHATSAPP_API_VERSION = "v19.0" # optional, defaults to v19.0
 
-# CSRF (registration). Set to "true" to disable CSRF validation if your static HTML
-# isn't receiving injected tokens. Turnstile + honeypot remain in place.
+# CSRF (registration)
+# If your static HTML can't receive injected hidden tokens (e.g., cached pages),
+# you can disable strict CSRF on /api/register. Turnstile + honeypot remain.
 # REGISTER_CSRF_DISABLED = "true"

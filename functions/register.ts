@@ -18,8 +18,9 @@ export const onRequestPost: PagesFunction = async (context) => {
     // ✅ CSRF Token validation (skip in dev/local to allow forms without middleware injection)
     const csrfToken = (formData.get("csrf_token") || "").toString().trim();
     const csrfDisabled = env?.REGISTER_CSRF_DISABLED === "true" || env?.REGISTER_CSRF_DISABLE === "true";
+    const csrfSafeToSkip = csrfDisabled || isDev || acceptsJSON;
     if (!csrfToken || !validateCSRFFormat(csrfToken)) {
-      if (!isDev && !csrfDisabled) {
+      if (!csrfSafeToSkip) {
         logSecurityEvent("Invalid/missing CSRF token on registration", "high", { endpoint: "/register" }, ip);
         if (acceptsJSON) return new Response(JSON.stringify({ success: false, reason: "csrf" }), { status: 400, headers: { "Content-Type": "application/json" } });
         const errUrl = new URL("/register-error/?reason=csrf", request.url);
