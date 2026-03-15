@@ -700,7 +700,14 @@ const isDev = import.meta.env.MODE !== 'production';
                   <p class="text-lg font-semibold text-gray-800">Thank you! We’ve received your visit details.</p>
                   <p class="text-sm text-gray-600 mt-1">A confirmation email has been sent.</p>
                 </div>
-                <button type="button" class="ml-auto text-gray-500 hover:text-gray-800 text-base shrink-0 self-start" aria-label="Dismiss" data-action="dismiss">✕</button>
+                <button
+                  type="button"
+                  class="ml-auto shrink-0 self-start inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-50 text-brand-red transition hover:bg-gray-100 hover:text-brand-red/80"
+                  aria-label="Dismiss"
+                  data-action="dismiss"
+                >
+                  <i class="fa-light fa-solid fa-x text-lg" aria-hidden="true"></i>
+                </button>
               </div>
             </div>
           `);
@@ -732,14 +739,21 @@ const isDev = import.meta.env.MODE !== 'production';
               alert('Please complete the verification challenge and try again.');
             } else if (data?.reason === 'limit_reached') {
               renderInlineMessage(`
-                <div class="rounded-2xl bg-amber-50 border border-amber-200 shadow-sm p-4 md:p-5" data-inline-msg>
+                <div class="rounded-2xl bg-gray-50 border border-brand-red/200 shadow-sm p-4 md:p-5" data-inline-msg>
                   <div class="flex items-start gap-3">
-                    <div class="h-10 w-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 text-xl">!</div>
+                    <div class="h-10 w-10 rounded-full bg-brand-red flex items-center justify-center text-gray-800 text-xl">!</div>
                     <div class="text-left flex-1">
-                      <p class="text-lg font-semibold text-amber-800">You’ve already submitted this form.</p>
-                      <p class="text-sm text-amber-700 mt-1">If you need to update your details, reply to your confirmation email or contact us.</p>
+                      <p class="text-lg font-semibold text-gray-800">You’ve already submitted this form.</p>
+                      <p class="text-sm text-gray-700 mt-1">If you need to update your details, reply to your confirmation email or contact us.</p>
                     </div>
-                    <button type="button" class="ml-auto text-amber-700 text-sm" aria-label="Dismiss" data-action="dismiss">Dismiss</button>
+                    <button
+                      type="button"
+                      class="ml-auto shrink-0 self-start inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-brand-red transition hover:bg-gray-100 hover:text-brand-red/80"
+                      aria-label="Dismiss"
+                      data-action="dismiss"
+                    >
+                      <i class="fa-regular fa-solid fa-x text-lg" aria-hidden="true"></i>
+                    </button>
                   </div>
                 </div>`);
             } else if (data?.reason) {

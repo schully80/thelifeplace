@@ -5,44 +5,44 @@ const variants = [
   {
     id: "success",
     title: "Success",
-    icon: "✓",
-    bg: "bg-green-50",
-    border: "border-green-200",
-    iconBg: "bg-green-100",
-    iconText: "text-green-700",
+    iconClass: "fa-solid fa-check",
+    bg: "bg-gray-50",
+    border: "border-brand-red-200",
+    iconBg: "bg-gray-100",
+    iconColor: "text-brand-red",
     heading: "Action completed",
     body: "We’ve received your details and sent a confirmation email.",
   },
   {
     id: "warning",
     title: "Warning / Limit",
-    icon: "!",
-    bg: "bg-amber-50",
-    border: "border-amber-200",
-    iconBg: "bg-amber-100",
-    iconText: "text-amber-700",
+    iconClass: "fa-solid fa-exclamation",
+    bg: "bg-gray-50",
+    border: "border-brand-red-200",
+    iconBg: "bg-gray-100",
+    iconColor: "text-brand-red",
     heading: "You’ve already submitted",
     body: "If you need to update your details, reply to your confirmation email.",
   },
   {
     id: "error",
     title: "Error",
-    icon: "✕",
-    bg: "bg-red-50",
-    border: "border-red-200",
-    iconBg: "bg-red-100",
-    iconText: "text-red-700",
+    iconClass: "fa-solid fa-x",
+    bg: "bg-gray-50",
+    border: "border-brand-red-200",
+    iconBg: "bg-gray-100",
+    iconColor: "text-brand-red",
     heading: "Something went wrong",
-    body: "Please try again or contact support if this continues.",
+    body: "Please try again.",
   },
   {
     id: "info",
     title: "Info",
-    icon: "i",
-    bg: "bg-blue-50",
-    border: "border-blue-200",
-    iconBg: "bg-blue-100",
-    iconText: "text-blue-700",
+    iconClass: "fa-solid fa-info",
+    bg: "bg-gray-50",
+    border: "border-brand-red-200",
+    iconBg: "bg-gray-100",
+    iconColor: "text-brand-red",
     heading: "Heads up",
     body: "We’re processing your request. This may take a few moments.",
   },
@@ -69,7 +69,9 @@ const variants = [
           data-variant={v.id}
         >
           <header class="flex items-start gap-3">
-            <div class={`h-10 w-10 rounded-full ${v.iconBg} flex items-center justify-center ${v.iconText} text-xl font-bold`}>{v.icon}</div>
+            <div class={`h-10 w-10 rounded-full ${v.iconBg} border border-gray-200 flex items-center justify-center ${v.iconColor}`}>
+              <i class={`${v.iconClass} text-base`} aria-hidden="true"></i>
+            </div>
             <div class="flex-1">
               <p class="text-xs uppercase tracking-wide text-gray-500">{v.title}</p>
               <p class="text-lg font-semibold text-gray-900 mt-1">{v.heading}</p>
