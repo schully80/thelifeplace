@@ -29,6 +29,7 @@ pnpm-lock.yaml
 # 🔥 Cloudflare
 .functions-cache/
 .worker/
+.wrangler/
 
 # 🔐 Ignore frontend JS scripts containing API logic
 public/js/places-autocomplete.js
