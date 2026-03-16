@@ -133,5 +133,17 @@ const id = `turnstile_${Math.random().toString(36).slice(2, 9)}`;
       } catch(e){}
     };
 
+    try {
+      const el = document.getElementById(widgetId);
+      const form = el && el.closest ? el.closest('form') : null;
+      if (form) {
+        form.addEventListener('turnstile:reset', function () {
+          try {
+            window[`__cf_turnstile_reset_${widgetId}`]();
+          } catch (e) {}
+        });
+      }
+    } catch (e) { /* ignore reset binding errors */ }
+
   })();
 </script>

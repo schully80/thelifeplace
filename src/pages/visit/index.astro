@@ -546,8 +546,8 @@ const isDev = import.meta.env.MODE !== 'production';
     
     <!-- Dev-only prompt snippet browser (hidden in production) -->
 
-    <div class="mt-12 md:mt-16 max-w-2xl mx-auto px-4 md:px-0">
-      <div id="planVisitForm" class="bg-gray-50 rounded-2xl p-6 md:p-10">
+    <div class="mt-12 md:mt-16 max-w-3xl mx-auto px-4 md:px-0">
+      <div id="planVisitForm" class="border border-black/5 shadow-lg shadow-black/5 bg-gray-50 rounded-2xl p-6 md:p-10">
         <div style="margin-top:2.5rem;margin-bottom:2.5rem;">
           <FormCard
             title="Plan a Visit"
@@ -556,234 +556,17 @@ const isDev = import.meta.env.MODE !== 'production';
             showComingSoon={false}
             enableTurnstile={true}
             formAction="/api/register"
+            successTitle="Thank you! We’ve received your visit details."
+            successDescription="A confirmation email has been sent."
+            duplicateTitle="You’ve already submitted this form."
+            duplicateDescription="If you need to update your details, reply to your confirmation email or contact us."
           />
         </div>
-        <div id="visit-inline-message" class="hidden mt-4"></div>
       </div>
     </div>
 
   </div>
 </section>
-
-
-
-<script is:inline>
-  (() => {
-    const container = document.getElementById('planVisitForm');
-    const inlineMessage = document.getElementById('visit-inline-message');
-    if (!container) return;
-    const form = container.querySelector('form');
-    if (!form) return;
-
-    // Mark action area (submit + Turnstile)
-    let actionArea = form.querySelector('#tlpSubmitBtn')?.closest('div');
-    if (!actionArea) actionArea = form.querySelector('.text-center');
-    if (actionArea && !actionArea.id) actionArea.id = 'form-action-area';
-
-    // Ensure inline message lives right after the action area inside the form
-    if (inlineMessage && actionArea) {
-      actionArea.insertAdjacentElement('afterend', inlineMessage);
-    }
-
-    // Live enable/disable submit based on format checks
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const statusText = document.createElement('p');
-    statusText.className = 'mt-2 text-sm text-gray-600';
-    statusText.id = 'form-validity-hint';
-    if (actionArea) actionArea.appendChild(statusText);
-
-    const emailField = form.querySelector('input[name="email"]');
-    const phoneField = form.querySelector('input[name="contact"]');
-    const requiredFields = form.querySelectorAll('input[required]');
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const zaPhonePattern = /^(?:\+27|0)[0-9]{9}$/;
-
-    const updateSubmitState = () => {
-      let valid = true;
-      requiredFields.forEach((input) => {
-        if (!input.value.trim()) valid = false;
-      });
-      if (emailField && !emailPattern.test(emailField.value.trim())) valid = false;
-      if (phoneField) {
-        const cleaned = phoneField.value.trim().replace(/\s|-/g, '');
-        if (!zaPhonePattern.test(cleaned)) valid = false;
-      }
-      if (submitBtn) {
-        submitBtn.disabled = !valid;
-        submitBtn.classList.toggle('opacity-60', !valid);
-        submitBtn.classList.toggle('cursor-not-allowed', !valid);
-      }
-      if (statusText) statusText.style.display = valid ? 'none' : '';
-    };
-
-    form.addEventListener('input', updateSubmitState);
-    updateSubmitState();
-
-    const showActionArea = () => {
-      if (!actionArea) actionArea = form.querySelector('.text-center');
-      if (actionArea) actionArea.style.display = '';
-    };
-    const hideActionArea = () => {
-      if (!actionArea) actionArea = form.querySelector('.text-center');
-      if (actionArea) actionArea.style.display = 'none';
-    };
-
-    // Helper to render inline message right after the action area
-    const renderInlineMessage = (markup) => {
-      if (!inlineMessage) return;
-      inlineMessage.innerHTML = markup;
-      inlineMessage.classList.remove('hidden');
-      inlineMessage.style.display = 'block';
-      if (actionArea && actionArea.parentElement && inlineMessage !== actionArea.nextElementSibling) {
-        actionArea.insertAdjacentElement('afterend', inlineMessage);
-      }
-      hideActionArea();
-      inlineMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    };
-
-    const clearInlineMessage = () => {
-      if (!inlineMessage) return;
-      inlineMessage.classList.add('hidden');
-      inlineMessage.innerHTML = '';
-      inlineMessage.style.display = 'none';
-      form.reset();
-      const ev = new Event('turnstile:reset');
-      form.dispatchEvent(ev);
-      showActionArea();
-      if (typeof updateSubmitState === 'function') updateSubmitState();
-    };
-
-    // Dismiss handler via event delegation
-    inlineMessage?.addEventListener('click', (e) => {
-      const target = e.target;
-      if (!(target instanceof HTMLElement)) return;
-      const dismissTrigger = target.closest('[data-action="dismiss"]');
-      if (dismissTrigger) {
-        clearInlineMessage();
-      }
-    });
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      const btn = form.querySelector('button[type="submit"]');
-      if (btn) {
-        btn.disabled = true;
-        btn.classList.add('opacity-60', 'cursor-not-allowed');
-      }
-      // Hide any previous message
-      if (inlineMessage) {
-        inlineMessage.classList.add('hidden');
-        inlineMessage.innerHTML = '';
-      }
-
-      const fd = new FormData(form);
-
-      try {
-        const res = await fetch(form.action || '/register', {
-          method: 'POST',
-          body: fd,
-          redirect: 'follow',
-          headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest', 'X-Fetch-JSON': '1' },
-        });
-
-        if (res.ok || (res.status >= 300 && res.status < 400)) {
-          renderInlineMessage(`
-            <div class="rounded-2xl bg-gray-50 border border-brand-red/100 shadow-sm p-4 md:p-5" data-inline-msg>
-              <div class="flex items-start gap-3">
-                <div class="h-10 w-10 rounded-full bg-brand-red/100 flex items-center justify-center text-white text-xl">✓</div>
-                <div class="text-left flex-1">
-                  <p class="text-lg font-semibold text-gray-800">Thank you! We’ve received your visit details.</p>
-                  <p class="text-sm text-gray-600 mt-1">A confirmation email has been sent.</p>
-                </div>
-                <button
-                  type="button"
-                  class="ml-auto shrink-0 self-start inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-red text-white transition hover:bg-gray-100 hover:text-brand-red/80"
-                  aria-label="Dismiss"
-                  data-action="dismiss"
-                >
-                  <i class="fa-light fa-solid fa-x text-lg" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>
-          `);
-
-          form.reset();
-          // reset Turnstile if present
-          const resetEvent = new Event('turnstile:reset');
-          form.dispatchEvent(resetEvent);
-          if (btn) {
-            btn.disabled = false;
-            btn.classList.remove('opacity-60', 'cursor-not-allowed');
-          }
-          updateSubmitState();
-          return;
-        }
-
-        if (res.status === 404) {
-          // Fallback: let the browser submit normally (server-side route may still handle it)
-          form.submit();
-          return;
-        }
-
-        // If JSON error detail is available, show it to help the user
-        const ctype = res.headers.get('content-type') || '';
-        try {
-          if (ctype.includes('application/json')) {
-            const data = await res.json();
-            if (data?.reason === 'missing_turnstile') {
-              alert('Please complete the verification challenge and try again.');
-            } else if (data?.reason === 'limit_reached') {
-              renderInlineMessage(`
-                <div class="rounded-2xl bg-gray-50 border border-brand-red/200 shadow-sm p-4 md:p-5" data-inline-msg>
-                  <div class="flex items-start gap-3">
-                    <div class="h-10 w-10 rounded-full bg-brand-red flex items-center justify-center text-gray-800 text-xl">!</div>
-                    <div class="text-left flex-1">
-                      <p class="text-lg font-semibold text-gray-800">You’ve already submitted this form.</p>
-                      <p class="text-sm text-gray-700 mt-1">If you need to update your details, reply to your confirmation email or contact us.</p>
-                    </div>
-                    <button
-                      type="button"
-                      class="ml-auto shrink-0 self-start inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-brand-red transition hover:bg-gray-100 hover:text-brand-red/80"
-                      aria-label="Dismiss"
-                      data-action="dismiss"
-                    >
-                      <i class="fa-regular fa-solid fa-x text-lg" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                </div>`);
-            } else if (data?.reason) {
-              alert(`Submission failed: ${data.reason}`);
-            } else {
-              alert('Something went wrong. Please try again.');
-            }
-          } else {
-            const text = await res.text();
-            alert(`Submission failed (status ${res.status}). ${text.slice(0, 180)}`);
-          }
-        } catch {
-          alert('Something went wrong. Please try again.');
-        }
-
-        if (btn) {
-          btn.disabled = false;
-          btn.classList.remove('opacity-60', 'cursor-not-allowed');
-        }
-      } catch (err) {
-        alert('Network error. Please try again.');
-        if (btn) {
-          btn.disabled = false;
-          btn.classList.remove('opacity-60', 'cursor-not-allowed');
-        }
-      }
-    });
-  })();
-</script>
 
   <style is:inline>
     /* Landscape tweaks for small/tablet devices */

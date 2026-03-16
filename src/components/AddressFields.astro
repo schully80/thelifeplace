@@ -108,27 +108,27 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
     <div class="field">
-      <input id="fullName" name="fullName" type="text" required placeholder=" " />
+      <input id="fullName" name="fullName" type="text" required placeholder=" " autocomplete="name" />
       <label>Name (First or First & Last) *</label>
       <p class="error-text">Required</p>
     </div>
 
     <div class="field" data-validate="phone">
-      <input id="contact" name="contact" type="tel" required placeholder=" " aria-describedby="contact-help" />
+      <input id="contact" name="contact" type="tel" required placeholder=" " aria-describedby="contact-help" autocomplete="tel" />
       <label>Contact Number *</label>
-      <span class="valid-icon" aria-hidden="true">✓</span>
+      <i class="valid-icon fa-solid fa-check" aria-hidden="true"></i>
       <p class="error-text">Valid phone format</p>
     </div>
 
     <div class="field" data-validate="email">
-      <input id="email" name="email" type="email" required placeholder=" " aria-describedby="email-help" />
+      <input id="email" name="email" type="email" required placeholder=" " aria-describedby="email-help" autocomplete="email" />
       <label>Email Address *</label>
-      <span class="valid-icon" aria-hidden="true">✓</span>
+      <i class="valid-icon fa-solid fa-check" aria-hidden="true"></i>
       <p class="error-text">Valid email format</p>
     </div>
 
     <div class="field">
-      <input id="attendees" name="attendees" type="number" required placeholder=" " />
+      <input id="attendees" name="attendees" type="number" min="1" required placeholder=" " inputmode="numeric" />
       <label>Number of Persons Attending *</label>
       <p class="error-text">Required</p>
     </div>
@@ -143,48 +143,55 @@
 
 <!-- MINIMAL VALIDATION SCRIPT -->
 <script is:inline>
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const zaPhonePattern = /^(?:\+27|0)[0-9]{9}$/;
+  (() => {
+    if (window.__tlpAddressFieldsInit) return;
+    window.__tlpAddressFieldsInit = true;
 
-  function validateField(field) {
-    const input = field.querySelector('input');
-    if (!input) return true;
-    const value = input.value.trim();
-    let valid = true;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const zaPhonePattern = /^(?:\+27|0)[0-9]{9}$/;
 
-    if (input.required && !value) valid = false;
+    function validateFieldWrapper(field) {
+      const input = field?.querySelector('input');
+      if (!field || !input) return true;
 
-    if (valid && field.dataset.validate === 'email') {
-      valid = emailPattern.test(value);
+      const value = input.value.trim();
+      let valid = true;
+
+      if (input.required && !value) valid = false;
+
+      if (valid && field.dataset.validate === 'email') {
+        valid = emailPattern.test(value);
+      }
+      if (valid && field.dataset.validate === 'phone') {
+        valid = zaPhonePattern.test(value.replace(/\s|-/g, ''));
+      }
+      if (valid && input.type === 'number' && value && input.min) {
+        valid = Number(value) >= Number(input.min);
+      }
+
+      field.classList.toggle('show-error', !valid);
+      field.classList.toggle('valid', valid && value.length > 0);
+      return valid;
     }
-    if (valid && field.dataset.validate === 'phone') {
-      valid = zaPhonePattern.test(value.replace(/\s|-/g, ''));
-    }
 
-    field.classList.toggle('show-error', !valid);
-    field.classList.toggle('valid', valid && value.length > 0);
-    return valid;
-  }
+    window.TLPAddressFields = {
+      validateFieldWrapper,
+      validateForm(form) {
+        const fields = Array.from(form.querySelectorAll('.field')).filter((field) => field.querySelector('input'));
+        let firstInvalid = null;
+        const valid = fields.every((field) => {
+          const ok = validateFieldWrapper(field);
+          if (!ok && !firstInvalid) firstInvalid = field.querySelector('input');
+          return ok;
+        });
+        return { valid, firstInvalid };
+      },
+    };
 
-  document.addEventListener('input', (e) => {
-    const field = e.target.closest('.field');
-    if (!field) return;
-    validateField(field);
-  });
-
-  document.addEventListener("submit", (e) => {
-    const form = e.target;
-    const fields = form.querySelectorAll(".field");
-    let firstInvalid = null;
-
-    fields.forEach((field) => {
-      const ok = validateField(field);
-      if (!ok && !firstInvalid) firstInvalid = field.querySelector('input');
+    document.addEventListener('input', (e) => {
+      const field = e.target instanceof HTMLElement ? e.target.closest('.field') : null;
+      if (!field) return;
+      validateFieldWrapper(field);
     });
-
-    if (firstInvalid) {
-      e.preventDefault();
-      firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  });
+  })();
 </script>

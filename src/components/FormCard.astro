@@ -4,7 +4,7 @@ import Turnstile from "./ui/Turnstile.astro";
 const {
   title = "Register",
   eventName = "General",
-  formAction = "/register",
+  formAction = "/api/register",
   ctaText = "Send Registration",
 
   // Flashing message controls
@@ -14,12 +14,30 @@ const {
   enableTurnstile = false,
   turnstileTheme = 'light',
   instructionText = "Fill in your details below to reserve your spot. This information helps us plan and care for you on the day.",
+  successTitle = "Thank you! We've received your registration.",
+  successDescription = "A confirmation email has been sent.",
+  duplicateTitle = "You've already submitted this form.",
+  duplicateDescription = "If you need to update your details, reply to your confirmation email or contact us.",
+  missingTurnstileTitle = "Please complete the verification challenge.",
+  missingTurnstileDescription = "Then submit the form again.",
 } = Astro.props;
 
+const formId = `tlp-form-${Math.random().toString(36).slice(2, 9)}`;
+const controllerConfig = JSON.stringify({
+  root: `[data-tlp-form-root="${formId}"]`,
+  successTitle,
+  successDescription,
+  duplicateTitle,
+  duplicateDescription,
+  missingTurnstileTitle,
+  missingTurnstileDescription,
+  turnstileOptional: !enableTurnstile,
+  turnstileFieldName: "cf-turnstile-response",
+});
 
 ---
 
-<section class="max-w-4xl mx-auto px-4 py-8 md:py-12">
+<section class="max-w-4xl mx-auto px-4 py-8 md:py-12" data-tlp-form-root={formId}>
 
   <!-- Heading -->
   <h2 class="text-xl md:text-4xl font-extrabold text-center mb-6">
@@ -48,13 +66,17 @@ const {
     <!-- CAPTCHA removed -->
 
     <!-- Submit Button + Flash Message -->
-    <div class="text-center pt-4 md:pt-6">
+    <div class="text-center pt-4 md:pt-6" data-tlp-action-area>
       <button
           type="submit"
           id="tlpSubmitBtn"
           class="px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-brand-red to-red-600 text-white text-base md:text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
         >
-          {ctaText}
+          <span class="btn-text">{ctaText}</span>
+          <svg class="spinner h-5 w-5 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity="0.25" stroke-width="2"></circle>
+            <path d="M12 3a9 9 0 0 1 9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
         </button>
 
       {enableTurnstile && (
@@ -69,6 +91,8 @@ const {
         </p>
       )}
     </div>
+
+    <div data-tlp-inline-message class="hidden mt-4"></div>
 
   </form>
 
@@ -107,6 +131,25 @@ const {
     animation: pulseSoft 1.6s ease-in-out infinite;
   }
 
+  #tlpSubmitBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  #tlpSubmitBtn .spinner {
+    display: none;
+  }
+
+  #tlpSubmitBtn[aria-busy="true"] .btn-text {
+    display: none;
+  }
+
+  #tlpSubmitBtn[aria-busy="true"] .spinner {
+    display: block;
+  }
+
   @keyframes pulseSoft {
     0%   { opacity: 0.55; }
     50%  { opacity: 1; }
@@ -116,4 +159,23 @@ const {
 
 </style>
 
-<!-- UX initializer intentionally removed -->
+<script is:inline src="/scripts/tlp-form-controller.js"></script>
+<script is:inline data-controller-config={controllerConfig}>
+  (() => {
+    const script = document.currentScript;
+    const config = JSON.parse(script?.dataset.controllerConfig || "{}");
+    const boot = () => {
+      if (!window.TLPFormController) {
+        window.setTimeout(boot, 50);
+        return;
+      }
+      window.TLPFormController.init(config);
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", boot, { once: true });
+    } else {
+      boot();
+    }
+  })();
+</script>

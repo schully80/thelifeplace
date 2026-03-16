@@ -1,7 +1,7 @@
 /// <reference types="astro/client" />
 import type { APIRoute } from "astro";
 import { getClientIP, apiErrorResponse, secureAPIResponse } from "../../utils/api-auth";
-import { logSecurityEvent } from "../../utils/secure-logging";
+import { logFormSubmission, logSecurityEvent } from "../../utils/secure-logging";
 import { teamHtml, confirmHtml, confirmText } from "../../utils/prayer-email-templates";
 
 export const POST: APIRoute = async ({ request, locals }) => {
@@ -82,9 +82,29 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const fromEmail = envValue("MAIL_FROM") || "prayer@thelifeplace.org";
   const toEmail = envValue("MAIL_TO") || "mystory@thelifeplace.org";
   const name = (formData.get("name") as string) || "Unknown";
-  const userEmail = (formData.get("email") as string) || "";
+  const userEmail = ((formData.get("email") as string) || "").toString().trim().toLowerCase();
   const requestText = ((formData.get("request") as string) || "").toString().trim();
   const consent = formData.get("consent") ? "yes" : "no";
+
+  // 🚦 One active prayer request per user (email-based) for 7 days
+  const prayerKv =
+    (((locals?.runtime as any)?.env?.PRAYER_SUBMISSIONS ||
+      (locals?.runtime as any)?.env?.VISIT_SUBMISSIONS) as KVNamespace | undefined);
+  const prayerLimitEnabled = envValue("PRAYER_LIMIT_ENABLED") !== "false";
+  if (prayerKv && prayerLimitEnabled && userEmail) {
+    try {
+      const key = `prayer:${userEmail}`;
+      const existing = await prayerKv.get(key);
+      if (existing) {
+        logFormSubmission("prayer", { status: "limit_reached", email: userEmail }, ip);
+        return secureAPIResponse({ success: false, reason: "limit_reached" }, 429);
+      }
+      await prayerKv.put(key, "1", { expirationTtl: 60 * 60 * 24 * 7 });
+    } catch (err) {
+      logSecurityEvent("Prayer KV error", "medium", { error: String(err), endpoint: "/api/prayer" }, ip);
+      // fail open: continue without blocking submission
+    }
+  }
 
   const textBody = [
     `New prayer request`,

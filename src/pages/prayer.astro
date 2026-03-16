@@ -6,12 +6,25 @@ import FullBleed from "../components/tlp/FullBleed.astro";
 import WarmBackground from "../components/tlp/WarmBackground.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
 import Turnstile from "../components/ui/Turnstile.astro";
+import SuccessPage from "./prayer/success.astro";
 
 const url = Astro.url;
 const isDemoSuccess = url.searchParams.get("demo") === "success";
 const turnstileOptional =
   import.meta.env.PRAYER_TURNSTILE_DISABLED === "true" ||
   (import.meta.env.DEV && import.meta.env.PRAYER_TURNSTILE_DISABLE_DEV === "true");
+const prayerFormId = `prayer-form-${Math.random().toString(36).slice(2, 9)}`;
+const prayerControllerConfig = JSON.stringify({
+  root: `[data-tlp-form-root="${prayerFormId}"]`,
+  successTitle: "Thank you. Your prayer request has been received.",
+  successDescription: "Our prayer team will pray with care and discretion.",
+  duplicateTitle: "A prayer request from this email is already active.",
+  duplicateDescription: "Please wait 7 days before submitting another request, or contact us directly if it is urgent.",
+  missingTurnstileTitle: "Please complete the verification challenge.",
+  missingTurnstileDescription: "Then send your prayer request again.",
+  turnstileOptional,
+  turnstileFieldName: "cf-turnstile-response",
+});
 ---
 
 <BaseLayout title="Prayer Request">
@@ -48,7 +61,10 @@ const turnstileOptional =
 <section class="bg-white py-20">
     <div class="max-w-5xl mx-auto px-6" id="prayer-form">
 
-      <div class="max-w-3xl mx-auto rounded-[28px] border border-black/5 shadow-lg shadow-black/5 bg-white/85 backdrop-blur-md px-6 sm:px-10 md:px-14 py-12 md:py-14 space-y-10">
+      <div
+        class="max-w-3xl mx-auto rounded-2xl border border-black/5 shadow-lg shadow-black/5 bg-gray-50 px-6 sm:px-10 md:px-14 py-12 md:py-14 space-y-10"
+        data-tlp-form-root={prayerFormId}
+      >
         <div class="text-center space-y-3">
           <p class="text-sm md:text-base font-semibold tracking-[0.08em] text-brand-red uppercase">Prayer Request</p>
           <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">Share how we can pray with you</h2>
@@ -56,37 +72,48 @@ const turnstileOptional =
             We'll keep your details private and only share with our prayer team.
           </p>
         </div>
+<p class="text-sm text-gray-500 mt-3 mb-6">
+  * Required fields
+</p>
 
         <form
           action="/api/prayer"
           method="POST"
-          onsubmit="return window.tlpPrayerSubmit(event)"
           class="space-y-8"
           data-turnstile-optional={turnstileOptional}
         >
-          <input type="hidden" name="_redirect" value="/prayer/success/" />
-
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="field">
               <input type="text" name="name" placeholder=" " required autocomplete="name" />
               <label>Name *</label>
+              <i class="valid-icon fa-solid fa-check" aria-hidden="true"></i>
             </div>
 
-            <div class="field">
+            <div class="field" data-validate="email">
               <input type="email" name="email" placeholder=" " required autocomplete="email" />
               <label>Email *</label>
-              <p class="helper">We’ll send a confirmation to this address.</p>
+              <i class="valid-icon fa-solid fa-check" aria-hidden="true"></i>
+              <p class="helper">We’ll send a confirmation to this email.</p>
+              <p class="error-text">Valid email format</p>
             </div>
           </div>
 
-          <div class="field">
-            <textarea name="request" rows="4" placeholder=" " required maxlength="800"></textarea>
+          <div class="field" data-word-limit="75" style="position: relative;">
+            <textarea name="request" rows="4" placeholder=" " required maxlength="800" style="padding-bottom: 40px;"></textarea>
             <label>Prayer Request (75 words max) *</label>
+            <i class="valid-icon fa-solid fa-check" aria-hidden="true"></i>
+            <span
+              class="word-count"
+              data-word-count
+              style="position: absolute; right: 14px; bottom: 12px; display: block; margin: 0; font-size: 12px; line-height: 1; text-align: right; background: rgba(255, 255, 255, 0.92); padding-left: 8px; pointer-events: none; z-index: 1;"
+            >
+              75 words remaining
+            </span>
           </div>
 
           <label class="consent">
             <input type="checkbox" name="consent" required />
-            <span class="checkbox"></span>
+            <span class="checkbox"><i class="fa-solid fa-check" aria-hidden="true"></i></span>
             <span class="consent-text">I consent to The Life Place using this information solely to respond to my request.</span>
           </label>
 
@@ -95,27 +122,23 @@ const turnstileOptional =
               <Turnstile />
             </div>
 
-            <div class="text-center">
+            <div class="text-center" data-tlp-action-area>
               <button
                 type="submit"
                 id="tlpSubmitBtn"
                 class="inline-flex items-center justify-center gap-2 px-10 py-3 rounded-2xl bg-gradient-to-r from-brand-red to-red-600 text-white text-base md:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                <span class="btn-text">Send</span>
-                <svg class="btn-icon w-5 h-5 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                  <path d="M22 2 11 13" />
-                  <path d="M22 2 15 22 11 13 2 9 22 2z" />
-                </svg>
-                <svg class="spinner hidden w-5 h-5 animate-spin text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                  <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
-                  <path d="M12 2a10 10 0 0 1 10 10" />
-                </svg>
-                <svg class="success-check hidden w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                  <path d="M5 13l4 4L19 7" />
+                <span class="btn-text">Submit</span>
+                <svg class="spinner h-5 w-5 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity="0.25" stroke-width="2"></circle>
+                  <path d="M12 3a9 9 0 0 1 9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
                 </svg>
               </button>
             </div>
           </div>
+
+          <div data-tlp-inline-message class="hidden mt-4"></div>
+          
 
           {/* Honeypot field (hidden from users, bots will fill it) */}
           <input
@@ -135,6 +158,108 @@ const turnstileOptional =
   </section>
   )}
 
+  <script is:inline src="/scripts/tlp-form-controller.js"></script>
+  <script is:inline data-controller-config={prayerControllerConfig}>
+    (() => {
+      const script = document.currentScript;
+      const config = JSON.parse(script?.dataset.controllerConfig || "{}");
+
+      const boot = () => {
+        if (!window.TLPFormController) {
+          window.setTimeout(boot, 50);
+          return;
+        }
+
+        window.TLPFormController.init({
+          ...config,
+          beforeSubmit: ({ form, formData }) => {
+            const requestText = (formData.get("request") || "").toString().trim();
+            const words = requestText ? requestText.split(/\s+/).length : 0;
+            if (words > 75) {
+              return {
+                ok: false,
+                title: "Please keep your request within 75 words.",
+                description: "Shorter requests help our team process and pray well.",
+              };
+            }
+
+            const honeypot = form.querySelector("input[name='website']");
+            const startField = form.querySelector("#tlp_start_time");
+            const start = Number(startField?.value || 0);
+            const now = Date.now();
+
+            if (honeypot && honeypot.value.trim() !== "") {
+              return {
+                ok: false,
+                title: "We couldn't verify your submission.",
+                description: "Please refresh the page and try again.",
+              };
+            }
+
+            if (!start || now - start < 1500) {
+              return {
+                ok: false,
+                title: "Please wait a moment before submitting.",
+                description: "Then send your prayer request again.",
+              };
+            }
+
+            return true;
+          },
+        });
+      };
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", boot, { once: true });
+      } else {
+        boot();
+      }
+    })();
+  </script>
+
+
+<!-- SUPER-SIZED QUICK ACTIONS -->
+<section class="max-w-6xl mx-auto px-6 pt-10 pb-16 ">
+
+ <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+
+  <!-- PLAN A VISIT -->
+  <a
+    href="/visit/"
+    class="rounded-3xl border border-gray-100 bg-white p-8 text-center shadow-md
+           hover:shadow-lg hover:-translate-y-1 transition-all"
+  >
+    <i class="fa-solid fa-house text-brand-red text-4xl mx-auto mb-4" aria-hidden="true"></i>
+    <span class="block text-2xl font-semibold text-gray-800 mb-1">Visit</span>
+    <span class="text-gray-600 text-base font-medium">Always Welcome</span>
+  </a>
+
+  <!-- GIVE -->
+  <a
+    href="/give/"
+    class="rounded-3xl border border-gray-100 bg-white p-8 text-center shadow-md
+           hover:shadow-lg hover:-translate-y-1 transition-all"
+  >
+    <i class="fa-solid fa-hand-holding-heart text-brand-red text-4xl mx-auto mb-4" aria-hidden="true"></i>
+    <span class="block text-2xl font-semibold text-gray-800 mb-1">Give</span>
+    <span class="text-gray-600 text-base font-medium">Safe & Secure</span>
+  </a>
+
+  <!-- MESSAGES -->
+  <a
+    href="/live/"
+    class="rounded-3xl border border-gray-100 bg-white p-8 text-center shadow-md
+           hover:shadow-lg hover:-translate-y-1 transition-all"
+  >
+    <i class="fa-solid fa-tv text-brand-red text-4xl mx-auto mb-4" aria-hidden="true"></i>
+    <span class="block text-2xl font-semibold text-gray-800 mb-1">Watch</span>
+    <span class="text-gray-600 text-base font-medium">Watch our Live Services</span>
+  </a>
+
+</div>
+
+</section>
+
   <!-- Final Invitation -->
 <section class="py-24 md:py-32 bg-white">
   <div class="max-w-4xl mx-auto px-6 text-center">
@@ -151,145 +276,33 @@ const turnstileOptional =
 </section>
 </BaseLayout>
 
-
-  <!-- Word Limit verification -->
-  <script>
-    window.tlpPrayerSubmit = async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const requestText = (new FormData(form).get("request") || "").toString().trim();
-      const words = requestText ? requestText.split(/\s+/).length : 0;
-      if (words > 75) {
-        alert("Please keep your request within 75 words.");
-        return false;
-      }
-
-      if (typeof window.tlpSpamCheck === 'function' && !window.tlpSpamCheck({ target: form })) {
-        alert('Spam check failed.');
-        return false;
-      }
-
-      // simplified submit flow: word limit + spam checks only
-      try {
-        form.submit();
-      } catch (err) {
-        console.error(err);
-      }
-      return false;
-    };
-  </script>
-
 <!-- Spam Protection -->
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const startField = document.getElementById("tlp_start_time");
-    startField.value = Date.now();
-  });
+    if (startField) startField.value = Date.now();
 
-  window.tlpSpamCheck = function (e) {
-    const form = e.target;
-    const honeypot = form.querySelector("input[name='website']");
-    const start = parseInt(form.querySelector("#tlp_start_time").value);
-    const now = Date.now();
-    if (honeypot.value.trim() !== "") return false;
-    if (now - start < 1500) return false;
-    return true;
-  };
-</script>
+    const requestField = document.querySelector('.field[data-word-limit]');
+    const textarea = requestField?.querySelector('textarea[name="request"]');
+    const counter = requestField?.querySelector('[data-word-count]');
+    const limit = Number(requestField?.getAttribute('data-word-limit') || 75);
 
-<!-- Validation + Shake -->
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector("#prayer-form form");
-    if (!form) return;
-    const btn = document.getElementById("tlpSubmitBtn");
-    const text = btn?.querySelector(".btn-text");
-    const icon = btn?.querySelector(".btn-icon");
-    const spinner = btn?.querySelector(".spinner");
-    const check = btn?.querySelector(".success-check");
+    if (!requestField || !textarea || !counter) return;
 
-    const turnstileOptional = form.dataset.turnstileOptional === "true";
+    const updateWordCount = () => {
+      const text = textarea.value.trim();
+      const words = text ? text.split(/\s+/).length : 0;
+      const remaining = Math.max(0, limit - words);
+      const overLimit = words > limit;
 
-    const hasToken = () => {
-      if (turnstileOptional) return true;
-      const el = form.querySelector('input[name="cf-turnstile-response"]');
-      return !!(el && el.value && el.value.length > 0);
+      counter.textContent = overLimit
+        ? `${words - limit} words over`
+        : `${remaining} words remaining`;
+      counter.classList.toggle('is-over', overLimit);
     };
-    const setDisabled = (disabled) => {
-      if (!btn) return;
-      btn.disabled = disabled;
-    };
-    setDisabled(!hasToken());
-    form.addEventListener("turnstile:verified", () => setDisabled(false));
 
-    form.addEventListener("submit", () => {
-      if (!hasToken()) {
-        setDisabled(true);
-        alert("Please complete the verification before submitting.");
-        return;
-      }
-      if (btn && text && icon && spinner && check) {
-        text.classList.add("fade-out");
-        icon.classList.add("fade-out");
-        setTimeout(() => {
-          text.style.display = "none";
-          icon.style.display = "none";
-          spinner.classList.remove("hidden");
-          spinner.classList.add("fade-in");
-        }, 150);
-
-        setTimeout(() => {
-          spinner.classList.add("fade-out");
-          setTimeout(() => {
-            spinner.classList.add("hidden");
-            check.classList.remove("hidden");
-            check.classList.add("fade-in");
-            btn.classList.add("bg-green-600");
-          }, 220);
-        }, 900);
-      }
-    });
-  });
-</script>
-
-<!-- Apple CTA Button Animation -->
-<script>
-  let submitting = false;
-
-  window.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector("#prayer-form form");
-    const btn = document.getElementById("tlpSubmitBtn");
-    if (!form || !btn) return;
-
-    const text = btn.querySelector(".btn-text");
-    const icon = btn.querySelector(".btn-icon");
-    const spinner = btn.querySelector(".spinner");
-    const check = btn.querySelector(".success-check");
-
-    form.addEventListener("submit", () => {
-      if (submitting) return;
-      submitting = true;
-
-      text?.classList.add("fade-out");
-      icon?.classList.add("fade-out");
-
-      setTimeout(() => {
-        if (text) text.style.display = "none";
-        if (icon) icon.style.display = "none";
-        spinner?.classList.remove("hidden");
-        spinner?.classList.add("fade-in");
-      }, 200);
-
-      setTimeout(() => {
-        spinner?.classList.add("fade-out");
-        setTimeout(() => {
-          spinner?.classList.add("hidden");
-          check?.classList.remove("hidden");
-          check?.classList.add("fade-in");
-          btn.classList.add("bg-green-600");
-        }, 250);
-      }, 1000);
-    });
+    textarea.addEventListener('input', updateWordCount);
+    updateWordCount();
   });
 </script>
 
@@ -332,6 +345,16 @@ const turnstileOptional =
   .fade-out { opacity: 0; transform: translateY(-4px); }
   .fade-in { opacity: 1; transform: translateY(0); }
 
+  #tlpSubmitBtn .spinner {
+    display: none;
+  }
+  #tlpSubmitBtn[aria-busy="true"] .btn-text {
+    display: none;
+  }
+  #tlpSubmitBtn[aria-busy="true"] .spinner {
+    display: block;
+  }
+
   /* Parallax scroll effect for form */
   .parallax-scroll {
     scroll-behavior: smooth;
@@ -344,7 +367,7 @@ const turnstileOptional =
   .field input,
   .field textarea {
     width: 100%;
-    border: 1.6px solid #e5e7eb;
+    border: 1px solid #B3282D;
     border-radius: 0.85rem;
     padding: 14px 14px 12px;
     font-size: 15px;
@@ -354,6 +377,9 @@ const turnstileOptional =
     font-family: inherit;
   }
   .field textarea { min-height: 140px; resize: vertical; }
+  .field[data-word-limit] textarea {
+    padding-bottom: 40px;
+  }
   .field input:focus,
   .field textarea:focus {
     border-color: #B3282D;
@@ -373,6 +399,16 @@ const turnstileOptional =
     padding: 0 6px;
     border-radius: 10px;
   }
+  .field .valid-icon {
+    position: absolute;
+    right: 14px;
+    top: 16px;
+    color: #B3282D;
+    opacity: 0;
+    transition: opacity .2s ease;
+    font-size: 14px;
+    pointer-events: none;
+  }
   .field input:focus + label,
   .field textarea:focus + label,
   .field input:not(:placeholder-shown) + label,
@@ -386,6 +422,51 @@ const turnstileOptional =
     margin-top: 8px;
     font-size: 13px;
     color: #6b7280;
+  }
+  .field .word-count {
+    position: absolute;
+    right: 14px;
+    bottom: 12px;
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+    text-align: right;
+    line-height: 1;
+    background: rgba(255, 255, 255, 0.92);
+    padding-left: 8px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .field .word-count.is-over {
+    color: #B3282D;
+    font-weight: 600;
+  }
+  .error-text {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 6px;
+    display: none;
+    font-weight: 500;
+  }
+  .field.show-error .error-text {
+    display: block;
+  }
+  .field.show-error input,
+  .field.show-error textarea {
+    border-color: #e5e7eb;
+    background: #f9fafb;
+    box-shadow: none;
+  }
+  .field.valid input,
+  .field.valid textarea {
+    border-color: #B3282D;
+    box-shadow: 0 0 0 3px rgba(179, 40, 45, 0.14);
+  }
+  .field.valid label {
+    color: #B3282D;
+  }
+  .field.valid .valid-icon {
+    opacity: 1;
   }
 
   /* Consent checkbox */
@@ -407,23 +488,27 @@ const turnstileOptional =
   .checkbox {
     width: 22px;
     height: 22px;
-    border-radius: 8px;
-    border: 2px solid #B3282D;
+    border-radius:6px;
+    border: 1px solid #B3282D;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     transition: all .2s ease;
     box-shadow: 0 0 0 0 rgba(179,40,45,0);
   }
+  .checkbox i {
+    color: white;
+    font-size: 13px;
+    line-height: 1;
+    opacity: 0;
+    transition: opacity .2s ease;
+  }
   .consent input:checked + .checkbox {
     background: #B3282D;
     box-shadow: 0 0 0 4px rgba(179,40,45,0.12);
   }
-  .consent input:checked + .checkbox::after {
-    content: "✓";
-    color: white;
-    font-size: 13px;
-    font-weight: 800;
+  .consent input:checked + .checkbox i {
+    opacity: 1;
   }
   .consent .consent-text { grid-column: 3; }
   @media (max-width: 640px) {
