@@ -4,32 +4,13 @@
 # Create a KV namespace in your Cloudflare account and add the binding here.
 
 name = "thelifeplace"
-compatibility_date = "2024-04-03"
+main = "./dist/worker.mjs"
+compatibility_date = "2024-01-01"
 
-[env.production]
-name = "thelifeplace-production"
-compatibility_date = "2024-04-03"
-
-
-# Default env KV bindings
+# Example KV binding
 [[kv_namespaces]]
 binding = "SESSION"
 id = "f424226aa91b4922ac009aa3b222f231"
-
-[[kv_namespaces]]
-binding = "VISIT_SUBMISSIONS"
-id = "68a56b1695284a168e18126a450f2101"
-
-# Production env KV bindings
-[[env.production.kv_namespaces]]
-binding = "SESSION"
-id = "f424226aa91b4922ac009aa3b222f231"
-
-[[env.production.kv_namespaces]]
-binding = "VISIT_SUBMISSIONS"
-id = "68a56b1695284a168e18126a450f2101"
-
-# Note: set secrets via `wrangler secret put` (e.g., RESEND_API_KEY)
 
 # Add any other bindings (e.g., other KV namespaces, secrets) as needed.
 # For guidance, see Cloudflare Workers + Wrangler docs.

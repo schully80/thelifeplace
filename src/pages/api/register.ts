@@ -1,14 +1,13 @@
 import type { APIRoute } from "astro";
-import { env as cfEnv, executionContext as cfCtx } from "cloudflare:workers";
 import { onRequestPost as workerPost, onRequestGet as workerGet } from "../../../functions/register";
 
 export const prerender = false;
 
 export const POST: APIRoute = async (context) => {
   try {
-    // Prefer Cloudflare-provided env/ctx; fall back to process.env for local dev.
-    const env = cfEnv ?? process.env;
-    const ctx = cfCtx ?? (context as any)?.locals?.cloudflare?.ctx;
+    const runtime = (context.locals as any)?.runtime;
+    const env = runtime?.env || process.env;
+    const ctx = runtime?.ctx;
     return await workerPost({ request: context.request, env, ctx } as any);
   } catch (err: any) {
     console.error("/api/register POST error", err);

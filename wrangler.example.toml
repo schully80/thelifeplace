@@ -4,7 +4,8 @@
 # Create a KV namespace in your Cloudflare account and add the binding here.
 
 name = "thelifeplace"
-compatibility_date = "2024-04-03"
+main = "./dist/worker.mjs"
+compatibility_date = "2024-01-01"
 
 # Example KV binding
 [[kv_namespaces]]
@@ -13,15 +14,3 @@ id = "<your-kv-namespace-id>"  # replace with the real namespace id
 
 # Add any other bindings (e.g., other KV namespaces, secrets) as needed.
 # For guidance, see Cloudflare Workers + Wrangler docs.
-
-# WhatsApp (optional, used for Plan a Visit confirmations)
-# Set the token via: wrangler secret put WHATSAPP_TOKEN
-# Set these vars via dashboard or [vars] block:
-# WHATSAPP_ENABLED = "true"
-# WHATSAPP_PHONE_ID = "<your_whatsapp_phone_number_id>"
-# WHATSAPP_API_VERSION = "v19.0" # optional, defaults to v19.0
-
-# CSRF (registration)
-# If your static HTML can't receive injected hidden tokens (e.g., cached pages),
-# you can disable strict CSRF on /api/register. Turnstile + honeypot remain.
-# REGISTER_CSRF_DISABLED = "true"
