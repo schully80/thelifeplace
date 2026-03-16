@@ -7,7 +7,7 @@ import react from "@astrojs/react";
 
 export default defineConfig({
   site: "https://thelifeplace.org",
-  adapter: cloudflare({ imageService: "compile" }),
+  adapter: cloudflare({ imageService: "compile", inspectorPort: false }),
   output: "server",
   devToolbar: {
     enabled: false,

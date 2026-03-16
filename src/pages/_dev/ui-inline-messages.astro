@@ -9,7 +9,7 @@ const variants = [
     bg: "bg-gray-50",
     border: "border-brand-red-200",
     iconBg: "bg-gray-100",
-    iconColor: "text-brand-red",
+    iconColor: "text-white",
     heading: "Action completed",
     body: "We’ve received your details and sent a confirmation email.",
   },
@@ -20,7 +20,7 @@ const variants = [
     bg: "bg-gray-50",
     border: "border-brand-red-200",
     iconBg: "bg-gray-100",
-    iconColor: "text-brand-red",
+    iconColor: "text-white",
     heading: "You’ve already submitted",
     body: "If you need to update your details, reply to your confirmation email.",
   },
@@ -31,7 +31,7 @@ const variants = [
     bg: "bg-gray-50",
     border: "border-brand-red-200",
     iconBg: "bg-gray-100",
-    iconColor: "text-brand-red",
+    iconColor: "text-white",
     heading: "Something went wrong",
     body: "Please try again.",
   },
@@ -42,7 +42,7 @@ const variants = [
     bg: "bg-gray-50",
     border: "border-brand-red-200",
     iconBg: "bg-gray-100",
-    iconColor: "text-brand-red",
+    iconColor: "text-white",
     heading: "Heads up",
     body: "We’re processing your request. This may take a few moments.",
   },
@@ -110,8 +110,9 @@ const variants = [
         const target = e.target;
         if (!(target instanceof HTMLElement)) return;
 
-        if (target.dataset?.action === 'dismiss') {
-          const card = target.closest('.inline-card');
+        const dismissTrigger = target.closest('[data-action="dismiss"]');
+        if (dismissTrigger) {
+          const card = dismissTrigger.closest('.inline-card');
           card?.classList.add('hidden');
         }
 

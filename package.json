@@ -11,15 +11,15 @@
     "preview": "astro preview --port 4322 --host 0.0.0.0"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.12",
-    "@astrojs/react": "^4.4.2",
-    "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/cloudflare": "^13.1.1",
+    "@astrojs/react": "^5.0.0",
+    "@astrojs/sitemap": "^3.7.1",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/montserrat": "^5.2.8",
     "@fortawesome/fontawesome-free": "^7.1.0",
     "@radix-ui/react-slot": "^1.2.4",
     "@types/canvas-confetti": "^1.9.0",
-    "astro": "^5.17.2",
+    "astro": "^6.0.4",
     "canvas-confetti": "^1.9.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -27,6 +27,8 @@
     "lucide-react": "^0.563.0",
     "node-fetch": "^3.3.2",
     "qr-code-styling": "^1.9.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7"
   },

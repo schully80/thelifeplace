@@ -657,7 +657,8 @@ const isDev = import.meta.env.MODE !== 'production';
     inlineMessage?.addEventListener('click', (e) => {
       const target = e.target;
       if (!(target instanceof HTMLElement)) return;
-      if (target.dataset?.action === 'dismiss') {
+      const dismissTrigger = target.closest('[data-action="dismiss"]');
+      if (dismissTrigger) {
         clearInlineMessage();
       }
     });
