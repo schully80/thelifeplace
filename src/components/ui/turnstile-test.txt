@@ -1,1 +1,0 @@
-This is a quick test file to validate apply_patch for adding files.

@@ -3,6 +3,39 @@ import type { PagesFunction } from "@cloudflare/workers-types";
 
 // ✅ In-memory rate limiting (per IP)
 const rateLimitMap = new Map<string, { count: number; reset: number }>();
+const redirectRoutes = new Map<string, string>([
+  ["/about-us/our-values", "/about-us/"],
+  ["/prayer/success", "/prayer/"],
+  ["/what-to-expect", "/visit/"],
+]);
+const goneRoutes = new Set<string>([
+  "/search",
+  "/design-system",
+  "/test-accordion",
+  "/test-beliefs",
+  "/test-feed",
+  "/test-footer",
+  "/test-home",
+  "/test-leadership",
+  "/test-ministries",
+  "/test-turnstile",
+  "/test-values",
+  "/test-visit",
+  "/dev/splash-test",
+]);
+
+function normalizePathname(pathname: string): string {
+  if (!pathname || pathname === "/") return "/";
+  return pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+}
+
+function isInternalNoIndexPath(pathname: string): boolean {
+  return (
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/dev") ||
+    pathname.includes("-preview")
+  );
+}
 
 function getRateLimitKey(ip: string, endpoint: string): string {
   return `${ip}:${endpoint}`;
@@ -39,7 +72,25 @@ export const onRequest: PagesFunction = async (context) => {
   
   // Extract IP for rate limiting
   const ip = request.headers.get("cf-connecting-ip") || request.headers.get("x-forwarded-for") || "unknown";
-  const pathname = new URL(request.url).pathname;
+  const url = new URL(request.url);
+  const pathname = url.pathname;
+  const normalizedPath = normalizePathname(pathname);
+
+  const redirectTarget = redirectRoutes.get(normalizedPath);
+  if (redirectTarget) {
+    return Response.redirect(new URL(redirectTarget, url).toString(), 301);
+  }
+
+  if (goneRoutes.has(normalizedPath)) {
+    return new Response("Gone", {
+      status: 410,
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "public, max-age=300",
+        "X-Robots-Tag": "noindex, nofollow",
+      },
+    });
+  }
 
   // Rate limit API endpoints
   const isApiEndpoint = pathname.startsWith("/api") || pathname.startsWith("/functions");
@@ -132,6 +183,10 @@ export const onRequest: PagesFunction = async (context) => {
   strict.headers.set("Permissions-Policy", "geolocation=(), microphone=(), camera=()"); // Disable unnecessary APIs
   strict.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload"); // HSTS
   strict.headers.set("Content-Security-Policy-Report-Only", `report-uri /api/csp-report; report-to csp-endpoint`);
+
+  if (isInternalNoIndexPath(normalizedPath)) {
+    strict.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
   
   // ✅ Cookie security headers
   strict.headers.append("Set-Cookie", "Path=/; HttpOnly; Secure; SameSite=Strict");

@@ -1,0 +1,342 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import {
+  getMessagesAdminKey,
+  getMessagesStorageMode,
+  loadMessages,
+} from "../../../utils/message-store";
+
+export const prerender = false;
+
+const env = (Astro.locals?.runtime as { env?: Record<string, unknown> } | undefined)?.env;
+const expectedKey = getMessagesAdminKey(env);
+const providedKey = Astro.url.searchParams.get("key") || "";
+const authorized = providedKey === expectedKey;
+const storage = getMessagesStorageMode(env);
+const messages = authorized ? await loadMessages(env) : [];
+---
+
+<BaseLayout title="Messages Admin">
+  <section class="mx-auto max-w-6xl px-4 py-10 md:py-16">
+    <div class="mb-8 flex items-end justify-between gap-4">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-brand-red">Admin</p>
+        <h1 class="heading-1 mt-2">Messages</h1>
+        <p class="mt-3 max-w-2xl text-gray-600">
+          Edit the sermon/message dataset used by the public messages page.
+        </p>
+      </div>
+      {authorized && (
+        <div class="rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-gray-600 shadow-sm">
+          Storage: <strong class="text-gray-800">{storage}</strong>
+        </div>
+      )}
+    </div>
+
+    {!authorized ? (
+      <div class="max-w-md rounded-3xl border border-black/10 bg-white p-6 shadow-sm">
+        <h2 class="text-2xl font-bold text-gray-800">Unlock admin</h2>
+        <p class="mt-3 text-gray-600">
+          Enter the admin key in the URL query string to access this page.
+        </p>
+        <form class="mt-6 flex flex-col gap-4" method="GET">
+          <label class="text-sm font-semibold text-gray-700" for="admin-key">Admin key</label>
+          <input
+            id="admin-key"
+            name="key"
+            type="password"
+            autocomplete="current-password"
+            class="rounded-2xl border border-gray-300 px-4 py-3"
+            placeholder="Enter admin key"
+            required
+          />
+          <button
+            type="submit"
+            class="inline-flex items-center justify-center rounded-2xl bg-brand-red px-5 py-3 font-semibold text-white transition hover:bg-[#9f2429]"
+          >
+            Open admin
+          </button>
+        </form>
+      </div>
+    ) : (
+      <>
+        {storage === "readonly" && (
+          <div class="mb-6 rounded-3xl border border-amber-200 bg-amber-50 px-5 py-4 text-amber-900">
+            Saves are disabled in this runtime. Configure a <code>MESSAGES_DATA</code> KV binding for deployed edits.
+          </div>
+        )}
+
+        <div class="mb-6 flex flex-wrap gap-3">
+          <button
+            id="add-message"
+            type="button"
+            class="inline-flex items-center justify-center rounded-2xl bg-brand-red px-5 py-3 font-semibold text-white transition hover:bg-[#9f2429]"
+          >
+            Add message
+          </button>
+          <button
+            id="save-messages"
+            type="button"
+            class="inline-flex items-center justify-center rounded-2xl border border-gray-800 px-5 py-3 font-semibold text-gray-800 transition hover:bg-gray-900 hover:text-white"
+          >
+            Save changes
+          </button>
+          <div id="save-status" class="self-center text-sm text-gray-600"></div>
+        </div>
+
+        <div
+          id="messages-admin-app"
+          data-admin-key={providedKey}
+          data-storage={storage}
+          data-messages={JSON.stringify(messages)}
+        ></div>
+      </>
+    )}
+  </section>
+</BaseLayout>
+
+{authorized && (
+  <script is:inline>
+    const app = document.getElementById("messages-admin-app");
+    const addButton = document.getElementById("add-message");
+    const saveButton = document.getElementById("save-messages");
+    const saveStatus = document.getElementById("save-status");
+
+    const adminKey = app?.dataset.adminKey || "";
+    let messages = JSON.parse(app?.dataset.messages || "[]");
+
+    const blankMessage = () => ({
+      id: "",
+      title: "",
+      preacher: "",
+      series: "General",
+      date: new Date().toISOString().slice(0, 10),
+      videoSource: "youtube",
+      youtubeId: "",
+      videoUrl: "",
+      audioUrl: "",
+      thumbnail: "/fallback-message2.png",
+      description: "",
+      scriptures: [],
+      tags: [],
+      featured: false,
+    });
+
+    function setStatus(message, tone = "muted") {
+      if (!saveStatus) return;
+      saveStatus.textContent = message;
+      saveStatus.className = "self-center text-sm";
+      if (tone === "error") saveStatus.classList.add("text-red-700");
+      else if (tone === "success") saveStatus.classList.add("text-green-700");
+      else saveStatus.classList.add("text-gray-600");
+    }
+
+    function render() {
+      if (!app) return;
+
+      app.innerHTML = "";
+
+      if (!messages.length) {
+        const empty = document.createElement("div");
+        empty.className = "rounded-3xl border border-dashed border-gray-300 bg-white p-8 text-center text-gray-600";
+        empty.textContent = "No messages yet. Add one to get started.";
+        app.appendChild(empty);
+        return;
+      }
+
+      messages.forEach((message, index) => {
+        const article = document.createElement("article");
+        article.className = "mb-6 rounded-[28px] border border-black/10 bg-white p-5 shadow-sm";
+        article.innerHTML = `
+          <div class="mb-5 flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.16em] text-brand-red">Message ${index + 1}</p>
+              <h2 class="mt-2 text-2xl font-bold text-gray-800">${message.title || "Untitled message"}</h2>
+            </div>
+            <button
+              type="button"
+              data-delete="${index}"
+              class="rounded-full border border-red-200 px-4 py-2 text-sm font-semibold text-red-700 transition hover:bg-red-50"
+            >
+              Delete
+            </button>
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            ${field("ID", "id", message.id, index)}
+            ${field("Title", "title", message.title, index)}
+            ${field("Preacher", "preacher", message.preacher, index)}
+            ${field("Series", "series", message.series, index)}
+            ${field("Date", "date", message.date, index, "date")}
+            ${selectField("Video Source", "videoSource", message.videoSource || "youtube", index, [
+              ["youtube", "YouTube"],
+              ["local", "Local video"],
+            ])}
+            ${field("YouTube ID", "youtubeId", message.youtubeId || "", index)}
+            ${field("Video URL", "videoUrl", message.videoUrl || "", index)}
+            ${field("Audio URL", "audioUrl", message.audioUrl || "", index)}
+            ${field("Thumbnail", "thumbnail", message.thumbnail || "", index)}
+            ${checkboxField("Featured", "featured", Boolean(message.featured), index)}
+          </div>
+
+          <div class="mt-4 grid gap-4 xl:grid-cols-2">
+            ${textAreaField("Description", "description", message.description || "", index, 4)}
+            ${textAreaField("Scriptures (comma separated)", "scriptures", toTextList(message.scriptures), index, 4)}
+            ${textAreaField("Tags (comma separated)", "tags", toTextList(message.tags), index, 3)}
+          </div>
+        `;
+        app.appendChild(article);
+      });
+
+      app.querySelectorAll("[data-field]").forEach((input) => {
+        input.addEventListener("input", onFieldChange);
+        input.addEventListener("change", onFieldChange);
+      });
+
+      app.querySelectorAll("[data-delete]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const index = Number(button.dataset.delete);
+          messages.splice(index, 1);
+          render();
+        });
+      });
+    }
+
+    function field(label, name, value, index, type = "text") {
+      return `
+        <label class="flex flex-col gap-2 text-sm font-semibold text-gray-700">
+          <span>${label}</span>
+          <input
+            type="${type}"
+            data-field="${name}"
+            data-index="${index}"
+            value="${escapeAttr(value || "")}"
+            class="rounded-2xl border border-gray-300 px-4 py-3 font-normal text-gray-800"
+          />
+        </label>
+      `;
+    }
+
+    function selectField(label, name, value, index, options) {
+      return `
+        <label class="flex flex-col gap-2 text-sm font-semibold text-gray-700">
+          <span>${label}</span>
+          <select
+            data-field="${name}"
+            data-index="${index}"
+            class="rounded-2xl border border-gray-300 px-4 py-3 font-normal text-gray-800"
+          >
+            ${options.map(([optionValue, optionLabel]) => `
+              <option value="${optionValue}" ${value === optionValue ? "selected" : ""}>${optionLabel}</option>
+            `).join("")}
+          </select>
+        </label>
+      `;
+    }
+
+    function checkboxField(label, name, checked, index) {
+      return `
+        <label class="flex items-center gap-3 rounded-2xl border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-700">
+          <input
+            type="checkbox"
+            data-field="${name}"
+            data-index="${index}"
+            ${checked ? "checked" : ""}
+            class="h-4 w-4"
+          />
+          <span>${label}</span>
+        </label>
+      `;
+    }
+
+    function textAreaField(label, name, value, index, rows) {
+      return `
+        <label class="flex flex-col gap-2 text-sm font-semibold text-gray-700">
+          <span>${label}</span>
+          <textarea
+            rows="${rows}"
+            data-field="${name}"
+            data-index="${index}"
+            class="rounded-2xl border border-gray-300 px-4 py-3 font-normal text-gray-800"
+          >${escapeHtml(value || "")}</textarea>
+        </label>
+      `;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value).replaceAll('"', "&quot;");
+    }
+
+    function toTextList(value) {
+      return Array.isArray(value) ? value.join(", ") : "";
+    }
+
+    function onFieldChange(event) {
+      const fieldName = event.target.dataset.field;
+      const index = Number(event.target.dataset.index);
+      if (!fieldName || Number.isNaN(index) || !messages[index]) return;
+
+      if (event.target.type === "checkbox") {
+        messages[index][fieldName] = event.target.checked;
+      } else if (fieldName === "scriptures" || fieldName === "tags") {
+        messages[index][fieldName] = event.target.value
+          .split(",")
+          .map((item) => item.trim())
+          .filter(Boolean);
+      } else {
+        messages[index][fieldName] = event.target.value;
+      }
+
+      if (fieldName === "title") {
+        const cardTitle = event.target.closest("article")?.querySelector("h2");
+        if (cardTitle) cardTitle.textContent = event.target.value || "Untitled message";
+      }
+    }
+
+    async function saveMessages() {
+      setStatus("Saving...");
+      saveButton?.setAttribute("disabled", "disabled");
+
+      try {
+        const response = await fetch(`/api/admin/messages`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-admin-key": adminKey,
+          },
+          body: JSON.stringify({ messages }),
+        });
+
+        const payload = await response.json();
+        if (!response.ok || !payload.success) {
+          throw new Error(payload.error || "Save failed");
+        }
+
+        messages = payload.messages || messages;
+        render();
+        setStatus(`Saved successfully using ${payload.storage} storage.`, "success");
+      } catch (error) {
+        setStatus(error instanceof Error ? error.message : String(error), "error");
+      } finally {
+        saveButton?.removeAttribute("disabled");
+      }
+    }
+
+    addButton?.addEventListener("click", () => {
+      messages.unshift(blankMessage());
+      render();
+      setStatus("New message added. Fill in the fields, then save.");
+    });
+
+    saveButton?.addEventListener("click", saveMessages);
+
+    render();
+  </script>
+)}

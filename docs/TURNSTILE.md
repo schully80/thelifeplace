@@ -14,7 +14,7 @@ PUBLIC_TURNSTILE_SITE_KEY=your_public_site_key_here
 TURNSTILE_SECRET_KEY=your_secret_key_here
 ```
 
-2. Start the dev server and visit `/test-turnstile` to see the widget and verify tokens.
+2. Start the dev server and use a live form that includes the Turnstile component, such as `/prayer/` or `/visit/`, to verify the widget renders and submits correctly.
 
 How it works
 - The client widget is rendered via `src/components/ui/Turnstile.astro`.
@@ -26,7 +26,7 @@ Security notes
 - Use review apps or deployment environment variables for staging/production keys.
 
 Testing
-- Use the `/test-turnstile` page to exercise the flow; the page will display the verification API response.
+- Use a live form such as `/prayer/` or `/visit/` to exercise the flow and confirm the verification challenge completes successfully.
 
 Dedupe behavior (why widgets sometimes render twice)
 -----------------------------------------------

@@ -18,12 +18,15 @@ export default defineConfig({
     tailwind(),
     sitemap({
       filter: (page) => {
-        if (!page || !page.pathname) return true;
-        
-        const p = page.pathname;
+        if (!page) return true;
+
+        const p = new URL(page).pathname;
 
         // ✅ Exclude test / draft / legacy routes from sitemap
         const blocked =
+          p.startsWith("/admin") ||
+          p.startsWith("/dev") ||
+          p.includes("-preview") ||
           p.includes("test") ||
           p.includes(".old") ||
           p.includes(".off") ||

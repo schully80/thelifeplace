@@ -2,10 +2,7 @@
 // 🔥 SAME IMPORT AS LIVE PAGE
 import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/toast.css";
-import HeroTitle from "../components/tlp/HeroTitle.astro";
-import SectionWrapper from "../components/tlp/SectionWrapper.astro";
 import FullBleed from "../components/tlp/FullBleed.astro";
-import WarmBackground from "../components/tlp/WarmBackground.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
 
 
@@ -13,11 +10,10 @@ import SeriesChips from "../components/SeriesChips.astro";
 import SpeakerChips from "../components/SpeakerChips.astro";
 import SearchBar from "../components/SearchBar.astro";
 import Pagination from "../components/Pagination.astro";
-import messagesData from "../data/messages.json";
+import { loadMessages } from "../utils/message-store";
 
-
-// Load all messages (static import keeps it edge-safe)
-const messages = [...messagesData];
+const runtimeEnv = (Astro.locals?.runtime as { env?: Record<string, unknown> } | undefined)?.env;
+const messages = await loadMessages(runtimeEnv);
 
 // Sort messages by date (newest first)
 messages.sort((a, b) => new Date(b.date) - new Date(a.date));

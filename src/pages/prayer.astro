@@ -1,15 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import HeroTitle from "../components/tlp/HeroTitle.astro";
-import SectionWrapper from "../components/tlp/SectionWrapper.astro";
 import FullBleed from "../components/tlp/FullBleed.astro";
-import WarmBackground from "../components/tlp/WarmBackground.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
 import Turnstile from "../components/ui/Turnstile.astro";
-import SuccessPage from "./prayer/success.astro";
 
-const url = Astro.url;
-const isDemoSuccess = url.searchParams.get("demo") === "success";
 const turnstileOptional =
   import.meta.env.PRAYER_TURNSTILE_DISABLED === "true" ||
   (import.meta.env.DEV && import.meta.env.PRAYER_TURNSTILE_DISABLE_DEV === "true");
@@ -54,10 +48,6 @@ const prayerControllerConfig = JSON.stringify({
   <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-white/0 pointer-events-none"></div>
 </section>
 
-  <!-- If in demo mode, show the Success Page instead of the form -->
-  {isDemoSuccess && <SuccessPage />}
-
-  {!isDemoSuccess && (
 <section class="bg-white py-20">
     <div class="max-w-5xl mx-auto px-6" id="prayer-form">
 
@@ -156,7 +146,6 @@ const prayerControllerConfig = JSON.stringify({
       </div>
     </div>
   </section>
-  )}
 
   <script is:inline src="/scripts/tlp-form-controller.js"></script>
   <script is:inline data-controller-config={prayerControllerConfig}>

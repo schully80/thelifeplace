@@ -16,7 +16,7 @@ Dev defaults: if no Turnstile keys are set, the form uses Cloudflare test keys a
 
 ## Local dev
 1) `npm run dev`.
-2) Submit the form; Turnstile uses the built-in test widget and should immediately verify. You land on `/prayer/success/` even if MailChannels is unreachable; check the dev console/logs for email errors.
+2) Submit the form; Turnstile uses the built-in test widget and should immediately verify. Expect the in-form success message even if MailChannels is unreachable; check the dev console/logs for email errors.
 3) Set `PRAYER_EMAIL_DISABLE_DEV=true` if you want to avoid hitting MailChannels entirely.
 
 ## Production (Cloudflare Worker)
@@ -27,9 +27,8 @@ Dev defaults: if no Turnstile keys are set, the form uses Cloudflare test keys a
 5) Deploy via `astro build` + Wrangler as usual.
 
 ## Testing
-- Dev smoke: open `/prayer?demo=success` to view the success page without sending.
-- API test: `GET /api/prayer-test` sends a MailChannels test message to `MAIL_TO`.
-- Real flow: submit the form, confirm 303 redirect to `/prayer/success/`, and check the GoDaddy mailbox.
+- Dev smoke: submit the form and confirm the inline success message renders without a page redirect.
+- Real flow: submit the form, confirm the inline success message renders, and check the GoDaddy mailbox.
 
 ## Troubleshooting
 - Turnstile missing: ensure `PUBLIC_TURNSTILE_SITEKEY` is set in prod; dev uses the test key automatically.

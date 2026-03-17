@@ -74,12 +74,18 @@ async function run() {
     const newEntry = {
       id: newId,
       title,
-      speaker: "Schulter Etyang", // default
+      preacher: "Schulter Etyang", // default
+      preacherSlug: "schulter-etyang",
       series: "General",
+      seriesSlug: "general",
       date: video.snippet.publishedAt.slice(0, 10),
+      videoSource: "youtube",
       youtubeId,
       audioUrl: null,
       thumbnail: PLACEHOLDER, // REQUIRED placeholder
+      description: "",
+      scriptures: [],
+      tags: [],
     };
 
     console.log("➕ Adding:", title);
