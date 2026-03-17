@@ -11,7 +11,7 @@ import AppButton from "../components/AppButton.astro";
 const {
   title = "The Life Place — Come. See. Jesus. | Craigavon, Sandton",
   description = "The Life Place — Come. See. Jesus. A church in Craigavon AH, Sandton. Join us Sundays 9:00–11:00. Plan a visit, get directions, watch messages, and take your next step.",
-  noindex = false, // set true on utility pages like /thank-you/, /search/, /register-error/
+  noindex = false, // set true on utility pages like /thank-you/ and /register-error/
   serviceName = null, // For ministry/service pages
   serviceDescription = null, // For ministry/service pages
   articleTitle = null, // For blog/article pages (e.g., messages)
@@ -344,7 +344,6 @@ pathParts.forEach((part, index) => {
     <Footer />
 
     <!-- Site JS -->
-    <script src="/js/search.js" defer></script>
     <script src="/js/dropdowns.js" defer></script>
 
 
