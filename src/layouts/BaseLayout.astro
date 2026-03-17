@@ -38,13 +38,14 @@ const canonicalUrl =
 // Generate breadcrumb data
 const pathParts = pathname === "/" ? [] : pathname.split("/").filter(p => p);
 const breadcrumbItems = [
-  { position: 1, name: "Home", item: "https://thelifeplace.org" }
+  { "@type": "ListItem", position: 1, name: "Home", item: "https://thelifeplace.org" }
 ];
 let accumulatedPath = "";
 pathParts.forEach((part, index) => {
   accumulatedPath += `/${part}`;
   const name = part.charAt(0).toUpperCase() + part.slice(1).replace(/-/g, " ");
   breadcrumbItems.push({
+    "@type": "ListItem",
     position: index + 2,
     name: name,
     item: `https://thelifeplace.org${accumulatedPath}`
