@@ -9,6 +9,11 @@ export default defineConfig({
   site: "https://thelifeplace.org",
   adapter: cloudflare({ imageService: "compile" }),
   output: "server",
+  vite: {
+    ssr: {
+      external: ["node:fs/promises", "node:path"],
+    },
+  },
   devToolbar: {
     enabled: false,
   },
