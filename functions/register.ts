@@ -1,8 +1,14 @@
+import type { PagesFunction } from "@cloudflare/workers-types";
 import { validateEmail, validatePhone, validateZAPhone, sanitizeName, sanitizeMessage, validateCSRFToken as validateCSRFFormat } from '../src/utils/validation';
 import { logFormSubmission, logSecurityEvent } from '../src/utils/secure-logging';
 import { getClientIP } from '../src/utils/api-auth';
 
-export const onRequestPost: PagesFunction = async (context) => {
+type KVLike = {
+  get(key: string): Promise<string | null>;
+  put(key: string, value: string, options?: { expirationTtl?: number }): Promise<void>;
+};
+
+export const onRequestPost = (async (context: any) => {
   const { request, env, ctx } = context as any;
   const envStage = (env?.STAGE || env?.NODE_ENV || "production").toString();
   const isDev = envStage === "development" || request.url.includes("localhost") || request.url.includes("127.0.0.1");
@@ -175,7 +181,7 @@ export const onRequestPost: PagesFunction = async (context) => {
 
     // 🚦 One-per-visitor limit (email-based) for Plan a Visit
     const intentNormalized = intent.trim().toLowerCase();
-    const kv = (env as any).VISIT_SUBMISSIONS as KVNamespace | undefined;
+    const kv = (env as any).VISIT_SUBMISSIONS as KVLike | undefined;
     const limitEnabled = env.VISIT_LIMIT_ENABLED !== "false"; // default on
     if (kv && limitEnabled && intentNormalized === "plan a visit" && email) {
       try {
@@ -426,10 +432,10 @@ export const onRequestPost: PagesFunction = async (context) => {
     const errUrl = new URL("/register-error/", request.url);
     return Response.redirect(errUrl.toString(), 303);
   }
-};
+}) as unknown as PagesFunction;
 
 // Optional: handle GET /register (e.g. direct hits) with 404 or redirect
-export const onRequestGet: PagesFunction = async ({ request }) => {
+export const onRequestGet = (async ({ request }: { request: Request }) => {
   const url = new URL("/", request.url);
   return Response.redirect(url.toString(), 302);
-};
+}) as unknown as PagesFunction;

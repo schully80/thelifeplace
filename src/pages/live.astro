@@ -259,14 +259,32 @@ const serviceMinute = 0;
     ----------------------------*/
     const shareBtn = document.getElementById("tlpShareBtn");
     const shareMenu = document.getElementById("tlpShareMenu");
+    const shareLink = document.getElementById("shareLink");
+    const shareFacebook = document.getElementById("shareFacebook");
+    const shareTwitter = document.getElementById("shareTwitter");
+    const shareWhatsapp = document.getElementById("shareWhatsapp");
+    const shareEmail = document.getElementById("shareEmail");
+    const countdown = document.getElementById("countdown");
     const pageUrl = window.location.href;
     const pageTitle = "Join us live at The Life Place!";
-    let setOpen = null;
+    const serviceDay = 0;
+    const serviceHour = 10;
+    const serviceMinute = 0;
+    let setOpen: ((isOpen: boolean) => void) | null = null;
 
-    if (shareBtn && shareMenu && !shareBtn.dataset.bound) {
+    if (
+      shareBtn instanceof HTMLButtonElement &&
+      shareMenu instanceof HTMLDivElement &&
+      shareLink instanceof HTMLAnchorElement &&
+      shareFacebook instanceof HTMLAnchorElement &&
+      shareTwitter instanceof HTMLAnchorElement &&
+      shareWhatsapp instanceof HTMLAnchorElement &&
+      shareEmail instanceof HTMLAnchorElement &&
+      !shareBtn.dataset.bound
+    ) {
       shareBtn.dataset.bound = "true";
 
-      setOpen = (isOpen) => {
+      setOpen = (isOpen: boolean) => {
         shareMenu.classList.toggle("is-open", isOpen);
         shareBtn.setAttribute("aria-expanded", String(isOpen));
       };
@@ -275,40 +293,35 @@ const serviceMinute = 0;
       shareBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         const isOpen = !shareMenu.classList.contains("is-open");
-        setOpen(isOpen);
+        setOpen?.(isOpen);
       });
 
       // Close menu when clicking outside
       document.addEventListener("click", (e) => {
-        if (!shareBtn.contains(e.target) && !shareMenu.contains(e.target)) {
-          setOpen(false);
+        const target = e.target;
+        if (!(target instanceof Node)) return;
+        if (!shareBtn.contains(target) && !shareMenu.contains(target)) {
+          setOpen?.(false);
         }
       });
+
+      // Copy Link
+      shareLink.addEventListener("click", async (e) => {
+        e.preventDefault();
+        try {
+          await navigator.clipboard.writeText(pageUrl);
+          tlpCopiedToast("Link copied!");
+          setOpen ? setOpen(false) : shareMenu.classList.remove("is-open");
+        } catch {
+          alert("Link copied!");
+        }
+      });
+
+      shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`;
+      shareTwitter.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(pageTitle)}&url=${encodeURIComponent(pageUrl)}`;
+      shareWhatsapp.href = `https://wa.me/?text=${encodeURIComponent(pageTitle + " " + pageUrl)}`;
+      shareEmail.href = `mailto:?subject=${encodeURIComponent("Join us live at The Life Place!")}&body=${encodeURIComponent(pageTitle + "\n" + pageUrl)}`;
     }
-
-    // Copy Link
-    document.getElementById("shareLink").addEventListener("click", async (e) => {
-      e.preventDefault();
-      try {
-        await navigator.clipboard.writeText(pageUrl);
-        tlpCopiedToast("Link copied!");
-        setOpen ? setOpen(false) : shareMenu.classList.remove("is-open");
-      } catch {
-        alert("Link copied!");
-      }
-    });
-
-    // Facebook
-    document.getElementById("shareFacebook").href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`;
-
-    // Twitter
-    document.getElementById("shareTwitter").href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(pageTitle)}&url=${encodeURIComponent(pageUrl)}`;
-
-    // WhatsApp
-    document.getElementById("shareWhatsapp").href = `https://wa.me/?text=${encodeURIComponent(pageTitle + " " + pageUrl)}`;
-
-    // Email
-    document.getElementById("shareEmail").href = `mailto:?subject=${encodeURIComponent("Join us live at The Life Place!")}&body=${encodeURIComponent(pageTitle + "\n" + pageUrl)}`;
 
     function tlpCopiedToast(message = "Copied!") {
       const t = document.createElement("div");
@@ -325,15 +338,16 @@ const serviceMinute = 0;
        COUNTDOWN TIMER
     ----------------------------*/
     function updateCountdown() {
+      if (!(countdown instanceof HTMLElement)) return;
       const now = new Date();
       const nextService = new Date();
       nextService.setDate(now.getDate() + ((serviceDay + 7 - now.getDay()) % 7));
       nextService.setHours(serviceHour, serviceMinute, 0, 0);
 
-      const diff = nextService - now;
+      const diff = nextService.getTime() - now.getTime();
 
       if (diff <= 0) {
-        document.getElementById("countdown").textContent = "We are live now!";
+        countdown.textContent = "We are live now!";
         return;
       }
 
@@ -341,8 +355,7 @@ const serviceMinute = 0;
       const minutes = Math.floor((diff / 1000 / 60) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
-      document.getElementById("countdown").textContent =
-        `${hours}h ${minutes}m ${seconds}s until next service`;
+      countdown.textContent = `${hours}h ${minutes}m ${seconds}s until next service`;
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
@@ -353,9 +366,12 @@ const serviceMinute = 0;
     ----------------------------*/
     async function checkLiveStatus() {
       const badge = document.getElementById("liveStatusBadge");
+      if (!(badge instanceof HTMLElement)) return;
+      const liveWindow = window as typeof window & { __TLP_IS_LIVE?: boolean };
 
       // TODO: Replace with actual YouTube API
-window.__TLP_IS_LIVE = true; // if truly LIVE
+      liveWindow.__TLP_IS_LIVE = true; // if truly LIVE
+      const isLive = liveWindow.__TLP_IS_LIVE === true;
       if (isLive) {
         badge.textContent = "🔴 Live Now";
         badge.className =
@@ -373,6 +389,7 @@ window.__TLP_IS_LIVE = true; // if truly LIVE
 <script is:inline>
   async function updateLiveBadge() {
     const badge = document.getElementById("liveStatusBadge");
+    if (!(badge instanceof HTMLElement)) return;
 
     try {
       const res = await fetch("/api/live-status.json");

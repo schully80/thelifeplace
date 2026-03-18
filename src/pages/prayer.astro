@@ -269,14 +269,14 @@ const prayerControllerConfig = JSON.stringify({
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const startField = document.getElementById("tlp_start_time");
-    if (startField) startField.value = Date.now();
+    if (startField instanceof HTMLInputElement) startField.value = String(Date.now());
 
     const requestField = document.querySelector('.field[data-word-limit]');
     const textarea = requestField?.querySelector('textarea[name="request"]');
     const counter = requestField?.querySelector('[data-word-count]');
     const limit = Number(requestField?.getAttribute('data-word-limit') || 75);
 
-    if (!requestField || !textarea || !counter) return;
+    if (!(requestField instanceof HTMLElement) || !(textarea instanceof HTMLTextAreaElement) || !(counter instanceof HTMLElement)) return;
 
     const updateWordCount = () => {
       const text = textarea.value.trim();

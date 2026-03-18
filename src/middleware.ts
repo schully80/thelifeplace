@@ -1,4 +1,4 @@
-import { defineMiddleware } from "astro:middleware";
+import type { MiddlewareHandler } from "astro/dist/types/public/common.js";
 
 const redirectRoutes = new Map<string, string>([
   ["/about-us/our-values", "/about-us/"],
@@ -35,7 +35,7 @@ function isInternalNoIndexPath(pathname: string): boolean {
   );
 }
 
-export const onRequest = defineMiddleware(async (context, next) => {
+export const onRequest: MiddlewareHandler = async (context, next) => {
   const url = new URL(context.request.url);
   const normalizedPath = normalizePathname(url.pathname);
 
@@ -62,4 +62,4 @@ export const onRequest = defineMiddleware(async (context, next) => {
   }
 
   return response;
-});
+};

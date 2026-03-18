@@ -1,12 +1,18 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import FadeDivider from "../../../components/tlp/FadeDivider.astro";
+import {
+  formatDate,
+  isValidDate,
+  parseBlogFeed,
+  type BlogFeedItem,
+} from "../../../utils/blog-feed";
 export const prerender = true;
 
 const FEED_URL = "https://schulteretyang.substack.com/feed";
 
-let items = [];
-let error = null;
+let items: BlogFeedItem[] = [];
+let error: string | null = null;
 
 const rawTag = Astro.params.tag || "";
 const tagParam = decodeURIComponent(rawTag).trim();
@@ -21,12 +27,10 @@ export async function getStaticPaths() {
     });
     if (!res.ok) throw new Error(`Feed fetch failed: HTTP ${res.status}`);
     const xml = await res.text();
-    const chunks = xml.split("<item>").slice(1);
-    const tagSet = new Set();
-    for (const chunk of chunks) {
-      const catMatches = Array.from(chunk.matchAll(/<category>(?:<!\[CDATA\[(.*?)\]\]>|(.*?))<\/category>/g));
-      for (const m of catMatches) {
-        const tag = (m[1] || m[2] || "").replace(/<!\[CDATA\[/g, "").replace(/\]\]>/g, "").trim();
+    const parsed = parseBlogFeed(xml);
+    const tagSet = new Set<string>();
+    for (const item of parsed) {
+      for (const tag of item.categories) {
         if (tag) tagSet.add(tag);
       }
     }
@@ -35,38 +39,6 @@ export async function getStaticPaths() {
   } catch (e) {
     return [];
   }
-}
-
-function cleanCdata(str) {
-  return (str || "").replace(/<!\[CDATA\[/g, "").replace(/\]\]>/g, "").trim();
-}
-
-function pick(chunk, re) {
-  const m = chunk.match(re);
-  if (!m) return "";
-  return cleanCdata(m[1] || m[2] || "");
-}
-
-function decodeHtmlEntities(str) {
-  if (!str) return "";
-  return str
-    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
-    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
-    .replace(/&amp;/g, "&")
-    .replace(/&quot;/g, '"')
-    .replace(/&apos;/g, "'")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">");
-}
-
-function isValidDate(d) {
-  return d instanceof Date && !isNaN(d.getTime());
-}
-
-function formatDate(d, fallback) {
-  return isValidDate(d)
-    ? d.toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric" })
-    : (fallback || "");
 }
 
 try {
@@ -80,19 +52,7 @@ try {
   });
   if (!res.ok) throw new Error(`Feed fetch failed: HTTP ${res.status}`);
   const xml = await res.text();
-  const chunks = xml.split("<item>").slice(1);
-  const parsed = chunks.map((chunk) => {
-    const title = decodeHtmlEntities(pick(chunk, /<title>(?:<!\[CDATA\[(.*?)\]\]>|(.*?))<\/title>/s));
-    const link = pick(chunk, /<link>(.*?)<\/link>/s);
-    const date = pick(chunk, /<pubDate>(.*?)<\/pubDate>/s);
-    const dateObj = new Date(date);
-    const description = decodeHtmlEntities(pick(chunk, /<description>(?:<!\[CDATA\[(.*?)\]\]>|(.*?))<\/description>/s));
-    const enclosureMatch = chunk.match(/<enclosure[^>]*url="(.*?)"[^>]*>/s);
-    const imageUrl = enclosureMatch ? enclosureMatch[1] : "";
-    const catMatches = Array.from(chunk.matchAll(/<category>(?:<!\[CDATA\[(.*?)\]\]>|(.*?))<\/category>/g));
-    const categories = catMatches.map((m) => decodeHtmlEntities(cleanCdata(m[1] || m[2] || ""))).filter(Boolean);
-    return { title, link, date, dateObj, description, imageUrl, categories };
-  });
+  const parsed = parseBlogFeed(xml);
 
   const wanted = tagParam.toLowerCase();
   items = parsed.filter((it) => (it.categories || []).some((c) => c.toLowerCase() === wanted));

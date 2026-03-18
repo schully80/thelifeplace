@@ -14,7 +14,7 @@ if (queryVariant === "solid" || queryVariant === "glass") {
 }
 
 const path = Astro.url.pathname;
-const isActive = (href) =>
+const isActive = (href: string) =>
   href === "/"
     ? path === "/"
     : path === href || (href !== "/" && path.startsWith(href) && path.charAt(href.length) === "/");

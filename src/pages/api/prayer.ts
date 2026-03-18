@@ -5,7 +5,12 @@ import { logFormSubmission, logSecurityEvent } from "../../utils/secure-logging"
 import { teamHtml, confirmHtml, confirmText } from "../../utils/prayer-email-templates";
 
 export const POST: APIRoute = async ({ request, locals }) => {
-  const runtimeEnv = locals?.runtime?.env as Record<string, string | undefined> | undefined;
+  type KVLike = {
+    get(key: string): Promise<string | null>;
+    put(key: string, value: string, options?: { expirationTtl?: number }): Promise<void>;
+  };
+
+  const runtimeEnv = (locals as { runtime?: { env?: Record<string, string | undefined> } } | undefined)?.runtime?.env;
   const envValue = (key: string) => runtimeEnv?.[key] ?? import.meta.env[key];
   const isDev = (import.meta.env.DEV || import.meta.env.MODE === "development" || runtimeEnv?.STAGE === "development") ?? false;
   const ip = getClientIP(request.headers);
@@ -88,8 +93,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   // 🚦 One active prayer request per user (email-based) for 7 days
   const prayerKv =
-    (((locals?.runtime as any)?.env?.PRAYER_SUBMISSIONS ||
-      (locals?.runtime as any)?.env?.VISIT_SUBMISSIONS) as KVNamespace | undefined);
+    ((((locals as { runtime?: { env?: Record<string, unknown> } } | undefined)?.runtime?.env?.PRAYER_SUBMISSIONS) ||
+      ((locals as { runtime?: { env?: Record<string, unknown> } } | undefined)?.runtime?.env?.VISIT_SUBMISSIONS)) as KVLike | undefined);
   const prayerLimitEnabled = envValue("PRAYER_LIMIT_ENABLED") !== "false";
   if (prayerKv && prayerLimitEnabled && userEmail) {
     try {

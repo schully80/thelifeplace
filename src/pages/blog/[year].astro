@@ -1,63 +1,30 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import FadeDivider from "../../components/tlp/FadeDivider.astro";
+import {
+  formatDate,
+  isValidDate,
+  monthKey,
+  monthLabel,
+  parseArchiveHtml,
+  parseBlogFeed,
+  type BlogFeedItem,
+  type MonthGroup,
+} from "../../utils/blog-feed";
 
 export const prerender = false;
 
 const FEED_URL = "https://schulteretyang.substack.com/feed";
-const ARCHIVE_URL = (year) => `https://schulteretyang.substack.com/archive?year=${year}`;
+const ARCHIVE_URL = (year: number) => `https://schulteretyang.substack.com/archive?year=${year}`;
 const FEED_TIMEOUT_MS = 8000; // abort slow requests after 8s
 const FEED_TTL_MS = 5 * 60 * 1000; // cache for 5 minutes
 
-let items = [];
-let error = null;
-let monthGroups = [];
+let items: BlogFeedItem[] = [];
+let error: string | null = null;
+let monthGroups: MonthGroup[] = [];
 
 // Simple in-memory cache per year for parsed archive items
-const yearCache = new Map(); // key: year, value: { items, fetchedAt }
-
-function cleanCdata(str) {
-  return (str || "").replace(/<!\[CDATA\[/g, "").replace(/\]\]>/g, "").trim();
-}
-
-function pick(chunk, re) {
-  const m = chunk.match(re);
-  if (!m) return "";
-  return cleanCdata(m[1] || m[2] || "");
-}
-
-function decodeHtmlEntities(str) {
-  if (!str) return "";
-  return str
-    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
-    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
-    .replace(/&amp;/g, "&")
-    .replace(/&quot;/g, '"')
-    .replace(/&apos;/g, "'")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">");
-}
-
-function isValidDate(d) {
-  return d instanceof Date && !isNaN(d.getTime());
-}
-
-function formatDate(d, fallback) {
-  return isValidDate(d)
-    ? d.toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric" })
-    : (fallback || "");
-}
-
-function monthKey(d) {
-  if (!isValidDate(d)) return "unknown";
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
-}
-
-function monthLabel(d) {
-  return isValidDate(d)
-    ? `${d.toLocaleString("en-US", { month: "long" })} ${d.getFullYear()}`
-    : "Unknown";
-}
+const yearCache = new Map<number, { items: BlogFeedItem[]; fetchedAt: number }>();
 
 const yearParam = Number(Astro.params.year || 0);
 
@@ -73,7 +40,7 @@ try {
   });
   clearTimeout(idxTimeout);
   if (idxRes.ok) {
-    const data = await idxRes.json();
+    const data = await idxRes.json() as { items?: Array<Record<string, unknown>> };
     const indexItems = Array.isArray(data?.items) ? data.items : [];
     const allowedMin = 2020;
     const allowedMax = new Date().getFullYear();
@@ -82,15 +49,18 @@ try {
       items = filtered.map((it) => {
         const y = typeof it.year === 'number' ? it.year : undefined;
         const m = typeof it.month === 'number' ? it.month : undefined;
-        const dateObj = it.date ? new Date(it.date) : (y && m ? new Date(y, m - 1, 1) : new Date(0));
+        const dateValue = typeof it.date === "string" ? it.date : "";
+        const dateObj = dateValue ? new Date(dateValue) : (y && m ? new Date(y, m - 1, 1) : new Date(0));
         return {
-          title: it.title || it.link,
-          link: it.link,
-          date: it.date || '',
+          title: typeof it.title === "string" ? it.title : String(it.link || ""),
+          link: typeof it.link === "string" ? it.link : "",
+          date: dateValue,
           dateObj,
-          description: it.excerpt || '',
+          description: typeof it.excerpt === "string" ? it.excerpt : "",
           imageUrl: '',
-          categories: Array.isArray(it.categories) ? it.categories : []
+          categories: Array.isArray(it.categories)
+            ? it.categories.filter((category): category is string => typeof category === "string")
+            : []
         };
       });
     }
@@ -111,19 +81,7 @@ try {
     clearTimeout(rssTimeout);
     if (!res.ok) throw new Error(`Feed fetch failed: HTTP ${res.status}`);
     const xml = await res.text();
-    const chunks = xml.split("<item>").slice(1);
-    const parsed = chunks.map((chunk) => {
-      const title = decodeHtmlEntities(pick(chunk, /<title>(?:<!\[CDATA\[(.*?)\]\]>|(.*?))<\/title>/s));
-      const link = pick(chunk, /<link>(.*?)<\/link>/s);
-      const date = pick(chunk, /<pubDate>(.*?)<\/pubDate>/s);
-      const dateObj = new Date(date);
-      const description = decodeHtmlEntities(pick(chunk, /<description>(?:<!\[CDATA\[(.*?)\]\]>|(.*?))<\/description>/s));
-      const enclosureMatch = chunk.match(/<enclosure[^>]*url="(.*?)"[^>]*>/s);
-      const imageUrl = enclosureMatch ? enclosureMatch[1] : "";
-      const catMatches = Array.from(chunk.matchAll(/<category>(?:<!\[CDATA\[(.*?)\]\]>|(.*?))<\/category>/g));
-      const categories = catMatches.map((m) => decodeHtmlEntities(cleanCdata(m[1] || m[2] || ""))).filter(Boolean);
-      return { title, link, date, dateObj, description, imageUrl, categories };
-    });
+    const parsed = parseBlogFeed(xml);
 
     items = parsed.filter((it) => isValidDate(it.dateObj) && it.dateObj.getFullYear() === yearParam);
 
@@ -146,44 +104,7 @@ try {
       if (!ares.ok) throw new Error(`Archive fetch failed: HTTP ${ares.status}`);
       const html = await ares.text();
 
-      // Parse archive HTML (best-effort, resilient regex)
-      function parseArchiveHTML(h) {
-        const results = [];
-        // Try to match list items with anchor + time
-        const liRe = /<li[\s\S]*?<a[^>]*href="https:\/\/schulteretyang\.substack\.com\/p\/[^\"]+"[^>]*>(.*?)<\/a>[\s\S]*?<time[^>]*datetime="([^"]+)"[\s\S]*?<\/li>/gi;
-        let m;
-        while ((m = liRe.exec(h)) !== null) {
-          const title = decodeHtmlEntities(cleanCdata(m[1] || ""));
-          const time = m[2];
-          const linkMatch = m[0].match(/href="(https:\/\/schulteretyang\.substack\.com\/p\/[^\"]+)"/);
-          const link = linkMatch ? linkMatch[1] : "";
-          const dateObj = time ? new Date(time) : null;
-          if (link && title) {
-            results.push({ title, link, date: time || "", dateObj, description: "", imageUrl: "", categories: [] });
-          }
-        }
-
-        // Fallback: match anchors to posts with nearby date text
-        if (results.length === 0) {
-          const aRe = /<a[^>]*href="(https:\/\/schulteretyang\.substack\.com\/p\/[^\"]+)"[^>]*>(.*?)<\/a>/gi;
-          let am;
-          while ((am = aRe.exec(h)) !== null) {
-            const link = am[1];
-            const title = decodeHtmlEntities(cleanCdata(am[2] || ""));
-            // Try to find a date within the next ~200 chars
-            const tail = h.slice(aRe.lastIndex, aRe.lastIndex + 200);
-            const dateTextMatch = tail.match(/([A-Za-z]{3,} \d{1,2}, \d{4})/);
-            const dateText = dateTextMatch ? dateTextMatch[1] : "";
-            const dateObj = dateText ? new Date(dateText) : null;
-            if (link && title) {
-              results.push({ title, link, date: dateText, dateObj, description: "", imageUrl: "", categories: [] });
-            }
-          }
-        }
-        return results;
-      }
-
-      items = parseArchiveHTML(html);
+      items = parseArchiveHtml(html);
       yearCache.set(yearParam, { items: items.slice(), fetchedAt: Date.now() });
     }
   }
@@ -196,16 +117,16 @@ try {
   });
 
   // Group by month within the year
-  const groupsMap = new Map();
+  const groupsMap = new Map<string, MonthGroup>();
   for (const item of items) {
     const key = monthKey(item.dateObj);
     const label = monthLabel(item.dateObj);
     if (!groupsMap.has(key)) groupsMap.set(key, { label, items: [] });
-    groupsMap.get(key).items.push(item);
+    groupsMap.get(key)!.items.push(item);
   }
   monthGroups = Array.from(groupsMap.values());
 } catch (e) {
-  const isAbort = e && typeof e === "object" && (e.name === "AbortError");
+  const isAbort = e instanceof Error && e.name === "AbortError";
   const msg = isAbort ? "Request timed out. Please try again." : (e instanceof Error ? e.message : String(e));
   error = msg;
 }

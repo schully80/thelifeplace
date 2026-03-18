@@ -105,12 +105,12 @@ import Turnstile from "./ui/Turnstile.astro";
   (function(){
     const form = document.getElementById('blogSignupForm');
     const btn = document.getElementById('subscribeBtn');
-    if (!form || !btn) return;
+    if (!(form instanceof HTMLFormElement) || !(btn instanceof HTMLButtonElement)) return;
     const hasToken = () => {
       const e = form.querySelector('input[name="cf-turnstile-response-blog"]');
-      return !!(e && e.value && e.value.length > 0);
+      return e instanceof HTMLInputElement && e.value.length > 0;
     };
-    const setDisabled = (disabled) => {
+    const setDisabled = (disabled: boolean) => {
       btn.disabled = disabled;
       if (disabled) {
         btn.classList.add('opacity-60', 'cursor-not-allowed');
@@ -122,7 +122,7 @@ import Turnstile from "./ui/Turnstile.astro";
     };
     setDisabled(!hasToken());
     form.addEventListener('turnstile:verified', function(){ setDisabled(false); });
-    form.addEventListener('submit', function(e){
+    form.addEventListener('submit', function(e: SubmitEvent){
       if (!hasToken()) {
         e.preventDefault();
         setDisabled(true);

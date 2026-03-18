@@ -1,3 +1,4 @@
+---
 // NOTE: Legacy/unused. BaseLayout renders src/components/Header.astro (includes mobile).
 const {
   title = "The Life Place",
@@ -6,7 +7,7 @@ const {
 } = Astro.props;
 
 const path = Astro.url.pathname;
-const isActive = (href) =>
+const isActive = (href: string) =>
   href === "/"
     ? path === "/"
     : path === href || (href !== "/" && path.startsWith(href) && path.charAt(href.length) === "/");
@@ -238,7 +239,6 @@ const isActive = (href) =>
           rel="noopener noreferrer"
           class={`w-full text-left block px-4 py-3 rounded-full text-base text-brand-darkgray hover:bg-gray-50`}
         >Blog</a>
-      </a>
     </nav>
 
   </aside>
@@ -322,8 +322,11 @@ const isActive = (href) =>
   document.addEventListener("tlp-live-updated", (e) => {
     const text = document.querySelector("[data-live-mobile-text]");
     const dot = document.querySelector("[data-live-mobile-indicator]");
+    const detail = e instanceof CustomEvent ? e.detail : false;
 
-    if (e.detail) {
+    if (!(text instanceof HTMLElement) || !(dot instanceof HTMLElement)) return;
+
+    if (detail) {
       text.textContent = "Live Now";
       dot.classList.remove("hidden");
     } else {

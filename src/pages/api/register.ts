@@ -8,7 +8,7 @@ export const POST: APIRoute = async (context) => {
     const runtime = (context.locals as any)?.runtime;
     const env = runtime?.env || process.env;
     const ctx = runtime?.ctx;
-    return await workerPost({ request: context.request, env, ctx } as any);
+    return await workerPost({ request: context.request, env, ctx } as any) as unknown as Response;
   } catch (err: any) {
     console.error("/api/register POST error", err);
     return new Response(
@@ -20,7 +20,7 @@ export const POST: APIRoute = async (context) => {
 
 export const GET: APIRoute = async (context) => {
   try {
-    return await workerGet({ request: context.request } as any);
+    return await workerGet({ request: context.request } as any) as unknown as Response;
   } catch (err: any) {
     console.error("/api/register GET error", err);
     return new Response("Not found", { status: 404 });

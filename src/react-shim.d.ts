@@ -1,31 +1,12 @@
-/// <reference types="astro/client" />
-
-export {};
-
-declare global {
-  interface Window {
-    __TLP_IS_LIVE?: boolean;
-    PUBLIC_GOOGLE_PLACES_KEY?: string;
-    dataLayer: unknown[][];
-  }
-
-}
-
-declare namespace App {
-  interface Locals {
-    runtime?: {
-      env?: Record<string, unknown>;
-    };
-  }
-}
-
 declare module "react" {
   export type ReactNode = any;
   export type Ref<T> = any;
-  export type ComponentPropsWithoutRef<T> = any;
-  export interface ButtonHTMLAttributes<T> extends Record<string, any> {}
+  export interface ButtonHTMLAttributes<T> extends Record<string, any> {
+    className?: string;
+  }
   export interface ForwardRefExoticComponent<P> {
     (props: P): any;
+    displayName?: string;
   }
   export function forwardRef<T, P = {}>(render: (props: P, ref: Ref<T>) => any): ForwardRefExoticComponent<P>;
 }

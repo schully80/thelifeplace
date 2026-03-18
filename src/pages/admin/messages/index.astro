@@ -8,7 +8,7 @@ import {
 
 export const prerender = false;
 
-const env = (Astro.locals?.runtime as { env?: Record<string, unknown> } | undefined)?.env;
+const env = (Astro.locals as { runtime?: { env?: Record<string, unknown> } } | undefined)?.runtime?.env;
 const expectedKey = getMessagesAdminKey(env);
 const providedKey = Astro.url.searchParams.get("key") || "";
 const authorized = providedKey === expectedKey;

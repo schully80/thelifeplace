@@ -1,5 +1,10 @@
 import seedMessages from "../data/messages.json";
 
+type KVLike = {
+  get(key: string): Promise<string | null>;
+  put(key: string, value: string, options?: { expirationTtl?: number }): Promise<void>;
+};
+
 export type MessageRecord = {
   id: string;
   title: string;
@@ -30,9 +35,9 @@ function resolveEnv(runtimeEnv?: Record<string, unknown>) {
   return runtimeEnv || {};
 }
 
-export function getMessagesKV(runtimeEnv?: Record<string, unknown>): KVNamespace | undefined {
+export function getMessagesKV(runtimeEnv?: Record<string, unknown>): KVLike | undefined {
   const env = resolveEnv(runtimeEnv);
-  return (env.MESSAGES_DATA || env.MESSAGES_STORE) as KVNamespace | undefined;
+  return (env.MESSAGES_DATA || env.MESSAGES_STORE) as KVLike | undefined;
 }
 
 export function getMessagesAdminKey(runtimeEnv?: Record<string, unknown>): string {

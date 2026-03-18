@@ -11,6 +11,7 @@ const { url, title } = Astro.props;
 
     // Inject floating button
     const root = document.getElementById("share-root");
+    if (!(root instanceof HTMLDivElement)) return;
     root.innerHTML = `
       <button id="shareBtn"
         class="fixed bottom-8 right-8 z-50 rounded-full bg-[#B3282D] text-white 
@@ -58,16 +59,30 @@ const { url, title } = Astro.props;
     const btn = document.getElementById("shareBtn");
     const sheet = document.getElementById("sheet-panel");
     const backdrop = document.getElementById("sheet-backdrop");
+    const closeSheetBtn = document.getElementById("closeSheet");
+    const nativeShareBtn = document.getElementById("nativeShare");
+    const copyLinkBtn = document.getElementById("copyLink");
+
+    if (
+      !(btn instanceof HTMLButtonElement) ||
+      !(sheet instanceof HTMLDivElement) ||
+      !(backdrop instanceof HTMLDivElement) ||
+      !(closeSheetBtn instanceof HTMLButtonElement) ||
+      !(nativeShareBtn instanceof HTMLButtonElement) ||
+      !(copyLinkBtn instanceof HTMLButtonElement)
+    ) {
+      return;
+    }
 
     const openSheet = () => {
       sheet.style.transform = "translateY(0)";
       backdrop.classList.remove("pointer-events-none");
-      backdrop.style.opacity = 1;
+      backdrop.style.opacity = "1";
     };
 
     const closeSheet = () => {
       sheet.style.transform = "translateY(100%)";
-      backdrop.style.opacity = 0;
+      backdrop.style.opacity = "0";
       setTimeout(() => {
         backdrop.classList.add("pointer-events-none");
       }, 300);
@@ -75,10 +90,10 @@ const { url, title } = Astro.props;
 
     btn.addEventListener("click", openSheet);
     backdrop.addEventListener("click", closeSheet);
-    document.getElementById("closeSheet").addEventListener("click", closeSheet);
+    closeSheetBtn.addEventListener("click", closeSheet);
 
     // Native share
-    document.getElementById("nativeShare").addEventListener("click", async () => {
+    nativeShareBtn.addEventListener("click", async () => {
       if (navigator.share) {
         await navigator.share({ title: pageTitle, url: pageURL });
         closeSheet();
@@ -88,7 +103,7 @@ const { url, title } = Astro.props;
     });
 
     // Copy fallback
-    document.getElementById("copyLink").addEventListener("click", () => {
+    copyLinkBtn.addEventListener("click", () => {
       navigator.clipboard.writeText(pageURL);
       alert("Link copied!");
       closeSheet();

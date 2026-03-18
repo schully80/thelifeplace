@@ -12,17 +12,17 @@ import SearchBar from "../components/SearchBar.astro";
 import Pagination from "../components/Pagination.astro";
 import { loadMessages } from "../utils/message-store";
 
-const runtimeEnv = (Astro.locals?.runtime as { env?: Record<string, unknown> } | undefined)?.env;
+const runtimeEnv = (Astro.locals as { runtime?: { env?: Record<string, unknown> } } | undefined)?.runtime?.env;
 const messages = await loadMessages(runtimeEnv);
 
 // Sort messages by date (newest first)
-messages.sort((a, b) => new Date(b.date) - new Date(a.date));
+messages.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 // Hybrid featured logic
 const featuredMessages = messages.filter((m) => m.featured);
 const heroMessage =
   featuredMessages.length > 0
-    ? featuredMessages.sort((a, b) => new Date(b.date) - new Date(a.date))[0]
+    ? featuredMessages.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0]
     : messages[0];
 
 // URL filters
@@ -185,38 +185,41 @@ const upNext = filtered.length > 0 ? filtered[0] : null;
 const shareBtn = document.getElementById("tlpShareBtn");
 const floatTip = document.getElementById("tlpFloatTip");
 
-// SHARE HANDLER
-shareBtn.addEventListener("click", async () => {
-  const shareData = {
-    title: document.title,
-    text: "Watch this message from The Life Place!",
-    url: window.location.href
-  };
+if (shareBtn instanceof HTMLButtonElement && floatTip instanceof HTMLDivElement) {
+  const floatTipEl = floatTip;
+  // SHARE HANDLER
+  shareBtn.addEventListener("click", async () => {
+    const shareData = {
+      title: document.title,
+      text: "Watch this message from The Life Place!",
+      url: window.location.href
+    };
 
-  // Try native share
-  if (navigator.share) {
+    // Try native share
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch {}
+    }
+
+    // Fallback → copy to clipboard
     try {
-      await navigator.share(shareData);
-      return;
-    } catch {}
-  }
+      await navigator.clipboard.writeText(window.location.href);
+      showTip();
+    } catch {
+      alert("Link copied!");
+    }
+  });
 
-  // Fallback → copy to clipboard
-  try {
-    await navigator.clipboard.writeText(window.location.href);
-    showTip();
-  } catch {
-    alert("Link copied!");
+  // Tooltip animation
+  function showTip() {
+    floatTipEl.style.opacity = "1";
+    floatTipEl.style.transform = "translateX(-50%) translateY(-4px) scale(1)";
+    setTimeout(() => {
+      floatTipEl.style.opacity = "0";
+      floatTipEl.style.transform = "translateX(-50%) translateY(0px) scale(.95)";
+    }, 1200);
   }
-});
-
-// Tooltip animation
-function showTip() {
-  floatTip.style.opacity = "1";
-  floatTip.style.transform = "translateX(-50%) translateY(-4px) scale(1)";
-  setTimeout(() => {
-    floatTip.style.opacity = "0";
-    floatTip.style.transform = "translateX(-50%) translateY(0px) scale(.95)";
-  }, 1200);
 }
 </script>

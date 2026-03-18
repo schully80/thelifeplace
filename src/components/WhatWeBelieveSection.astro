@@ -287,10 +287,10 @@
 <script>
   function setupAccordions() {
     const section = document.querySelector('section');
-    const items = document.querySelectorAll('.accordion-item');
+    const items = document.querySelectorAll<HTMLElement>('.accordion-item');
     
     // Define accordion pairs
-    const pairs = [
+    const pairs: [string, string][] = [
       ['GOD', 'JESUS'],
       ['HOLY SPIRIT', 'CREATION'],
       ['HUMANITY', 'SIN'],
@@ -303,13 +303,13 @@
     ];
     
     // Create a map of item name to pair items
-    const pairMap = new Map();
-    pairs.forEach(pair => {
-      const item1 = Array.from(items).find(item => item.querySelector('.accordion-btn span').textContent === pair[0]);
-      const item2 = Array.from(items).find(item => item.querySelector('.accordion-btn span').textContent === pair[1]);
+    const pairMap = new Map<HTMLElement, HTMLElement[]>();
+    pairs.forEach((pair) => {
+      const item1 = Array.from(items).find((item) => item.querySelector('.accordion-btn span')?.textContent === pair[0]);
+      const item2 = Array.from(items).find((item) => item.querySelector('.accordion-btn span')?.textContent === pair[1]);
       
-      if (item1) pairMap.set(item1, [item1, item2]);
-      if (item2) pairMap.set(item2, [item1, item2]);
+      if (item1) pairMap.set(item1, [item1, item2].filter(Boolean) as HTMLElement[]);
+      if (item2) pairMap.set(item2, [item1, item2].filter(Boolean) as HTMLElement[]);
     });
     
     // Function to close all accordions
@@ -327,12 +327,12 @@
     window.addEventListener('scroll', closeAll, { passive: true });
     
     items.forEach((item, idx) => {
-      const btn = item.querySelector('.accordion-btn');
-      const content = item.querySelector('.accordion-content');
+      const btn = item.querySelector<HTMLButtonElement>('.accordion-btn');
+      const content = item.querySelector<HTMLElement>('.accordion-content');
       if (!btn) return;
 
       // Ensure button behaves correctly and is keyboard accessible
-      try { btn.type = 'button'; } catch (e) {}
+      btn.type = 'button';
 
       // Assign accessible ids and attributes
       const contentId = content && content.id ? content.id : `accordion-content-${idx}`;
@@ -351,16 +351,16 @@
 
           if (isActive) {
             // Close both
-            pairedItems.forEach(paired => {
+            pairedItems.forEach((paired) => {
               paired.classList.remove('active');
-              const b = paired.querySelector('.accordion-btn');
+              const b = paired.querySelector<HTMLElement>('.accordion-btn');
               if (b) b.setAttribute('aria-expanded', 'false');
             });
           } else {
             // Open both
-            pairedItems.forEach(paired => {
+            pairedItems.forEach((paired) => {
               paired.classList.add('active');
-              const b = paired.querySelector('.accordion-btn');
+              const b = paired.querySelector<HTMLElement>('.accordion-btn');
               if (b) b.setAttribute('aria-expanded', 'true');
             });
           }

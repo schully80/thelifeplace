@@ -91,8 +91,9 @@ pathParts.forEach((part, index) => {
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-K583CXSM0Y"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      const analyticsWindow = window as typeof window & { dataLayer?: unknown[][] };
+      analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
+      function gtag(...args: unknown[]){analyticsWindow.dataLayer?.push(args);}
       gtag('js', new Date());
       gtag('config', 'G-K583CXSM0Y');
     </script>
@@ -438,10 +439,13 @@ pathParts.forEach((part, index) => {
 
         let node;
         while ((node = walker.nextNode())) {
-          if (regex.test(node.nodeValue)) {
+          const text = node.nodeValue;
+          const parent = node.parentNode;
+          if (!text || !parent) continue;
+          if (regex.test(text)) {
             const span = document.createElement("span");
-            span.innerHTML = node.nodeValue.replace(regex, '<span class="word-jesus">Jesus</span>');
-            node.parentNode.replaceChild(span, node);
+            span.innerHTML = text.replace(regex, '<span class="word-jesus">Jesus</span>');
+            parent.replaceChild(span, node);
           }
         }
       });
@@ -523,7 +527,8 @@ pathParts.forEach((part, index) => {
 
     try {
       // Replace with real API later
-      const isLive = window.__TLP_IS_LIVE || false;
+      const liveWindow = window as typeof window & { __TLP_IS_LIVE?: boolean };
+      const isLive = liveWindow.__TLP_IS_LIVE || false;
 
       if (isLive) {
         liveLabel.textContent = "LIVE NOW";
