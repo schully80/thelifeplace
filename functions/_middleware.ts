@@ -1,5 +1,9 @@
 // /functions/_middleware.ts
-import type { PagesFunction } from "@cloudflare/workers-types";
+import type {
+  EventContext,
+  PagesFunction,
+  Response as WorkerResponse,
+} from "@cloudflare/workers-types";
 
 // ✅ In-memory rate limiting (per IP)
 const rateLimitMap = new Map<string, { count: number; reset: number }>();
@@ -64,8 +68,12 @@ function generateCSRFToken(): string {
   return crypto.randomUUID().replace(/-/g, "");
 }
 
+type MiddlewareContext = EventContext<unknown, any, Record<string, unknown>>;
+
 // ✅ Additional security headers
-export const onRequest: PagesFunction = async (context) => {
+export const onRequest: PagesFunction = async (
+  context: MiddlewareContext
+): Promise<WorkerResponse> => {
   const { request, next } = context;
   const nonce = crypto.randomUUID().replace(/-/g, "");
   const csrfToken = generateCSRFToken();
@@ -78,7 +86,10 @@ export const onRequest: PagesFunction = async (context) => {
 
   const redirectTarget = redirectRoutes.get(normalizedPath);
   if (redirectTarget) {
-    return Response.redirect(new URL(redirectTarget, url).toString(), 301);
+    return Response.redirect(
+      new URL(redirectTarget, url).toString(),
+      301
+    ) as unknown as WorkerResponse;
   }
 
   if (goneRoutes.has(normalizedPath)) {
@@ -89,7 +100,7 @@ export const onRequest: PagesFunction = async (context) => {
         "Cache-Control": "public, max-age=300",
         "X-Robots-Tag": "noindex, nofollow",
       },
-    });
+    }) as unknown as WorkerResponse;
   }
 
   // Rate limit API endpoints
@@ -100,7 +111,7 @@ export const onRequest: PagesFunction = async (context) => {
       return new Response(JSON.stringify({ error: "Rate limit exceeded" }), {
         status: 429,
         headers: { "Content-Type": "application/json" }
-      });
+      }) as unknown as WorkerResponse;
     }
   }
 
@@ -111,7 +122,7 @@ export const onRequest: PagesFunction = async (context) => {
       return new Response(JSON.stringify({ error: "Too many requests. Please try again later." }), {
         status: 429,
         headers: { "Content-Type": "application/json" }
-      });
+      }) as unknown as WorkerResponse;
     }
   }
 
@@ -138,8 +149,8 @@ export const onRequest: PagesFunction = async (context) => {
   const strict = new Response(html, {
     status: res.status,
     statusText: res.statusText,
-    headers: res.headers,
-  });
+    headers: [...res.headers.entries()],
+  }) as unknown as WorkerResponse;
   
   strict.headers.set(
     "Content-Security-Policy",
