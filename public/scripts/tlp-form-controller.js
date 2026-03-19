@@ -190,7 +190,7 @@
           </div>
           <button
             type="button"
-            class="ml-auto shrink-0 self-start inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-red text-white transition hover:bg-red-700"
+            class="ml-auto shrink-0 self-start inline-flex h-8 w-8 items-center justify-center rounded-full border border-brand-red/15 bg-gray-50 text-brand-red shadow-sm transition-colors hover:bg-brand-red hover:text-white"
             aria-label="Dismiss"
             data-action="dismiss"
           >

@@ -383,19 +383,22 @@ const youtubeEmbedFallbackUrl = `https://www.youtube.com/embed/live_stream?chann
 	  </script>
 
 
-<script is:inline>
-	  async function updateLiveExperience() {
-	    const badge = document.getElementById("liveStatusBadge");
-	    const frame = document.getElementById("liveFrame");
-	    const youtubeLink = document.getElementById("watchOnYoutubeLink");
-	    const youtubeHelper = document.getElementById("watchOnYoutubeHelper");
-	    const youtubeLinkLabel = youtubeLink?.querySelector("span");
-	    const defaultChannelUrl = {JSON.stringify(youtubeChannelUrl)};
-	    const defaultWatchUrl = {JSON.stringify(youtubeChannelLiveUrl)};
-	    const defaultEmbedUrl = {JSON.stringify(youtubeEmbedFallbackUrl)};
-	    if (
-	      !(badge instanceof HTMLElement) ||
-	      !(frame instanceof HTMLIFrameElement) ||
+<script
+  is:inline
+  define:vars={{ youtubeChannelUrl, youtubeChannelLiveUrl, youtubeEmbedFallbackUrl }}
+>
+		  async function updateLiveExperience() {
+		    const badge = document.getElementById("liveStatusBadge");
+		    const frame = document.getElementById("liveFrame");
+		    const youtubeLink = document.getElementById("watchOnYoutubeLink");
+		    const youtubeHelper = document.getElementById("watchOnYoutubeHelper");
+		    const youtubeLinkLabel = youtubeLink?.querySelector("span");
+		    const defaultChannelUrl = youtubeChannelUrl;
+		    const defaultWatchUrl = youtubeChannelLiveUrl;
+		    const defaultEmbedUrl = youtubeEmbedFallbackUrl;
+		    if (
+		      !(badge instanceof HTMLElement) ||
+		      !(frame instanceof HTMLIFrameElement) ||
 	      !(youtubeLink instanceof HTMLAnchorElement) ||
 	      !(youtubeHelper instanceof HTMLElement) ||
 	      !(youtubeLinkLabel instanceof HTMLElement)

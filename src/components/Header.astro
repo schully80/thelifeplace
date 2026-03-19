@@ -94,21 +94,24 @@ const isActive = (href: string) =>
           >About Us</button>
 
         <div data-menu class="absolute left-0 top-full mt-1 w-56 md:w-64 rounded-md border bg-white shadow-lg hidden">
-          <a href="/about-us/" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">What We Do</a>
-          <a href="/what-we-believe/" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">What We Believe</a>
-          <a href="/about-us/leadership" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">Schulter & Genevieve</a>
+          <a href="/about-us/" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">What we do</a>
+          <a href="/what-we-believe/" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">What we believe</a>
+          <a href="/about-us/leadership" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">Schulter & genevieve</a>
         </div>
       </div>
 
       <!-- Live -->
         <a
           href="/live/"
-          class={`px-2 py-2 flex items-center gap-1 rounded-full ${
+          class={`px-2 py-2 flex items-center gap-2 rounded-full ${
             isActive("/live/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"
           }`}
         >
         <span data-live-mid-text>Live</span>
-        <span data-live-mid-indicator class="hidden h-2 w-2 rounded-full bg-red-600"></span>
+        <span data-live-mid-indicator class="hidden relative inline-flex h-3 w-3 shrink-0 items-center justify-center" aria-hidden="true">
+          <span class="absolute inset-0 rounded-full bg-brand-red/25 animate-nav-live-ping"></span>
+          <span class="relative h-2 w-2 rounded-full bg-brand-red shadow-[0_0_0_2px_rgba(255,255,255,0.92)]"></span>
+        </span>
       </a>
 
       <!-- Ministries nav removed -->
@@ -127,7 +130,7 @@ const isActive = (href: string) =>
               ? "text-brand-red font-semibold bg-red-50"
               : "text-gray-700 hover:bg-gray-50"
           }`}
-        >Plan A Visit</a>
+        >Visit Us</a>
 
       <!-- Blog (internal listing) -->
         <a
@@ -203,12 +206,15 @@ const isActive = (href: string) =>
       <!-- Live -->
       <a
         href="/live/"
-        class={`relative px-2 py-2 flex items-center gap-1 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
+        class={`relative px-2 py-2 flex items-center gap-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
           isActive("/live/") ? "after:w-full after:bg-brand-red text-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-brand-red"
         }`}
       >
         <span data-live-text>Live</span>
-        <span data-live-indicator class="hidden h-2 w-2 rounded-full bg-red-600 absolute -right-3 top-1/2 -translate-y-1/2"></span>
+        <span data-live-indicator class="hidden relative inline-flex h-3 w-3 shrink-0 items-center justify-center" aria-hidden="true">
+          <span class="absolute inset-0 rounded-full bg-brand-red/25 animate-nav-live-ping"></span>
+          <span class="relative h-2 w-2 rounded-full bg-brand-red shadow-[0_0_0_2px_rgba(255,255,255,0.92)]"></span>
+        </span>
       </a>
 
       <!-- Ministries nav removed -->
@@ -226,7 +232,7 @@ const isActive = (href: string) =>
         class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
           isActive("/visit/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-brand-red"
         }`}
-      >Plan A Visit</a>
+      >Visit</a>
 
       <!-- Blog (internal listing) -->
       <a
@@ -250,11 +256,8 @@ const isActive = (href: string) =>
     tabindex="-1"
   >
     <div class="h-16 px-6 flex items-center justify-end border-b">
-      <button id="tabletMenuClose" type="button" aria-label="Close menu" class={resolvedNavVariant === "solid"
-        ? "inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-red text-white shadow-lg ring-0 transition hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(179,40,45,0.35)] active:translate-y-0"
-        : "inline-flex h-11 w-11 items-center justify-center rounded-full bg-transparent text-gray-900 transition hover:-translate-y-0.5 active:translate-y-0"
-      }>
-        <svg viewBox="0 0 24 24" class={`h-7 w-7 ${resolvedNavVariant === "solid" ? "text-white" : "text-gray-800"}`}>
+      <button id="tabletMenuClose" type="button" aria-label="Close menu" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-gray-50 text-brand-red shadow-sm transition-colors hover:bg-brand-red hover:text-white focus:outline-none focus:ring-2 focus:ring-brand-red/70 focus:ring-offset-2">
+        <svg viewBox="0 0 24 24" class="h-7 w-7">
           <path d="M6.5 6.5l11 11M17.5 6.5l-11 11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
         </svg>
       </button>
@@ -264,7 +267,7 @@ const isActive = (href: string) =>
       <!-- ...existing code... -->
 
       <section class="mt-2" data-accordion>
-        <button type="button" class="w-full flex items-center justify-center gap-3 px-6 py-5 rounded-full text-center text-xl font-extrabold uppercase tracking-wide hover:bg-gray-50" data-accordion-trigger aria-expanded="false" aria-controls="acc-about-tablet">
+        <button type="button" class="  text-gray-700 w-full flex items-center justify-center gap-3 px-6 py-5 rounded-full text-center text-xl font-semibold tracking-wide hover:bg-gray-50" data-accordion-trigger aria-expanded="false" aria-controls="acc-about-tablet">
           <span>About Us</span>
           <svg class="h-8 w-8 transition-transform" viewBox="0 0 24 24">
             <path d="M7 9.2h10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
@@ -274,37 +277,60 @@ const isActive = (href: string) =>
         <div id="acc-about-tablet" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out" data-accordion-panel>
           <div class="overflow-hidden">
             <ul class="py-1">
-              <li><a href="/about-us/" class={`block px-6 py-4 text-xl font-semibold rounded-full uppercase tracking-wide ${isActive("/about-us/") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>What We Do</a></li>
-              
-              <li><a href="/what-we-believe/" class={`block px-6 py-4 text-xl font-semibold rounded-full uppercase tracking-wide ${isActive("/what-we-believe/") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>What We Believe</a></li>
-              <li><a href="/about-us/leadership" class={`block px-6 py-4 text-xl font-semibold rounded-full uppercase tracking-wide ${isActive("/about-us/leadership") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>Schulter and Genevieve</a></li>
+              <li><a href="/about-us/" class={`block px-6 py-4 text-xl font-semibold rounded-full tracking-wide ${isActive("/about-us/") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>What we do</a></li>
+              <li><a href="/what-we-believe/" class={`block px-6 py-4 text-xl font-semibold rounded-full tracking-wide ${isActive("/what-we-believe/") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>What we believe</a></li>
+              <li><a href="/about-us/leadership" class={`block px-6 py-4 text-xl font-semibold rounded-full tracking-wide ${isActive("/about-us/leadership") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>Schulter and genevieve</a></li>
             </ul>
           </div>
         </div>
       </section>
 
-      <a href="/live/" class={`block w-full px-6 py-5 rounded-full text-xl font-extrabold uppercase tracking-wide ${isActive("/live/") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
+      <a href="/live/" class={`block w-full px-6 py-5 rounded-full text-xl font-semibold tracking-wide ${isActive("/live/") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
         <span class="flex items-center justify-center gap-3">
           <span data-live-tablet-text>Live</span>
-          <span data-live-tablet-indicator class="hidden h-2 w-2 rounded-full bg-red-600"></span>
+          <span data-live-tablet-indicator class="hidden relative inline-flex h-3.5 w-3.5 shrink-0 items-center justify-center" aria-hidden="true">
+            <span class="absolute inset-0 rounded-full bg-brand-red/25 animate-nav-live-ping"></span>
+            <span class="relative h-2.5 w-2.5 rounded-full bg-brand-red shadow-[0_0_0_2px_rgba(255,255,255,0.95)]"></span>
+          </span>
         </span>
       </a>
 
       <!-- Ministries nav removed from tablet drawer -->
 
-      <a href="/give/" class={`mt-5 inline-flex items-center justify-center px-6 py-4 rounded-full bg-brand-red text-white text-xl font-extrabold uppercase tracking-wide shadow-md hover:bg-red-700 hover:shadow-lg transition`}>
+      <a href="/give/" class={`mt-5 inline-flex items-center justify-center px-6 py-4 rounded-full bg-brand-red text-white text-xl font-semibold tracking-wide shadow-md hover:bg-red-700 hover:shadow-lg transition`}>
        Give
       </a>
 
-      <a href="/visit/" class={`mt-4 block w-full px-6 py-5 rounded-full text-xl font-extrabold uppercase tracking-wide ${isActive("/visit/") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
-        Plan A Visit
+      <a href="/visit/" class={`mt-4 block w-full px-6 py-5 rounded-full text-xl font-semibold tracking-wide ${isActive("/visit/") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
+        Visit 
       </a>
 
-      <a href="/blog/" class={`w-full block px-6 py-4 rounded-full text-xl font-extrabold uppercase tracking-wide ${isActive("/blog/") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
+      <a href="/blog/" class={`w-full block px-6 py-4 rounded-full text-xl font-semibold tracking-wide ${isActive("/blog/") ? "text-brand-red bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
         Blog
       </a>
     </nav>
   </aside>
+
+  <style>
+    @keyframes nav-live-ping {
+      0% {
+        transform: scale(0.85);
+        opacity: 0.7;
+      }
+      70% {
+        transform: scale(1.9);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1.9);
+        opacity: 0;
+      }
+    }
+
+    .animate-nav-live-ping {
+      animation: nav-live-ping 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+    }
+  </style>
 
   <!-- Scripts (drawer + accordions for mobile/tablet live here) -->
   <script is:inline>
@@ -375,11 +401,11 @@ const isActive = (href: string) =>
         });
 
         if (hasActiveLink) {
-          trigger.classList.add("text-brand-red", "font-semibold", "bg-red-50");
+          trigger.classList.add("text-brand-red", "bg-red-50");
           trigger.classList.remove("text-gray-700");
         } else {
           trigger.classList.add("text-gray-700");
-          trigger.classList.remove("text-brand-red", "font-semibold", "bg-red-50");
+          trigger.classList.remove("text-brand-red", "bg-red-50");
         }
 
         const savedState = localStorage.getItem(storageKey) === "true";
@@ -617,10 +643,6 @@ const isActive = (href: string) =>
       try {
         const res = await fetch("/api/live-status.json");
         const data = await res.json();
-
-        document.querySelectorAll("[data-live-text], [data-live-mobile-text], [data-live-mid-text], [data-live-tablet-text]").forEach(el => {
-          el.textContent = data.live ? "Live Now" : "Live";
-        });
 
         document.querySelectorAll("[data-live-indicator], [data-live-mobile-indicator], [data-live-mid-indicator], [data-live-tablet-indicator]").forEach(el => {
           data.live ? el.classList.remove("hidden") : el.classList.add("hidden");

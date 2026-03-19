@@ -247,21 +247,62 @@ pathParts.forEach((part, index) => {
 
   <body class="min-h-screen flex flex-col bg-white antialiased">
 
-    <!-- Live Ribbon -->
+    <!-- Live Banner -->
     <div
-      id="tlpLiveRibbon"
-      class="hidden fixed top-0 left-0 right-0 z-[99999]
-             bg-red-600 text-white text-center py-2 font-semibold shadow-lg
-             animate-[pulse_2s_ease-in-out_infinite]"
+      id="tlpLiveBanner"
+      class="pointer-events-none max-h-0 overflow-hidden opacity-0 transition-[max-height,opacity] duration-300 ease-out"
+      aria-hidden="true"
     >
-      🔴 We Are Live Now — <a href="/live/" class="underline">Join the Stream</a>
+      <div class="border-b border-red-200/70 bg-[linear-gradient(135deg,rgba(179,40,45,0.08),rgba(255,255,255,0.96)_45%,rgba(179,40,45,0.12))] backdrop-blur-xl">
+        <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+          <div class="flex items-start gap-3">
+            <span class="relative mt-1 inline-flex h-3.5 w-3.5 shrink-0 items-center justify-center" aria-hidden="true">
+              <span class="absolute inset-0 rounded-full bg-brand-red/25 animate-[tlpLiveBannerPing_1.8s_cubic-bezier(0.22,1,0.36,1)_infinite]"></span>
+              <span class="relative h-2.5 w-2.5 rounded-full bg-brand-red shadow-[0_0_0_3px_rgba(255,255,255,0.92)]"></span>
+            </span>
+            <div class="space-y-1">
+              <p class="text-sm font-semibold uppercase tracking-[0.16em] text-brand-red">Live now</p>
+              <p class="text-sm text-gray-700 sm:text-[15px]">
+                We’re streaming right now. Join the service live when you’re ready.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <a
+              href="/live/"
+              class="inline-flex items-center gap-2 rounded-full bg-brand-red px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(179,40,45,0.18)] transition hover:bg-[#9f2429]"
+            >
+              <span>Watch live</span>
+              <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
+            </a>
+            <button
+              id="tlpLiveBannerDismiss"
+              type="button"
+              aria-label="Dismiss live banner"
+              class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/85 text-brand-red shadow-sm transition-colors hover:bg-brand-red hover:text-white focus:outline-none focus:ring-2 focus:ring-brand-red/70 focus:ring-offset-2"
+            >
+              <i class="fa-solid fa-x text-sm" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <style>
-      @keyframes pulse {
-        0% { opacity: .7; }
-        50% { opacity: 1; }
-        100% { opacity: .7; }
+      @keyframes tlpLiveBannerPing {
+        0% {
+          transform: scale(0.85);
+          opacity: 0.72;
+        }
+        70% {
+          transform: scale(1.95);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1.95);
+          opacity: 0;
+        }
       }
     </style>
 
@@ -519,7 +560,7 @@ pathParts.forEach((part, index) => {
       const isLive = liveWindow.__TLP_LIVE__ || false;
 
       if (isLive) {
-        liveLabel.textContent = "LIVE NOW";
+        liveLabel.textContent = "Live now";
         liveLabel.classList.add("text-brand-red", "font-semibold");
         liveDot.classList.remove("hidden");
         liveDot.classList.add("inline-block");
@@ -558,16 +599,57 @@ pathParts.forEach((part, index) => {
 </script>
 
 <script is:inline>
-  document.addEventListener("tlp-live-updated", (e) => {
-    const isLive = e.detail;
+  const syncLiveBanner = (isLive) => {
+    const banner = document.getElementById("tlpLiveBanner");
+    const dismissBtn = document.getElementById("tlpLiveBannerDismiss");
+    const dismissKey = "tlp-live-banner-dismissed";
 
-    // Prevent redirect loop on /live/
-    if (window.location.pathname === "/live/") return;
+    if (!(banner instanceof HTMLDivElement) || !(dismissBtn instanceof HTMLButtonElement)) return;
 
-    if (isLive) {
-      window.location.href = "/live/";
+    const hideBanner = () => {
+      banner.classList.add("pointer-events-none", "max-h-0", "opacity-0");
+      banner.classList.remove("max-h-48", "opacity-100");
+      banner.setAttribute("aria-hidden", "true");
+    };
+
+    const showBanner = () => {
+      banner.classList.remove("pointer-events-none", "max-h-0", "opacity-0");
+      banner.classList.add("max-h-48", "opacity-100");
+      banner.setAttribute("aria-hidden", "false");
+    };
+
+    if (!dismissBtn.dataset.bound) {
+      dismissBtn.dataset.bound = "true";
+      dismissBtn.addEventListener("click", () => {
+        sessionStorage.setItem(dismissKey, "true");
+        hideBanner();
+      });
     }
+
+    if (!isLive) {
+      sessionStorage.removeItem(dismissKey);
+      hideBanner();
+      return;
+    }
+
+    if (window.location.pathname === "/live/") {
+      hideBanner();
+      return;
+    }
+
+    if (sessionStorage.getItem(dismissKey) === "true") {
+      hideBanner();
+      return;
+    }
+
+    showBanner();
+  };
+
+  document.addEventListener("tlp-live-updated", (e) => {
+    syncLiveBanner(Boolean(e.detail));
   });
+
+  syncLiveBanner(Boolean(window.__TLP_LIVE__));
 </script>
 
 
