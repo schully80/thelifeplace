@@ -5,8 +5,8 @@
  * Response: { "live": boolean, "timestamp": ISO string }
  */
 
-const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY || process.env.PUBLIC_YOUTUBE_API_KEY;
-const CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID || process.env.PUBLIC_YOUTUBE_CHANNEL_ID || "UC2f4d_FFU4HiTT_DiPhZwvw";
+const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
+const CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID || "UC2f4d_FFU4HiTT_DiPhZwvw";
 const CHANNEL_URL = `https://www.youtube.com/channel/${CHANNEL_ID}`;
 const CHANNEL_LIVE_URL = `${CHANNEL_URL}/live`;
 const FALLBACK_EMBED_URL = `https://www.youtube.com/embed/live_stream?channel=${CHANNEL_ID}`;
