@@ -105,17 +105,6 @@ pathParts.forEach((part, index) => {
     crossorigin="anonymous"
   />
 
-<!-- Inject env variable for client scripts -->
-<script is:inline>
-  window.PUBLIC_GOOGLE_PLACES_KEY = "{import.meta.env.PUBLIC_GOOGLE_PLACES_KEY}";
-</script>
-
-<!-- Load Maps JS with Places + callback -->
-<script
-  src={`https://maps.googleapis.com/maps/api/js?key=${import.meta.env.PUBLIC_GOOGLE_PLACES_KEY}&callback=initMap&libraries=places&v=weekly`}
-  async defer
-></script>
-
 <!-- ✅ Schema -->
     <script type="application/ld+json">
 {
@@ -526,9 +515,8 @@ pathParts.forEach((part, index) => {
     if (!liveLabel || !liveDot) return;
 
     try {
-      // Replace with real API later
-      const liveWindow = window as typeof window & { __TLP_IS_LIVE?: boolean };
-      const isLive = liveWindow.__TLP_IS_LIVE || false;
+      const liveWindow = window as typeof window & { __TLP_LIVE__?: boolean };
+      const isLive = liveWindow.__TLP_LIVE__ || false;
 
       if (isLive) {
         liveLabel.textContent = "LIVE NOW";
@@ -557,7 +545,7 @@ pathParts.forEach((part, index) => {
       const res = await fetch("/api/live-status.json");
       const data = await res.json();
 
-      window.__TLP_LIVE__ = data.live;
+      window.__TLP_LIVE__ = Boolean(data.live);
 
       document.dispatchEvent(new CustomEvent("tlp-live-updated", { detail: data.live }));
     } catch (e) {

@@ -4,8 +4,7 @@ export {};
 
 declare global {
   interface Window {
-    __TLP_IS_LIVE?: boolean;
-    PUBLIC_GOOGLE_PLACES_KEY?: string;
+    __TLP_LIVE__?: boolean;
     dataLayer: unknown[][];
   }
 

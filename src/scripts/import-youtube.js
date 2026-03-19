@@ -8,11 +8,11 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const API_KEY = process.env.PUBLIC_YOUTUBE_API_KEY;
-const CHANNEL_ID = process.env.PUBLIC_YOUTUBE_CHANNEL_ID;
+const API_KEY = process.env.YOUTUBE_API_KEY || process.env.PUBLIC_YOUTUBE_API_KEY;
+const CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID || process.env.PUBLIC_YOUTUBE_CHANNEL_ID;
 
 if (!API_KEY || !CHANNEL_ID) {
-  console.error("❌ Missing PUBLIC_YOUTUBE_API_KEY or PUBLIC_YOUTUBE_CHANNEL_ID");
+  console.error("❌ Missing YOUTUBE_API_KEY/YOUTUBE_CHANNEL_ID (or legacy PUBLIC_* equivalents)");
   process.exit(1);
 }
 
