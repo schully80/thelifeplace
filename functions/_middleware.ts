@@ -169,13 +169,13 @@ export const onRequest: PagesFunction = async (
       // styles (Astro inline + Google Fonts + Font Awesome CSS)
       `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com https://cdnjs.cloudflare.com`,
 
-      // scripts (Astro inline + Cloudflare analytics + reCAPTCHA)
+      // scripts (Astro inline + Cloudflare analytics + verification widgets)
       `script-src 'self' 'nonce-${nonce}' https://static.cloudflareinsights.com https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com`,
 
       // XHR / fetch
       `connect-src 'self' https:`,
 
-      // iframes (YouTube + reCAPTCHA)
+      // iframes (YouTube + verification widgets)
       `frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://challenges.cloudflare.com`,
 
       // workers

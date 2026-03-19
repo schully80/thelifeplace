@@ -111,7 +111,7 @@ export const onRequestPost = (async (context: any) => {
     }
     const whatsappPhone = phone ? normalizePhoneE164(phone) : "";
 
-    // 🔐 Turnstile verification (preferred over legacy reCAPTCHA)
+    // 🔐 Turnstile verification
     const turnstileToken =
       (formData.get("cf-turnstile-response") || "").toString().trim() ||
       (formData.get("turnstile-token") || "").toString().trim();

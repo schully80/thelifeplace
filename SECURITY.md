@@ -84,8 +84,8 @@ Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
 
 ### 11. **Bot Protection Layers**
 1. Honeypot field (hidden "website" field in forms)
-2. CAPTCHA (third-party provider)
-3. reCAPTCHA v2/v3 (on registration)
+2. Cloudflare Turnstile
+3. Server-side verification endpoint
 - **Status**: ✅ Multi-layer detection active
 
 ### 12. **Enhanced Registration Handler** (`/functions/register.ts`)
@@ -95,12 +95,12 @@ Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
 - ✅ Email format validation
 - ✅ Phone number validation
 - ✅ Name/message sanitization (removes special chars)
-- ✅ reCAPTCHA verification
+- ✅ Turnstile verification
 - ✅ Secure logging (no sensitive data logged)
 - ✅ IP tracking for abuse detection
 
 **Before**:
-- ✅ reCAPTCHA ✓
+- ✅ CAPTCHA verification ✓
 - ✅ Honeypot ✓
 
 **Now also includes**:
@@ -178,9 +178,8 @@ curl -X POST https://thelifeplace.org/api/endpoint -d "..." # No token → fails
 
 ```env
 # Cloudflare Pages Settings > Environment Variables
-RECAPTCHA_SECRET_KEY=your_google_recaptcha_secret_key
-# If using a CAPTCHA provider, set its secret here, e.g.:
-CAPTCHA_SECRET=your_captcha_secret
+PUBLIC_TURNSTILE_SITEKEY=your_turnstile_sitekey
+TURNSTILE_SECRET_KEY=your_turnstile_secret_key
 ```
 
 ## 📈 Performance Impact
