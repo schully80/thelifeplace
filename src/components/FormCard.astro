@@ -1,6 +1,7 @@
 ---
 import AddressFields from "../components/AddressFields.astro";
 import Turnstile from "./ui/Turnstile.astro";
+import { highlightJesusHtml } from "../utils/highlight-jesus";
 const {
   title = "Register",
   eventName = "General",
@@ -35,22 +36,23 @@ const controllerConfig = JSON.stringify({
   turnstileFieldName: "cf-turnstile-response",
 });
 
+const highlightedTitle = highlightJesusHtml(title);
+const highlightedInstructionText = highlightJesusHtml(instructionText);
+const highlightedComingSoonMessage = highlightJesusHtml(comingSoonMessage);
+
 ---
 
 <section class="max-w-4xl mx-auto px-4 py-8 md:py-12" data-tlp-form-root={formId}>
 
   <!-- Heading -->
-  <h2 class="text-xl md:text-4xl font-extrabold text-center mb-6">
-    {title}
-  </h2>
+  <h2 class="text-xl md:text-4xl font-extrabold text-center mb-6" set:html={highlightedTitle} />
 
 {instructionText && (
   <p 
     class="text-center text-[17px] md:text-[18px] text-gray-800 
            tracking-tight leading-snug mb-6 fade-in-soft"
-  >
-    {instructionText}
-  </p>
+    set:html={highlightedInstructionText}
+  />
 )}
 
   <!-- Registration Form -->
@@ -86,9 +88,7 @@ const controllerConfig = JSON.stringify({
       )}
 
       {showComingSoon && (
-        <p class="mt-4 text-sm md:text-base text-brand-red font-medium">
-          {comingSoonMessage}
-        </p>
+        <p class="mt-4 text-sm md:text-base text-brand-red font-medium" set:html={highlightedComingSoonMessage} />
       )}
     </div>
 

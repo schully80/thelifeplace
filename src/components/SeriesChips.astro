@@ -1,4 +1,6 @@
 ---
+import { highlightJesusHtml } from "../utils/highlight-jesus";
+
 type Props = {
   seriesList?: string[];
   activeSeries?: string;
@@ -30,7 +32,7 @@ const { seriesList = [], activeSeries = "" } = Astro.props as Props;
           : "bg-white text-gray-600 hover:border-brand-red hover:text-brand-red"
       }`}
     >
-      {s}
+      <span set:html={highlightJesusHtml(s)} />
     </a>
   ))}
 </div>

@@ -461,26 +461,6 @@ pathParts.forEach((part, index) => {
       </script>
     )}
 
-    <!-- Highlight “Jesus” -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-        const regex = /\bJesus\b/g;
-
-        let node;
-        while ((node = walker.nextNode())) {
-          const text = node.nodeValue;
-          const parent = node.parentNode;
-          if (!text || !parent) continue;
-          if (regex.test(text)) {
-            const span = document.createElement("span");
-            span.innerHTML = text.replace(regex, '<span class="word-jesus">Jesus</span>');
-            parent.replaceChild(span, node);
-          }
-        }
-      });
-    </script>
-
     <!-- Scroll progress logic -->
     <script is:inline>
       document.addEventListener("scroll", () => {

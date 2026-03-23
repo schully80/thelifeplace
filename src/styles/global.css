@@ -278,37 +278,6 @@
   flex-shrink: 0;
 }
 
-.word-jesus {
-  color: #B3282D !important;
-}
-
-h1 .word-jesus {
-  font-weight: 900 !important;
-}
-
-h2 .word-jesus {
-  font-weight: 800 !important;
-}
-
-h3 .word-jesus {
-  font-weight: 700 !important;
-}
-
-h4 .word-jesus {
-  font-weight: 600 !important;
-}
-
-p .word-jesus,
-span .word-jesus,
-li .word-jesus {
-  font-weight: 500 !important;
-}
-
-small .word-jesus,
-.text-sm .word-jesus {
-  font-weight: 400 !important;
-}
-
 .tlp-grayscale {
   filter: grayscale(85%) sepia(10%) brightness(1.03) contrast(1.05);
 }
