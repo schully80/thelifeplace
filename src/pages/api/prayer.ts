@@ -104,8 +104,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   // Prepare email via MailChannels-compatible HTTP send
-  const fromEmail = envValue("MAIL_FROM") || "prayer@thelifeplace.org";
-  const toEmail = envValue("MAIL_TO") || "mystory@thelifeplace.org";
+  const fromEmail =
+    envValue("PRAYER_MAIL_FROM") ||
+    envValue("MAIL_FROM") ||
+    "prayer@thelifeplace.org";
+  const toEmail =
+    envValue("PRAYER_MAIL_TO") ||
+    envValue("MAIL_TO") ||
+    "mystory@thelifeplace.org";
   const name = submission.name || "Unknown";
   const userEmail = submission.email;
   const requestText = submission.request;
@@ -164,9 +170,12 @@ export const POST: APIRoute = async ({ request, locals }) => {
   if (!emailDisabled) {
     const resendKey = envValue("RESEND_API_KEY");
     const resendFrom =
+      (isDev ? envValue("PRAYER_RESEND_FROM_DEV") : envValue("PRAYER_RESEND_FROM")) ||
       (isDev ? envValue("RESEND_FROM_DEV") : envValue("RESEND_FROM")) ||
+      envValue("PRAYER_MAIL_FROM") ||
       envValue("MAIL_FROM") ||
       (isDev ? "onboarding@resend.dev" : "prayer@thelifeplace.org");
+    const sourceLabel = submission.client === "app" ? "the app" : "the site";
 
     if (!resendKey) {
       logSecurityEvent("Resend API key missing", "high", { endpoint: "/api/prayer" }, ip);
@@ -184,7 +193,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         body: JSON.stringify({
           from: resendFrom,
           to: [toEmail],
-          subject: "New prayer request from the site",
+          subject: `New prayer request from ${sourceLabel}`,
           text: textBody,
           html: teamHtml({ name, userEmail, requestText, consent }),
           reply_to: userEmail || undefined,

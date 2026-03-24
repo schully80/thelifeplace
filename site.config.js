@@ -35,7 +35,7 @@ export const site = {
   },
   contact: {
     email: "hello@thelifeplace.org",
-    whatsapp: "https://wa.me/27XXXXXXXXX",
+    whatsapp: "https://wa.me/27765639460?text=Hi%20The%20Life%20Place%2C%20I%27d%20love%20to%20get%20in%20touch.",
     address,
   },
   location: {

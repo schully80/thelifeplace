@@ -2,6 +2,9 @@
 // Mobile Contact Floating Action Button
 // Shows WhatsApp, Email, and Maps contact options
 // Styled to match the old WhatsAppWidget design
+
+const whatsappUrl = "https://wa.me/27765639460?text=Hi%20The%20Life%20Place%2C%20I'd%20love%20to%20get%20in%20touch.";
+const whatsappAppUrl = "whatsapp://send?phone=27765639460&text=Hi%20The%20Life%20Place%2C%20I%27d%20love%20to%20get%20in%20touch.";
 ---
 
 <div class="fixed bottom-20 right-4 z-30 md:hidden" id="contactFAB">
@@ -13,11 +16,13 @@
   >
     <!-- WhatsApp -->
     <a
-      href="https://wa.me/27765639460?text=Hi%20The%20Life%20Place%2C%20I'd%20love%20to%20get%20in%20touch."
+      href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
       role="menuitem"
-      class="flex items-center gap-3 px-4 py-3 text-white hover:bg-brand-red transition"
+      class="js-whatsapp-link flex items-center gap-3 px-4 py-3 text-white hover:bg-brand-red transition"
+      data-wa-app-url={whatsappAppUrl}
+      data-wa-web-url={whatsappUrl}
       aria-label="Chat on WhatsApp"
     >
       <i class="fa-brands fa-whatsapp text-xl"></i>
@@ -70,6 +75,27 @@
     <i class="fa-solid fa-message text-xl"></i>
   </button>
 </div>
+
+<script is:inline>
+  (function() {
+    const isPhone = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "");
+    if (!isPhone) return;
+
+    document.querySelectorAll(".js-whatsapp-link").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const appUrl = link.getAttribute("data-wa-app-url");
+        const webUrl = link.getAttribute("data-wa-web-url") || link.getAttribute("href");
+        if (!appUrl || !webUrl) return;
+
+        event.preventDefault();
+        window.setTimeout(() => {
+          window.location.href = webUrl;
+        }, 900);
+        window.location.href = appUrl;
+      });
+    });
+  })();
+</script>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {

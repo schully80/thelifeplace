@@ -78,8 +78,14 @@ export const onRequestPost: PagesFunction = async (context) => {
   }
 
   // Prepare email via MailChannels (Cloudflare-supported)
-  const fromEmail = (env.MAIL_FROM as string) || "prayer@thelifeplace.org";
-  const toEmail = (env.MAIL_TO as string) || "mystory@thelifeplace.org";
+  const fromEmail =
+    (env.PRAYER_MAIL_FROM as string) ||
+    (env.MAIL_FROM as string) ||
+    "prayer@thelifeplace.org";
+  const toEmail =
+    (env.PRAYER_MAIL_TO as string) ||
+    (env.MAIL_TO as string) ||
+    "mystory@thelifeplace.org";
   const name = (formData.get("name") as string) || "Unknown";
   const userEmail = (formData.get("email") as string) || "";
   const requestText = ((formData.get("request") as string) || "").toString().trim();
@@ -114,9 +120,11 @@ export const onRequestPost: PagesFunction = async (context) => {
   if (!emailDisabled) {
     const resendKey = env.RESEND_API_KEY;
     const resendFrom =
+      (isDev ? env.PRAYER_RESEND_FROM_DEV : env.PRAYER_RESEND_FROM) ||
       (isDev ? env.RESEND_FROM_DEV : env.RESEND_FROM) ||
+      env.PRAYER_MAIL_FROM ||
       env.MAIL_FROM ||
-      (isDev ? "onboarding@resend.dev" : "schulter@thelifeplace.org");
+      (isDev ? "onboarding@resend.dev" : "prayer@thelifeplace.org");
 
     if (!resendKey) {
       logSecurityEvent("Resend API key missing", "high", { endpoint: "/api/prayer" }, ip);

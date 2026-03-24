@@ -6,7 +6,7 @@
  */
 
 const {
-  whatsapp = "27XXXXXXXXX",
+  whatsapp = "27765639460",
   email = "hello@thelifeplace.org",
   mapsUrl = "https://www.google.com/maps/place/The+Life+Place/",
   mobileStyle = "fab", // "fab" or "dock"
@@ -15,6 +15,9 @@ const {
 } = Astro.props;
 
 const waUrl = `https://wa.me/${whatsapp}?text=${encodeURIComponent(
+  "Hi The Life Place, I'd love to get in touch."
+)}`;
+const waAppUrl = `whatsapp://send?phone=${whatsapp}&text=${encodeURIComponent(
   "Hi The Life Place, I'd love to get in touch."
 )}`;
 
@@ -116,7 +119,14 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
       <div id="contactButtons" class="contact-buttons hidden">
         <!-- WhatsApp -->
         <div class="dock-item relative flex flex-col items-center z-10">
-          <a href={waUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+          <a
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-btn js-whatsapp-link"
+            data-wa-app-url={waAppUrl}
+            data-wa-web-url={waUrl}
+          >
             <img src="/whatsapp.svg" alt="WhatsApp" class="h-6 w-6 invert" />
           </a>
           <span class="contact-item-label">WhatsApp</span>
@@ -150,7 +160,14 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
       <!-- WhatsApp -->
       <div class="dock-item relative flex items-center z-10">
         <div class="dock-tooltip">WhatsApp Us</div>
-        <a href={waUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+        <a
+          href={waUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-btn js-whatsapp-link"
+          data-wa-app-url={waAppUrl}
+          data-wa-web-url={waUrl}
+        >
           <img src="/whatsapp.svg" alt="WhatsApp" class="h-6 w-6 invert" />
         </a>
       </div>
@@ -207,7 +224,14 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
       <div id="contactButtonsTablet" class="contact-buttons hidden">
         <!-- WhatsApp -->
         <div class="dock-item relative flex flex-col items-center z-10">
-          <a href={waUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+          <a
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-btn js-whatsapp-link"
+            data-wa-app-url={waAppUrl}
+            data-wa-web-url={waUrl}
+          >
             <img src="/whatsapp.svg" alt="WhatsApp" class="h-6 w-6 invert" />
           </a>
           <span class="contact-item-label">WhatsApp</span>
@@ -241,7 +265,14 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
       <!-- WhatsApp -->
       <div class="dock-item relative flex items-center z-10">
         <div class="dock-tooltip">WhatsApp Us</div>
-        <a href={waUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+        <a
+          href={waUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-btn js-whatsapp-link"
+          data-wa-app-url={waAppUrl}
+          data-wa-web-url={waUrl}
+        >
           <img src="/whatsapp.svg" alt="WhatsApp" class="h-6 w-6 invert" />
         </a>
       </div>
@@ -292,7 +323,14 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
       <div id="contactButtonsDesktop" class="contact-buttons hidden">
         <!-- WhatsApp -->
         <div class="dock-item relative flex flex-col items-center z-10">
-          <a href={waUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+          <a
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-btn js-whatsapp-link"
+            data-wa-app-url={waAppUrl}
+            data-wa-web-url={waUrl}
+          >
             <img src="/whatsapp.svg" alt="WhatsApp" class="h-6 w-6 invert" />
           </a>
           <span class="contact-item-label">WhatsApp</span>
@@ -323,6 +361,25 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
 </div>
 
 <script is:inline>
+  (function() {
+    const isPhone = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "");
+    if (!isPhone) return;
+
+    document.querySelectorAll(".js-whatsapp-link").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const appUrl = link.getAttribute("data-wa-app-url");
+        const webUrl = link.getAttribute("data-wa-web-url") || link.getAttribute("href");
+        if (!appUrl || !webUrl) return;
+
+        event.preventDefault();
+        window.setTimeout(() => {
+          window.location.href = webUrl;
+        }, 900);
+        window.location.href = appUrl;
+      });
+    });
+  })();
+
   // Mobile FAB Handler
   (function() {
     const fab = document.getElementById("contactFAB");

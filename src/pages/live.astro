@@ -339,7 +339,22 @@ const youtubeEmbedFallbackUrl = site.live.youtubeEmbedUrl;
 
       shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`;
       shareTwitter.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(pageTitle)}&url=${encodeURIComponent(pageUrl)}`;
-      shareWhatsapp.href = `https://wa.me/?text=${encodeURIComponent(pageTitle + " " + pageUrl)}`;
+      const whatsappShareText = encodeURIComponent(pageTitle + " " + pageUrl);
+      const whatsappWebUrl = `https://wa.me/?text=${whatsappShareText}`;
+      const whatsappAppUrl = `whatsapp://send?text=${whatsappShareText}`;
+      shareWhatsapp.href = whatsappWebUrl;
+
+      if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "") && !shareWhatsapp.dataset.waBound) {
+        shareWhatsapp.dataset.waBound = "true";
+        shareWhatsapp.addEventListener("click", (event) => {
+          event.preventDefault();
+          window.setTimeout(() => {
+            window.location.href = whatsappWebUrl;
+          }, 900);
+          window.location.href = whatsappAppUrl;
+        });
+      }
+
       shareEmail.href = `mailto:?subject=${encodeURIComponent("Join us live at The Life Place!")}&body=${encodeURIComponent(pageTitle + "\n" + pageUrl)}`;
     }
 
