@@ -2,15 +2,15 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/toast.css"; // 🍎 Imports premium red toast
 import FullBleed from "../components/tlp/FullBleed.astro";
+import { site } from "../../site.config.js";
 
 // SERVICE TIME FOR COUNTDOWN
-const serviceDay = 0; // Sunday (0 = Sunday)
-const serviceHour = 9; // 9:00 AM SAST
-const serviceMinute = 0;
-const youtubeChannelId = "UC2f4d_FFU4HiTT_DiPhZwvw";
-const youtubeChannelUrl = `https://www.youtube.com/channel/${youtubeChannelId}`;
-const youtubeChannelLiveUrl = `${youtubeChannelUrl}/live`;
-const youtubeEmbedFallbackUrl = `https://www.youtube.com/embed/live_stream?channel=${youtubeChannelId}`;
+const liveService = site.schedule.services.find((item) => item.id === site.live.scheduleId) ?? site.schedule.services[0];
+const serviceDay = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"].indexOf(liveService.day);
+const [serviceHour, serviceMinute] = liveService.startTime.split(":").map(Number);
+const youtubeChannelUrl = site.live.youtubeChannelUrl;
+const youtubeChannelLiveUrl = site.live.youtubeChannelLiveUrl;
+const youtubeEmbedFallbackUrl = site.live.youtubeEmbedUrl;
 ---
 
 <BaseLayout 
@@ -38,7 +38,7 @@ const youtubeEmbedFallbackUrl = `https://www.youtube.com/embed/live_stream?chann
       <div class="w-full max-w-5xl mx-auto">
         <!-- Eyebrow text with service time -->
         <p class="text-sm md:text-base font-semibold text-red-400 uppercase tracking-widest mb-6 opacity-90">
-          Sunday 9:00 AM SAST
+          {liveService.label}
         </p>
         
         <h1 class=" block text-white heading-1 mb-8 leading-relaxed tracking-tighter">
@@ -273,7 +273,7 @@ const youtubeEmbedFallbackUrl = `https://www.youtube.com/embed/live_stream?chann
 <!-- END NEXT STEPS -->
 
   <!-- Scripts -->
-  <script>
+  <script define:vars={{ serviceDay, serviceHour, serviceMinute }}>
     /* ---------------------------
        SHARE BUTTON WITH MENU
     ----------------------------*/
@@ -287,9 +287,9 @@ const youtubeEmbedFallbackUrl = `https://www.youtube.com/embed/live_stream?chann
     const countdown = document.getElementById("countdown");
     const pageUrl = window.location.href;
     const pageTitle = "Join us live at The Life Place!";
-    const serviceDay = 0;
-	    const serviceHour = 9;
-	    const serviceMinute = 0;
+    const serviceDay = {serviceDay};
+	    const serviceHour = {serviceHour};
+	    const serviceMinute = {serviceMinute};
 	    let setOpen: ((isOpen: boolean) => void) | null = null;
 
     if (
@@ -405,7 +405,7 @@ const youtubeEmbedFallbackUrl = `https://www.youtube.com/embed/live_stream?chann
 	    ) return;
 
 	    try {
-	      const res = await fetch("/api/live-status.json");
+	      const res = await fetch("/api/live.json");
 	      const data = await res.json();
 	      const isLive = Boolean(data.live);
 	      const watchUrl =

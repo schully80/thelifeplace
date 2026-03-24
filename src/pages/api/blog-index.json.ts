@@ -1,3 +1,5 @@
+import type { APIRoute } from "astro";
+
 export const prerender = false;
 
 const FEED_URL = "https://schulteretyang.substack.com/feed";
@@ -142,7 +144,7 @@ async function fetchArchiveYearPaged(year: number, maxPages: number = 20): Promi
   return all;
 }
 
-export async function get({ request }: { request: Request }) {
+export const GET: APIRoute = async ({ request }) => {
   const now = Date.now();
   const url = new URL(request.url);
   const refresh = url.searchParams.get('refresh') === '1';
@@ -187,4 +189,4 @@ export async function get({ request }: { request: Request }) {
     const msg = e && typeof e === 'object' && e.name === 'AbortError' ? 'Request timed out' : (e?.message ?? String(e));
     return new Response(JSON.stringify({ error: msg }), { status: 500, headers: { "Content-Type": "application/json" } });
   }
-}
+};

@@ -3,6 +3,7 @@ import type { APIRoute } from "astro";
 import { getClientIP, apiErrorResponse, secureAPIResponse } from "../../utils/api-auth";
 import { logFormSubmission, logSecurityEvent } from "../../utils/secure-logging";
 import { teamHtml, confirmHtml, confirmText } from "../../utils/prayer-email-templates";
+import { validatePrayerSubmission } from "../../utils/prayer-contract.js";
 
 export const POST: APIRoute = async ({ request, locals }) => {
   type KVLike = {
@@ -14,25 +15,44 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const envValue = (key: string) => runtimeEnv?.[key] ?? import.meta.env[key];
   const isDev = (import.meta.env.DEV || import.meta.env.MODE === "development" || runtimeEnv?.STAGE === "development") ?? false;
   const ip = getClientIP(request.headers);
+  const contentType = request.headers.get("content-type") || "";
+  const isJsonRequest = contentType.includes("application/json");
 
-  let formData: FormData;
+  let formData: FormData | null = null;
+  let rawSubmission: Record<string, unknown>;
   try {
-    formData = await request.formData();
+    if (isJsonRequest) {
+      rawSubmission = (await request.json()) as Record<string, unknown>;
+    } else {
+      formData = await request.formData();
+      rawSubmission = Object.fromEntries(formData.entries());
+    }
   } catch (err) {
     logSecurityEvent("Prayer API form parse failed", "medium", { error: String(err) }, ip);
     return apiErrorResponse("Invalid form submission", 400, "invalid_form");
   }
 
-  const token =
-    (formData.get("cf-turnstile-response") as string | null) ||
-    (formData.get("turnstile-token") as string | null) ||
-    (formData.get("token") as string | null);
+  const validation = validatePrayerSubmission(rawSubmission);
+  if (!validation.valid) {
+    return secureAPIResponse(
+      { success: false, error: "validation_error", fieldErrors: validation.fieldErrors },
+      400
+    );
+  }
+
+  const submission = validation.submission;
+  const skipTurnstile = isJsonRequest || submission.client === "app";
+  const token = formData
+    ? ((formData.get("cf-turnstile-response") as string | null) ||
+        (formData.get("turnstile-token") as string | null) ||
+        (formData.get("token") as string | null))
+    : null;
 
   const turnstileDisabled =
     envValue("PRAYER_TURNSTILE_DISABLED") === "true" ||
     (isDev && envValue("PRAYER_TURNSTILE_DISABLE_DEV") === "true");
 
-  if (!token && !turnstileDisabled) {
+  if (!skipTurnstile && !token && !turnstileDisabled) {
     logSecurityEvent("Missing Turnstile token on prayer form", "medium", { endpoint: "/api/prayer" }, ip);
     return apiErrorResponse("Missing Turnstile token", 400, "missing_token");
   }
@@ -46,7 +66,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return apiErrorResponse("Server misconfigured", 500, "server_misconfigured");
   }
 
-  if (!turnstileDisabled) {
+  if (!skipTurnstile && !turnstileDisabled) {
     const verifyBody = new URLSearchParams({
       secret: secret!.toString(),
       response: token!,
@@ -86,10 +106,23 @@ export const POST: APIRoute = async ({ request, locals }) => {
   // Prepare email via MailChannels-compatible HTTP send
   const fromEmail = envValue("MAIL_FROM") || "prayer@thelifeplace.org";
   const toEmail = envValue("MAIL_TO") || "mystory@thelifeplace.org";
-  const name = (formData.get("name") as string) || "Unknown";
-  const userEmail = ((formData.get("email") as string) || "").toString().trim().toLowerCase();
-  const requestText = ((formData.get("request") as string) || "").toString().trim();
-  const consent = formData.get("consent") ? "yes" : "no";
+  const name = submission.name || "Unknown";
+  const userEmail = submission.email;
+  const requestText = submission.request;
+  const consent = submission.consent ? "yes" : "no";
+
+  if (formData) {
+    const honeypot = (formData.get("website") as string | null)?.trim();
+    const startTime = Number(formData.get("tlp_start_time") || 0);
+    if (honeypot) {
+      logSecurityEvent("Prayer honeypot triggered", "medium", { endpoint: "/api/prayer" }, ip);
+      return secureAPIResponse({ success: false, error: "invalid_submission" }, 400);
+    }
+
+    if (startTime && Date.now() - startTime < 1500) {
+      return secureAPIResponse({ success: false, error: "submitted_too_quickly" }, 400);
+    }
+  }
 
   // 🚦 One active prayer request per user (email-based) for 7 days
   const prayerKv =
@@ -111,27 +144,18 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
   }
 
+  logFormSubmission("prayer", { status: "received", email: userEmail, source: submission.source }, ip);
+
   const textBody = [
     `New prayer request`,
     `Name: ${name}`,
     `Email: ${userEmail || "not provided"}`,
     `Consent: ${consent}`,
+    `Source: ${submission.source}`,
     ``,
     `Request:`,
     requestText || "(empty)"
   ].join("\n");
-
-  const mailPayload = {
-    personalizations: [
-      {
-        to: [{ email: toEmail }],
-        reply_to: userEmail ? { email: userEmail, name } : { email: fromEmail, name: "Prayer Team" },
-      },
-    ],
-    from: { email: fromEmail, name: "Prayer Requests" },
-    subject: "New prayer request from the site",
-    content: [{ type: "text/plain", value: textBody }],
-  };
 
   const emailDisabled =
     envValue("PRAYER_EMAIL_DISABLED") === "true" ||
@@ -206,7 +230,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
   }
 
-  const redirect = formData.get("_redirect");
+  const redirect = formData?.get("_redirect");
   if (redirect) {
     try {
       const target = new URL(redirect.toString(), request.url);

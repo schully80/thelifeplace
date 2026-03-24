@@ -1,15 +1,12 @@
 ---
-// No script required
+import { site } from "../../site.config.js";
+import { getVisitLocation } from "../content/shared-content.js";
 
-const churchName = "The Life Place";
-const addressLine1 = "51 Villa Monte Catini, 1 Elm Avenue";
-const addressLine2 = "Craigavon AH, 2191";
-const addressLine3 = "Sandton";
-const addressLine4 = "South Africa";
-
-const serviceHours = "Sundays 9:00–11:00am";
-const email = "hello@thelifeplace.org";
-const mapsUrl = "https://maps.app.goo.gl/kWtzKtuyASu3qRxo7";
+const churchName = site.name;
+const serviceHours = site.schedule.services[0]?.label ?? "Sundays 9:00–11:00am";
+const email = site.contact.email;
+const visitLocation = getVisitLocation();
+const mapsUrl = visitLocation.mapsQueryUrl;
 
 // Optional: add later if you want it public
 const phoneDisplay = ""; // e.g. "+27 76 563 9460"
@@ -40,6 +37,7 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
           <li><a href="/" class="hover:text-brand-red transition">About</a></li>
           <li><a href="/about-us/leadership/" class="hover:text-brand-red transition">Leadership</a></li>
           <li><a href="/visit/" class="hover:text-brand-red transition">Plan a Visit</a></li>
+          <li><a href="/events" class="hover:text-brand-red transition">Events</a></li>
           <!-- Ministries nav removed -->
         </ul>
       </div>
@@ -52,6 +50,7 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
         <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-600">
           <li><a href="/give/" class="hover:text-brand-red transition">Giving</a></li>
           <li><a href="/prayer/" class="hover:text-brand-red transition">Prayer Requests</a></li>
+          <li><a href="/devotionals" class="hover:text-brand-red transition">Devotionals</a></li>
           <li><a href="/visit/" class="hover:text-brand-red transition">Contact</a></li>
           <li class="flex items-center justify-center gap-2">
             <span>Get the App</span>
@@ -85,10 +84,10 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
 
         <div class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-600">
           <p class="font-semibold text-gray-800 text-xs md:text-sm">{churchName}</p>
-          <p class="text-xs md:text-sm">{addressLine1}</p>
-          <p class="text-xs md:text-sm">{addressLine2}</p>
-            <p class="text-xs md:text-sm">{addressLine3}</p>
-              <p class="text-xs md:text-sm">{addressLine4}</p>
+          <p class="text-xs md:text-sm">{visitLocation.address.line1}</p>
+          <p class="text-xs md:text-sm">{visitLocation.address.line2}</p>
+          <p class="text-xs md:text-sm">{visitLocation.address.line3}</p>
+          <p class="text-xs md:text-sm">{visitLocation.address.line4}</p>
           <p class="text-gray-800 font-medium text-xs md:text-sm">{serviceHours}</p>
 
           <p class="flex items-center justify-center gap-1 md:gap-2 text-xs md:text-sm">
@@ -124,23 +123,23 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
 
     <!-- SOCIAL ICONS -->
     <div class="flex justify-center gap-2 md:gap-4 mt-4 md:mt-16">
-      <a href="https://facebook.com/thelifeplacesa" target="_blank" rel="noopener" aria-label="Facebook" class="w-9 h-9 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
+      <a href={site.socials.facebook} target="_blank" rel="noopener" aria-label="Facebook" class="w-9 h-9 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
         <i class="fa-brands fa-facebook-f text-sm md:text-2xl text-white"></i>
       </a>
 
-      <a href="https://instagram.com/thelifeplacesa" target="_blank" rel="noopener" aria-label="Instagram" class="w-9 h-9 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
+      <a href={site.socials.instagram} target="_blank" rel="noopener" aria-label="Instagram" class="w-9 h-9 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
         <i class="fa-brands fa-instagram text-sm md:text-2xl text-white"></i>
       </a>
 
-      <a href="https://youtube.com/@thelifeplacesa" target="_blank" rel="noopener" aria-label="YouTube" class="w-9 h-9 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
+      <a href={site.socials.youtube} target="_blank" rel="noopener" aria-label="YouTube" class="w-9 h-9 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
         <i class="fa-brands fa-youtube text-sm md:text-2xl text-white"></i>
       </a>
 
-      <a href="https://open.spotify.com/show/31hbtgq5cvmqr4tyzs2faygvrzaa?si=61b073370e034f21" target="_blank" rel="noopener" aria-label="Spotify" class="w-9 h-9 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
+      <a href={site.socials.spotify} target="_blank" rel="noopener" aria-label="Spotify" class="w-9 h-9 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
         <i class="fa-brands fa-spotify text-sm md:text-2xl text-white"></i>
       </a>
 
-      <a href="https://podcasts.apple.com/us/podcast/the-life-place/id1816955719" target="_blank" rel="noopener" aria-label="Apple Podcasts" class="w-9 h-9 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
+      <a href={site.socials.applePodcasts} target="_blank" rel="noopener" aria-label="Apple Podcasts" class="w-9 h-9 md:w-12 md:h-12 rounded-full bg-black flex items-center justify-center hover:bg-brand-red transition">
         <i class="fa-solid fa-podcast text-sm md:text-2xl text-white"></i>
       </a>
     </div>

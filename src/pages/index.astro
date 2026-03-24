@@ -2,18 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
 import BlogSignupModal from "../components/BlogSignupModal.astro";
-// import Turnstile removed as it is no longer used
-// Address and Google Maps embed settings (matching Visit page)
-const addressLine1 = "51 Villa Monte Catini, 1 Elm Avenue";
-const addressLine2 = "Craigavon AH, 2191";
-const addressLine3 = "Sandton";
-const addressLine4 = "South Africa";
+import { getVisitLocation } from "../content/shared-content.js";
 
-const fullAddress = `${addressLine1}, ${addressLine2}, ${addressLine3}, ${addressLine3},`;
-const mapsQueryUrl = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}`;
-const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`;
-const appleMapsUrl = `https://maps.apple.com/?q=${encodeURIComponent(fullAddress)}`;
-const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(fullAddress)}&navigate=yes`;
+const visitLocation = getVisitLocation();
 
 ---
 <BaseLayout title="The Life Place">
@@ -230,10 +221,10 @@ const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(fullAddress)}&na
             <h3 class="text-2xl font-bold text-gray-800 mb-2"><i class="fa-solid fa-location-dot text-brand-red mr-2"></i>Our Location</h3>
             <p class="text-lg text-gray-600 mb-2">The Life Place</p>
             <p class="text-gray-600 leading-relaxed">
-              {addressLine1}<br />
-              {addressLine2}<br />
-              {addressLine3}<br />
-              {addressLine4}
+              {visitLocation.address.line1}<br />
+              {visitLocation.address.line2}<br />
+              {visitLocation.address.line3}<br />
+              {visitLocation.address.line4}
             </p>
           </div>
           <!-- Visitor Info -->
@@ -254,15 +245,15 @@ const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(fullAddress)}&na
                 </svg>
               </button>
               <div id="mapsDropdownMenu" aria-labelledby="mapsDropdownBtn" class="absolute left-0 mt-2 z-20 min-w-[260px] max-w-[calc(100vw-3rem)] rounded-2xl border border-black/10 bg-white shadow-xl overflow-hidden transition-all duration-600 ease-out opacity-0 invisible -translate-y-2 pointer-events-none" style="max-height:0px;">
-                <a href={mapsQueryUrl} target="_blank" rel="noopener" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-50" aria-label="Open in Google Maps">
+                <a href={visitLocation.mapsQueryUrl} target="_blank" rel="noopener" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-50" aria-label="Open in Google Maps">
                   <span>Google Maps</span>
                 </a>
                 <div class="mx-4 h-px bg-gray-200"></div>
-                <a href={appleMapsUrl} target="_blank" rel="noopener" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-50" aria-label="Open in Apple Maps">
+                <a href={visitLocation.appleMapsUrl} target="_blank" rel="noopener" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-50" aria-label="Open in Apple Maps">
                   <span>Apple Maps (iOS)</span>
                 </a>
                 <div class="mx-4 h-px bg-gray-200"></div>
-                <a href={wazeUrl} target="_blank" rel="noopener" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-50" aria-label="Open in Waze">
+                <a href={visitLocation.wazeUrl} target="_blank" rel="noopener" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-50" aria-label="Open in Waze">
                   <span>Waze</span>
                 </a>
               </div>
@@ -274,7 +265,7 @@ const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(fullAddress)}&na
       <div class="relative rounded-3xl overflow-hidden shadow-2xl h-96 md:h-full min-h-96 border border-gray-200">
         <iframe
           class="w-full h-full"
-          src={mapsEmbedUrl}
+          src={visitLocation.mapsEmbedUrl}
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
           title="The Life Place Location"
@@ -706,4 +697,3 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 </BaseLayout>
-
