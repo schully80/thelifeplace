@@ -1,14 +1,18 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import FadeDivider from "../components/tlp/FadeDivider.astro";
-import BlogSignupModal from "../components/BlogSignupModal.astro";
 import { getVisitLocation } from "../content/shared-content.js";
 
 const visitLocation = getVisitLocation();
+const storyEmail = "mystory@thelifeplace.org";
+const storyWhatsAppNumber = "27765639460";
+const storyWhatsAppDisplay = "+27 76 563 9460";
+const storyWhatsAppMessage = "Hi The Life Place, I'd like to share my story.";
+const storyWhatsAppUrl = `https://wa.me/${storyWhatsAppNumber}?text=${encodeURIComponent(
+  storyWhatsAppMessage
+)}`;
 
 ---
 <BaseLayout title="The Life Place">
-  <BlogSignupModal />
 
 <!-- ===== WELCOME STATEMENT - FULL PROMINENCE ===== -->
 <section class="relative py-8 md:py-16 lg:py-32 overflow-hidden">
@@ -344,7 +348,7 @@ const visitLocation = getVisitLocation();
         <!-- Item 2: Prayer -->
         <a href="/prayer" class="block hover:opacity-80 transition">
           <div class="flex items-start gap-4">
-            <i class="fa-regular fa-hands-praying text-brand-red text-2xl"></i>
+            <i class="fa-solid fa-hands-praying text-brand-red text-2xl"></i>
             <div class="flex-1">
               <h4 class="text-gray-800 font-bold uppercase tracking-wider">In need of prayer?</h4>
               <p class="text-gray-600 mt-1 text-sm md:text-base"><span class="text-brand-red">Jesus</span> prays for you. We pray for you.</p>
@@ -359,7 +363,7 @@ const visitLocation = getVisitLocation();
         <!-- Item 3: Give -->
         <a href="/give" class="block hover:opacity-80 transition">
           <div class="flex items-start gap-4">
-            <i class="fa-regular fa-hand-holding-heart text-brand-red text-2xl"></i>
+            <i class="fa-solid fa-hand-holding-heart text-brand-red text-2xl"></i>
             <div class="flex-1">
               <h4 class="text-gray-800 font-bold uppercase tracking-wider">Give</h4>
               <p class="text-gray-600 mt-1 text-sm md:text-base">Support our mission to reach our city, nation and the world with the gospel of grace.</p>
@@ -375,13 +379,13 @@ const visitLocation = getVisitLocation();
       <!-- Vertical divider -->
       <div class="hidden md:block w-px bg-brand-red h-full mx-auto"></div>
 
-      <!-- Right: Stacked value props and newsletter form -->
+      <!-- Right: Stacked value props and story sharing callout -->
       <div class="space-y-8">
 
         <!-- Item 1: Experience Church Online -->
         <a href="/live" class="block hover:opacity-80 transition">
           <div class="flex items-start gap-4">
-            <i class="fa-regular fa-laptop text-brand-red text-2xl"></i>
+            <i class="fa-solid fa-laptop text-brand-red text-2xl"></i>
             <div class="flex-1">
               <h4 class="text-gray-800 font-bold uppercase tracking-wider">Experience church online</h4>
               <p class="text-gray-600 mt-1 text-sm md:text-base">Join us online and be part of a community of people from around the world.</p>
@@ -396,7 +400,7 @@ const visitLocation = getVisitLocation();
         <!-- Item 2: Download App -->
         <div>
           <div class="flex items-start gap-4">
-            <i class="fa-regular fa-mobile-screen text-brand-red text-2xl"></i>
+            <i class="fa-solid fa-mobile-screen text-brand-red text-2xl"></i>
             <div class="flex-1">
               <h4 class="text-gray-800 font-bold uppercase tracking-wider">Download the app</h4>
               <p class="text-gray-600 mt-1 text-sm md:text-base">Everything you need—events, messages, prayer, reading plans, and more.</p>
@@ -408,41 +412,33 @@ const visitLocation = getVisitLocation();
           <div class="my-6 h-px bg-gray-300"></div>
         </div>
 
-        <!-- Item 3: Newsletter Subscription -->
+        <!-- Item 3: Share Your Story -->
         <div>
           <div class="flex items-start gap-4">
-            <!-- Icon -->
-            <i class="fa-regular fa-envelope text-brand-red text-2xl"></i>
-            <!-- Content -->
+            <i class="fa-solid fa-heart text-brand-red text-2xl"></i>
             <div class="flex-1">
-              <h4 class="text-gray-800 font-bold uppercase tracking-wider">Subscribe</h4>
-              <p class="text-gray-600 mt-1 text-sm md:text-base">Join our community and receive weekly posts that help you see <span class="text-brand-red">Jesus</span> — because seeing Him changes everything.</p>
-              <form id="newsletterForm" class="mt-3 flex flex-col sm:flex-row gap-3">
-                <input 
-                  type="email" 
-                  placeholder="Enter your email" 
-                  class="flex-1 px-6 py-4 rounded-2xl bg-white border border-gray-300 text-gray-800 placeholder-gray-500 focus:outline-none focus:border-brand-red transition-all"
-                  autocomplete="email"
-                  name="email"
-                  id="newsletterEmail"
-                  aria-label="Email address"
-                  required
-                />
-                <div class="flex flex-col items-center gap-3 w-full">
-                  {/* Turnstile removed as per instruction */}
-                  <button 
-                   type="submit"
-                   class="px-8 py-4 bg-gradient-to-r from-brand-red to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-2xl transition-all hover:shadow-xl duration-300"
-                   aria-label="Subscribe to our blog"
-                   id="newsletterSubscribeBtn"
-                 >
-                   Subscribe
-                 </button>
-                </div>
-              </form>
-              
-              <p class="text-sm text-gray-500 mt-3">You'll confirm your subscription on Substack.</p>
-              <p class="text-sm text-gray-500">We respect your privacy. Unsubscribe at any time.</p>
+              <h4 class="text-gray-800 font-bold uppercase tracking-wider">Share your story</h4>
+              <p class="text-gray-600 mt-1 text-sm md:text-base">
+                We'd love to hear how seeing <span class="text-brand-red">Jesus</span> has transformed your life and changed your story.
+              </p>
+              <div class="mt-4 space-y-3">
+                <a
+                  href={`mailto:${storyEmail}`}
+                  class="inline-flex items-center gap-3 rounded-2xl border border-gray-300 bg-white px-5 py-4 text-lg font-semibold text-gray-800 transition hover:border-brand-red hover:text-brand-red"
+                >
+                  <i class="fa-regular fa-envelope text-brand-red" aria-hidden="true"></i>
+                  <span>email - {storyEmail}</span>
+                </a>
+                <a
+                  href={storyWhatsAppUrl}
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-flex items-center gap-3 rounded-2xl border border-gray-300 bg-white px-5 py-4 text-lg font-semibold text-gray-800 transition hover:border-brand-red hover:text-brand-red"
+                >
+                  <i class="fa-brands fa-whatsapp text-brand-red text-lg" aria-hidden="true"></i>
+                  <span>whatsapp - {storyWhatsAppDisplay}</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -673,27 +669,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
-</script>
-
-<script is:inline>
-  // Newsletter form: open Substack in new tab after native validation
-  (() => {
-    const form = document.getElementById('newsletterForm');
-    const emailInput = document.getElementById('newsletterEmail');
-    if (!form || !emailInput) return;
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-      const email = emailInput.value.trim();
-      const url = `https://schulteretyang.substack.com/subscribe?email=${encodeURIComponent(email)}`;
-      window.open(url, '_blank', 'noopener');
-    });
-  })();
-</script>
-
 </script>
 
 </BaseLayout>
