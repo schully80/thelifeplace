@@ -29,6 +29,15 @@ test('live payload exposes watch and embed URLs', () => {
   assert.ok(typeof payload.watchUrl === 'string' && payload.watchUrl.length > 0);
   assert.ok(typeof payload.embedUrl === 'string' && payload.embedUrl.length > 0);
   assert.ok(['live', 'offline'].includes(payload.status));
+  assert.equal(payload.live, true);
+  assert.equal(payload.nextServiceAt, '2026-03-29T07:00:00.000Z');
+});
+
+test('live payload exposes the next upcoming service before the stream starts', () => {
+  const payload = buildLivePayload(new Date('2026-03-22T06:30:00.000Z'));
+
+  assert.equal(payload.live, false);
+  assert.equal(payload.nextServiceAt, '2026-03-22T07:00:00.000Z');
 });
 
 test('events loader falls back to generated schedule when ICS is unavailable', async () => {

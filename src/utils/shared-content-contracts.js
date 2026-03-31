@@ -1,12 +1,18 @@
 import { site } from "../../site.config.js";
 import { getBootstrapContent, getVisitLocation } from "../content/shared-content.js";
 
-function getTimeParts(date, timeZone) {
+const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+function getZonedDateParts(date, timeZone) {
   const formatter = new Intl.DateTimeFormat("en-GB", {
     timeZone,
     weekday: "long",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
+    second: "2-digit",
     hour12: false,
   });
 
@@ -14,8 +20,12 @@ function getTimeParts(date, timeZone) {
   const lookup = Object.fromEntries(parts.map((part) => [part.type, part.value]));
   return {
     weekday: lookup.weekday,
+    year: Number(lookup.year || 0),
+    month: Number(lookup.month || 0),
+    day: Number(lookup.day || 0),
     hour: Number(lookup.hour || 0),
     minute: Number(lookup.minute || 0),
+    second: Number(lookup.second || 0),
   };
 }
 
@@ -24,9 +34,64 @@ function toMinutes(value) {
   return hours * 60 + minutes;
 }
 
+function addDaysToDateParts(parts, days) {
+  const date = new Date(Date.UTC(parts.year, parts.month - 1, parts.day));
+  date.setUTCDate(date.getUTCDate() + days);
+  return {
+    year: date.getUTCFullYear(),
+    month: date.getUTCMonth() + 1,
+    day: date.getUTCDate(),
+  };
+}
+
+function getTimeZoneOffsetMs(date, timeZone) {
+  const parts = getZonedDateParts(date, timeZone);
+  const zonedTime = Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute, parts.second);
+  return zonedTime - date.getTime();
+}
+
+function zonedDateTimeToUtc(parts, timeZone) {
+  const utcGuess = new Date(
+    Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute, parts.second || 0),
+  );
+  const initialOffset = getTimeZoneOffsetMs(utcGuess, timeZone);
+  let result = new Date(utcGuess.getTime() - initialOffset);
+  const adjustedOffset = getTimeZoneOffsetMs(result, timeZone);
+
+  if (adjustedOffset !== initialOffset) {
+    result = new Date(utcGuess.getTime() - adjustedOffset);
+  }
+
+  return result;
+}
+
+function getNextServiceStart(service, now = new Date()) {
+  const parts = getZonedDateParts(now, service.timezone);
+  const serviceDayIndex = dayNames.indexOf(service.day);
+  const currentDayIndex = dayNames.indexOf(parts.weekday);
+  let deltaDays = (serviceDayIndex - currentDayIndex + 7) % 7;
+
+  if (deltaDays === 0 && parts.hour * 60 + parts.minute >= toMinutes(service.startTime)) {
+    deltaDays = 7;
+  }
+
+  const [startHour, startMinute] = service.startTime.split(":").map(Number);
+  const nextDate = addDaysToDateParts(parts, deltaDays);
+
+  return zonedDateTimeToUtc(
+    {
+      ...nextDate,
+      hour: startHour,
+      minute: startMinute,
+      second: 0,
+    },
+    service.timezone,
+  );
+}
+
 export function getCurrentLiveState(now = new Date()) {
   const service = site.schedule.services.find((item) => item.id === site.live.scheduleId) || site.schedule.services[0];
-  const parts = getTimeParts(now, service.timezone);
+  const parts = getZonedDateParts(now, service.timezone);
   const nowMinutes = parts.hour * 60 + parts.minute;
   const startMinutes = toMinutes(service.startTime);
   const endMinutes = toMinutes(service.endTime);
@@ -57,6 +122,7 @@ export function buildLivePayload(now = new Date()) {
   return {
     generatedAt: now.toISOString(),
     ...state,
+    nextServiceAt: getNextServiceStart(state.service, now).toISOString(),
   };
 }
 
@@ -123,7 +189,6 @@ function parseICSTime(value) {
 }
 
 function getNextWeekdayOccurrence(baseDate, dayName) {
-  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const targetDay = dayNames.indexOf(dayName);
   const result = new Date(baseDate);
   const delta = (targetDay - result.getDay() + 7) % 7;

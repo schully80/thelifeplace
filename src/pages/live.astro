@@ -46,7 +46,48 @@ const youtubeEmbedFallbackUrl = site.live.youtubeEmbedUrl;
         </h1>
         
         <!-- Countdown with enhanced styling -->
-        <div id="countdown" class="text-xl md:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-red-300 to-red-500 mb-8 leading-relaxed"></div>
+        <div
+          id="countdownPanel"
+          data-countdown-state="loading"
+          class="countdown-shell relative mx-auto mb-8 max-w-3xl overflow-hidden rounded-[2rem] border border-white/15 bg-white/10 px-4 py-5 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur-2xl md:px-6 md:py-6"
+        >
+          <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(248,113,113,0.35),transparent_58%)] opacity-90"></div>
+          <div class="pointer-events-none absolute inset-x-10 bottom-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent"></div>
+
+          <div class="relative flex flex-col gap-4">
+            <div class="flex items-center justify-center gap-3 text-[0.72rem] font-semibold uppercase tracking-[0.35em] text-red-100/80">
+              <span class="h-2.5 w-2.5 rounded-full bg-red-400 shadow-[0_0_24px_rgba(248,113,113,0.95)]"></span>
+              <span id="countdownEyebrow">Checking live schedule</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+              <div class="countdown-unit rounded-[1.5rem] border border-white/10 bg-black/20 px-3 py-4 md:px-4 md:py-5">
+                <span id="countdownDays" class="countdown-value block text-3xl font-black tracking-[-0.08em] text-white md:text-5xl">--</span>
+                <span class="mt-2 block text-[0.65rem] font-semibold uppercase tracking-[0.32em] text-red-100/55 md:text-xs">Days</span>
+              </div>
+              <div class="countdown-unit rounded-[1.5rem] border border-white/10 bg-black/20 px-3 py-4 md:px-4 md:py-5">
+                <span id="countdownHours" class="countdown-value block text-3xl font-black tracking-[-0.08em] text-white md:text-5xl">--</span>
+                <span class="mt-2 block text-[0.65rem] font-semibold uppercase tracking-[0.32em] text-red-100/55 md:text-xs">Hrs</span>
+              </div>
+              <div class="countdown-unit rounded-[1.5rem] border border-white/10 bg-black/20 px-3 py-4 md:px-4 md:py-5">
+                <span id="countdownMinutes" class="countdown-value block text-3xl font-black tracking-[-0.08em] text-white md:text-5xl">--</span>
+                <span class="mt-2 block text-[0.65rem] font-semibold uppercase tracking-[0.32em] text-red-100/55 md:text-xs">Mins</span>
+              </div>
+              <div class="countdown-unit rounded-[1.5rem] border border-white/10 bg-black/20 px-3 py-4 md:px-4 md:py-5">
+                <span id="countdownSeconds" class="countdown-value block text-3xl font-black tracking-[-0.08em] text-white md:text-5xl">--</span>
+                <span class="mt-2 block text-[0.65rem] font-semibold uppercase tracking-[0.32em] text-red-100/55 md:text-xs">Secs</span>
+              </div>
+            </div>
+
+            <p
+              id="countdownSummary"
+              class="sr-only"
+              aria-live="polite"
+            >
+              Loading countdown...
+            </p>
+          </div>
+        </div>
         
         <!-- CTA Button -->
         <button onclick="document.querySelector('[id=liveFrame]').scrollIntoView({behavior:'smooth'})" class="inline-flex items-center gap-2 px-5 py-3 md:gap-3 md:px-8 md:py-4 
@@ -273,7 +314,7 @@ const youtubeEmbedFallbackUrl = site.live.youtubeEmbedUrl;
 <!-- END NEXT STEPS -->
 
   <!-- Scripts -->
-  <script define:vars={{ serviceDay, serviceHour, serviceMinute }}>
+  <script define:vars={{ serviceDay, serviceHour, serviceMinute, youtubeChannelUrl, youtubeChannelLiveUrl, youtubeEmbedFallbackUrl }}>
     /* ---------------------------
        SHARE BUTTON WITH MENU
     ----------------------------*/
@@ -284,13 +325,18 @@ const youtubeEmbedFallbackUrl = site.live.youtubeEmbedUrl;
     const shareTwitter = document.getElementById("shareTwitter");
     const shareWhatsapp = document.getElementById("shareWhatsapp");
     const shareEmail = document.getElementById("shareEmail");
-    const countdown = document.getElementById("countdown");
+    const countdownPanel = document.getElementById("countdownPanel");
+    const countdownEyebrow = document.getElementById("countdownEyebrow");
+    const countdownSummary = document.getElementById("countdownSummary");
+    const countdownDays = document.getElementById("countdownDays");
+    const countdownHours = document.getElementById("countdownHours");
+    const countdownMinutes = document.getElementById("countdownMinutes");
+    const countdownSeconds = document.getElementById("countdownSeconds");
     const pageUrl = window.location.href;
     const pageTitle = "Join us live at The Life Place!";
-    const serviceDay = {serviceDay};
-	    const serviceHour = {serviceHour};
-	    const serviceMinute = {serviceMinute};
-	    let setOpen: ((isOpen: boolean) => void) | null = null;
+    let setOpen = null;
+    let countdownTarget = null;
+    let countdownIsLive = false;
 
     if (
       shareBtn instanceof HTMLButtonElement &&
@@ -304,7 +350,7 @@ const youtubeEmbedFallbackUrl = site.live.youtubeEmbedUrl;
     ) {
       shareBtn.dataset.bound = "true";
 
-      setOpen = (isOpen: boolean) => {
+      setOpen = (isOpen) => {
         shareMenu.classList.toggle("is-open", isOpen);
         shareBtn.setAttribute("aria-expanded", String(isOpen));
       };
@@ -372,102 +418,159 @@ const youtubeEmbedFallbackUrl = site.live.youtubeEmbedUrl;
     /* ---------------------------
        COUNTDOWN TIMER
     ----------------------------*/
-    function updateCountdown() {
-      if (!(countdown instanceof HTMLElement)) return;
+    function setCountdownValues(days, hours, minutes, seconds) {
+      if (countdownDays instanceof HTMLElement) countdownDays.textContent = days;
+      if (countdownHours instanceof HTMLElement) countdownHours.textContent = hours;
+      if (countdownMinutes instanceof HTMLElement) countdownMinutes.textContent = minutes;
+      if (countdownSeconds instanceof HTMLElement) countdownSeconds.textContent = seconds;
+    }
+
+    function getFallbackCountdownTarget() {
       const now = new Date();
-      const nextService = new Date();
+      const nextService = new Date(now);
       nextService.setDate(now.getDate() + ((serviceDay + 7 - now.getDay()) % 7));
       nextService.setHours(serviceHour, serviceMinute, 0, 0);
 
-      const diff = nextService.getTime() - now.getTime();
+      if (nextService.getTime() <= now.getTime()) {
+        nextService.setDate(nextService.getDate() + 7);
+      }
 
-      if (diff <= 0) {
-        countdown.textContent = "We are live now!";
+      return nextService;
+    }
+
+    function formatCountdownSummary(days, hours, minutes, seconds) {
+      const dayLabel = days === 1 ? "day" : "days";
+      return `${days} ${dayLabel} - ${hours} hrs / ${minutes} mins / ${seconds} secs`;
+    }
+
+    function updateCountdown() {
+      if (
+        !(countdownPanel instanceof HTMLElement) ||
+        !(countdownEyebrow instanceof HTMLElement) ||
+        !(countdownSummary instanceof HTMLElement)
+      ) {
         return;
       }
 
-      const hours = Math.floor(diff / 1000 / 60 / 60);
-      const minutes = Math.floor((diff / 1000 / 60) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
+      if (countdownIsLive) {
+        countdownPanel.dataset.countdownState = "live";
+        countdownEyebrow.textContent = "We are on air";
+        countdownSummary.textContent = "We are live now!";
+        setCountdownValues("00", "00", "00", "00");
+        return;
+      }
 
-      countdown.textContent = `${hours}h ${minutes}m ${seconds}s until next service`;
+      const target = countdownTarget ?? getFallbackCountdownTarget();
+      const diff = target.getTime() - Date.now();
+
+      if (!Number.isFinite(diff)) {
+        countdownPanel.dataset.countdownState = "loading";
+        countdownEyebrow.textContent = "Checking live schedule";
+        countdownSummary.textContent = "Loading countdown...";
+        setCountdownValues("--", "--", "--", "--");
+        return;
+      }
+
+      const safeDiff = diff > 0 ? diff : getFallbackCountdownTarget().getTime() - Date.now();
+      const totalSeconds = Math.max(0, Math.floor(safeDiff / 1000));
+      const days = Math.floor(totalSeconds / (24 * 60 * 60));
+      const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      countdownPanel.dataset.countdownState = "countdown";
+      countdownEyebrow.textContent = "Next service in";
+      countdownSummary.textContent = formatCountdownSummary(days, hours, minutes, seconds);
+      setCountdownValues(
+        String(days).padStart(2, "0"),
+        String(hours).padStart(2, "0"),
+        String(minutes).padStart(2, "0"),
+        String(seconds).padStart(2, "0"),
+      );
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-	  </script>
+    async function updateLiveExperience() {
+      const badge = document.getElementById("liveStatusBadge");
+      const frame = document.getElementById("liveFrame");
+      const youtubeLink = document.getElementById("watchOnYoutubeLink");
+      const youtubeHelper = document.getElementById("watchOnYoutubeHelper");
+      const youtubeLinkLabel = youtubeLink?.querySelector("span");
+      const defaultChannelUrl = youtubeChannelUrl;
+      const defaultWatchUrl = youtubeChannelLiveUrl;
+      const defaultEmbedUrl = youtubeEmbedFallbackUrl;
+      if (
+        !(badge instanceof HTMLElement) ||
+        !(frame instanceof HTMLIFrameElement) ||
+        !(youtubeLink instanceof HTMLAnchorElement) ||
+        !(youtubeHelper instanceof HTMLElement) ||
+        !(youtubeLinkLabel instanceof HTMLElement)
+      ) {
+        return;
+      }
 
+      try {
+        const res = await fetch("/api/live.json");
+        const data = await res.json();
+        const isLive = Boolean(data.live);
+        const watchUrl =
+          typeof data.watchUrl === "string" && data.watchUrl
+            ? data.watchUrl
+            : defaultWatchUrl;
+        const embedUrl =
+          typeof data.embedUrl === "string" && data.embedUrl
+            ? data.embedUrl
+            : defaultEmbedUrl;
+        const nextServiceAt =
+          typeof data.nextServiceAt === "string" ? new Date(data.nextServiceAt) : null;
 
-<script
-  is:inline
-  define:vars={{ youtubeChannelUrl, youtubeChannelLiveUrl, youtubeEmbedFallbackUrl }}
->
-		  async function updateLiveExperience() {
-		    const badge = document.getElementById("liveStatusBadge");
-		    const frame = document.getElementById("liveFrame");
-		    const youtubeLink = document.getElementById("watchOnYoutubeLink");
-		    const youtubeHelper = document.getElementById("watchOnYoutubeHelper");
-		    const youtubeLinkLabel = youtubeLink?.querySelector("span");
-		    const defaultChannelUrl = youtubeChannelUrl;
-		    const defaultWatchUrl = youtubeChannelLiveUrl;
-		    const defaultEmbedUrl = youtubeEmbedFallbackUrl;
-		    if (
-		      !(badge instanceof HTMLElement) ||
-		      !(frame instanceof HTMLIFrameElement) ||
-	      !(youtubeLink instanceof HTMLAnchorElement) ||
-	      !(youtubeHelper instanceof HTMLElement) ||
-	      !(youtubeLinkLabel instanceof HTMLElement)
-	    ) return;
+        countdownIsLive = isLive;
+        countdownTarget =
+          nextServiceAt instanceof Date && !Number.isNaN(nextServiceAt.getTime())
+            ? nextServiceAt
+            : null;
+        updateCountdown();
 
-	    try {
-	      const res = await fetch("/api/live.json");
-	      const data = await res.json();
-	      const isLive = Boolean(data.live);
-	      const watchUrl =
-	        typeof data.watchUrl === "string" && data.watchUrl
-	          ? data.watchUrl
-	          : defaultWatchUrl;
-	      const embedUrl =
-	        typeof data.embedUrl === "string" && data.embedUrl
-	          ? data.embedUrl
-	          : defaultEmbedUrl;
+        if (frame.src !== embedUrl) {
+          frame.src = embedUrl;
+        }
 
-	      if (frame.src !== embedUrl) {
-	        frame.src = embedUrl;
-	      }
+        youtubeLink.href = watchUrl;
 
-	      youtubeLink.href = watchUrl;
+        if (isLive) {
+          badge.textContent = "🔴 Live Now";
+          badge.classList.remove("bg-gray-500");
+          badge.classList.remove("bg-gray-700");
+          badge.classList.add("bg-red-600");
+          youtubeLinkLabel.textContent = "Watch live on YouTube";
+          youtubeHelper.textContent = "Prefer YouTube? Open the current live stream directly.";
+        } else {
+          badge.textContent = "● Offline";
+          badge.classList.remove("bg-red-600");
+          badge.classList.remove("bg-gray-700");
+          badge.classList.add("bg-gray-500");
+          youtubeLink.href = defaultChannelUrl;
+          youtubeLinkLabel.textContent = "Visit our YouTube channel";
+          youtubeHelper.textContent = "The live stream is offline right now, but the channel is still available.";
+        }
+      } catch {
+        countdownIsLive = false;
+        countdownTarget = null;
+        updateCountdown();
+        badge.textContent = "● Offline";
+        badge.classList.remove("bg-red-600");
+        badge.classList.remove("bg-gray-700");
+        badge.classList.add("bg-gray-500");
+        youtubeLink.href = defaultChannelUrl;
+        youtubeLinkLabel.textContent = "Visit our YouTube channel";
+        youtubeHelper.textContent = "We could not check live status just now. You can still open the channel on YouTube.";
+      }
+    }
 
-	      if (isLive) {
-	        badge.textContent = "🔴 Live Now";
-	        badge.classList.remove("bg-gray-500");
-	        badge.classList.remove("bg-gray-700");
-	        badge.classList.add("bg-red-600");
-	        youtubeLinkLabel.textContent = "Watch live on YouTube";
-	        youtubeHelper.textContent = "Prefer YouTube? Open the current live stream directly.";
-	      } else {
-	        badge.textContent = "● Offline";
-	        badge.classList.remove("bg-red-600");
-	        badge.classList.remove("bg-gray-700");
-	        badge.classList.add("bg-gray-500");
-	        youtubeLink.href = defaultChannelUrl;
-	        youtubeLinkLabel.textContent = "Visit our YouTube channel";
-	        youtubeHelper.textContent = "The live stream is offline right now, but the channel is still available.";
-	      }
-	    } catch {
-	      badge.textContent = "● Offline";
-	      badge.classList.remove("bg-red-600");
-	      badge.classList.remove("bg-gray-700");
-	      badge.classList.add("bg-gray-500");
-	      youtubeLink.href = defaultChannelUrl;
-	      youtubeLinkLabel.textContent = "Visit our YouTube channel";
-	      youtubeHelper.textContent = "We could not check live status just now. You can still open the channel on YouTube.";
-	    }
-	  }
-
-	  updateLiveExperience();
-	  setInterval(updateLiveExperience, 60000);
-</script>
+    updateLiveExperience();
+    setInterval(updateLiveExperience, 60000);
+  </script>
 
   <!-- ANIMATIONS & STYLES -->
 <style>
@@ -487,6 +590,44 @@ const youtubeEmbedFallbackUrl = site.live.youtubeEmbedUrl;
     50% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
   }
   .hover\:animate-pulse-soft:hover { animation: pulse-soft 2s infinite; }
+
+  .countdown-shell {
+    isolation: isolate;
+  }
+
+  .countdown-unit {
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .countdown-unit::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0));
+    opacity: 0.8;
+    pointer-events: none;
+  }
+
+  .countdown-value {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .countdown-shell[data-countdown-state="loading"] .countdown-unit {
+    opacity: 0.72;
+  }
+
+  .countdown-shell[data-countdown-state="live"] {
+    border-color: rgba(248, 113, 113, 0.45);
+    background: rgba(127, 29, 29, 0.35);
+    box-shadow: 0 28px 90px rgba(127, 29, 29, 0.32);
+  }
+
+  .countdown-shell[data-countdown-state="live"] .countdown-unit {
+    border-color: rgba(254, 202, 202, 0.2);
+    background: rgba(127, 29, 29, 0.42);
+  }
 
   /* Share menu */
   #tlpShareMenu { max-height: 0; opacity: 0; pointer-events: none; }
