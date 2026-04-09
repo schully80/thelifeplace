@@ -80,6 +80,12 @@ export const site = {
       donateUrl: "https://www.paypal.com/donate?hosted_button_id=4L3NWWAZ9PPV6",
       hostedButtonId: "4L3NWWAZ9PPV6",
     },
+    westernUnion: {
+      url: "https://www.westernunion.com/us/en/home.html",
+      availabilityLabel: "International Giving",
+      note: "Start your transfer on Western Union. If you need recipient details or reference guidance before completing it, contact us.",
+      ctaLabel: "Give via Western Union",
+    },
     annualReport: {
       pagePath: "/annual-report",
       pdfPath: "/files/AnnualReport2024.pdf",
