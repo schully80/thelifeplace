@@ -5,10 +5,11 @@ import {
   getMessagesStorageMode,
   loadMessages,
 } from "../../../utils/message-store";
+import { env as cloudflareEnv } from "cloudflare:workers";
 
 export const prerender = false;
 
-const env = (Astro.locals as { runtime?: { env?: Record<string, unknown> } } | undefined)?.runtime?.env;
+const env = cloudflareEnv as Record<string, unknown>;
 const expectedKey = getMessagesAdminKey(env);
 const providedKey = Astro.url.searchParams.get("key") || "";
 const authorized = providedKey === expectedKey;

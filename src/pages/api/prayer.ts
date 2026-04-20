@@ -4,16 +4,20 @@ import { getClientIP, apiErrorResponse, secureAPIResponse } from "../../utils/ap
 import { logFormSubmission, logSecurityEvent } from "../../utils/secure-logging";
 import { teamHtml, confirmHtml, confirmText } from "../../utils/prayer-email-templates";
 import { validatePrayerSubmission } from "../../utils/prayer-contract.js";
+import { env as cloudflareEnv } from "cloudflare:workers";
 
-export const POST: APIRoute = async ({ request, locals }) => {
+export const POST: APIRoute = async ({ request }) => {
   type KVLike = {
     get(key: string): Promise<string | null>;
     put(key: string, value: string, options?: { expirationTtl?: number }): Promise<void>;
   };
 
-  const runtimeEnv = (locals as { runtime?: { env?: Record<string, string | undefined> } } | undefined)?.runtime?.env;
-  const envValue = (key: string) => runtimeEnv?.[key] ?? import.meta.env[key];
-  const isDev = (import.meta.env.DEV || import.meta.env.MODE === "development" || runtimeEnv?.STAGE === "development") ?? false;
+  const runtimeEnv = cloudflareEnv as Record<string, unknown>;
+  const envValue = (key: string) => {
+    const value = runtimeEnv[key];
+    return typeof value === "string" ? value : import.meta.env[key];
+  };
+  const isDev = (import.meta.env.DEV || import.meta.env.MODE === "development" || envValue("STAGE") === "development") ?? false;
   const ip = getClientIP(request.headers);
   const contentType = request.headers.get("content-type") || "";
   const isJsonRequest = contentType.includes("application/json");
@@ -131,9 +135,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   // 🚦 One active prayer request per user (email-based) for 7 days
-  const prayerKv =
-    ((((locals as { runtime?: { env?: Record<string, unknown> } } | undefined)?.runtime?.env?.PRAYER_SUBMISSIONS) ||
-      ((locals as { runtime?: { env?: Record<string, unknown> } } | undefined)?.runtime?.env?.VISIT_SUBMISSIONS)) as KVLike | undefined);
+  const prayerKv = (runtimeEnv.PRAYER_SUBMISSIONS || runtimeEnv.VISIT_SUBMISSIONS) as KVLike | undefined;
   const prayerLimitEnabled = envValue("PRAYER_LIMIT_ENABLED") !== "false";
   if (prayerKv && prayerLimitEnabled && userEmail) {
     try {

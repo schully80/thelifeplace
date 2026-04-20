@@ -4,13 +4,17 @@
 # Create a KV namespace in your Cloudflare account and add the binding here.
 
 name = "thelifeplace"
-main = "./dist/_worker.js/index.js"
-compatibility_date = "2024-01-01"
+main = "@astrojs/cloudflare/entrypoints/server"
+compatibility_date = "2025-05-21"
 
 # Example KV binding
 [[kv_namespaces]]
 binding = "SESSION"
 id = "<your-kv-namespace-id>"  # replace with the real namespace id
+
+[[kv_namespaces]]
+binding = "MESSAGES_DATA"
+id = "<your-messages-kv-namespace-id>"  # replace with the real namespace id
 
 # Add any other bindings (e.g., other KV namespaces, secrets) as needed.
 # For guidance, see Cloudflare Workers + Wrangler docs.
