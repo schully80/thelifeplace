@@ -23,7 +23,9 @@ export default defineConfig({
         // ✅ Exclude test / draft / legacy routes from sitemap
         const blocked =
           p.startsWith("/admin") ||
-          p.startsWith("/dev") ||
+          // Avoid catching real routes like `/devotionals`
+          p === "/dev" ||
+          p.startsWith("/dev/") ||
           p.includes("-preview") ||
           p.includes("test") ||
           p.includes(".old") ||
