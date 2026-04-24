@@ -1,7 +1,8 @@
 import { site } from "../../site.config.js";
 
 const address = site.location.address;
-const fullAddress = `${address.line1}, ${address.line2}, ${address.line3}, ${address.line4}`;
+const addressLines = Object.values(address).filter(Boolean);
+const fullAddress = addressLines.join(", ");
 
 function buildMapsUrl(base) {
   return `${base}${encodeURIComponent(fullAddress)}`;
@@ -11,6 +12,7 @@ export function getVisitLocation() {
   return {
     venue: site.location.venue,
     address,
+    addressLines,
     fullAddress,
     mapsQueryUrl: buildMapsUrl("https://www.google.com/maps?q="),
     mapsEmbedUrl: `${buildMapsUrl("https://www.google.com/maps?q=")}&output=embed`,

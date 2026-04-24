@@ -1,8 +1,9 @@
 const address = {
-  line1: "51 Villa Monte Catini, 1 Elm Avenue",
-  line2: "Craigavon AH, 2191",
-  line3: "Sandton",
-  line4: "South Africa",
+  line1: "51 Villa Monte Catini",
+  line2: "1 Elm Avenue",
+  line3: "Craigavon AH, 2191",
+  line4: "Sandton",
+  line5: "South Africa",
 };
 
 const serviceSchedule = [
@@ -79,6 +80,8 @@ export const site = {
     paypal: {
       donateUrl: "https://www.paypal.com/donate?hosted_button_id=4L3NWWAZ9PPV6",
       hostedButtonId: "4L3NWWAZ9PPV6",
+      currency: "USD",
+      recurringUrl: "https://www.paypal.com/donate?hosted_button_id=4L3NWWAZ9PPV6",
     },
     westernUnion: {
       url: "https://www.westernunion.com/us/en/home.html",

@@ -34,6 +34,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@vitejs/plugin-basic-ssl": "^1.2.0",
     "autoprefixer": "^10.4.23",
     "playwright": "^1.41.1",
     "png-to-ico": "^3.0.1",

@@ -225,10 +225,7 @@ const storyWhatsAppUrl = `https://wa.me/${storyWhatsAppNumber}?text=${encodeURIC
             <h3 class="text-2xl font-bold text-gray-800 mb-2"><i class="fa-solid fa-location-dot text-brand-red mr-2"></i>Our Location</h3>
             <p class="text-lg text-gray-600 mb-2">The Life Place</p>
             <p class="text-gray-600 leading-relaxed">
-              {visitLocation.address.line1}<br />
-              {visitLocation.address.line2}<br />
-              {visitLocation.address.line3}<br />
-              {visitLocation.address.line4}
+              {visitLocation.addressLines.map((line) => <>{line}<br /></>)}
             </p>
           </div>
           <!-- Visitor Info -->

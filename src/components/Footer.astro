@@ -3,10 +3,8 @@ import { site } from "../../site.config.js";
 import { getVisitLocation } from "../content/shared-content.js";
 
 const churchName = site.name;
-const serviceHours = site.schedule.services[0]?.label ?? "Sundays 9:00–11:00am";
 const email = site.contact.email;
 const visitLocation = getVisitLocation();
-const mapsUrl = visitLocation.mapsQueryUrl;
 
 // Optional: add later if you want it public
 const phoneDisplay = ""; // e.g. "+27 76 563 9460"
@@ -36,7 +34,6 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
         <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-600">
           <li><a href="/" class="hover:text-brand-red transition">About</a></li>
           <li><a href="/about-us/leadership/" class="hover:text-brand-red transition">Leadership</a></li>
-          <li><a href="/visit/" class="hover:text-brand-red transition">Plan a Visit</a></li>
           <li><a href="/events" class="hover:text-brand-red transition">Events</a></li>
           <!-- Ministries nav removed -->
         </ul>
@@ -84,14 +81,10 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
 
         <div class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-600">
           <p class="font-semibold text-gray-800 text-xs md:text-sm">{churchName}</p>
-          <p class="text-xs md:text-sm">{visitLocation.address.line1}</p>
-          <p class="text-xs md:text-sm">{visitLocation.address.line2}</p>
-          <p class="text-xs md:text-sm">{visitLocation.address.line3}</p>
-          <p class="text-xs md:text-sm">{visitLocation.address.line4}</p>
-          <p class="text-gray-800 font-medium text-xs md:text-sm">{serviceHours}</p>
+          {visitLocation.addressLines.map((line) => <p class="text-xs md:text-sm">{line}</p>)}
 
           <p class="flex items-center justify-center gap-1 md:gap-2 text-xs md:text-sm">
-            <i class="fa-solid fa-envelope text-gray-800 text-xs md:text-sm"></i>
+            <i class="fa-solid fa-envelope text-brand-red text-xs md:text-sm"></i>
             <a href={`mailto:${email}`} class="hover:text-brand-red transition">
               {email}
             </a>
@@ -106,17 +99,6 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
             </p>
           )}
 
-          <!-- Added: link to /visit/ -->
-          <p class="flex items-center justify-center gap-1 md:gap-2 pt-1 md:pt-2 text-xs md:text-sm">
-            <i class="fa-solid fa-location-dot text-gray-800 text-xs md:text-sm"></i>
-            <a href="/visit/" class="hover:text-brand-red transition font-medium">
-              Plan a Visit
-            </a>
-            <span class="text-gray-400">•</span>
-            <a href={mapsUrl} target="_blank" rel="noopener" class="hover:text-brand-red transition font-medium">
-              Open in Maps
-            </a>
-          </p>
         </div>
       </div>
     </div>

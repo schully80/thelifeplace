@@ -83,6 +83,7 @@ export const onRequest: PagesFunction = async (
   const url = new URL(request.url);
   const pathname = url.pathname;
   const normalizedPath = normalizePathname(pathname);
+  const isGivePage = normalizedPath === "/give";
 
   const redirectTarget = redirectRoutes.get(normalizedPath);
   if (redirectTarget) {
@@ -167,16 +168,24 @@ export const onRequest: PagesFunction = async (
       `font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:`,
 
       // styles (Astro inline + Google Fonts + Font Awesome CSS)
-      `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com https://cdnjs.cloudflare.com`,
+      // PayPal Smart Buttons may inject <style> tags; allow inline styles only on /give.
+      isGivePage
+        ? `style-src 'self' 'nonce-${nonce}' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com`
+        : `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com https://cdnjs.cloudflare.com`,
+      // allow style attributes used by third-party widgets (e.g. PayPal Smart Buttons)
+      `style-src-attr 'unsafe-inline'`,
 
       // scripts (Astro inline + Cloudflare analytics + verification widgets)
-      `script-src 'self' 'nonce-${nonce}' https://static.cloudflareinsights.com https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com`,
+      `script-src 'self' 'nonce-${nonce}' https://static.cloudflareinsights.com https://www.google.com https://www.gstatic.com https://challenges.cloudflare.com https://www.paypal.com https://www.sandbox.paypal.com https://www.paypalobjects.com`,
 
       // XHR / fetch
       `connect-src 'self' https:`,
 
       // iframes (YouTube + verification widgets)
-      `frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://challenges.cloudflare.com`,
+      `frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://challenges.cloudflare.com https://www.paypal.com https://www.sandbox.paypal.com https://www.paypalobjects.com`,
+
+      // outbound form posts (hosted payment providers)
+      `form-action 'self' https://www.paypal.com https://www.sandbox.paypal.com`,
 
       // workers
       `worker-src 'self' blob:`,

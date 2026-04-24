@@ -322,7 +322,7 @@ export const onRequestPost = (async (context: any) => {
             type: "text",
             text: {
               preview_url: false,
-              body: `Hi ${firstName || "there"}, thanks for planning a visit to The Life Place. Your details are confirmed. Service info: ${env.VISIT_SERVICE_TIME || "Sundays 9:00–11:00am"} at ${env.VISIT_ADDRESS || "51 Villa Monte Catini, 1 Elm Avenue, Craigavon AH, Sandton"}. Directions: ${env.VISIT_MAP_URL || "https://maps.app.goo.gl/Mk3pCED8Ubp4e8gF9"}`,
+              body: `Hi ${firstName || "there"}, thanks for planning a visit to The Life Place. Your details are confirmed. Service info: ${env.VISIT_SERVICE_TIME || "Sundays 9:00–11:00am"} at ${env.VISIT_ADDRESS || "51 Villa Monte Catini\n1 Elm Avenue\nCraigavon AH, 2191\nSandton\nSouth Africa"}. Directions: ${env.VISIT_MAP_URL || "https://maps.app.goo.gl/Mk3pCED8Ubp4e8gF9"}`,
             },
           }),
         });
@@ -380,7 +380,7 @@ export const onRequestPost = (async (context: any) => {
             firstName,
             attendees,
             serviceTime: env.VISIT_SERVICE_TIME || "Sundays 9:00–11:00am",
-            address: env.VISIT_ADDRESS || "51 Villa Monte Catini, 1 Elm Avenue, Craigavon AH, Sandton, South Africa",
+            address: env.VISIT_ADDRESS || "51 Villa Monte Catini\n1 Elm Avenue\nCraigavon AH, 2191\nSandton\nSouth Africa",
             mapUrl: env.VISIT_MAP_URL || "https://maps.app.goo.gl/Mk3pCED8Ubp4e8gF9",
             logoUrl: env.VISIT_LOGO_URL || "https://thelifeplace.org/logo.png",
           });

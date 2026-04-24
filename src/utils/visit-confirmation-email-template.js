@@ -2,6 +2,9 @@
 // Exports a function that returns a modern HTML email for visit confirmations
 
 export function html({ firstName, attendees, serviceTime, address, mapUrl, logoUrl }) {
+  const defaultAddress = "51 Villa Monte Catini\n1 Elm Avenue\nCraigavon AH, 2191\nSandton\nSouth Africa";
+  const addressHtml = String(address || defaultAddress).replace(/\n/g, "<br/>");
+
   return `
   <div style="font-family: 'Montserrat', Arial, sans-serif; background: #f7fafc; color: #222; padding: 0; margin: 0;">
     <table width="100%" cellpadding="0" cellspacing="0" style="background: #f7fafc; padding: 0; margin: 0;">
@@ -18,7 +21,7 @@ export function html({ firstName, attendees, serviceTime, address, mapUrl, logoU
                 </p>
                 <p style="font-size: 1.15rem; line-height: 1.65; color: #333; margin: 0 0 22px 0;">
                   <b>Service Time:</b> ${serviceTime || "Sundays 9:00–11:00am"}<br/>
-                  <b>Address:</b> ${address || "51 Villa Monte Catini, 1 Elm Avenue, Craigavon AH, Sandton, South Africa"}
+                  <b>Address:</b><br/>${addressHtml}
                 </p>
                 <a href="${mapUrl || "https://maps.app.goo.gl/xyz123"}" style="display:inline-block;margin:22px 0 0 0;padding:14px 30px;background:#B3282D;color:#fff;border-radius:12px;text-decoration:none;font-weight:700;font-size:1.05rem;" target="_blank" rel="noopener noreferrer">View on Google Maps</a>
                 <hr style="margin:36px 0 22px 0; border:0; border-top:1px solid #eee;" />

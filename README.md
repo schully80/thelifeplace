@@ -8,6 +8,9 @@ Start the dev server with:
 npm run dev
 ```
 
+PayPal sandbox checkouts may require HTTPS even in local development. If you see iframe/protocol mismatch errors,
+use `https://localhost:4322` (accept the self-signed certificate warning once).
+
 
 ## Cloudflare Turnstile (Human Verification)
 
@@ -17,6 +20,7 @@ This project uses [Cloudflare Turnstile](https://www.cloudflare.com/products/tur
 
 - `PUBLIC_TURNSTILE_SITEKEY` — Your Turnstile sitekey (required for all environments)
 - `TURNSTILE_SECRET_KEY` — Your Turnstile secret key (for server-side verification, if needed)
+- `PUBLIC_PAYPAL_CLIENT_ID` — Your PayPal app client id (required to render PayPal Smart Buttons on `/give`)
 
 You can use a single sitekey for both development and production. If you want to use separate keys, add logic in your `.env` and component to select the correct key based on environment.
 
@@ -25,6 +29,7 @@ You can use a single sitekey for both development and production. If you want to
 ```env
 PUBLIC_TURNSTILE_SITEKEY=your-sitekey-here
 TURNSTILE_SECRET_KEY=your-secret-key-here
+PUBLIC_PAYPAL_CLIENT_ID=your-paypal-client-id-here
 ```
 
 ### Fallback Logic
