@@ -147,10 +147,16 @@ export const onRequest: PagesFunction = async (
   );
 
   // Rebuild response with strict CSP using the same nonce
+  const rebuiltHeaders = new Headers(res.headers);
+  // Body changed (nonce + CSRF injection); drop headers that may no longer match.
+  rebuiltHeaders.delete("content-length");
+  rebuiltHeaders.delete("content-encoding");
+  rebuiltHeaders.delete("etag");
+
   const strict = new Response(html, {
     status: res.status,
     statusText: res.statusText,
-    headers: [...res.headers.entries()],
+    headers: rebuiltHeaders,
   }) as unknown as WorkerResponse;
   
   strict.headers.set(
