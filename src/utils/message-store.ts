@@ -27,28 +27,12 @@ export type MessageRecord = {
 const MESSAGES_KV_KEY = "messages";
 const DEFAULT_ADMIN_KEY = "ComeSeeJesus2025";
 
-type NodeProcessWithBuiltins = typeof process & {
-  getBuiltinModule?: <T = unknown>(specifier: string) => T | undefined;
-};
-
 function cloneSeedMessages(): MessageRecord[] {
   return JSON.parse(JSON.stringify(seedMessages));
 }
 
 function resolveEnv(runtimeEnv?: Record<string, unknown>) {
   return runtimeEnv || {};
-}
-
-function getNodeBuiltin<T>(specifier: string): T | undefined {
-  if (!(typeof process !== "undefined" && process.versions?.node)) return undefined;
-  return (process as NodeProcessWithBuiltins).getBuiltinModule?.<T>(specifier);
-}
-
-function canUseLocalMessageFile(): boolean {
-  return Boolean(
-    getNodeBuiltin<typeof import("node:fs/promises")>("fs/promises") &&
-      getNodeBuiltin<typeof import("node:path")>("path")
-  );
 }
 
 export function getMessagesKV(runtimeEnv?: Record<string, unknown>): KVLike | undefined {
@@ -63,18 +47,20 @@ export function getMessagesAdminKey(runtimeEnv?: Record<string, unknown>): strin
 
 export function getMessagesStorageMode(runtimeEnv?: Record<string, unknown>): "kv" | "file" | "readonly" {
   if (getMessagesKV(runtimeEnv)) return "kv";
-  if (canUseLocalMessageFile()) return "file";
+  if (typeof process !== "undefined" && process.versions?.node) return "file";
   return "readonly";
 }
 
 async function readLocalMessagesFile(): Promise<MessageRecord[] | null> {
-  const fs = getNodeBuiltin<typeof import("node:fs/promises")>("fs/promises");
-  const path = getNodeBuiltin<typeof import("node:path")>("path");
-  if (!fs || !path) return null;
+  if (!(typeof process !== "undefined" && process.versions?.node)) return null;
 
   try {
+    const [{ readFile }, path] = await Promise.all([
+      import("node:fs/promises"),
+      import("node:path"),
+    ]);
     const dataFile = path.resolve(process.cwd(), "src/data/messages.json");
-    const raw = await fs.readFile(dataFile, "utf8");
+    const raw = await readFile(dataFile, "utf8");
     return JSON.parse(raw) as MessageRecord[];
   } catch {
     return null;
@@ -106,11 +92,13 @@ export async function saveMessages(
     return "kv";
   }
 
-  const fs = getNodeBuiltin<typeof import("node:fs/promises")>("fs/promises");
-  const path = getNodeBuiltin<typeof import("node:path")>("path");
-  if (fs && path) {
+  if (typeof process !== "undefined" && process.versions?.node) {
+    const [{ writeFile }, path] = await Promise.all([
+      import("node:fs/promises"),
+      import("node:path"),
+    ]);
     const dataFile = path.resolve(process.cwd(), "src/data/messages.json");
-    await fs.writeFile(dataFile, JSON.stringify(messages, null, 2) + "\n", "utf8");
+    await writeFile(dataFile, JSON.stringify(messages, null, 2) + "\n", "utf8");
     return "file";
   }
 

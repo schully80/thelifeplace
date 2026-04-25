@@ -12,9 +12,9 @@ import SearchBar from "../components/SearchBar.astro";
 import Pagination from "../components/Pagination.astro";
 import { loadMessages } from "../utils/message-store";
 import { highlightJesusHtml } from "../utils/highlight-jesus";
-import { env as cloudflareEnv } from "cloudflare:workers";
 
-const messages = await loadMessages(cloudflareEnv as Record<string, unknown>);
+const runtimeEnv = (Astro.locals as { runtime?: { env?: Record<string, unknown> } } | undefined)?.runtime?.env;
+const messages = await loadMessages(runtimeEnv);
 
 // Sort messages by date (newest first)
 messages.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());

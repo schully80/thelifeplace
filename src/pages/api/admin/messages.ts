@@ -8,9 +8,12 @@ import {
   normalizeMessages,
   saveMessages,
 } from "../../../utils/message-store";
-import { env as cloudflareEnv } from "cloudflare:workers";
 
 export const prerender = false;
+
+function runtimeEnv(locals: Record<string, unknown> | undefined) {
+  return (locals?.runtime as { env?: Record<string, unknown> } | undefined)?.env;
+}
 
 function isAuthorized(request: Request, expectedKey: string): boolean {
   const url = new URL(request.url);
@@ -19,8 +22,8 @@ function isAuthorized(request: Request, expectedKey: string): boolean {
   return queryKey === expectedKey || headerKey === expectedKey;
 }
 
-export const GET: APIRoute = async ({ request }) => {
-  const env = cloudflareEnv as Record<string, unknown>;
+export const GET: APIRoute = async ({ request, locals }) => {
+  const env = runtimeEnv(locals as Record<string, unknown> | undefined);
   const ip = getClientIP(request.headers);
   const adminKey = getMessagesAdminKey(env);
 
@@ -37,8 +40,8 @@ export const GET: APIRoute = async ({ request }) => {
   });
 };
 
-export const POST: APIRoute = async ({ request }) => {
-  const env = cloudflareEnv as Record<string, unknown>;
+export const POST: APIRoute = async ({ request, locals }) => {
+  const env = runtimeEnv(locals as Record<string, unknown> | undefined);
   const ip = getClientIP(request.headers);
   const adminKey = getMessagesAdminKey(env);
 

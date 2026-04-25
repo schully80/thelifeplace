@@ -4,11 +4,8 @@
 # Create a KV namespace in your Cloudflare account and add the binding here.
 
 name = "thelifeplace"
-main = "@astrojs/cloudflare/entrypoints/server"
-compatibility_date = "2025-05-21"
-
-[assets]
-directory = "./dist"
+main = "./dist/_worker.js/index.js"
+compatibility_date = "2024-01-01"
 
 # Example KV binding
 [[kv_namespaces]]

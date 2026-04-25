@@ -1,9 +1,9 @@
 import type { APIRoute } from "astro";
 import { loadMessages } from "../../utils/message-store";
-import { env as cloudflareEnv } from "cloudflare:workers";
 
-export const GET: APIRoute = async () => {
-  const messages = await loadMessages(cloudflareEnv as Record<string, unknown>);
+export const GET: APIRoute = async ({ locals }) => {
+  const runtimeEnv = (locals as { runtime?: { env?: Record<string, unknown> } } | undefined)?.runtime?.env;
+  const messages = await loadMessages(runtimeEnv);
 
   return new Response(JSON.stringify(messages), {
     headers: {
