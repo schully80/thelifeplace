@@ -7,6 +7,9 @@ name = "thelifeplace"
 main = "@astrojs/cloudflare/entrypoints/server"
 compatibility_date = "2025-05-21"
 
+[assets]
+directory = "./dist"
+
 # Example KV binding
 [[kv_namespaces]]
 binding = "SESSION"
