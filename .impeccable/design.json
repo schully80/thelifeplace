@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-28T00:00:00+02:00",
+  "title": "Design System: The Life Place",
+  "extensions": {
+    "colorMeta": {
+      "brand-red": {
+        "role": "primary",
+        "displayName": "Church Door Red",
+        "canonical": "#B3282D",
+        "tonalRamp": ["#240809", "#471012", "#6B171B", "#8F1F24", "#B3282D", "#E95B5B", "#F5AFAF", "#FDECEC"]
+      },
+      "brand-red-hover": {
+        "role": "primary",
+        "displayName": "Deep Door Red",
+        "canonical": "#9F2429",
+        "tonalRamp": ["#240809", "#471012", "#6B171B", "#8F1F24", "#9F2429", "#E95B5B", "#F5AFAF", "#FDECEC"]
+      },
+      "page-white": {
+        "role": "neutral",
+        "displayName": "Page White",
+        "canonical": "#FFFFFF",
+        "tonalRamp": ["#2F3130", "#4C4E4D", "#6E706F", "#8F9190", "#B0B2B1", "#D2D4D3", "#EFEFEF", "#FFFFFF"]
+      },
+      "soft-panel": {
+        "role": "neutral",
+        "displayName": "Soft Panel Gray",
+        "canonical": "#F9FAFB",
+        "tonalRamp": ["#111827", "#1F2937", "#374151", "#4B5563", "#6B7280", "#9CA3AF", "#E5E7EB", "#F9FAFB"]
+      },
+      "ink-heading": {
+        "role": "neutral",
+        "displayName": "Heading Ink",
+        "canonical": "#1F2937",
+        "tonalRamp": ["#111827", "#1F2937", "#374151", "#4B5563", "#6B7280", "#9CA3AF", "#E5E7EB", "#F9FAFB"]
+      },
+      "ink-body": {
+        "role": "neutral",
+        "displayName": "Body Ink",
+        "canonical": "#4B5563",
+        "tonalRamp": ["#111827", "#1F2937", "#374151", "#4B5563", "#6B7280", "#9CA3AF", "#E5E7EB", "#F9FAFB"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero statements, major invitations, and first-screen brand messages."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings and major page titles."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Cards, forms, dropdown groups, and secondary page headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paragraphs, descriptions, forms, and supporting copy."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Preheaders, metadata, compact states, and admin labels."
+      }
+    },
+    "shadows": [
+      {
+        "name": "soft-card",
+        "value": "0 1px 2px rgba(0, 0, 0, 0.05)",
+        "purpose": "Resting cards, media thumbnails, and compact badges."
+      },
+      {
+        "name": "raised-card",
+        "value": "0 10px 15px -3px rgba(0, 0, 0, 0.10), 0 4px 6px -4px rgba(0, 0, 0, 0.10)",
+        "purpose": "Hovered cards, dropdowns, and forms that need clear separation."
+      },
+      {
+        "name": "floating-contact",
+        "value": "0 10px 32px rgba(0, 0, 0, 0.18), 0 8px 24px rgba(0, 0, 0, 0.12)",
+        "purpose": "Fixed contact bubble and prominent floating UI."
+      },
+      {
+        "name": "red-glow",
+        "value": "0 10px 30px rgba(179, 40, 45, 0.18)",
+        "purpose": "Live banner and primary red affordances when extra attention is warranted."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-strong",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Default reveal and pressable state easing."
+      },
+      {
+        "name": "ease-overlay",
+        "value": "cubic-bezier(0.19, 1, 0.22, 1)",
+        "purpose": "Drawer and overlay movement."
+      },
+      {
+        "name": "fade-up",
+        "value": "0.9s ease-out",
+        "purpose": "Section reveal animation."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      },
+      {
+        "name": "2xl",
+        "value": "1536px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The default red action for giving, registration, visit planning, and live actions.",
+      "html": "<button class=\"ds-btn-primary\">Plan Your Visit</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: 0; border-radius: 0.75rem; background: #B3282D; color: #FFFFFF; padding: 0.75rem 1.25rem; font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; font-size: 1rem; font-weight: 700; line-height: 1.25; transition: background-color 200ms ease, box-shadow 200ms ease, transform 140ms cubic-bezier(0.23, 1, 0.32, 1); box-shadow: 0 10px 30px rgba(179, 40, 45, 0.18); } .ds-btn-primary:hover { background: #9F2429; } .ds-btn-primary:focus-visible { outline: 2px solid rgba(179, 40, 45, 0.70); outline-offset: 3px; } .ds-btn-primary:active { transform: scale(0.97); }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "A secondary action for directions, learn-more links, and lower-priority page actions.",
+      "html": "<button class=\"ds-btn-outline\">Get Directions</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: 2px solid rgba(179, 40, 45, 0.40); border-radius: 1rem; background: #FFFFFF; color: #1F2937; padding: 1rem 2rem; min-width: 260px; font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; font-size: 1rem; font-weight: 700; line-height: 1.25; box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.10); transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease; } .ds-btn-outline:hover { border-color: rgba(179, 40, 45, 0.60); background: #F9FAFB; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.10), 0 4px 6px -4px rgba(0, 0, 0, 0.10); } .ds-btn-outline:focus-visible { outline: 2px solid rgba(179, 40, 45, 0.70); outline-offset: 3px; }"
+    },
+    {
+      "name": "Expectation Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "A soft, rounded card for visit expectations, ministry summaries, and homepage teaching points.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-icon\">+</div><h3>Worship that makes room for Jesus' presence.</h3></article>",
+      "css": ".ds-card { border: 1px solid #E5E7EB; border-radius: 1rem; background: #F9FAFB; color: #1F2937; padding: 2rem; min-height: 12rem; font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease; } .ds-card:hover { border-color: rgba(179, 40, 45, 0.40); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.10), 0 4px 6px -4px rgba(0, 0, 0, 0.10); } .ds-card-icon { margin: 0 auto 0.75rem; color: #B3282D; font-size: 2rem; line-height: 1; text-align: center; } .ds-card h3 { margin: 0; color: #1F2937; font-size: 1.5rem; font-weight: 700; line-height: 1.25; text-align: center; letter-spacing: -0.02em; }"
+    },
+    {
+      "name": "Floating Label Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "The registration and visit form field pattern with red validation and soft focus.",
+      "html": "<label class=\"ds-field\"><input placeholder=\" \" type=\"email\" /><span>Email Address *</span></label>",
+      "css": ".ds-field { position: relative; display: block; font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; } .ds-field input { width: 100%; border: 1.5px solid #E5E7EB; border-radius: 0.75rem; padding: 14px 12px; font-size: 15px; color: #1F2937; background: rgba(255, 255, 255, 0.70); outline: none; transition: border-color 250ms ease, background-color 250ms ease, box-shadow 250ms ease; } .ds-field span { position: absolute; left: 12px; top: 14px; padding: 0 4px; background: #FFFFFF; color: #9CA3AF; font-size: 15px; font-weight: 500; pointer-events: none; transform-origin: left top; transition: transform 250ms ease, color 250ms ease, font-size 250ms ease; } .ds-field input:focus { background: rgba(255, 255, 255, 0.95); box-shadow: 0 0 0 3px rgba(229, 231, 235, 0.60); } .ds-field input:focus + span, .ds-field input:not(:placeholder-shown) + span { transform: translateY(-30px) scale(0.85); color: #B3282D; font-size: 12px; font-weight: 600; }"
+    },
+    {
+      "name": "Desktop Navigation Link",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Large, tight, heavy Montserrat navigation with an animated red underline.",
+      "html": "<a class=\"ds-nav-link\" href=\"#\"><span>Visit</span></a>",
+      "css": ".ds-nav-link { position: relative; display: inline-block; padding: 0.5rem; color: #374151; font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; font-size: 1.5rem; font-weight: 900; line-height: 1; letter-spacing: -0.04em; text-decoration: none; transition: color 200ms ease; } .ds-nav-link span { position: relative; display: inline-block; } .ds-nav-link span::after { content: ''; position: absolute; left: 0; bottom: -0.125rem; height: 2px; width: 0; background: #B3282D; transition: width 300ms ease; } .ds-nav-link:hover { color: #1F2937; } .ds-nav-link:hover span::after, .ds-nav-link[aria-current='page'] span::after { width: 100%; } .ds-nav-link[aria-current='page'] { color: #B3282D; }"
+    },
+    {
+      "name": "Media Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "A rounded message or feature image card with clipped hover zoom.",
+      "html": "<a class=\"ds-media-card\" href=\"#\"><img src=\"/fallback-message2.png\" alt=\"Message thumbnail\" /><h3>Recent Message</h3></a>",
+      "css": ".ds-media-card { display: block; color: #1F2937; font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; text-decoration: none; } .ds-media-card img { display: block; width: 100%; height: 12rem; object-fit: cover; border: 1px solid #E5E7EB; border-radius: 1rem; background: #FFFFFF; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); transition: transform 300ms ease; } .ds-media-card h3 { margin: 0.75rem 0 0; color: #1F2937; font-size: 1.125rem; font-weight: 600; line-height: 1.3; transition: color 200ms ease; } .ds-media-card:hover img { transform: scale(1.05); } .ds-media-card:hover h3 { color: #B3282D; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Open Door Sanctuary",
+    "overview": "The Life Place uses a restrained, welcoming brand system built from white space, soft grays, local photography, and one unmistakable red. The visual language should feel like a clear invitation: warm, direct, practical, and centered on the repeated phrase \"Come. See. Jesus.\"",
+    "keyCharacteristics": [
+      "White and light gray surfaces with brand red used sparingly and deliberately.",
+      "Heavy Montserrat type, especially in hero statements and navigation.",
+      "Rounded cards, buttons, drawers, and fields that feel approachable rather than formal.",
+      "Local imagery, grayscale treatments, and dark overlays when text sits on photography.",
+      "Motion that reveals and responds, never distracts from the invitation."
+    ],
+    "rules": [
+      {
+        "name": "The Red Is Reserved Rule",
+        "body": "Brand red is not decoration. Use it for Jesus emphasis, primary action, active state, validation, live state, or an explicitly important link.",
+        "section": "colors"
+      },
+      {
+        "name": "The White Canvas Rule",
+        "body": "Default surfaces stay white or near-white. Gray panels should organize content; they should not make the site feel boxed in.",
+        "section": "colors"
+      },
+      {
+        "name": "The Heavy Means Important Rule",
+        "body": "Use 900 weight only for major invitation, navigation, or page structure. Do not make every card title black and enormous.",
+        "section": "typography"
+      },
+      {
+        "name": "The No Decorative Mono Rule",
+        "body": "Do not introduce monospace labels for style. This brand is warm and pastoral, not technical.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat First Rule",
+        "body": "A surface starts flat. Add shadow only for hover, open menus, media containers, floating actions, or form blocks.",
+        "section": "elevation"
+      },
+      {
+        "name": "The No Hard Shadow Rule",
+        "body": "If the shadow looks black, sharp, or like a 2014 app, it is too strong.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use Church Door Red for primary calls to action, live indicators, active navigation, and the word Jesus when it is intentionally emphasized.",
+      "Do keep the default page canvas white with Heading Ink for headings and Body Ink for paragraphs.",
+      "Do use Montserrat consistently across display, navigation, labels, forms, and body copy.",
+      "Do pair large theological statements with generous vertical spacing and restrained supporting copy.",
+      "Do use real local imagery and photo-backed sections when a page needs place, people, worship, ministries, or visit context.",
+      "Do use soft rounded forms and cards, especially rounded-xl, rounded-2xl, and rounded-3xl.",
+      "Do include hover, focus, active, disabled, valid, and error states for interactive components."
+    ],
+    "donts": [
+      "Don't use red as a background wash across ordinary sections. Its rarity is what gives it meaning.",
+      "Don't introduce purple gradients, neon accents, glass cards, or generic SaaS landing-page effects.",
+      "Don't use gradient text for headings. Existing gradient-text instances should be treated as exceptions to remove during polish.",
+      "Don't use side-stripe borders thicker than 1px as decorative accents. Existing left borders should remain functional information markers only.",
+      "Don't replace photography with abstract color blocks where visitors need to understand the real place or community.",
+      "Don't add a second display font, decorative serif, or monospace styling unless the full brand direction is intentionally changed.",
+      "Don't make every surface a card. Use full-width white sections and simple layout first."
+    ]
+  }
+}

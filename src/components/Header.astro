@@ -40,10 +40,18 @@ const desktopNavLinkBase =
   `px-2 py-2 font-montserrat text-[1.5rem] font-black leading-none ${desktopNavTracking}`;
 const desktopNavLinkState = (href: string) => (isActive(href) ? "text-brand-red" : "text-gray-700 hover:text-gray-800");
 const desktopNavUnderlineBase =
-  "relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 after:bg-brand-red after:transition-all after:duration-300 hover:after:w-full";
+  "relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 after:bg-brand-red after:transition-[width] after:duration-200 after:ease-out hover:after:w-full";
 const desktopNavUnderlineState = (href: string) => (isActive(href) ? "after:w-full" : "");
 const desktopAboutSubLinkBase =
   "desktop-about-subitem group block px-4 py-3 font-montserrat text-[1.15rem] font-black leading-none tracking-[-0.035em] text-gray-700 hover:text-gray-800";
+const desktopAboutSubUnderlineBase =
+  "relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 after:bg-brand-red after:transition-[width] after:duration-200 after:ease-out hover:after:w-full";
+const hamburgerButtonBase =
+  "relative inline-flex h-11 w-11 items-center justify-center bg-transparent text-[#171717] transition-[color,transform] duration-150 ease-out hover:text-black focus:outline-none focus:ring-0 active:scale-[0.97] active:text-black";
+const closeButtonBase =
+  "relative inline-flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-[#171717] transition-[background-color,color,transform] duration-150 ease-out hover:bg-gray-200 hover:text-black focus:outline-none focus:ring-0 active:scale-[0.97] active:bg-gray-200 active:text-black";
+const navGiveButtonBase =
+  "relative z-10 px-4 py-2 whitespace-nowrap rounded-2xl bg-brand-red font-montserrat text-[1.5rem] font-black leading-none text-white shadow-md transition-[background-color,box-shadow,transform] duration-150 ease-out hover:bg-red-700 active:scale-[0.97]";
 ---
 
   <header class:list={[
@@ -52,15 +60,15 @@ const desktopAboutSubLinkBase =
 ]}>
 
   <!-- MOBILE: 0–md (flex layout with hamburger) — primary mobile UI lives here -->
-  <div class="md:hidden h-20 grid grid-cols-[1fr,auto] items-center px-4 gap-2">
+  <div class="relative flex h-20 items-center justify-center px-4 md:hidden">
     <!-- Logo -->
     <a
       href="/"
-      class="flex min-w-0 items-center gap-2"
+      class="mx-14 flex min-w-0 items-center justify-center gap-2"
       aria-label={`${title} — Home`}
     >
-      <img src={symbolSrc} alt="" class="h-10 w-10 flex-shrink-0 sm:h-12 sm:w-12" aria-hidden="true" />
-      <img src={logoSrc} alt={title} class="h-12 w-auto max-w-[220px] flex-shrink-0 sm:h-14" />
+      <img src={symbolSrc} alt="" class="h-9 w-9 flex-shrink-0 sm:h-12 sm:w-12" aria-hidden="true" />
+      <img src={logoSrc} alt={title} class="h-12 w-auto max-w-[40vw] flex-shrink-0 sm:h-14 sm:max-w-[220px]" />
     </a>
 
     <!-- Hamburger Button -->
@@ -70,7 +78,7 @@ const desktopAboutSubLinkBase =
       aria-label="Open menu"
       aria-controls="mobileNavDrawer"
       aria-expanded="false"
-      class="relative inline-flex h-11 w-11 items-center justify-center bg-transparent text-[#171717] transition-colors duration-200 hover:text-black focus:outline-none focus:ring-0 active:text-black"
+      class:list={[hamburgerButtonBase, "absolute right-4"]}
     >
       <svg viewBox="0 0 24 24" class="h-7 w-7" aria-hidden="true">
         <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
@@ -114,17 +122,17 @@ const desktopAboutSubLinkBase =
             href="/about-us/"
             class:list={[desktopAboutSubLinkBase, isActive("/about-us/") ? "text-brand-red" : ""]}
             style="--desktop-sub-delay: 70ms"
-          ><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">What We Do</span></a>
+          ><span class={desktopAboutSubUnderlineBase}>What We Do</span></a>
           <a
             href="/what-we-believe/"
             class:list={[desktopAboutSubLinkBase, isActive("/what-we-believe/") ? "text-brand-red" : ""]}
             style="--desktop-sub-delay: 150ms"
-          ><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">What We Believe</span></a>
+          ><span class={desktopAboutSubUnderlineBase}>What We Believe</span></a>
           <a
             href="/about-us/leadership"
             class:list={[desktopAboutSubLinkBase, isActive("/about-us/leadership") ? "text-brand-red" : ""]}
             style="--desktop-sub-delay: 230ms"
-          ><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Schulter and Genevieve</span></a>
+          ><span class={desktopAboutSubUnderlineBase}>Schulter and Genevieve</span></a>
         </div>
       </div>
 
@@ -154,7 +162,7 @@ const desktopAboutSubLinkBase =
       <a
         href="/give/"
         class:list={[
-          "relative z-10 px-4 py-2 whitespace-nowrap rounded-2xl bg-brand-red font-montserrat text-[1.5rem] font-black leading-none text-white shadow-md transition hover:bg-red-700",
+          navGiveButtonBase,
           desktopNavTracking,
         ]}
       >Give</a>
@@ -179,7 +187,7 @@ const desktopAboutSubLinkBase =
       aria-label="Open menu"
       aria-controls="tabletNavDrawer"
       aria-expanded="false"
-      class="hamburger relative hidden h-11 w-11 items-center justify-center bg-transparent text-[#171717] transition-colors duration-200 hover:text-black focus:outline-none focus:ring-0 active:text-black portrait:flex"
+      class={`${hamburgerButtonBase} hamburger hidden portrait:flex`}
     >
       <svg viewBox="0 0 24 24" class="h-7 w-7" aria-hidden="true">
         <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
@@ -224,17 +232,17 @@ const desktopAboutSubLinkBase =
             href="/about-us/"
             class:list={[desktopAboutSubLinkBase, isActive("/about-us/") ? "text-brand-red" : ""]}
             style="--desktop-sub-delay: 70ms"
-          ><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">What We Do</span></a>
+          ><span class={desktopAboutSubUnderlineBase}>What We Do</span></a>
           <a
             href="/what-we-believe/"
             class:list={[desktopAboutSubLinkBase, isActive("/what-we-believe/") ? "text-brand-red" : ""]}
             style="--desktop-sub-delay: 150ms"
-          ><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">What We Believe</span></a>
+          ><span class={desktopAboutSubUnderlineBase}>What We Believe</span></a>
           <a
             href="/about-us/leadership"
             class:list={[desktopAboutSubLinkBase, isActive("/about-us/leadership") ? "text-brand-red" : ""]}
             style="--desktop-sub-delay: 230ms"
-          ><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Schulter and Genevieve</span></a>
+          ><span class={desktopAboutSubUnderlineBase}>Schulter and Genevieve</span></a>
         </div>
       </div>
 
@@ -264,7 +272,7 @@ const desktopAboutSubLinkBase =
       <a
         href="/give/"
         class:list={[
-          "relative z-10 px-4 py-2 whitespace-nowrap rounded-2xl bg-brand-red font-montserrat text-[1.5rem] font-black leading-none text-white shadow-md transition",
+          navGiveButtonBase,
           desktopNavTracking,
         ]}
         aria-current={isActive("/give/") ? "page" : undefined}
@@ -290,14 +298,14 @@ const desktopAboutSubLinkBase =
 
   <aside
     id="tabletNavDrawer"
-    class="fixed inset-x-0 top-0 w-full max-w-full bg-white shadow-xl transition-all duration-500 ease-overlay will-change-transform z-[9999] focus:outline-none hidden portrait:block -translate-y-full opacity-0 pointer-events-none"
+    class="fixed inset-x-0 top-0 w-full max-w-full bg-white shadow-xl transition-[opacity,transform] duration-300 ease-out will-change-transform z-[9999] focus:outline-none hidden portrait:block -translate-y-full opacity-0 pointer-events-none"
     role="dialog"
     aria-modal="true"
     tabindex="-1"
     data-drawer-state="closed"
   >
     <div class="h-16 px-6 flex items-center justify-end border-b">
-      <button id="tabletMenuClose" type="button" aria-label="Close menu" class="relative inline-flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-[#171717] transition-colors duration-200 hover:bg-gray-200 hover:text-black focus:outline-none focus:ring-0 active:bg-gray-200 active:text-black">
+      <button id="tabletMenuClose" type="button" aria-label="Close menu" class={closeButtonBase}>
         <svg viewBox="0 0 24 24" class="h-7 w-7" aria-hidden="true">
           <path d="M6.5 6.5l11 11M17.5 6.5l-11 11" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
         </svg>
@@ -380,7 +388,7 @@ const desktopAboutSubLinkBase =
 
       <a
         href="/give/"
-        class="drawer-fade-item relative z-10 inline-flex w-auto self-start items-center justify-center rounded-2xl bg-brand-red px-4 py-2 font-montserrat text-[2.2rem] font-black leading-[0.96] tracking-[-0.04em] text-white transition-colors duration-300 hover:bg-red-700 md:py-3 md:text-[3rem]"
+        class="drawer-fade-item relative z-10 inline-flex w-auto self-start items-center justify-center rounded-2xl bg-brand-red px-4 py-2 font-montserrat text-[2.2rem] font-black leading-[0.96] tracking-[-0.04em] text-white transition-[background-color,transform] duration-150 ease-out hover:bg-red-700 active:scale-[0.97] md:py-3 md:text-[3rem]"
         style="--drawer-delay: 360ms"
         aria-current={isActive("/give/") ? "page" : undefined}
       >

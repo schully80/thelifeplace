@@ -19,22 +19,22 @@ const isActive = (href: string) =>
   className,
 ]}>
   <!-- Top bar: 3-column grid -->
-  <div class="h-20 grid grid-cols-[1fr,auto] items-center px-4 gap-2">
+  <div class="relative flex h-20 items-center justify-center px-4">
 
     <!-- LEFT: Logo -->
-    <div class="flex min-w-0 items-center">
+    <div class="flex min-w-0 items-center justify-center">
       <a
         href="/"
-        class="flex min-w-0 items-center gap-2"
+        class="mx-14 flex min-w-0 items-center justify-center gap-2"
         aria-label={`${title} — Home`}
       >
-        <img src={symbolSrc} alt="" class="h-10 w-10 flex-shrink-0 sm:h-12 sm:w-12" aria-hidden="true" />
-        <img src={logoSrc} alt={title} class="h-12 w-auto max-w-[220px] flex-shrink-0 sm:h-14" />
+        <img src={symbolSrc} alt="" class="h-9 w-9 flex-shrink-0 sm:h-12 sm:w-12" aria-hidden="true" />
+        <img src={logoSrc} alt={title} class="h-12 w-auto max-w-[40vw] flex-shrink-0 sm:h-14 sm:max-w-[220px]" />
       </a>
     </div>
 
     <!-- RIGHT: Hamburger Menu Button -->
-    <div class="flex items-center gap-2 flex-shrink-0 ml-auto">
+    <div class="absolute right-4 flex items-center gap-2 flex-shrink-0">
       <button
         id="mobileMenuButton"
         type="button"
