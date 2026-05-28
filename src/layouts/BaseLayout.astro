@@ -70,14 +70,14 @@ pathParts.forEach((part, index) => {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://thelifeplace.org/logo.png" />
+    <meta property="og:image" content="https://thelifeplace.org/logo4.svg" />
     <meta property="og:image:alt" content="The Life Place - Come. See. Jesus." />
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://thelifeplace.org/logo.png" />
+    <meta name="twitter:image" content="https://thelifeplace.org/logo4.svg" />
     
     <!-- Additional SEO -->
     <meta name="theme-color" content="#B3282D" />
@@ -117,7 +117,7 @@ pathParts.forEach((part, index) => {
   "description": "The Life Place is a church in Craigavon AH, Sandton. Join us Sundays 9:00–11:00 for worship, prayer, and community. Experience Jesus in our welcoming congregation.",
   "telephone": "+27 76 563 9460",
   "email": "hello@thelifeplace.org",
-  "image": "https://thelifeplace.org/logo.png",
+  "image": "https://thelifeplace.org/logo4.svg",
   "areaServed": ["Sandton", "Johannesburg", "South Africa"],
   "potentialAction": [
     {
@@ -161,7 +161,7 @@ pathParts.forEach((part, index) => {
   "@id": "https://thelifeplace.org/#sunday-service",
   "name": "Sunday Worship Service",
   "description": "Join The Life Place for worship, prayer, and community fellowship every Sunday morning.",
-  "image": "https://thelifeplace.org/logo.png",
+  "image": "https://thelifeplace.org/logo4.svg",
   "startDate": "2026-01-26T09:00:00+02:00",
   "endDate": "2026-01-26T11:00:00+02:00",
   "eventStatus": "EventScheduled",
@@ -228,7 +228,7 @@ pathParts.forEach((part, index) => {
       "@id": `https://thelifeplace.org${pathname}#article`,
       "headline": articleTitle,
       "description": articleDescription || description,
-      "image": articleImage || "https://thelifeplace.org/logo.png",
+      "image": articleImage || "https://thelifeplace.org/logo4.svg",
       "datePublished": articleDate,
       "dateModified": articleDate,
       "author": {
@@ -239,7 +239,7 @@ pathParts.forEach((part, index) => {
         "@type": "Organization",
         "@id": "https://thelifeplace.org/#church",
         "name": "The Life Place",
-        "image": "https://thelifeplace.org/logo.png"
+        "image": "https://thelifeplace.org/logo4.svg"
       },
       "url": `https://thelifeplace.org${pathname}`,
       ...(articleContent && { "wordCount": Math.ceil(articleContent.split(/\s+/).length) })
@@ -486,48 +486,67 @@ pathParts.forEach((part, index) => {
 
     <!-- Fade-in + Parallax -->
     <script is:inline>
-      const observer = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add("is-visible");
+      const tlpPrefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!tlpPrefersReducedMotion) {
+        document.querySelectorAll(".hero-img, .hero-bg")
+          .forEach(el => {
+            el.dataset.parallax = "0.03";
+            el.classList.add("parallax", "motion-fade-up");
           });
-        },
-        { threshold: 0.15 }
-      );
 
-      document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+        const pastor = document.getElementById("pastorsPhoto");
+        if (pastor) {
+          pastor.dataset.parallax = "0.015";
+          pastor.classList.add("parallax", "motion-fade-up");
+        }
+      }
 
-      window.addEventListener("scroll", () => {
-        document.querySelectorAll("[data-parallax]").forEach(el => {
-          const speed = parseFloat(el.dataset.parallax) || 0.03;
-          el.style.transform = `translateY(${window.scrollY * speed}px)`;
-        });
-      });
+      if (!tlpPrefersReducedMotion && "IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          entries => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+
+        document.querySelectorAll(".motion-fade-up").forEach(el => observer.observe(el));
+      } else {
+        document.querySelectorAll(".motion-fade-up").forEach(el => el.classList.add("is-visible"));
+      }
+
+      const parallaxEls = Array.from(document.querySelectorAll("[data-parallax]"));
+      if (!tlpPrefersReducedMotion && parallaxEls.length) {
+        let ticking = false;
+
+        const updateParallax = () => {
+          parallaxEls.forEach(el => {
+            const speed = parseFloat(el.dataset.parallax) || 0.03;
+            el.style.transform = `translateY(${window.scrollY * speed}px)`;
+          });
+          ticking = false;
+        };
+
+        window.addEventListener("scroll", () => {
+          if (!ticking) {
+            requestAnimationFrame(updateParallax);
+            ticking = true;
+          }
+        }, { passive: true });
+      }
     </script>
 
-    <!-- Micro-interactions -->
+    <!-- Motion targets -->
     <script is:inline>
-      document.querySelectorAll(".rounded-xl, .rounded-2xl, .rounded-3xl")
-        .forEach(card => {
-          if (!card.classList.contains("no-hover")) card.classList.add("hover-elevate","fade-in");
-        });
-
-      document.querySelectorAll("button, a.button, a[href]")
-        .forEach(btn => {
-          if (!btn.classList.contains("no-press")) btn.classList.add("pressable");
-        });
-
-      document.querySelectorAll(".hero-img, .hero-bg")
+      document.querySelectorAll("[data-motion-pressable]")
         .forEach(el => {
-          el.dataset.parallax = "0.03";
-          el.classList.add("parallax", "fade-in");
+          el.classList.add("motion-pressable");
         });
-
-      const pastor = document.getElementById("pastorsPhoto");
-      if (pastor) {
-        pastor.dataset.parallax = "0.015";
-        pastor.classList.add("parallax", "fade-in");
-      }
     </script>
 
 <script>

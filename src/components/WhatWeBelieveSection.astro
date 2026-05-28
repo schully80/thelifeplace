@@ -258,7 +258,9 @@
   .accordion-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 1.8s ease-in-out, opacity 1.8s ease-in-out;
+    transition:
+      max-height 260ms cubic-bezier(0.23, 1, 0.32, 1),
+      opacity 200ms ease;
     display: block;
     opacity: 0;
   }
@@ -286,7 +288,6 @@
 
 <script>
   function setupAccordions() {
-    const section = document.querySelector('section');
     const items = document.querySelectorAll<HTMLElement>('.accordion-item');
     
     // Define accordion pairs
@@ -311,20 +312,6 @@
       if (item1) pairMap.set(item1, [item1, item2].filter(Boolean) as HTMLElement[]);
       if (item2) pairMap.set(item2, [item1, item2].filter(Boolean) as HTMLElement[]);
     });
-    
-    // Function to close all accordions
-    const closeAll = () => {
-      items.forEach(item => item.classList.remove('active'));
-    };
-    
-    // Close accordions when cursor leaves the section
-    if (section) {
-      section.addEventListener('mouseleave', closeAll);
-    }
-    
-    // Close accordions when user scrolls
-    window.addEventListener('wheel', closeAll, { passive: true });
-    window.addEventListener('scroll', closeAll, { passive: true });
     
     items.forEach((item, idx) => {
       const btn = item.querySelector<HTMLButtonElement>('.accordion-btn');

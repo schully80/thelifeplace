@@ -2,7 +2,8 @@
 // NOTE: Legacy/unused. BaseLayout renders src/components/Header.astro (includes mobile).
 const {
   title = "The Life Place",
-  logoSrc = "/logo.png",
+  logoSrc = "/logo4.svg",
+  symbolSrc = "/symbol3.svg",
   class: className,
 } = Astro.props;
 
@@ -20,26 +21,15 @@ const isActive = (href: string) =>
   <!-- Top bar: 3-column grid -->
   <div class="h-20 grid grid-cols-[1fr,auto] items-center px-4 gap-2">
 
-    <!-- LEFT: Logo + Title + Slogan -->
-    <div class="flex items-center gap-3 min-w-0">
-      <img src="/logo.png" alt="Logo" class="h-14 w-14 flex-shrink-0" />
-
+    <!-- LEFT: Logo -->
+    <div class="flex min-w-0 items-center">
       <a
         href="/"
-        class="flex flex-col items-center min-w-0"
+        class="flex min-w-0 items-center gap-2"
         aria-label={`${title} — Home`}
       >
-        <span
-          class="font-bold text-brand-red text-[20px] sm:text-[24px] leading-tight text-center"
-        >
-          {title}
-        </span>
-
-        <span
-          class="text-[12px] sm:text-[13px] text-brand-warmgray-600 tracking-wide text-center"
-        >
-          Come. See. <span class="text-brand-red">Jesus</span>
-        </span>
+        <img src={symbolSrc} alt="" class="h-10 w-10 flex-shrink-0 sm:h-12 sm:w-12" aria-hidden="true" />
+        <img src={logoSrc} alt={title} class="h-12 w-auto max-w-[220px] flex-shrink-0 sm:h-14" />
       </a>
     </div>
 

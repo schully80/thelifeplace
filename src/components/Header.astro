@@ -1,7 +1,8 @@
 ---
 const {
   title = "The Life Place",
-  logoSrc = "/logo.png",
+  logoSrc = "/logo4.svg",
+  symbolSrc = "/symbol3.svg",
   class: className,
   navButtonVariant = "glass", // options: "glass" (default) or "solid"
 } = Astro.props;
@@ -24,6 +25,9 @@ const isAboutActive =
   isActive("/what-we-believe/") ||
   isActive("/about-us/leadership");
 
+const isHome = path === "/";
+const desktopNavTracking = isHome ? "tracking-[-0.02em]" : "tracking-[-0.04em]";
+
 const drawerPrimaryLinkBase =
   "drawer-fade-item block w-full py-2 text-left font-montserrat text-[2.2rem] font-black leading-[0.96] tracking-[-0.04em] transition-colors duration-300 md:py-3 md:text-[3rem]";
 const drawerPrimaryLinkState = (href: string) =>
@@ -33,7 +37,7 @@ const drawerSubLinkBase =
 const drawerSubLinkState = (href: string) =>
   isActive(href) ? "text-brand-red" : "text-brand-darkgray/85 hover:text-brand-red";
 const desktopNavLinkBase =
-  "px-2 py-2 font-montserrat text-[1.5rem] font-black leading-none tracking-[-0.04em]";
+  `px-2 py-2 font-montserrat text-[1.5rem] font-black leading-none ${desktopNavTracking}`;
 const desktopNavLinkState = (href: string) => (isActive(href) ? "text-brand-red" : "text-gray-700 hover:text-gray-800");
 const desktopNavUnderlineBase =
   "relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 after:bg-brand-red after:transition-all after:duration-300 hover:after:w-full";
@@ -49,22 +53,15 @@ const desktopAboutSubLinkBase =
 
   <!-- MOBILE: 0–md (flex layout with hamburger) — primary mobile UI lives here -->
   <div class="md:hidden h-20 grid grid-cols-[1fr,auto] items-center px-4 gap-2">
-    <!-- Logo + Title -->
-    <div class="flex items-center gap-3 min-w-0">
-      <img src={logoSrc} alt="Logo" class="h-14 w-14 flex-shrink-0" />
-      <a
-        href="/"
-        class="flex flex-col items-center min-w-0"
-        aria-label={`${title} — Home`}
-      >
-        <span class="font-bold text-brand-red text-[20px] sm:text-[24px] leading-tight text-center">
-          {title}
-        </span>
-        <span class="text-[12px] sm:text-[13px] text-brand-warmgray-600 tracking-wide text-center">
-          Come. See. <span class="text-brand-red">Jesus</span>
-        </span>
-      </a>
-    </div>
+    <!-- Logo -->
+    <a
+      href="/"
+      class="flex min-w-0 items-center gap-2"
+      aria-label={`${title} — Home`}
+    >
+      <img src={symbolSrc} alt="" class="h-10 w-10 flex-shrink-0 sm:h-12 sm:w-12" aria-hidden="true" />
+      <img src={logoSrc} alt={title} class="h-12 w-auto max-w-[220px] flex-shrink-0 sm:h-14" />
+    </a>
 
     <!-- Hamburger Button -->
     <button
@@ -83,17 +80,14 @@ const desktopAboutSubLinkBase =
 
   <!-- TABLET + LAPTOP: md–xl (horizontal nav with optional drawer in portrait) -->
   <div class="hidden md:flex xl:hidden h-20 sm:h-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 justify-between items-center gap-6">
-    <!-- Logo + Title -->
+    <!-- Logo -->
     <a
       href="/"
       class="shrink-0 flex items-center gap-3 min-w-0"
       aria-label={`${title} — Home`}
     >
-      <img src={logoSrc} alt="Logo" class="h-14 w-auto" />
-      <div class="flex flex-col min-w-0">
-        <span class="font-bold text-brand-red text-xl md:text-2xl leading-tight truncate">{title}</span>
-        <span class="text-center text-sm text-gray-600 tracking-wide">Come. See. <span class="text-brand-red">Jesus</span></span>
-      </div>
+      <img src={symbolSrc} alt="" class="h-12 w-12 flex-shrink-0" aria-hidden="true" />
+      <img src={logoSrc} alt={title} class="h-14 w-auto max-w-[260px]" />
     </a>
 
     <!-- Desktop-style nav (landscape) -->
@@ -109,7 +103,7 @@ const desktopAboutSubLinkBase =
             desktopNavLinkBase,
             isAboutActive ? "text-brand-red" : "text-gray-700 hover:text-gray-800",
           ]}
-        ><span class:list={[desktopNavUnderlineBase, isAboutActive ? "after:w-full" : ""]}>About Us</span></button>
+        ><span class:list={[desktopNavUnderlineBase, isAboutActive ? "after:w-full" : ""]}>About</span></button>
 
         <div
           data-menu
@@ -159,7 +153,10 @@ const desktopAboutSubLinkBase =
       <!-- Generosity -->
       <a
         href="/give/"
-        class="relative z-10 px-4 py-2 whitespace-nowrap rounded-2xl bg-brand-red font-montserrat text-[1.5rem] font-black leading-none tracking-[-0.04em] text-white shadow-md transition hover:bg-red-700"
+        class:list={[
+          "relative z-10 px-4 py-2 whitespace-nowrap rounded-2xl bg-brand-red font-montserrat text-[1.5rem] font-black leading-none text-white shadow-md transition hover:bg-red-700",
+          desktopNavTracking,
+        ]}
       >Give</a>
 
       <!-- Plan A Visit -->
@@ -193,21 +190,14 @@ const desktopAboutSubLinkBase =
 
   <!-- DESKTOP: xl+ (full horizontal nav) -->
   <div class="hidden xl:flex max-w-8xl 2xl:max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 h-24 justify-between items-center gap-6 2xl:gap-4">
-    <!-- Logo + Title -->
+    <!-- Logo -->
     <a
       href="/"
       class="shrink-0 flex items-center gap-3 min-w-0 cine-zoom-apple-hover"
       aria-label={`${title} — Home`}
     >
-      <img src={logoSrc} alt={`${title} Logo`} class="h-10 md:h-14 w-auto" />
-      <div class="flex flex-col min-w-0 items-center text-center">
-        <span class="font-bold text-brand-red text-lg sm:text-xl md:text-2xl leading-tight truncate">
-          {title}
-        </span>
-        <span class="text-md text-gray-600 tracking-wide">
-          Come. See. <span class="text-brand-red">Jesus</span>
-        </span>
-      </div>
+      <img src={symbolSrc} alt="" class="h-12 w-12 flex-shrink-0" aria-hidden="true" />
+      <img src={logoSrc} alt={title} class="h-14 w-auto max-w-[280px]" />
     </a>
 
     <!-- Nav -->
@@ -223,7 +213,7 @@ const desktopAboutSubLinkBase =
             desktopNavLinkBase,
             isAboutActive ? "text-brand-red" : "text-gray-700 hover:text-gray-800",
           ]}
-        ><span class:list={[desktopNavUnderlineBase, isAboutActive ? "after:w-full" : ""]}>About Us</span></button>
+        ><span class:list={[desktopNavUnderlineBase, isAboutActive ? "after:w-full" : ""]}>About</span></button>
 
         <div
           data-menu
@@ -273,7 +263,10 @@ const desktopAboutSubLinkBase =
       <!-- Generosity -->
       <a
         href="/give/"
-        class="relative z-10 px-4 py-2 whitespace-nowrap rounded-2xl bg-brand-red font-montserrat text-[1.5rem] font-black leading-none tracking-[-0.04em] text-white shadow-md transition"
+        class:list={[
+          "relative z-10 px-4 py-2 whitespace-nowrap rounded-2xl bg-brand-red font-montserrat text-[1.5rem] font-black leading-none text-white shadow-md transition",
+          desktopNavTracking,
+        ]}
         aria-current={isActive("/give/") ? "page" : undefined}
       >Give</a>
 
@@ -327,7 +320,7 @@ const desktopAboutSubLinkBase =
           aria-expanded="false"
           aria-controls="acc-about-tablet"
         >
-          <span>About Us</span>
+          <span>About</span>
           <svg class="h-7 w-7 shrink-0 transition-transform md:h-8 md:w-8" viewBox="0 0 24 24">
             <path d="M8 5l8 7-8 7" stroke="currentColor" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
