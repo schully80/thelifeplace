@@ -6,17 +6,62 @@ import { site } from "../../site.config.js";
 const visitLocation = getVisitLocation();
 const storyEmail = "mystory@thelifeplace.org";
 const storyWhatsAppNumber = "27765639460";
-const storyWhatsAppDisplay = "+27 76 563 9460";
 const storyWhatsAppMessage = "Hi The Life Place, I'd like to share my story.";
 const storyWhatsAppUrl = `https://wa.me/${storyWhatsAppNumber}?text=${encodeURIComponent(
   storyWhatsAppMessage
 )}`;
 
+const storyChannels = [
+  {
+    href: `mailto:${storyEmail}`,
+    label: "Email your story",
+    icon: "fa-solid fa-envelope",
+  },
+  {
+    href: storyWhatsAppUrl,
+    label: "WhatsApp your story",
+    icon: "fa-brands fa-whatsapp",
+    external: true,
+  },
+  {
+    href: site.socials.facebook,
+    label: "Facebook",
+    icon: "fa-brands fa-facebook-f",
+    external: true,
+  },
+  {
+    href: site.socials.instagram,
+    label: "Instagram",
+    icon: "fa-brands fa-instagram",
+    external: true,
+  },
+  {
+    href: site.socials.youtube,
+    label: "YouTube",
+    icon: "fa-brands fa-youtube",
+    external: true,
+  },
+];
+
+const kidsSlides = [
+  { src: "/what-kids15.jpg", alt: "Children at The Life Place" },
+  { src: "/what-kids.jpg", alt: "Children learning and worshipping at The Life Place" },
+  { src: "/what-kids11.jpg", alt: "Kids participating in activities at The Life Place" },
+  { src: "/what-kids4.jpg", alt: "Children welcomed at The Life Place" },
+  { src: "/what-kids5.jpg", alt: "Kids participating in activities at The Life Place" },
+  { src: "/what-kids6.jpg", alt: "Children learning and worshipping at The Life Place" },
+  { src: "/what-kids12.jpg", alt: "Kids participating in activities at The Life Place" },
+  { src: "/what-kids8.jpg", alt: "Kids participating in activities at The Life Place" },
+  { src: "/what-kids14.jpg", alt: "Kids participating in activities at The Life Place" },
+  { src: "/what-kids10.jpg", alt: "Kids participating in activities at The Life Place" },
+  { src: "/what-kids13.jpg", alt: "Kids participating in activities at The Life Place" },
+];
+
 const sundayFlow = [
   {
     icon: "fa-solid fa-music",
     title: "Worship",
-    body: "We sing, dance, pray and make room to behold the presence and kindness of Jesus.",
+    body: "We sing, pray, and make room to see the presence and kindness of Jesus.",
   },
   {
     icon: "fa-solid fa-book-open",
@@ -209,7 +254,7 @@ const faqItems = [
           What happens on Sunday.
         </h2>
         <p class="mt-5 max-w-xl text-lg leading-relaxed text-gray-600">
-          Every time we meet, we see how true, good, beautiful, and kind Jesus is.
+          Every time we meet, we see how true, good, beautiful and kind Jesus is.
         </p>
       </div>
 
@@ -238,7 +283,7 @@ const faqItems = [
       <div class="border-t border-gray-200 pt-6 lg:sticky lg:top-28">
         <p class="text-sm font-bold uppercase tracking-[0.16em] text-brand-red">Next steps</p>
         <h2 class="mt-4 text-4xl font-black leading-tight text-gray-900 md:text-5xl">
-        Start here.
+          Start here.
         </h2>
         <p class="mt-5 max-w-md text-lg leading-relaxed text-gray-600">
           Whether you are visiting, watching online, needing prayer, or ready to give, start here.
@@ -270,30 +315,16 @@ const faqItems = [
               We'd love to hear how seeing Jesus has transformed your life and changed your story.
             </p>
           </div>
-          <div class="mt-6 space-y-4">
+          <div class="mt-6">
+            <p class="mb-3 text-center text-sm font-semibold leading-relaxed text-gray-600">
+              Email, WhatsApp, or share through our social media channels.
+            </p>
             <div class="flex items-center justify-center gap-2">
-              <a href={`mailto:${storyEmail}`} aria-label="Email your story" class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-900 text-white transition hover:bg-brand-red">
-                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-              </a>
-              <a href={storyWhatsAppUrl} target="_blank" rel="noopener" aria-label="WhatsApp your story" class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-900 text-white transition hover:bg-brand-red">
-                <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
-              </a>
-            </div>
-            <div>
-              <p class="mb-3 text-sm font-semibold leading-relaxed text-gray-600">
-                Share your story with us through our socials.
-              </p>
-              <div class="flex items-center justify-center gap-2">
-              <a href={site.socials.facebook} target="_blank" rel="noopener" aria-label="Facebook" class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-900 text-white transition hover:bg-brand-red">
-                <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
-              </a>
-              <a href={site.socials.instagram} target="_blank" rel="noopener" aria-label="Instagram" class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-900 text-white transition hover:bg-brand-red">
-                <i class="fa-brands fa-instagram" aria-hidden="true"></i>
-              </a>
-              <a href={site.socials.youtube} target="_blank" rel="noopener" aria-label="YouTube" class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-900 text-white transition hover:bg-brand-red">
-                <i class="fa-brands fa-youtube" aria-hidden="true"></i>
-              </a>
-              </div>
+              {storyChannels.map((channel) => (
+                <a href={channel.href} target={channel.external ? "_blank" : undefined} rel={channel.external ? "noopener" : undefined} aria-label={channel.label} class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-900 text-white transition hover:bg-brand-red focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2">
+                  <i class={channel.icon} aria-hidden="true"></i>
+                </a>
+              ))}
             </div>
           </div>
         </article>
@@ -321,30 +352,14 @@ const faqItems = [
 
       <div class="relative overflow-hidden rounded-3xl border border-gray-200 bg-gray-100 shadow-xl">
         <div id="kidsSlidesHome" class="flex aspect-[4/3] w-full transition-transform duration-700 ease-out">
-          <img src="/what-kids15.jpg" alt="Children at The Life Place" class="kids-slide-img rounded-none" />
-          <img src="/what-kids.jpg" alt="Children learning and worshipping at The Life Place" class="kids-slide-img rounded-none" />
-          <img src="/what-kids11.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-none" />
-          <img src="/what-kids4.jpg" alt="Children welcomed at The Life Place" class="kids-slide-img rounded-none" />
-          <img src="/what-kids5.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-none" />
-          <img src="/what-kids6.jpg" alt="Children learning and worshipping at The Life Place" class="kids-slide-img rounded-none" />
-          <img src="/what-kids12.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-none" />
-          <img src="/what-kids8.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-none" />
-          <img src="/what-kids14.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-none" />
-          <img src="/what-kids10.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-none" />
-          <img src="/what-kids13.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-none" />
+          {kidsSlides.map((slide) => (
+            <img src={slide.src} alt={slide.alt} class="kids-slide-img rounded-none" />
+          ))}
         </div>
         <div class="absolute inset-x-4 bottom-4 flex items-center justify-center gap-1.5 rounded-full bg-white/85 px-3 py-2 shadow-lg ring-1 ring-black/5 backdrop-blur">
-          <button class="kids-slide-indicator is-active" type="button" data-slide="0" aria-label="Show kids image 1" aria-current="true"></button>
-          <button class="kids-slide-indicator" type="button" data-slide="1" aria-label="Show kids image 2" aria-current="false"></button>
-          <button class="kids-slide-indicator" type="button" data-slide="2" aria-label="Show kids image 3" aria-current="false"></button>
-          <button class="kids-slide-indicator" type="button" data-slide="3" aria-label="Show kids image 4" aria-current="false"></button>
-          <button class="kids-slide-indicator" type="button" data-slide="4" aria-label="Show kids image 5" aria-current="false"></button>
-          <button class="kids-slide-indicator" type="button" data-slide="5" aria-label="Show kids image 6" aria-current="false"></button>
-          <button class="kids-slide-indicator" type="button" data-slide="6" aria-label="Show kids image 7" aria-current="false"></button>
-          <button class="kids-slide-indicator" type="button" data-slide="7" aria-label="Show kids image 8" aria-current="false"></button>
-          <button class="kids-slide-indicator" type="button" data-slide="8" aria-label="Show kids image 9" aria-current="false"></button>
-          <button class="kids-slide-indicator" type="button" data-slide="9" aria-label="Show kids image 10" aria-current="false"></button>
-          <button class="kids-slide-indicator" type="button" data-slide="10" aria-label="Show kids image 11" aria-current="false"></button>
+          {kidsSlides.map((_, index) => (
+            <button class:list={["kids-slide-indicator", { "is-active": index === 0 }]} type="button" data-slide={index} aria-label={`Show kids image ${index + 1}`} aria-current={index === 0 ? "true" : "false"}></button>
+          ))}
         </div>
       </div>
     </div>

@@ -1,6 +1,13 @@
 ---
 name: The Life Place
 description: A warm, Jesus-centered church website for visits, messages, giving, prayer, and next steps.
+slogan: "Come. See. Jesus."
+vision_statement: "Every time we meet, we see how true, good, beautiful, and kind Jesus is."
+target_audience:
+  - Young urban couples
+  - Couples with young children
+  - Urban professionals
+  - First-time visitors in Johannesburg and Sandton
 colors:
   brand-red: "#B3282D"
   brand-red-hover: "#9F2429"
@@ -103,7 +110,11 @@ components:
 
 The Life Place uses a restrained, welcoming brand system built from white space, soft grays, local photography, and one unmistakable red. The visual language should feel like a clear invitation: warm, direct, practical, and centered on the repeated phrase "Come. See. Jesus."
 
-The system is a brand website, but it should not become a generic church template. Big Montserrat headlines carry conviction, red highlights mark the theological center, and photography grounds the site in a real place and community. UI surfaces stay simple enough for visitors to find service times, directions, messages, prayer, and giving without friction.
+The core vision statement is: "Every time we meet, we see how true, good, beautiful, and kind Jesus is." Treat this as a primary brand artifact. It can anchor hero sections, about-page storytelling, and major invitation moments. Preserve the wording exactly when used as the vision statement.
+
+The target audience is young, urban, and practically minded: couples, couples with young children, and professionals in Johannesburg and Sandton. The site should feel current, local, and easy to understand without assuming deep church background.
+
+The system is a brand website, but it should not become a generic church template. Big Montserrat headlines carry conviction, red highlights mark the Jesus-centered message, and photography grounds the site in a real place and community. UI surfaces stay simple enough for visitors to find service times, directions, messages, prayer, and giving without friction.
 
 **Key Characteristics:**
 - White and light gray surfaces with brand red used sparingly and deliberately.
@@ -135,6 +146,10 @@ The palette is a restrained white and gray system with one warm red accent carry
 
 **The Red Is Reserved Rule.** Brand red is not decoration. Use it for Jesus emphasis, primary action, active state, validation, live state, or an explicitly important link.
 
+**The Slogan And Vision Rule.** "Come. See. Jesus." is the recurring invitation. "Every time we meet, we see how true, good, beautiful, and kind Jesus is." is the recurring vision statement. Use them as designed copy moments with enough space and hierarchy to feel intentional. Do not bury them in generic paragraphs or alter their wording.
+
+**The Modern Language Rule.** Write for young urban couples, young families, and professionals. Prefer "see" over heavier church words such as "behold." Avoid heavy church lingo unless the surface is explicitly teaching doctrine or explaining beliefs; when theological terms are necessary, pair them with plain-language explanation.
+
 **The White Canvas Rule.** Default surfaces stay white or near-white. Gray panels should organize content; they should not make the site feel boxed in.
 
 ## 3. Typography
@@ -146,7 +161,7 @@ The palette is a restrained white and gray system with one warm red accent carry
 **Character:** The type system is a single-family, high-confidence voice. Large pages use very heavy weights and tight tracking for conviction; body copy stays medium weight with generous line height for readability.
 
 ### Hierarchy
-- **Display** (900, clamp from 3rem to 6rem, 1.05 line-height): Hero statements, large theological invitations, and first-screen brand messages.
+- **Display** (900, clamp from 3rem to 6rem, 1.05 line-height): Hero statements, large Jesus-centered invitations, and first-screen brand messages.
 - **Headline** (900, clamp from 2.25rem to 4.5rem, 1.15 line-height): Section headings, major page titles, and feature introductions.
 - **Title** (800, 1.875rem, 1.25 line-height): Card groups, form titles, dropdown groups, and secondary page headings.
 - **Body** (500, 1rem, 1.75 line-height): Paragraphs, descriptions, footer content, forms, and supporting copy. Keep long prose near 65 to 75 characters.
@@ -193,6 +208,12 @@ Depth is a hybrid system: most surfaces are flat, but cards, dropdowns, drawers,
 - **Shadow Strategy:** Resting cards use soft shadows or borders; hover cards may lift to Raised Card and change border to red at low opacity.
 - **Border:** Use light gray borders, usually `#E5E7EB` or black at 5 to 10% opacity.
 - **Internal Padding:** Standard card padding is 1.5rem; large feature cards use 2rem to 2.5rem on desktop.
+- **Standard Content Card Interaction:** Use the homepage "What happens on Sunday" pattern for icon-led content cards across the project: white card, `rounded-2xl`, gray border, `shadow-sm`, `transition-[border-color,background-color,box-shadow,transform] duration-200 ease-out`, `hover:border-brand-red/30`, `hover:bg-gray-50`, `hover:shadow-md`, and `active:scale-[0.99]`. Do not invent stronger lift, color inversion, or unrelated hover treatments for equivalent cards.
+
+### Icons
+- **Library:** Use Font Awesome classes already loaded by the base layout for Astro content cards and static page icons. Use full icon class strings in data, for example `fa-solid fa-book-open`, so icon usage is portable and consistent.
+- **Standard Icon Tile:** For content cards, use an 11x11 icon tile with `rounded-2xl bg-[#FDECEC] text-brand-red`. Keep the icon itself simple and decorative with `aria-hidden="true"` unless it is the only label for an action.
+- **Meaning:** Pick recognizable icons that support the card title. Avoid changing icon color on hover unless the component has a documented project-wide variant.
 
 ### Inputs / Fields
 - **Style:** Floating-label fields with white translucent backgrounds, 1.5px gray borders, 0.75rem radius, and 14px vertical padding.
@@ -218,7 +239,7 @@ Depth is a hybrid system: most surfaces are flat, but cards, dropdowns, drawers,
 - **Do** use Church Door Red for primary calls to action, live indicators, active navigation, and the word Jesus when it is intentionally emphasized.
 - **Do** keep the default page canvas white with Heading Ink for headings and Body Ink for paragraphs.
 - **Do** use Montserrat consistently across display, navigation, labels, forms, and body copy.
-- **Do** pair large theological statements with generous vertical spacing and restrained supporting copy.
+- **Do** pair large Jesus-centered statements with generous vertical spacing and restrained supporting copy.
 - **Do** use real local imagery and photo-backed sections when a page needs place, people, worship, ministries, or visit context.
 - **Do** use soft rounded forms and cards, especially `rounded-xl`, `rounded-2xl`, and `rounded-3xl`.
 - **Do** include hover, focus, active, disabled, valid, and error states for interactive components.
