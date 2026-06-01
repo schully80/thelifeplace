@@ -160,7 +160,7 @@ const canonicalHref = (() => {
   <!-- Page Hero -->
     <!-- Latest Blog Post Hero Header -->
     {items && items.length > 0 && (
-      <section class="relative w-full h-[45vh] sm:h-[34vh] md:h-[50vh] lg:h-[70vh] flex items-center justify-center bg-gray-100 overflow-hidden">
+      <section class="relative flex h-[50svh] min-h-[380px] w-full items-center justify-center overflow-hidden bg-gray-100 sm:h-[42vh] md:h-[50vh] lg:h-[70vh]">
         {items[0].imageUrl ? (
           <Fragment>
             <img
@@ -183,35 +183,34 @@ const canonicalHref = (() => {
         <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
         <div class="absolute inset-0 ring-1 ring-brand-red"></div>
         <div class="absolute inset-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]"></div>
-        <div class="relative max-w-5xl mx-auto px-6 flex flex-col items-center justify-center h-full text-center z-10">
-          <a href={items[0].link} target="_blank" rel="noopener" class="block group">
+        <div class="relative z-10 mx-auto flex h-full max-w-5xl flex-col items-center justify-center px-4 text-center sm:px-6">
+          <a href={items[0].link} target="_blank" rel="noopener" class="block group max-w-full">
             <h1
-              class="text-2xl sm:text-5xl md:text-5xl lg:text-7xl font-extrabold tracking-tight mb-6 group-hover:text-brand-red transition-colors"
+              class="mb-5 max-w-full text-3xl font-extrabold leading-[1.05] tracking-normal transition-colors duration-200 group-hover:text-brand-red sm:text-4xl md:mb-6 md:text-5xl lg:text-6xl"
               style="
                 color: #fff;
                 text-shadow: 0 4px 32px rgba(0,0,0,0.45);
                 font-family: 'Montserrat', 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-                letter-spacing: -0.02em;
               "
             >
               {items[0].title}
             </h1>
           </a>
           {/* Subtitle removed for cleaner look */}
-          <div class="flex justify-center mt-4">
+          <div class="mt-2 flex w-full justify-center sm:mt-4">
             <a
               href={items[0].link}
               target="_blank"
               rel="noopener"
-              class="inline-block px-6 py-2 rounded-2xl bg-brand-red text-white font-bold shadow hover:bg-brand-red/90 transition"
+              class="inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-brand-red px-6 py-3 font-bold text-white shadow transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-red-700 active:scale-[0.98] sm:w-auto"
               style="font-family: 'Montserrat', sans-serif;"
             >
               Read now
             </a>
           </div>
-          <div class="flex flex-wrap justify-center gap-2 mb-3">
+          <div class="mt-4 flex max-w-full flex-wrap justify-center gap-2">
             {items[0].categories && items[0].categories.length > 0 && items[0].categories.map((cat) => (
-              <a href={tagHref(cat)} class="inline-flex items-center px-3 py-1 rounded-2xl text-xs font-semibold text-white bg-brand-red/80 hover:bg-brand-red/90 transition-colors shadow-md" target="_blank" rel="noopener">{cat}</a>
+              <a href={tagHref(cat)} class="inline-flex min-h-11 items-center rounded-2xl bg-brand-red/80 px-3 py-2 text-xs font-semibold text-white shadow-md transition-colors duration-150 hover:bg-brand-red" target="_blank" rel="noopener">{cat}</a>
             ))}
           </div>
           {/* Date removed for cleaner look */}
@@ -223,8 +222,8 @@ const canonicalHref = (() => {
 
   {/* Place 'All Blog Posts' label to the right of the first visible month/year heading */}
   <!-- Feed Cards -->
-  <section class="w-full mt-16 md:mt-20 py-14 md:py-18 bg-white">
-    <div class="max-w-5xl mx-auto px-6">
+  <section class="w-full mt-10 bg-white py-10 md:mt-20 md:py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
       {error ? (
         <div class="rounded-2xl border border-red-200 bg-red-50 p-4">
           <p class="text-red-700 font-semibold">We’re having trouble loading the feed right now.</p>
@@ -232,7 +231,7 @@ const canonicalHref = (() => {
             <p class="text-red-700 text-sm mt-1">{error}</p>
           )}
           <div class="mt-3">
-            <a href="https://schulteretyang.substack.com" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-red-600 text-white hover:bg-red-700 transition">
+            <a href="https://schulteretyang.substack.com" target="_blank" rel="noopener" class="inline-flex min-h-12 items-center gap-2 rounded-2xl bg-red-600 px-4 py-3 text-white transition-colors duration-150 hover:bg-red-700">
               View latest on Substack
             </a>
           </div>
@@ -249,32 +248,32 @@ const canonicalHref = (() => {
               : group.items;
             if (filteredItems.length === 0) return null;
             return (
-              <section class="mb-10" data-month-group>
+              <section class="mb-10 md:mb-12" data-month-group>
                 {/* For the first group, show month/year left and 'All Blog Posts' right on the same row */}
-                <h2 class="text-xl md:text-2xl font-bold text-brand-warmgray-800 mb-4 uppercase">{group.label}</h2>
+                <h2 class="mb-4 text-lg font-bold uppercase text-brand-warmgray-800 md:text-2xl">{group.label}</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6 sm:gap-8 md:gap-10 xl:gap-12">
                   {filteredItems.map((item) => (
-                    <a href={item.link} class="group block rounded-3xl overflow-hidden border border-gray-200 bg-white shadow-md hover:shadow-xl transition-shadow" data-card data-title={item.title || item.link} data-desc={item.description || ""}>
+                    <a href={item.link} class="group block overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md transition-[border-color,box-shadow,transform] duration-200 ease-out hover:border-red-200 hover:shadow-xl active:scale-[0.99] md:rounded-3xl" data-card data-title={item.title || item.link} data-desc={item.description || ""}>
                       {item.imageUrl ? (
                         <div class="relative">
-                          <img src={item.imageUrl} alt={item.title} class="w-full h-64 md:h-72 lg:h-80 object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]" style={`object-position: ${imageObjectPosition(item)};`} loading="lazy" decoding="async" />
-                          <div class="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+                          <img src={item.imageUrl} alt={item.title} class="h-52 w-full object-cover object-center transition-transform duration-300 ease-out group-hover:scale-[1.03] sm:h-64 md:h-72 lg:h-80" style={`object-position: ${imageObjectPosition(item)};`} loading="lazy" decoding="async" />
+                          <div class="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent opacity-60 transition-opacity duration-200 group-hover:opacity-40"></div>
                         </div>
                       ) : (
-                        <div class="relative w-full h-64 md:h-72 lg:h-80 bg-gradient-to-r from-brand-red/20 via-red-500/10 to-brand-red/20">
+                        <div class="relative h-52 w-full bg-gradient-to-r from-brand-red/20 via-red-500/10 to-brand-red/20 sm:h-64 md:h-72 lg:h-80">
                           <div class="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"></div>
                         </div>
                       )}
-                      <div class="p-7 md:p-8">
+                      <div class="p-5 sm:p-6 md:p-8">
                         <div class="flex items-center gap-2">
                           <span class="inline-flex items-center px-2 py-1 rounded-full bg-gray-100 text-gray-600 text-xs">{formatDate(item.dateObj, item.date)}</span>
                         </div>
-                        <h3 class="mt-4 text-lg md:text-xl font-semibold tracking-tight text-gray-800 group-hover:text-brand-red transition-colors">{item.title || item.link}</h3>
+                        <h3 class="mt-4 text-lg font-semibold leading-snug tracking-normal text-gray-800 transition-colors duration-200 group-hover:text-brand-red md:text-xl">{item.title || item.link}</h3>
                         <span class="mt-1 block text-xs text-gray-500">Opens on Substack</span>
                         {item.categories && item.categories.length > 0 && (
                           <div class="mt-4 flex flex-wrap gap-3">
                             {[...item.categories].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())).map((cat) => (
-                              <a href={tagHref(cat)} class="inline-flex items-center px-2 py-1 rounded-2xl text-xs text-gray-600 hover:bg-brand-red/10 hover:text-brand-red transition-colors">
+                              <a href={tagHref(cat)} class="inline-flex min-h-11 items-center rounded-2xl px-3 py-2 text-xs text-gray-600 transition-colors duration-150 hover:bg-brand-red/10 hover:text-brand-red">
                                 {cat}
                               </a>
                             ))}
@@ -342,35 +341,35 @@ const canonicalHref = (() => {
               <div class="w-full overflow-x-scroll scroll-px-4 sm:scroll-px-0 pb-4 sm:pb-2 scrollbar-visible sm:no-scrollbar" style="scrollbar-gutter: stable both-edges;">
               <div class="flex items-center gap-2 px-2 pr-6 sm:pr-0 whitespace-nowrap justify-start sm:justify-center snap-x snap-mandatory">
               {page > 1 ? (
-                <a href={`/blog?page=1`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-800 hover:bg-gray-50 flex-shrink-0 snap-start">First</a>
+                <a href={`/blog?page=1`} class="inline-flex h-11 min-w-11 flex-shrink-0 snap-start items-center justify-center rounded-full border bg-white px-4 text-gray-800 transition-[background-color,border-color,transform] duration-150 ease-out hover:bg-gray-50 active:scale-[0.97]">First</a>
               ) : (
-                <span class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-gray-100 text-gray-400 cursor-not-allowed flex-shrink-0 snap-start">First</span>
+                <span class="inline-flex h-11 min-w-11 flex-shrink-0 snap-start items-center justify-center rounded-full border bg-gray-100 px-4 text-gray-400 cursor-not-allowed">First</span>
               )}
               {page > 1 ? (
-                <a href={`/blog?page=${page - 1}`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-800 hover:bg-gray-50 flex-shrink-0 snap-start">Prev</a>
+                <a href={`/blog?page=${page - 1}`} class="inline-flex h-11 min-w-11 flex-shrink-0 snap-start items-center justify-center rounded-full border bg-white px-4 text-gray-800 transition-[background-color,border-color,transform] duration-150 ease-out hover:bg-gray-50 active:scale-[0.97]">Prev</a>
               ) : (
-                <span class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-gray-100 text-gray-400 cursor-not-allowed flex-shrink-0 snap-start">Prev</span>
+                <span class="inline-flex h-11 min-w-11 flex-shrink-0 snap-start items-center justify-center rounded-full border bg-gray-100 px-4 text-gray-400 cursor-not-allowed">Prev</span>
               )}
 
               {getPaginationItems(totalPages, page, 1).map((it) => (
                 it.type === "ellipsis" ? (
                   <span class="px-2 text-gray-500 select-none flex-shrink-0 snap-start">&hellip;</span>
                 ) : it.current ? (
-                  <span aria-current="page" class="inline-flex items-center justify-center px-4 h-9 rounded-full bg-brand-red text-white font-medium shadow-sm flex-shrink-0 snap-start">{it.page}</span>
+                  <span aria-current="page" class="inline-flex h-11 min-w-11 flex-shrink-0 snap-start items-center justify-center rounded-full bg-brand-red px-4 font-medium text-white shadow-sm">{it.page}</span>
                 ) : (
-                  <a href={`/blog?page=${it.page}`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-800 hover:bg-gray-50 flex-shrink-0 snap-start">{it.page}</a>
+                  <a href={`/blog?page=${it.page}`} class="inline-flex h-11 min-w-11 flex-shrink-0 snap-start items-center justify-center rounded-full border bg-white px-4 text-gray-800 transition-[background-color,border-color,transform] duration-150 ease-out hover:bg-gray-50 active:scale-[0.97]">{it.page}</a>
                 )
               ))}
 
               {page < totalPages ? (
-                <a href={`/blog?page=${page + 1}`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-800 hover:bg-gray-50 flex-shrink-0 snap-start">Next</a>
+                <a href={`/blog?page=${page + 1}`} class="inline-flex h-11 min-w-11 flex-shrink-0 snap-start items-center justify-center rounded-full border bg-white px-4 text-gray-800 transition-[background-color,border-color,transform] duration-150 ease-out hover:bg-gray-50 active:scale-[0.97]">Next</a>
               ) : (
-                <span class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-gray-100 text-gray-400 cursor-not-allowed flex-shrink-0 snap-start">Next</span>
+                <span class="inline-flex h-11 min-w-11 flex-shrink-0 snap-start items-center justify-center rounded-full border bg-gray-100 px-4 text-gray-400 cursor-not-allowed">Next</span>
               )}
               {page < totalPages ? (
-                <a href={`/blog?page=${totalPages}`} class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-white text-gray-800 hover:bg-gray-50 flex-shrink-0 snap-start">Last</a>
+                <a href={`/blog?page=${totalPages}`} class="inline-flex h-11 min-w-11 flex-shrink-0 snap-start items-center justify-center rounded-full border bg-white px-4 text-gray-800 transition-[background-color,border-color,transform] duration-150 ease-out hover:bg-gray-50 active:scale-[0.97]">Last</a>
               ) : (
-                <span class="inline-flex items-center justify-center px-4 h-9 rounded-full border bg-gray-100 text-gray-400 cursor-not-allowed flex-shrink-0 snap-start">Last</span>
+                <span class="inline-flex h-11 min-w-11 flex-shrink-0 snap-start items-center justify-center rounded-full border bg-gray-100 px-4 text-gray-400 cursor-not-allowed">Last</span>
               )}
               <span aria-hidden="true" class="w-2 flex-shrink-0"></span>
               </div>
@@ -393,7 +392,7 @@ const canonicalHref = (() => {
               </div>
               <div class="flex flex-wrap gap-2">
                 {displayTags.map((tag) => (
-                  <a href={tagHref(tag)} class="inline-flex items-center px-2 py-1 rounded-2xl text-md text-gray-800 hover:bg-brand-red/10 hover:text-brand-red transition-colors">
+                  <a href={tagHref(tag)} class="inline-flex min-h-11 items-center rounded-2xl px-3 py-2 text-base text-gray-800 transition-colors duration-150 hover:bg-brand-red/10 hover:text-brand-red">
                     {tag}
                   </a>
                 ))}
@@ -402,7 +401,7 @@ const canonicalHref = (() => {
           )}
 
           <div class="mt-8 text-center">
-            <a href="https://schulteretyang.substack.com" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-brand-red to-red-600 text-white font-bold shadow-md hover:shadow-lg transition">
+            <a href="https://schulteretyang.substack.com" target="_blank" rel="noopener" class="inline-flex min-h-12 items-center gap-2 rounded-2xl bg-brand-red px-6 py-3 font-bold text-white shadow-md transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-red-700 hover:shadow-lg active:scale-[0.98]">
               Read more on Substack
             </a>
           </div>

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getVisitLocation } from "../content/shared-content.js";
+import { site } from "../../site.config.js";
 
 const visitLocation = getVisitLocation();
 const storyEmail = "mystory@thelifeplace.org";
@@ -11,661 +12,508 @@ const storyWhatsAppUrl = `https://wa.me/${storyWhatsAppNumber}?text=${encodeURIC
   storyWhatsAppMessage
 )}`;
 
+const sundayFlow = [
+  {
+    icon: "fa-solid fa-music",
+    title: "Worship",
+    body: "We sing, dance, pray and make room to behold the presence and kindness of Jesus.",
+  },
+  {
+    icon: "fa-solid fa-book-open",
+    title: "Teaching",
+    body: "The Bible is taught as one story of grace, always pointing us to Jesus.",
+  },
+  {
+    icon: "fa-solid fa-cross",
+    title: "Communion",
+    body: "At the Lord's Supper we remember what Jesus has done for us.",
+  },
+  {
+    icon: "fa-solid fa-people-group",
+    title: "Community",
+    body: "A diverse community that gathers to see Jesus.",
+  },
+  {
+    icon: "fa-solid fa-hand-holding-heart",
+    title: "Generosity",
+    body: "We give generously as a response to what Jesus has done for us.",
+  },
+  {
+    icon: "fa-solid fa-person-walking-arrow-right",
+    title: "Sent out",
+    body: "We are sent to live Jesus' story in our city, our nation, and the world.",
+  },
+];
+
+const connectedItems = [
+  {
+    href: "/about-us/leadership",
+    icon: "fa-solid fa-user-group",
+    title: "Meet our leaders",
+    body: "Get to know Schulter and Genevieve.",
+    action: "Meet Our Leaders",
+  },
+  {
+    href: "/what-we-believe/",
+    icon: "fa-solid fa-book-bible",
+    title: "What we believe",
+    body: "See how everything at The Life Place revolves around the person and finished work of Jesus.",
+    action: "Read Our Beliefs",
+  },
+  {
+    href: "/prayer",
+    icon: "fa-solid fa-hands-praying",
+    title: "Need prayer?",
+    body: "Jesus prays for you. We would be honoured to pray with you.",
+    action: "Request Prayer",
+  },
+  {
+    href: "/give",
+    icon: "fa-solid fa-hand-holding-heart",
+    title: "Give",
+    body: "Support our mission to reach our city, nation, and the world with the gospel of grace.",
+    action: "Give Now",
+  },
+  {
+    href: "/live",
+    icon: "fa-solid fa-laptop",
+    title: "Watch online",
+    body: "Join the livestream.",
+    action: "Watch Live",
+  },
+];
+
+const faqItems = [
+  {
+    question: "What time should I arrive?",
+    answer: "Arriving 10-15 minutes early gives you time to settle in and find seating before service begins.",
+  },
+  {
+    question: "What should I wear?",
+    answer: "Wear what you are comfortable in: casual, smart, or in-between. Come as you are.",
+  },
+  {
+    question: "What about my children?",
+    answer: "Children are welcome to remain with their parents during the service. A dedicated kids space will launch soon.",
+  },
+  {
+    question: "How long is the service?",
+    answer: "Our gatherings run for about 90 minutes, including worship, teaching, and ministry moments.",
+  },
+  {
+    question: "Will I be singled out as a first-time guest?",
+    answer: "No. You will not be asked to stand, wave, or introduce yourself. We are honoured to welcome you without pressure.",
+  },
+  {
+    question: "Do I need to register?",
+    answer: "No registration is needed for Sunday service. If a special event requires registration, we will make that clear.",
+  },
+];
 ---
 <BaseLayout title="The Life Place">
 
-<!-- ===== WELCOME STATEMENT - FULL PROMINENCE ===== -->
-<section class="relative py-8 md:py-16 lg:py-32 overflow-hidden">
-  
-  <!-- Dynamic gradient background with depth -->
-  <div class="absolute inset-0 bg-white"></div>
-  <div class="relative max-w-5xl mx-auto px-6 z-10">
-    
-    <!-- Preheader -->
-    <p class="text-gray-800 text-base md:text-lg lg:text-xl font-semibold uppercase tracking-[0.2em] mb-6 md:mb-10 opacity-0 animate-fadeUp">
-      Welcome to The Life Place
-    </p>
-    
-    <!-- Main welcome heading -->
-    <h2 class="text-4xl md:text-5xl lg:text-8xl font-black text-gray-800 leading-tight mb-6 md:mb-8 opacity-0 animate-fadeUp delay-100">
-      We open wide our doors with a welcome from
-      <span class="block text-brand-red opacity-90">Jesus,</span>
-      <br />
-      the <span class="text-brand-red opacity-90">Embracer</span> of the outsider,
-      <span class="block">the <span class="text-brand-red opacity-90">Defender</span> of the guilty,</span>
-      <br />
-      the <span class="text-brand-red opacity-90">Justifier</span> of the ungodly,
-      <span class="block">the <span class="text-brand-red opacity-90">Friend</span> of sinners.</span>
-    </h2>
-
+<section class="relative overflow-hidden bg-white">
+  <div class="absolute inset-y-0 right-0 hidden w-[46vw] lg:block">
+    <img
+      src="/sandton-skyline-grayscale.jpg"
+      alt="Sandton skyline near The Life Place"
+      class="h-full w-full rounded-none object-cover"
+      loading="eager"
+      decoding="async"
+    />
+    <div class="absolute inset-0 bg-gradient-to-r from-white via-white/55 to-black/10"></div>
   </div>
 
-</section>
-
-<!-- ===== OUR INVITATION SECTION ===== -->
-<section class="w-full bg-white py-12 md:py-20 lg:py-24">
-  <div class="max-w-6xl mx-auto px-6 text-center">
-    <p class="text-base md:text-lg lg:text-xl text-brand-red font-bold uppercase tracking-widest mb-6 md:mb-8 opacity-0 animate-fadeUp">Our Invitation</p>
-    <h2 class="text-5xl md:text-6xl lg:text-8xl font-black leading-tight opacity-0 animate-fadeUp delay-100">
-      <span class="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-        Come
-      </span>
-      <br />
-      <span class="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-        See
-      </span>
-      <br />
-      <span class="text-brand-red drop-shadow-lg">Jesus</span>
-    </h2>
-  </div>
-</section>
-
-<!-- ===== HERO SECTION WITH VISION STATEMENT (MODERN REDESIGN) ===== -->
-<section class="relative w-full py-32 md:py-6 lg:py-32 overflow-hidden flex items-center">
-  <!-- Background image with overlay -->
-  <img
-    src="/sandton-skyline-grayscale.jpg"
-    alt="Sandton skyline"
-    class="absolute inset-0 h-full w-full object-cover"
-    loading="eager"
-    decoding="async"
-  />
-  <!-- Dark overlay for text readability -->
-  <div class="absolute inset-0 bg-black/30"></div>
-  <!-- Hero Content -->
-  <div class="relative max-w-6xl mx-auto px-6 py-12 text-center z-10">
-    <!-- What We Do Label - Modern Typography -->
-    <p class="text-base md:text-lg text-white font-semibold uppercase tracking-[0.15em] mb-6 opacity-0 animate-fadeUp delay-100">What We Do</p>
-    <!-- Vision Statement - Modern, Bold, Spacious -->
-    <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight text-white mb-12 opacity-0 animate-fadeUp delay-200 max-w-5xl mx-auto">
-      Every time we meet
-      <span class="block mt-4 md:mt-6">
-        we see how <span class="text-white">true, good, beautiful and kind</span>
-      </span>
-      <span class="block mt-4 md:mt-6"><span class="text-white">Jesus</span> is.</span>
-    </h1>
-    <!-- Vision Supporting Text - Modern and Clean -->
-    <p class="text-base md:text-2xl text-white max-w-3xl mx-auto leading-relaxed font-medium mb-4 opacity-0 animate-fadeUp delay-300">
-      This is what we're about—encountering <span class="text-brand-red">Jesus</span> together and letting who he is and what he did for us transform everything.
-    </p>
-      <p class="text-sm md:text-2xl lg:text-2xl text-white max-w-2xl mx-auto leading-relaxed font-bold opacity-0 animate-fadeUp delay-400 mt-12">
-      Seeing <span class="text-brand-red">Jesus</span> changes everything.
-    </p>
-  </div>
-</section>
-
-
-<!-- ===== OUR FAITH & OUR FEEL ===== -->
-<section class="w-full py-16 md:py-24 lg:py-32 relative overflow-hidden bg-white">
-  <!-- Subtle decorative elements on white background -->
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-0 right-0 w-96 h-96 bg-gray-100 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-0 left-0 w-96 h-96 bg-brand-red/5 rounded-full blur-3xl"></div>
-  </div>
-
-  <div class="relative max-w-7xl mx-auto px-6 z-10">
-    
-    <!-- Header -->
-    <div class="mb-16 text-center opacity-0 animate-fadeUp delay-100">
-      <h2 class="text-5xl md:text-6xl lg:text-7xl font-black text-gray-800 mb-4">
-        What to expect when you visit
-      </h2>
-    </div>
-
-    <!-- Card Grid -->
-    <div class="opacity-0 animate-fadeUp delay-200">
-      <div class="flex justify-center px-4 sm:px-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10 mb-8 justify-items-center w-full max-w-7xl">
-          <!-- Card 1 -->
-          <div class="rounded-2xl bg-gray-50 border border-gray-200 hover:border-brand-red/40 p-6 md:p-8 lg:p-10 flex flex-col items-start shadow-sm hover:shadow-lg transition-all min-h-48 md:min-h-64 w-full">
-            <div class="w-full flex justify-center mb-3 md:mb-3">
-              <i class="fa-solid fa-music text-brand-red text-3xl md:text-4xl" aria-hidden="true"></i>
-            </div>
-            <h4 class="font-bold text-gray-800 mb-2 text-center text-lg md:text-xl lg:text-3xl">Worship that makes room for <span class="text-brand-red font-bold">Jesus'</span>  presence.</h4>
-          </div>
-
-          <!-- Card 2 -->
-          <div class="rounded-2xl bg-gray-50 border border-gray-200 hover:border-brand-red/40 p-6 md:p-8 lg:p-10 flex flex-col items-start shadow-sm hover:shadow-lg transition-all min-h-48 md:min-h-64 w-full">
-            <div class="w-full flex justify-center mb-3 md:mb-3">
-              <i class="fa-solid fa-book-open text-brand-red text-3xl md:text-4xl" aria-hidden="true"></i>
-            </div>
-            <h4 class="font-bold text-gray-800 mb-2 text-center text-lg md:text-xl lg:text-3xl">The Bible taught as one story of grace, always pointing to <span class="text-brand-red font-bold">Jesus</span>.</h4>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="rounded-2xl bg-gray-50 border border-gray-200 hover:border-brand-red/40 p-6 md:p-8 lg:p-10 flex flex-col items-start shadow-sm hover:shadow-lg transition-all min-h-48 md:min-h-64 w-full">
-            <div class="w-full flex justify-center mb-3 md:mb-3">
-              <i class="fa-solid fa-people-group text-brand-red text-3xl md:text-4xl" aria-hidden="true"></i>
-            </div>
-            <h4 class="font-bold text-gray-800 mb-2 text-center text-lg md:text-xl lg:text-3xl">A diverse community that gathers to see <span class="text-brand-red font-bold">Jesus</span>.</h4>
-          </div>
-
-          <!-- Card 4 -->
-          <div class="rounded-2xl bg-gray-50 border border-gray-200 hover:border-brand-red/40 p-6 md:p-8 lg:p-10 flex flex-col items-start shadow-sm hover:shadow-lg transition-all min-h-48 md:min-h-64 w-full">
-            <div class="w-full flex justify-center mb-3 md:mb-3">
-              <i class="fa-solid fa-cross text-brand-red text-3xl md:text-4xl" aria-hidden="true"></i>
-            </div>
-            <h4 class="font-bold text-gray-800 mb-2 text-center text-lg md:text-xl lg:text-3xl">At the Lord's Supper we remember what <span class="text-brand-red font-bold">Jesus</span> has done for us.</h4>
-          </div>
-
-  <!-- Card 5 -->
-          <div class="rounded-2xl bg-gray-50 border border-gray-100 hover:border-brand-red/40 p-6 md:p-8 lg:p-10 flex flex-col items-center shadow-sm hover:shadow-lg transition-all min-h-48 md:min-h-64 w-full">
-            <div class="w-full flex justify-center mb-3 md:mb-3">
-              <i class="fa-solid fa-hand-holding-heart text-brand-red text-3xl md:text-4xl" aria-hidden="true"></i>
-            </div>
-            <p class="text-gray-800 text-center font-bold text-lg md:text-xl lg:text-3xl">
-              We give generously as a response to what <span class="text-brand-red font-bold">Jesus</span> has done for us.
-            </p>
-          </div>
-            <!-- Card 6 -->
-          <div class="rounded-2xl bg-gray-50 border border-gray-100 hover:border-brand-red/40 p-6 md:p-8 lg:p-10 flex flex-col items-start shadow-sm hover:shadow-lg transition-all min-h-48 md:min-h-64 w-full">
-            <div class="w-full flex justify-center mb-3 md:mb-3">
-              <i class="fa-solid fa-person-walking-arrow-right text-brand-red text-3xl md:text-4xl" aria-hidden="true"></i>
-            </div>
-            <h4 class="font-bold text-gray-800 mb-2 text-center text-lg md:text-xl lg:text-3xl">We are sent out to live <span class="text-brand-red font-bold">Jesus'</span> story in our city, our nation, and the world.</h4>
-          </div>
-        
-        </div>
-
-        
-      </div>
-
-      <!-- Section 2: Explore Full Beliefs -->
-      <section class="w-full py-16 md:py-24 lg:py-32 bg-white">
-
-  <div class="max-w-3xl mx-auto px-6 text-center md:text-center">
-
-    <!-- GIANT HEADLINE -->
-    <h2 class="block text-4xl md:text-5xl lg:text-6xl font-black heading-2 leading-[1.05] mb-[6rem] text-center text-gray-800 opacity-0 animate-fadeUp delay-100">
-      Curious about <br />our theology?<br />
-    </h2>
-
-      <!-- ABOUT US BLOCK -->
-      <div class="group">
-        <p class="text-xl md:text-2xl text-gray-600 max-w-2xl leading-relaxed mb-10">
-          Learn what we believe and how everything at The Life Place revolves
-          around the person and finished work of <span class="text-brand-red font-semibold">Jesus</span>.
-        </p>
-
-        <a
-          href="/what-we-believe/"
-          class="inline-flex items-center gap-4 text-brand-red font-bold text-xl md:text-3xl leading-relaxed hover:opacity-80 transition"
-        >
-          Learn More
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 md:w-14 md:h-14 mt-6 transition-transform group-hover:translate-x-2"
-               fill="none" stroke="currentColor" stroke-width="2"
-               viewBox="0 0 24 24">
-          </svg>
-        </a>
-      </div>
-
-</section>
-
-<!-- ===== SERVICE TIMES, LOCATION & DIVIDERS (Unified Section) ===== -->
-<section class="w-full bg-white">
-
-  <div class="pt-24 md:pt-30 pb-28 md:pb-36 max-w-6xl mx-auto px-6">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <!-- Left: Service Info -->
-      <div>
-        <h2 class="text-4xl md:text-5xl font-black text-gray-800 mb-8">
-          When & <span class="text-brand-red">Where</span>
-        </h2>
-        <div class="space-y-8">
-          <!-- Sunday Service -->
-          <div class="border-l-2 border-brand-red pl-6">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Sunday</h3>
-            <p class="text-xl text-gray-600 mb-2">
-              <span class="font-semibold">9:00-11:00 AM</span>
-            </p>
-            <p class="text-gray-600">Join us for worship, prayer, and community every Sunday morning.</p>
-          </div>
-          <!-- Location -->
-          <div class="border-l-2 border-brand-red pl-6">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2"><i class="fa-solid fa-location-dot text-brand-red mr-2"></i>Our Location</h3>
-            <p class="text-lg text-gray-600 mb-2">The Life Place</p>
-            <p class="text-gray-600 leading-relaxed">
-              {visitLocation.addressLines.map((line) => <>{line}<br /></>)}
-            </p>
-          </div>
-          <!-- Visitor Info -->
-          <div class="border-l-2 border-brand-red pl-6">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">First Time Visiting?</h3>
-            <p class="text-gray-600 mb-4">
-              We'd love to meet you! We believe in genuine community and a warm welcome for everyone.
-            </p>
-            <a href="/visit" class="inline-flex items-center justify-center gap-2 px-8 py-4 min-w-[260px] border-2 border-brand-red/40 hover:border-brand-red/60 bg-white text-gray-800 font-bold rounded-2xl shadow-md transition hover:bg-gray-50 hover:shadow-lg">
-              Plan Your Visit
-            </a>
-            <!-- Map actions: Dropdown with popular GPS platforms (moved under Plan Your Visit) -->
-            <div class="mt-4 relative inline-block">
-              <button id="mapsDropdownBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="mapsDropdownMenu" class="inline-flex items-center justify-center rounded-2xl px-8 py-4 min-w-[260px] text-base font-bold border-2 border-brand-red/40 hover:border-brand-red/60 bg-white text-gray-800 shadow-md hover:bg-gray-50 hover:shadow-lg transition">
-                <span>Get Directions</span>
-                <svg class="h-4 w-4 ml-2 transition-transform duration-600 ease-in-out" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <div id="mapsDropdownMenu" aria-labelledby="mapsDropdownBtn" class="absolute left-0 mt-2 z-20 min-w-[260px] max-w-[calc(100vw-3rem)] rounded-2xl border border-black/10 bg-white shadow-xl overflow-hidden transition-all duration-600 ease-out opacity-0 invisible -translate-y-2 pointer-events-none" style="max-height:0px;">
-                <a href={visitLocation.mapsQueryUrl} target="_blank" rel="noopener" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-50" aria-label="Open in Google Maps">
-                  <span>Google Maps</span>
-                </a>
-                <div class="mx-4 h-px bg-gray-200"></div>
-                <a href={visitLocation.appleMapsUrl} target="_blank" rel="noopener" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-50" aria-label="Open in Apple Maps">
-                  <span>Apple Maps (iOS)</span>
-                </a>
-                <div class="mx-4 h-px bg-gray-200"></div>
-                <a href={visitLocation.wazeUrl} target="_blank" rel="noopener" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-50" aria-label="Open in Waze">
-                  <span>Waze</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Right: Embedded Google Map -->
-      <div class="relative rounded-3xl overflow-hidden shadow-2xl h-96 md:h-full min-h-96 border border-gray-200">
-        <iframe
-          class="w-full h-full"
-          src={visitLocation.mapsEmbedUrl}
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="The Life Place Location"
-          allowfullscreen
-        ></iframe>
-      </div>
-    </div>
-    <script is:inline>
-      (() => {
-        const btn = document.getElementById('mapsDropdownBtn');
-        const menu = document.getElementById('mapsDropdownMenu');
-        const arrow = btn?.querySelector('svg');
-        if (!btn || !menu) return;
-        const openMenu = () => {
-          menu.classList.remove('invisible','opacity-0','-translate-y-2','pointer-events-none','ease-in');
-          menu.classList.add('visible','opacity-100','translate-y-0','pointer-events-auto','ease-out');
-          const fullHeight = menu.scrollHeight;
-          menu.style.maxHeight = fullHeight + 'px';
-          btn.setAttribute('aria-expanded', 'true');
-          arrow?.classList.add('rotate-180');
-        };
-        const closeMenu = () => {
-          menu.classList.remove('opacity-100','ease-out');
-          menu.classList.add('opacity-0','ease-in');
-          menu.style.maxHeight = '0px';
-          btn.setAttribute('aria-expanded', 'false');
-          arrow?.classList.remove('rotate-180');
-        };
-        const isOpen = () => btn.getAttribute('aria-expanded') === 'true';
-        menu.addEventListener('transitionend', (e) => {
-          if (e.propertyName === 'max-height' && !isOpen()) {
-            menu.classList.add('invisible','-translate-y-2','pointer-events-none');
-            menu.classList.remove('visible');
-          }
-        });
-        const toggle = () => (isOpen() ? closeMenu() : openMenu());
-        btn.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
-        document.addEventListener('click', () => { if (isOpen()) closeMenu(); });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
-      })();
-    </script>
-  </div>
-</section>
-
-
-<!-- =====GET CONNECTED (Redesigned Two-Column Layout) ===== -->
-<section class="py-16 md:py-32 lg:py-32 bg-white">
-  <div class="max-w-6xl mx-auto px-6">
-
-    <!-- Section Header -->
-    <h2 class="text-center text-4xl md:text-5xl font-black text-gray-800 mb-20 md:mb-24">
-      GET <span class="text-brand-red">CONNECTED</span>
-    </h2>
-
-    <!-- Two-column layout with thin vertical divider -->
-    <div class="grid md:grid-cols-[1fr_auto_1fr] gap-12 md:gap-16 items-start">
-
-      <!-- Left: Stacked value props -->
-      <div class="space-y-8">
-
-        <!-- Item 1: Meet Our Leaders -->
-        <a href="/about-us/leadership" class="block hover:opacity-80 transition">
-          <div class="flex items-start gap-4">
-            <i class="fa-solid fa-user-group text-brand-red text-2xl"></i>
-            <div class="flex-1">
-              <h4 class="text-gray-800 font-bold uppercase tracking-wider">Meet our leaders</h4>
-              <p class="text-gray-600 mt-1 text-sm md:text-base">Get to know Schulter and Genevieve.</p>
-              <div class="mt-3">
-                <span class="inline-flex items-center text-brand-red font-bold uppercase tracking-wider text-sm">Learn More<span class="ml-2">→</span></span>
-              </div>
-            </div>
-          </div>
-        </a>
-        <div class="my-6 h-px bg-gray-300"></div>
-
-        <!-- Item 2: Prayer -->
-        <a href="/prayer" class="block hover:opacity-80 transition">
-          <div class="flex items-start gap-4">
-            <i class="fa-solid fa-hands-praying text-brand-red text-2xl"></i>
-            <div class="flex-1">
-              <h4 class="text-gray-800 font-bold uppercase tracking-wider">In need of prayer?</h4>
-              <p class="text-gray-600 mt-1 text-sm md:text-base"><span class="text-brand-red">Jesus</span> prays for you. We pray for you.</p>
-              <div class="mt-3">
-                <span class="inline-flex items-center text-brand-red font-bold uppercase tracking-wider text-sm">Submit Prayer Request<span class="ml-2">→</span></span>
-              </div>
-            </div>
-          </div>
-        </a>
-        <div class="my-6 h-px bg-gray-300"></div>
-
-        <!-- Item 3: Give -->
-        <a href="/give" class="block hover:opacity-80 transition">
-          <div class="flex items-start gap-4">
-            <i class="fa-solid fa-hand-holding-heart text-brand-red text-2xl"></i>
-            <div class="flex-1">
-              <h4 class="text-gray-800 font-bold uppercase tracking-wider">Give</h4>
-              <p class="text-gray-600 mt-1 text-sm md:text-base">Support our mission to reach our city, nation and the world with the gospel of grace.</p>
-              <div class="mt-3">
-                <span class="inline-flex items-center text-brand-red font-bold uppercase tracking-wider text-sm">Give Now<span class="ml-2">→</span></span>
-              </div>
-            </div>
-          </div>
-        </a>
-
-      </div>
-
-      <!-- Vertical divider -->
-      <div class="hidden md:block w-px bg-brand-red h-full mx-auto"></div>
-
-      <!-- Right: Stacked value props and story sharing callout -->
-      <div class="space-y-8">
-
-        <!-- Item 1: Experience Church Online -->
-        <a href="/live" class="block hover:opacity-80 transition">
-          <div class="flex items-start gap-4">
-            <i class="fa-solid fa-laptop text-brand-red text-2xl"></i>
-            <div class="flex-1">
-              <h4 class="text-gray-800 font-bold uppercase tracking-wider">Experience church online</h4>
-              <p class="text-gray-600 mt-1 text-sm md:text-base">Join us online and be part of a community of people from around the world.</p>
-              <div class="mt-3">
-                <span class="inline-flex items-center text-brand-red font-bold uppercase tracking-wider text-sm">Join Live<span class="ml-2">→</span></span>
-              </div>
-            </div>
-          </div>
-        </a>
-        <div class="my-6 h-px bg-gray-300"></div>
-
-        <!-- Item 2: Download App -->
-        <div>
-          <div class="flex items-start gap-4">
-            <i class="fa-solid fa-mobile-screen text-brand-red text-2xl"></i>
-            <div class="flex-1">
-              <h4 class="text-gray-800 font-bold uppercase tracking-wider">Download the app</h4>
-              <p class="text-gray-600 mt-1 text-sm md:text-base">Everything you need—events, messages, prayer, reading plans, and more.</p>
-              <div class="mt-3">
-                <p class="text-gray-400 font-bold uppercase tracking-wider text-sm cursor-not-allowed">Coming soon</p>
-              </div>
-            </div>
-          </div>
-          <div class="my-6 h-px bg-gray-300"></div>
-        </div>
-
-        <!-- Item 3: Share Your Story -->
-        <div>
-          <div class="flex items-start gap-4">
-            <i class="fa-solid fa-bullhorn text-brand-red text-2xl"></i>
-            <div class="flex-1">
-              <h4 class="text-gray-800 font-bold uppercase tracking-wider">Share your story</h4>
-              <p class="text-gray-600 mt-1 text-sm md:text-base">
-                We'd love to hear how seeing <span class="text-brand-red">Jesus</span> has transformed your life and changed your story.
-              </p>
-              <div class="mt-4 space-y-3">
-                <a
-                  href={`mailto:${storyEmail}`}
-                  class="inline-flex items-center gap-3 rounded-2xl border border-gray-300 bg-white px-5 py-4 text-lg font-semibold text-gray-800 transition hover:border-brand-red hover:text-brand-red"
-                >
-                  <i class="fa-regular fa-envelope text-brand-red" aria-hidden="true"></i>
-                  <span>email - {storyEmail}</span>
-                </a>
-                <a
-                  href={storyWhatsAppUrl}
-                  target="_blank"
-                  rel="noopener"
-                  class="inline-flex items-center gap-3 rounded-2xl border border-gray-300 bg-white px-5 py-4 text-lg font-semibold text-gray-800 transition hover:border-brand-red hover:text-brand-red"
-                >
-                  <i class="fa-brands fa-whatsapp text-brand-red text-lg" aria-hidden="true"></i>
-                  <span>whatsapp - {storyWhatsAppDisplay}</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- Spacer-->
-<div class="h-16 md:h-28 lg:h-40"></div>
-
-<!-- KIDS SECTION (no extra wrapper) -->
-<section class="bg-gray-50 rounded-2xl shadow-xl w-full max-w-5xl mx-auto -mt-8 md:-mt-12 lg:-mt-48 py-16 md:py-32 lg:py-32 border border-gray-200">
-  <div class="text-center px-6 mb-4 pt-2 md:pt-0 lg:pt-0">
-    <span class="text-base md:text-lg text-brand-red font-bold uppercase tracking-[0.15em] mb-16 md:mb-16 lg:mb-20 opacity-0 animate-fadeUp">Kids</span>
-    <p class="text-4xl md:text-5xl lg:text-6xl text-gray-800 font-extrabold mb-3 mt-8 md:mt-8 lg:mt-8 opacity-0 animate-fadeUp delay-100">
-      <span class="text-brand-red">Kids</span> @ The Life Place
-    </p>
-    <div class="mt-8 md:mt-10 lg:mt-20"></div>
-    <!-- Cinematic angled 'Coming Soon' banner (modern UI flow: below headline, above description) -->
-    <div class="flex justify-center my-4">
-      <div class="inline-block transform -rotate-6 md:-rotate-6 shadow-2xl">
-        <span class="px-8 py-3 md:px-12 md:py-4 bg-gradient-to-r from-brand-red to-red-500 text-white text-lg md:text-2xl font-extrabold tracking-widest rounded-2xl shadow-lg border-4 border-white/80 backdrop-blur-xl opacity-95 select-none" style="letter-spacing:0.15em;">
-          <span class="drop-shadow-lg">COMING SOON</span>
-        </span>
-      </div>
-    </div>
-
-    <div class="my-10"></div>
-    <p class="mt-16 text-base md:text-xl text-center text-gray-600 max-w-3xl mx-auto">
-      We don’t have a kids’ church yet, but as <span class="text-brand-red">Jesus</span> provides, we’ll launch one where our kids will experience His truth, goodness, beauty, and kindness.
-    </p>
-
-    <div class="w-full flex justify-center text-center mt-10">
-      <p class="text-lg md:text-xl lg:text-2xl font-extrabold max-w-3xl text-gray-800">
-        Children are welcome to remain with their parents during service.
+  <div class="relative mx-auto grid min-h-[calc(100svh-5rem)] max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 md:py-16 lg:grid-cols-[minmax(0,0.92fr)_minmax(22rem,0.48fr)] lg:px-8 lg:py-20">
+    <div class="max-w-4xl">
+      <p class="mb-5 text-sm font-bold uppercase tracking-[0.16em] text-brand-red md:text-base">
+        Sundays in Craigavon AH, Sandton
       </p>
-    </div>
-  </div>
+      <h1 class="text-5xl font-black leading-[0.96] text-gray-900 sm:text-6xl md:text-7xl lg:text-8xl">
+        Come. See. <span class="text-brand-red">Jesus.</span>
+      </h1>
+      <p class="mt-7 max-w-2xl text-lg font-medium leading-relaxed text-gray-700 md:text-2xl">
+        Join us this Sunday.
+      </p>
 
-  <!-- smaller carousel for homepage -->
-  <div class="max-w-md mx-auto px-6">
-    <div class="relative mx-auto rounded-2xl overflow-hidden shadow-2xl w-full aspect-square bg-gray-200">
-    <div id="kidsSlidesHome" class="flex h-full w-full transition-transform duration-\[900ms\] ease-in-out">
-        <img src="/what-kids.jpg" alt="Kids Ministry at The Life Place" class="kids-slide-img rounded-2xl" />
-        <img src="/what-kids2.jpg" alt="Children learning and worshipping at The Life Place" class="kids-slide-img rounded-2xl" />
-        <img src="/what-kids3.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-2xl" />
-        <img src="/what-kids4.jpg" alt="Children learning and worshipping at The Life Place" class="kids-slide-img rounded-2xl" />
-        <img src="/what-kids5.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-2xl" />
-        <img src="/what-kids6.jpg" alt="Children learning and worshipping at The Life Place" class="kids-slide-img rounded-2xl" />
-        <img src="/what-kids7.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-2xl" />
-        <img src="/what-kids8.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-2xl" />
-        <img src="/what-kids9.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-2xl" />
-        <img src="/what-kids10.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-2xl" />
+      <div class="mt-8 grid gap-3 rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow-sm sm:max-w-2xl sm:grid-cols-2 md:p-5">
+        <div class="flex items-start gap-3">
+          <i class="fa-regular fa-clock mt-1 text-xl text-brand-red" aria-hidden="true"></i>
+          <div>
+            <p class="text-sm font-bold uppercase tracking-[0.14em] text-gray-500">This Sunday</p>
+            <p class="mt-1 text-xl font-black text-gray-900">9:00-11:00 AM</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <i class="fa-solid fa-location-dot mt-1 text-xl text-brand-red" aria-hidden="true"></i>
+          <div>
+            <p class="text-sm font-bold uppercase tracking-[0.14em] text-gray-500">Location</p>
+            <p class="mt-1 text-xl font-black text-gray-900">The Life Place</p>
+            <p class="mt-1 text-sm leading-relaxed text-gray-600">{visitLocation.addressLines[0]}, {visitLocation.addressLines[1]}</p>
+          </div>
+        </div>
+      </div>
 
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <a href="/visit" class="inline-flex min-h-12 items-center justify-center rounded-2xl bg-brand-red px-7 py-4 text-base font-black text-white shadow-md transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-[#9F2429] hover:shadow-lg active:scale-[0.98]">
+          Plan A Visit
+        </a>
+        <a href={visitLocation.mapsQueryUrl} target="_blank" rel="noopener" class="inline-flex min-h-12 items-center justify-center rounded-2xl border-2 border-brand-red/40 bg-white px-7 py-4 text-base font-black text-gray-900 shadow-sm transition-[border-color,background-color,transform] duration-200 ease-out hover:border-brand-red/70 hover:bg-gray-50 active:scale-[0.98]">
+          Get Directions
+        </a>
+        <a href="/live/" class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-gray-300 bg-white px-7 py-4 text-base font-black text-gray-800 transition-[border-color,background-color,transform] duration-200 ease-out hover:border-gray-500 hover:bg-gray-50 active:scale-[0.98]">
+          Watch Live
+        </a>
       </div>
     </div>
 
-    <div class="mt-4">
-
-    <div class="relative w-full flex justify-center mt-6 gap-2">
-      <button class="kids-dot-indicator w-2 h-2 rounded-full bg-brand-red transition-all duration-300" data-slide="0"></button>
-      <button class="kids-dot-indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-all duration-300" data-slide="1"></button>
-      <button class="kids-dot-indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-all duration-300" data-slide="2"></button>
-      <button class="kids-dot-indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-all duration-300" data-slide="3"></button>
-      <button class="kids-dot-indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-all duration-300" data-slide="4"></button>
-      <button class="kids-dot-indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-all duration-300" data-slide="5"></button>
-      <button class="kids-dot-indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-all duration-300" data-slide="6"></button>
-      <button class="kids-dot-indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-all duration-300" data-slide="7"></button>
-      <button class="kids-dot-indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-all duration-300" data-slide="8"></button>
-      <button class="kids-dot-indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-all duration-300" data-slide="9"></button>
-      <button class="kids-dot-indicator w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-all duration-300" data-slide="10"></button>
+    <div class="rounded-3xl border border-gray-200 bg-white p-5 shadow-xl lg:bg-white/90 lg:backdrop-blur">
+      <p class="text-sm font-bold uppercase tracking-[0.16em] text-brand-red">First time?</p>
+      <h2 class="mt-3 text-3xl font-black leading-tight text-gray-900">Welcome.</h2>
+      <p class="mt-4 text-base leading-relaxed text-gray-600">
+        We want your first experience with us to be a warm welcome into the presence of Jesus.
+      </p>
+      <div class="mt-6 space-y-3 text-sm font-semibold text-gray-700">
+        <p class="flex gap-3"><i class="fa-solid fa-check mt-1 text-brand-red" aria-hidden="true"></i><span>Arrive 10-15 minutes early if you can.</span></p>
+        <p class="flex gap-3"><i class="fa-solid fa-check mt-1 text-brand-red" aria-hidden="true"></i><span>Wear what you are comfortable in.</span></p>
+        <p class="flex gap-3"><i class="fa-solid fa-check mt-1 text-brand-red" aria-hidden="true"></i><span>Children are welcome in the service.</span></p>
       </div>
     </div>
-  </section>
-
-
-<!-- Increased spacer between Kids section and FAQ -->
-<div class="h-16 md:h-28 lg:h-40"></div>
-<section class="max-w-4xl mx-auto px-6 mt-8 mb-6" data-faq-accordion>
-  <div class="text-center mb-8">
-  <span class="block font-black"></span>
-     <h2 class="heading-2 text-3xl md:text-5xl lg:text-6xl">First-Time Guest FAQs</h2>
-    <p class="mt-3 text-lg text-gray-600">Helpful guidance for your first visit to The Life Place.</p>
-  </div>
-
-  <div class="space-y-4">
-    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
-      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-xl font-semibold text-gray-800">
-        What time should I arrive?
-        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </span>
-      </button>
-      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
-        <p class="mt-4 text-xl text-gray-600 leading-relaxed">Arrive 10–15 minutes early to settle in, find seating, and enjoy the atmosphere before service begins.</p>
-      </div>
-    </div>
-
-    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
-      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-xl font-semibold text-gray-800">
-        What should I wear?
-        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </span>
-      </button>
-      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
-        <p class="mt-4 text-xl text-gray-600 leading-relaxed">Wear what you’re comfortable in — casual, smart, or in-between. Come as you are.</p>
-      </div>
-    </div>
-
-    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
-      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-xl font-semibold text-gray-800">
-        What about my children?
-        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </span>
-      </button>
-      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
-        <p class="mt-4 text-xl text-gray-600 leading-relaxed">Children are welcome to remain with their parents during the service. A dedicated kids space will launch soon.</p>
-      </div>
-    </div>
-
-    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
-      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-xl font-semibold text-gray-800">
-        How long is the service?
-        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </span>
-      </button>
-      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
-        <p class="mt-4 text-xl text-gray-600 leading-relaxed">Our gatherings run for about 90 minutes, including worship, teaching, and ministry moments.</p>
-      </div>
-    </div>
-
-    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
-      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-xl font-semibold text-gray-800">
-        Will I be singled out as a first-time guest?
-        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </span>
-      </button>
-      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
-        <p class="mt-4 text-xl text-gray-600 leading-relaxed">No — you won't be asked to stand or introduce yourself. We’re honoured to have you, quietly and sincerely.</p>
-      </div>
-    </div>
-
-    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
-      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-xl font-semibold text-gray-800">
-        Do I need to register?
-        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </span>
-      </button>
-      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
-        <p class="mt-4 text-xl text-gray-600 leading-relaxed">No registration needed. Simply come. If an event ever requires registration, we’ll make it clear.</p>
-      </div>
-    </div>
-
   </div>
 </section>
 
+<section class="relative isolate overflow-hidden bg-white py-20 md:py-28 lg:py-36">
+  <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-red/30 to-transparent"></div>
+  <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-brand-red/20 to-transparent"></div>
 
-<!-- Final Invitation -->
-<section class="py-24 md:py-32 bg-white">
-  <div class="max-w-4xl mx-auto px-6 text-center">
-    
-    <h2 class="text-3xl md:text-5xl font-black mb-6 text-gray-800">
-      Come. See. <span class="text-brand-red">Jesus</span>
+  <div class="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
+    <p class="text-sm font-bold uppercase tracking-[0.18em] text-brand-red md:text-base">Our welcome</p>
+    <h2 class="mx-auto mt-6 max-w-5xl text-4xl font-black leading-[1.12] text-gray-900 md:text-6xl md:leading-[1.1] lg:text-7xl">
+      We open wide our doors with a welcome from <span class="text-brand-red">Jesus:</span>
     </h2>
-
-    <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-      Join us this Sunday.
+    <p class="mx-auto mt-10 max-w-5xl text-3xl font-black leading-[1.22] text-gray-900 md:mt-12 md:text-5xl md:leading-[1.18] lg:text-6xl">
+      the <span class="text-brand-red">Embracer</span> of the outsider,
+      the <span class="text-brand-red">Defender</span> of the guilty,
+      the <span class="text-brand-red">Justifier</span> of the ungodly,
+      the <span class="text-brand-red">Friend</span> of sinners.
     </p>
-
   </div>
 </section>
 
+<section class="bg-gray-50 py-14 md:py-20 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:items-start">
+      <div class="lg:sticky lg:top-28">
+        <p class="text-sm font-bold uppercase tracking-[0.16em] text-brand-red">What to expect</p>
+        <h2 class="mt-4 text-4xl font-black leading-tight text-gray-900 md:text-6xl">
+          What happens on Sunday.
+        </h2>
+        <p class="mt-5 max-w-xl text-lg leading-relaxed text-gray-600">
+          Every time we meet, we see how true, good, beautiful, and kind Jesus is.
+        </p>
+      </div>
 
-<!-- Prompt Snippet Browser Section -->
-<div class="max-w-4xl mx-auto px-6 my-16">
-</div>
+      <div class="grid gap-4 md:grid-cols-2">
+        {sundayFlow.map((item) => (
+          <article class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-[border-color,background-color,box-shadow,transform] duration-200 ease-out hover:border-brand-red/30 hover:bg-gray-50 hover:shadow-md active:scale-[0.99] md:p-7">
+            <div class="flex items-start gap-4">
+              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FDECEC] text-brand-red">
+                <i class={item.icon} aria-hidden="true"></i>
+              </div>
+              <div>
+                <h3 class="text-2xl font-black text-gray-900">{item.title}</h3>
+                <p class="mt-3 text-base leading-relaxed text-gray-600">{item.body}</p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
+<section class="bg-white py-14 md:py-20 lg:py-24">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="grid gap-8 md:grid-cols-[0.7fr_1.3fr] md:items-start">
+      <div class="border-t border-gray-200 pt-6 lg:sticky lg:top-28">
+        <p class="text-sm font-bold uppercase tracking-[0.16em] text-brand-red">Next steps</p>
+        <h2 class="mt-4 text-4xl font-black leading-tight text-gray-900 md:text-5xl">
+        Start here.
+        </h2>
+        <p class="mt-5 max-w-md text-lg leading-relaxed text-gray-600">
+          Whether you are visiting, watching online, needing prayer, or ready to give, start here.
+        </p>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        {connectedItems.map((item) => (
+          <a href={item.href} class="group flex min-h-[15rem] flex-col justify-between rounded-3xl border border-gray-200 bg-gray-50 p-6 transition-[border-color,background-color,box-shadow,transform] duration-200 ease-out hover:border-brand-red/30 hover:bg-white hover:shadow-md active:scale-[0.99] md:p-7">
+            <div>
+              <div class="mb-5 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-brand-red shadow-sm ring-1 ring-gray-200">
+                <i class={item.icon} aria-hidden="true"></i>
+              </div>
+              <h3 class="text-2xl font-black text-gray-900">{item.title}</h3>
+              <p class="mt-3 text-base leading-relaxed text-gray-600">{item.body}</p>
+            </div>
+            <span class="mt-6 inline-flex items-center text-sm font-black uppercase tracking-[0.14em] text-brand-red">
+              {item.action}<span class="ml-2 transition-transform duration-150 ease-out group-hover:translate-x-1">-&gt;</span>
+            </span>
+          </a>
+        ))}
+        <article class="flex min-h-[15rem] flex-col justify-between rounded-3xl border border-gray-200 bg-gray-50 p-6 transition-[border-color,background-color,box-shadow] duration-200 ease-out hover:border-brand-red/30 hover:bg-white hover:shadow-md md:p-7">
+          <div>
+            <div class="mb-5 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-brand-red shadow-sm ring-1 ring-gray-200">
+              <i class="fa-solid fa-bullhorn" aria-hidden="true"></i>
+            </div>
+            <h3 class="text-2xl font-black text-gray-900">Share your story</h3>
+            <p class="mt-3 text-base leading-relaxed text-gray-600">
+              We'd love to hear how seeing Jesus has transformed your life and changed your story.
+            </p>
+          </div>
+          <div class="mt-6 space-y-4">
+            <div class="flex items-center justify-center gap-2">
+              <a href={`mailto:${storyEmail}`} aria-label="Email your story" class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-900 text-white transition hover:bg-brand-red">
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+              </a>
+              <a href={storyWhatsAppUrl} target="_blank" rel="noopener" aria-label="WhatsApp your story" class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-900 text-white transition hover:bg-brand-red">
+                <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div>
+              <p class="mb-3 text-sm font-semibold leading-relaxed text-gray-600">
+                Share your story with us through our socials.
+              </p>
+              <div class="flex items-center justify-center gap-2">
+              <a href={site.socials.facebook} target="_blank" rel="noopener" aria-label="Facebook" class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-900 text-white transition hover:bg-brand-red">
+                <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+              </a>
+              <a href={site.socials.instagram} target="_blank" rel="noopener" aria-label="Instagram" class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-900 text-white transition hover:bg-brand-red">
+                <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href={site.socials.youtube} target="_blank" rel="noopener" aria-label="YouTube" class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-900 text-white transition hover:bg-brand-red">
+                <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+              </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-white py-14 md:py-20 lg:py-24">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+      <div>
+        <p class="text-sm font-bold uppercase tracking-[0.16em] text-brand-red">Kids</p>
+        <h2 class="mt-4 text-4xl font-black leading-tight text-gray-900 md:text-5xl">
+          Kids are welcome with us.
+        </h2>
+        <p class="mt-5 text-lg leading-relaxed text-gray-600">
+          We do not have a kids' church yet. As Jesus provides, we are preparing a space where our kids will experience His truth, goodness, beauty, and kindness.
+        </p>
+        <div class="mt-6 rounded-2xl border border-brand-red/20 bg-[#FDECEC] p-5">
+          <p class="text-xl font-black text-gray-900">For now, children remain with their parents during service.</p>
+          <p class="mt-2 text-base leading-relaxed text-gray-700">You are still welcome. Bring them with you.</p>
+        </div>
+      </div>
+
+      <div class="relative overflow-hidden rounded-3xl border border-gray-200 bg-gray-100 shadow-xl">
+        <div id="kidsSlidesHome" class="flex aspect-[4/3] w-full transition-transform duration-700 ease-out">
+          <img src="/what-kids15.jpg" alt="Children at The Life Place" class="kids-slide-img rounded-none" />
+          <img src="/what-kids.jpg" alt="Children learning and worshipping at The Life Place" class="kids-slide-img rounded-none" />
+          <img src="/what-kids11.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-none" />
+          <img src="/what-kids4.jpg" alt="Children welcomed at The Life Place" class="kids-slide-img rounded-none" />
+          <img src="/what-kids5.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-none" />
+          <img src="/what-kids6.jpg" alt="Children learning and worshipping at The Life Place" class="kids-slide-img rounded-none" />
+          <img src="/what-kids12.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-none" />
+          <img src="/what-kids8.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-none" />
+          <img src="/what-kids14.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-none" />
+          <img src="/what-kids10.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-none" />
+          <img src="/what-kids13.jpg" alt="Kids participating in activities at The Life Place" class="kids-slide-img rounded-none" />
+        </div>
+        <div class="absolute inset-x-4 bottom-4 flex items-center justify-center gap-1.5 rounded-full bg-white/85 px-3 py-2 shadow-lg ring-1 ring-black/5 backdrop-blur">
+          <button class="kids-slide-indicator is-active" type="button" data-slide="0" aria-label="Show kids image 1" aria-current="true"></button>
+          <button class="kids-slide-indicator" type="button" data-slide="1" aria-label="Show kids image 2" aria-current="false"></button>
+          <button class="kids-slide-indicator" type="button" data-slide="2" aria-label="Show kids image 3" aria-current="false"></button>
+          <button class="kids-slide-indicator" type="button" data-slide="3" aria-label="Show kids image 4" aria-current="false"></button>
+          <button class="kids-slide-indicator" type="button" data-slide="4" aria-label="Show kids image 5" aria-current="false"></button>
+          <button class="kids-slide-indicator" type="button" data-slide="5" aria-label="Show kids image 6" aria-current="false"></button>
+          <button class="kids-slide-indicator" type="button" data-slide="6" aria-label="Show kids image 7" aria-current="false"></button>
+          <button class="kids-slide-indicator" type="button" data-slide="7" aria-label="Show kids image 8" aria-current="false"></button>
+          <button class="kids-slide-indicator" type="button" data-slide="8" aria-label="Show kids image 9" aria-current="false"></button>
+          <button class="kids-slide-indicator" type="button" data-slide="9" aria-label="Show kids image 10" aria-current="false"></button>
+          <button class="kids-slide-indicator" type="button" data-slide="10" aria-label="Show kids image 11" aria-current="false"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-gray-50 py-14 md:py-20 lg:py-24" data-faq-accordion>
+  <div class="mx-auto max-w-4xl px-4 sm:px-6">
+    <div class="mb-8 text-center">
+      <p class="text-sm font-bold uppercase tracking-[0.16em] text-brand-red">First-time guest FAQs</p>
+      <h2 class="mt-4 text-4xl font-black leading-tight text-gray-900 md:text-5xl">A few things people ask.</h2>
+    </div>
+
+    <div class="space-y-4">
+      {faqItems.map((item, index) => (
+        <article class="faq-item rounded-2xl border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+          <button
+            id={`faq-trigger-${index}`}
+            class="faq-summary flex min-h-12 w-full cursor-pointer items-center justify-between gap-4 text-left text-base font-bold text-gray-900 transition-transform duration-150 ease-out active:scale-[0.995] md:text-xl"
+            type="button"
+            aria-expanded="false"
+            aria-controls={`faq-panel-${index}`}
+          >
+            <span>{item.question}</span>
+            <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-transform duration-200 ease-out">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </span>
+          </button>
+          <div id={`faq-panel-${index}`} class="faq-content max-h-0 overflow-hidden transition-[max-height] duration-300 ease-out" role="region" aria-labelledby={`faq-trigger-${index}`}>
+            <p class="mt-4 text-base leading-relaxed text-gray-600 md:text-lg">{item.answer}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="bg-white py-14 md:py-20 lg:py-24">
+  <div class="mx-auto max-w-5xl px-4 text-center sm:px-6">
+    <p class="text-sm font-bold uppercase tracking-[0.16em] text-brand-red">This Sunday</p>
+    <h2 class="mt-4 text-4xl font-black leading-tight text-gray-900 md:text-6xl">
+      Come. See. <span class="text-brand-red">Jesus</span>.
+    </h2>
+    <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-gray-600 md:text-xl">
+      Join us from 9:00-11:00 AM.
+    </p>
+    <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
+      <a href="/visit" class="inline-flex min-h-12 items-center justify-center rounded-2xl bg-brand-red px-7 py-4 text-base font-black text-white shadow-md transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-[#9F2429] hover:shadow-lg active:scale-[0.98]">
+        Plan A Visit
+      </a>
+      <a href={visitLocation.mapsQueryUrl} target="_blank" rel="noopener" class="inline-flex min-h-12 items-center justify-center rounded-2xl border-2 border-brand-red/40 bg-white px-7 py-4 text-base font-black text-gray-900 shadow-sm transition-[border-color,background-color,transform] duration-200 ease-out hover:border-brand-red/70 hover:bg-gray-50 active:scale-[0.98]">
+        Get Directions
+      </a>
+    </div>
+  </div>
+</section>
 
 <style>
-  .kids-slide-img { width:100%; height:100%; object-fit:cover; flex-shrink:0 }
+  .kids-slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    flex-shrink: 0;
+    background: #f3f4f6;
+  }
+
+  .kids-slide-indicator {
+    width: clamp(1.25rem, 6vw, 2.75rem);
+    height: 0.375rem;
+    border-radius: 9999px;
+    background: #d1d5db;
+    transition: background-color 180ms ease-out, transform 180ms ease-out, width 180ms ease-out;
+  }
+
+  .kids-slide-indicator.is-active {
+    width: clamp(2rem, 10vw, 4rem);
+    background: #B3282D;
+  }
+
+  .kids-slide-indicator:hover {
+    background: #9ca3af;
+  }
+
+  .kids-slide-indicator.is-active:hover {
+    background: #B3282D;
+  }
 </style>
 
 <script is:inline>
-document.addEventListener('DOMContentLoaded', () => {
-  /* Kids carousel (homepage) */
+const initHomePageInteractions = () => {
   const slidesEl = document.getElementById('kidsSlidesHome');
-  const dotIndicators = document.querySelectorAll('.kids-dot-indicator');
-  if (slidesEl && dotIndicators.length) {
+  const slideIndicators = Array.from(document.querySelectorAll('.kids-slide-indicator'));
+
+  if (slidesEl && slidesEl.dataset.carouselReady !== 'true') {
+    slidesEl.dataset.carouselReady = 'true';
     const totalSlides = slidesEl.querySelectorAll('img').length;
     let index = 0;
-    function updateDots() { dotIndicators.forEach((dot, i) => { dot.classList.toggle('bg-brand-red', i === index % totalSlides); dot.classList.toggle('bg-gray-300', i !== index % totalSlides); }); }
-    function updateSlide() { slidesEl.style.transform = `translateX(-${index * 100}%)`; updateDots(); }
-    function nextSlide() { index = (index + 1) % totalSlides; updateSlide(); }
-    dotIndicators.forEach((dot, i) => dot.addEventListener('click', () => { index = i; updateSlide(); }));
-    updateSlide(); setInterval(nextSlide, 3200);
+
+    const updateIndicators = () => {
+      slideIndicators.forEach((indicator, i) => {
+        const isActive = i === index;
+        indicator.classList.toggle('is-active', isActive);
+        indicator.setAttribute('aria-current', String(isActive));
+      });
+    };
+
+    const updateSlide = () => {
+      slidesEl.style.transform = `translateX(-${index * 100}%)`;
+      updateIndicators();
+    };
+
+    slideIndicators.forEach((indicator, i) => {
+      indicator.addEventListener('click', () => {
+        index = i;
+        updateSlide();
+      });
+    });
+
+    updateSlide();
+    if (totalSlides > 1) {
+      slidesEl.dataset.autoplay = 'true';
+      window.setInterval(() => {
+        index = (index + 1) % totalSlides;
+        updateSlide();
+      }, 3200);
+    }
   }
 
-  /* FAQ accordion */
-  const items = document.querySelectorAll('.faq-item');
-  items.forEach((item) => {
+  const faqItems = Array.from(document.querySelectorAll('.faq-item'));
+  faqItems.forEach((item) => {
+    if (item.dataset.faqReady === 'true') return;
+    item.dataset.faqReady = 'true';
+
     const summary = item.querySelector('.faq-summary');
     const content = item.querySelector('.faq-content');
-    const icon = summary && summary.querySelector('svg');
-    summary?.addEventListener('click', () => {
-      const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
-      items.forEach((other) => { const otherContent = other.querySelector('.faq-content'); const otherIcon = other.querySelector('svg'); if (otherContent) otherContent.style.maxHeight = null; if (otherIcon) otherIcon.style.transform = 'rotate(0deg)'; other.classList.remove('open'); });
-      if (!isOpen) { content.style.maxHeight = content.scrollHeight + 'px'; if (icon) icon.style.transform = 'rotate(180deg)'; item.classList.add('open'); }
+    const iconWrap = summary?.querySelector('span:last-child');
+    if (!summary || !content) return;
+
+    summary.addEventListener('click', () => {
+      const isOpen = summary.getAttribute('aria-expanded') === 'true';
+
+      faqItems.forEach((other) => {
+        const otherSummary = other.querySelector('.faq-summary');
+        const otherContent = other.querySelector('.faq-content');
+        const otherIcon = otherSummary?.querySelector('span:last-child');
+        if (otherSummary) otherSummary.setAttribute('aria-expanded', 'false');
+        if (otherContent) otherContent.style.maxHeight = '0px';
+        if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+        other.classList.remove('open');
+      });
+
+      if (!isOpen) {
+        summary.setAttribute('aria-expanded', 'true');
+        content.style.maxHeight = `${content.scrollHeight}px`;
+        if (iconWrap) iconWrap.style.transform = 'rotate(180deg)';
+        item.classList.add('open');
+      }
     });
   });
-});
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHomePageInteractions, { once: true });
+} else {
+  initHomePageInteractions();
+}
 </script>
 
 </BaseLayout>

@@ -56,7 +56,7 @@ pathParts.forEach((part, index) => {
 <html lang="en" class="min-h-screen">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
     <!-- ✅ SEO -->
     <title>{title}</title>
@@ -247,7 +247,7 @@ pathParts.forEach((part, index) => {
 
   </head>
 
-  <body class="min-h-screen flex flex-col bg-white antialiased">
+  <body class="min-h-screen flex flex-col overflow-x-clip bg-white antialiased">
 
     <!-- Live Banner -->
     <div
@@ -358,7 +358,7 @@ pathParts.forEach((part, index) => {
     <Header />
 
     <!-- MAIN CONTENT -->
-    <main class="flex-1 w-full">
+    <main class="flex-1 w-full min-w-0 overflow-x-clip">
       <slot />
     </main>
 

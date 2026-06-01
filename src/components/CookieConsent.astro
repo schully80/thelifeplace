@@ -27,7 +27,17 @@ const CONSENT_KEY = 'tlp_cookie_consent'; // "accepted" | "declined"
   /* Add bottom padding on mobile for bottom nav */
   @media (max-width: 767px) {
     .cc-bar {
-      bottom: 4rem;
+      bottom: 0;
+      max-height: min(52svh, 18rem);
+      overflow-y: auto;
+      padding: 0.875rem;
+    }
+
+    :global(html.cookie-consent-visible .contact-fab-anchor),
+    :global(html.cookie-consent-visible .contact-buttons) {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(0.5rem) scale(0.96);
     }
   }
   .cc-bar.show { display: block; }
@@ -47,7 +57,7 @@ const CONSENT_KEY = 'tlp_cookie_consent'; // "accepted" | "declined"
 
   .cc-text {
     margin: 0;
-    line-height: 1.6;
+    line-height: 1.55;
     font-size: .95rem;
   }
 
@@ -127,6 +137,7 @@ const CONSENT_KEY = 'tlp_cookie_consent'; // "accepted" | "declined"
       const stored = localStorage.getItem(KEY);
       if (!stored) {
         bar.classList.add('show');
+        document.documentElement.classList.add('cookie-consent-visible');
       } else {
         document.documentElement.dataset.cookieConsent = stored; // "accepted" | "declined"
       }
@@ -138,6 +149,7 @@ const CONSENT_KEY = 'tlp_cookie_consent'; // "accepted" | "declined"
         document.documentElement.dataset.cookieConsent = value;
       } catch (_) { /* ignore */ }
       bar.classList.remove('show');
+      document.documentElement.classList.remove('cookie-consent-visible');
       // Let other scripts react (e.g., initialize analytics only after accepted)
       window.dispatchEvent(new CustomEvent('cookie-consent', { detail: value }));
     }

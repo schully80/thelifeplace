@@ -11,18 +11,18 @@ const amounts = ["R100", "R250", "R500", "R1,000", "Custom"];
   data-quick-give
 >
   <!-- STEP 1: AMOUNT -->
-  <div class="mb-6 md:mb-12">
-    <p class="text-lg md:text-2xl font-bold text-gray-800">Step 1</p>
-    <p class="text-lg text:2xl md:text-3xl lg:text-4xl font-black text-gray-800 uppercase mb-4 md:mb-8">
+  <div class="mb-8 md:mb-12">
+    <p class="text-base font-bold text-gray-800 md:text-2xl">Step 1</p>
+    <p class="mb-4 text-2xl font-black uppercase leading-tight text-gray-800 md:mb-8 md:text-3xl lg:text-4xl">
       CHOOSE AMOUNT
     </p>
-    <div class="flex flex-wrap gap-3 md:gap-5">
+    <div class="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap md:gap-5">
       {amounts.map((a) => (
         <button
           type="button"
-          class="amountBtn rounded-2xl px-5 sm:px-7 py-3 sm:py-4
+          class="amountBtn min-h-12 w-full rounded-2xl px-4 py-3 sm:w-auto sm:px-7 sm:py-4
                  bg-black/5 border border-black/10
-                 text-base sm:text-lg md:text-xl font-extrabold text-gray-800 transition-all duration-300"
+                 text-base sm:text-lg md:text-xl font-extrabold text-gray-800 transition-[background-color,border-color,color,transform] duration-150 ease-out active:scale-[0.97]"
           data-amount={a}
         >
           {a}
@@ -33,18 +33,18 @@ const amounts = ["R100", "R250", "R500", "R1,000", "Custom"];
 
   <!-- STEP 2: CATEGORY -->
   <div class="mb-0">
-  <p class="text-lg md:text-2xl font-bold text-gray-800">Step 2</p>
-    <p class="text-lg text:2xl md:text-3xl lg:text-4xl font-black text-gray-800 uppercase mb-4 md:mb-8">
+  <p class="text-base font-bold text-gray-800 md:text-2xl">Step 2</p>
+    <p class="mb-4 text-2xl font-black uppercase leading-tight text-gray-800 md:mb-8 md:text-3xl lg:text-4xl">
       PURPOSE
     </p>
 
-    <div class="flex flex-wrap gap-3 md:gap-5">
+    <div class="grid grid-cols-1 gap-3 sm:flex sm:flex-wrap md:gap-5">
       {categories.map((c) => (
         <button
           type="button"
-          class="categoryBtn rounded-2xl px-5 sm:px-7 py-3 sm:py-4
+          class="categoryBtn min-h-12 w-full rounded-2xl px-4 py-3 sm:w-auto sm:px-7 sm:py-4
                  bg-white border border-black/10
-                 text-base sm:text-lg md:text-xl font-extrabold text-gray-800 transition-all duration-300 hover:shadow-md hover:border-brand-red"
+                 text-base sm:text-lg md:text-xl font-extrabold text-gray-800 transition-[background-color,border-color,box-shadow,color,transform] duration-150 ease-out hover:shadow-md hover:border-brand-red active:scale-[0.97]"
           data-category={c}
         >
           {c}

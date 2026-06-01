@@ -36,7 +36,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
            px-4 py-1 rounded-full
            text-sm font-medium bg-black text-white
            shadow-md whitespace-nowrap opacity-0 translate-x-2
-           pointer-events-none transition-all duration-300 z-50;
+           pointer-events-none transition-[opacity,transform] duration-300 z-50;
   }
 
   .dock-item:hover .dock-tooltip {
@@ -45,8 +45,8 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
 
   /* Contact Button Base Styles */
   .contact-btn {
-    @apply w-12 h-12 rounded-full flex items-center justify-center
-           bg-black hover:bg-brand-red transition shadow-md;
+    @apply flex h-12 w-12 items-center justify-center rounded-full
+           bg-black shadow-md transition-[background-color,transform] duration-150 ease-out hover:bg-brand-red active:scale-[0.97];
   }
 
   .contact-item-label {
@@ -56,7 +56,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
   /* FAB Styles */
   .fab-button {
     @apply w-14 h-14 rounded-full bg-brand-red flex items-center justify-center
-           shadow-lg hover:shadow-xl transition-all hover:scale-110 duration-300;
+           shadow-lg hover:shadow-xl transition-[box-shadow,transform] hover:scale-110 duration-300;
   }
 
   .fab-button.hidden {
@@ -80,21 +80,43 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
 
   /* Dock Styles */
   .dock-container {
-    @apply fixed bottom-6 right-5 z-50 flex flex-col gap-4;
+    position: fixed;
+    right: calc(env(safe-area-inset-right, 0px) + 1rem);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   /* Contact Buttons Container for FAB */
   .contact-buttons {
-    @apply flex flex-col gap-4 fixed bottom-6 right-5 z-50 transition-all duration-300
-           p-4;
+    position: fixed;
+    right: calc(env(safe-area-inset-right, 0px) + 1rem);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.75rem;
+    transition:
+      opacity 220ms var(--ease-out-strong),
+      transform 220ms var(--ease-out-strong);
   }
 
   .contact-buttons.hidden {
     @apply opacity-0 pointer-events-none;
+    transform: translateY(0.5rem) scale(0.98);
   }
 
   .contact-buttons.visible {
     @apply opacity-100 pointer-events-auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .chat-bubble.contact-fab-anchor {
+    right: calc(env(safe-area-inset-right, 0px) + 1rem);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
   }
 </style>
 
@@ -107,8 +129,9 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
         id="contactFAB"
         type="button"
         aria-label="Open contact options"
+        aria-controls="contactButtons"
         aria-expanded="false"
-        class="chat-bubble fixed bottom-6 right-5 z-50"
+        class="chat-bubble contact-fab-anchor z-50"
       >
         <svg id="fabIcon" class="fab-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
           <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
@@ -116,7 +139,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
       </button>
 
       <!-- Contact Buttons -->
-      <div id="contactButtons" class="contact-buttons hidden">
+      <div id="contactButtons" class="contact-buttons hidden" role="menu" aria-label="Contact options">
         <!-- WhatsApp -->
         <div class="dock-item relative flex flex-col items-center z-10">
           <a
@@ -124,6 +147,8 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
             target="_blank"
             rel="noopener noreferrer"
             class="contact-btn js-whatsapp-link"
+            role="menuitem"
+            aria-label="Chat on WhatsApp"
             data-wa-app-url={waAppUrl}
             data-wa-web-url={waUrl}
           >
@@ -134,7 +159,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
 
         <!-- Email -->
         <div class="dock-item relative flex flex-col items-center z-10">
-          <a href={mailUrl} class="contact-btn">
+          <a href={mailUrl} class="contact-btn" role="menuitem" aria-label="Send an email">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 text-white" fill="currentColor">
               <path d="M2 4h20v16H2V4zm18 2l-8 5-8-5v12h16V6z"/>
             </svg>
@@ -144,7 +169,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
 
         <!-- Location -->
         <div class="dock-item relative flex flex-col items-center z-10">
-          <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+          <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="contact-btn" role="menuitem" aria-label="Get directions">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z"/>
             </svg>
@@ -204,8 +229,9 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
         id="contactFABTablet"
         type="button"
         aria-label="Open contact options"
+        aria-controls="contactButtonsTablet"
         aria-expanded="false"
-        class="chat-bubble fixed bottom-6 right-5 z-50"
+        class="chat-bubble contact-fab-anchor z-50"
       >
         <svg
           id="fabIconTablet"
@@ -221,7 +247,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
       </button>
 
       <!-- Contact Buttons -->
-      <div id="contactButtonsTablet" class="contact-buttons hidden">
+      <div id="contactButtonsTablet" class="contact-buttons hidden" role="menu" aria-label="Contact options">
         <!-- WhatsApp -->
         <div class="dock-item relative flex flex-col items-center z-10">
           <a
@@ -229,6 +255,8 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
             target="_blank"
             rel="noopener noreferrer"
             class="contact-btn js-whatsapp-link"
+            role="menuitem"
+            aria-label="Chat on WhatsApp"
             data-wa-app-url={waAppUrl}
             data-wa-web-url={waUrl}
           >
@@ -239,7 +267,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
 
         <!-- Email -->
         <div class="dock-item relative flex flex-col items-center z-10">
-          <a href={mailUrl} class="contact-btn">
+          <a href={mailUrl} class="contact-btn" role="menuitem" aria-label="Send an email">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 text-white" fill="currentColor">
               <path d="M2 4h20v16H2V4zm18 2l-8 5-8-5v12h16V6z"/>
             </svg>
@@ -249,7 +277,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
 
         <!-- Location -->
         <div class="dock-item relative flex flex-col items-center z-10">
-          <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+          <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="contact-btn" role="menuitem" aria-label="Get directions">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z"/>
             </svg>
@@ -309,8 +337,9 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
         id="contactFABDesktop"
         type="button"
         aria-label="Open contact options"
+        aria-controls="contactButtonsDesktop"
         aria-expanded="false"
-        class="chat-bubble fixed bottom-6 right-5 z-50"
+        class="chat-bubble contact-fab-anchor z-50"
       >
         <svg id="fabIconDesktop" class="fab-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
           <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
@@ -320,7 +349,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
       
 
       <!-- Contact Buttons -->
-      <div id="contactButtonsDesktop" class="contact-buttons hidden">
+      <div id="contactButtonsDesktop" class="contact-buttons hidden" role="menu" aria-label="Contact options">
         <!-- WhatsApp -->
         <div class="dock-item relative flex flex-col items-center z-10">
           <a
@@ -328,6 +357,8 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
             target="_blank"
             rel="noopener noreferrer"
             class="contact-btn js-whatsapp-link"
+            role="menuitem"
+            aria-label="Chat on WhatsApp"
             data-wa-app-url={waAppUrl}
             data-wa-web-url={waUrl}
           >
@@ -338,7 +369,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
 
         <!-- Email -->
         <div class="dock-item relative flex flex-col items-center z-10">
-          <a href={mailUrl} class="contact-btn">
+          <a href={mailUrl} class="contact-btn" role="menuitem" aria-label="Send an email">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 text-white" fill="currentColor">
               <path d="M2 4h20v16H2V4zm18 2l-8 5-8-5v12h16V6z"/>
             </svg>
@@ -348,7 +379,7 @@ const getDesktopClass = (style: string) => style !== "hidden" ? "hidden xl:block
 
         <!-- Location -->
         <div class="dock-item relative flex flex-col items-center z-10">
-          <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="contact-btn">
+          <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="contact-btn" role="menuitem" aria-label="Get directions">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z"/>
             </svg>

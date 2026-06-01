@@ -24,35 +24,35 @@ const prayerControllerConfig = JSON.stringify({
 <BaseLayout title="Prayer Request">
 
 <!-- Modern Hero Section (2025+) -->
-<section class="relative w-full h-[40vh] md:h-[50vh] lg:h-[70vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-brand-red/10 via-white to-brand-red/5">
+<section class="relative flex min-h-[420px] w-full items-center justify-center overflow-hidden bg-gray-950 py-14 md:min-h-[520px] md:py-20 lg:min-h-[640px] lg:py-28">
   <img
     src="/prayer.jpg"
-    alt="Prayer Hero"
-    class="absolute inset-0 w-full h-full object-cover object-center opacity-80 scale-105 blur-[2px] md:blur-2px transition-all duration-700"
+    alt="People gathered in prayer at The Life Place"
+    class="absolute inset-0 h-full w-full scale-105 object-cover object-center opacity-80 blur-[1px]"
     loading="eager"
     decoding="async"
   />
-  <div class="relative z-10 max-w-3xl mx-auto px-6 py-16 md:py-24 text-center flex flex-col items-center justify-center">
+  <div class="absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-black/45 pointer-events-none"></div>
+  <div class="relative z-10 mx-auto flex max-w-4xl flex-col items-center justify-center px-4 py-10 text-center sm:px-6 md:py-14">
     <!-- Heading w/ animated underline -->
-  <h1 class="block text-4xl md:text-6xl lg:text-7xl text-center font-black text-white shadow-lg mb-12 tracking-tight">
-  <span class="relative font-extrabold premium-underline leading-relaxed">
+  <h1 class="mb-8 block text-center text-4xl font-black leading-[1.04] tracking-normal text-white shadow-lg sm:text-5xl md:mb-10 md:text-6xl lg:text-7xl">
+  <span class="relative font-extrabold premium-underline leading-tight">
     <span class="text-brand-red">Jesus</span>
   </span>
   prays for you. 
   <br />We pray for you.
 </h1>
-    <a href="#prayer-form" class="inline-block rounded-2xl bg-brand-red text-white text-md font-semibold px-6 py-4 shadow-lg hover:bg-brand-red/90 transition-all animate-fadeUp delay-200">
+    <a href="#prayer-form" class="inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-brand-red px-6 py-3 text-base font-semibold text-white shadow-lg transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-red-700 hover:shadow-xl active:scale-[0.98] sm:w-auto sm:px-8 sm:py-4 animate-fadeUp delay-200">
       Submit a Prayer Request
     </a>
   </div>
-  <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-white/0 pointer-events-none"></div>
 </section>
 
-<section class="bg-white py-20">
-    <div class="max-w-5xl mx-auto px-6" id="prayer-form">
+<section class="bg-white py-12 md:py-20 lg:py-24">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6" id="prayer-form">
 
       <div
-        class="max-w-3xl mx-auto rounded-2xl border border-black/5 shadow-lg shadow-black/5 bg-gray-50 px-6 sm:px-10 md:px-14 py-12 md:py-14 space-y-10"
+        class="mx-auto max-w-3xl rounded-2xl border border-black/5 bg-gray-50 px-4 py-8 shadow-lg shadow-black/5 sm:px-8 sm:py-10 md:px-12 md:py-12 lg:px-14 lg:py-14 space-y-8 md:space-y-10"
         data-tlp-form-root={prayerFormId}
       >
         <div class="text-center space-y-3">
@@ -62,17 +62,17 @@ const prayerControllerConfig = JSON.stringify({
             We'll keep your details private and only share with our prayer team.
           </p>
         </div>
-<p class="text-sm text-gray-500 mt-3 mb-6">
+<p class="mt-2 text-sm text-gray-500">
   * Required fields
 </p>
 
         <form
           action="/api/prayer"
           method="POST"
-          class="space-y-8"
+          class="space-y-7 md:space-y-8"
           data-turnstile-optional={turnstileOptional}
         >
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div class="field">
               <input type="text" name="name" placeholder=" " required autocomplete="name" />
               <label>Name *</label>
@@ -107,8 +107,8 @@ const prayerControllerConfig = JSON.stringify({
             <span class="consent-text">I consent to The Life Place using this information solely to respond to my request.</span>
           </label>
 
-          <div class="space-y-6 pt-2">
-            <div class="flex justify-center">
+          <div class="space-y-6 pt-1 md:pt-2">
+            <div class="flex min-w-0 justify-center overflow-x-auto">
               <Turnstile />
             </div>
 
@@ -116,7 +116,7 @@ const prayerControllerConfig = JSON.stringify({
               <button
                 type="submit"
                 id="tlpSubmitBtn"
-                class="inline-flex items-center justify-center gap-2 px-10 py-3 rounded-2xl bg-gradient-to-r from-brand-red to-red-600 text-white text-base md:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+                class="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-brand-red px-8 py-3 text-base font-semibold text-white shadow-lg transition-[background-color,box-shadow,transform,opacity] duration-200 ease-out hover:bg-red-700 hover:shadow-xl active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-brand-red sm:w-auto sm:min-w-[220px] md:text-lg"
               >
                 <span class="btn-text">Submit</span>
                 <svg class="spinner h-5 w-5 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -208,15 +208,14 @@ const prayerControllerConfig = JSON.stringify({
 
 
 <!-- SUPER-SIZED QUICK ACTIONS -->
-<section class="max-w-6xl mx-auto px-6 pt-10 pb-16 ">
+<section class="mx-auto max-w-6xl px-4 pt-4 pb-14 sm:px-6 md:pt-6 md:pb-20">
 
- <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+ <div class="grid grid-cols-1 gap-5 sm:grid-cols-3 md:gap-6 lg:gap-8">
 
   <!-- PLAN A VISIT -->
   <a
     href="/visit/"
-    class="rounded-3xl border border-gray-100 bg-white p-8 text-center shadow-md
-           hover:shadow-lg hover:-translate-y-1 transition-all"
+    class="flex min-h-44 flex-col items-center justify-center rounded-2xl border border-gray-100 bg-white p-6 text-center shadow-md transition-[border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-1 hover:border-red-200 hover:shadow-lg active:scale-[0.99] md:rounded-3xl md:p-8"
   >
     <i class="fa-solid fa-house text-brand-red text-4xl mx-auto mb-4" aria-hidden="true"></i>
     <span class="block text-2xl font-semibold text-gray-800 mb-1">Visit</span>
@@ -226,8 +225,7 @@ const prayerControllerConfig = JSON.stringify({
   <!-- GIVE -->
   <a
     href="/give/"
-    class="rounded-3xl border border-gray-100 bg-white p-8 text-center shadow-md
-           hover:shadow-lg hover:-translate-y-1 transition-all"
+    class="flex min-h-44 flex-col items-center justify-center rounded-2xl border border-gray-100 bg-white p-6 text-center shadow-md transition-[border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-1 hover:border-red-200 hover:shadow-lg active:scale-[0.99] md:rounded-3xl md:p-8"
   >
     <i class="fa-solid fa-hand-holding-heart text-brand-red text-4xl mx-auto mb-4" aria-hidden="true"></i>
     <span class="block text-2xl font-semibold text-gray-800 mb-1">Give</span>
@@ -237,8 +235,7 @@ const prayerControllerConfig = JSON.stringify({
   <!-- MESSAGES -->
   <a
     href="/live/"
-    class="rounded-3xl border border-gray-100 bg-white p-8 text-center shadow-md
-           hover:shadow-lg hover:-translate-y-1 transition-all"
+    class="flex min-h-44 flex-col items-center justify-center rounded-2xl border border-gray-100 bg-white p-6 text-center shadow-md transition-[border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-1 hover:border-red-200 hover:shadow-lg active:scale-[0.99] md:rounded-3xl md:p-8"
   >
     <i class="fa-solid fa-tv text-brand-red text-4xl mx-auto mb-4" aria-hidden="true"></i>
     <span class="block text-2xl font-semibold text-gray-800 mb-1">Watch</span>
@@ -250,14 +247,14 @@ const prayerControllerConfig = JSON.stringify({
 </section>
 
   <!-- Final Invitation -->
-<section class="py-24 md:py-32 bg-white">
-  <div class="max-w-4xl mx-auto px-6 text-center">
+<section class="bg-white py-14 md:py-24 lg:py-28">
+  <div class="max-w-4xl mx-auto px-4 text-center sm:px-6">
     
-    <h2 class="text-4xl md:text-5xl font-black mb-6 text-gray-800">
+    <h2 class="mb-5 text-3xl font-black text-gray-800 sm:text-4xl md:mb-6 md:text-5xl">
       Come. See. <span class="text-brand-red">Jesus</span>
     </h2>
 
-    <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+    <p class="mx-auto mb-8 max-w-2xl text-lg text-gray-600 md:mb-12 md:text-xl">
       Join us this Sunday.
     </p>
 
@@ -296,39 +293,7 @@ const prayerControllerConfig = JSON.stringify({
 </script>
 
 <style>
-  /* Animated gradient underline */
   .premium-underline { position: relative; display: inline-block; }
-  .gradient-underline {
-    position: absolute;
-    left: 0; bottom: -4px; width: 100%; height: 3px;
-    background: linear-gradient(90deg,
-      rgba(179,40,45,0) 0%,
-      rgba(179,40,45,1) 50%,
-      rgba(179,40,45,0) 100%
-    );
-    background-size: 200% 100%;
-    animation: gradientSlide 2.8s ease-in-out infinite;
-    border-radius: 999px; opacity: 0.9;
-  }
-  @keyframes gradientSlide {
-    0% { background-position: 200% 0; opacity: 0.6; }
-    50% { background-position: 0% 0; opacity: 1; }
-    100% { background-position: -200% 0; opacity: 0.6; }
-  }
-
-  /* Button sheen */
-  .sheen::after {
-    content: ""; position: absolute; top: 0; left: -120%;
-    width: 80%; height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
-    animation: sheenMove 2.4s ease-in-out infinite;
-    border-radius: inherit;
-  }
-  @keyframes sheenMove {
-    0% { left: -120%; }
-    50% { left: 120%; }
-    100% { left: 120%; }
-  }
 
   /* Fade transitions */
   .fade-out { opacity: 0; transform: translateY(-4px); }
@@ -353,19 +318,20 @@ const prayerControllerConfig = JSON.stringify({
   .field {
     position: relative;
   }
-  .field input,
-  .field textarea {
-    width: 100%;
-    border: 1px solid #B3282D;
-    border-radius: 0.85rem;
-    padding: 14px 14px 12px;
-    font-size: 15px;
-    background: rgba(255,255,255,0.92);
-    outline: none;
-    transition: all .22s ease;
-    font-family: inherit;
-  }
-  .field textarea { min-height: 140px; resize: vertical; }
+	  .field input,
+	  .field textarea {
+	    width: 100%;
+	    border: 1px solid #B3282D;
+	    border-radius: 0.85rem;
+	    padding: 15px 14px 13px;
+	    min-height: 52px;
+	    font-size: 16px;
+	    background: rgba(255,255,255,0.92);
+	    outline: none;
+	    transition: border-color 180ms ease-out, background-color 180ms ease-out, box-shadow 180ms ease-out;
+	    font-family: inherit;
+	  }
+	  .field textarea { min-height: 160px; resize: vertical; line-height: 1.6; }
   .field[data-word-limit] textarea {
     padding-bottom: 40px;
   }
@@ -378,12 +344,12 @@ const prayerControllerConfig = JSON.stringify({
   .field label {
     position: absolute;
     left: 14px;
-    top: 14px;
-    font-size: 15px;
-    color: #9ca3af;
-    pointer-events: none;
-    transition: all .2s ease;
-    font-weight: 500;
+	    top: 14px;
+	    font-size: 15px;
+	    color: #9ca3af;
+	    pointer-events: none;
+	    transition: color 180ms ease-out, transform 180ms ease-out, font-size 180ms ease-out;
+	    font-weight: 500;
     background: white;
     padding: 0 6px;
     border-radius: 10px;
@@ -394,7 +360,7 @@ const prayerControllerConfig = JSON.stringify({
     top: 16px;
     color: #B3282D;
     opacity: 0;
-    transition: opacity .2s ease;
+	    transition: opacity 150ms ease-out;
     font-size: 14px;
     pointer-events: none;
   }
@@ -459,39 +425,47 @@ const prayerControllerConfig = JSON.stringify({
   }
 
   /* Consent checkbox */
-  .consent {
-    display: grid;
-    grid-template-columns: auto auto 1fr;
-    align-items: start;
-    gap: 10px;
-    font-size: 15px;
+	  .consent {
+	    display: grid;
+	    grid-template-columns: auto auto 1fr;
+	    align-items: start;
+	    gap: 12px;
+	    min-height: 44px;
+	    font-size: 15px;
     color: #374151;
-    line-height: 1.5;
-    user-select: none;
-  }
+	    line-height: 1.5;
+	    user-select: none;
+	    cursor: pointer;
+	  }
   .consent input {
     position: absolute;
     opacity: 0;
     pointer-events: none;
   }
-  .checkbox {
-    width: 22px;
-    height: 22px;
-    border-radius:6px;
-    border: 1px solid #B3282D;
+	  .checkbox {
+	    width: 24px;
+	    height: 24px;
+	    border-radius:6px;
+	    border: 1px solid #B3282D;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: all .2s ease;
-    box-shadow: 0 0 0 0 rgba(179,40,45,0);
-  }
+	    transition: background-color 160ms ease-out, box-shadow 160ms ease-out, transform 160ms ease-out;
+	    box-shadow: 0 0 0 0 rgba(179,40,45,0);
+	  }
   .checkbox i {
     color: white;
     font-size: 13px;
     line-height: 1;
     opacity: 0;
-    transition: opacity .2s ease;
-  }
+	    transition: opacity 150ms ease-out;
+	  }
+	  .consent:active .checkbox {
+	    transform: scale(0.94);
+	  }
+	  .consent input:focus-visible + .checkbox {
+	    box-shadow: 0 0 0 4px rgba(179,40,45,0.16);
+	  }
   .consent input:checked + .checkbox {
     background: #B3282D;
     box-shadow: 0 0 0 4px rgba(179,40,45,0.12);
@@ -500,8 +474,8 @@ const prayerControllerConfig = JSON.stringify({
     opacity: 1;
   }
   .consent .consent-text { grid-column: 3; }
-  @media (max-width: 640px) {
-    .consent { grid-template-columns: auto 1fr; }
-    .consent .consent-text { grid-column: 2; }
-  }
+	  @media (max-width: 640px) {
+	    .consent { grid-template-columns: auto 1fr; }
+	    .consent .consent-text { grid-column: 2; }
+	  }
 </style>
