@@ -42,6 +42,10 @@ const CONSENT_KEY = 'tlp_cookie_consent'; // "accepted" | "declined"
   }
   .cc-bar.show { display: block; }
 
+  :global(html.cookie-consent-visible body) {
+    padding-bottom: var(--tlp-cookie-consent-height, 0px);
+  }
+
   .cc-inner {
     display: grid;
     grid-template-columns: 1fr;
@@ -138,10 +142,19 @@ const CONSENT_KEY = 'tlp_cookie_consent'; // "accepted" | "declined"
       if (!stored) {
         bar.classList.add('show');
         document.documentElement.classList.add('cookie-consent-visible');
+        setConsentOffset();
       } else {
         document.documentElement.dataset.cookieConsent = stored; // "accepted" | "declined"
       }
     } catch (_) { /* ignore storage errors */ }
+
+    function setConsentOffset() {
+      if (!bar.classList.contains('show')) return;
+      document.documentElement.style.setProperty(
+        '--tlp-cookie-consent-height',
+        `${Math.ceil(bar.getBoundingClientRect().height)}px`
+      );
+    }
 
     function setConsent(value) {
       try {
@@ -150,11 +163,13 @@ const CONSENT_KEY = 'tlp_cookie_consent'; // "accepted" | "declined"
       } catch (_) { /* ignore */ }
       bar.classList.remove('show');
       document.documentElement.classList.remove('cookie-consent-visible');
+      document.documentElement.style.removeProperty('--tlp-cookie-consent-height');
       // Let other scripts react (e.g., initialize analytics only after accepted)
       window.dispatchEvent(new CustomEvent('cookie-consent', { detail: value }));
     }
 
     document.getElementById('cc-accept')?.addEventListener('click', () => setConsent('accepted'));
     document.getElementById('cc-decline')?.addEventListener('click', () => setConsent('declined'));
+    window.addEventListener('resize', setConsentOffset);
   })();
 </script>
