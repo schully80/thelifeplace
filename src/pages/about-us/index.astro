@@ -41,6 +41,27 @@ const values = [
     references: "Luke 8:39; John 17:18; 1 Corinthians 9:23",
   },
 ];
+
+const beliefPostures = [
+  {
+    title: "Pentecostal Charismatic",
+    icon: "fa-solid fa-fire",
+    body:
+      "When you gather with us, expect worship, prayer, spiritual gifts, and dependence on the Holy Spirit as He forms Jesus in us and empowers the Church.",
+  },
+  {
+    title: "Covenant Theology",
+    icon: "fa-solid fa-book-open",
+    body:
+      "When you hear the Bible taught, expect one unified story of God's grace, fulfilled in Jesus and His finished work.",
+  },
+  {
+    title: "Sent Into Real Life",
+    icon: "fa-solid fa-person-walking-arrow-right",
+    body:
+      "When you join our community, expect to be formed and sent to live your faith in your home, work, city, and world.",
+  },
+];
 ---
 
 <BaseLayout
@@ -167,7 +188,8 @@ const values = [
     </section>
 
     <section class="bg-gray-50 px-6 py-20 text-gray-900 md:py-28">
-      <div class="mx-auto max-w-4xl text-center">
+      <div class="mx-auto max-w-7xl">
+        <div class="mx-auto max-w-4xl text-center">
         <p class="mb-4 text-sm font-bold uppercase tracking-[0.16em] text-brand-red">What We Believe</p>
         <h2 class="text-4xl font-black leading-tight md:text-6xl">
           Everything we believe starts with Jesus.
@@ -176,12 +198,28 @@ const values = [
           We are a Christ-centered and Pentecostal-Charismatic community shaped by covenant
           theology.
         </p>
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+          {beliefPostures.map((posture) => (
+            <article class="rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm transition-[border-color,background-color,box-shadow,transform] duration-200 ease-out hover:border-brand-red/30 hover:bg-gray-50 hover:shadow-md active:scale-[0.99] md:p-7">
+              <div class="mx-auto mb-5 flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FDECEC] text-brand-red">
+                <i class={posture.icon} aria-hidden="true"></i>
+              </div>
+              <h3 class="mb-4 text-2xl font-black leading-tight text-gray-900">{posture.title}</h3>
+              <p class="text-base font-medium leading-7 text-gray-600">{posture.body}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="text-center">
         <a
           href="/what-we-believe/"
           class="mt-10 inline-flex min-h-12 items-center justify-center rounded-2xl bg-white px-6 py-3 font-bold text-gray-900 shadow-sm ring-1 ring-gray-200 transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"
         >
           Read What We Believe
         </a>
+        </div>
       </div>
     </section>
 

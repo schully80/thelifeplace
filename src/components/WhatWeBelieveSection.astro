@@ -1,272 +1,183 @@
-<section class="bg-gradient-to-br from-gray-50 to-gray-50 rounded-2xl pt-20 md:pt-28 pb-16 md:pb-24">
-  <div class="max-w-7xl mx-auto px-6">
-    <!-- Section Title -->
-    <h2 class="heading-2 text-center mb-6">
-      <span class="text-gray-600">WHAT WE</span>
-      <span class="text-brand-red">BELIEVE</span>
-    </h2>
+---
+const beliefGroups = [
+  {
+    title: "God and Gospel",
+    summary: "God is triune, Jesus is central, grace is the ground of salvation.",
+    items: [
+      {
+        title: "God",
+        body: "We believe in one God, eternally existing in three persons: Father, Son, and Holy Spirit. The Father is the source of all life, the Son is our Saviour and Lord, and the Holy Spirit gives new life and power. To Him alone belongs all honour, praise, and worship forever.",
+        references: "Genesis 1:1; Deuteronomy 6:4; Matthew 28:19; John 1:1-3, 14; 2 Corinthians 13:14",
+      },
+      {
+        title: "Jesus",
+        body: "We believe the eternal Son became fully man without ceasing to be fully God. We affirm His virgin birth and His sinless life. We believe His incarnation is relevant to every culture, age, and human condition.",
+        references: "John 1:14; Romans 1:3-4; Galatians 4:4; Isaiah 7:14; Luke 1:35",
+      },
+      {
+        title: "Holy Spirit",
+        body: "We believe the Holy Spirit is God, co-equal with the Father and the Son. He convicts of sin, regenerates hearts, indwells believers, produces spiritual fruit, and empowers the Church for witness and service.",
+        references: "Romans 8:26-27; John 14:16-17, 26; 2 Corinthians 3:17-18; Galatians 5:22-23; Acts 1:8",
+      },
+      {
+        title: "The Gospel",
+        body: "We believe the gospel is the good news of Jesus Christ: that He lived a perfect life, died on the cross for our sins, rose from the dead, and offers salvation to all who repent and believe in Him.",
+        references: "1 Corinthians 15:1-4; Romans 1:16; Mark 1:15; John 3:16",
+      },
+      {
+        title: "The Bible",
+        body: "We believe the Bible is God's written word, fully inspired, enduring forever, true, and without error. We believe it is understood by the Spirit's illumination and is relevant to every culture, age, and human condition.",
+        references: "2 Timothy 3:16; Psalm 119:89; John 17:17; 1 Corinthians 2:12-13",
+      },
+      {
+        title: "Salvation",
+        body: "We believe salvation is by grace alone, through faith alone, in Christ alone. It is the free gift of God, not earned by works or human effort. All who repent and believe in Him are forgiven, justified, and given eternal life.",
+        references: "Ephesians 2:8-9; Romans 3:28; Acts 4:12",
+      },
+      {
+        title: "The Resurrection of Jesus",
+        body: "We believe Jesus was crucified, buried, and rose bodily from the dead on the third day. His resurrection is the cornerstone of our faith and the assurance of our eternal hope.",
+        references: "Luke 24:6-7; Romans 4:25; 1 Corinthians 15:3-4, 14",
+      },
+    ],
+  },
+  {
+    title: "Church and Life",
+    summary: "The gospel forms people, families, worship, generosity, and life together.",
+    items: [
+      {
+        title: "Creation",
+        body: "We believe God created the universe and affirm the historic truth of Genesis, including Adam and Eve, the fall, the flood, and the tower of Babel.",
+        references: "Genesis 1-11",
+      },
+      {
+        title: "Humanity",
+        body: "We believe every human being is made in the image of God. We believe God created humanity as male and female. We believe all humanity is fallen through sin but redeemed through Christ's death and resurrection.",
+        references: "Genesis 1:26-28; 5:1-3; Ephesians 4:22-23; Hebrews 4:12; 1 Thessalonians 5:23",
+      },
+      {
+        title: "Sin",
+        body: "We believe sin is the fallen state of creation. Through the disobedience of Adam and Eve, sin entered the world, and all humanity has been affected. Sin brings death, but through repentance and faith we are reconciled to God.",
+        references: "Romans 3:23; Ephesians 2:13-14; 1 John 1:8-9",
+      },
+      {
+        title: "The Church",
+        body: "We believe all believers form one body, the Church. We believe the local church gathers for worship, teaching, and mission.",
+        references: "Romans 12:4-5; 1 Corinthians 12:12, 27; Acts 2:46-47",
+      },
+      {
+        title: "Marriage and Family",
+        body: "We uphold the biblical and orthodox view of marriage between a man and a woman. We believe marriage is the foundation of any society and that sexual activity belongs within lawful matrimony.",
+        references: "Genesis 2:21-25; Ephesians 5:28-33",
+      },
+      {
+        title: "Baptism and Communion",
+        body: "We believe baptism and communion are ordinances given by Christ. Baptism testifies to new life in Him. Communion remembers His body broken and His blood shed for our salvation.",
+        references: "Matthew 28:19; Luke 22:19-20; 1 Corinthians 11:23-26",
+      },
+      {
+        title: "Tithes and Offerings",
+        body: "We believe giving is an act of worship. We believe tithes and offerings honour Jesus, support His work, and express gratitude for His provision.",
+        references: "Proverbs 3:9-10; Malachi 3:10; 2 Corinthians 9:6-7",
+      },
+    ],
+  },
+  {
+    title: "Hope and Future",
+    summary: "Christ will return, evil will be judged, and God will make all things new.",
+    items: [
+      {
+        title: "Heaven",
+        body: "We believe Heaven is God's dwelling place and the eternal home of believers.",
+        references: "Hebrews 11:6, 15-16; Ephesians 1:20; Hebrews 3:11",
+      },
+      {
+        title: "Hell",
+        body: "We believe Hell is the eternal place of punishment for satan, demons, and those who reject God's love.",
+        references: "Matthew 13:42; Mark 9:43-47; Revelation 20:10, 14",
+      },
+      {
+        title: "The Return of Jesus",
+        body: "We believe Jesus will return personally, visibly, and gloriously to judge, rule, and reign.",
+        references: "Acts 1:11; 1 Thessalonians 4:16-17; Revelation 22:12",
+      },
+      {
+        title: "Last Things",
+        body: "We believe God will bring history to its rightful conclusion with Christ's triumph over all evil, the final judgment, and the renewal of all things.",
+        references: "Matthew 24:30-31; Revelation 20:11-15",
+      },
+      {
+        title: "All Things Made New",
+        body: "We believe God will make all things new, a new heavens and new earth where righteousness dwells. Believers will receive glorified, imperishable bodies, transformed into the likeness of Christ's glorious body.",
+        references: "Isaiah 65:17; 2 Peter 3:13; Revelation 21:1-4",
+      },
+    ],
+  },
+];
+---
 
-    <!-- Subtle divider -->
-    <div class="mx-auto mt-6 mb-8 h-[3px] w-16 rounded-full bg-brand-red/90"></div>
+<section class="bg-gray-50 py-16 md:py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-3xl">
+      <p class="text-sm font-bold uppercase tracking-[0.16em] text-brand-red">Our Beliefs</p>
+      <h2 class="mt-4 text-3xl md:text-5xl font-black leading-tight text-gray-800">A faith with a clear center.</h2>
+      <p class="mt-5 text-lg md:text-xl leading-relaxed text-gray-600">
+        Our worship, teaching, prayer, and mission have a doctrinal spine: Jesus at the center, grace as the story, and the Spirit at work today.
+      </p>
+    </div>
 
-    <!-- Beliefs Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 auto-rows-max">
-      <!-- GOD -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>GOD</span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe in one God, eternally existing in three persons: Father, Son, and Holy Spirit. The Father is the source of all life, the Son is our Saviour and Lord, and the Holy Spirit gives new life and power. To Him alone belongs all honour, praise, and worship forever.<br /><br /><span class="text-sm text-gray-500">Genesis 1:1; Deuteronomy 6:4; Matthew 28:19; John 1:1–3, 14; 2 Corinthians 13:14</span>
+    <div class="mt-12 space-y-10">
+      {beliefGroups.map((group, groupIndex) => (
+        <section class="grid gap-5 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)] lg:gap-10" aria-labelledby={`belief-group-${groupIndex}`}>
+          <div class="lg:pt-4">
+            <h3 id={`belief-group-${groupIndex}`} class="text-2xl md:text-3xl font-black text-gray-800">
+              {group.title}
+            </h3>
+            <p class="mt-3 max-w-md text-base leading-relaxed text-gray-600">{group.summary}</p>
           </div>
-        </div>
-      </div>
 
-      <!-- JESUS -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span><span class="text-brand-red">JESUS</span></span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe the eternal Son became fully man without ceasing to be fully God. We affirm His virgin birth and His sinless life. We believe it is understood only by the Spirit's illumination and is relevant to every culture, age, and human condition.<br /><br /><span class="text-sm text-gray-500">John 1:14; Romans 1:3–4; Galatians 4:4; Isaiah 7:14; Luke 1:35</span>
+          <div class="grid grid-cols-1 gap-3 items-start">
+            {group.items.map((item, itemIndex) => {
+              const contentId = `belief-${groupIndex}-${itemIndex}`;
+              return (
+                <article class="accordion-item overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-[border-color,box-shadow] duration-200 hover:border-brand-red/30 hover:shadow-md">
+                  <button
+                    class="accordion-btn flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-base md:text-lg font-bold text-gray-800 transition-colors duration-200 hover:text-brand-red"
+                    type="button"
+                    aria-controls={contentId}
+                    aria-expanded="false"
+                  >
+                    <span>{item.title}</span>
+                    <span class="accordion-icon text-2xl text-brand-red leading-none font-light" aria-hidden="true"></span>
+                  </button>
+                  <div id={contentId} class="accordion-content">
+                    <div class="px-5 pb-5 pt-0 text-base leading-relaxed text-gray-600">
+                      <p>{item.body}</p>
+                      <p class="mt-4 text-sm leading-relaxed text-gray-500">{item.references}</p>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
-        </div>
-      </div>
-
-      <!-- HOLY SPIRIT -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>HOLY SPIRIT</span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe the Holy Spirit is God, co-equal with the Father and the Son. He convicts of sin, regenerates hearts, indwells believers, produces spiritual fruit, and empowers the Church for witness and service.<br /><br /><span class="text-sm text-gray-500">Romans 8:26–27; John 14:16–17, 26; 2 Corinthians 3:17–18; Galatians 5:22–23; Acts 1:8</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- CREATION -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>CREATION</span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe God created the universe and affirm the historic truth of Genesis, including Adam and Eve, the fall, the flood, and the tower of Babel.<br /><br /><span class="text-sm text-gray-500">Genesis 1-11</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- HUMANITY -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>HUMANITY</span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe every human being is made in the image of God. We believe God created humanity as male and female. We believe all humanity is fallen through sin but redeemed through Christ's death and resurrection.<br /><br /><span class="text-sm text-gray-500">Genesis 1:26–28; 5:1–3; Ephesians 4:22–23; Hebrews 4:12; 1 Thessalonians 5:23</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- SIN -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>SIN</span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe sin is the fallen state of creation. We believe that through the disobedience of Adam and Eve, sin entered the world, and all humanity has been affected. We believe sin brings death, but through repentance and faith we are reconciled to God.<br /><br /><span class="text-sm text-gray-500">Romans 3:23; Ephesians 2:13–14; 1 John 1:8–9</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- THE BIBLE -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>THE BIBLE</span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe the Bible is God's written word, fully inspired, enduring forever, true and without error. We believe it is understood only by the Spirit's illumination and is relevant to every culture, age, and human condition.<br /><br /><span class="text-sm text-gray-500">2 Timothy 3:16; Psalm 119:89; John 17:17; 1 Corinthians 2:12–13</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- SALVATION -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>SALVATION</span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe that salvation is by grace alone, through faith alone, in Christ alone. It is the free gift of God, not earned by works or human effort. All who repent and believe in Him are forgiven, justified, and given eternal life.<br /><br /><span class="text-sm text-gray-500">Ephesians 2:8–9; Romans 3:28; Acts 4:12</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- THE RESURRECTION OF JESUS -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>THE RESURRECTION OF <span class="text-brand-red">JESUS</span></span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe <span class="text-brand-red">Jesus</span> was crucified, buried, and rose bodily from the dead on the third day. His resurrection is the cornerstone of our faith and the assurance of our eternal hope.<br /><br /><span class="text-sm text-gray-500">Luke 24:6–7; Romans 4:25; 1 Corinthians 15:3–4, 14</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- THE CHURCH -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>THE CHURCH</span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe all believers form one body — the Church. We believe the local church gathers for worship, teaching, and mission.<br /><br /><span class="text-sm text-gray-500">Romans 12:4–5; 1 Corinthians 12:12, 27; Acts 2:46–47</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- MARRIAGE AND FAMILY -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>MARRIAGE AND FAMILY</span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We uphold the biblical and orthodox view of marriage between a man (male) and a woman (female). We believe marriage is the foundation of any society and is solely between a man and a woman. We believe sexual activity is between a man and a woman within the confines of lawful matrimony.<br /><br /><span class="text-sm text-gray-500">Genesis 2:21–25; Ephesians 5:28–33</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- BAPTISM AND COMMUNION -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>BAPTISM AND COMMUNION</span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe baptism and communion are ordinances given by Christ. Baptism testifies to new life in Him. Communion remembers His body broken and His blood shed for our salvation.<br /><br /><span class="text-sm text-gray-500">Matthew 28:19; Luke 22:19–20; 1 Corinthians 11:23–26</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- TITHES AND OFFERINGS -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>TITHES AND OFFERINGS</span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe giving is an act of worship. We believe tithes and offerings honour <span class="text-brand-red">Jesus</span>, support His work, and express gratitude for His provision.<br /><br /><span class="text-sm text-gray-500">Proverbs 3:9–10; Malachi 3:10; 2 Corinthians 9:6–7</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- HEAVEN -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>HEAVEN</span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe Heaven is God's dwelling place and the eternal home of believers.<br /><br /><span class="text-sm text-gray-500">Hebrews 11:6, 15–16; Ephesians 1:20; Hebrews 3:11</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- HELL -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>HELL</span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe Hell is the eternal place of punishment for satan, demons, and those who reject God's love.<br /><br /><span class="text-sm text-gray-500">Matthew 13:42; Mark 9:43–47; Revelation 20:10, 14</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- THE RETURN OF JESUS -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>THE RETURN OF <span class="text-brand-red">JESUS</span></span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe <span class="text-brand-red">Jesus</span> will return personally, visibly, and gloriously to judge, rule, and reign.<br /><br /><span class="text-sm text-gray-500">Acts 1:11; 1 Thessalonians 4:16–17; Revelation 22:12</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- LAST THINGS -->
-      <!-- LAST THINGS -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>LAST THINGS</span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe God will bring history to its rightful conclusion with Christ's triumph over all evil, the final judgment, and the renewal of all things.<br /><br /><span class="text-sm text-gray-500">Matthew 24:30–31; Revelation 20:11–15</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ALL THINGS MADE NEW -->
-      <div class="accordion-item bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-transparent hover:border-brand-red/20">
-        <button class="accordion-btn w-full flex items-center justify-between px-6 py-5 text-lg md:text-xl font-semibold text-gray-800 hover:text-brand-red transition-colors duration-200">
-          <span>ALL THINGS MADE NEW</span>
-          <span class="accordion-icon text-3xl text-brand-red leading-none font-light"></span>
-        </button>
-        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300">
-          <div class="px-6 pb-5 pt-0 text-base text-gray-600 leading-relaxed">
-            We believe God will make all things new — a new heavens and new earth where righteousness dwells. Believers will receive glorified, imperishable bodies, transformed into the likeness of Christ's glorious body.<br /><br /><span class="text-sm text-gray-500">Isaiah 65:17; 2 Peter 3:13; Revelation 21:1–4</span>
-          </div>
-        </div>
-      </div>
+        </section>
+      ))}
     </div>
   </div>
 </section>
 
 <style>
-  .accordion-item {
-    display: flex;
-    flex-direction: column;
-  }
-
   .accordion-content {
     max-height: 0;
     overflow: hidden;
+    opacity: 0;
     transition:
       max-height 260ms cubic-bezier(0.23, 1, 0.32, 1),
       opacity 200ms ease;
-    display: block;
-    opacity: 0;
   }
 
   .accordion-item.active .accordion-content {
-    max-height: 600px;
+    max-height: 620px;
     opacity: 1;
   }
 
@@ -278,84 +189,36 @@
     content: '+';
   }
 
-  /* Accessible focus ring for keyboard users */
   .accordion-btn:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.12);
-    border-radius: 0.5rem;
+    box-shadow: 0 0 0 4px rgba(179, 40, 45, 0.16);
+    border-radius: 0.75rem;
   }
 </style>
 
 <script>
   function setupAccordions() {
     const items = document.querySelectorAll<HTMLElement>('.accordion-item');
-    
-    // Define accordion pairs
-    const pairs: [string, string][] = [
-      ['GOD', 'JESUS'],
-      ['HOLY SPIRIT', 'CREATION'],
-      ['HUMANITY', 'SIN'],
-      ['THE BIBLE', 'SALVATION'],
-      ['THE RESURRECTION OF JESUS', 'THE CHURCH'],
-      ['MARRIAGE AND FAMILY', 'BAPTISM AND COMMUNION'],
-      ['TITHES AND OFFERINGS', 'HEAVEN'],
-      ['HELL', 'THE RETURN OF JESUS'],
-      ['LAST THINGS', 'ALL THINGS MADE NEW']
-    ];
-    
-    // Create a map of item name to pair items
-    const pairMap = new Map<HTMLElement, HTMLElement[]>();
-    pairs.forEach((pair) => {
-      const item1 = Array.from(items).find((item) => item.querySelector('.accordion-btn span')?.textContent === pair[0]);
-      const item2 = Array.from(items).find((item) => item.querySelector('.accordion-btn span')?.textContent === pair[1]);
-      
-      if (item1) pairMap.set(item1, [item1, item2].filter(Boolean) as HTMLElement[]);
-      if (item2) pairMap.set(item2, [item1, item2].filter(Boolean) as HTMLElement[]);
-    });
-    
-    items.forEach((item, idx) => {
+
+    items.forEach((item) => {
       const btn = item.querySelector<HTMLButtonElement>('.accordion-btn');
-      const content = item.querySelector<HTMLElement>('.accordion-content');
       if (!btn) return;
-
-      // Ensure button behaves correctly and is keyboard accessible
-      btn.type = 'button';
-
-      // Assign accessible ids and attributes
-      const contentId = content && content.id ? content.id : `accordion-content-${idx}`;
-      if (content && !content.id) content.id = contentId;
-      btn.setAttribute('aria-controls', contentId);
-      btn.setAttribute('aria-expanded', 'false');
 
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
 
-        const pairedItems = pairMap.get(item);
+        const willBeActive = !item.classList.contains('active');
 
-        if (pairedItems) {
-          const isActive = pairedItems[0].classList.contains('active');
+        items.forEach((otherItem) => {
+          const otherBtn = otherItem.querySelector<HTMLElement>('.accordion-btn');
+          otherItem.classList.remove('active');
+          otherBtn?.setAttribute('aria-expanded', 'false');
+        });
 
-          if (isActive) {
-            // Close both
-            pairedItems.forEach((paired) => {
-              paired.classList.remove('active');
-              const b = paired.querySelector<HTMLElement>('.accordion-btn');
-              if (b) b.setAttribute('aria-expanded', 'false');
-            });
-          } else {
-            // Open both
-            pairedItems.forEach((paired) => {
-              paired.classList.add('active');
-              const b = paired.querySelector<HTMLElement>('.accordion-btn');
-              if (b) b.setAttribute('aria-expanded', 'true');
-            });
-          }
-        } else {
-          // If no pair, toggle independently
-          const willBeActive = !item.classList.contains('active');
-          item.classList.toggle('active');
-          btn.setAttribute('aria-expanded', willBeActive ? 'true' : 'false');
+        if (willBeActive) {
+          item.classList.add('active');
+          btn.setAttribute('aria-expanded', 'true');
         }
       });
     });

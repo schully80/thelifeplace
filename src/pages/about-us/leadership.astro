@@ -4,142 +4,139 @@ import { getVisitLocation } from "../../content/shared-content.js";
 
 const visitLocation = getVisitLocation();
 const SUBSTACK_URL = "https://schulteretyang.substack.com";
-const serviceAddress = visitLocation.addressLines?.[0] ?? "The Life Place";
 ---
 
 <BaseLayout
-  title="Leadership | Schulter & Jenny"
-  description="Meet Schulter and Jenny Etyang, founding pastors of The Life Place. Learn their story, their heart for Jesus, and how to visit The Life Place this Sunday."
+  title="Leadership | Schulter and Genevieve Etyang"
+  description="Meet Schulter and Genevieve Etyang, founding pastors of The Life Place. Learn their story, their heart for Jesus, and how to visit The Life Place this Sunday."
 >
   <main class="bg-white text-gray-900">
-    <section class="bg-gray-50 px-5 py-12 sm:px-6 sm:py-16 md:py-24 lg:py-28">
-      <div class="mx-auto grid max-w-7xl gap-10 md:gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-        <div class="min-w-0 max-w-2xl lg:order-2">
-          <p class="mb-5 text-sm font-bold uppercase tracking-[0.16em] text-brand-red">Leadership</p>
-          <h1 class="text-balance text-3xl font-black leading-tight text-gray-900 sm:text-4xl md:text-6xl lg:text-7xl">
-            Schulter and Genevieve Etyang
-          </h1>
-          <div class="mt-7 space-y-5 text-base font-medium leading-7 text-gray-600 sm:text-lg sm:leading-8 md:text-xl md:leading-9">
-            <p>
-              Schulter and Genevieve are the founding pastors of
-              <span class="font-semibold text-brand-red">The Life Place</span>.
-            </p>
-            
-            <p>
-They are passionate about helping people see Jesus and encounter the beauty of His grace.
-          Their lives and leadership have been shaped by one simple invitation:
-              <span class="font-semibold text-brand-red">Come. See. Jesus.</span>
-            </p>
-             <p>
-            Together, they serve the church through teaching, pastoral care, leadership, and building a community
-            where <span class="text-brand-red">Jesus</span> is seen as true, good, beautiful, and kind.
-          </p>
-            <p>
-              They care deeply about people encountering the beauty of
-              <span class="text-brand-red">Jesus</span> and the kindness of His grace in everyday life.
-            </p>
+    <section class="grid bg-gray-50 lg:min-h-[640px] lg:grid-cols-[0.95fr_1.05fr] xl:min-h-[680px]">
+      <div class="aspect-[3/2] overflow-hidden rounded-br-[2rem] bg-gray-100 sm:aspect-[16/9] md:aspect-[3/2] lg:aspect-auto lg:min-h-[640px] lg:rounded-br-[3rem] xl:min-h-[680px]">
+        <img
+          src="/founders-grayscale.jpg"
+          alt="Schulter and Genevieve Etyang"
+          class="h-full w-full object-cover object-[48%_40%] grayscale sm:object-[center_40%] lg:object-[center_45%]"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </div>
+
+      <div class="flex min-w-0 flex-col justify-center px-5 py-8 sm:px-8 sm:py-10 md:px-12 lg:px-12 lg:py-12 xl:px-24">
+        <p class="mb-4 text-sm font-extrabold uppercase tracking-[0.16em] text-brand-red sm:mb-5">Leadership</p>
+        <h1 class="max-w-3xl text-balance text-4xl font-black leading-[0.98] tracking-[-0.035em] text-gray-900 sm:text-6xl sm:leading-[0.96] sm:tracking-[-0.04em] md:text-6xl xl:text-8xl">
+          Schulter and Genevieve Etyang
+        </h1>
+        <p class="mt-5 max-w-2xl text-balance text-base font-semibold leading-7 text-gray-600 sm:mt-6 sm:text-xl sm:leading-9 lg:text-lg lg:leading-8 xl:text-2xl xl:leading-10">
+          As founding pastors of The Life Place, a community shaped by the beauty of Jesus and His grace, they are
+          passionate about helping people Come. See. Jesus.
+        </p>
+        <div class="mt-5 max-w-2xl rounded-2xl border border-gray-200 bg-white p-4 shadow-sm sm:mt-6 sm:p-5 lg:mt-5">
+          <p class="text-sm font-extrabold uppercase tracking-[0.14em] text-gray-500">Join us this Sunday</p>
+          <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:gap-3 xl:gap-4">
+            <div class="flex items-start gap-3">
+              <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-[#FDECEC] text-brand-red xl:h-10 xl:w-10">
+                <i class="fa-regular fa-clock" aria-hidden="true"></i>
+              </div>
+              <div>
+                <p class="text-xs font-extrabold uppercase tracking-[0.14em] text-gray-500">Time</p>
+                <p class="mt-1 text-sm font-black leading-6 text-gray-900 xl:text-base">9:00 to 11:00 AM</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-[#FDECEC] text-brand-red xl:h-10 xl:w-10">
+                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+              </div>
+              <div>
+                <p class="text-xs font-extrabold uppercase tracking-[0.14em] text-gray-500">Place</p>
+                <p class="mt-1 text-sm font-black leading-6 text-gray-900 xl:text-base">
+                  {visitLocation.addressLines?.[0] ?? "The Life Place"}
+                </p>
+                <p class="mt-1 text-sm font-semibold leading-6 text-gray-600">Craigavon AH, Sandton</p>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div class="overflow-hidden rounded-3xl bg-gray-100 shadow-xl lg:order-1">
-          <img
-            src="/founders-grayscale.jpg"
-            alt="Schulter and Genevieve Etyang"
-            class="h-[300px] w-full object-cover object-center grayscale transition-transform duration-500 motion-safe:hover:scale-105 sm:h-[340px] md:h-[560px] lg:h-[640px]"
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-          />
-        </div>
-      </div>
-    </section>
-
-    <section class="cookie-safe-section px-5 py-14 sm:px-6 sm:py-16 md:py-24">
-      <div class="mx-auto max-w-4xl">
-        <p class="mb-4 text-sm font-bold uppercase tracking-[0.24em] text-brand-red">From our leaders</p>
-        <h2 class="max-w-4xl text-balance text-2xl font-black leading-snug tracking-[0.02em] text-gray-900 sm:text-3xl sm:leading-tight md:text-5xl">
-          "We are intentional about The Life Place being a community. Where all that we are and do communicates the beauty, gentleness and kindness of who
-            <span class="text-brand-red">Jesus</span> is."
-        </h2>
-      </div>
-    </section>
-
-    <section class="bg-gray-50 px-5 py-14 sm:px-6 sm:py-16 md:py-20">
-      <div class="mx-auto grid max-w-4xl gap-8 md:grid-cols-[0.7fr_1.3fr] md:items-start">
-        <div>
-          <p class="mb-4 text-sm font-bold uppercase tracking-[0.16em] text-brand-red">Bio</p>
-          
-        </div>
-
-        <div class="flex flex-col items-center space-y-6 text-base font-medium leading-7 text-gray-600 sm:text-lg sm:leading-8 md:items-start">
-        
-         
-          <p>
-            Outside of ministry, they enjoy family life, meaningful conversations, friends, good food, music, hikes, exercise and the simple joys of life. 
- 
-          </p>
-          <p>
-            Schulter writes regularly about Jesus, the gospel of grace, the new covenant, and what they mean for
-            everyday life.
-          </p>
+        <div class="mt-4 flex max-w-2xl flex-col justify-center gap-3 sm:flex-row">
           <a
-            href={SUBSTACK_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Read Schulter's Substack, opens in a new tab"
-            class="inline-flex min-h-12 items-center justify-center self-center rounded-2xl border border-brand-red px-6 py-3 text-base font-bold text-brand-red transition hover:bg-brand-red hover:text-white focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"
+            href="/visit/"
+            class="inline-flex min-h-12 items-center justify-center rounded-2xl bg-brand-red px-6 py-3 text-base font-bold text-white shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-[#9F2429] hover:shadow-lg active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"
           >
-            Read Schulter's Substack
+            Plan A Visit
+          </a>
+          <a
+            href="/live/"
+            class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-gray-300 bg-white px-6 py-3 text-base font-bold text-gray-900 transition-[border-color,background-color,transform] duration-200 ease-out hover:border-gray-500 hover:bg-gray-50 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"
+          >
+            Watch Live
           </a>
         </div>
       </div>
     </section>
 
-    <section class="px-5 py-14 sm:px-6 sm:py-16 md:py-24">
-      <div class="mx-auto max-w-6xl rounded-[2rem] bg-brand-red px-6 py-8 text-white shadow-[0_18px_40px_rgba(179,40,45,0.24)] sm:px-8 sm:py-10 md:px-10 md:py-12">
-        <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div class="max-w-3xl">
-            <p class="text-sm font-bold uppercase tracking-[0.16em] text-white/75">Join us this Sunday</p>
-            <h2 class="mt-4 text-balance text-3xl font-black leading-tight text-white sm:text-4xl md:text-5xl">
-              Come. See. Jesus.
-            </h2>
-            <p class="mt-5 text-base font-medium leading-7 text-white/90 sm:text-lg sm:leading-8 md:text-xl md:leading-9">
-              If you are visiting for the first time, you will find a warm welcome, clear teaching, and a church
-              community making room for Jesus.
+    <section class="px-5 py-16 sm:px-6 sm:py-20 md:py-28">
+      <div class="mx-auto max-w-5xl">
+        <p class="mb-6 text-sm font-extrabold uppercase tracking-[0.16em] text-brand-red">From our leaders</p>
+        <blockquote class="text-balance text-3xl font-black leading-[1.1] tracking-[-0.03em] text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl">
+          We are intentional about The Life Place being a community where all that we are and do communicates the beauty, gentleness, and kindness of who <span class="text-brand-red">Jesus</span> is.
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="bg-gray-50 px-5 py-16 sm:px-6 sm:py-20 md:py-28">
+      <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+        <div class="max-w-xl">
+          <p class="mb-5 text-sm font-extrabold uppercase tracking-[0.16em] text-brand-red">Their story</p>
+          <h2 class="text-balance text-3xl font-black leading-[1.08] tracking-[-0.03em] text-gray-900 sm:text-4xl md:text-5xl">
+            A story of grace, friendship, and helping people see Jesus.
+          </h2>
+        </div>
+
+        <div class="max-w-3xl text-base font-medium leading-8 text-gray-600 sm:text-lg sm:leading-9">
+          <div class="space-y-5">
+            <p>
+              Schulter and Genevieve serve The Life Place through teaching, pastoral care, leadership, and the slow work
+              of building a Jesus-centered community in Sandton, South Africa.
             </p>
-            <p class="mt-5 text-sm font-semibold uppercase tracking-[0.16em] text-white/75 sm:text-base sm:tracking-[0.18em]">
-              Sundays, 9:00 to 11:00. {serviceAddress}
+            <p>
+              Beyond ministry, they love family life, meaningful conversations, good friends, good food, music, hiking,
+              exercise, and the simple joys that make life beautiful.
+            </p>
+            <p>
+              Schulter also writes regularly about Jesus, the gospel of grace, the new covenant, and what they mean for
+              everyday life.
             </p>
           </div>
 
-          <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+          <div class="mt-8 flex justify-center">
             <a
-              href="/visit/"
-              class="inline-flex min-h-12 items-center justify-center rounded-2xl bg-white px-7 py-3 text-base font-bold text-brand-red shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-[#FDECEC] hover:shadow-lg active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-red"
+              href={SUBSTACK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Read Schulter's Substack, opens in a new tab"
+              class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-gray-200 bg-white px-6 py-3 text-base font-bold text-brand-red transition-[border-color,background-color,box-shadow,transform] duration-200 ease-out hover:border-brand-red/30 hover:bg-white hover:shadow-md active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2"
             >
-              Plan A Visit
-            </a>
-            <a
-              href="/live/"
-              class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-white/40 bg-transparent px-7 py-3 text-base font-bold text-white transition-[border-color,background-color,transform] duration-200 ease-out hover:border-white/70 hover:bg-white/10 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-red"
-            >
-              Watch Live
+              Read Schulter's Substack
             </a>
           </div>
         </div>
       </div>
     </section>
+
+    <section class="px-5 py-16 sm:px-6 sm:py-20 md:py-28">
+      <div class="mx-auto max-w-6xl rounded-[2rem] bg-brand-red px-6 py-8 text-white shadow-[0_18px_40px_rgba(179,40,45,0.24)] sm:px-8 sm:py-10 md:px-10 md:py-12">
+        <div class="max-w-3xl">
+          <p class="text-sm font-bold uppercase tracking-[0.16em] text-white/75">Our invitation</p>
+          <h2 class="mt-4 text-balance text-4xl font-black leading-none tracking-[-0.035em] text-white sm:text-5xl md:text-6xl">
+            Come. See. Jesus.
+          </h2>
+          <p class="mt-5 text-base font-semibold leading-7 text-white/90 sm:text-lg sm:leading-8 md:text-xl md:leading-9">
+            If you are visiting for the first time, you will find a warm welcome, clear teaching, and a church
+            community making room for Jesus.
+          </p>
+        </div>
+      </div>
+    </section>
   </main>
-
-  <style>
-    :global(html.cookie-consent-visible) .cookie-safe-section {
-      padding-top: calc(8rem + var(--tlp-cookie-consent-height, 0px));
-    }
-
-    @media (min-width: 768px) {
-      :global(html.cookie-consent-visible) .cookie-safe-section {
-        padding-top: calc(10rem + var(--tlp-cookie-consent-height, 0px));
-      }
-    }
-  </style>
 </BaseLayout>
