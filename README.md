@@ -60,3 +60,25 @@ It's commonly triggered by the `postcss-import` plugin in some Vite/Astro setups
 - If you rely on `postcss-import`, update the plugin or file an issue with the plugin author so it passes the `from` option to PostCSS.
 
 If you want me to attempt an automated fix or add a CI lint check to detect problematic `@apply` usage, say so and I'll add it.
+# The Life Place
+
+## Importing YouTube videos with Monid
+
+The Monid importer fetches channel videos through the configured Monid CLI and
+maps them to the existing `src/data/messages.json` contract. It previews changes
+by default and limits the first import to 10 new messages.
+
+```bash
+# Preview (makes one Monid endpoint call but does not change project files)
+npm run import:youtube:monid
+
+# Review the preview, then write new, deduplicated messages
+npm run import:youtube:monid -- --write
+
+# Optional: choose a smaller import limit or another channel
+npm run import:youtube:monid -- --limit 5 --channel-id UC...
+```
+
+Each fetch currently costs $0.0015. The importer prints the actual run cost,
+deduplicates by YouTube video ID, and writes the JSON file atomically. Monid
+credentials remain in the CLI credential store and must not be committed.

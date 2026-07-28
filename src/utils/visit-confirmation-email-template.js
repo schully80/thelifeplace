@@ -13,7 +13,7 @@ export function html({ firstName, attendees, serviceTime, address, mapUrl, logoU
           <table width="640" cellpadding="0" cellspacing="0" style="background: #fff; border-radius: 18px; margin: 36px 0; box-shadow: 0 6px 36px rgba(0,0,0,0.09);">
             <tr>
               <td style="padding: 48px 48px 32px 48px; text-align: center;">
-                <img src="${logoUrl || "https://thelifeplace.org/logo4.svg"}" alt="The Life Place" width="128" style="margin-bottom: 20px;" />
+                <img src="${logoUrl || "https://thelifeplace.org/logo.png"}" alt="The Life Place" width="128" style="margin-bottom: 20px;" />
                 <h1 style="color: #B3282D; font-size: 2.25rem; margin: 0 0 12px 0; font-weight: 800; letter-spacing: -0.01em;">Your Visit is Booked!</h1>
                 <p style="font-size: 1.15rem; line-height: 1.65; color: #333; margin: 0 0 22px 0;">Hi ${firstName || "there"},</p>
                 <p style="font-size: 1.15rem; line-height: 1.65; color: #333; margin: 0 0 22px 0;">

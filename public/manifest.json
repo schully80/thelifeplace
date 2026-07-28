@@ -25,9 +25,9 @@
   "categories": ["religion"],
   "screenshots": [
     {
-      "src": "/logo4.svg",
-      "sizes": "1200x1200",
-      "type": "image/svg+xml"
+      "src": "/logo.png",
+      "sizes": "629x629",
+      "type": "image/png"
     }
   ]
 }

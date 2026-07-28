@@ -70,14 +70,14 @@ pathParts.forEach((part, index) => {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://thelifeplace.org/logo4.svg" />
+    <meta property="og:image" content="https://thelifeplace.org/logo.png" />
     <meta property="og:image:alt" content="The Life Place - Come. See. Jesus." />
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://thelifeplace.org/logo4.svg" />
+    <meta name="twitter:image" content="https://thelifeplace.org/logo.png" />
     
     <!-- Additional SEO -->
     <meta name="theme-color" content="#B3282D" />
@@ -117,7 +117,7 @@ pathParts.forEach((part, index) => {
   "description": "The Life Place is a church in Craigavon AH, Sandton. Join us Sundays 9:00–11:00 for worship, prayer, and community. Experience Jesus in our welcoming congregation.",
   "telephone": "+27 76 563 9460",
   "email": "hello@thelifeplace.org",
-  "image": "https://thelifeplace.org/logo4.svg",
+  "image": "https://thelifeplace.org/logo.png",
   "areaServed": ["Sandton", "Johannesburg", "South Africa"],
   "potentialAction": [
     {
@@ -161,7 +161,7 @@ pathParts.forEach((part, index) => {
   "@id": "https://thelifeplace.org/#sunday-service",
   "name": "Sunday Worship Service",
   "description": "Join The Life Place for worship, prayer, and community fellowship every Sunday morning.",
-  "image": "https://thelifeplace.org/logo4.svg",
+  "image": "https://thelifeplace.org/logo.png",
   "startDate": "2026-01-26T09:00:00+02:00",
   "endDate": "2026-01-26T11:00:00+02:00",
   "eventStatus": "EventScheduled",
@@ -228,7 +228,7 @@ pathParts.forEach((part, index) => {
       "@id": `https://thelifeplace.org${pathname}#article`,
       "headline": articleTitle,
       "description": articleDescription || description,
-      "image": articleImage || "https://thelifeplace.org/logo4.svg",
+      "image": articleImage || "https://thelifeplace.org/logo.png",
       "datePublished": articleDate,
       "dateModified": articleDate,
       "author": {
@@ -239,7 +239,7 @@ pathParts.forEach((part, index) => {
         "@type": "Organization",
         "@id": "https://thelifeplace.org/#church",
         "name": "The Life Place",
-        "image": "https://thelifeplace.org/logo4.svg"
+        "image": "https://thelifeplace.org/logo.png"
       },
       "url": `https://thelifeplace.org${pathname}`,
       ...(articleContent && { "wordCount": Math.ceil(articleContent.split(/\s+/).length) })
