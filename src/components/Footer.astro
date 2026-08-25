@@ -5,6 +5,7 @@ import { getVisitLocation } from "../content/shared-content.js";
 const churchName = site.name;
 const email = site.contact.email;
 const visitLocation = getVisitLocation();
+const newsletterUrl = `${site.links.blogUrl.replace(/\/$/, "")}/subscribe`;
 
 // Optional: add later if you want it public
 const phoneDisplay = ""; // e.g. "+27 76 563 9460"
@@ -23,8 +24,8 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
       </p>
     </div>
 
-    <!-- 3-COLUMN CENTERED GRID -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-12 text-center">
+    <!-- FOOTER LINKS AND NEWSLETTER -->
+    <div class="grid grid-cols-1 gap-8 text-center md:grid-cols-2 md:gap-12 lg:grid-cols-4">
 
       <!-- EXPLORE -->
       <div>
@@ -68,6 +69,38 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
           <li><a href="/terms/" class="hover:text-brand-red transition">Terms & Conditions</a></li>
           <li><a href="/cookies/" class="hover:text-brand-red transition">Cookie Policy</a></li>
         </ul>
+      </div>
+
+      <!-- NEWSLETTER SIGNUP -->
+      <div class="mx-auto w-full max-w-sm text-left lg:mx-0">
+        <p class="text-sm font-semibold leading-relaxed text-gray-700 md:text-base">
+          <span class="text-brand-red">Subscribe</span> to our newsletter and receive posts that help you see <span class="text-brand-red">Jesus</span>.
+        </p>
+
+        <form
+          action={newsletterUrl}
+          method="get"
+          target="_blank"
+          aria-label="Subscribe to our newsletter on Substack"
+          class="mt-4 space-y-3"
+        >
+          <label for="footer-newsletter-email" class="sr-only">Email address</label>
+          <input
+            id="footer-newsletter-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+            placeholder="Your email"
+            class="min-h-12 w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-base text-gray-900 placeholder:text-gray-500 focus:border-brand-red focus:outline-none focus:ring-2 focus:ring-brand-red/40"
+          />
+          <button
+            type="submit"
+            class="inline-flex min-h-12 items-center justify-center rounded-lg bg-brand-red px-6 py-3 font-bold text-white shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-red-700 hover:shadow-md active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100"
+          >
+            Subscribe
+          </button>
+        </form>
       </div>
 
     </div>

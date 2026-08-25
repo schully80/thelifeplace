@@ -82,3 +82,32 @@ npm run import:youtube:monid -- --limit 5 --channel-id UC...
 Each fetch currently costs $0.0015. The importer prints the actual run cost,
 deduplicates by YouTube video ID, and writes the JSON file atomically. Monid
 credentials remain in the CLI credential store and must not be committed.
+
+## Auditing the production website with Monid
+
+The website audit command combines a mobile PageSpeed check with an on-page
+SEO and accessibility audit. Paid runs require an explicit confirmation flag,
+and the command saves a Markdown report plus raw provider output under
+`reports/website-audit/`.
+
+```bash
+# Show the spend gate without making a paid request
+npm run audit:website:monid
+
+# Full mobile audit, maximum listed cost: $0.147401
+npm run audit:website:monid -- --confirm-spend
+
+# Run only one provider
+npm run audit:website:monid -- --mode performance --confirm-spend
+npm run audit:website:monid -- --mode site --confirm-spend
+
+# Audit another URL or request a desktop PageSpeed result
+npm run audit:website:monid -- \
+  --url https://example.com/ \
+  --strategy desktop \
+  --confirm-spend
+```
+
+Provider findings are diagnostic inputs, not automatic proof of compliance.
+Verify accessibility, responsive behavior, and performance findings against
+the implementation before making fixes.

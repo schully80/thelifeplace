@@ -19,6 +19,7 @@ pnpm-lock.yaml
 # 🧪 Test output
 .coverage/
 .vitest/
+reports/website-audit/
 
 # 🖼 Cache & OS cruft
 .DS_Store
