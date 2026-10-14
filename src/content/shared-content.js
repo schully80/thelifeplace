@@ -24,7 +24,7 @@ export function getVisitLocation() {
 export const devotionals = [
   {
     id: "come-see-jesus",
-    title: "Come. See. Jesus",
+    title: "Come. See. Jesus.",
     scripture: "John 1:39",
     body: [
       "When Jesus says, 'Come and you will see,' He invites us into more than information. He offers Himself.",
@@ -68,7 +68,7 @@ export const welcomeContent = {
     "the Justifier of the ungodly,",
     "the Friend of sinners.",
   ],
-  slogan: "Come. See. Jesus",
+  slogan: "Come. See. Jesus.",
 };
 
 export const aboutContent = {

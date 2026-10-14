@@ -83,7 +83,7 @@ export function confirmHtml({ name, requestText }: { name: string; requestText: 
                   </div>
                   <p style="margin:10px 0 4px;font-weight:700;color:#b3282d;">— The Life Place Prayer Team</p>
                   <p style="margin:0;font-size:14px;color:#4b5563;">Want to know more about us? Visit <a href="https://thelifeplace.org" style="color:#b3282d;text-decoration:none;font-weight:700;">thelifeplace.org</a></p>
-                  <p style="margin:0;font-size:14px;color:#4b5563;">Come. See. <span style="font-weight:700;color:#b3282d;">Jesus</span></p>
+                  <p style="margin:0;font-size:14px;color:#4b5563;">Come. See. <span style="font-weight:700;color:#b3282d;">Jesus.</span></p>
 
                 </td>
               </tr>

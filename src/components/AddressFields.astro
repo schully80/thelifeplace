@@ -44,7 +44,7 @@
     position: absolute;
     right: 10px;
     top: 14px;
-    color: #B3282D;
+    color: var(--tlp-color-brand-red);
     opacity: 0;
     transition: opacity .2s ease;
     font-size: 14px;
@@ -55,7 +55,7 @@
   .field input:not(:placeholder-shown) + label {
     transform: translateY(-30px) scale(0.85);
     font-size: 12px;
-    color: #B3282D;
+    color: var(--tlp-color-brand-red);
     font-weight: 600;
     background: white;
   }
@@ -63,7 +63,7 @@
   /* Error message */
   .error-text {
     font-size: 13px;
-    color: #B3282D;
+    color: var(--tlp-color-brand-red);
     margin-top: 6px;
     display: none;
     font-weight: 500;
@@ -74,17 +74,17 @@
   }
 
   .show-error .field input {
-    border-color: #B3282D;
+    border-color: var(--tlp-color-brand-red);
     background: rgba(179, 40, 45, 0.05);
   }
 
   .field.valid input {
-    border-color: #B3282D;
+    border-color: var(--tlp-color-brand-red);
     box-shadow: 0 0 0 3px rgba(179, 40, 45, 0.14);
   }
 
   .field.valid label {
-    color: #B3282D;
+    color: var(--tlp-color-brand-red);
   }
 
   .field.valid .valid-icon {

@@ -101,13 +101,13 @@ const CONSENT_KEY = 'tlp_cookie_consent'; // "accepted" | "declined"
     border-radius: 36px;
     font-weight: 600;
     cursor: pointer;
-    border: 1px solid #B3282D;
-    box-shadow: 0 0 0 1px #B3282D;
+    border: 1px solid var(--tlp-color-brand-red);
+    box-shadow: 0 0 0 1px var(--tlp-color-brand-red);
     font-size: 0.95rem;
     white-space: nowrap;
   }
   .cc-accept {
-    background: #B3282D;   /* brand red */
+    background: var(--tlp-color-brand-red);
     color: #ffffff;
   }
   .cc-accept:hover {
@@ -124,7 +124,7 @@ const CONSENT_KEY = 'tlp_cookie_consent'; // "accepted" | "declined"
   }
 
   .cc-link {
-    color: #B3282D;        /* brand red links */
+    color: var(--tlp-color-brand-red);
     text-decoration: underline;
     text-underline-offset: 2px;
   }

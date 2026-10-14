@@ -15,7 +15,7 @@ const isDev = import.meta.env.MODE !== 'production';
 ---
 <BaseLayout
   title="Plan a Visit — Come. See. Jesus. | The Life Place"
-  description="The Life Place — Come. See. Jesus. Everything you need for your first Sunday: location in Craigavon AH, Sandton, service time (9:00–11:00), what to expect, parking, and how to connect."
+  description="Plan your first Sunday at The Life Place in Craigavon AH, Sandton: service time, directions, what to expect, and optional help with arrival or parking guidance."
 >
 
 {/* FULL-BLEED WRAPPER */}
@@ -82,7 +82,7 @@ const isDev = import.meta.env.MODE !== 'production';
         <div class="space-y-7 md:space-y-8">
           
           <!-- Sunday Service -->
-          <div class="border-l-4 border-brand-red pl-4 opacity-0 sm:pl-6" data-animate="fade-up" data-delay="0">
+          <div class="opacity-0" data-animate="fade-up" data-delay="0">
             <h3 class="text-xl font-bold text-gray-800 mb-2 md:text-2xl">Sunday</h3>
             <p class="text-lg text-gray-600 mb-2 md:text-xl">
               <span class="font-semibold">9:00-11:00 AM</span>
@@ -91,7 +91,7 @@ const isDev = import.meta.env.MODE !== 'production';
           </div>
 
           <!-- Location -->
-          <div class="border-l-4 border-brand-red pl-4 opacity-0 sm:pl-6" data-animate="fade-up" data-delay="100">
+          <div class="border-t border-gray-200 pt-7 opacity-0 md:pt-8" data-animate="fade-up" data-delay="100">
             <h3 class="text-xl font-bold text-gray-800 mb-2 md:text-2xl"><i class="fa-solid fa-location-dot text-brand-red mr-2"></i>Our Location</h3>
             <p class="text-lg text-gray-600 mb-2">The Life Place</p>
             <p class="text-gray-600 leading-relaxed">
@@ -100,10 +100,10 @@ const isDev = import.meta.env.MODE !== 'production';
           </div>
 
           <!-- Visitor Info -->
-          <div class="border-l-4 border-brand-red pl-4 opacity-0 sm:pl-6" data-animate="fade-up" data-delay="200">
+          <div class="border-t border-gray-200 pt-7 opacity-0 md:pt-8" data-animate="fade-up" data-delay="200">
             <h3 class="text-xl font-bold text-gray-800 mb-2 md:text-2xl">First Time Visiting?</h3>
             <p class="text-gray-600 mb-4">
-              We'd love to meet you! We believe in genuine community and a warm welcome for everyone.
+              You do not need to register for Sunday service. Share your details only if you would like a personal welcome or help planning your arrival.
             </p>
             <button
               id="planVisitBtn"
@@ -159,7 +159,35 @@ const isDev = import.meta.env.MODE !== 'production';
 
 
 
-    <!-- Registration Form -->
+    <section class="mt-14 border-t border-gray-200 pt-12 md:mt-20 md:pt-16">
+      <div class="max-w-4xl">
+        <p class="text-sm font-bold uppercase tracking-[0.16em] text-brand-red">Your first Sunday</p>
+        <h2 class="mt-4 text-3xl font-black leading-tight text-gray-900 sm:text-4xl md:text-5xl">Come as you are.</h2>
+        <p class="mt-5 max-w-3xl text-lg leading-relaxed text-gray-600">
+          Our gatherings usually run for about 90 minutes, with worship, Bible teaching, prayer, and time to connect. Arrive 10 to 15 minutes early if you can.
+        </p>
+        <dl class="mt-8 grid gap-x-10 gap-y-7 border-t border-gray-200 pt-8 sm:grid-cols-2">
+          <div>
+            <dt class="text-lg font-black text-gray-900">What should I wear?</dt>
+            <dd class="mt-2 leading-relaxed text-gray-600">Wear what you are comfortable in. There is no dress code.</dd>
+          </div>
+          <div>
+            <dt class="text-lg font-black text-gray-900">Can I bring my children?</dt>
+            <dd class="mt-2 leading-relaxed text-gray-600">Yes. Children are welcome to remain with their parents during the service.</dd>
+          </div>
+          <div>
+            <dt class="text-lg font-black text-gray-900">What about parking?</dt>
+            <dd class="mt-2 leading-relaxed text-gray-600">Use the directions above for the easiest route. If you would like arrival or parking guidance, send us your details below and we will help.</dd>
+          </div>
+          <div>
+            <dt class="text-lg font-black text-gray-900">Will I be singled out?</dt>
+            <dd class="mt-2 leading-relaxed text-gray-600">No. You are welcome to join us at your own pace, without pressure.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Optional visit details form -->
     <script is:inline>
       // Central cleanup registry for listeners/RAFs created on this page
       window.__tlp_cleanup = window.__tlp_cleanup || [];
@@ -535,7 +563,8 @@ const isDev = import.meta.env.MODE !== 'production';
           <FormCard
             title="Plan a Visit"
             eventName="Plan a Visit"
-            ctaText="Submit"
+            ctaText="Send My Visit Details"
+            instructionText="You do not need to register for Sunday service. Leave your details only if you would like a personal welcome or help with directions and parking."
             showComingSoon={false}
             enableTurnstile={true}
             formAction="/api/register"
@@ -614,7 +643,7 @@ const isDev = import.meta.env.MODE !== 'production';
   <div class="max-w-4xl mx-auto px-6 text-center">
     
     <h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-5 md:mb-6 text-gray-800">
-      Come. See. <span class="text-brand-red">Jesus</span>
+      Come. See. <span class="text-brand-red">Jesus.</span>
     </h2>
 
     <p class="text-lg md:text-xl text-gray-600 mb-8 md:mb-12 max-w-2xl mx-auto">

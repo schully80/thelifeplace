@@ -88,6 +88,7 @@ const upNext = filtered.length > 0 ? filtered[0] : null;
       id="heroPlayer"
       class="w-full h-full relative z-10"
       src={`https://www.youtube.com/embed/${heroMessage.youtubeId}?rel=0&modestbranding=1`}
+      title={`Watch ${heroMessage.title} from The Life Place`}
       allowfullscreen
     ></iframe>
   </div>
@@ -160,6 +161,8 @@ const upNext = filtered.length > 0 ? filtered[0] : null;
             src={msg.thumbnail}
             alt={msg.title}
             class="w-full h-48 object-cover group-hover:scale-105 transition"
+            loading="lazy"
+            decoding="async"
           />
         </div>
 

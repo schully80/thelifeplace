@@ -10,7 +10,7 @@
   html,
   body {
     background-color: #fff;
-    color: #4b5563;
+    color: var(--tlp-color-ink-body);
     max-width: 100%;
     overflow-x: clip;
     -webkit-font-smoothing: antialiased;
@@ -20,7 +20,7 @@
 
   html {
     font-weight: 500;
-    color: #1f2937;
+    color: var(--tlp-color-ink-heading);
     scrollbar-width: none;
   }
 
@@ -29,7 +29,7 @@
   }
 
   p {
-    color: #4b5563;
+    color: var(--tlp-color-ink-body);
     line-height: 1.75;
   }
 
@@ -40,7 +40,7 @@
     font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     letter-spacing: -0.02em;
     line-height: 1.25;
-    color: #1f2937;
+    color: var(--tlp-color-ink-heading);
   }
 
   h1 {
@@ -106,6 +106,15 @@
   }
 
   :root {
+    /* Brand primitives for component-scoped CSS. Tailwind semantic aliases live in tailwind.config.mjs. */
+    --tlp-color-brand-red: #B3282D;
+    --tlp-color-brand-red-hover: #9F2429;
+    --tlp-color-brand-red-soft: #FDECEC;
+    --tlp-color-ink-heading: #1F2937;
+    --tlp-color-ink-body: #4B5563;
+    --tlp-color-ink-muted: #6B7280;
+    --tlp-color-border-subtle: #E5E7EB;
+    --tlp-shadow-brand-red: 0 10px 30px rgba(179, 40, 45, 0.18);
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
@@ -171,7 +180,12 @@
   }
 
   .btn-primary {
-    @apply btn bg-[#B3282D] text-white hover:bg-[#9f2429];
+    @apply btn text-white;
+    background-color: var(--tlp-color-brand-red);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--tlp-color-brand-red-hover);
   }
 
   .btn-outline {
@@ -180,11 +194,28 @@
 }
 
 .text-brand-red {
-  color: #B3282D;
+  color: var(--tlp-color-brand-red);
 }
 
 .bg-brand-red {
-  background-color: #B3282D;
+  background-color: var(--tlp-color-brand-red);
+}
+
+.bg-brand-action-soft {
+  background-color: var(--tlp-color-brand-red-soft);
+}
+
+.hover\:bg-brand-action-hover:hover {
+  background-color: var(--tlp-color-brand-red-hover);
+}
+
+.hover\:text-brand-action-hover:hover {
+  color: var(--tlp-color-brand-red-hover);
+}
+
+.focus-ring-brand:focus-visible {
+  outline: 2px solid var(--tlp-color-brand-red);
+  outline-offset: 3px;
 }
 
 .full-bleed {

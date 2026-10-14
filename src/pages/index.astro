@@ -155,7 +155,10 @@ const faqItems = [
   },
 ];
 ---
-<BaseLayout title="The Life Place">
+<BaseLayout
+  title="Church in Sandton, Johannesburg | The Life Place"
+  description="The Life Place is a Jesus-centred church in Craigavon AH, Sandton, Johannesburg. Join us Sundays from 9:00–11:00 for worship, Bible teaching, and a warm welcome for every family."
+>
 
 <section class="relative overflow-hidden bg-white">
   <div class="absolute inset-y-0 right-0 hidden w-[46vw] lg:block">
@@ -178,14 +181,14 @@ const faqItems = [
         Come. See. <span class="text-brand-red">Jesus.</span>
       </h1>
       <p class="mt-7 max-w-2xl text-lg font-medium leading-relaxed text-gray-700 md:text-2xl">
-        Join us this Sunday.
+        A Jesus-centered church in Sandton, Johannesburg, welcoming people from our city and beyond.
       </p>
 
       <div class="mt-8 grid gap-3 rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow-sm sm:max-w-2xl sm:grid-cols-2 md:p-5">
         <div class="flex items-start gap-3">
           <i class="fa-regular fa-clock mt-1 text-xl text-brand-red" aria-hidden="true"></i>
           <div>
-            <p class="text-sm font-bold uppercase tracking-[0.14em] text-gray-500">This Sunday</p>
+            <p class="text-sm font-bold uppercase tracking-[0.14em] text-gray-500"> Join us This Sunday</p>
             <p class="mt-1 text-xl font-black text-gray-900">9:00-11:00 AM</p>
           </div>
         </div>
@@ -200,7 +203,7 @@ const faqItems = [
       </div>
 
       <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-        <a href="/visit" class="inline-flex min-h-12 items-center justify-center rounded-2xl bg-brand-red px-7 py-4 text-base font-black text-white shadow-md transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-[#9F2429] hover:shadow-lg active:scale-[0.98]">
+        <a href="/visit" class="inline-flex min-h-12 items-center justify-center rounded-2xl bg-brand-red px-7 py-4 text-base font-black text-white shadow-md transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-brand-action-hover hover:shadow-lg active:scale-[0.98]">
           Plan A Visit
         </a>
         <a href={visitLocation.mapsQueryUrl} target="_blank" rel="noopener" class="inline-flex min-h-12 items-center justify-center rounded-2xl border-2 border-brand-red/40 bg-white px-7 py-4 text-base font-black text-gray-900 shadow-sm transition-[border-color,background-color,transform] duration-200 ease-out hover:border-brand-red/70 hover:bg-gray-50 active:scale-[0.98]">
@@ -234,13 +237,13 @@ const faqItems = [
   <div class="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
     <p class="text-sm font-bold uppercase tracking-[0.18em] text-brand-red md:text-base">Our welcome</p>
     <h2 class="mx-auto mt-6 max-w-5xl text-4xl font-black leading-[1.12] text-gray-900 md:text-6xl md:leading-[1.1] lg:text-7xl">
-      We open wide our doors with a welcome from <span class="text-brand-red">Jesus:</span>
+      We open wide our doors with a welcome from <span class="text-brand-red">Jesus</span>
     </h2>
     <p class="mx-auto mt-10 max-w-5xl text-3xl font-black leading-[1.22] text-gray-900 md:mt-12 md:text-5xl md:leading-[1.18] lg:text-6xl">
-      the <span class="text-brand-red">Embracer</span> of the outsider,
-      the <span class="text-brand-red">Defender</span> of the guilty,
-      the <span class="text-brand-red">Justifier</span> of the ungodly,
-      the <span class="text-brand-red">Friend</span> of sinners.
+      <span class="block">the <span class="text-brand-red">Embracer</span> of the outsider,</span>
+      <span class="block">the <span class="text-brand-red">Defender</span> of the guilty,</span>
+      <span class="block">the <span class="text-brand-red">Justifier</span> of the ungodly, and</span>
+      <span class="block">the <span class="text-brand-red">Friend</span> of sinners.</span>
     </p>
   </div>
 </section>
@@ -262,7 +265,7 @@ const faqItems = [
         {sundayFlow.map((item) => (
           <article class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-[border-color,background-color,box-shadow,transform] duration-200 ease-out hover:border-brand-red/30 hover:bg-gray-50 hover:shadow-md active:scale-[0.99] md:p-7">
             <div class="flex items-start gap-4">
-              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FDECEC] text-brand-red">
+              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-action-soft text-brand-red">
                 <i class={item.icon} aria-hidden="true"></i>
               </div>
               <div>
@@ -316,9 +319,6 @@ const faqItems = [
             </p>
           </div>
           <div class="mt-6">
-            <p class="mb-3 text-center text-sm font-semibold leading-relaxed text-gray-600">
-              Email, WhatsApp, or share through our social media channels.
-            </p>
             <div class="flex items-center justify-center gap-2">
               {storyChannels.map((channel) => (
                 <a href={channel.href} target={channel.external ? "_blank" : undefined} rel={channel.external ? "noopener" : undefined} aria-label={channel.label} class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-900 text-white transition hover:bg-brand-red focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2">
@@ -344,7 +344,7 @@ const faqItems = [
         <p class="mt-5 text-lg leading-relaxed text-gray-600">
           We do not have a kids' church yet. As Jesus provides, we are preparing a space where our kids will experience His truth, goodness, beauty, and kindness.
         </p>
-        <div class="mt-6 rounded-2xl border border-brand-red/20 bg-[#FDECEC] p-5">
+        <div class="mt-6 rounded-2xl border border-brand-red/20 bg-brand-action-soft p-5">
           <p class="text-xl font-black text-gray-900">For now, children remain with their parents during service.</p>
           <p class="mt-2 text-base leading-relaxed text-gray-700">You are still welcome. Bring them with you.</p>
         </div>
@@ -353,7 +353,7 @@ const faqItems = [
       <div class="relative overflow-hidden rounded-3xl border border-gray-200 bg-gray-100 shadow-xl">
         <div id="kidsSlidesHome" class="flex aspect-[4/3] w-full transition-transform duration-700 ease-out">
           {kidsSlides.map((slide) => (
-            <img src={slide.src} alt={slide.alt} class="kids-slide-img rounded-none" />
+            <img src={slide.src} alt={slide.alt} class="kids-slide-img rounded-none" loading="lazy" decoding="async" />
           ))}
         </div>
         <div class="absolute inset-x-4 bottom-4 flex items-center justify-center gap-1.5 rounded-full bg-white/85 px-3 py-2 shadow-lg ring-1 ring-black/5 backdrop-blur">
@@ -403,13 +403,13 @@ const faqItems = [
   <div class="mx-auto max-w-5xl px-4 text-center sm:px-6">
     <p class="text-sm font-bold uppercase tracking-[0.16em] text-brand-red">This Sunday</p>
     <h2 class="mt-4 text-4xl font-black leading-tight text-gray-900 md:text-6xl">
-      Come. See. <span class="text-brand-red">Jesus</span>.
+      Come. See. <span class="text-brand-red">Jesus.</span>
     </h2>
     <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-gray-600 md:text-xl">
       Join us from 9:00-11:00 AM.
     </p>
     <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
-      <a href="/visit" class="inline-flex min-h-12 items-center justify-center rounded-2xl bg-brand-red px-7 py-4 text-base font-black text-white shadow-md transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-[#9F2429] hover:shadow-lg active:scale-[0.98]">
+      <a href="/visit" class="inline-flex min-h-12 items-center justify-center rounded-2xl bg-brand-red px-7 py-4 text-base font-black text-white shadow-md transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-brand-action-hover hover:shadow-lg active:scale-[0.98]">
         Plan A Visit
       </a>
       <a href={visitLocation.mapsQueryUrl} target="_blank" rel="noopener" class="inline-flex min-h-12 items-center justify-center rounded-2xl border-2 border-brand-red/40 bg-white px-7 py-4 text-base font-black text-gray-900 shadow-sm transition-[border-color,background-color,transform] duration-200 ease-out hover:border-brand-red/70 hover:bg-gray-50 active:scale-[0.98]">
@@ -439,7 +439,7 @@ const faqItems = [
 
   .kids-slide-indicator.is-active {
     width: clamp(2rem, 10vw, 4rem);
-    background: #B3282D;
+    background: var(--tlp-color-brand-red);
   }
 
   .kids-slide-indicator:hover {
@@ -447,7 +447,7 @@ const faqItems = [
   }
 
   .kids-slide-indicator.is-active:hover {
-    background: #B3282D;
+    background: var(--tlp-color-brand-red);
   }
 </style>
 
