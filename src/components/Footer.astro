@@ -1,10 +1,8 @@
 ---
 import { site } from "../../site.config.js";
-import { getVisitLocation } from "../content/shared-content.js";
 
 const churchName = site.name;
 const email = site.contact.email;
-const visitLocation = getVisitLocation();
 const newsletterUrl = `${site.links.blogUrl.replace(/\/$/, "")}/subscribe`;
 
 // Optional: add later if you want it public
@@ -25,7 +23,7 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
     </div>
 
     <!-- FOOTER LINKS AND NEWSLETTER -->
-    <div class="grid grid-cols-1 gap-8 text-center md:grid-cols-2 md:gap-12 lg:grid-cols-4">
+    <div class="grid grid-cols-1 gap-8 text-center md:grid-cols-2 md:gap-12 lg:grid-cols-3">
 
       <!-- EXPLORE -->
       <div>
@@ -33,9 +31,8 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
           Explore
         </h3>
         <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-600">
-          <li><a href="/" class="hover:text-brand-red transition">About</a></li>
+          <li><a href="/about-us" class="hover:text-brand-red transition">About</a></li>
           <li><a href="/about-us/leadership/" class="hover:text-brand-red transition">Leadership</a></li>
-          <li><a href="/events" class="hover:text-brand-red transition">Events</a></li>
           <!-- Ministries nav removed -->
         </ul>
       </div>
@@ -46,28 +43,10 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
           Next Steps
         </h3>
         <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-600">
-          <li><a href="/give/" class="hover:text-brand-red transition">Giving</a></li>
+          <li><a href="/live" class="hover:text-brand-red transition">Watch Live</a></li>
           <li><a href="/prayer/" class="hover:text-brand-red transition">Prayer Requests</a></li>
           <li><a href="/devotionals" class="hover:text-brand-red transition">Devotionals</a></li>
-          <li><a href="/visit/" class="hover:text-brand-red transition">Contact</a></li>
-          <li class="flex items-center justify-center gap-2">
-            <span>Get the App</span>
-            <span class="text-gray-400 font-bold uppercase tracking-wider text-[0.7rem] md:text-xs cursor-not-allowed">
-              Coming soon
-            </span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- LEGAL -->
-      <div>
-        <h3 class="font-semibold text-gray-800 mb-2 md:mb-4 text-xs md:text-base uppercase tracking-wide">
-          Legal
-        </h3>
-        <ul class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-600">
-          <li><a href="/privacy-policy/" class="hover:text-brand-red transition">Privacy Policy</a></li>
-          <li><a href="/terms/" class="hover:text-brand-red transition">Terms & Conditions</a></li>
-          <li><a href="/cookies/" class="hover:text-brand-red transition">Cookie Policy</a></li>
+          <li><a href="/visit" class="hover:text-brand-red transition">Visit Us</a></li>
         </ul>
       </div>
 
@@ -109,13 +88,10 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
     <div class="mt-4 md:mt-16 text-center">
       <div class="inline-block text-center">
         <h3 class="font-semibold text-gray-800 mb-2 md:mb-4 text-xs md:text-base uppercase tracking-wide">
-          Contact
+         Email
         </h3>
 
         <div class="space-y-1 md:space-y-2 text-xs md:text-sm text-gray-600">
-          <p class="font-semibold text-gray-800 text-xs md:text-sm">{churchName}</p>
-          {visitLocation.addressLines.map((line) => <p class="text-xs md:text-sm">{line}</p>)}
-
           <p class="flex items-center justify-center gap-1 md:gap-2 text-xs md:text-sm">
             <i class="fa-solid fa-envelope text-brand-red text-xs md:text-sm"></i>
             <a href={`mailto:${email}`} class="hover:text-brand-red transition">
@@ -159,10 +135,14 @@ const phoneHref = ""; // e.g. "tel:+27765639460"
       </a>
     </div>
 
-    <!-- COPYRIGHT -->
-    <p class="text-center text-gray-500 text-xs mt-3 md:mt-10">
-© {new Date().getFullYear()} The Life Place. All rights reserved.
-    </p>
+    <!-- COPYRIGHT AND LEGAL -->
+    <div class="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-gray-500 md:mt-10 md:flex-nowrap">
+      <span class="whitespace-nowrap">© {new Date().getFullYear()} The Life Place. All rights reserved.</span>
+      <span aria-hidden="true" class="hidden text-gray-300 md:inline">•</span>
+      <a href="/privacy-policy" class="whitespace-nowrap transition hover:text-brand-red">Privacy Policy</a>
+      <a href="/terms" class="whitespace-nowrap transition hover:text-brand-red">Terms &amp; Conditions</a>
+      <a href="/cookies" class="whitespace-nowrap transition hover:text-brand-red">Cookie Policy</a>
+    </div>
 
   </div>
 </footer>
