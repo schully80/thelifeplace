@@ -70,13 +70,16 @@ const beliefPostures = [
 >
   <main class="about-page bg-white text-gray-800">
     <section class="relative isolate min-h-[560px] overflow-hidden md:min-h-[640px]">
-      <img
+      <picture>
+        <source type="image/webp" srcset="/images/sandton-skyline-grayscale-960.webp 960w, /images/sandton-skyline-grayscale-1600.webp 1600w" sizes="100vw" />
+        <img
         src="/sandton-skyline-grayscale.jpg"
         alt="Sandton skyline near The Life Place"
         class="absolute inset-0 h-full w-full object-cover"
         loading="eager"
         decoding="async"
-      />
+        />
+      </picture>
       <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(17,24,39,0.82),rgba(17,24,39,0.48),rgba(17,24,39,0.24))]"></div>
 
       <div class="relative z-10 mx-auto flex min-h-[560px] max-w-7xl items-center px-6 py-20 md:min-h-[640px]">
@@ -159,13 +162,16 @@ const beliefPostures = [
     <section class="px-6 py-20 md:py-28">
       <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
         <div class="aspect-[3/2] overflow-hidden rounded-3xl bg-gray-100 shadow-sm lg:aspect-auto lg:min-h-[540px]">
-          <img
+          <picture>
+            <source type="image/webp" srcset="/images/founders-grayscale-960.webp 960w, /images/founders-grayscale-1600.webp 1600w" sizes="(max-width: 1023px) 100vw, 50vw" />
+            <img
             src="/founders-grayscale.jpg"
             alt="Schulter and Genevieve Etyang"
             class="h-full w-full object-cover object-[55%_38%] grayscale lg:object-[52%_42%]"
             loading="lazy"
             decoding="async"
-          />
+            />
+          </picture>
         </div>
         <div class="max-w-xl">
           <p class="mb-4 text-sm font-bold uppercase tracking-[0.16em] text-brand-red">Leadership</p>

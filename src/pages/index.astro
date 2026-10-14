@@ -44,17 +44,17 @@ const storyChannels = [
 ];
 
 const kidsSlides = [
-  { src: "/what-kids15.jpg", alt: "Children at The Life Place" },
-  { src: "/what-kids.jpg", alt: "Children learning and worshipping at The Life Place" },
-  { src: "/what-kids11.jpg", alt: "Kids participating in activities at The Life Place" },
-  { src: "/what-kids4.jpg", alt: "Children welcomed at The Life Place" },
-  { src: "/what-kids5.jpg", alt: "Kids participating in activities at The Life Place" },
-  { src: "/what-kids6.jpg", alt: "Children learning and worshipping at The Life Place" },
-  { src: "/what-kids12.jpg", alt: "Kids participating in activities at The Life Place" },
-  { src: "/what-kids8.jpg", alt: "Kids participating in activities at The Life Place" },
-  { src: "/what-kids14.jpg", alt: "Kids participating in activities at The Life Place" },
-  { src: "/what-kids10.jpg", alt: "Kids participating in activities at The Life Place" },
-  { src: "/what-kids13.jpg", alt: "Kids participating in activities at The Life Place" },
+  { src: "/what-kids15.jpg", webpBase: "/images/what-kids15", alt: "Children at The Life Place" },
+  { src: "/what-kids.jpg", webpBase: "/images/what-kids", alt: "Children learning and worshipping at The Life Place" },
+  { src: "/what-kids11.jpg", webpBase: "/images/what-kids11", alt: "Kids participating in activities at The Life Place" },
+  { src: "/what-kids4.jpg", webpBase: "/images/what-kids4", alt: "Children welcomed at The Life Place" },
+  { src: "/what-kids5.jpg", webpBase: "/images/what-kids5", alt: "Kids participating in activities at The Life Place" },
+  { src: "/what-kids6.jpg", webpBase: "/images/what-kids6", alt: "Kids participating in activities at The Life Place" },
+  { src: "/what-kids12.jpg", webpBase: "/images/what-kids12", alt: "Kids participating in activities at The Life Place" },
+  { src: "/what-kids8.jpg", webpBase: "/images/what-kids8", alt: "Kids participating in activities at The Life Place" },
+  { src: "/what-kids14.jpg", webpBase: "/images/what-kids14", alt: "Kids participating in activities at The Life Place" },
+  { src: "/what-kids10.jpg", webpBase: "/images/what-kids10", alt: "Kids participating in activities at The Life Place" },
+  { src: "/what-kids13.jpg", webpBase: "/images/what-kids13", alt: "Kids participating in activities at The Life Place" },
 ];
 
 const sundayFlow = [
@@ -162,13 +162,16 @@ const faqItems = [
 
 <section class="relative overflow-hidden bg-white">
   <div class="absolute inset-y-0 right-0 hidden w-[46vw] lg:block">
-    <img
+    <picture>
+      <source type="image/webp" srcset="/images/sandton-skyline-grayscale-960.webp 960w, /images/sandton-skyline-grayscale-1600.webp 1600w" sizes="46vw" />
+      <img
       src="/sandton-skyline-grayscale.jpg"
       alt="Sandton skyline near The Life Place"
       class="h-full w-full rounded-none object-cover"
       loading="eager"
       decoding="async"
-    />
+      />
+    </picture>
     <div class="absolute inset-0 bg-gradient-to-r from-white via-white/55 to-black/10"></div>
   </div>
 
@@ -352,8 +355,11 @@ const faqItems = [
 
       <div class="relative overflow-hidden rounded-3xl border border-gray-200 bg-gray-100 shadow-xl">
         <div id="kidsSlidesHome" class="flex aspect-[4/3] w-full transition-transform duration-700 ease-out">
-          {kidsSlides.map((slide) => (
-            <img src={slide.src} alt={slide.alt} class="kids-slide-img rounded-none" loading="lazy" decoding="async" />
+          {kidsSlides.map((slide, index) => (
+            <picture class="kids-slide-picture">
+              <source type="image/webp" srcset={`${slide.webpBase}-960.webp 960w, ${slide.webpBase}-1600.webp 1600w`} sizes="(max-width: 1023px) 100vw, 50vw" />
+              <img src={slide.src} alt={slide.alt} class="kids-slide-img rounded-none" loading={index === 0 ? "eager" : "lazy"} decoding="async" fetchpriority={index === 0 ? "high" : "auto"} />
+            </picture>
           ))}
         </div>
         <div class="absolute inset-x-4 bottom-4 flex items-center justify-center gap-1.5 rounded-full bg-white/85 px-3 py-2 shadow-lg ring-1 ring-black/5 backdrop-blur">
@@ -420,6 +426,12 @@ const faqItems = [
 </section>
 
 <style>
+  .kids-slide-picture {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+  }
+
   .kids-slide-img {
     width: 100%;
     height: 100%;

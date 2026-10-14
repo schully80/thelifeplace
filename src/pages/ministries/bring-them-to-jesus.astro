@@ -14,14 +14,17 @@ const event = url.searchParams.get("event");
 >
   <!-- Hero -->
   <section class="relative left-1/2 right-1/2 -mx-[50vw] w-screen h-[70vh] overflow-hidden tlp-grayscale rounded-none">
-    <img
+    <picture>
+      <source type="image/webp" srcset="/images/father-child3-960.webp 960w, /images/father-child3-1600.webp 1600w" sizes="100vw" />
+      <img
       src="/father-child3.jpg"
       alt="Only Jesus"
       class="absolute inset-0 w-full h-full object-cover tlp-grayscale rounded-none"
       style="border-radius:0!important;"
       loading="eager"
       decoding="async"
-    />
+      />
+    </picture>
     <div class="absolute inset-0 bg-black/20"></div>
 
     <div class="relative z-10 px-4 text-center flex items-center justify-center h-full">

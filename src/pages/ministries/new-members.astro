@@ -14,13 +14,16 @@ const NEW_MEMBERS_REG_OPEN = true;
 
   <!-- Hero -->
   <section class="relative left-1/2 right-1/2 -mx-[50vw] w-screen h-[45vh] md:h-[60vh] overflow-hidden tlp-grayscale">
-    <img
+    <picture>
+      <source type="image/webp" srcset="/images/join-us-960.webp 960w, /images/join-us-1600.webp 1600w" sizes="100vw" />
+      <img
       src="/join-us.jpg"
       alt="Join Us"
       class="absolute inset-0 w-full h-full object-cover tlp-grayscale"
       loading="eager"
       decoding="async"
-    />
+      />
+    </picture>
     <div class="absolute inset-0 bg-gradient-to-b from-black/0 to-black/5 md:from-black/5 md:to-black/15"></div>
   </section>
 

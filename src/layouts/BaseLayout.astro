@@ -32,8 +32,9 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 const siteUrl = "https://thelifeplace.org";
 
 const { pathname } = Astro.url;
+const normalizedPath = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
 const canonicalUrl =
-  pathname === "/" ? "https://thelifeplace.org" : `https://thelifeplace.org${pathname}`;
+  normalizedPath === "/" ? "https://thelifeplace.org" : `https://thelifeplace.org${normalizedPath}`;
 
 // Keep the service event schema aligned with the next upcoming Sunday in SAST.
 // South Africa observes UTC+02:00 year-round.

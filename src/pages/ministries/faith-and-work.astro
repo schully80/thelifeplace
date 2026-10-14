@@ -2,20 +2,27 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import RegisterForm from "../../components/RegisterForm.astro";
 ---
-<BaseLayout title="Faith & Work">
+<BaseLayout
+  title="Faith & Work | The Life Place"
+  description="Faith and Work at The Life Place is preparing to launch."
+  noindex={true}
+>
   <section class="container-x py-10 md:py-16 text-center">
 
     <!-- Hero -->
   <section class="relative full-bleed">
     <div class="relative min-h-[38vh] md:min-h-[50vh] flex items-center justify-center">
-      <img
+      <picture>
+        <source type="image/webp" srcset="/images/faith-and-work-960.webp 960w, /images/faith-and-work-1600.webp 1600w" sizes="100vw" />
+        <img
         src="/faith-and-work.jpg"
         alt="Join Us"
         class="absolute inset-0 h-full w-full object-cover"
         style="max-height:60vh"
         loading="eager"
         decoding="async"
-      />
+        />
+      </picture>
       <div class="absolute inset-0 bg-black/10"></div>
     </div>
 

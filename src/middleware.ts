@@ -39,6 +39,12 @@ export const onRequest: MiddlewareHandler = async (context, next) => {
   const url = new URL(context.request.url);
   const normalizedPath = normalizePathname(url.pathname);
 
+  // Astro emits canonical routes without trailing slashes. Preserve old internal
+  // links and external bookmarks by redirecting them to that single URL form.
+  if (url.pathname !== normalizedPath) {
+    return context.redirect(`${normalizedPath}${url.search}`, 301);
+  }
+
   const redirectTarget = redirectRoutes.get(normalizedPath);
   if (redirectTarget) {
     return context.redirect(redirectTarget, 301);

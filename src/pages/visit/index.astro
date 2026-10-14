@@ -27,12 +27,15 @@ const isDev = import.meta.env.MODE !== 'production';
   >
 
     <!-- INSTANT BACKGROUND IMAGE (no fade, no opacity, no transition) -->
-    <img 
+    <picture>
+      <source type="image/webp" srcset="/images/wide-strip5-960.webp 960w, /images/wide-strip5-1600.webp 1600w" sizes="100vw" />
+      <img
       id="hero-image"
       src="/wide-strip5.jpg"
       alt="The Life Place Community Worship"
       class="absolute inset-0 w-full h-full object-cover object-center brightness-[0.55] rounded-none"
-    />
+      />
+    </picture>
     <!-- Soft overlay -->
     <div class="absolute inset-0 bg-black/20"></div>
 

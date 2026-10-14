@@ -13,6 +13,10 @@ import Pagination from "../components/Pagination.astro";
 import { loadMessages } from "../utils/message-store";
 import { highlightJesusHtml } from "../utils/highlight-jesus";
 
+// The previous archive contains unverified placeholder records. Keep its public URL
+// useful without presenting fictional sermons until real recordings are supplied.
+return Astro.redirect("/live/", 302);
+
 const runtimeEnv = (Astro.locals as { runtime?: { env?: Record<string, unknown> } } | undefined)?.runtime?.env;
 const messages = await loadMessages(runtimeEnv);
 

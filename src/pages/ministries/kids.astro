@@ -4,20 +4,24 @@ import RegisterForm from "../../components/RegisterForm.astro";
 ---
 <BaseLayout
   title="Kids — Children's Ministry | The Life Place"
-  description="The Life Place — Come. See. Jesus. A safe, fun, and faith-filled environment where children discover Jesus and grow in God's love.">
+  description="Kids Ministry at The Life Place is preparing to launch. Children remain warmly welcome in Sunday services with their parents."
+  noindex={true}>
 
 
 <!-- Hero -->
   <section class="relative full-bleed">
     <div class="relative min-h-[38vh] md:min-h-[50vh] flex items-center justify-center">
-      <img
+      <picture>
+        <source type="image/webp" srcset="/images/what-kids-960.webp 960w, /images/what-kids-1600.webp 1600w" sizes="100vw" />
+        <img
         src="/what-kids.jpg"
         alt="Join Us"
         class="absolute inset-0 h-full w-full object-cover tlp-grayscale"
         style="max-height:60vh"
         loading="eager"
         decoding="async"
-      />
+        />
+      </picture>
       <div class="absolute inset-0 bg-black/10"></div>
    <!-- Centered hero text -->
     <div class="relative z-10 flex items-center justify-center min-h-[50vh] md:min-h-[60vh] px-4">

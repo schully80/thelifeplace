@@ -25,13 +25,16 @@ const prayerControllerConfig = JSON.stringify({
 
 <!-- Modern Hero Section (2025+) -->
 <section class="relative flex min-h-[420px] w-full items-center justify-center overflow-hidden bg-gray-950 py-14 md:min-h-[520px] md:py-20 lg:min-h-[640px] lg:py-28">
-  <img
+  <picture>
+    <source type="image/webp" srcset="/images/prayer-960.webp 960w, /images/prayer-1600.webp 1600w" sizes="100vw" />
+    <img
     src="/prayer.jpg"
     alt="People gathered in prayer at The Life Place"
     class="absolute inset-0 h-full w-full scale-105 object-cover object-center opacity-80 blur-[1px]"
     loading="eager"
     decoding="async"
-  />
+    />
+  </picture>
   <div class="absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-black/45 pointer-events-none"></div>
   <div class="relative z-10 mx-auto flex max-w-4xl flex-col items-center justify-center px-4 py-10 text-center sm:px-6 md:py-14">
     <!-- Heading w/ animated underline -->

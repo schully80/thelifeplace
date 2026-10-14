@@ -9,6 +9,9 @@ export default defineConfig({
   site: "https://thelifeplace.org",
   adapter: cloudflare({ imageService: "compile" }),
   output: "server",
+  // Accept legacy links with a trailing slash; middleware redirects them to the
+  // canonical slashless form before a page is rendered.
+  trailingSlash: "ignore",
   vite: {
     ssr: {
       external: ["node:fs/promises", "node:path"],
@@ -25,7 +28,7 @@ export default defineConfig({
       filter: (page) => {
         if (!page) return true;
 
-        const p = new URL(page).pathname;
+        const p = new URL(page).pathname.replace(/\/$/, "") || "/";
 
         // ✅ Exclude test / draft / legacy routes from sitemap
         const blocked =
@@ -45,7 +48,14 @@ export default defineConfig({
           p.includes("test-address") ||
           p.includes("test-places");
 
-        return !blocked;
+        const unavailableMinistryRoutes = new Set([
+          "/ministries/kids",
+          "/ministries/premarital-counseling",
+          "/ministries/institute",
+          "/ministries/faith-and-work",
+        ]);
+
+        return !blocked && p !== "/thank-you" && p !== "/messages" && !unavailableMinistryRoutes.has(p);
       },
     }),
     react(),
