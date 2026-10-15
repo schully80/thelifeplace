@@ -1,4 +1,5 @@
 import type { MiddlewareHandler } from "astro/dist/types/public/common.js";
+import { getCanonicalPathname, normalizePathname } from "./utils/url-routing.js";
 
 const redirectRoutes = new Map<string, string>([
   ["/about-us/our-values", "/about-us/"],
@@ -22,11 +23,6 @@ const goneRoutes = new Set<string>([
   "/dev/splash-test",
 ]);
 
-function normalizePathname(pathname: string): string {
-  if (!pathname || pathname === "/") return "/";
-  return pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
-}
-
 function isInternalNoIndexPath(pathname: string): boolean {
   return (
     pathname.startsWith("/admin") ||
@@ -38,11 +34,10 @@ function isInternalNoIndexPath(pathname: string): boolean {
 export const onRequest: MiddlewareHandler = async (context, next) => {
   const url = new URL(context.request.url);
   const normalizedPath = normalizePathname(url.pathname);
+  const canonicalPath = getCanonicalPathname(url.pathname);
 
-  // Astro emits canonical routes without trailing slashes. Preserve old internal
-  // links and external bookmarks by redirecting them to that single URL form.
-  if (url.pathname !== normalizedPath) {
-    return context.redirect(`${normalizedPath}${url.search}`, 301);
+  if (url.pathname !== canonicalPath) {
+    return context.redirect(`${canonicalPath}${url.search}`, 301);
   }
 
   const redirectTarget = redirectRoutes.get(normalizedPath);

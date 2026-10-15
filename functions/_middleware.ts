@@ -4,6 +4,7 @@ import type {
   PagesFunction,
   Response as WorkerResponse,
 } from "@cloudflare/workers-types";
+import { getCanonicalPathname, normalizePathname } from "../src/utils/url-routing.js";
 
 // ✅ In-memory rate limiting (per IP)
 const rateLimitMap = new Map<string, { count: number; reset: number }>();
@@ -27,11 +28,6 @@ const goneRoutes = new Set<string>([
   "/test-visit",
   "/dev/splash-test",
 ]);
-
-function normalizePathname(pathname: string): string {
-  if (!pathname || pathname === "/") return "/";
-  return pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
-}
 
 function isInternalNoIndexPath(pathname: string): boolean {
   return (
@@ -83,7 +79,15 @@ export const onRequest: PagesFunction = async (
   const url = new URL(request.url);
   const pathname = url.pathname;
   const normalizedPath = normalizePathname(pathname);
+  const canonicalPath = getCanonicalPathname(pathname);
   const isGivePage = normalizedPath === "/give";
+
+  if (pathname !== canonicalPath) {
+    return Response.redirect(
+      new URL(`${canonicalPath}${url.search}`, url).toString(),
+      301
+    ) as unknown as WorkerResponse;
+  }
 
   const redirectTarget = redirectRoutes.get(normalizedPath);
   if (redirectTarget) {

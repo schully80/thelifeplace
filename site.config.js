@@ -100,7 +100,7 @@ export const site = {
     blogUrl: "https://schulteretyang.substack.com",
     visitPath: "/visit/",
     givePath: "/give/",
-    livePath: "/live",
+    livePath: "/live/",
     messagesPath: "/messages",
     appPath: "/app",
     prayerPath: "/prayer",

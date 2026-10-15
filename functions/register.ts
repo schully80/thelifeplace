@@ -295,7 +295,7 @@ export const onRequestPost = (async (context: any) => {
       // Plain-text fallback for user is set below; HTML is injected during send
       userBody = `Hi ${firstName || "there"},\n\nThanks for planning a visit to The Life Place. We've received your details` +
         (attendees ? ` for ${attendees} attendee(s)` : "") +
-        `. Our team will reach out if we need anything else.\n\nService times and directions: https://thelifeplace.org/visit\n\nIf something changes, just reply to this email.\n\nWe can’t wait to see you!\nThe Life Place Team`;
+        `. Our team will reach out if we need anything else.\n\nService times and directions: https://thelifeplace.org/visit/\n\nIf something changes, just reply to this email.\n\nWe can’t wait to see you!\nThe Life Place Team`;
     }
 
     const sendWhatsAppConfirmation = async () => {

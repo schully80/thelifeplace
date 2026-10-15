@@ -10,7 +10,7 @@
     "import:youtube:monid": "node ./src/scripts/import-youtube-monid.js",
     "test:monid-audit": "node --test ./tests/audit-website-monid.test.mjs",
     "test:dropdown": "node ./tests/check-dropdown.js",
-    "test:contracts": "node --test ./tests/shared-contracts.test.mjs",
+    "test:contracts": "node --test ./tests/shared-contracts.test.mjs ./tests/url-routing.test.mjs",
     "test:monid-import": "node --test ./tests/import-youtube-monid.test.mjs",
     "build": "astro build",
     "preview": "astro preview --port 4322 --host 0.0.0.0"

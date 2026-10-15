@@ -9,8 +9,7 @@ export default defineConfig({
   site: "https://thelifeplace.org",
   adapter: cloudflare({ imageService: "compile" }),
   output: "server",
-  // Accept legacy links with a trailing slash; middleware redirects them to the
-  // canonical slashless form before a page is rendered.
+  // Let middleware enforce the route-specific canonical slash policy.
   trailingSlash: "ignore",
   vite: {
     ssr: {

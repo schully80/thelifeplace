@@ -7,6 +7,7 @@ import Header from "../components/Header.astro";
 import ContactWidget from "../components/ContactWidget.astro";
 import Footer from "../components/Footer.astro";
 import AppButton from "../components/AppButton.astro";
+import { getCanonicalPathname } from "../utils/url-routing.js";
 
 const {
   title = "The Life Place — Come. See. Jesus. | Craigavon, Sandton",
@@ -31,9 +32,9 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 const siteUrl = "https://thelifeplace.org";
 
 const { pathname } = Astro.url;
-const normalizedPath = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+const canonicalPath = getCanonicalPathname(pathname);
 const canonicalUrl =
-  normalizedPath === "/" ? "https://thelifeplace.org" : `https://thelifeplace.org${normalizedPath}`;
+  canonicalPath === "/" ? siteUrl : `${siteUrl}${canonicalPath}`;
 
 // Keep the service event schema aligned with the next upcoming Sunday in SAST.
 // South Africa observes UTC+02:00 year-round.
@@ -83,10 +84,10 @@ const sundayServiceSchema = {
     name: "The Life Place",
     url: "https://thelifeplace.org"
   },
-  url: "https://thelifeplace.org/visit",
+  url: "https://thelifeplace.org/visit/",
   offers: {
     "@type": "Offer",
-    url: "https://thelifeplace.org/visit",
+    url: "https://thelifeplace.org/visit/",
     price: "0",
     priceCurrency: "ZAR",
     availability: "https://schema.org/InStock",
@@ -181,11 +182,11 @@ pathParts.forEach((part, index) => {
   "potentialAction": [
     {
       "@type": "JoinAction",
-      "target": "https://thelifeplace.org/visit"
+      "target": "https://thelifeplace.org/visit/"
     },
     {
       "@type": "DonateAction",
-      "target": "https://thelifeplace.org/give"
+      "target": "https://thelifeplace.org/give/"
     }
   ],
   "sameAs": [
