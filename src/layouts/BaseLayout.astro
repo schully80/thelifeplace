@@ -22,7 +22,6 @@ const {
   articleContent = null, // Article body text (for wordCount)
 } = Astro.props;
 
-const path = Astro.url.pathname;
 const whatsappNumber = "27765639460";
 const whatsappMessage = "Hi The Life Place, I'd love to get in touch.";
 const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
@@ -343,36 +342,6 @@ pathParts.forEach((part, index) => {
       ></div>
     </div>
 
-    <!-- SPLASH SCREEN (homepage only) -->
-    {path === "/" && (
-      <div id="splash-screen"
-           class="fixed inset-0 z-[9999] flex items-center justify-center 
-                  bg-white pointer-events-none theme-light-aura">
-        <div id="splash-inner" class="relative flex items-center justify-center z-10">
-          <!-- Halo ring -->
-          <div id="splash-ring" class="absolute rounded-full border border-white/40 shadow-[0_0_60px_rgba(255,255,255,0.35)] opacity-0 scale-50"
-               style="width: var(--halo-size); height: var(--halo-size);"></div>
-
-          <!-- Soft pulse -->
-          <div id="splash-flash" class="absolute rounded-full bg-[var(--accent-strong)]/55 opacity-0 scale-50"
-               style="width: var(--halo-size); height: var(--halo-size); filter: blur(var(--halo-blur));"></div>
-
-          <!-- Circular loader -->
-          <div
-            id="splash-spinner"
-            role="progressbar"
-            aria-label="Loading"
-            class="relative rounded-full border-white/20 border-t-[var(--accent-strong)] opacity-100"
-            style="
-              width: var(--spinner-size);
-              height: var(--spinner-size);
-              border-width: var(--spinner-border);
-            "
-          ></div>
-        </div>
-      </div>
-    )}
-
     <!-- UNIFIED HEADER (handles all breakpoints) -->
     <Header />
 
@@ -398,90 +367,6 @@ pathParts.forEach((part, index) => {
 
     <!-- Site JS -->
     <script src="/js/dropdowns.js" defer></script>
-
-
-
-    <!-- Animations -->
-    <style is:inline>
-      /* Light Aura tokens (shared with dev splash) */
-      #splash-screen.theme-light-aura {
-        --bg-base: #f7f6f4;
-        --bg-top-left: #fdfaf6;
-        --bg-bottom-right: #f1e8e4;
-        --bg-glow1: rgba(255,183,190,0.28);
-        --bg-glow2: rgba(224,74,79,0.20);
-        --accent-strong: #b3282d;
-        --halo-size: clamp(11rem, 34vw, 15rem);
-        --halo-blur: 34px;
-        --spinner-size: clamp(4.5rem, 18vw, 7.5rem);
-        --spinner-border: clamp(3px, 0.9vw, 6px);
-      }
-
-      #splash-screen.fade-out {
-        opacity: 0;
-        transition: opacity 0.8s ease-out;
-      }
-
-      @keyframes splash-ring-pop {
-        0% { opacity: 0; transform: scale(0.7); }
-        60% { opacity: 1; transform: scale(1.08); }
-        100% { opacity: 1; transform: scale(1); }
-      }
-
-      @keyframes splash-flash-pulse {
-        0% { opacity: 0; transform: scale(0.7); }
-        30% { opacity: 1; transform: scale(1); }
-        100% { opacity: 0; transform: scale(1.3); }
-      }
-
-      @keyframes splash-spinner-spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-    </style>
-
-    {path === "/" && (
-      <script is:inline>
-        const splashAlreadyShown = sessionStorage.getItem("tlp_splash_shown");
-
-        const startSplash = () => {
-          const screen = document.getElementById("splash-screen");
-          const spinner = document.getElementById("splash-spinner");
-          const flash = document.getElementById("splash-flash");
-          const ring = document.getElementById("splash-ring");
-
-          if (!screen || !spinner || !flash || !ring) return;
-
-          // show elements
-          spinner.style.opacity = "1";
-          ring.style.opacity = "1";
-
-          // animations
-          ring.style.animation = "splash-ring-pop 0.9s cubic-bezier(0.33,1,0.68,1) forwards";
-          setTimeout(() => {
-            flash.style.animation = "splash-flash-pulse 0.8s ease-out forwards";
-          }, 550);
-          spinner.style.animation = "splash-spinner-spin 0.7s linear infinite";
-
-          // auto-hide ~2s total (fade starts sooner to cut wait time)
-          setTimeout(() => {
-            screen.classList.add("fade-out");
-          }, 1200);
-          setTimeout(() => {
-            screen.style.display = "none";
-          }, 2000);
-        };
-
-        if (!splashAlreadyShown) {
-          sessionStorage.setItem("tlp_splash_shown", "yes");
-          document.addEventListener("DOMContentLoaded", startSplash);
-        } else {
-          const screen = document.getElementById("splash-screen");
-          if (screen) screen.style.display = "none";
-        }
-      </script>
-    )}
-
     <!-- Scroll progress logic -->
     <script is:inline>
       document.addEventListener("scroll", () => {
