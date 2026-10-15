@@ -181,15 +181,7 @@ const faqItems = [
         Sundays in Craigavon AH, Sandton
       </p>
       <h1 class="text-5xl font-black leading-[0.96] text-gray-900 sm:text-6xl md:text-7xl lg:text-8xl">
-        Come. See.
-        <span class="relative inline-block text-brand-red">
-          <span
-            data-home-brand-intro
-            class="home-brand-intro-accent pointer-events-none absolute z-0"
-            aria-hidden="true"
-          ></span>
-          <span class="relative z-10">Jesus.</span>
-        </span>
+        Come. See. <span class="text-brand-red">Jesus.</span>
       </h1>
       <p class="mt-7 max-w-2xl text-lg font-medium leading-relaxed text-gray-700 md:text-2xl">
         A Jesus-centered church in Sandton, Johannesburg, welcoming people from our city and beyond.
@@ -240,49 +232,6 @@ const faqItems = [
     </div>
   </div>
 </section>
-
-<script is:inline>
-  (() => {
-    const intro = document.querySelector('[data-home-brand-intro]');
-    if (!(intro instanceof HTMLElement)) return;
-
-    const storageKey = 'tlp_home_brand_intro_v1';
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (prefersReducedMotion) return;
-
-    try {
-      if (sessionStorage.getItem(storageKey) === 'yes') return;
-    } catch {
-      return;
-    }
-
-    let finished = false;
-    let watchdog = 0;
-
-    const finishIntro = () => {
-      if (finished) return;
-      finished = true;
-      window.clearTimeout(watchdog);
-      intro.classList.remove('is-active');
-
-      try {
-        sessionStorage.setItem(storageKey, 'yes');
-      } catch {
-        // The reveal is decorative. Storage failure must never affect the page.
-      }
-    };
-
-    intro.addEventListener('animationend', finishIntro, { once: true });
-    intro.addEventListener('animationcancel', finishIntro, { once: true });
-    window.addEventListener('pageshow', (event) => {
-      if (event.persisted) finishIntro();
-    });
-
-    intro.classList.add('is-active');
-    watchdog = window.setTimeout(finishIntro, 900);
-  })();
-</script>
 
 <section class="relative isolate overflow-hidden bg-white py-20 md:py-28 lg:py-36">
   <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-red/30 to-transparent"></div>
@@ -477,45 +426,6 @@ const faqItems = [
 </section>
 
 <style>
-  .home-brand-intro-accent {
-    inset: -0.12em -0.2em -0.08em;
-    border: 0.035em solid rgb(179 40 45 / 0.38);
-    border-radius: 52% 48% 54% 46% / 48% 55% 45% 52%;
-    opacity: 0;
-    transform: scale(0.72) rotate(-1.5deg);
-    transform-origin: center;
-  }
-
-  .home-brand-intro-accent.is-active {
-    animation: home-brand-intro-pulse 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
-    will-change: opacity, transform;
-  }
-
-  @keyframes home-brand-intro-pulse {
-    0% {
-      opacity: 0;
-      transform: scale(0.72) rotate(-1.5deg);
-    }
-
-    42% {
-      opacity: 0.56;
-      transform: scale(1) rotate(-0.5deg);
-    }
-
-    100% {
-      opacity: 0;
-      transform: scale(1.18) rotate(0deg);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .home-brand-intro-accent {
-      animation: none !important;
-      opacity: 0;
-      transform: none;
-    }
-  }
-
   .kids-slide-picture {
     width: 100%;
     height: 100%;
