@@ -1,155 +1,93 @@
----
-const CONSENT_KEY = 'tlp_cookie_consent'; // "accepted" | "declined"
----
-
 <style>
-  /* Backdrop (transparent; easy to theme later if desired) */
-  .cc-backdrop {
-    position: fixed; inset: 0;
-    background: transparent;
-    pointer-events: none;
-  }
-
-  /* Banner container */
   .cc-bar {
     position: fixed;
-    right: 1rem;
-    bottom: 1rem;
-    left: auto;
-    width: min(calc(100vw - 2rem), 38rem);
-    background: #ffffff;             /* light banner */
-    color: #111827;                  /* gray-900 text */
-    border: 1px solid #e5e7eb;       /* gray-200 border */
-    border-radius: 0.875rem;
-    padding: 1rem;
-    display: none;                   /* hidden until we decide to show */
-    box-shadow: 0 16px 48px rgba(17, 24, 39, 0.14);
+    left: 50%;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 1.5rem);
     z-index: 45;
+    display: none;
+    width: min(calc(100vw - 3rem), 45rem);
+    padding: 2rem;
+    color: oklch(0.98 0.005 30);
+    background: oklch(0.20 0.012 25);
+    border: 1px solid oklch(0.35 0.012 25);
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(23, 23, 23, 0.24);
+    transform: translateX(-50%);
   }
-  /* Add bottom padding on mobile for bottom nav */
-  @media (max-width: 767px) {
-    .cc-bar {
-      position: static;
-      right: auto;
-      bottom: auto;
-      left: auto;
-      width: auto;
-      margin: 0.75rem;
-      max-height: none;
-      overflow-y: visible;
-      padding: 0.875rem;
-    }
 
-    :global(html.cookie-consent-visible .contact-fab-anchor),
-    :global(html.cookie-consent-visible .contact-buttons) {
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(0.5rem) scale(0.96);
-    }
-  }
   .cc-bar.show { display: block; }
-
-  :global(html.cookie-consent-visible body) {
-    padding-bottom: var(--tlp-cookie-consent-height, 0px);
-  }
-
-  @media (max-width: 767px) {
-    :global(html.cookie-consent-visible body) {
-      padding-bottom: 0;
-    }
-  }
-
-  .cc-inner {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: .75rem;
-  }
-  @media (min-width: 640px) {
-    .cc-inner {
-      gap: 0.875rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .cc-inner {
-      grid-template-columns: 1fr;
-    }
-  }
+  .cc-inner { display: flex; align-items: center; gap: 3rem; }
 
   .cc-text {
+    flex: 1;
     margin: 0;
-    line-height: 1.55;
-    font-size: .95rem;
-  }
-
-  .cc-actions {
-    display: flex; gap: 0.75rem; flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-
-  @media (min-width: 768px) {
-    .cc-actions {
-      justify-content: flex-end;
-    }
-  }
-
-  .cc-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.625rem 1.25rem;
-    border-radius: 36px;
-    font-weight: 600;
-    cursor: pointer;
-    border: 1px solid var(--tlp-color-brand-red);
-    box-shadow: 0 0 0 1px var(--tlp-color-brand-red);
-    font-size: 0.95rem;
-    white-space: nowrap;
-  }
-  .cc-accept {
-    background: var(--tlp-color-brand-red);
-    color: #ffffff;
-  }
-  .cc-accept:hover {
-    filter: brightness(0.95);
-  }
-  .cc-decline {
-    background: #6B7280;   /* gray-500 */
-    color: #ffffff;
-    border: 1px solid transparent;
-    box-shadow: none;
-  }
-  .cc-decline:hover {
-    filter: brightness(0.95);
+    color: inherit;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.5;
   }
 
   .cc-link {
-    color: var(--tlp-color-brand-red);
+    color: inherit;
+    font-weight: 700;
     text-decoration: underline;
-    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.16em;
   }
+
+  .cc-link:hover { color: oklch(0.98 0.005 30); }
+
+  .cc-ok {
+    flex: none;
+    width: 7.125rem;
+    min-height: 5.25rem;
+    padding: 0.75rem 1rem;
+    color: oklch(0.98 0.005 30);
+    font: inherit;
+    font-size: 1.25rem;
+    font-weight: 800;
+    cursor: pointer;
+    background: var(--tlp-color-brand-red);
+    border: 1px solid var(--tlp-color-brand-red);
+    border-radius: 9999px;
+    transition: background-color 180ms ease-out, border-color 180ms ease-out, transform 180ms ease-out;
+  }
+
+  .cc-ok:hover { background: var(--tlp-color-brand-red-hover); border-color: var(--tlp-color-brand-red-hover); }
+  .cc-ok:active { transform: scale(0.98); }
+  .cc-ok:focus-visible { outline: 2px solid var(--tlp-color-brand-red); outline-offset: 3px; }
+
+  @media (max-width: 639px) {
+    .cc-bar { bottom: calc(env(safe-area-inset-bottom, 0px) + 5.5rem); width: calc(100vw - 1.5rem); padding: 1.25rem; }
+    .cc-inner { align-items: flex-end; gap: 1rem; }
+    .cc-text { font-size: 0.9375rem; }
+    .cc-ok { width: auto; min-width: 4rem; min-height: 3rem; font-size: 0.9375rem; }
+  }
+
+  @media (min-width: 640px) {
+    .cc-bar {
+      right: 1rem;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 6rem);
+      left: auto;
+      width: min(calc(100vw - 2rem), 32rem);
+      padding: 1.25rem;
+      transform: none;
+    }
+
+    .cc-inner { gap: 1.25rem; }
+    .cc-text { font-size: clamp(0.9375rem, 1vw, 1rem); }
+    .cc-ok { width: 4.5rem; min-height: 3.25rem; font-size: 1rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) { .cc-ok { transition: none; } }
 </style>
 
-<div class="cc-backdrop" aria-hidden="true"></div>
-
-<div
-  id="cookie-consent"
-  class="cc-bar"
-  role="dialog"
-  aria-live="polite"
-  aria-label="Cookie consent"
->
+<div id="cookie-consent" class="cc-bar" role="dialog" aria-live="polite" aria-label="Cookie notice">
   <div class="cc-inner">
     <p class="cc-text">
-      We use essential cookies to make this site work and, with your consent, analytics to improve it.
-      See our <a class="cc-link" href="/privacy-policy/">Privacy Policy</a> and
-      <a class="cc-link" href="/cookies/">Cookies</a>.
+      We use cookies to personalize your experience. By using our website, you accept our use of cookies as described in our&nbsp;<a class="cc-link" href="/privacy-policy/">Privacy Policy</a>.
     </p>
-
-    <div class="cc-actions">
-      <button id="cc-accept" class="cc-btn cc-accept" type="button">Accept</button>
-      <button id="cc-decline" class="cc-btn cc-decline" type="button">Decline</button>
-    </div>
+    <button id="cc-ok" class="cc-ok" type="button">Ok</button>
   </div>
 </div>
 
@@ -159,40 +97,26 @@ const CONSENT_KEY = 'tlp_cookie_consent'; // "accepted" | "declined"
     const bar = document.getElementById('cookie-consent');
     if (!bar) return;
 
-    // show banner only if not previously set
     try {
       const stored = localStorage.getItem(KEY);
       if (!stored) {
         bar.classList.add('show');
         document.documentElement.classList.add('cookie-consent-visible');
-        setConsentOffset();
       } else {
-        document.documentElement.dataset.cookieConsent = stored; // "accepted" | "declined"
+        document.documentElement.dataset.cookieConsent = stored;
       }
-    } catch (_) { /* ignore storage errors */ }
+    } catch (_) { /* Ignore unavailable storage. */ }
 
-    function setConsentOffset() {
-      if (!bar.classList.contains('show')) return;
-      document.documentElement.style.setProperty(
-        '--tlp-cookie-consent-height',
-        `${Math.ceil(bar.getBoundingClientRect().height)}px`
-      );
-    }
-
-    function setConsent(value) {
+    function acceptCookies() {
       try {
-        localStorage.setItem(KEY, value);
-        document.documentElement.dataset.cookieConsent = value;
-      } catch (_) { /* ignore */ }
+        localStorage.setItem(KEY, 'accepted');
+        document.documentElement.dataset.cookieConsent = 'accepted';
+      } catch (_) { /* Ignore unavailable storage. */ }
       bar.classList.remove('show');
       document.documentElement.classList.remove('cookie-consent-visible');
-      document.documentElement.style.removeProperty('--tlp-cookie-consent-height');
-      // Let other scripts react (e.g., initialize analytics only after accepted)
-      window.dispatchEvent(new CustomEvent('cookie-consent', { detail: value }));
+      window.dispatchEvent(new CustomEvent('cookie-consent', { detail: 'accepted' }));
     }
 
-    document.getElementById('cc-accept')?.addEventListener('click', () => setConsent('accepted'));
-    document.getElementById('cc-decline')?.addEventListener('click', () => setConsent('declined'));
-    window.addEventListener('resize', setConsentOffset);
+    document.getElementById('cc-ok')?.addEventListener('click', acceptCookies);
   })();
 </script>
