@@ -3,16 +3,6 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"
-    open-pull-requests-limit: 5
-    labels:
-      - "deps"
-      - "dependabot"
-version: 2
-updates:
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
     ignore:

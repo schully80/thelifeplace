@@ -4,20 +4,24 @@ import RegisterForm from "../../components/RegisterForm.astro";
 ---
 <BaseLayout
   title="Kids — Children's Ministry | The Life Place"
-  description="The Life Place — Come. See. Jesus. A safe, fun, and faith-filled environment where children discover Jesus and grow in God's love.">
+  description="Kids Ministry at The Life Place is preparing to launch. Children remain warmly welcome in Sunday services with their parents."
+  noindex={true}>
 
 
 <!-- Hero -->
   <section class="relative full-bleed">
     <div class="relative min-h-[38vh] md:min-h-[50vh] flex items-center justify-center">
-      <img
+      <picture>
+        <source type="image/webp" srcset="/images/what-kids-960.webp 960w, /images/what-kids-1600.webp 1600w" sizes="100vw" />
+        <img
         src="/what-kids.jpg"
         alt="Join Us"
         class="absolute inset-0 h-full w-full object-cover tlp-grayscale"
         style="max-height:60vh"
         loading="eager"
         decoding="async"
-      />
+        />
+      </picture>
       <div class="absolute inset-0 bg-black/10"></div>
    <!-- Centered hero text -->
     <div class="relative z-10 flex items-center justify-center min-h-[50vh] md:min-h-[60vh] px-4">
@@ -34,7 +38,7 @@ import RegisterForm from "../../components/RegisterForm.astro";
       <!-- Header -->
       <header class="text-center mb-8 md:mb-12">
         <p class="mt-4 md:mt-5 text-xl md:text-4xl text-brand-warmgray-700">
-         Come. See. <span class="text-brand-red">Jesus</span>
+         Come. See. <span class="text-brand-red">Jesus.</span>
         </p>
       </header>
 
@@ -45,8 +49,8 @@ import RegisterForm from "../../components/RegisterForm.astro";
       </span>
 
       <p class="text-lg md:text-lg text-gray-600 leading-7 md:leading-relaxed max-w-2xl mx-auto">
-        At present, we have no kids’ church. As Jesus supplies the resources needed,
-        we will launch one where our children too will Come. See. <span class="text-brand-red">Jesus</span>
+        At present, we have no kids’ church. As <span class="text-brand-red">Jesus</span> supplies the resources needed,
+        we will launch one where our children too will Come. See. <span class="text-brand-red">Jesus.</span>
       </p>
 
       <p class="mt-3 md:mt-4 text-lg md:text-lg text-gray-600 leading-7 md:leading-relaxed max-w-2xl mx-auto">
@@ -57,7 +61,7 @@ import RegisterForm from "../../components/RegisterForm.astro";
     <!-- Decal-style words -->
     <div class="mt-10 md:mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 text-center overflow-visible">
         <div class="p-5 rounded-lg bg-brand-red font-bold text-m sm:text-lg text-white shadow transform rotate-3 -translate-y-2 z-30">
-        COME.SEE.JESUS
+        COME.SEE.<span class="text-brand-red">JESUS</span>
       </div>
       <div class="p-4 rounded-full bg-yellow-300 font-bold text-base sm:text-lg text-yellow-900 shadow transform -rotate-6 -translate-y-1 z-20">
         JOY
@@ -66,7 +70,7 @@ import RegisterForm from "../../components/RegisterForm.astro";
         LOVE
       </div>
       <div class="p-5 rounded-full bg-blue-500 font-bold text-xl sm:text-2xl text-white shadow transform rotate-3 -translate-y-2 z-30">
-        JESUS
+        <span class="text-brand-red">JESUS</span>
       </div>
       <div class="p-4 rounded bg-green-300 font-bold text-base sm:text-lg text-green-900 shadow transform -rotate-2 translate-y-1 z-10">
         PEACE

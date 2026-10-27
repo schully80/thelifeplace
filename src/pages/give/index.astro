@@ -1,734 +1,467 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import SnapScanConfirmForm from "../../components/SnapScanConfirmForm.astro";
-import FullBleed from "../../components/tlp/FullBleed.astro";
-import HeroTitle from "../../components/tlp/HeroTitle.astro";
-import SectionWrapper from "../../components/tlp/SectionWrapper.astro";
-import FadeDivider from "../../components/tlp/FadeDivider.astro";
-import WarmBackground from "../../components/tlp/WarmBackground.astro";
 import QuickGive from "../../components/giving/QuickGive.astro";
-const event = new URL(Astro.request.url).searchParams.get("event");
+import { site } from "../../../site.config.js";
+
+const { bank, snapscan, paypal, westernUnion } = site.giving;
+const paypalClientId = import.meta.env.PUBLIC_PAYPAL_CLIENT_ID || "";
+const paypalCurrency = "USD";
+const paypalCurrencySymbol = "$";
+const paypalRecurringUrl = paypal.recurringUrl || paypal.donateUrl;
+const supportEmail = site.contact.email;
+const supportAddress = site.contact.address;
+const supportPhoneDisplay = "+27 76 563 9460";
+const supportPhoneHref = "tel:+27765639460";
+
+const bankDetails = [
+  ["Bank", bank.bankName],
+  ["Account name", bank.accountName],
+  ["Account number", bank.accountNumber],
+  ["Branch code", bank.branchCode],
+  ["SWIFT", bank.swift],
+];
+
+const faqs = [
+  {
+    question: "Is my donation secure?",
+    answer: "Yes. Online giving completes through trusted payment providers. We do not store your card or banking details on this website.",
+  },
+  {
+    question: "Will I receive a confirmation or receipt?",
+    answer: "Online platforms send their own confirmations. For a formal receipt or giving record, contact us and we will help you.",
+  },
+  {
+    question: "Can I give anonymously?",
+    answer: "Yes. You are welcome to give anonymously. Our heart is to steward every gift faithfully and responsibly.",
+  },
+  {
+    question: "Can I give from outside South Africa?",
+    answer: "Yes. PayPal is available for international giving, and Western Union can be used for bank transfers from abroad.",
+  },
+  {
+    question: "Is my giving tax-deductible?",
+    answer: "Tax donation receipts are available where applicable. Contact us if you need documentation for your records.",
+  },
+  {
+    question: "How are donations used?",
+    answer: "Gifts support the ministry, mission, gatherings, pastoral care, community initiatives, and ongoing work of The Life Place.",
+  },
+];
 ---
-<BaseLayout title="Generosity — The Life Place">
 
-<!-- FULL-WIDTH HERO SECTION (CSS Seamless Two Images) -->
-<section class="relative w-screen h-[35vh] md:h-[40vh] lg:h-[60vh] xl:h-[70vh] overflow-hidden bg-black -ml-[calc((100vw-100%)/2)]">
-  <div class="absolute inset-0 w-full h-full">
-    <div class="absolute inset-0 grid grid-cols-2 w-full h-full hero-image-blend">
-      <img
-        src="/giving-hero2.jpg"
-        alt="Community members giving together"
-        class="w-full h-full object-cover col-start-1 row-start-1 rounded-none hero-img-left"
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-      />
-      <!-- Subtle underlay over left image: semi-transparent black overlay, no blur -->
-      <div class="pointer-events-none absolute left-0 top-0 w-1/2 h-full bg-black/15 z-10"></div>
-      <img
-        src="/giving-hero7.jpg"
-        alt="Generosity in action"
-        class="w-full h-full object-cover col-start-2 row-start-1 rounded-none hero-img-right -mr-16 sm:-mr-12 md:-mr-32 lg:mr-0"
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-      />
-        <!-- Overlay for blending: original dark gradient seam -->
-        <div class="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 w-8 md:w-24 lg:w-28 h-full bg-gradient-to-r from-transparent via-black/70 to-transparent z-20"></div>
-    </div>
-    <!-- Removed original dark gradient overlay -->
-    <div class="absolute inset-0 bg-black/10 z-20"></div>
-    <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/20 to-transparent z-20"></div>
-  </div>
-</section>
+<BaseLayout
+  title="Give — The Life Place"
+  description="Give to The Life Place through EFT, SnapScan, PayPal, or Western Union. Support the mission of helping people Come. See. Jesus."
+>
+  <main class="bg-[oklch(98.5%_0.006_20)] text-gray-900">
+    <section class="relative overflow-hidden bg-[oklch(98.5%_0.006_20)]">
+      <div class="pointer-events-none absolute inset-y-0 right-0 w-full sm:-right-[14vw] sm:w-[92vw] md:right-0 md:w-[72vw] lg:w-[50vw]">
+        <picture>
+          <source type="image/webp" srcset="/images/online giving2-960.webp 960w, /images/online giving2-1600.webp 1600w" sizes="(max-width: 639px) 100vw, 50vw" />
+          <img
+          src="/online giving2.jpg"
+          alt="Generosity at The Life Place"
+          class="h-full w-full object-cover object-[68%_center] sm:object-[72%_center] md:object-[76%_center] lg:object-[92%_center]"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          />
+        </picture>
+        <div class="absolute inset-0 bg-gradient-to-r from-[oklch(98.5%_0.006_20)] via-[oklch(98.5%_0.006_20_/_0.78)] to-[oklch(98.5%_0.006_20_/_0.02)] sm:via-[oklch(98.5%_0.006_20_/_0.66)] md:via-[oklch(98.5%_0.006_20_/_0.58)] lg:via-[oklch(98.5%_0.006_20_/_0.58)] lg:to-[oklch(20%_0.01_20_/_0.08)]"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-[oklch(98.5%_0.006_20_/_0.42)] via-transparent to-[oklch(98.5%_0.006_20_/_0.22)] sm:from-[oklch(98.5%_0.006_20_/_0.22)] md:hidden"></div>
+      </div>
 
-<!-- PAGE CONTENT CONTAINER -->
-<div class="w-full max-w-6xl xl:max-w-7xl 2xl:max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="relative mx-auto grid min-h-[calc(100svh-5rem)] max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 md:py-16 lg:grid-cols-[minmax(0,0.92fr)_minmax(22rem,0.48fr)] lg:px-8 lg:py-20">
+        <div class="max-w-4xl">
+          <p class="mb-5 text-sm font-bold uppercase tracking-[0.16em] text-brand-red md:text-base">
+            Generosity at The Life Place
+          </p>
+          <h1 class="text-5xl font-black leading-[0.96] text-gray-900 sm:text-6xl md:text-7xl lg:text-8xl">
+           We are generous because <span class="text-brand-red">Jesus</span> is generous to us.
+          </h1>
+          <p class="mt-7 max-w-2xl text-lg font-medium leading-relaxed text-gray-700 md:text-2xl">
+            Your giving helps create more room for people in our city, nation, and the world to Come. See. <span class="text-brand-red">Jesus.</span>
+          </p>
 
-<!-- PAGE HEADER -->
-<section class="w-full px-0 py-8 md:py-16 lg:py-20 bg-white relative">
-  <div class="max-w-6xl mx-auto px-6 py-12 md:py-28 lg:py-32 text-center">
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a href="#quick-give" class="inline-flex min-h-12 items-center justify-center rounded-2xl bg-brand-red px-7 py-4 text-base font-black text-[oklch(99%_0.004_20)] shadow-md transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-brand-action-hover hover:shadow-lg active:scale-[0.98]">
+              Give Now
+            </a>
+            <a href="#giving-methods" class="inline-flex min-h-12 items-center justify-center rounded-2xl border-2 border-brand-red/40 bg-[oklch(99%_0.004_20)] px-7 py-4 text-base font-black text-gray-900 shadow-sm transition-[border-color,background-color,transform] duration-200 ease-out hover:border-brand-red/70 hover:bg-[oklch(97%_0.006_20)] active:scale-[0.98]">
+              See Giving Methods
+            </a>
+          </div>
 
-    <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-gray-800 leading-tight md:leading-tight lg:leading-tight">
-      Extravagant Generosity
-    </h1>
+          <aside class="mt-7 max-w-xl rounded-2xl border border-black/10 bg-[oklch(99%_0.004_20)] p-4 shadow-sm" aria-label="Giving reassurance">
+            <div class="flex items-start gap-3">
+              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-red text-[oklch(99%_0.004_20)]">
+                <i class="fa-solid fa-shield-halved text-sm" aria-hidden="true"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold uppercase tracking-[0.16em] text-gray-500">Secure giving</p>
+                <p class="mt-2 text-sm leading-relaxed text-gray-600">
+                  Card and banking details are handled by each payment provider. The Life Place does not store them here.
+                </p>
+              </div>
+            </div>
+          </aside>
 
-    <p
-      class="mt-8 text-xl md:text-2xl
-             text-gray-600 leading-relaxed
-             max-w-4xl mx-auto"
-    >
-      Generosity is our expression of who <span class="text-brand-red">Jesus</span> is and what He does.
-    </p>
+        </div>
+      </div>
+    </section>
 
-  </div>
-</section>
-
-<!-- SUBTLE DIVIDER -->
-<FadeDivider mt="mt-0" mb="mb-0" color="bg-gray-300" width="w-[98%]" />
-
-<!-- IMPACT STATEMENT -->
-<section class="w-full px-4 md:px-6 lg:px-8 py-16 md:py-20 lg:py-24">
-  <div class="max-w-3xl mx-auto">
-    <h2 class="heading-2 text-center">
-      Your generosity creates more opportunities and resources so others can
-      <span class="block text-brand-red">
-        Come. See. Jesus
-      </span>
-    </h2>
-  </div>
-</section>
-
-<!-- QUICK GIVE + METHODS (Unified Container) -->
-<section class="w-full px-4 md:px-6 lg:px-8 py-8 md:py-20 lg:py-24 relative">
-  <div class="max-w-6xl mx-auto">
-
-    <!-- Guide Text (Above Container) -->
-    <p class="text-lg sm:text-xl md:text-2xl text-gray-600 text-center mb-10 md:mb-16 md:max-w-full mx-auto leading-relaxed">
-      Below is a simple, guided way to give generously — step by step.
-    </p>
-
-    <!-- Unified Container: QuickGive + Methods -->
-    <div class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 shadow-sm hover:shadow-md transition overflow-hidden">
-      
-      <!-- QuickGive Section (Top) -->
-      <div class="p-4 sm:p-6 md:p-14 lg:p-20 pb-4 md:pb-8 lg:pb-10">
+    <section id="quick-give" class="scroll-mt-24 px-4 py-14 sm:px-6 md:py-20 lg:px-8">
+      <div class="mx-auto max-w-6xl rounded-3xl border border-black/10 bg-[oklch(99%_0.004_20)] p-5 shadow-sm sm:p-8 md:p-12">
         <QuickGive />
       </div>
+    </section>
 
-      <!-- Methods Section (Bottom) -->
-      <div id="giving-methods" class="pt-8 md:pt-8 lg:pt-10 p-10 md:p-14 lg:p-20">
+    <section id="giving-methods" class="scroll-mt-24 px-4 py-10 sm:px-6 md:py-16 lg:px-8">
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-8 max-w-3xl md:mb-12">
+          <p class="text-sm font-bold uppercase tracking-[0.16em] text-brand-red">Choose a method</p>
+          <h2 class="mt-3 text-3xl font-black leading-tight text-gray-900 sm:text-4xl md:text-5xl">
+            Give in the way that fits where you are.
+          </h2>
+          <p class="mt-4 text-base leading-relaxed text-gray-600 md:text-lg">
+            EFT and SnapScan are simplest in South Africa. PayPal and Western Union are available for international giving.
+          </p>
+        </div>
 
-
-        <!-- Step 3 Heading -->
-        <h2 class="text-xl md:text-2xl font-extrabold text-gray-800 mb-14 md:mb-16 lg:mb-20">Step 3 · CHOOSE PAYMENT METHOD</h2>
-
-        <!-- Desktop / Tablet Methods Grid -->
-        <div class="hidden md:grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-10 md:gap-14">
-
-          <!-- EFT -->
-          <div
-            class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 p-8 md:p-12 lg:p-14 fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all flex flex-col items-center"
-            style="animation-delay: 0ms"
-          >
-            <h3 class="text-center text-xl md:text-2xl font-extrabold mb-3 md:mb-4 whitespace-nowrap">EFT (Bank Transfer)</h3>
-            <div class="flex justify-center mb-4">
-              <i class="fa-solid fa-laptop text-brand-red text-3xl md:text-4xl" aria-hidden="true"></i>
-            </div>
-            <ul class="space-y-2 text-base md:text-lg text-gray-600 text-center list-none">
-              <li class="whitespace-nowrap"><strong>Bank:</strong> Standard Bank</li>
-              <li class="whitespace-nowrap"><strong>Account:</strong> The Life Place</li>
-              <li class="whitespace-nowrap"><strong>Number:</strong> 301524351</li>
-              <li class="whitespace-nowrap"><strong>Branch:</strong> 051001</li>
-              <li class="whitespace-nowrap"><strong>SWIFT:</strong> SBZAZAJJ</li>
-            </ul>
-            <p class="mt-4 text-center text-sm md:text-lg text-gray-500">
-              Reference: Tithe / Offering / Your name
-            </p>
-          </div>
-
-          <!-- SNAPSCAN -->
-          <a href="https://pos.snapscan.io/qr/VISFNLkM" class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 p-8 md:p-12 lg:p-14 text-center fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all block cursor-pointer" style="animation-delay: 100ms">
-            <h3 class="text-center text-xl md:text-2xl font-extrabold mb-6 md:mb-8">SnapScan</h3>
-            <div class="flex flex-col items-center lg:items-center">
-              <div class="flex justify-center mb-6">
-                <i class="fa-solid fa-mobile-screen-button text-brand-red text-3xl md:text-4xl" aria-hidden="true"></i>
+        <div class="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+          <article class="rounded-3xl border border-black/10 bg-[oklch(99%_0.004_20)] p-5 shadow-sm transition-[border-color,box-shadow,transform] duration-200 ease-out hover:border-brand-red/30 hover:shadow-md active:scale-[0.99] sm:p-6 md:p-8">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-sm font-bold uppercase tracking-[0.16em] text-gray-500">South Africa</p>
+                <h3 class="mt-3 text-3xl font-black leading-tight text-gray-900">EFT</h3>
               </div>
-              <img
-                src="/snapscan.png"
-                alt="SnapScan QR"
-                class="mx-auto w-40 h-40 md:w-48 md:h-48 object-contain mb-2"
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-action-soft text-brand-red">
+                <i class="fa-solid fa-laptop text-lg" aria-hidden="true"></i>
+              </div>
+            </div>
+
+            <dl class="mt-6 divide-y divide-black/10 rounded-2xl border border-black/10 bg-[oklch(97.5%_0.006_20)]">
+              {bankDetails.map(([label, value]) => (
+                <div class="grid gap-1 px-4 py-3 sm:grid-cols-[10rem_1fr] sm:gap-4">
+                  <dt class="text-xs font-bold uppercase tracking-[0.14em] text-gray-500">{label}</dt>
+                  <dd class="text-sm font-bold text-gray-900 break-words">{value}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <p class="mt-4 text-sm leading-relaxed text-gray-600">
+              Suggested reference: {bank.referenceHint}.
+            </p>
+          </article>
+
+          <article class="rounded-3xl border border-black/10 bg-[oklch(99%_0.004_20)] p-5 shadow-sm transition-[border-color,box-shadow,transform] duration-200 ease-out hover:border-brand-red/30 hover:shadow-md active:scale-[0.99] sm:p-6 md:p-8">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-sm font-bold uppercase tracking-[0.16em] text-gray-500">Fast mobile checkout</p>
+                <h3 class="mt-3 text-3xl font-black leading-tight text-gray-900">SnapScan</h3>
+              </div>
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-action-soft text-brand-red">
+                <i class="fa-solid fa-mobile-screen-button text-lg" aria-hidden="true"></i>
+              </div>
+            </div>
+
+            <div class="mt-6 flex flex-col items-center rounded-2xl border border-black/10 bg-[oklch(97.5%_0.006_20)] p-5">
+              <img src={snapscan.qrImagePath} alt="SnapScan QR code for The Life Place giving" class="h-40 w-40 object-contain" loading="eager" decoding="async" />
+              <p class="mt-4 text-center text-sm leading-relaxed text-gray-600">
+                Scan the QR code or open SnapScan on your phone.
+              </p>
+            </div>
+
+            <a href={snapscan.url} class="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-brand-red px-5 py-3 text-base font-bold text-[oklch(99%_0.004_20)] shadow-sm transition-colors duration-200 ease-out hover:bg-[#9f2429]">
+              Open SnapScan
+            </a>
+          </article>
+
+          <article class="rounded-3xl border border-black/10 bg-[oklch(99%_0.004_20)] p-5 shadow-sm transition-[border-color,box-shadow,transform] duration-200 ease-out hover:border-brand-red/30 hover:shadow-md active:scale-[0.99] sm:p-6 md:p-8">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-sm font-bold uppercase tracking-[0.16em] text-gray-500">International giving</p>
+                <h3 class="mt-3 text-3xl font-black leading-tight text-gray-900">PayPal</h3>
+              </div>
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-action-soft text-brand-red">
+                <i class="fa-brands fa-paypal text-lg" aria-hidden="true"></i>
+              </div>
+            </div>
+
+            <label for="paypal-amount" class="mt-6 block text-sm font-bold uppercase tracking-[0.16em] text-gray-500">
+              Amount ({paypalCurrency})
+            </label>
+            <div class="mt-3 flex items-center gap-3">
+              <span class="inline-flex min-h-12 items-center justify-center rounded-2xl border border-black/10 bg-[oklch(97.5%_0.006_20)] px-4 text-base font-black text-gray-700">
+                {paypalCurrencySymbol}
+              </span>
+              <input
+                id="paypal-amount"
+                type="number"
+                inputmode="decimal"
+                min="1"
+                step="0.01"
+                class="min-h-12 w-full rounded-2xl border border-black/10 bg-[oklch(99%_0.004_20)] px-4 text-base font-bold text-gray-900 shadow-sm focus:border-brand-red focus:outline-none focus:ring-2 focus:ring-brand-red/30"
+                placeholder="Enter amount"
+                aria-describedby="paypal-amount-help"
               />
-              <div class="flex flex-col items-center w-full">
-                <p class="text-base md:text-lg text-gray-600 mb-2 text-center">
-                  Scan QR or click button to give
+            </div>
+            <p id="paypal-amount-help" class="mt-2 text-xs leading-relaxed text-gray-500">
+              PayPal Smart Buttons currently use USD.
+            </p>
+
+            <div class="mt-6" data-paypal-buttons data-client-id={paypalClientId} data-currency={paypalCurrency}>
+              <div id="paypal-buttons" class="min-h-[44px]"></div>
+              <p id="paypal-status" class="mt-3 text-sm text-gray-600" aria-live="polite"></p>
+            </div>
+
+            {!paypalClientId ? (
+              <div class="mt-6">
+                <a href={paypal.donateUrl} target="_blank" rel="noopener" class="inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-brand-red px-5 py-3 text-base font-bold text-[oklch(99%_0.004_20)] shadow-sm transition-colors duration-200 ease-out hover:bg-[#9f2429]">
+                  Give via PayPal
+                </a>
+                <p class="mt-2 text-xs leading-relaxed text-gray-500">
+                  PayPal Smart Buttons require PUBLIC_PAYPAL_CLIENT_ID.
                 </p>
-                <span class="inline-flex justify-center rounded-2xl px-5 md:px-6 lg:px-7 py-2.5 md:py-3
-                             text-sm md:text-base lg:text-lg font-bold md:whitespace-nowrap
-                             border border-brand-red
-                             text-brand-red
-                             mt-4">
-                  Give via SnapScan
-                </span>
+              </div>
+            ) : null}
+
+            <a href={paypalRecurringUrl} target="_blank" rel="noopener" class="mt-4 inline-flex min-h-12 w-full items-center justify-center rounded-2xl border border-brand-red bg-[oklch(99%_0.004_20)] px-5 py-3 text-base font-bold text-brand-red shadow-sm transition-colors duration-200 ease-out hover:bg-brand-red hover:text-[oklch(99%_0.004_20)]">
+              Set Up Monthly Giving
+            </a>
+          </article>
+
+          <article class="rounded-3xl border border-black/10 bg-[oklch(99%_0.004_20)] p-5 shadow-sm transition-[border-color,box-shadow,transform] duration-200 ease-out hover:border-brand-red/30 hover:shadow-md active:scale-[0.99] sm:p-6 md:p-8">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-sm font-bold uppercase tracking-[0.16em] text-gray-500">International transfer</p>
+                <h3 class="mt-3 text-3xl font-black leading-tight text-gray-900">Western Union</h3>
+              </div>
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-action-soft text-brand-red">
+                <span class="text-sm font-black tracking-tight" aria-hidden="true">WU</span>
               </div>
             </div>
-          </a>
 
-          <!-- PAYPAL -->
-          <form
-            action="https://www.paypal.com/donate"
-            method="post"
-            target="_top"
-            class="rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 p-8 md:p-12 lg:p-14 text-center fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all flex flex-col items-center gap-6 md:gap-8 cursor-pointer"
-            style="animation-delay: 200ms"
-          >
-            <input type="hidden" name="hosted_button_id" value="4L3NWWAZ9PPV6" />
-            <h3 class="text-center text-xl md:text-2xl font-extrabold">PayPal</h3>
-            <div class="flex justify-center">
-              <i class="fa-brands fa-paypal text-brand-red text-3xl md:text-4xl" aria-hidden="true"></i>
+            <div class="mt-6 space-y-5 rounded-2xl border border-black/10 bg-[oklch(97.5%_0.006_20)] p-5">
+              <p class="text-sm leading-relaxed text-gray-600">
+                Choose the Send to bank account option, then use the recipient and bank details below.
+              </p>
+              <div>
+                <p class="text-xs font-bold uppercase tracking-[0.14em] text-gray-500">Recipient</p>
+                <p class="mt-2 text-sm font-bold text-gray-900">Schulter Etyang</p>
+              </div>
+              <div>
+                <p class="text-xs font-bold uppercase tracking-[0.14em] text-gray-500">Email</p>
+                <a href={`mailto:${supportEmail}`} class="mt-2 inline-block text-sm font-bold text-gray-900 hover:text-brand-red">{supportEmail}</a>
+              </div>
+              <div>
+                <p class="text-xs font-bold uppercase tracking-[0.14em] text-gray-500">Mobile number</p>
+                <a href={supportPhoneHref} class="mt-2 inline-block text-sm font-bold text-gray-900 hover:text-brand-red">{supportPhoneDisplay}</a>
+              </div>
+              <div>
+                <p class="text-xs font-bold uppercase tracking-[0.14em] text-gray-500">Physical address</p>
+                <p class="mt-2 text-sm font-bold leading-relaxed text-gray-900">
+                  {supportAddress.line1}<br />
+                  {supportAddress.line2}<br />
+                  {supportAddress.line3}<br />
+                  {supportAddress.line4}
+                </p>
+              </div>
             </div>
-            <p class="text-base md:text-lg text-gray-600 leading-relaxed">
-              <span class="block font-semibold uppercase tracking-wide">International Giving</span>
-              <span class="block mt-1 text-sm text-gray-500">(Outside South Africa)</span>
-            </p>
-            <p class="text-xs md:text-lg text-gray-500 mb-4">Click on button or anywhere on this card to give</p>
-            <button type="submit">
-              <img
-                src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
-                alt=""
-                class="rounded-2xl border p-2 md:p-4 bg-white shadow-md pointer-events-none"
-              />
-            </button>
-            <button
-              type="submit"
-              class="rounded-2xl px-5 md:px-6 lg:px-7 py-2.5 md:py-3
-                text-sm md:text-base lg:text-lg font-bold md:whitespace-nowrap
-                border border-brand-red
-                text-brand-red
-                hover:bg-brand-red hover:text-white transition"
-            >
-              Give via PayPal
-            </button>
-          </form>
 
-        </div>
-
-        <!-- Mobile Tab Interface -->
-        <div class="md:hidden space-y-5">
-          <!-- Tabs -->
-          <div class="flex flex-col gap-3 mb-6" role="tablist">
-            <button class="methodTab active shrink-0 rounded-2xl px-4 md:px-6 py-2 md:py-3 text-base font-semibold transition w-full" data-tab="eft" 
-            id="method-tab-eft" role="tab" aria-selected="true" aria-controls="method-panel-eft"
-            style="background-color: #DC2626; color:#ffffff;">
-              EFT
-            </button>
-            <button class="methodTab shrink-0 rounded-2xl px-4 py-2 text-base font-semibold transition w-full" data-tab="snapscan" id="method-tab-snapscan" role="tab" aria-selected="false" aria-controls="method-panel-snapscan" style="background-color: #f5f5f5; color:#333;">
-              SnapScan
-            </button>
-            <button class="methodTab shrink-0 rounded-2xl px-4 py-2 text-base font-semibold transition w-full" data-tab="paypal" id="method-tab-paypal" role="tab" aria-selected="false" aria-controls="method-panel-paypal" style="background-color: #f5f5f5; color:#333;">
-              PayPal
-            </button>
-          </div>
-
-          <!-- EFT Tab Content -->
-          <div class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 p-6 fadeIn shadow-sm hover:shadow-md transition" data-tab-content="eft" id="method-panel-eft" role="tabpanel" aria-labelledby="method-tab-eft">
-            <h3 class="text-xl font-extrabold mb-6 text-center">EFT (Bank Transfer)</h3>
-            <div class="flex justify-center mb-6">
-              <i class="fa-solid fa-laptop text-brand-red text-3xl" aria-hidden="true"></i>
-            </div>
-            <ul class="space-y-3 text-base text-gray-600 text-left">
-              <li><strong>Bank:</strong> Standard Bank</li>
-              <li><strong>Account:</strong> The Life Place</li>
-              <li><strong>Number:</strong> 301524351</li>
-              <li><strong>Branch:</strong> 051001</li>
-              <li><strong>SWIFT:</strong> SBZAZAJJ</li>
-            </ul>
-            <p class="mt-6 text-center text-md text-gray-500">
-              Reference: Tithe / Offering / Your name
-            </p>
-          </div>
-
-          <!-- SnapScan Tab Content -->
-          <a href="https://pos.snapscan.io/qr/VISFNLkM" class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 p-6 fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all hidden cursor-pointer" data-tab-content="snapscan" id="method-panel-snapscan" role="tabpanel" aria-labelledby="method-tab-snapscan" hidden>
-            <h3 class="text-xl font-extrabold mb-6 text-center">SnapScan</h3>
-            <div class="flex justify-center mb-6">
-              <i class="fa-solid fa-mobile-screen-button text-brand-red text-3xl" aria-hidden="true"></i>
-            </div>
-            <p class="text-base text-gray-600 mb-6 text-center">
-              Scan or click to give instantly.
-            </p>
-            <img
-              src="/snapscan.png"
-              alt="SnapScan QR"
-              class="mx-auto w-40 h-40 object-contain mb-6"
-            />
-            <span
-              class="block text-center rounded-2xl px-6 py-3
-                     text-base font-bold
-                     border border-brand-red
-                     text-brand-red"
-            >
-              Give via SnapScan
-            </span>
-          </a>
-
-          <!-- PayPal Tab Content -->
-          <form
-            action="https://www.paypal.com/donate"
-            method="post"
-            target="_top"
-            class="methodTabContent rounded-[32px] bg-white/80 backdrop-blur-xl border border-black/10 p-6 fadeIn shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition-all cursor-pointer hidden"
-            data-tab-content="paypal" id="method-panel-paypal" role="tabpanel" aria-labelledby="method-tab-paypal" hidden
-          >
-            <input type="hidden" name="hosted_button_id" value="4L3NWWAZ9PPV6" />
-            <h3 class="text-lg font-extrabold mb-3 text-center">PayPal</h3>
-            <div class="flex justify-center mb-3">
-              <i class="fa-brands fa-paypal text-brand-red text-3xl" aria-hidden="true"></i>
-            </div>
-            <p class="text-sm text-gray-600 mb-3 text-center">
-              <span class="block font-semibold uppercase text-xs">International Giving</span>
-              <span class="block text-xs text-gray-500">(Outside South Africa)</span>
-            </p>
-            <p class="text-xs text-gray-500 mb-3 text-center">Click button or anywhere on this card to give</p>
-            <button type="submit" class="mb-3">
-              <img
-                src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
-                alt=""
-                class="h-auto max-w-xs rounded-lg border p-1 bg-white shadow-sm pointer-events-none"
-              />
-            </button>
-            <button
-              type="submit"
-              class="rounded-2xl px-6 py-3 w-full
-                     text-base font-bold
-                     border border-brand-red
-                     text-brand-red
-                     hover:bg-brand-red hover:text-white transition"
-            >
-              Give via PayPal
-            </button>
-          </form>
+            <a href={westernUnion.url} target="_blank" rel="noopener" class="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-brand-red px-5 py-3 text-base font-bold text-[oklch(99%_0.004_20)] shadow-sm transition-colors duration-200 ease-out hover:bg-brand-action-hover">
+              {westernUnion.ctaLabel}
+            </a>
+          </article>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- GIVE IN PERSON TEXT ONLY (outside container) -->
-<section class="w-full px-4 md:px-6 lg:px-8 py-16 md:py-24 relative">
-  <div class="max-w-3xl mx-auto text-center">
-    <div class="flex justify-center mb-6">
-      <i class="fa-solid fa-hand-holding-heart text-brand-red text-3xl md:text-4xl" aria-hidden="true"></i>
-    </div>
-    <p class="text-2xl md:text-3xl leading-relaxed text-gray-600">
-      While we encourage online giving for security and simplicity, we gladly receive in-person gifts during our weekend gatherings.
-    </p>
-  </div>
-</section>
-
- <!-- Annual Report (featured card) -->
-<section class="w-full px-4 md:px-6 lg:px-8 py-16 md:py-24">
-  <div class="max-w-6xl mx-auto">
-    <div
-      class="relative overflow-hidden rounded-3xl md:rounded-[36px] border bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transform transition
-             p-8 md:p-14"
-      aria-labelledby="annual-report-title"
-    >
-    
-    <div class="flex flex-col items-center gap-4">
-      <!-- Icon -->
-      <div class="flex h-12 w-12 items-center justify-center rounded-xl">
-        <i class="fa-solid fa-file-lines text-brand-red text-3xl" aria-hidden="true"></i>
+    <section class="px-4 py-14 sm:px-6 md:py-20 lg:px-8">
+      <div class="mx-auto max-w-4xl">
+        <div class="rounded-3xl border border-black/10 bg-[oklch(99%_0.004_20)] p-6 shadow-sm md:p-8">
+          <i class="fa-solid fa-file-lines text-3xl text-brand-red" aria-hidden="true"></i>
+          <h2 class="mt-5 text-3xl font-black leading-tight text-gray-900">Annual Financial Report</h2>
+          <p class="mt-4 text-base leading-relaxed text-gray-600 md:text-lg">
+            We value transparency and faithful stewardship. Members can request the report at
+            <a href={`mailto:${supportEmail}`} class="font-bold text-brand-red hover:underline">{supportEmail}</a>
+            or call
+            <a href={supportPhoneHref} class="font-bold text-brand-red hover:underline">{supportPhoneDisplay}</a>.
+          </p>
+        </div>
       </div>
+    </section>
 
-      
-      <div class="flex-1 w-full">
-        <h2 id="annual-report-title" class="heading-2 text-center">
-          Annual Financial Report
-        </h2>
-     
-      <p
-        class="mt-4 md:mt-5 text-base md:text-xl text-center
-               leading-relaxed text-gray-600"
-      >
-        We value transparency and faithful stewardship.
-        This report is shared with those who call
-        <span class="font-semibold">The Life Place</span> home,
-        reflecting how generosity is handled with care —
-        to glorify Jesus, meet real needs, and serve the mission of
-        The Life Place.
+    <section class="px-4 py-14 sm:px-6 md:py-20 lg:px-8">
+      <div class="mx-auto max-w-4xl">
+        <div class="mb-8 text-center md:mb-12">
+          <h2 class="text-3xl font-black leading-tight text-gray-900 sm:text-4xl md:text-5xl">Giving FAQs</h2>
+          <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-gray-600 md:text-lg">
+            Clear answers for common questions about giving at The Life Place.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          {faqs.map((item) => (
+            <details class="group rounded-2xl border border-black/10 bg-[oklch(99%_0.004_20)] p-4 shadow-sm md:p-5">
+              <summary class="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 text-left text-base font-bold text-gray-900 md:text-lg">
+                {item.question}
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[oklch(97.5%_0.006_20)] text-gray-500 transition-transform duration-200 ease-out group-open:rotate-180">
+                  <i class="fa-solid fa-chevron-down text-sm" aria-hidden="true"></i>
+                </span>
+              </summary>
+              <p class="mt-4 max-w-3xl text-base leading-relaxed text-gray-600">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+
+        <p class="mt-10 text-center text-sm text-gray-500">
+          Still have questions?
+          <a href={`mailto:${supportEmail}`} class="font-bold text-brand-red hover:underline">We are happy to help.</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="bg-[oklch(99%_0.004_20)] px-4 py-16 text-center sm:px-6 md:py-24 lg:px-8">
+      <h2 class="mx-auto max-w-3xl text-4xl font-black leading-tight text-gray-900 sm:text-5xl md:text-6xl">
+        Come. See. <span class="text-brand-red">Jesus.</span>
+      </h2>
+      <p class="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-gray-600 md:text-xl">
+        Join us this Sunday.
       </p>
-
-<p class="mt-4 text-center text-base md:text-lg text-gray-600 leading-relaxed">
-  To receive this report, contact us at
-  <a href="mailto:hello@thelifeplace.org" class="font-semibold text-brand-red hover:underline">
-    hello@thelifeplace.org
-  </a>
-  or during office hours at
-  <a href="tel:+27765639460" class="font-semibold text-brand-red hover:underline">
-    +27&nbsp;76&nbsp;563&nbsp;9460
-  </a>
-</p>
-
-  </div>
-</section>
-
-
-<!-- Giving FAQ -->
-<section class="w-full px-4 md:px-6 lg:px-8 py-16 md:py-24">
-  <div class="max-w-6xl mx-auto data-faq-accordion">
-  <!-- Header -->
-  <div class="text-center mb-10 md:mb-14">
-    <h2 class="heading-2">
-      Giving FAQs
-    </h2>
-    <p class="mt-3 md:mt-4 text-base md:text-lg text-gray-600">
-      Common questions about giving at The Life Place.
-    </p>
-  </div>
-
-  <!-- FAQ Accordion -->
-  <div class="space-y-4 md:space-y-5">
-
-    <!-- FAQ ITEM -->
-    <div class="faq-item rounded-2xl md:rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-4 md:p-6">
-      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-base md:text-lg font-semibold text-gray-800">
-        Is my donation secure?
-        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </span>
-      </button>
-      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
-        <p class="mt-4 text-gray-600 leading-relaxed">
-          Yes. All online giving platforms we use are secure and encrypted.
-          We partner only with trusted payment providers and do not store your
-          card or banking details on our systems.
-        </p>
-      </div>
-    </div>
-
-    <!-- FAQ ITEM -->
-    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
-      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-lg font-semibold text-gray-800">
-        Will I receive a confirmation or receipt?
-        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </span>
-      </button>
-      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
-        <p class="mt-4 text-gray-600 leading-relaxed">
-          Yes. For online giving, you’ll receive a confirmation from the payment provider.
-          If you require a formal receipt or confirmation, you’re welcome to contact us at
-          <a href="mailto:hello@thelifeplace.org"
-             class="font-semibold text-brand-red hover:underline">
-            hello@thelifeplace.org
-          </a>.
-        </p>
-      </div>
-    </div>
-
-    <!-- FAQ ITEM -->
-    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
-      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-lg font-semibold text-gray-800">
-        Can I give anonymously?
-        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </span>
-      </button>
-      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
-        <p class="mt-4 text-gray-600 leading-relaxed">
-          Yes. You’re welcome to give anonymously.
-          Our heart is not to track giving, but to steward it faithfully and responsibly.
-        </p>
-      </div>
-    </div>
-
-    <!-- FAQ ITEM -->
-    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
-      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-lg font-semibold text-gray-800">
-        Can I give if I live outside South Africa?
-        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </span>
-      </button>
-      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
-        <p class="mt-4 text-gray-600 leading-relaxed">
-          Yes. If you live outside South Africa, you can give securely through PayPal.
-          This option is best suited for international giving.
-        </p>
-        <p class="mt-3">
-          <a
-            href="https://www.paypal.com/donate?hosted_button_id=4L3NWWAZ9PPV6"
-            target="_blank"
-            rel="noopener"
-            class="inline-flex items-center gap-2 font-semibold text-brand-red hover:underline"
-          >
-            Click here to give via PayPal →
-          </a>
-        </p>
-      </div>
-    </div>
-
-    <!-- FAQ ITEM -->
-    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
-      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-lg font-semibold text-gray-800">
-        Is my giving tax-deductible?
-        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </span>
-      </button>
-      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
-        <p class="mt-4 text-gray-600 leading-relaxed">
-          Tax donation receipts are available where applicable.
-          If you have questions about receipts or documentation, please contact us at
-          <a href="mailto:hello@thelifeplace.org"
-             class="font-semibold text-brand-red hover:underline">
-            hello@thelifeplace.org
-          </a>.
-        </p>
-      </div>
-    </div>
-
-    <!-- FAQ ITEM -->
-    <div class="faq-item rounded-3xl border border-black/10 bg-white/80 backdrop-blur-xl p-6">
-      <button class="faq-summary flex w-full cursor-pointer items-center justify-between text-lg font-semibold text-gray-800">
-        How are donations used?
-        <span class="ml-4 flex items-center justify-center text-gray-400 transition-transform duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 9l6 6 6-6" />
-          </svg>
-        </span>
-      </button>
-      <div class="faq-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out">
-        <p class="mt-4 text-gray-600 leading-relaxed">
-          Gifts support the ministry, mission, and practical needs of The Life Place —
-          including gatherings, pastoral care, community initiatives, and the ongoing
-          work of the church.
-        </p>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Soft footer reassurance -->
-  <p class="mt-12 px-4 md:px-0 text-center text-sm md:text-base text-gray-500 break-words">
-    Still have questions?
-    <a href="mailto:hello@thelifeplace.org" class="font-semibold text-brand-red hover:underline">
-      We’re happy to help.
-    </a>
-  </p>
-</section>
-
-</div>
-<!-- END PAGE CONTENT CONTAINER -->
-
+    </section>
+  </main>
 </BaseLayout>
 
+{paypalClientId ? (
+  <script
+    id="paypal-sdk"
+    src={`https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(paypalClientId)}&currency=${encodeURIComponent(paypalCurrency)}&intent=capture&components=buttons`}
+    async
+  ></script>
+) : null}
+
 <script is:inline>
   document.addEventListener("DOMContentLoaded", () => {
-    // Method tabs functionality
-    const methodTabs = document.querySelectorAll(".methodTab");
-    const tabPanels = document.querySelectorAll(".methodTabContent");
-    
-    methodTabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        const tabName = tab.dataset.tab;
-        
-        // Deactivate all tabs and hide all content
-        methodTabs.forEach((t) => {
-          t.classList.remove("active");
-          t.style.backgroundColor = "#f5f5f5";
-          t.style.color = "#333";
-          t.setAttribute("aria-selected", "false");
-          t.setAttribute("tabindex", "-1");
-        });
-        
-        tabPanels.forEach((content) => {
-          content.classList.add("hidden");
-          content.setAttribute("hidden", "true");
-        });
-        
-        // Activate clicked tab
-        tab.classList.add("active");
-        tab.style.backgroundColor = "#DC2626";
-        tab.style.color = "white";
-        tab.setAttribute("aria-selected", "true");
-        tab.setAttribute("tabindex", "0");
-        
-        // Show corresponding content
-        const content = document.querySelector(`[data-tab-content="${tabName}"]`);
-        if (content) {
-          content.classList.remove("hidden");
-          content.removeAttribute("hidden");
-        }
-        
-        // Smooth scroll after animation starts (delays scroll to let fade-in play)
-        setTimeout(() => {
-          const methodsSection = document.getElementById("giving-methods");
-          if (methodsSection) {
-            methodsSection.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    const root = document.querySelector("[data-paypal-buttons]");
+    if (!root) return;
+
+    const clientId = root.getAttribute("data-client-id") || "";
+    const currency = (root.getAttribute("data-currency") || "USD").toUpperCase();
+
+    const amountInput = document.querySelector("#paypal-amount");
+    const statusEl = document.querySelector("#paypal-status");
+    const buttonsContainer = document.querySelector("#paypal-buttons");
+    const quickGiveRoot = document.querySelector("[data-quick-give]");
+
+    function setStatus(message) {
+      if (!statusEl) return;
+      statusEl.textContent = message || "";
+    }
+
+    function getSelectedQuickGiveCategory() {
+      const selected = quickGiveRoot?.querySelector(".categoryBtn.bg-brand-red");
+      return selected?.getAttribute("data-category") || "";
+    }
+
+    function getAmountValue() {
+      const raw = amountInput?.value || "";
+      const amount = Number(raw);
+      if (!Number.isFinite(amount) || amount <= 0) return null;
+      return amount;
+    }
+
+    if (!clientId) {
+      setStatus("PayPal is not configured.");
+      return;
+    }
+
+    function waitForPayPal() {
+      if (window.paypal?.Buttons) return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        const started = Date.now();
+        const timer = setInterval(() => {
+          if (window.paypal?.Buttons) {
+            clearInterval(timer);
+            resolve();
+            return;
           }
-        }, 150);
+          if (Date.now() - started > 15000) {
+            clearInterval(timer);
+            reject(new Error("PayPal SDK did not load"));
+          }
+        }, 100);
       });
-    });
+    }
 
-    // Make PayPal form containers fully clickable (desktop, tablet, mobile)
-    const paypalForms = document.querySelectorAll('form[action*="paypal.com"]');
-    paypalForms.forEach((form) => {
-      form.addEventListener("click", (e) => {
-        // If a real submit button is ever made interactive, let it handle the submit
-        const directSubmit = e.target.closest('button[type="submit"]');
-        if (directSubmit) return;
+    function renderButtons() {
+      if (!buttonsContainer || !window.paypal?.Buttons) return;
 
-        // Otherwise, treat any click inside the card as a submit
-        e.preventDefault();
-        const submitButton = form.querySelector('button[type="submit"]');
-        if (submitButton) {
-          submitButton.click();
-        }
+      buttonsContainer.innerHTML = "";
+      window.paypal.Buttons({
+        style: {
+          layout: "vertical",
+          shape: "pill",
+          label: "donate",
+        },
+        onInit: (_data, actions) => {
+          actions.disable();
+
+          const maybeEnable = () => {
+            const amount = getAmountValue();
+            if (amount) actions.enable();
+            else actions.disable();
+          };
+
+          amountInput?.addEventListener("input", maybeEnable);
+          maybeEnable();
+        },
+        createOrder: (_data, actions) => {
+          const amount = getAmountValue();
+          if (!amount) {
+            setStatus("Please enter an amount first.");
+            throw new Error("Missing amount");
+          }
+
+          const category = getSelectedQuickGiveCategory();
+          const description = category
+            ? `The Life Place - ${category}`
+            : "The Life Place - Giving";
+
+          return actions.order.create({
+            purchase_units: [
+              {
+                description,
+                amount: {
+                  currency_code: currency,
+                  value: amount.toFixed(2),
+                },
+              },
+            ],
+          });
+        },
+        onApprove: async (_data, actions) => {
+          try {
+            const details = await actions.order.capture();
+            const id = details?.id ? ` (${details.id})` : "";
+            setStatus(`Thank you! Your donation was successful${id}. Redirecting...`);
+            window.location.href = "/thank-you?event=Donation";
+          } catch (error) {
+            setStatus("Payment was approved, but capture failed. Please try again.");
+            throw error;
+          }
+        },
+        onCancel: () => setStatus("Payment canceled."),
+        onError: () => setStatus("Something went wrong with PayPal. Please try again."),
+      }).render(buttonsContainer);
+    }
+
+    waitForPayPal()
+      .then(() => {
+        renderButtons();
+      })
+      .catch(() => {
+        setStatus("PayPal could not be loaded. Please try again later.");
       });
-    });
   });
 </script>
-
-<script is:inline>
-  document.addEventListener("DOMContentLoaded", () => {
-    const items = document.querySelectorAll(".faq-item");
-
-    items.forEach((item, index) => {
-      const summary = item.querySelector(".faq-summary");
-      const content = item.querySelector(".faq-content");
-      const icon = summary.querySelector("svg");
-
-      // ARIA wiring
-      const buttonId = `faq-button-${index}`;
-      const panelId = `faq-panel-${index}`;
-      summary.setAttribute("id", buttonId);
-      summary.setAttribute("aria-controls", panelId);
-      summary.setAttribute("aria-expanded", "false");
-      content.setAttribute("id", panelId);
-      content.setAttribute("role", "region");
-      content.setAttribute("aria-labelledby", buttonId);
-
-      summary.addEventListener("click", () => {
-        const isOpen = content.style.maxHeight && content.style.maxHeight !== "0px";
-
-        // Close all
-        items.forEach((other, i) => {
-          const otherSummary = other.querySelector(".faq-summary");
-          const otherContent = other.querySelector(".faq-content");
-          const otherIcon = other.querySelector("svg");
-          if (otherContent) otherContent.style.maxHeight = null;
-          if (otherIcon) otherIcon.style.transform = "rotate(0deg)";
-          if (otherSummary) otherSummary.setAttribute("aria-expanded", "false");
-          other.classList.remove("open");
-        });
-
-        // Open clicked one
-        if (!isOpen) {
-          content.style.maxHeight = content.scrollHeight + "px";
-          if (icon) icon.style.transform = "rotate(180deg)";
-          summary.setAttribute("aria-expanded", "true");
-          item.classList.add("open");
-        }
-      });
-    });
-  });
-</script>
-
-<style>
-  /* Method card fade-in animation */
-
-  /* CSS blend for hero images */
-  .hero-image-blend {
-    position: relative;
-  }
-  .hero-img-left {
-    object-position: right center;
-  }
-  .hero-img-right {
-    object-position: left center;
-  }
-
-  @media (max-width: 639.98px) {
-    .hero-img-right {
-      object-position: 80% center;
-    }
-  }
-  /* Seam blend overlay: vertical gradient at the seam */
-  .hero-blend-overlay {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translateX(-50%);
-    width: 5vw;
-    min-width: 32px;
-    max-width: 64px;
-    height: 100%;
-    background: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.18) 40%, rgba(0,0,0,0.18) 60%, rgba(0,0,0,0) 100%);
-    z-index: 10;
-    pointer-events: none;
-    filter: blur(2px);
-  }
-    /* Seam blender overlay: soft vertical gradient at the seam */
-    .hero-seam-blender {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 3vw;
-      min-width: 18px;
-      max-width: 48px;
-      height: 100%;
-      background: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.18) 45%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0) 100%);
-      z-index: 2;
-      pointer-events: none;
-      filter: blur(2.5px);
-      mix-blend-mode: multiply;
-    }
-    /* .hero-blend-overlay fully removed */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .fadeIn {
-    animation: fadeIn 0.4s ease-out forwards;
-  }
-
-  /* Smooth transitions for tab content */
-  .methodTabContent {
-    transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .methodTabContent.hidden {
-    display: none !important;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-
-  /* QuickGive intro text styling */
-  .quickgive-intro {
-    animation: fadeIn 0.5s ease-out;
-  }
-
-  .no-scrollbar::-webkit-scrollbar { display: none; }
-  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-  /* Hero image crops */
-  .giving-hero-left {
-    /* Restore previous crop so left hero photo sits correctly */
-    object-position: right center;
-  }
-
-  .giving-hero-right {
-    object-position: center center;
-  }
-
-  @media (max-width: 1023.98px) {
-    .giving-hero-right {
-      /* On mobile + tablet, keep image slightly left of center but further from the edge */
-      object-position: 85% center;
-    }
-  }
-</style>

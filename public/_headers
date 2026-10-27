@@ -1,9 +1,41 @@
+# Static asset headers for Astro + Cloudflare Workers
+# Note: _headers applies to static assets only, not Worker-generated HTML responses.
+
 /favicon.png
   Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
 
 /favicon.ico
   Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
 
+/manifest.json
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+
+/robots.txt
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
+
+/public/*
+  X-Content-Type-Options: nosniff
+
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
+
+/scripts/*
+  Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
+
+/notes/*
+  Cache-Control: public, max-age=3600
+  X-Content-Type-Options: nosniff
+  
 # Add other global headers below using the Netlify/Cloudflare Pages `_headers` format:
 # <path>
 #   Header-Name: Header value

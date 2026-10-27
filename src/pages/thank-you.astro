@@ -14,7 +14,11 @@ const thankYouMessage =
     : "Thank you! We’ve received your submission.";
 ---
 
-<BaseLayout title="Thank You">
+<BaseLayout
+  title="Thank You | The Life Place"
+  description="Thank you for contacting The Life Place."
+  noindex={true}
+>
   <section class="container-x py-14 md:py-20 text-center">
     <!-- Heading -->
     <h1 class="heading-1 text-brand-red mb-5 md:mb-6">
@@ -29,7 +33,7 @@ const thankYouMessage =
     <!-- CTAs -->
     <div class="mt-5 md:mt-6 text-center space-y-3 md:space-y-0 md:space-x-4">
       {event === "Giving" && (
-        <a href="/give" class="btn btn-outline">
+        <a href="/give/" class="btn btn-outline">
           Give Again
         </a>
       )}

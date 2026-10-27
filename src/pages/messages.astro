@@ -2,10 +2,7 @@
 // 🔥 SAME IMPORT AS LIVE PAGE
 import BaseLayout from "../layouts/BaseLayout.astro";
 import "../styles/toast.css";
-import HeroTitle from "../components/tlp/HeroTitle.astro";
-import SectionWrapper from "../components/tlp/SectionWrapper.astro";
 import FullBleed from "../components/tlp/FullBleed.astro";
-import WarmBackground from "../components/tlp/WarmBackground.astro";
 import FadeDivider from "../components/tlp/FadeDivider.astro";
 
 
@@ -13,22 +10,24 @@ import SeriesChips from "../components/SeriesChips.astro";
 import SpeakerChips from "../components/SpeakerChips.astro";
 import SearchBar from "../components/SearchBar.astro";
 import Pagination from "../components/Pagination.astro";
-import fs from "fs";
+import { loadMessages } from "../utils/message-store";
+import { highlightJesusHtml } from "../utils/highlight-jesus";
 
+// The previous archive contains unverified placeholder records. Keep its public URL
+// useful without presenting fictional sermons until real recordings are supplied.
+return Astro.redirect("/live/", 302);
 
-// Load all messages
-const messages = JSON.parse(
-  fs.readFileSync("src/data/messages.json", "utf-8")
-);
+const runtimeEnv = (Astro.locals as { runtime?: { env?: Record<string, unknown> } } | undefined)?.runtime?.env;
+const messages = await loadMessages(runtimeEnv);
 
 // Sort messages by date (newest first)
-messages.sort((a, b) => new Date(b.date) - new Date(a.date));
+messages.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 // Hybrid featured logic
 const featuredMessages = messages.filter((m) => m.featured);
 const heroMessage =
   featuredMessages.length > 0
-    ? featuredMessages.sort((a, b) => new Date(b.date) - new Date(a.date))[0]
+    ? featuredMessages.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0]
     : messages[0];
 
 // URL filters
@@ -93,14 +92,13 @@ const upNext = filtered.length > 0 ? filtered[0] : null;
       id="heroPlayer"
       class="w-full h-full relative z-10"
       src={`https://www.youtube.com/embed/${heroMessage.youtubeId}?rel=0&modestbranding=1`}
+      title={`Watch ${heroMessage.title} from The Life Place`}
       allowfullscreen
     ></iframe>
   </div>
 
   <div class="max-w-5xl mx-auto px-4 mt-6 text-center">
-    <h1 id="heroTitle" class="heading-1">
-      {heroMessage.title}
-    </h1>
+    <h1 id="heroTitle" class="heading-1" set:html={highlightJesusHtml(heroMessage.title)} />
     <p id="heroMeta" class="mt-2 text-gray-600 text-lg">
       {heroMessage.preacher} · {heroMessage.date}
     </p>
@@ -167,12 +165,12 @@ const upNext = filtered.length > 0 ? filtered[0] : null;
             src={msg.thumbnail}
             alt={msg.title}
             class="w-full h-48 object-cover group-hover:scale-105 transition"
+            loading="lazy"
+            decoding="async"
           />
         </div>
 
-        <h3 class="mt-3 font-semibold text-gray-800 group-hover:text-brand-red">
-          {msg.title}
-        </h3>
+        <h3 class="mt-3 font-semibold text-gray-800 group-hover:text-brand-red" set:html={highlightJesusHtml(msg.title)} />
 
         <p class="text-gray-500 text-sm">{msg.preacher}</p>
       </button>
@@ -191,38 +189,41 @@ const upNext = filtered.length > 0 ? filtered[0] : null;
 const shareBtn = document.getElementById("tlpShareBtn");
 const floatTip = document.getElementById("tlpFloatTip");
 
-// SHARE HANDLER
-shareBtn.addEventListener("click", async () => {
-  const shareData = {
-    title: document.title,
-    text: "Watch this message from The Life Place!",
-    url: window.location.href
-  };
+if (shareBtn instanceof HTMLButtonElement && floatTip instanceof HTMLDivElement) {
+  const floatTipEl = floatTip;
+  // SHARE HANDLER
+  shareBtn.addEventListener("click", async () => {
+    const shareData = {
+      title: document.title,
+      text: "Watch this message from The Life Place!",
+      url: window.location.href
+    };
 
-  // Try native share
-  if (navigator.share) {
+    // Try native share
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch {}
+    }
+
+    // Fallback → copy to clipboard
     try {
-      await navigator.share(shareData);
-      return;
-    } catch {}
-  }
+      await navigator.clipboard.writeText(window.location.href);
+      showTip();
+    } catch {
+      alert("Link copied!");
+    }
+  });
 
-  // Fallback → copy to clipboard
-  try {
-    await navigator.clipboard.writeText(window.location.href);
-    showTip();
-  } catch {
-    alert("Link copied!");
+  // Tooltip animation
+  function showTip() {
+    floatTipEl.style.opacity = "1";
+    floatTipEl.style.transform = "translateX(-50%) translateY(-4px) scale(1)";
+    setTimeout(() => {
+      floatTipEl.style.opacity = "0";
+      floatTipEl.style.transform = "translateX(-50%) translateY(0px) scale(.95)";
+    }, 1200);
   }
-});
-
-// Tooltip animation
-function showTip() {
-  floatTip.style.opacity = "1";
-  floatTip.style.transform = "translateX(-50%) translateY(-4px) scale(1)";
-  setTimeout(() => {
-    floatTip.style.opacity = "0";
-    floatTip.style.transform = "translateX(-50%) translateY(0px) scale(.95)";
-  }, 1200);
 }
 </script>

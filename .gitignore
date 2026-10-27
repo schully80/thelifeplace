@@ -19,6 +19,7 @@ pnpm-lock.yaml
 # 🧪 Test output
 .coverage/
 .vitest/
+reports/website-audit/
 
 # 🖼 Cache & OS cruft
 .DS_Store
@@ -29,6 +30,7 @@ pnpm-lock.yaml
 # 🔥 Cloudflare
 .functions-cache/
 .worker/
+.wrangler/
 
 # 🔐 Ignore frontend JS scripts containing API logic
 public/js/places-autocomplete.js

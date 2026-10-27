@@ -9,6 +9,13 @@ export default defineConfig({
   site: "https://thelifeplace.org",
   adapter: cloudflare({ imageService: "compile" }),
   output: "server",
+  // Let middleware enforce the route-specific canonical slash policy.
+  trailingSlash: "ignore",
+  vite: {
+    ssr: {
+      external: ["node:fs/promises", "node:path"],
+    },
+  },
   devToolbar: {
     enabled: false,
   },
@@ -18,12 +25,17 @@ export default defineConfig({
     tailwind(),
     sitemap({
       filter: (page) => {
-        if (!page || !page.pathname) return true;
-        
-        const p = page.pathname;
+        if (!page) return true;
+
+        const p = new URL(page).pathname.replace(/\/$/, "") || "/";
 
         // ✅ Exclude test / draft / legacy routes from sitemap
         const blocked =
+          p.startsWith("/admin") ||
+          // Avoid catching real routes like `/devotionals`
+          p === "/dev" ||
+          p.startsWith("/dev/") ||
+          p.includes("-preview") ||
           p.includes("test") ||
           p.includes(".old") ||
           p.includes(".off") ||
@@ -35,7 +47,14 @@ export default defineConfig({
           p.includes("test-address") ||
           p.includes("test-places");
 
-        return !blocked;
+        const unavailableMinistryRoutes = new Set([
+          "/ministries/kids",
+          "/ministries/premarital-counseling",
+          "/ministries/institute",
+          "/ministries/faith-and-work",
+        ]);
+
+        return !blocked && p !== "/thank-you" && p !== "/messages" && !unavailableMinistryRoutes.has(p);
       },
     }),
     react(),

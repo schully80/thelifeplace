@@ -1,28 +1,13 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import FullBleed from "../../components/tlp/FullBleed.astro";
-import SectionWrapper from "../../components/tlp/SectionWrapper.astro";
-import HeroTitle from "../../components/tlp/HeroTitle.astro";
-import WarmBackground from "../../components/tlp/WarmBackground.astro";
 import FadeDivider from "../../components/tlp/FadeDivider.astro";
-import IconActionCard from "../../components/tlp/IconActionCard.astro";
 import FormCard from "../../components/FormCard.astro";
 import { site } from "../../../site.config.js";
+import { getVisitLocation } from "../../content/shared-content.js";
 
 const email = site?.contact?.email ?? "hello@thelifeplace.org";
-
-// ✅ Address + Google Maps links
-const addressLine1 = "51 Villa Monte Catini, 1 Elm Avenue";
-const addressLine2 = "Craigavon AH, 2191";
-const addressLine3 = "Sandton";
-const addressLine4 = "South Africa";
-
-const fullAddress = `${addressLine1}, ${addressLine2}, ${addressLine3}, ${addressLine3},`;
-
-const mapsQueryUrl = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}`;
-const mapsEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`;
-const appleMapsUrl = `https://maps.apple.com/?q=${encodeURIComponent(fullAddress)}`;
-const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(fullAddress)}&navigate=yes`;
+const visitLocation = getVisitLocation();
 
 // dev-only flag (Vite/ Astro)
 const isDev = import.meta.env.MODE !== 'production';
@@ -30,7 +15,7 @@ const isDev = import.meta.env.MODE !== 'production';
 ---
 <BaseLayout
   title="Plan a Visit — Come. See. Jesus. | The Life Place"
-  description="The Life Place — Come. See. Jesus. Everything you need for your first Sunday: location in Craigavon AH, Sandton, service time (9:00–11:00), what to expect, parking, and how to connect."
+  description="Plan your first Sunday at The Life Place in Craigavon AH, Sandton: service time, directions, what to expect, and optional help with arrival or parking guidance."
 >
 
 {/* FULL-BLEED WRAPPER */}
@@ -38,26 +23,29 @@ const isDev = import.meta.env.MODE !== 'production';
 
   <!-- HERO SECTION — Clean, No Animations, No Flash -->
   <section 
-    class="visit-hero relative h-[45vh] sm:h-[34vh] md:h-[50vh] lg:h-[70vh] flex items-center justify-center cine-zoom-apple-hover"
+    class="visit-hero relative flex h-[44svh] min-h-[320px] items-center justify-center sm:h-[38vh] md:h-[50vh] lg:h-[70vh]"
   >
 
     <!-- INSTANT BACKGROUND IMAGE (no fade, no opacity, no transition) -->
-    <img 
+    <picture>
+      <source type="image/webp" srcset="/images/wide-strip5-960.webp 960w, /images/wide-strip5-1600.webp 1600w" sizes="100vw" />
+      <img
       id="hero-image"
       src="/wide-strip5.jpg"
       alt="The Life Place Community Worship"
       class="absolute inset-0 w-full h-full object-cover object-center brightness-[0.55] rounded-none"
-    />
+      />
+    </picture>
     <!-- Soft overlay -->
     <div class="absolute inset-0 bg-black/20"></div>
 
     <!-- TEXT BLOCK (centered and stable) -->
-    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-full px-6 text-right">
+    <div class="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 px-5 text-center sm:px-6 md:top-1/3 md:translate-y-0 md:text-right">
       
       <h3
-        class="text-white text-2xl md:text-5xl lg:text-6xl font-extrabold cine-zoom-smooth
-               leading-snug md:leading-[1.3]
-               tracking-[0.02em] md:tracking-[0.04em]
+        class="text-3xl font-extrabold text-white sm:text-4xl md:text-5xl lg:text-6xl
+               leading-[1.12] md:leading-[1.2]
+               tracking-normal
                max-w-4xl mx-auto drop-shadow-xl"
       >
         At the heart of everything we believe and do is<br />
@@ -68,88 +56,86 @@ const isDev = import.meta.env.MODE !== 'production';
   </section>
 </div>
 
-<section class="container-x py-14 md:py-24">
+<section class="container-x py-12 md:py-24">
   
   
   <!-- Heading block -->
   <section class="text-center max-w-6xl mx-auto space-y-4 md:space-y-6">
      <span class="font-black block">
-     <h1 class="font-black block heading-1 leading-[1.05]">
+     <h1 class="block text-5xl font-black leading-[0.95] tracking-normal sm:text-6xl md:text-7xl lg:text-8xl">
      VISIT US
     </h1>
+    </span>
 
   </section>
 
   <!-- ===== SERVICE TIMES & LOCATION ===== -->
-  <section class="w-full pt-24 md:pt-40 pb-28 md:pb-36 bg-white">
-  <div class="max-w-6xl mx-auto px-6">
+  <section class="w-full bg-white pt-14 pb-20 md:pt-32 md:pb-32">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
     
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
       
       <!-- Left: Service Info -->
       <div>
-        <h2 class="text-4xl md:text-5xl font-black text-gray-800 mb-8 opacity-0"
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-gray-800 mb-7 md:mb-8 opacity-0"
             data-animate="fade-up" data-delay="0">
           When & <span class="text-brand-red">Where</span>
         </h2>
         
-        <div class="space-y-8">
+        <div class="space-y-7 md:space-y-8">
           
           <!-- Sunday Service -->
-          <div class="border-l-4 border-brand-red pl-6 opacity-0" data-animate="fade-up" data-delay="0">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Sunday</h3>
-            <p class="text-xl text-gray-600 mb-2">
+          <div class="opacity-0" data-animate="fade-up" data-delay="0">
+            <h3 class="text-xl font-bold text-gray-800 mb-2 md:text-2xl">Sunday</h3>
+            <p class="text-lg text-gray-600 mb-2 md:text-xl">
               <span class="font-semibold">9:00-11:00 AM</span>
             </p>
             <p class="text-gray-600">Join us for worship, prayer, and community every Sunday morning.</p>
           </div>
 
           <!-- Location -->
-          <div class="border-l-4 border-brand-red pl-6 opacity-0" data-animate="fade-up" data-delay="100">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2"><i class="fa-solid fa-location-dot text-brand-red mr-2"></i>Our Location</h3>
+          <div class="border-t border-gray-200 pt-7 opacity-0 md:pt-8" data-animate="fade-up" data-delay="100">
+            <h3 class="text-xl font-bold text-gray-800 mb-2 md:text-2xl"><i class="fa-solid fa-location-dot text-brand-red mr-2"></i>Our Location</h3>
             <p class="text-lg text-gray-600 mb-2">The Life Place</p>
             <p class="text-gray-600 leading-relaxed">
-              {addressLine1}<br />
-              {addressLine2}<br />
-              {addressLine3}<br />
-              {addressLine4}
+              {visitLocation.addressLines.map((line) => <>{line}<br /></>)}
             </p>
           </div>
 
           <!-- Visitor Info -->
-          <div class="border-l-4 border-brand-red pl-6 opacity-0" data-animate="fade-up" data-delay="200">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">First Time Visiting?</h3>
+          <div class="border-t border-gray-200 pt-7 opacity-0 md:pt-8" data-animate="fade-up" data-delay="200">
+            <h3 class="text-xl font-bold text-gray-800 mb-2 md:text-2xl">First Time Visiting?</h3>
             <p class="text-gray-600 mb-4">
-              We'd love to meet you! We believe in genuine community and a warm welcome for everyone.
+              You do not need to register for Sunday service. Share your details only if you would like a personal welcome or help planning your arrival.
             </p>
             <button
               id="planVisitBtn"
               type="button"
               aria-controls="planVisitForm"
-              class="plan-button sm:inline-flex sm:min-w-[260px] items-center justify-center gap-2 px-10 sm:px-8 py-3 sm:py-4 border-2 border-brand-red/40 hover:border-brand-red/60 bg-white text-gray-800 font-bold rounded-2xl shadow-md transition hover:bg-gray-50 hover:shadow-lg"
+              class="plan-button inline-flex min-h-12 w-full items-center justify-center gap-2 px-10 py-3 sm:w-auto sm:min-w-[260px] sm:px-8 sm:py-4 border-2 border-brand-red/40 hover:border-brand-red/60 bg-white text-gray-800 font-bold rounded-2xl shadow-md transition-[background-color,border-color,box-shadow,transform] duration-200 ease-out hover:bg-gray-50 hover:shadow-lg active:scale-[0.98]"
               onclick="window.scrollToPlanVisitForm && window.scrollToPlanVisitForm()"
             >
               Plan Your Visit
             </button>
             
             <!-- Map actions: Dropdown with popular GPS platforms (moved under Plan Your Visit) -->
-            <div class="mt-4 relative inline-block">
-              <button id="mapsDropdownBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="mapsDropdownMenu" class="plan-button w-full sm:inline-flex sm:min-w-[260px] inline-flex items-center justify-center rounded-2xl px-6 sm:px-8 py-3 sm:py-4 text-base font-bold border-2 border-brand-red/40 hover:border-brand-red/60 bg-white text-gray-800 shadow-md hover:bg-gray-50 hover:shadow-lg transition">
+            <div class="mt-4 relative block sm:inline-block">
+              <button id="mapsDropdownBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="mapsDropdownMenu" class="plan-button inline-flex min-h-12 w-full items-center justify-center rounded-2xl border-2 border-brand-red/40 bg-white px-6 py-3 text-base font-bold text-gray-800 shadow-md transition-[background-color,border-color,box-shadow,transform] duration-200 ease-out hover:border-brand-red/60 hover:bg-gray-50 hover:shadow-lg active:scale-[0.98] sm:min-w-[260px] sm:px-8 sm:py-4">
                 <span>Get Directions</span>
-                <svg class="h-4 w-4 ml-2 transition-transform duration-600 ease-in-out" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <svg class="ml-2 h-4 w-4 transition-transform duration-200 ease-out" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              <div id="mapsDropdownMenu" aria-labelledby="mapsDropdownBtn" class="absolute left-0 mt-2 z-20 min-w-[260px] max-w-[calc(100vw-3rem)] rounded-2xl border border-black/10 bg-white shadow-xl overflow-hidden transition-all duration-600 ease-out opacity-0 invisible -translate-y-2 pointer-events-none" style="max-height:0px;">
-                <a href={mapsQueryUrl} target="_blank" rel="noopener" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-50" aria-label="Open in Google Maps">
+              <div id="mapsDropdownMenu" aria-labelledby="mapsDropdownBtn" class="absolute left-0 z-20 mt-2 min-w-[260px] max-w-[calc(100vw-3rem)] overflow-hidden rounded-2xl border border-black/10 bg-white opacity-0 shadow-xl transition-[max-height,opacity,transform] duration-200 ease-out invisible -translate-y-2 pointer-events-none" style="max-height:0px;">
+                <a href={visitLocation.mapsQueryUrl} target="_blank" rel="noopener" class="flex min-h-12 items-center px-4 py-3 text-gray-800 transition-colors duration-150 hover:bg-gray-50" aria-label="Open in Google Maps">
                   <span>Google Maps</span>
                 </a>
                 <div class="mx-4 h-px bg-gray-200"></div>
-                <a href={appleMapsUrl} target="_blank" rel="noopener" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-50" aria-label="Open in Apple Maps">
+                <a href={visitLocation.appleMapsUrl} target="_blank" rel="noopener" class="flex min-h-12 items-center px-4 py-3 text-gray-800 transition-colors duration-150 hover:bg-gray-50" aria-label="Open in Apple Maps">
                   <span>Apple Maps (iOS)</span>
                 </a>
                 <div class="mx-4 h-px bg-gray-200"></div>
-                <a href={wazeUrl} target="_blank" rel="noopener" class="flex items-center px-4 py-3 text-gray-800 hover:bg-gray-50" aria-label="Open in Waze">
+                <a href={visitLocation.wazeUrl} target="_blank" rel="noopener" class="flex min-h-12 items-center px-4 py-3 text-gray-800 transition-colors duration-150 hover:bg-gray-50" aria-label="Open in Waze">
                   <span>Waze</span>
                 </a>
               </div>
@@ -160,11 +146,11 @@ const isDev = import.meta.env.MODE !== 'production';
       </div>
 
       <!-- Right: Embedded Google Map -->
-       <div class="relative rounded-3xl overflow-hidden shadow-2xl h-64 sm:h-80 md:h-full border border-gray-200 transform-gpu map-responsive"
+       <div class="relative h-72 overflow-hidden rounded-2xl border border-gray-200 shadow-2xl transform-gpu map-responsive sm:h-80 md:h-full md:rounded-3xl"
          data-animate="fade-up" data-delay="250" data-parallax="map">
         <iframe
           class="w-full h-full"
-          src={mapsEmbedUrl}
+          src={visitLocation.mapsEmbedUrl}
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
           title="The Life Place Location"
@@ -176,7 +162,35 @@ const isDev = import.meta.env.MODE !== 'production';
 
 
 
-    <!-- Registration Form -->
+    <section class="mt-14 border-t border-gray-200 pt-12 md:mt-20 md:pt-16">
+      <div class="max-w-4xl">
+        <p class="text-sm font-bold uppercase tracking-[0.16em] text-brand-red">Your first Sunday</p>
+        <h2 class="mt-4 text-3xl font-black leading-tight text-gray-900 sm:text-4xl md:text-5xl">Come as you are.</h2>
+        <p class="mt-5 max-w-3xl text-lg leading-relaxed text-gray-600">
+          Our gatherings usually run for about 90 minutes, with worship, Bible teaching, prayer, and time to connect. Arrive 10 to 15 minutes early if you can.
+        </p>
+        <dl class="mt-8 grid gap-x-10 gap-y-7 border-t border-gray-200 pt-8 sm:grid-cols-2">
+          <div>
+            <dt class="text-lg font-black text-gray-900">What should I wear?</dt>
+            <dd class="mt-2 leading-relaxed text-gray-600">Wear what you are comfortable in. There is no dress code.</dd>
+          </div>
+          <div>
+            <dt class="text-lg font-black text-gray-900">Can I bring my children?</dt>
+            <dd class="mt-2 leading-relaxed text-gray-600">Yes. Children are welcome to remain with their parents during the service.</dd>
+          </div>
+          <div>
+            <dt class="text-lg font-black text-gray-900">What about parking?</dt>
+            <dd class="mt-2 leading-relaxed text-gray-600">Use the directions above for the easiest route. If you would like arrival or parking guidance, send us your details below and we will help.</dd>
+          </div>
+          <div>
+            <dt class="text-lg font-black text-gray-900">Will I be singled out?</dt>
+            <dd class="mt-2 leading-relaxed text-gray-600">No. You are welcome to join us at your own pace, without pressure.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Optional visit details form -->
     <script is:inline>
       // Central cleanup registry for listeners/RAFs created on this page
       window.__tlp_cleanup = window.__tlp_cleanup || [];
@@ -197,7 +211,7 @@ const isDev = import.meta.env.MODE !== 'production';
 
         const openMenu = () => {
           // Prepare for measurement and smooth expansion
-          menu.classList.remove('invisible','opacity-0','-translate-y-2','pointer-events-none','ease-in');
+          menu.classList.remove('invisible','opacity-0','-translate-y-2','pointer-events-none');
           menu.classList.add('visible','opacity-100','translate-y-0','pointer-events-auto','ease-out');
           // Set dynamic height for gentle roll-down
           const fullHeight = menu.scrollHeight;
@@ -269,8 +283,8 @@ const isDev = import.meta.env.MODE !== 'production';
 
         const closeMenu = () => {
           // Gentle roll-up and fade
-          menu.classList.remove('opacity-100','ease-out');
-          menu.classList.add('opacity-0','ease-in');
+          menu.classList.remove('opacity-100');
+          menu.classList.add('opacity-0');
           menu.style.maxHeight = '0px';
           btn.setAttribute('aria-expanded', 'false');
           arrow?.classList.remove('rotate-180');
@@ -542,21 +556,28 @@ const isDev = import.meta.env.MODE !== 'production';
     </script>
     
     <!-- Spacer between map/service block and form (increased to lower the form) -->
-    <div class="h-24 md:h-32 lg:h-40"></div>
+    <div class="h-16 md:h-28 lg:h-36"></div>
     
     <!-- Dev-only prompt snippet browser (hidden in production) -->
 
-    <div class="mt-12 md:mt-16 max-w-2xl mx-auto px-4 md:px-0">
-      <div id="planVisitForm" class="bg-gray-50 rounded-2xl p-6 md:p-10">
-        <FormCard
-          title="Plan a Visit"
-          eventName="Plan a Visit"
-          ctaText="Submit"
-          showComingSoon={true}
-          comingSoonMessage="Visitor sign-ups opening soon — Come. See. Jesus."
-        />
+    <div class="mt-8 max-w-3xl mx-auto px-0 md:mt-16">
+      <div id="planVisitForm" class="border border-black/5 shadow-lg shadow-black/5 bg-gray-50 rounded-2xl p-4 sm:p-6 md:p-10">
+        <div class="my-8 md:my-10">
+          <FormCard
+            title="Plan a Visit"
+            eventName="Plan a Visit"
+            ctaText="Send My Visit Details"
+            instructionText="You do not need to register for Sunday service. Leave your details only if you would like a personal welcome or help with directions and parking."
+            showComingSoon={false}
+            enableTurnstile={true}
+            formAction="/api/register"
+            successTitle="Thank you! We’ve received your visit details."
+            successDescription="A confirmation email has been sent."
+            duplicateTitle="You’ve already submitted this form."
+            duplicateDescription="If you need to update your details, reply to your confirmation email or contact us."
+          />
+        </div>
       </div>
-      <!-- Debugging Turnstile test removed -->
     </div>
 
   </div>
@@ -621,14 +642,14 @@ const isDev = import.meta.env.MODE !== 'production';
   <!-- Reduce spacing between the sections -->
   <div class="-mt-12 md:-mt-20 lg:-mt-28"></div>
   <!-- Final Invitation -->
-<section class="py-24 md:py-32 bg-white">
+<section class="bg-white py-16 md:py-32">
   <div class="max-w-4xl mx-auto px-6 text-center">
     
-    <h2 class="text-4xl md:text-5xl font-black mb-6 text-gray-800">
-      Come. See. <span class="text-brand-red">Jesus</span>
+    <h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-5 md:mb-6 text-gray-800">
+      Come. See. <span class="text-brand-red">Jesus.</span>
     </h2>
 
-    <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+    <p class="text-lg md:text-xl text-gray-600 mb-8 md:mb-12 max-w-2xl mx-auto">
       Join us this Sunday.
     </p>
 

@@ -2,68 +2,100 @@
 const {
   title = "The Life Place",
   logoSrc = "/logo.png",
+  logoWordmarkSrc = "/logo4.svg",
   class: className,
+  navButtonVariant = "glass", // options: "glass" (default) or "solid"
 } = Astro.props;
 
+// Allow quick dev preview via ?navBtn=solid|glass
+let resolvedNavVariant = navButtonVariant;
+const queryVariant = Astro.url?.searchParams?.get("navBtn");
+if (queryVariant === "solid" || queryVariant === "glass") {
+  resolvedNavVariant = queryVariant;
+}
+
 const path = Astro.url.pathname;
-const isActive = (href) =>
+const isActive = (href: string) =>
   href === "/"
     ? path === "/"
     : path === href || (href !== "/" && path.startsWith(href) && path.charAt(href.length) === "/");
+
+const isAboutActive =
+  isActive("/about-us/") ||
+  isActive("/what-we-believe/") ||
+  isActive("/about-us/leadership");
+
+const isHome = path === "/";
+const desktopNavTracking = isHome ? "tracking-[-0.02em]" : "tracking-[-0.04em]";
+
+const drawerPrimaryLinkBase =
+  "drawer-fade-item flex min-h-12 w-full items-center py-2 text-left font-montserrat text-[2.2rem] font-black leading-[0.96] tracking-[-0.04em] transition-[color,transform] duration-150 ease-out active:scale-[0.985] md:py-3 md:text-[3rem]";
+const drawerPrimaryLinkState = (href: string) =>
+  isActive(href) ? "text-brand-red" : "text-brand-darkgray hover:text-brand-red";
+const drawerSubLinkBase =
+  "drawer-fade-subitem flex min-h-11 w-full items-center py-2 pl-5 text-left font-montserrat text-[1.35rem] font-bold leading-[1.02] tracking-[-0.03em] transition-[color,transform] duration-150 ease-out active:scale-[0.985] md:py-2.5 md:pl-8 md:text-[1.8rem]";
+const drawerSubLinkState = (href: string) =>
+  isActive(href) ? "text-brand-red" : "text-brand-darkgray/85 hover:text-brand-red";
+const desktopNavLinkBase =
+  `px-2 py-2 font-montserrat text-[1.5rem] font-black leading-none transition-[color,transform] duration-150 ease-out active:scale-[0.98] ${desktopNavTracking}`;
+const desktopNavLinkState = (href: string) => (isActive(href) ? "text-brand-red" : "text-gray-700 hover:text-gray-800");
+const desktopNavUnderlineBase =
+  "relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 after:bg-brand-red after:transition-[width] after:duration-200 after:ease-out hover:after:w-full";
+const desktopNavUnderlineState = (href: string) => (isActive(href) ? "after:w-full" : "");
+const desktopAboutSubLinkBase =
+  "desktop-about-subitem group block px-4 py-3 font-montserrat text-[1.15rem] font-black leading-none tracking-[-0.035em] text-gray-700 transition-[color,transform] duration-150 ease-out hover:text-gray-800 active:scale-[0.98]";
+const desktopAboutSubUnderlineBase =
+  "relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 after:bg-brand-red after:transition-[width] after:duration-200 after:ease-out hover:after:w-full";
+const hamburgerButtonBase =
+  "focus-ring-brand relative inline-flex h-11 w-11 items-center justify-center bg-transparent text-[#171717] transition-[color,transform] duration-150 ease-out hover:text-black focus:outline-none active:scale-[0.97] active:text-black";
+const closeButtonBase =
+  "focus-ring-brand relative inline-flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-[#171717] transition-[background-color,color,transform] duration-150 ease-out hover:bg-gray-200 hover:text-black focus:outline-none active:scale-[0.97] active:bg-gray-200 active:text-black";
+const navGiveButtonBase =
+  "relative z-10 px-4 py-2 whitespace-nowrap rounded-2xl bg-brand-red font-montserrat text-[1.5rem] font-black leading-none text-white shadow-md transition-[background-color,box-shadow,transform] duration-150 ease-out hover:bg-red-700 active:scale-[0.97]";
 ---
 
-<header class:list={[
+  <header class:list={[
   "relative z-50 border-b bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70",
   className,
 ]}>
 
-  <!-- MOBILE: 0–md (flex layout with hamburger) -->
-  <div class="md:hidden h-20 grid grid-cols-[1fr,auto] items-center px-4 gap-2">
-    <!-- Logo + Title -->
-    <div class="flex items-center gap-3 min-w-0">
-      <img src={logoSrc} alt="Logo" class="h-14 w-14 flex-shrink-0" />
-      <a
-        href="/"
-        class="flex flex-col items-center min-w-0"
-        aria-label={`${title} — Home`}
-      >
-        <span class="font-bold text-brand-red text-[20px] sm:text-[24px] leading-tight text-center">
-          {title}
-        </span>
-        <span class="text-[12px] sm:text-[13px] text-brand-warmgray-600 tracking-wide text-center">
-          Come. See. <span class="text-[#B3282D]">Jesus</span>
-        </span>
-      </a>
-    </div>
+  <!-- MOBILE: 0–md (flex layout with hamburger) — primary mobile UI lives here -->
+  <div class="relative flex h-20 items-center justify-center px-4 md:hidden">
+    <!-- Logo -->
+    <a
+      href="/"
+      class="mx-14 flex min-w-0 items-center justify-center gap-2"
+      aria-label={`${title} — Home`}
+    >
+      <img src={logoSrc} alt={title} class="h-14 w-14 flex-shrink-0 sm:h-16 sm:w-16" />
+      <img src={logoWordmarkSrc} alt="" class="h-10 w-auto max-w-[38vw] flex-shrink-0 sm:h-12 sm:max-w-[220px]" aria-hidden="true" />
+    </a>
 
     <!-- Hamburger Button -->
     <button
       id="mobileMenuButton"
       type="button"
       aria-label="Open menu"
-      aria-controls="mobileNavDrawer"
+      aria-controls="tabletNavDrawer"
       aria-expanded="false"
-      class="p-2 rounded-md hover:bg-gray-100 transition"
+      class:list={[hamburgerButtonBase, "absolute right-4"]}
     >
-      <svg viewBox="0 0 24 24" class="h-6 w-6 text-gray-800" aria-hidden="true">
-        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      <svg viewBox="0 0 24 24" class="h-7 w-7" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
       </svg>
     </button>
   </div>
 
   <!-- TABLET + LAPTOP: md–xl (horizontal nav with optional drawer in portrait) -->
   <div class="hidden md:flex xl:hidden h-20 sm:h-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 justify-between items-center gap-6">
-    <!-- Logo + Title -->
+    <!-- Logo -->
     <a
       href="/"
       class="shrink-0 flex items-center gap-3 min-w-0"
       aria-label={`${title} — Home`}
     >
-      <img src={logoSrc} alt="Logo" class="h-14 w-auto" />
-      <div class="flex flex-col min-w-0">
-        <span class="font-bold text-brand-red text-xl md:text-2xl leading-tight truncate">{title}</span>
-        <span class="text-center text-sm text-gray-600 tracking-wide">Come. See. <span class="text-[#B3282D]">Jesus</span></span>
-      </div>
+      <img src={logoSrc} alt={title} class="h-14 w-14 flex-shrink-0" />
+      <img src={logoWordmarkSrc} alt="" class="h-12 w-auto max-w-[240px] flex-shrink-0" aria-hidden="true" />
     </a>
 
     <!-- Desktop-style nav (landscape) -->
@@ -71,33 +103,57 @@ const isActive = (href) =>
 
       <!-- About Us Dropdown -->
       <div data-dropdown class="relative">
-          <button
-            data-trigger
-            type="button"
-            aria-expanded="false"
-            class={`relative px-2 py-2 rounded-full ${
-              isActive("/about-us/")
-                ? "text-brand-red font-semibold bg-red-50"
-                : "text-gray-700 hover:bg-gray-50"
-            }`}
-          >About Us</button>
+        <button
+          data-trigger
+          type="button"
+          aria-expanded="false"
+          class:list={[
+            desktopNavLinkBase,
+            isAboutActive ? "text-brand-red" : "text-gray-700 hover:text-gray-800",
+          ]}
+        ><span class:list={[desktopNavUnderlineBase, isAboutActive ? "after:w-full" : ""]}>About</span></button>
 
-        <div data-menu class="absolute left-0 top-full mt-1 w-56 md:w-64 rounded-md border bg-white shadow-lg hidden">
-          <a href="/about-us/" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">What We Do</a>
-          <a href="/what-we-believe/" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">What We Believe</a>
-          <a href="/about-us/leadership" class="block px-3 py-2 text-sm text-gray-700 hover:text-gray-800">Schulter & Genevieve</a>
+        <div
+          data-menu
+          data-about-menu
+          class="absolute left-0 top-full mt-1 z-50 hidden max-h-80 w-72 overflow-y-auto overscroll-contain rounded-md border bg-white px-2 py-2 shadow-lg"
+        >
+          <a
+            href="/about-us/"
+            class:list={[desktopAboutSubLinkBase, isActive("/about-us/") ? "text-brand-red" : ""]}
+            style="--desktop-sub-delay: 40ms"
+          ><span class={desktopAboutSubUnderlineBase}>What We Do</span></a>
+          <a
+            href="/what-we-believe/"
+            class:list={[desktopAboutSubLinkBase, isActive("/what-we-believe/") ? "text-brand-red" : ""]}
+            style="--desktop-sub-delay: 80ms"
+          ><span class={desktopAboutSubUnderlineBase}>What We Believe</span></a>
+          <a
+            href="/about-us/leadership"
+            class:list={[desktopAboutSubLinkBase, isActive("/about-us/leadership") ? "text-brand-red" : ""]}
+            style="--desktop-sub-delay: 120ms"
+          ><span class={desktopAboutSubUnderlineBase}>Schulter and Genevieve</span></a>
         </div>
       </div>
 
       <!-- Live -->
-        <a
-          href="/live/"
-          class={`px-2 py-2 flex items-center gap-1 rounded-full ${
-            isActive("/live/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"
-          }`}
-        >
-        <span data-live-mid-text>Live</span>
-        <span data-live-mid-indicator class="hidden h-2 w-2 rounded-full bg-red-600"></span>
+      <a
+        href="/live/"
+        class:list={[
+          desktopNavLinkBase,
+          desktopNavLinkState("/live/"),
+          "flex items-center gap-2",
+        ]}
+      >
+        <span class:list={[desktopNavUnderlineBase, desktopNavUnderlineState("/live/")]}>
+          <span data-live-mid-text>Live</span>
+        </span>
+        <span data-live-mid-indicator class="hidden shrink-0" aria-hidden="true">
+          <span class="relative inline-flex h-3 w-3 items-center justify-center">
+            <span class="absolute inset-0 rounded-full bg-brand-red/25 animate-nav-live-ping"></span>
+            <span class="relative h-2 w-2 rounded-full bg-brand-red shadow-[0_0_0_2px_rgba(255,255,255,0.92)]"></span>
+          </span>
+        </span>
       </a>
 
       <!-- Ministries nav removed -->
@@ -105,26 +161,23 @@ const isActive = (href) =>
       <!-- Generosity -->
       <a
         href="/give/"
-        class="px-4 py-2 rounded-full bg-brand-red text-white font-semibold shadow-md hover:bg-red-700 transition"
-      >Generosity</a>
+        class:list={[
+          navGiveButtonBase,
+          desktopNavTracking,
+        ]}
+      >Give</a>
 
       <!-- Plan A Visit -->
-        <a
-          href="/visit/"
-          class={`px-2 py-2 rounded-full ${
-            isActive("/visit/")
-              ? "text-brand-red font-semibold bg-red-50"
-              : "text-gray-700 hover:bg-gray-50"
-          }`}
-        >Plan A Visit</a>
+      <a
+        href="/visit/"
+        class:list={[desktopNavLinkBase, desktopNavLinkState("/visit/")]}
+      ><span class:list={[desktopNavUnderlineBase, desktopNavUnderlineState("/visit/")]}>Visit Us</span></a>
 
       <!-- Blog (internal listing) -->
-        <a
-          href="/blog/"
-          class={`px-2 py-2 rounded-full ${
-            isActive("/blog/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"
-          }`}
-        >Our Blog</a>
+      <a
+        href="/blog/"
+        class:list={[desktopNavLinkBase, desktopNavLinkState("/blog/")]}
+      ><span class:list={[desktopNavUnderlineBase, desktopNavUnderlineState("/blog/")]}>Blog</span></a>
     </nav>
 
     <!-- Hamburger (portrait) -->
@@ -134,35 +187,29 @@ const isActive = (href) =>
       aria-label="Open menu"
       aria-controls="tabletNavDrawer"
       aria-expanded="false"
-      class="hamburger hidden portrait:flex items-center justify-center p-2 rounded-md hover:bg-gray-100 transition"
+      class={`${hamburgerButtonBase} hamburger hidden portrait:flex`}
     >
-      <svg viewBox="0 0 24 24" class="h-6 w-6 text-gray-800">
-        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      <svg viewBox="0 0 24 24" class="h-7 w-7" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+        
       </svg>
     </button>
   </div>
 
   <!-- DESKTOP: xl+ (full horizontal nav) -->
   <div class="hidden xl:flex max-w-8xl 2xl:max-w-[88rem] mx-auto px-4 sm:px-6 lg:px-8 h-24 justify-between items-center gap-6 2xl:gap-4">
-    <!-- Logo + Title -->
+    <!-- Logo -->
     <a
       href="/"
       class="shrink-0 flex items-center gap-3 min-w-0 cine-zoom-apple-hover"
       aria-label={`${title} — Home`}
     >
-      <img src={logoSrc} alt={`${title} Logo`} class="h-10 md:h-14 w-auto" />
-      <div class="flex flex-col min-w-0 items-center text-center">
-        <span class="font-bold text-brand-red text-lg sm:text-xl md:text-2xl leading-tight truncate">
-          {title}
-        </span>
-        <span class="text-md text-gray-600 tracking-wide">
-          Come. See. <span class="text-[#B3282D]">Jesus</span>
-        </span>
-      </div>
+      <img src={logoSrc} alt={title} class="h-14 w-14 flex-shrink-0" />
+      <img src={logoWordmarkSrc} alt="" class="h-12 w-auto max-w-[260px] flex-shrink-0" aria-hidden="true" />
     </a>
 
     <!-- Nav -->
-    <nav class="flex items-center gap-8 font-montserrat text-base xl:text-lg">
+    <nav class="xl:mr-4 2xl:mr-6 flex items-center gap-8 font-montserrat text-base xl:text-lg">
       <!-- ...existing code... -->
 
       <!-- About Us -->
@@ -170,30 +217,53 @@ const isActive = (href) =>
         <button
           data-trigger
           type="button"
-          class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-            isActive("/about-us/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-brand-red"
-          }`}
-        >About Us</button>
+          class:list={[
+            desktopNavLinkBase,
+            isAboutActive ? "text-brand-red" : "text-gray-700 hover:text-gray-800",
+          ]}
+        ><span class:list={[desktopNavUnderlineBase, isAboutActive ? "after:w-full" : ""]}>About</span></button>
 
         <div
           data-menu
-          class="absolute left-0 top-full -mt-px w-56 rounded-md border bg-white shadow-lg z-50 hidden max-h-80 overflow-y-auto overscroll-contain pt-1"
+          data-about-menu
+          class="absolute left-0 top-full -mt-px z-50 hidden max-h-80 w-72 overflow-y-auto overscroll-contain rounded-md border bg-white px-2 py-2 shadow-lg"
         >
-          <a href="/about-us/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">What We Do</span></a>
-          <a href="/what-we-believe/" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">What We Believe</span></a>
-          <a href="/about-us/leadership" class="group block px-3 py-2 text-sm text-gray-700 hover:text-gray-800"><span class="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-brand-red after:w-0 hover:after:w-full after:transition-all after:duration-300">Schulter and Genevieve</span></a>
+          <a
+            href="/about-us/"
+            class:list={[desktopAboutSubLinkBase, isActive("/about-us/") ? "text-brand-red" : ""]}
+            style="--desktop-sub-delay: 40ms"
+          ><span class={desktopAboutSubUnderlineBase}>What We Do</span></a>
+          <a
+            href="/what-we-believe/"
+            class:list={[desktopAboutSubLinkBase, isActive("/what-we-believe/") ? "text-brand-red" : ""]}
+            style="--desktop-sub-delay: 80ms"
+          ><span class={desktopAboutSubUnderlineBase}>What We Believe</span></a>
+          <a
+            href="/about-us/leadership"
+            class:list={[desktopAboutSubLinkBase, isActive("/about-us/leadership") ? "text-brand-red" : ""]}
+            style="--desktop-sub-delay: 120ms"
+          ><span class={desktopAboutSubUnderlineBase}>Schulter and Genevieve</span></a>
         </div>
       </div>
 
       <!-- Live -->
       <a
         href="/live/"
-        class={`relative px-2 py-2 flex items-center gap-1 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-          isActive("/live/") ? "after:w-full after:bg-brand-red text-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-brand-red"
-        }`}
+        class:list={[
+          desktopNavLinkBase,
+          desktopNavLinkState("/live/"),
+          "flex items-center gap-2",
+        ]}
       >
-        <span data-live-text>Live</span>
-        <span data-live-indicator class="hidden h-2 w-2 rounded-full bg-red-600 absolute -right-3 top-1/2 -translate-y-1/2"></span>
+        <span class:list={[desktopNavUnderlineBase, desktopNavUnderlineState("/live/")]}>
+          <span data-live-text>Live</span>
+        </span>
+        <span data-live-indicator class="hidden shrink-0" aria-hidden="true">
+          <span class="relative inline-flex h-3 w-3 items-center justify-center">
+            <span class="absolute inset-0 rounded-full bg-brand-red/25 animate-nav-live-ping"></span>
+            <span class="relative h-2 w-2 rounded-full bg-brand-red shadow-[0_0_0_2px_rgba(255,255,255,0.92)]"></span>
+          </span>
+        </span>
       </a>
 
       <!-- Ministries nav removed -->
@@ -201,87 +271,220 @@ const isActive = (href) =>
       <!-- Generosity -->
       <a
         href="/give/"
-        class="relative z-10 px-4 py-2 whitespace-nowrap rounded-full bg-brand-red text-white font-semibold shadow-md transition"
+        class:list={[
+          navGiveButtonBase,
+          desktopNavTracking,
+        ]}
         aria-current={isActive("/give/") ? "page" : undefined}
-      >Generosity</a>
+      >Give</a>
 
       <!-- Plan A Visit -->
       <a
         href="/visit/"
-        class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-          isActive("/visit/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-brand-red"
-        }`}
-      >Plan A Visit</a>
+        class:list={[desktopNavLinkBase, desktopNavLinkState("/visit/")]}
+      ><span class:list={[desktopNavUnderlineBase, desktopNavUnderlineState("/visit/")]}>Visit</span></a>
 
       <!-- Blog (internal listing) -->
       <a
         href="/blog/"
-        class={`relative px-2 py-2 after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0 hover:after:w-full after:transition-all after:duration-300 ${
-          isActive("/blog/") ? "text-brand-red after:w-full after:bg-brand-red font-semibold" : "text-gray-700 hover:text-gray-800 after:bg-brand-red"
-        }`}
-      >Our Blog</a>
+        class:list={[desktopNavLinkBase, desktopNavLinkState("/blog/")]}
+      ><span class:list={[desktopNavUnderlineBase, desktopNavUnderlineState("/blog/")]}>Blog</span></a>
     </nav>
   </div>
 
   <!-- OVERLAYS & DRAWERS (Tablet Portrait Only) -->
   <!-- Tablet Portrait Overlay & Drawer -->
-  <div id="tabletNavOverlay" class="fixed inset-0 bg-white opacity-0 pointer-events-none transition-opacity z-[9998]"></div>
+  <div id="tabletNavOverlay" class="fixed inset-0 bg-white opacity-0 pointer-events-none transition-opacity duration-200 ease-out z-[9998]"></div>
 
-  <aside id="tabletNavDrawer" class="fixed inset-y-0 right-0 w-[86%] max-w-sm bg-white shadow-xl transition-transform will-change-transform z-[9999] focus:outline-none hidden portrait:block translate-x-full" role="dialog" aria-modal="true" tabindex="-1">
-    <div class="h-16 px-4 flex items-center justify-end border-b">
-      <button id="tabletMenuClose" type="button" aria-label="Close menu" class="p-2 rounded-md hover:bg-gray-100 transition">
-        <svg viewBox="0 0 24 24" class="h-6 w-6 text-gray-800">
-          <path d="M6 6l12 12M18 6l-12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+  <aside
+    id="tabletNavDrawer"
+    class="fixed inset-x-0 top-0 w-full max-w-full bg-white shadow-xl transition-[opacity,transform] duration-300 ease-out will-change-transform z-[9999] focus:outline-none hidden portrait:block -translate-y-full opacity-0 pointer-events-none"
+    role="dialog"
+    aria-modal="true"
+    tabindex="-1"
+    data-drawer-state="closed"
+  >
+    <div class="h-16 px-6 flex items-center justify-end border-b">
+      <button id="tabletMenuClose" type="button" aria-label="Close menu" class={closeButtonBase}>
+        <svg viewBox="0 0 24 24" class="h-7 w-7" aria-hidden="true">
+          <path d="M6.5 6.5l11 11M17.5 6.5l-11 11" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
         </svg>
       </button>
     </div>
 
-    <nav class="px-4 py-3 overflow-y-auto max-h-[calc(100dvh-4rem)] space-y-2" aria-label="Tablet">
+    <nav class="flex max-h-[calc(100dvh-4rem)] flex-col items-start gap-3 overflow-y-auto px-6 py-8 pb-[calc(env(safe-area-inset-bottom)+2rem)] md:gap-4 md:px-8 md:py-10" aria-label="Mobile and tablet">
       <!-- ...existing code... -->
 
-      <section class="mt-2" data-accordion>
-        <button type="button" class="w-full flex items-center justify-between px-4 py-3.5 rounded-full text-left text-base hover:bg-gray-50" data-accordion-trigger aria-expanded="false" aria-controls="acc-about-tablet">
-          <span>About Us</span>
-          <svg class="h-6 w-6 transition-transform" viewBox="0 0 24 24">
-            <path d="M5 10l7 7 7-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
+      <section class="mt-1 w-full" data-accordion data-accordion-open="false">
+        <button
+          type="button"
+          class:list={[
+            drawerPrimaryLinkBase,
+            isAboutActive ? "text-brand-red" : "text-brand-darkgray hover:text-brand-red",
+            "flex items-center justify-between gap-4",
+          ]}
+          style="--drawer-delay: 40ms"
+          data-accordion-trigger
+          aria-expanded="false"
+          aria-controls="acc-about-tablet"
+        >
+          <span>About</span>
+          <svg class="h-7 w-7 shrink-0 transition-transform md:h-8 md:w-8" viewBox="0 0 24 24">
+            <path d="M8 5l8 7-8 7" stroke="currentColor" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </button>
-        <div id="acc-about-tablet" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out" data-accordion-panel>
+        <div id="acc-about-tablet" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-200 ease-out" data-accordion-panel>
           <div class="overflow-hidden">
-            <ul class="py-1">
-              <li><a href="/about-us/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/about-us/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>What We Do</a></li>
-              
-              <li><a href="/what-we-believe/" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/what-we-believe/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>What We Believe</a></li>
-              <li><a href="/about-us/leadership" class={`block px-5 py-3 text-[15px] rounded-full ${isActive("/about-us/leadership") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>Schulter and Genevieve</a></li>
+            <ul class="space-y-1 pt-1 pb-2">
+              <li>
+                <a
+                  href="/about-us/"
+                  class:list={[drawerSubLinkBase, drawerSubLinkState("/about-us/")]}
+                  style="--drawer-delay: 60ms"
+                >
+                  What We Do
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/what-we-believe/"
+                  class:list={[drawerSubLinkBase, drawerSubLinkState("/what-we-believe/")]}
+                  style="--drawer-delay: 100ms"
+                >
+                  What We Believe
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/about-us/leadership"
+                  class:list={[drawerSubLinkBase, drawerSubLinkState("/about-us/leadership")]}
+                  style="--drawer-delay: 140ms"
+                >
+                  Schulter and Genevieve
+                </a>
+              </li>
             </ul>
           </div>
         </div>
       </section>
 
-      <a href="/live/" class={`block px-4 py-3.5 rounded-full text-base ${isActive("/live/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
-        <span class="flex items-center gap-2">
+      <a
+        href="/live/"
+        class:list={[drawerPrimaryLinkBase, drawerPrimaryLinkState("/live/")]}
+        style="--drawer-delay: 80ms"
+      >
+        <span class="flex items-center gap-3">
           <span data-live-tablet-text>Live</span>
-          <span data-live-tablet-indicator class="hidden h-2 w-2 rounded-full bg-red-600"></span>
+          <span data-live-tablet-indicator class="hidden shrink-0" aria-hidden="true">
+            <span class="relative inline-flex h-3.5 w-3.5 items-center justify-center">
+              <span class="absolute inset-0 rounded-full bg-brand-red/25 animate-nav-live-ping"></span>
+              <span class="relative h-2.5 w-2.5 rounded-full bg-brand-red shadow-[0_0_0_2px_rgba(255,255,255,0.95)]"></span>
+            </span>
+          </span>
         </span>
       </a>
 
       <!-- Ministries nav removed from tablet drawer -->
 
-      <a href="/give/" class={`mt-3 inline-flex items-center justify-center px-4 py-2 rounded-full bg-brand-red text-white font-semibold shadow-md hover:bg-red-700 hover:shadow-lg transition`}>
-        Generosity
+      <a
+        href="/give/"
+        class="drawer-fade-item relative z-10 inline-flex w-auto self-start items-center justify-center rounded-2xl bg-brand-red px-4 py-2 font-montserrat text-[2.2rem] font-black leading-[0.96] tracking-[-0.04em] text-white transition-[background-color,transform] duration-150 ease-out hover:bg-red-700 active:scale-[0.97] md:py-3 md:text-[3rem]"
+        style="--drawer-delay: 120ms"
+        aria-current={isActive("/give/") ? "page" : undefined}
+      >
+        Give
       </a>
 
-      <a href="/visit/" class={`mt-4 block px-4 py-4 rounded-full text-base font-medium ${isActive("/visit/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
-        Plan A Visit
+      <a
+        href="/visit/"
+        class:list={[drawerPrimaryLinkBase, drawerPrimaryLinkState("/visit/")]}
+        style="--drawer-delay: 160ms"
+      >
+        Visit
       </a>
 
-      <a href="/blog/" class={`w-full text-left block px-4 py-3 rounded-full text-base ${isActive("/blog/") ? "text-brand-red font-semibold bg-red-50" : "text-gray-700 hover:bg-gray-50"}`}>
-        Our Blog
+      <a
+        href="/blog/"
+        class:list={[drawerPrimaryLinkBase, drawerPrimaryLinkState("/blog/")]}
+        style="--drawer-delay: 200ms"
+      >
+        Blog
       </a>
     </nav>
   </aside>
 
-  <!-- Scripts -->
+  <style>
+    @keyframes nav-live-ping {
+      0% {
+        transform: scale(0.85);
+        opacity: 0.7;
+      }
+      70% {
+        transform: scale(1.9);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1.9);
+        opacity: 0;
+      }
+    }
+
+    .animate-nav-live-ping {
+      animation: nav-live-ping 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+    }
+
+    @keyframes nav-drawer-fade-left {
+      0% {
+        opacity: 0;
+        transform: translate3d(-2rem, 0, 0);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    .drawer-fade-item,
+    .drawer-fade-subitem {
+      opacity: 0;
+      transform: translate3d(-2rem, 0, 0);
+      will-change: opacity, transform;
+    }
+
+    #tabletNavDrawer[data-drawer-state="open"] .drawer-fade-item {
+      animation: nav-drawer-fade-left 240ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      animation-delay: var(--drawer-delay, 0ms);
+    }
+
+    #tabletNavDrawer[data-drawer-state="open"] [data-accordion][data-accordion-open="true"] .drawer-fade-subitem {
+      animation: nav-drawer-fade-left 220ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      animation-delay: var(--drawer-delay, 0ms);
+    }
+
+    @keyframes desktop-about-subnav-fade-left {
+      0% {
+        opacity: 0;
+        transform: translate3d(-1rem, 0, 0);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    .desktop-about-subitem {
+      opacity: 0;
+      transform: translate3d(-1rem, 0, 0);
+      will-change: opacity, transform;
+    }
+
+    [data-about-menu]:not(.hidden) .desktop-about-subitem {
+      animation: desktop-about-subnav-fade-left 180ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      animation-delay: var(--desktop-sub-delay, 0ms);
+    }
+  </style>
+
+  <!-- Scripts (drawer + accordions for mobile/tablet live here) -->
   <script is:inline>
     function initNavDrawer() {
       const tabletBtn = document.getElementById("tabletMenuButton");
@@ -305,7 +508,11 @@ const isActive = (href) =>
       };
 
       const open = () => {
-        drawer.classList.remove("translate-x-full");
+        drawer.dataset.drawerState = "closed";
+        void drawer.offsetWidth;
+        drawer.classList.remove("-translate-y-full", "opacity-0", "pointer-events-none");
+        drawer.classList.add("opacity-100");
+        drawer.dataset.drawerState = "open";
         overlay.classList.remove("pointer-events-none");
         overlay.classList.add("opacity-100");
         setExpanded(true);
@@ -316,7 +523,9 @@ const isActive = (href) =>
       };
 
       const close = () => {
-        drawer.classList.add("translate-x-full");
+        drawer.dataset.drawerState = "closed";
+        drawer.classList.add("-translate-y-full", "opacity-0", "pointer-events-none");
+        drawer.classList.remove("opacity-100");
         overlay.classList.add("pointer-events-none");
         overlay.classList.remove("opacity-100");
         setExpanded(false);
@@ -347,21 +556,14 @@ const isActive = (href) =>
           return href === "/" ? currentPath === "/" : currentPath === href || (href !== "/" && currentPath.startsWith(href));
         });
 
-        if (hasActiveLink) {
-          trigger.classList.add("text-brand-red", "font-semibold", "bg-red-50");
-          trigger.classList.remove("text-gray-700");
-        } else {
-          trigger.classList.add("text-gray-700");
-          trigger.classList.remove("text-brand-red", "font-semibold", "bg-red-50");
-        }
-
         const savedState = localStorage.getItem(storageKey) === "true";
         const shouldOpen = savedState || hasActiveLink;
+        acc.dataset.accordionOpen = shouldOpen ? "true" : "false";
 
         if (shouldOpen) {
           trigger.setAttribute("aria-expanded", "true");
           const icon = trigger.querySelector("svg");
-          if (icon) icon.style.transform = "rotate(180deg)";
+          if (icon) icon.style.transform = "rotate(90deg)";
           panel.style.gridTemplateRows = "1fr";
         }
 
@@ -370,8 +572,9 @@ const isActive = (href) =>
           e.stopPropagation();
           const expanded = trigger.getAttribute("aria-expanded") === "true";
           trigger.setAttribute("aria-expanded", !expanded);
+          acc.dataset.accordionOpen = expanded ? "false" : "true";
           const icon = trigger.querySelector("svg");
-          if (icon) icon.style.transform = expanded ? "" : "rotate(180deg)";
+          if (icon) icon.style.transform = expanded ? "" : "rotate(90deg)";
           panel.style.gridTemplateRows = expanded ? "0fr" : "1fr";
           localStorage.setItem(storageKey, !expanded);
         });
@@ -387,6 +590,7 @@ const isActive = (href) =>
               if (trigger && panel) {
                 trigger.setAttribute("aria-expanded", "false");
                 const icon = trigger.querySelector("svg");
+                acc.dataset.accordionOpen = "false";
                 if (icon) icon.style.transform = "";
                 panel.style.gridTemplateRows = "0fr";
                 localStorage.setItem(`accordion-tablet-${panel.id}`, "false");
@@ -473,7 +677,9 @@ const isActive = (href) =>
 
           if (drawerElem) {
             console.debug('openMinistries: programmatically opening drawer', drawerElem.id);
-            drawerElem.classList.remove('translate-x-full');
+            drawerElem.classList.remove('-translate-y-full', 'opacity-0', 'pointer-events-none');
+            drawerElem.classList.add('opacity-100');
+            drawerElem.dataset.drawerState = 'open';
             if (overlayElem) {
               overlayElem.classList.remove('pointer-events-none');
               overlayElem.classList.add('opacity-100');
@@ -554,33 +760,52 @@ const isActive = (href) =>
     // Desktop dropdowns
     (function () {
       const HIDE_DELAY = 220;
+      const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
       document.querySelectorAll('header [data-dropdown]').forEach((wrap) => {
         const btn = wrap.querySelector('[data-trigger]');
         const menu = wrap.querySelector('[data-menu]');
         if (!btn || !menu) return;
 
         let hideTimer;
-        const open = () => { clearTimeout(hideTimer); menu.classList.remove('hidden'); btn.setAttribute('aria-expanded', 'true'); };
-        const close = () => { hideTimer = setTimeout(() => { menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false'); }, HIDE_DELAY); };
+        const open = () => {
+          clearTimeout(hideTimer);
+          menu.classList.remove('hidden');
+          btn.setAttribute('aria-expanded', 'true');
+        };
+        const closeNow = () => {
+          clearTimeout(hideTimer);
+          menu.classList.add('hidden');
+          btn.setAttribute('aria-expanded', 'false');
+        };
+        const close = () => {
+          clearTimeout(hideTimer);
+          hideTimer = setTimeout(closeNow, HIDE_DELAY);
+        };
 
-        btn.addEventListener('mouseenter', open);
-        btn.addEventListener('mouseleave', close);
-        menu.addEventListener('mouseenter', open);
-        menu.addEventListener('mouseleave', close);
+        if (supportsHover) {
+          btn.addEventListener('mouseenter', open);
+          btn.addEventListener('mouseleave', close);
+          menu.addEventListener('mouseenter', open);
+          menu.addEventListener('mouseleave', close);
+        }
 
         btn.addEventListener('click', (e) => {
           e.preventDefault();
           const isHidden = menu.classList.contains('hidden');
-          isHidden ? open() : close();
+          isHidden ? open() : closeNow();
         });
         btn.addEventListener('keydown', (e) => {
           if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
             e.preventDefault(); open();
             menu.querySelector('a,button,[tabindex]:not([tabindex="-1"])')?.focus();
           }
-          if (e.key === 'Escape') { close(); btn.focus(); }
+          if (e.key === 'Escape') { closeNow(); btn.focus(); }
         });
-        menu.addEventListener('keydown', (e) => { if (e.key === 'Escape') { close(); btn.focus(); } });
+        menu.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeNow(); btn.focus(); } });
+
+        document.addEventListener('click', (e) => {
+          if (!wrap.contains(e.target)) closeNow();
+        });
       });
     })();
 
@@ -589,10 +814,6 @@ const isActive = (href) =>
       try {
         const res = await fetch("/api/live-status.json");
         const data = await res.json();
-
-        document.querySelectorAll("[data-live-text], [data-live-mobile-text], [data-live-mid-text], [data-live-tablet-text]").forEach(el => {
-          el.textContent = data.live ? "Live Now" : "Live";
-        });
 
         document.querySelectorAll("[data-live-indicator], [data-live-mobile-indicator], [data-live-mid-indicator], [data-live-tablet-indicator]").forEach(el => {
           data.live ? el.classList.remove("hidden") : el.classList.add("hidden");

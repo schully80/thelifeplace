@@ -8,11 +8,11 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const API_KEY = process.env.PUBLIC_YOUTUBE_API_KEY;
-const CHANNEL_ID = process.env.PUBLIC_YOUTUBE_CHANNEL_ID;
+const API_KEY = process.env.YOUTUBE_API_KEY;
+const CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID;
 
 if (!API_KEY || !CHANNEL_ID) {
-  console.error("❌ Missing PUBLIC_YOUTUBE_API_KEY or PUBLIC_YOUTUBE_CHANNEL_ID");
+  console.error("❌ Missing YOUTUBE_API_KEY or YOUTUBE_CHANNEL_ID");
   process.exit(1);
 }
 
@@ -74,12 +74,18 @@ async function run() {
     const newEntry = {
       id: newId,
       title,
-      speaker: "Schulter Etyang", // default
+      preacher: "Schulter Etyang", // default
+      preacherSlug: "schulter-etyang",
       series: "General",
+      seriesSlug: "general",
       date: video.snippet.publishedAt.slice(0, 10),
+      videoSource: "youtube",
       youtubeId,
       audioUrl: null,
       thumbnail: PLACEHOLDER, // REQUIRED placeholder
+      description: "",
+      scriptures: [],
+      tags: [],
     };
 
     console.log("➕ Adding:", title);

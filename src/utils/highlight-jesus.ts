@@ -1,0 +1,12 @@
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+export function highlightJesusHtml(value: string): string {
+  return escapeHtml(value).replace(/\bjesus\b/gi, (match) => `<span class="text-brand-red">${match}</span>`);
+}

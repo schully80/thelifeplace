@@ -1,5 +1,11 @@
 ---
-const { seriesList = [], activeSeries = "" } = Astro.props;
+import { highlightJesusHtml } from "../utils/highlight-jesus";
+
+type Props = {
+  seriesList?: string[];
+  activeSeries?: string;
+};
+const { seriesList = [], activeSeries = "" } = Astro.props as Props;
 ---
 
 <div class="flex flex-wrap gap-2 mt-6">
@@ -17,7 +23,7 @@ const { seriesList = [], activeSeries = "" } = Astro.props;
   </a>
 
   <!-- EACH SERIES -->
-  {seriesList.map((s) => (
+  {seriesList.map((s: string) => (
     <a
       href={`/messages/?series=${encodeURIComponent(s)}`}
       class={`px-4 py-2 rounded-full text-sm border ${
@@ -26,7 +32,7 @@ const { seriesList = [], activeSeries = "" } = Astro.props;
           : "bg-white text-gray-600 hover:border-brand-red hover:text-brand-red"
       }`}
     >
-      {s}
+      <span set:html={highlightJesusHtml(s)} />
     </a>
   ))}
 </div>

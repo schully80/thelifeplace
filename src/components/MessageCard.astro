@@ -20,6 +20,8 @@ const { title, thumbnail, videoId } = Astro.props;
   src={thumbnail || "/fallback-message2.png"}
   alt={title}
   class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+  loading="lazy"
+  decoding="async"
     />
   </div>
 

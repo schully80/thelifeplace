@@ -1,12 +1,14 @@
 ---
+// NOTE: Legacy/unused. BaseLayout renders src/components/Header.astro (includes mobile).
 const {
   title = "The Life Place",
   logoSrc = "/logo.png",
+  logoWordmarkSrc = "/logo4.svg",
   class: className,
 } = Astro.props;
 
 const path = Astro.url.pathname;
-const isActive = (href) =>
+const isActive = (href: string) =>
   href === "/"
     ? path === "/"
     : path === href || (href !== "/" && path.startsWith(href) && path.charAt(href.length) === "/");
@@ -17,33 +19,22 @@ const isActive = (href) =>
   className,
 ]}>
   <!-- Top bar: 3-column grid -->
-  <div class="h-20 grid grid-cols-[1fr,auto] items-center px-4 gap-2">
+  <div class="relative flex h-20 items-center justify-center px-4">
 
-    <!-- LEFT: Logo + Title + Slogan -->
-    <div class="flex items-center gap-3 min-w-0">
-      <img src="/logo.png" alt="Logo" class="h-14 w-14 flex-shrink-0" />
-
+    <!-- LEFT: Logo -->
+    <div class="flex min-w-0 items-center justify-center">
       <a
         href="/"
-        class="flex flex-col items-center min-w-0"
+        class="mx-14 flex min-w-0 items-center justify-center gap-2"
         aria-label={`${title} — Home`}
       >
-        <span
-          class="font-bold text-brand-red text-[20px] sm:text-[24px] leading-tight text-center"
-        >
-          {title}
-        </span>
-
-        <span
-          class="text-[12px] sm:text-[13px] text-brand-warmgray-600 tracking-wide text-center"
-        >
-          Come. See. <span class="text-[#B3282D]">Jesus</span>
-        </span>
+        <img src={logoSrc} alt={title} class="h-14 w-14 flex-shrink-0 sm:h-16 sm:w-16" />
+        <img src={logoWordmarkSrc} alt="" class="h-10 w-auto max-w-[38vw] flex-shrink-0 sm:h-12 sm:max-w-[220px]" aria-hidden="true" />
       </a>
     </div>
 
     <!-- RIGHT: Hamburger Menu Button -->
-    <div class="flex items-center gap-2 flex-shrink-0 ml-auto">
+    <div class="absolute right-4 flex items-center gap-2 flex-shrink-0">
       <button
         id="mobileMenuButton"
         type="button"
@@ -88,6 +79,7 @@ const isActive = (href) =>
         id="mobileMenuClose"
         type="button"
         aria-label="Close menu"
+        class="focus-ring-brand inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 text-brand-red shadow-sm transition-colors hover:bg-brand-red hover:text-white focus:outline-none"
       >
         <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
           <path
@@ -237,8 +229,7 @@ const isActive = (href) =>
           target="_blank"
           rel="noopener noreferrer"
           class={`w-full text-left block px-4 py-3 rounded-full text-base text-brand-darkgray hover:bg-gray-50`}
-        >Our Blog</a>
-      </a>
+        >Blog</a>
     </nav>
 
   </aside>
@@ -322,8 +313,11 @@ const isActive = (href) =>
   document.addEventListener("tlp-live-updated", (e) => {
     const text = document.querySelector("[data-live-mobile-text]");
     const dot = document.querySelector("[data-live-mobile-indicator]");
+    const detail = e instanceof CustomEvent ? e.detail : false;
 
-    if (e.detail) {
+    if (!(text instanceof HTMLElement) || !(dot instanceof HTMLElement)) return;
+
+    if (detail) {
       text.textContent = "Live Now";
       dot.classList.remove("hidden");
     } else {

@@ -14,20 +14,23 @@ const event = url.searchParams.get("event");
 >
   <!-- Hero -->
   <section class="relative left-1/2 right-1/2 -mx-[50vw] w-screen h-[70vh] overflow-hidden tlp-grayscale rounded-none">
-    <img
+    <picture>
+      <source type="image/webp" srcset="/images/father-child3-960.webp 960w, /images/father-child3-1600.webp 1600w" sizes="100vw" />
+      <img
       src="/father-child3.jpg"
       alt="Only Jesus"
       class="absolute inset-0 w-full h-full object-cover tlp-grayscale rounded-none"
       style="border-radius:0!important;"
       loading="eager"
       decoding="async"
-    />
+      />
+    </picture>
     <div class="absolute inset-0 bg-black/20"></div>
 
     <div class="relative z-10 px-4 text-center flex items-center justify-center h-full">
       <div>
         <h1 class="heading-1 text-white drop-shadow">
-          Bring Them to Jesus
+          Bring Them to <span class="text-brand-red">Jesus</span>
         </h1>
         <p class="mt-3 text-lg md:text-2xl leading-7 md:leading-8 text-white/95">
           Let the children come to me... Matthew 19:14, Mark 10:14
@@ -47,7 +50,7 @@ const event = url.searchParams.get("event");
           <article class="rounded-[36px] border bg-white p-6 shadow-sm ring-1 ring-brand-red">
             <h2 class="text-center text-2xl md:text-2xl font-sembold text-brand-red mb-3">Objective</h2>
             <p class="text-lg md:text-lg leading-7 md:leading-8 mt-3 text-brand-warmgray-800">
-              We invite parents into a Jesus-centred dedication journey—filled with encouragement, practical resources for parenting, and the joy of building friendships with other parents along the way.
+              We invite parents into a <span class="text-brand-red">Jesus</span>-centred dedication journey—filled with encouragement, practical resources for parenting, and the joy of building friendships with other parents along the way.
             </p>
           </article>
 
@@ -65,7 +68,7 @@ const event = url.searchParams.get("event");
             <ul class="text-lg md:text-lg leading-7 md:leading-8 space-y-3 text-brand-warmgray-800 list-disc pl-5">
               <li><span class="font-bold">Style:</span> Warm, engaging, short gospel presentation, Q&amp;A session, and prayer.</li>
               <li><span class="font-bold">Duration:</span> 2 sessions, 90 minutes each.</li>
-              <li><span class="font-bold">Materials:</span> <em>Bring Them to Jesus Handbook</em> and your Bible.</li>
+              <li><span class="font-bold">Materials:</span> <em>Bring Them to <span class="text-brand-red">Jesus</span> Handbook</em> and your Bible.</li>
             </ul>
           </article>
         </div>
@@ -86,6 +89,7 @@ const event = url.searchParams.get("event");
   ctaText="Register for Child Dedication"
   showComingSoon={true}
   comingSoonMessage="Preparing hearts to bring little ones to Jesus—registration opens soon."
+  enableTurnstile={true}
 />
 
 </div>

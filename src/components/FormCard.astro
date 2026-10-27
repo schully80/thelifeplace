@@ -1,34 +1,58 @@
 ---
 import AddressFields from "../components/AddressFields.astro";
+import Turnstile from "./ui/Turnstile.astro";
+import { highlightJesusHtml } from "../utils/highlight-jesus";
 const {
   title = "Register",
   eventName = "General",
-  formAction = "/register",
+  formAction = "/api/register",
   ctaText = "Send Registration",
 
   // Flashing message controls
   showComingSoon = false,
   comingSoonMessage = "Registration will open soon…",
+  // Turnstile controls
+  enableTurnstile = false,
+  turnstileTheme = 'light',
   instructionText = "Fill in your details below to reserve your spot. This information helps us plan and care for you on the day.",
+  successTitle = "Thank you! We've received your registration.",
+  successDescription = "A confirmation email has been sent.",
+  duplicateTitle = "You've already submitted this form.",
+  duplicateDescription = "If you need to update your details, reply to your confirmation email or contact us.",
+  missingTurnstileTitle = "Please complete the verification challenge.",
+  missingTurnstileDescription = "Then submit the form again.",
 } = Astro.props;
 
+const formId = `tlp-form-${Math.random().toString(36).slice(2, 9)}`;
+const controllerConfig = JSON.stringify({
+  root: `[data-tlp-form-root="${formId}"]`,
+  successTitle,
+  successDescription,
+  duplicateTitle,
+  duplicateDescription,
+  missingTurnstileTitle,
+  missingTurnstileDescription,
+  turnstileOptional: !enableTurnstile,
+  turnstileFieldName: "cf-turnstile-response",
+});
+
+const highlightedTitle = highlightJesusHtml(title);
+const highlightedInstructionText = highlightJesusHtml(instructionText);
+const highlightedComingSoonMessage = highlightJesusHtml(comingSoonMessage);
 
 ---
 
-<section class="max-w-4xl mx-auto px-4 py-8 md:py-12">
+<section class="max-w-4xl mx-auto px-4 py-8 md:py-12" data-tlp-form-root={formId}>
 
   <!-- Heading -->
-  <h2 class="text-xl md:text-4xl font-extrabold text-center mb-6">
-    {title}
-  </h2>
+  <h2 class="text-xl md:text-4xl font-extrabold text-center mb-6" set:html={highlightedTitle} />
 
 {instructionText && (
   <p 
     class="text-center text-[17px] md:text-[18px] text-gray-800 
            tracking-tight leading-snug mb-6 fade-in-soft"
-  >
-    {instructionText}
-  </p>
+    set:html={highlightedInstructionText}
+  />
 )}
 
   <!-- Registration Form -->
@@ -44,21 +68,31 @@ const {
     <!-- CAPTCHA removed -->
 
     <!-- Submit Button + Flash Message -->
-    <div class="text-center pt-4 md:pt-6">
+    <div class="text-center pt-4 md:pt-6" data-tlp-action-area>
       <button
-        type="submit"
-        id="tlpSubmitBtn"
-        class="px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-brand-red to-red-600 text-white text-base md:text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-      >
-        {ctaText}
-      </button>
+          type="submit"
+          id="tlpSubmitBtn"
+          class="rounded-2xl bg-brand-red px-8 py-3 text-base font-bold text-white shadow-lg transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-brand-action-hover hover:shadow-xl active:scale-[0.98] md:px-10 md:py-4 md:text-lg"
+        >
+          <span class="btn-text">{ctaText}</span>
+          <svg class="spinner h-5 w-5 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity="0.25" stroke-width="2"></circle>
+            <path d="M12 3a9 9 0 0 1 9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+        </button>
+
+      {enableTurnstile && (
+        <div class="mt-4 flex justify-center">
+          <Turnstile name="cf-turnstile-response" theme={turnstileTheme} />
+        </div>
+      )}
 
       {showComingSoon && (
-        <p class="mt-4 text-sm md:text-base text-brand-red font-medium">
-          {comingSoonMessage}
-        </p>
+        <p class="mt-4 text-sm md:text-base text-brand-red font-medium" set:html={highlightedComingSoonMessage} />
       )}
     </div>
+
+    <div data-tlp-inline-message class="hidden mt-4"></div>
 
   </form>
 
@@ -67,19 +101,19 @@ const {
 <!-- BUTTON + UI STYLES -->
 <style>
   .btn-outline {
-    border: 2px solid #B3282D;
+    border: 2px solid var(--tlp-color-brand-red);
     padding: 0.85rem 2.4rem;
     border-radius: 9999px;
     font-weight: 600;
     font-size: 1.1rem;
-    color: #B3282D;
+    color: var(--tlp-color-brand-red);
     transition: all .25s ease;
   }
 
   .btn-outline:hover:not(:disabled) {
-    background: #B3282D;
+    background: var(--tlp-color-brand-red);
     color: white;
-    box-shadow: 0 4px 14px rgba(179, 40, 45, 0.25);
+    box-shadow: var(--tlp-shadow-brand-red);
   }
   /* Soft fade-in for instruction text */
   .fade-in-soft {
@@ -97,6 +131,25 @@ const {
     animation: pulseSoft 1.6s ease-in-out infinite;
   }
 
+  #tlpSubmitBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  #tlpSubmitBtn .spinner {
+    display: none;
+  }
+
+  #tlpSubmitBtn[aria-busy="true"] .btn-text {
+    display: none;
+  }
+
+  #tlpSubmitBtn[aria-busy="true"] .spinner {
+    display: block;
+  }
+
   @keyframes pulseSoft {
     0%   { opacity: 0.55; }
     50%  { opacity: 1; }
@@ -106,4 +159,23 @@ const {
 
 </style>
 
-<!-- Turnstile removed: submit enabled by default -->
+<script is:inline src="/scripts/tlp-form-controller.js"></script>
+<script is:inline data-controller-config={controllerConfig}>
+  (() => {
+    const script = document.currentScript;
+    const config = JSON.parse(script?.dataset.controllerConfig || "{}");
+    const boot = () => {
+      if (!window.TLPFormController) {
+        window.setTimeout(boot, 50);
+        return;
+      }
+      window.TLPFormController.init(config);
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", boot, { once: true });
+    } else {
+      boot();
+    }
+  })();
+</script>

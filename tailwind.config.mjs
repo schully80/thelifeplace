@@ -24,7 +24,14 @@ red: {
   700: "#6B171B",
   800: "#471012",
   900: "#240809",
+  hover: "#9F2429",
+  soft: "#FDECEC",
 },
+          action: {
+            DEFAULT: "#B3282D",
+            hover: "#9F2429",
+            soft: "#FDECEC",
+          },
           darkgray: "#333333",
 
           // warmgray scale so classes like text-brand-warmgray-700 work
@@ -41,8 +48,13 @@ red: {
             900: "#2F3130",
           },
         },
-        // optional direct alias so you can use text-brand-red too
+        // Semantic aliases for recurring UI roles.
         "brand-red": "#B3282D",
+        "ink-heading": "#1F2937",
+        "ink-body": "#4B5563",
+        "ink-muted": "#6B7280",
+        "surface-muted": "#F9FAFB",
+        "border-subtle": "#E5E7EB",
       },
       letterSpacing: {
         wide: "0.03em",
